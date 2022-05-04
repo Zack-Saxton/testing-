@@ -3,9 +3,11 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import ScheduleCall from "./ScheduleCall";
-import { ThemeProvider } from '@mui/styles';
-import { createTheme, StyledEngineProvider } from '@mui/material/styles'
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { ThemeProvider } from "@mui/styles";
+import { MemoryRouter } from "react-router-dom";
+import { createTheme } from "@mui/material/styles";
+import ProfilePicture from "../../../contexts/ProfilePicture";
+import { QueryClient, QueryClientProvider } from "react-query";
 const theme = createTheme();
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,69 +18,70 @@ const queryClient = new QueryClient({
     },
   },
 });
+const component = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <ProfilePicture>
+          <ScheduleCall />
+        </ProfilePicture>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+};
 
 
+test("Button Onclick", () => {
 
-
-
-// it("button Availability", () => {
-//     render(
-//       <BrowserRouter>
-//       <ScheduleCall />
-//       </BrowserRouter>
-// 	);
-// 	const button = screen.getByTestId("ScheduleaCall");
-//     expect(button).toBeTruthy();
-// });
-
-it("Button Onclick", () => {
-
-	render(
-			<ThemeProvider theme={theme}>
-				<StyledEngineProvider injectFirst>
-					<QueryClientProvider client={queryClient}>
-						<BrowserRouter>
-							<ScheduleCall />
-						</BrowserRouter>
-					</QueryClientProvider>
-				</StyledEngineProvider>
-			</ThemeProvider>
-	);
-	const button = screen.getByTestId("ScheduleaCall");
+	render(component(), { wrapper: MemoryRouter });
+	const button = screen.getByText("Schedule a call");
 	fireEvent.click(button);
 
 });
 
-it("Check Dialog Avaliabilty",()=>{
-	render(
-		<ThemeProvider theme={theme}>
-			<StyledEngineProvider injectFirst>
-				<QueryClientProvider client={queryClient}>
-					<BrowserRouter>
-						<ScheduleCall />
-					</BrowserRouter>
-				</QueryClientProvider>
-			</StyledEngineProvider>
-		</ThemeProvider>
-);
-const button = screen.getByTestId("ScheduleaCall");
+test("Check Dialog Avaliabilty",()=>{
+render(component(), { wrapper: MemoryRouter });
+const button = screen.getByText("Schedule a call");
 fireEvent.click(button);
 expect(screen.getByTestId('dialog')).toBeInTheDocument();
 })
 
-it("Check Date Picker Avalability",()=>{
-	render(
-		<ThemeProvider theme={theme}>
-			<StyledEngineProvider injectFirst>
-				<QueryClientProvider client={queryClient}>
-					<BrowserRouter>
-						<ScheduleCall />
-					</BrowserRouter>
-				</QueryClientProvider>
-			</StyledEngineProvider>
-		</ThemeProvider>
-);
-const button = screen.getByTestId("ScheduleaCall");
-fireEvent.click(button);
-expect(screen.getByLabelText('Date *')).toBeInTheDocument();
+test("Check Date Picker Avalability",()=>{
+render(component(), { wrapper: MemoryRouter });
+screen.debug(undefined, 50000)
+const button = screen.getByText("Schedule a call");
+	fireEvent.click(button);
+const Date = screen.getByText("Date")
+expect(Date).toBeInTheDocument();
 })
+
+test("Check can able to set value in the date input filed.",()=>{
+	render(component(), { wrapper: MemoryRouter });
+	screen.debug(undefined, 50000)
+	const button = screen.getByText("Schedule a call");
+		fireEvent.click(button);
+	const Date = screen.getByText("Date")
+	expect(Date).toBeInTheDocument();
+	})
+	test("Check the time slot input field is rendered.", ()=>{
+		render(component(), { wrapper: MemoryRouter });
+	screen.debug(undefined, 50000)
+	const button = screen.getByText("Schedule a call");
+		fireEvent.click(button);
+	const Time = screen.getByText("Time Slot")
+	expect(Time).toBeInTheDocument();
+	})
+	test("when selecting the holiday date, the slot field should not be displayed.", ()=>{
+		render(component(), { wrapper: MemoryRouter });
+	screen.debug(undefined, 50000)
+	const button = screen.getByText("Schedule a call");
+		fireEvent.click(button);
+	const Time = screen.getByText("Time Slot")
+	expect(Time).toBeInTheDocument();
+	})
+
+
+
+	
+	
+
