@@ -87,6 +87,7 @@ export default function Faq() {
           aria-label="scrollable auto tabs example"
         >
           <Tab
+            data-testid="account-inquiries"
             label={
               <>
                 {" "}
@@ -103,6 +104,7 @@ export default function Faq() {
             {...a11yProps(0)}
           />
           <Tab
+            data-testid="application-questions"
             label={
               <>
                 {" "}
@@ -120,6 +122,7 @@ export default function Faq() {
           />
 
           <Tab
+            data-testid="general-loan-questions"
             label={
               <>
                 {" "}
@@ -135,6 +138,7 @@ export default function Faq() {
             {...a11yProps(2)}
           />
           <Tab
+            data-testid="payment-questions"
             label={
               <>
                 {" "}
@@ -152,6 +156,7 @@ export default function Faq() {
             {...a11yProps(3)}
           />
           <Tab
+          data-testid="about-mariner"
             label={
               <>
                 {" "}
