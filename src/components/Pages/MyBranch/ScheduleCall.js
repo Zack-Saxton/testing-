@@ -178,6 +178,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
+        data-testid= {'dialog'}
       >
         <div className={classes.buttonClose}>
           <IconButton
