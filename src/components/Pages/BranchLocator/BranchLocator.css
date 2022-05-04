@@ -652,7 +652,7 @@
   width: 100%;
   background-color: white;
 }
-.boxDivWrap{
+.boxDiv{
   max-width: 1200px;
   margin: -90px auto 0px auto;
   background-color: white;
@@ -870,7 +870,7 @@
   }
 }
 @media (max-width: 960px) {
-  .boxDivWrap{
+  .boxDiv{
     margin: 0;
   }
   .whiteBackgroundGrid{
@@ -975,7 +975,7 @@
   }
 }
 @media (max-width: 599px) {
-  .boxDivWrap{
+  .boxDiv{
     padding: 10px 10px;
   }
   .mobilePadding {
