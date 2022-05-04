@@ -10,7 +10,9 @@
 }
 
 #selectDoccumentWrap .subOption {
-    color: #171717;
+    color: #171717 !important;
+    display: block;
+    padding: 0px 0px 7px 0px !important;
 }
 
 .textdecoration {
@@ -27,8 +29,12 @@
 }
 
 .selectDocument {
-    padding-top: 10px;
+    padding-top: 25px;
     width: 225px;
+}
+.selectDocument div label {
+    margin-left: -14px;
+    font-size: 0.9rem !important;
 }
 
 .loanDocumentGrid {

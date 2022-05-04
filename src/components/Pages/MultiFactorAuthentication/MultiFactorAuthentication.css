@@ -21,3 +21,18 @@ input[type="number"]::-webkit-outer-spin-button {
 #otpNumberSix {
   text-align: center;
 }
+#questionsOne,
+#questionsTwo,
+#questionsThree,
+#questionsFour,
+#questionsFive{
+  padding-bottom: 14px;
+}
+#questionsOne-label, 
+#questionsTwo-label,
+#questionsThree-label,
+#questionsFour-label,
+#questionsFive-label{
+  font-size: 0.938rem;
+  color: #595959;
+}

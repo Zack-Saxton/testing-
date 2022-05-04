@@ -2,10 +2,9 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import React from "react";
-import { useQuery } from 'react-query';
 import CheckLoginStatus from "../../App/CheckLoginStatus";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
 import ActiveLoans from "./ActiveLoans";
 import LimitedOffer from "./LimitedOffer";
 import RecentApplications from "./RecentApplications";
@@ -16,12 +15,9 @@ import "./Style.css";
 export default function AccountOverview() {
   const classes = useStylesAccountOverview();
   //API Call
-  const { isLoading, data: accountDetails } = useQuery('loan-data', usrAccountDetails);
+  const { isLoading, accountDetails } = useAccountOverview();
   //Load data
   let offerData = accountDetails?.data?.offerData;
-  let applicationsData = accountDetails?.data?.applicants;
-  let applicantData = accountDetails?.data?.applicant?.contact;
-  let status = accountDetails?.data?.status;
   let activeLoansData = accountDetails?.data?.activeLoans;
   Cookies.set("hasActiveLoan", true);
   if (Array.isArray(activeLoansData) && !(activeLoansData.length)) Cookies.set("hasActiveLoan", false);
@@ -43,15 +39,15 @@ export default function AccountOverview() {
           container
           direction="row"
         >
-          <Typography variant="h5" className={classes.heading} data-testid="subtitle">
+          <Typography variant="h5" className={classes.heading} data-testid="subtitle_Title">
             Account Overview
           </Typography>
         </Grid>
         {/* ****************components************ */}
         <LimitedOffer isLoading={isLoading} userOffers={offerData} />
-        <ActiveLoans isLoading={isLoading} userActiveLoanData={activeLoansData} />
-        <RecentPayments />
-        <RecentApplications isLoading={isLoading} userApplicationsData={applicationsData} UserAccountStatus={status} userApplicantData={applicantData} />
+        <ActiveLoans/>
+        <RecentPayments/>
+        <RecentApplications/>
       </Grid>
     </div>
   );

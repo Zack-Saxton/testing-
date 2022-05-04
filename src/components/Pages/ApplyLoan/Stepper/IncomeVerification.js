@@ -58,7 +58,7 @@ export default function IncomeVerification(props) {
 	return (
 		<div>
 			<div>
-				<p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
+				<p style={{ textAlign: "justify", fontSize: "0.938rem" }} data-testid="incomeVerificationText">
 					<span>
 						To finalize our review, we need to verify the income that you have stated.
 					</span>

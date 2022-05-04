@@ -36,7 +36,8 @@ const useStylesEmailVerification = makeStyles((theme) => ({
     color: "#595959",
     lineHeight: "1.5",
     margin: "0px",
-    listStylePosition: "inside"
+    listStylePosition: "inside",
+    textAlign: "justify"
   },
   uploadDocumentText: {
     display: "block",

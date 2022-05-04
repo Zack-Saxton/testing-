@@ -201,9 +201,9 @@ export default function LoanDocument() {
                 name="selectDocument"
                 labelform="Select Document Type"
                 select='[{ "label": "Identity Document", "value": "id_doc"},
-          {"label": "Income Document","value": "income_doc"},
-              { "label": "Bank Account Document","value": "bank_doc"},
-              { "label": "Other Document","value":"other_doc"}]'
+                {"label": "Income Document","value": "income_doc"},
+                { "label": "Bank Account Document","value": "bank_doc"},
+                { "label": "Other Document","value":"other_doc"}]'
                 onChange={handleDocType}
                 value={docType}
               />

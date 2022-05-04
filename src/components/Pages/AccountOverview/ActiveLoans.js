@@ -14,14 +14,14 @@ import { NavLink } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
 import AutoPayStatus from "./AutoPayStatus.js";
 import { useStylesAccountOverview } from "./Style";
+import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
 import "./Style.css";
 
-export default function ActiveLoans(userActiveLoanData) {
+export default function ActiveLoans() {
   //Material UI css class
   const classes = useStylesAccountOverview();
+  const { isLoading, accountDetails } = useAccountOverview();
 
-  //Activeloans data
-  let userActiveLoans = userActiveLoanData ?? null;
   let today = Moment(new Date());
   // If the customer's payment is due within 10 days of current date, highlight the 'Make a Payment' button on the Account Overview page
   let numberDaysForDueDate = (appData) => {
@@ -31,7 +31,7 @@ export default function ActiveLoans(userActiveLoanData) {
   //View
   return (
     <>
-      {userActiveLoanData?.isLoading ? (
+      {isLoading ? (
         <>
           <Grid
             container
@@ -43,12 +43,12 @@ export default function ActiveLoans(userActiveLoanData) {
             <Typography
               variant="h5"
               className={classes.subheading}
-              data-testid="subtitle"
+              data-testid="active loans"
             >
               Active Loan
             </Typography>
           </Grid>
-          <Grid className={classes.activeLoanTable} container>
+          <Grid className={classes.activeLoanTable} container data-testid="loanGridWithoutData">
             <TableContainer component={Paper}>
               <Table>
                 <TableBody>
@@ -64,19 +64,19 @@ export default function ActiveLoans(userActiveLoanData) {
         </>
       ) : (
         <>
-          {userActiveLoans?.userActiveLoanData?.length ? (
+          {accountDetails?.data?.activeLoans?.length ? (
             <>
               <Grid item xs={12} container direction="row">
                 <Typography
                   variant="h5"
                   className={classes.subheading}
-                  data-testid="subtitle"
+                  data-testid="active loans"
                 >
                   Active Loans
                 </Typography>
               </Grid>
               <Grid container>
-                {userActiveLoans.userActiveLoanData.map(
+                {accountDetails.data.activeLoans.map(
                   (appData) => (
                     <Grid className={classes.activeLoancardwrap}
                       container
@@ -91,30 +91,32 @@ export default function ActiveLoans(userActiveLoanData) {
                         <Paper
                           className={classes.paper}
                           id="activeLoanGrid"
+                          data-testid="loanGridWithData"
                         >
                           <Grid container className={classes.activeLoanHeadingWrap}>
                             <Grid item xs={12} sm={6}>
                               <Typography
                                 variant="h5"
                                 className={classes.activeLoanHeading}
-                                data-testid="subtitle"
+                                data-testid="active loans"
                               >
                                 Next Payment Details
                               </Typography>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={6} data-testid="button_Class">
                               <NavLink
                                 to={`/customers/makePayment/?accNo=${ window.btoa(appData.loanDetails.AccountNumber) }`}
                                 key={Math.random() * 1000}
                               >
                                 <ButtonPrimary
                                   id="makeAPaymentButtonStyle"
+                                  data-testid="make_A_Payment"
                                   stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
                                   className={
                                     today.isBefore(appData.loanDetails.NextDueDate)
                                       ? numberDaysForDueDate(appData)
                                         ? `${ classes.normalButton } pulse`
-                                        : classes.normalButton
+                                        : classes.normalButton 
                                       : `${ classes.buttonColorPastDate } pulse`
                                   }
                                 >
@@ -129,6 +131,7 @@ export default function ActiveLoans(userActiveLoanData) {
                               <AutoPayStatus
                                 isAutoPay={appData?.loanPaymentInformation?.appRecurringACHPayment ? true : false}
                                 accountNumber={appData?.loanDetails?.AccountNumber}
+                                dataTestid={appData?.loanPaymentInformation?.appRecurringACHPayment ? "autoPayEnabled" : "enableAutoPay"}
                               />
                             </Grid>
 
@@ -192,6 +195,7 @@ export default function ActiveLoans(userActiveLoanData) {
                                 item
                                 xs={12}
                                 sm={3}
+                                data-testid="hasScheduledPayment"
                               >
                                 <p
                                   id="ScheduledPaymentText"
@@ -210,7 +214,7 @@ export default function ActiveLoans(userActiveLoanData) {
                                 </p>
                               </Grid>
                             ) : (
-                              <Grid item xs={12} sm={3}>
+                              <Grid item xs={12} sm={3} data-testid="noScheduledPayment">
                                 <p
                                   id="ScheduledPaymentText"
                                   className={classes.cardcontent}

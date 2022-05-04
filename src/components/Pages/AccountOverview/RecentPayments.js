@@ -11,17 +11,16 @@ import Typography from "@mui/material/Typography";
 import Moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
-import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
 import { LoanAccount } from "../../../contexts/LoanAccount";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { ButtonPrimary, Select, TableCellWrapper } from "../../FormsUI";
 import { useStylesAccountOverview } from "./Style";
+import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
 import "./Style.css";
 export default function RecentPayments() {
 	//Material UI css class
 	const classes = useStylesAccountOverview();
-	const { isLoading, data: accountDetails } = useQuery('loan-data', usrAccountDetails);
+	const { isLoading, accountDetails } = useAccountOverview();
 	const { selectedLoanAccount, setSelectedLoanAccount } = useContext(LoanAccount);
 	const [ defaultLoanAccount, setDefaultLoanAccount ] = useState();
 	const [ loanAccountsList, setLoanAccountsList ] = useState([]);
@@ -138,10 +137,10 @@ export default function RecentPayments() {
 				}
 			);
 		});
-	};
+	}
 
 	return (
-		<Grid item xs={12} className={classes.recentPaymentMainGrid}>
+		<Grid item xs={12} className={classes.recentPaymentMainGrid} data-testid="recent payments">
 			<Paper id="recentPaymentsWrap" className={classes.paperRP}>
 				<Grid container spacing={3}>
 					<Grid item xs={12} sm={6}>
@@ -154,7 +153,7 @@ export default function RecentPayments() {
 							to="/customers/paymenthistory"
 							className={classes.decorNone}
 						>
-							<ButtonPrimary stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'>
+							<ButtonPrimary data-testid="payment_history_button" stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'>
 								Payment History
 							</ButtonPrimary>
 						</NavLink>
@@ -200,23 +199,24 @@ export default function RecentPayments() {
 								</TableRow>
 							</TableHead>
 							{isLoading ? (
-								<TableBody>
+								<TableBody data-testid="loading_Recent_Payments">
 									<TableRow>
 										<TableCell colSpan="7" align="center">
 											<CircularProgress />
 										</TableCell>
 									</TableRow>
-								</TableBody>
-							) : accountDetails?.data?.loanHistory?.length ? (
-								<TableCellWrapper parseData={parData} />
+								</TableBody>)
+								:
+							accountDetails?.data?.loanHistory?.length ? (
+								<TableCellWrapper parseData={parData}/>
 							) : (
-								<TableBody>
-									<TableRow>
-										<TableCell colSpan="7" align="center">
-											You do not have any payments to display
-										</TableCell>
-									</TableRow>
-								</TableBody>
+								<TableBody data-testid="error_Recent_Payments">
+								<TableRow>
+									<TableCell colSpan="7" align="center">
+										You do not have any payments to display
+									</TableCell>
+								</TableRow>
+							</TableBody>
 							)}
 						</Table>
 					</TableContainer>
