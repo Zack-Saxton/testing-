@@ -445,6 +445,8 @@ export default function StatePage(props) {
         <Grid className="addressCardWrap">{BranchDetailsInCard}</Grid>
 
         {DrivingDirectionPopup}
+        <Grid>
+          <Grid className="branchPageWrap">
         <Grid className="branchPageMap">
           <Grid className="mapContainerWrap" container>
             <Grid className="branchMapSection" item md={6}>
@@ -526,7 +528,8 @@ export default function StatePage(props) {
             </Grid>
           </Grid>
         </Grid>
-
+        </Grid>
+        </Grid>
         {ApplyNowOnlineButton}
         <Grid className="customerRatingsWrap">
           <CustomerRatings />
