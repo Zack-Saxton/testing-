@@ -20,12 +20,11 @@ import "./Style.css";
 export default function RecentPayments() {
 	//Material UI css class
 	const classes = useStylesAccountOverview();
-	const { isLoading, error, accountDetails } = useAccountOverview();
+	const { isLoading, accountDetails } = useAccountOverview();
 	const { selectedLoanAccount, setSelectedLoanAccount } = useContext(LoanAccount);
 	const [ defaultLoanAccount, setDefaultLoanAccount ] = useState();
 	const [ loanAccountsList, setLoanAccountsList ] = useState([]);
 	const [ paymentList, setPaymentList ] = useState();
-	console.log(accountDetails);
 
 	useEffect(() => {
 		if (accountDetails?.data?.loanHistory?.length) {
