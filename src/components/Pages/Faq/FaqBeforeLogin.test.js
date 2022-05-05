@@ -19,9 +19,6 @@ const queryClient = new QueryClient({
   },
 });
 
-//createtheme styledengineprovider queryclient quesryclientprovider
-
-//THEME PROVIDER
 
 const component = () => {
   return (
@@ -84,7 +81,7 @@ test('First accordian item functionality is opening, closeing and displaying cor
   const button = screen.getByTestId("application-questions");
   fireEvent.click(button);
  
-  // screen.debug(undefined, 1300000);
+ 
   const firstAccordionItem = container.querySelector(".css-ahj2mt-MuiTypography-root");
 
   fireEvent.click(firstAccordionItem);
