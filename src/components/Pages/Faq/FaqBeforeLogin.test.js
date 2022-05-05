@@ -34,7 +34,7 @@ const component = () => {
 
 test("Account Inquires Button clicked", async() => {
   render(component(), { wrapper: MemoryRouter });
-  const button = screen.getByTestId("account-inquires");
+  const button = screen.getByTestId("account-inquiries");
   fireEvent.click(button);
 });
 
