@@ -207,6 +207,11 @@
   }
   .offerTextWrap{
     margin-bottom: 7px;
+    height: 79.4531px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
   }
 
   #personalText{
