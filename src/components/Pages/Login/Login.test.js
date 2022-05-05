@@ -4,7 +4,11 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import Login from "./Login";
+import { createTheme, StyledEngineProvider } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/styles';
 
+
+const theme = createTheme();
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -16,29 +20,31 @@ const queryClient = new QueryClient({
 	},
 });
 
+const component = () => {
+  return (
+		<ThemeProvider theme={theme}>
+		<StyledEngineProvider injectFirst>
+			<QueryClientProvider client={queryClient}>
+				<BrowserRouter>
+					<Login />
+				</BrowserRouter>
+			</QueryClientProvider>
+		</StyledEngineProvider>
+		</ThemeProvider>
+  );
+}
+
 test("Checks the title of the page", () => {
 
-	render(
-		<QueryClientProvider client={queryClient}>
-			<BrowserRouter>
-				<Login />
-			</BrowserRouter>
-		</QueryClientProvider>
-
-	);
+	render(component());
 	const titleEl = screen.getByTestId("title");
 	expect(titleEl).toBeTruthy();
 });
 
+
 test("Render email", () => {
 
-	render(
-		<QueryClientProvider client={queryClient}>
-			<BrowserRouter>
-				<Login />
-			</BrowserRouter>
-		</QueryClientProvider>
-	);
+	render(component());
 	const inputEl = screen.getByLabelText("Email Address *");
 	expect(inputEl).toBeTruthy();
 	expect(inputEl.hasAttribute("name")).toBe(true);
@@ -46,13 +52,7 @@ test("Render email", () => {
 
 test("pass valid email to test email input field", () => {
 
-	render(
-		<QueryClientProvider client={queryClient}>
-			<BrowserRouter>
-				<Login />
-			</BrowserRouter>
-		</QueryClientProvider>
-	);
+	render(component());
 
 	const inputEl = screen.getByLabelText("Email Address *");
 	fireEvent.change(inputEl, { target: { value: "test@mail.com" } });
@@ -63,13 +63,7 @@ test("pass valid email to test email input field", () => {
 
 test("Render password", () => {
 
-	render(
-		<QueryClientProvider client={queryClient}>
-			<BrowserRouter>
-				<Login />
-			</BrowserRouter>
-		</QueryClientProvider>
-	);
+	render(component());
 
 	const inputEl = screen.getByLabelText("Password *");
 	expect(inputEl).toBeTruthy();
@@ -80,13 +74,7 @@ test("Render password", () => {
 
 test("button Availability", () => {
 
-	render(
-		<QueryClientProvider client={queryClient}>
-			<BrowserRouter>
-				<Login />
-			</BrowserRouter>
-		</QueryClientProvider>
-	);
+	render(component());
 	const button = screen.getByTestId("submit");
 
 	expect(button).toBeTruthy();
@@ -94,13 +82,7 @@ test("button Availability", () => {
 
 test("Button Onclick", () => {
 
-	render(
-		<QueryClientProvider client={queryClient}>
-			<BrowserRouter>
-				<Login />
-			</BrowserRouter>
-		</QueryClientProvider>
-	);
+	render(component());
 	const button = screen.getByTestId("submit");
 	fireEvent.click(button);
 
@@ -108,11 +90,7 @@ test("Button Onclick", () => {
 
 
 test('should match the snapshot', () => {
-	const { asFragment } = render(<QueryClientProvider client={queryClient}>
-		<BrowserRouter>
-			<Login />
-		</BrowserRouter>
-	</QueryClientProvider>);
+	const { asFragment } = render(component());
 	expect(asFragment).toMatchSnapshot();
 });
 

@@ -239,7 +239,7 @@ export default function BankAccountVerification(props) {
 							name="bankRoutingNumber"
 							style={{ width: "100%" }}
 							value={formik.values.bankRoutingNumber}
-							inputProps={{ maxLength: "9", "data-test-id": "BRN" }}
+							inputProps={{ maxLength: "9", "data-testid": "bankRoutingNumber" }}
 							onChange={(event) => {
 								setInvalidRN(false);
 								restrictTextOnChange(event);
@@ -304,7 +304,7 @@ export default function BankAccountVerification(props) {
 							disabled={true}
 							inputProps={{
 								maxLength: "100",
-								"data-test-id": "bankInformation",
+								"data-testid": "bankInformation",
 							}}
 							onBlur={formik.handleBlur}
 							error={
