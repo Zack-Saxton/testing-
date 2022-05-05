@@ -106,7 +106,7 @@ export default function DocumentPhoto(props) {
 	return (
 		<div>
 			<div className={classes.content_grid}>
-				<p className={classes.pTagStyle}>
+				<p className={classes.pTagStyle} data-testid="documentPhotoTextTop">
 					<span className={classes.spanStyle}> Please upload an image or your driver‘s license, passport,
 						state-issued photo ID card, or military/federal government photo ID.
 					</span>
@@ -116,11 +116,11 @@ export default function DocumentPhoto(props) {
 					<li className={classes.listStyle}>The entire document is visible and all information is legible</li>
 				</p>
 			</div>
-			<Grid item sm={12}>
+			<Grid item sm={12} data-testid="iframe">
 				{iframeSrc !== '' ? <iframe src={iframeSrc} allow="camera;" id="iframeDiv" title="document upload" height="650px" width="100%" /> : null}
 			</Grid>
 			<div>
-				<p className={classes.pTagStyle}>
+				<p className={classes.pTagStyle} data-testid="documentPhotoTextBottom">
 					Please upload a picture of yourself in which you are holding your
 					state or federal government issued ID next to your face. Please ensure
 					that the information on the ID is legible and that your hand is

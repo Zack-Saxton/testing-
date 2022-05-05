@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
+import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from "prop-types";
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
@@ -141,6 +142,7 @@ function UploadDocument(props) {
 
   const uploadCameraPhoto = async () => {
     try {
+      setLoading(true);
       let documentType = typeOfDocument;
       let imageData = imgSrc;
       let fileName = "Passport.jpeg"
@@ -182,118 +184,125 @@ function UploadDocument(props) {
     setDisableNext(true);
   }
   return (
-    <>
-      <ButtonPrimary
-        onClick={handleMenuOpen}
-        stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-      >
-        {props.title ?? 'Select Your Document'}
-      </ButtonPrimary>
-      {
-        label ?
-          <Chip
-            className={classes.chipButton}
-            label={label}
-            onDelete={() => deleteSelectedFile()}
-            deleteIcon={<CloseIcon />}
-          />
-          :
-          ""
-      }
-      <Menu
-        anchorEl={selectDocument}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        // id={ mobileMenuId }
-        keepMounted
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
-        open={isMenuOpen}
-        onClose={handleMenuClose}
-      >
-        <MenuItem>
-          <Typography className={classes.dropdownMenu} onClick={openFileWindow}>
-            Select from Existing Files
-            <input
-              id="selectFile"
-              accept="image/png, image/jpeg, application/pdf, image/jpg "
-              style={{ display: "none" }}
-              type="file"
-              ref={refChangeEvent}
-              onClick={handleInputChange}
-              onChange={(event) => handleChange(event)}
-            ></input>
-          </Typography>
-        </MenuItem>
-        <MenuItem>
-          <a to="/faq" className="nav_link ">
-            <Typography className={classes.dropdownMenu} onClick={enableCameraOption}>
-              Upload from Camera
-            </Typography>
-          </a>
-        </MenuItem>
-      </Menu>
-      {showCamera ?
-        (!imgSrc ?
-          <Grid container style={{ margin: "10px 0px" }} >
-            <Webcam
-              audio={false}
-              ref={refWebCam}
-              screenshotFormat="image/jpeg"
-              height={360}
-              width={500}
-              className={classes.selfieCamera}
-              videoConstraints={{
-                ...videoConstraints,
-                facingMode
-              }}
-            />
-            <Grid container>
-              <ButtonPrimary
-                onClick={capture}
-                stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
-              >
-                Capture Photo
-              </ButtonPrimary>
-            </Grid>
-          </Grid> :
-          <Grid container style={{ margin: "10px 0px" }}>
-            {imgSrc && (
-              <img
-                src={imgSrc}
-                height={360}
-                width={480}
-                className={classes.selfieImage}
-              />
-            )}
-            <Grid container>
-              <ButtonPrimary
-                onClick={enableCameraOption}
-                stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
-              >
-                Take another picture
-              </ButtonPrimary>
-            </Grid>
-          </Grid>
-        )
-        :
-        <>
-        </>
-      }
-      <Grid className={classes.nextButton} container>
-        <ButtonSecondary
-          id="buttonMarginRight"
-          stylebutton='{"color": "black", "borderRadius": "50px"}'
-          onClick={props.prev}
-        >
-          Prev
-        </ButtonSecondary>
-        <ButtonPrimary
-          stylebutton='{"color": ""}'
-          disabled={disableNext}
-          onClick={UploadDocument}
-        >
-          Next
-        </ButtonPrimary>
+    <>{ loading ?
+      <Grid className="circleprog" style={{ width: "100%", textAlign: "center", margin: "20px 0px" }}>
+        <CircularProgress />
       </Grid>
+      :
+        <>
+        <ButtonPrimary
+          onClick={handleMenuOpen}
+          stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
+        >
+          {props.title ?? 'Select Your Document'}
+        </ButtonPrimary>
+        {
+          label ?
+            <Chip
+              className={classes.chipButton}
+              label={label}
+              onDelete={() => deleteSelectedFile()}
+              deleteIcon={<CloseIcon />}
+            />
+            :
+            ""
+        }
+        <Menu
+          anchorEl={selectDocument}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          // id={ mobileMenuId }
+          keepMounted
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+          open={isMenuOpen}
+          onClose={handleMenuClose}
+        >
+          <MenuItem>
+            <Typography className={classes.dropdownMenu} onClick={openFileWindow}>
+              Select from Existing Files
+              <input
+                id="selectFile"
+                accept="image/png, image/jpeg, application/pdf, image/jpg "
+                style={{ display: "none" }}
+                type="file"
+                ref={refChangeEvent}
+                onClick={handleInputChange}
+                onChange={(event) => handleChange(event)}
+              ></input>
+            </Typography>
+          </MenuItem>
+          <MenuItem>
+            <a to="/faq" className="nav_link ">
+              <Typography className={classes.dropdownMenu} onClick={enableCameraOption}>
+                Upload from Camera
+              </Typography>
+            </a>
+          </MenuItem>
+        </Menu>
+        {showCamera ?
+          (!imgSrc ?
+            <Grid container style={{ margin: "10px 0px" }} >
+              <Webcam
+                audio={false}
+                ref={refWebCam}
+                screenshotFormat="image/jpeg"
+                height={360}
+                width={500}
+                className={classes.selfieCamera}
+                videoConstraints={{
+                  ...videoConstraints,
+                  facingMode
+                }}
+              />
+              <Grid container>
+                <ButtonPrimary
+                  onClick={capture}
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
+                >
+                  Capture Photo
+                </ButtonPrimary>
+              </Grid>
+            </Grid> :
+            <Grid container style={{ margin: "10px 0px" }}>
+              {imgSrc && (
+                <img
+                  src={imgSrc}
+                  height={360}
+                  width={480}
+                  className={classes.selfieImage}
+                />
+              )}
+              <Grid container>
+                <ButtonPrimary
+                  onClick={enableCameraOption}
+                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
+                >
+                  Take another picture
+                </ButtonPrimary>
+              </Grid>
+            </Grid>
+          )
+          :
+          <>
+          </>
+        }
+        <Grid className={classes.nextButton} container>
+          <ButtonSecondary
+            id="buttonMarginRight"
+            stylebutton='{"color": "black", "borderRadius": "50px"}'
+            onClick={props.prev}
+          >
+            Prev
+          </ButtonSecondary>
+          <ButtonPrimary
+            stylebutton='{"color": ""}'
+            disabled={disableNext}
+            onClick={UploadDocument}
+          >
+            Next
+          </ButtonPrimary>
+        </Grid>
+        </>
+      }      
     </>
   );
 }
