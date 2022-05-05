@@ -1,11 +1,14 @@
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render, screen,act } from "@testing-library/react";
+import { fireEvent, render,waitFor, screen,act } from "@testing-library/react";
 import React from "react";
 import PartnerSignUp from "./PartnerSignUp";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from '@mui/styles';
 import { createTheme } from '@mui/material/styles'
+import { mockData2 } from './PartnerMockData';
+import SelectOffer from "../ApplyLoan/SelectOffer/SelectOffer"
+import NavContext from "../../../contexts/NavContext";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -24,7 +27,10 @@ const component = () =>{
 		<ThemeProvider theme={theme}>
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
+        <NavContext>
 				<PartnerSignUp />
+        <SelectOffer />
+        </NavContext>
 			</BrowserRouter>
 		</QueryClientProvider>
 		</ThemeProvider>
@@ -200,6 +206,18 @@ test("Button Onclick", () => {
 	 render(component());  
 	const button = screen.getByTestId("submit");
 	fireEvent.click(button);
+});
+
+
+it("Navigate to Respective Page", async() => {
+  render(component());  
+ const input = screen.getByTestId("submit");
+  expect(input).toBeTruthy();
+  fireEvent.click(input);
+  const asyncMock = jest.fn().mockResolvedValue(mockData2);
+  await asyncMock(); 
+  const page = screen.getByTestId("selectOfferComponent")
+	await waitFor(() => expect(page).toBeInTheDocument());
 });
 
 test('Should match the snapshot', () => {

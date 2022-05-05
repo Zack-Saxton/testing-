@@ -170,7 +170,7 @@ function MarriedStatus() {
 
 	//JSX part
 	return (
-		<div>
+		<div data-testid="married-status-component">
 			<ScrollToTopOnMount />
 			<div className={classes.mainDiv}>
 				<Box>
@@ -253,6 +253,7 @@ function MarriedStatus() {
 												value={formik.values.maritalStatus}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
+												inputTestID="marital-status-list"
 												error={
 													formik.touched.maritalStatus &&
 													Boolean(formik.errors.maritalStatus)
@@ -267,6 +268,7 @@ function MarriedStatus() {
 											container
 											justifyContent="center"
 											alignItems="center"
+											data-testid="address-details-for-spouse"
 											item
 											lg={8}
 											md={8}
