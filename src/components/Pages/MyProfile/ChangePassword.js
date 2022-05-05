@@ -133,7 +133,7 @@ export default function ChangePassword(basicInformationData) {
     }
   };
   return (
-    <div>
+    <div data-testid="profile-change-password">
       <form onSubmit={formikPassword.handleSubmit} name="formPassword" id="formPassword">
         <Grid container
           item

@@ -154,7 +154,6 @@ function DocumentIdAndPhotoId(props) {
               props.next();
             }
           }
-          setLoading(false);
         };
         reader.readAsDataURL(fileObject.files[ 0 ]);
         return true;
@@ -237,6 +236,7 @@ function DocumentIdAndPhotoId(props) {
 
   const uploadCameraPhoto = async (imageSource, docType, callSecondFunction) => {
     try {
+      setLoading(true);
       let imageData = imageSource;
       let fileName = `${ docType }.jpeg`;
       let fileData = imageData
@@ -262,7 +262,6 @@ function DocumentIdAndPhotoId(props) {
           props.next();
         }
       }
-      setLoading(false);
     } catch (error) {
       ErrorLogger(" Error in emailVerificationDocument", error);
     }
@@ -279,6 +278,7 @@ function DocumentIdAndPhotoId(props) {
   }
 
   const uploadSelfieDocument = () => {
+    setLoading(true);
     if (selfieImageSrc) {
       uploadCameraPhoto(selfieImageSrc, "selfie_photo", false);
     } else if (selectedSelfieFile?.files) {

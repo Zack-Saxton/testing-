@@ -99,7 +99,7 @@ export default function Credit(creditData) {
         <p>{compareLastmnth}</p>
         {(loanStatus && loanStatus?.toLowerCase() !== "closed") &&
           <>
-            <ButtonPrimary onClick={navigateCheckMyOffers} stylebutton='{"background": ""}' >
+            <ButtonPrimary onClick={navigateCheckMyOffers} data-testid="creditFiles"stylebutton='{"background": ""}' >
               {" "}
               Check My Offers
             </ButtonPrimary>

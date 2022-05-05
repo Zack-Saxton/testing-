@@ -294,6 +294,7 @@ export default function StatePage() {
           </Grid>
         </Grid>
         <Grid className="mapAndListWrap">
+          <Grid className="whiteBackgroundGrid">
           <Grid
             className="mapWrap"
             ref={refMapSection}
@@ -452,7 +453,6 @@ export default function StatePage() {
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
 
         <Grid className="findBranchWrap" item xs={12} sm={12} >
           {loading ? (
@@ -576,6 +576,8 @@ export default function StatePage() {
               </Grid>
             </Grid>
           )}
+        </Grid>
+        </Grid>
         </Grid>
         <Grid className="customerRatingsWrap">
           <CustomerRatings />

@@ -185,7 +185,7 @@ export default function ApplyLoan() {
 
 	//JSX part
 	return (
-		<div>
+		<div data-testid="selectOfferComponent">
 			<ScrollToTopOnMount />
 			<CheckLoginStatus />
 			<Grid

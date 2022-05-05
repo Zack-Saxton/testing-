@@ -243,26 +243,29 @@ export default function BranchLocator() {
           );
         })}
       </Grid>
-      <Grid>
-
-        <Typography className="mainHeading">
-          Apply Online For a Personal Loans
-        </Typography>
-        <p className="mainParagraph">
-          Do you live in one of the 24 states in which we operate and need a
-          personal loans? Can’t reach a branch or prefer to apply online? If so,
-          you’re in luck! You can apply online today*. It’s quick, easy, and secure.
-        </p>
-        <Typography className="mainHeading">
-          Need money but don’t know much about personal loans?
-        </Typography>
-        <p className="mainParagraph">
-          You’re not alone. We understand taking out a personal loans may be a big decision
-          so we want you to be as informed as possible. To help you become a more informed
-          customer we put together a whole section to <a href="https://www.marinerfinance.com/blog/?s=personal+loans+" className="stateLinks">educate you on making a personal loans decision.</a>
-        </p>
-      </Grid>
     </Grid>
+  );
+
+  const staticText = (
+    <Grid>
+
+    <Typography className="mainHeading">
+      Apply Online For a Personal Loans
+    </Typography>
+    <p className="mainParagraph">
+      Do you live in one of the 24 states in which we operate and need a
+      personal loans? Can’t reach a branch or prefer to apply online? If so,
+      you’re in luck! You can apply online today*. It’s quick, easy, and secure.
+    </p>
+    <Typography className="mainHeading">
+      Need money but don’t know much about personal loans?
+    </Typography>
+    <p className="mainParagraph">
+      You’re not alone. We understand taking out a personal loans may be a big decision
+      so we want you to be as informed as possible. To help you become a more informed
+      customer we put together a whole section to <a href="https://www.marinerfinance.com/blog/?s=personal+loans+" className="stateLinks">educate you on making a personal loans decision.</a>
+    </p>
+  </Grid>
   );
 
   const search2andDirectionfromSearch2 = (
@@ -568,15 +571,23 @@ export default function BranchLocator() {
         justifyContent={"center"}
       >
         {BreadCrumsAndSearch1AndText}
-        <Grid className="mapAndBranchListWrap">
+        
+        <Grid className="boxDivWrap">
+          <Grid className="boxDiv"> 
+            <Grid className="mapAndBranchListWrap">
 
           {showMapListSearch2DirectionButton && MapBranchListandSearch2Buttons}
         </Grid>
         <Grid className="mainContentWrap">
           {stateLinksandStaticText}
         </Grid>
-        <Grid className="customerRatingsWrap">
-          <CustomerRatings />
+        </Grid>
+            <Grid className="staticTextWrap">
+              {staticText}
+            </Grid>
+            <Grid className="customerRatingsWrap">
+              <CustomerRatings />
+            </Grid>
         </Grid>
       </Grid>
     </div>

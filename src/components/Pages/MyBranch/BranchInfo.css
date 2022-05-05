@@ -169,6 +169,14 @@
   margin-top: 0px;
 }
 
+.timeSlotWrap div p {
+  margin: 4px 0px 0px 0px;
+}
+
+#payFromPaper div label {
+  margin-left: -14px;
+}
+
 #timeSlotSelect,
 #appointmentDate,
 #ScheduleAppointmentSelect {
@@ -212,6 +220,10 @@
   font-size: 2.138rem;
   color: white;
   margin: 0 !important;
+}
+feefowidget-merchant-header 
+.feefowidget-merchant-header__content.feefowidget-viewport-tablet-mobile{
+  padding: 40px 16px 10px 16px !important;
 }
 
 .home .feefowidget-top-row span.feefowidget-average-customer-rating,
@@ -310,18 +322,10 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   text-align: left;
 }
 
-.branchImage img {
-  max-width: 100%;
-}
-
 #inputText1-label {
   padding-left: 36px;
 }
 
-.mobileImage {
-  display: none;
-  width: 100%;
-}
 
 #getDirectionSearch {
   padding: 0px 0px 0px 4.5%;
@@ -342,11 +346,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   background-color: rgba(255, 255, 255, 0) !important;
 }
 
-.mainContentWrap {
-  width: 100%;
-  background-color: white;
-}
-
 .endDate {
   font-size: 14px !important;
   padding: 10px 24px 0px 24px;
@@ -358,13 +357,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 }
 
 @media (max-width: 960px) {
-  .mobileImage {
-    display: block;
-  }
-
-  .webImage {
-    display: none;
-  }
 
   .findBranchWrap {
     padding-top: 40px;
@@ -390,6 +382,9 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   #branchDiv {
     padding-right: 0px;
     margin-bottom: 30px;
+  }
+  .blueBoxWrap{
+    padding: 20px 12px;
   }
 }
 

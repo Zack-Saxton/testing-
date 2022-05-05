@@ -116,11 +116,6 @@
 #selectMaritalStatus div label {
 	font-size: 0.968rem !important;
 }
-
-#selectMaritalStatus div div div:nth-child(1) {
-	padding-bottom: 15px !important;
-}
-
 #spouseAddressWrap-label {
 	font-size: 0.968rem !important;
 }

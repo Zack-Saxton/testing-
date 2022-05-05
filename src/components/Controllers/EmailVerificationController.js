@@ -13,7 +13,7 @@ const getOSName = (userAgent) => {
   return osName;
 }
 /***** Get loan document *****/
-export async function validateActivationToken(activationToken, customerMail, applicationNumber) {
+export async function validateActivationToken(verify) {
   try {
     let url = "branch_mail_verification";
     let param = "";
@@ -27,9 +27,7 @@ export async function validateActivationToken(activationToken, customerMail, app
     }
     let data = {
       captured_info: capturedInfo,
-      user_activation_token_link: activationToken,
-      customer_email: customerMail,
-      applicationNumber: applicationNumber
+      queryParams: verify
     };
     let method = "POST";
     let addAccessToken = true;

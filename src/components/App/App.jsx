@@ -63,6 +63,9 @@ import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
 import EmailVerification from "../Pages/EmailVerification/EmailVerification";
 import NavContext from "../../contexts/NavContext";
+import MultiFactorAuthentication from "../Pages/MultiFactorAuthentication/MultiFactorAuthentication"
+import MultiFactorAuthenticationOTP from "../Pages/MultiFactorAuthentication/MultiFactorAuthenticationOTP"
+import MFASecurityQuestions from "../Pages/MultiFactorAuthentication/MFA-SecurityQuestions"
 import "./App.css";
 
 const queryClient = new QueryClient({
@@ -134,6 +137,9 @@ function App() {
                                 <Route path='/' element={ <Navigate replace to="/customers/accountOverview" /> } />
                                 <Route path='/components' element={ loadGeneralUserComponent(<CustomComponents />) } />
                                 <Route path='/login' element={ loadGeneralUserComponent(<LoginPage />) } />
+                                <Route path='/MFA' element={ loadGeneralUserComponent(<MultiFactorAuthentication />) } />
+                                <Route path='/MFA-OTP' element={ loadGeneralUserComponent(<MultiFactorAuthenticationOTP />) } />
+                                <Route path='/MFA-SecurityQuestions' element={ loadGeneralUserComponent(<MFASecurityQuestions />) } />
                                 <Route path='/register' element={ loadGeneralUserComponent(<RegisterPage />) } />
                                 <Route path='/faq' element={ loadGeneralUserComponent(<FaqBeforeLogin />) } />
                                 <Route path='/privacyStatement' element={ loadGeneralUserComponent(<Disclosure URL="/privacy" />) } />

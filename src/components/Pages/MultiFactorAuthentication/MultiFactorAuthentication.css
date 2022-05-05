@@ -1,0 +1,38 @@
+.twoStepWrap {
+  min-height: 88vh;
+}
+#FormControlLabel .MuiRadio-colorPrimary {
+  margin-top: -19px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+#otpNumberOne,
+#otpNumberTwo,
+#otpNumberThree,
+#otpNumberFour,
+#otpNumberFive,
+#otpNumberSix {
+  text-align: center;
+}
+#questionsOne,
+#questionsTwo,
+#questionsThree,
+#questionsFour,
+#questionsFive{
+  padding-bottom: 14px;
+}
+#questionsOne-label, 
+#questionsTwo-label,
+#questionsThree-label,
+#questionsFour-label,
+#questionsFive-label{
+  font-size: 0.938rem;
+  color: #595959;
+}
