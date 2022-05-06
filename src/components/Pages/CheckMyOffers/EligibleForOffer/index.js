@@ -61,7 +61,7 @@ function EligibleForOffers(props) {
 								justifyContent="center"
 								alignItems="center"
 							>
-								<img src={EligibleForOffersLogo} className="imgFullWidth" alt="EligibleForOffers" />
+								<img data-testid="EligibleForOffersImage" src={EligibleForOffersLogo} className="imgFullWidth" alt="EligibleForOffers" />
 							</Grid>
 						</Grid>
 						<br />
@@ -85,6 +85,7 @@ function EligibleForOffers(props) {
 								alignItems="center"
 							>
 								<Typography
+									data-testid="congratsTypography"
 									id="CongratsTxt"
 									variant="h3"
 									className="margin2p mainTextMsg"
@@ -113,6 +114,7 @@ function EligibleForOffers(props) {
 								alignItems="center"
 							>
 								<Typography
+									data-testid="eligibleTypography"
 									variant="h6"
 									className="smalTextImg smalTextImgNoOff"
 								>
@@ -148,7 +150,7 @@ function EligibleForOffers(props) {
 									md={3}
 									lg={3}
 									xl={3}
-									className="  buttonWithSmallMargin"
+									className="buttonWithSmallMargin"
 									container
 									justifyContent="center"
 									alignItems="center"
@@ -161,6 +163,7 @@ function EligibleForOffers(props) {
 									</ButtonPrimary>
 								</Grid>
 								<Typography
+									data-testid="loanFundingTypography"
 									variant="h6"
 									className=" minText CongratsSmallTxt"
 								>
@@ -173,6 +176,7 @@ function EligibleForOffers(props) {
 								</Typography>
 								<br />
 								<Typography
+									data-testid="approvalLoanTextTypography"
 									variant="h6"
 									className=" minText CongratsSmallTxt"
 								>
