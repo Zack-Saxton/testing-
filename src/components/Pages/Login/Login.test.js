@@ -1,11 +1,11 @@
+import { createTheme, StyledEngineProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import Login from "./Login";
-import { createTheme, StyledEngineProvider } from '@mui/material/styles'
-import { ThemeProvider } from '@mui/styles';
 
 
 const theme = createTheme();
@@ -21,17 +21,17 @@ const queryClient = new QueryClient({
 });
 
 const component = () => {
-  return (
+	return (
 		<ThemeProvider theme={theme}>
-		<StyledEngineProvider injectFirst>
-			<QueryClientProvider client={queryClient}>
-				<BrowserRouter>
-					<Login />
-				</BrowserRouter>
-			</QueryClientProvider>
-		</StyledEngineProvider>
+			<StyledEngineProvider injectFirst>
+				<QueryClientProvider client={queryClient}>
+					<BrowserRouter>
+						<Login />
+					</BrowserRouter>
+				</QueryClientProvider>
+			</StyledEngineProvider>
 		</ThemeProvider>
-  );
+	);
 }
 
 test("Checks the title of the page", () => {
@@ -130,6 +130,6 @@ test('should match the snapshot', () => {
 // 	fireEvent.change(getByLabelText(/email/i), {target: {value: 'dan@example.com'}})
 // 	fireEvent.change(getByLabelText(/password/i), {target: {value: 'password1234'}})
 // 	fireEvent.click(getByText(/submit/i))
-	
+
 // 	await waitForElement(() => getByText(/logged out/i))
 // });

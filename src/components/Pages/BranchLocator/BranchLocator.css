@@ -648,11 +648,12 @@
   height: auto;
 }
 
-.boxDivWrap{
+.boxDivWrap {
   width: 100%;
   background-color: white;
 }
-.boxDiv{
+
+.boxDiv {
   max-width: 1200px;
   margin: -90px auto 0px auto;
   background-color: white;
@@ -660,11 +661,13 @@
   border-radius: 10px;
   padding: 10px 40px;
 }
-.staticTextWrap{
-  max-width: 1200px; 
+
+.staticTextWrap {
+  max-width: 1200px;
   margin: 10px auto 20px auto;
 }
-.whiteBackgroundGrid{
+
+.whiteBackgroundGrid {
   max-width: 1200px;
   margin: -90px auto 40px auto;
   background-color: white;
@@ -672,7 +675,8 @@
   border-radius: 10px;
   padding: 10px 40px;
 }
-.branchPageWrap{
+
+.branchPageWrap {
   max-width: 1200px;
   margin: -90px auto 40px auto;
   background-color: white;
@@ -834,33 +838,38 @@
   margin: auto;
   justify-content: space-between;
 }
-.branchPageGrid{
+
+.branchPageGrid {
   width: 100%;
   background-color: #fff;
 }
-@media only screen and (max-width: 1200px){
-  .staticTextWrap{
+
+@media only screen and (max-width: 1200px) {
+  .staticTextWrap {
     margin: 10px 30px 20px 30px;
   }
 }
-@media only screen and (max-width: 900px){
-  .personalLoanGrid{
-    padding: 10px 0px 20px 0px ; 
+
+@media only screen and (max-width: 900px) {
+  .personalLoanGrid {
+    padding: 10px 0px 20px 0px;
   }
-  .branchtextSection{
-    padding: 10px 0px 20px 0px ; 
+
+  .branchtextSection {
+    padding: 10px 0px 20px 0px;
   }
-  .branchPageWrap{
+
+  .branchPageWrap {
     margin: 0px auto 40px auto;
     padding: 10px 10px 20px 10px;
   }
-  
+
   .mobileImage {
     display: block;
     height: unset !important;
   }
 
-  
+
   .branchLocatorHeadingMain {
     display: none;
   }
@@ -868,15 +877,18 @@
   .branchLocatorHeading {
     display: none;
   }
+
   .webImage {
     display: none;
   }
 }
+
 @media (max-width: 960px) {
-  .boxDiv{
+  .boxDiv {
     margin: 0;
   }
-  .whiteBackgroundGrid{
+
+  .whiteBackgroundGrid {
     margin: 0px auto 40px auto;
   }
 
@@ -972,15 +984,18 @@
     font-size: 1.25rem !important;
   }
 }
+
 @media (max-width: 760px) {
   #scheduleAppointmentBtn {
     padding: 0px 15px !important;
   }
 }
+
 @media (max-width: 599px) {
-  .boxDiv{
+  .boxDiv {
     padding: 10px 10px;
   }
+
   .mobilePadding {
     padding: 2% 15px !important;
   }
@@ -993,11 +1008,13 @@
     padding-right: 0px;
     margin-bottom: 30px;
   }
-  .blueBoxWrap{
+
+  .blueBoxWrap {
     padding: 20px 10px;
   }
-  .whiteBackgroundGrid{
+
+  .whiteBackgroundGrid {
     padding: 10px 10px;
   }
-  
+
 }

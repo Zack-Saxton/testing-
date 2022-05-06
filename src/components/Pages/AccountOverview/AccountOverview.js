@@ -45,9 +45,9 @@ export default function AccountOverview() {
         </Grid>
         {/* ****************components************ */}
         <LimitedOffer isLoading={isLoading} userOffers={offerData} />
-        <ActiveLoans/>
-        <RecentPayments/>
-        <RecentApplications/>
+        <ActiveLoans />
+        <RecentPayments />
+        <RecentApplications />
       </Grid>
     </div>
   );

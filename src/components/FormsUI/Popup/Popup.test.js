@@ -1,7 +1,7 @@
+import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
-import Popup from './index'
-import '@testing-library/jest-dom'
+import Popup from './index';
 
 
 const closePopup = jest.fn();
@@ -13,44 +13,44 @@ const component = () => {
       data-testid="popup"
       popupFlag={true}
       id="customeDialogBox"
-      >
+    >
     </Popup>
   )
 }
 
-test("Popup availability test", ()=>{
+test("Popup availability test", () => {
   let container = render(component());
   const element = container.getByTestId("popup");
   expect(element).toBeTruthy();
 })
 
-test("Popup has Close Icon test", ()=>{
+test("Popup has Close Icon test", () => {
   let container = render(component());
   const element = container.getByTestId("closeIcon");
   expect(element).toBeTruthy();
 })
 
-test("Popup has OK button test", ()=>{
+test("Popup has OK button test", () => {
   let container = render(component());
   const element = container.getByTestId("modalButton");
   expect(element).toBeTruthy();
 })
 
-test("Popup Close Icon functionality test",async()=>{
+test("Popup Close Icon functionality test", async () => {
   let container = render(component());
   const element = container.getByTestId("closeIcon");
   fireEvent.click(element);
   await waitFor(() => expect(element.getAttribute("aria-hidden")).toBe("true"))
 })
 
-test("Popup OK button functionality test",async()=>{
+test("Popup OK button functionality test", async () => {
   let container = render(component());
   const element = container.getByTestId("modalButton");
   fireEvent.click(element);
   await waitFor(() => expect(element.getAttribute("aria-hidden")).not.toBe("true"))
 })
 
-test("Popup Content presence test", ()=>{
+test("Popup Content presence test", () => {
   let container = render(component());
   const element = container.getByTestId("content");
   expect(element).toBeTruthy();
@@ -60,7 +60,3 @@ test('should match the snapshot', () => {
   const { asFragment } = render(component);
   expect(asFragment).toMatchSnapshot();
 });
-
-
-
-

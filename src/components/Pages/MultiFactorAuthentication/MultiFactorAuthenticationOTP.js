@@ -1,13 +1,13 @@
-import React from "react";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import { useStylesMFA } from "./Style";
-import "./MultiFactorAuthentication.css";
-import { ButtonPrimary } from "../../FormsUI";
-import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Link, TextField, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
+import React from "react";
+import { ButtonPrimary } from "../../FormsUI";
+import "./MultiFactorAuthentication.css";
+import { useStylesMFA } from "./Style";
 
-import { Typography, TextField, Link } from "@mui/material";
 
 const MultiFactorAuthenticationOTP = () => {
   const classes = useStylesMFA();

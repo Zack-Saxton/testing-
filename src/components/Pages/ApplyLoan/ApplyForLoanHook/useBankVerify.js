@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
-import {fetchAvailableOffers} from "../../../Controllers/ApplyForLoanController"
-import APICall from "../../../lib/AxiosLib"
+import APICall from "../../../lib/AxiosLib";
 
 export const useBankVerify = (data) => {
   const { isLoading, isError, data: bankInfo } = useQuery('bank-info', async () => {

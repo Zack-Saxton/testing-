@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
-import { useStylesEmailVerification } from "./Style";
 import {
   ButtonPrimary
 } from "../../../components/FormsUI";
+import { useStylesEmailVerification } from "./Style";
 
 function VehiclePhotos(props) {
   const classes = useStylesEmailVerification();
@@ -18,10 +18,10 @@ function VehiclePhotos(props) {
         exterior pictures.
       </span>
       <Grid item sm={12} md={6} className={classes.nextButton}>
-        
+
         <ButtonPrimary
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
-          target="_blank" href={ `https://collateralcapturemarinerfinance.goldpointbeta.com/?applicationNumber=${props.applicationNumber}` }
+          target="_blank" href={`https://collateralcapturemarinerfinance.goldpointbeta.com/?applicationNumber=${ props.applicationNumber }`}
         >
           Upload Vehicle Photo
         </ButtonPrimary>

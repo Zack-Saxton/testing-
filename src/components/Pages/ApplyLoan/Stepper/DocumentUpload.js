@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import PropTypes from "prop-types";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { uploadDocument } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary } from "../../../FormsUI";

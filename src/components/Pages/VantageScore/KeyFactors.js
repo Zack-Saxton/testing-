@@ -31,7 +31,7 @@ export default function ControlledAccordions(keyFactors) {
 
   //View
   return (
-    <div  data-testid="keyfactors">
+    <div data-testid="keyfactors">
       <h3 className={classes.KeyFactorsHeading}>
         Key Factors Influencing Your Credit Score
       </h3>

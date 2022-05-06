@@ -53,8 +53,8 @@ import quickPay from "../../../assets/images/quickpay.png";
 import { CheckMyOffers } from "../../../contexts/CheckMyOffers";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { LoanAccount } from "../../../contexts/LoanAccount";
-import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import { NavContext } from "../../../contexts/NavContext";
+import { ProfilePicture } from "../../../contexts/ProfilePicture";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { verificationSteps } from "../../Controllers/ApplyForLoanController";
 import LogoutController from "../../Controllers/LogoutController";
@@ -820,7 +820,7 @@ export default function SideNav() {
                     </Link>
                   )
                 ) : (
-                  <NavLink 
+                  <NavLink
                     id="applyForLoanNav"
                     ref={refApplyForLoanNav}
                     to="/customers/applyForLoan"

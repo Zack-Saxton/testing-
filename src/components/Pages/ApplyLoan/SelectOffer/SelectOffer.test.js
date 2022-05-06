@@ -1,22 +1,22 @@
+import { createTheme, StyledEngineProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
-import ApplyLoan from "./SelectOffer";
-import { ThemeProvider } from '@mui/styles';
-import { createTheme, StyledEngineProvider } from '@mui/material/styles'
-import { useFetchOffer } from "../ApplyForLoanHook/useFetchOffer";
 import NavContext from "../../../../contexts/NavContext";
+import { useFetchOffer } from "../ApplyForLoanHook/useFetchOffer";
+import ApplyLoan from "./SelectOffer";
 
 
 const theme = createTheme();
 
 const mockOffers = {
-  "data" : {
-  Offers : {
-  "12": [
-      {
+  "data": {
+    Offers: {
+      "12": [
+        {
           "model_code": "individual-credit-engine-mariner-12-month",
           "cosigner_required": false,
           "loan_amount": 7000,
@@ -42,24 +42,24 @@ const mockOffers = {
           "_id": "6246c3b7ce328e04806f326f",
           "applicant": "6246c3acce328e04806f3238",
           "product": {
-              "identification": {
-                  "name": "unsecured-individual-loan-12-month",
-                  "guid": "PT-UN00001005"
-              },
-              "contenttypes": [],
-              "entitytype": "product",
-              "credit_product": "unsecured_individual_loan_12_month",
-              "credit_product_type": "loan",
-              "parent_product_type": "unsecured_individual_loan",
-              "description": "unsecured individual loan product 12 month",
-              "_id": "58f52e87924ecefde2ce3293",
-              "createdat": "2017-04-17T00:00:00.000Z",
-              "updatedat": "2022-04-28T16:59:25.930Z"
+            "identification": {
+              "name": "unsecured-individual-loan-12-month",
+              "guid": "PT-UN00001005"
+            },
+            "contenttypes": [],
+            "entitytype": "product",
+            "credit_product": "unsecured_individual_loan_12_month",
+            "credit_product_type": "loan",
+            "parent_product_type": "unsecured_individual_loan",
+            "description": "unsecured individual loan product 12 month",
+            "_id": "58f52e87924ecefde2ce3293",
+            "createdat": "2017-04-17T00:00:00.000Z",
+            "updatedat": "2022-04-28T16:59:25.930Z"
           },
           "offerType": "online",
           "loan_proceeds": "$7,000.00"
-      },
-      {
+        },
+        {
           "model_code": "individual-credit-engine-mariner-12-month",
           "cosigner_required": false,
           "loan_amount": 6500,
@@ -85,24 +85,24 @@ const mockOffers = {
           "_id": "6246c3b7ce328e04806f326e",
           "applicant": "6246c3acce328e04806f3238",
           "product": {
-              "identification": {
-                  "name": "unsecured-individual-loan-12-month",
-                  "guid": "PT-UN00001005"
-              },
-              "contenttypes": [],
-              "entitytype": "product",
-              "credit_product": "unsecured_individual_loan_12_month",
-              "credit_product_type": "loan",
-              "parent_product_type": "unsecured_individual_loan",
-              "description": "unsecured individual loan product 12 month",
-              "_id": "58f52e87924ecefde2ce3293",
-              "createdat": "2017-04-17T00:00:00.000Z",
-              "updatedat": "2022-04-28T16:59:25.930Z"
+            "identification": {
+              "name": "unsecured-individual-loan-12-month",
+              "guid": "PT-UN00001005"
+            },
+            "contenttypes": [],
+            "entitytype": "product",
+            "credit_product": "unsecured_individual_loan_12_month",
+            "credit_product_type": "loan",
+            "parent_product_type": "unsecured_individual_loan",
+            "description": "unsecured individual loan product 12 month",
+            "_id": "58f52e87924ecefde2ce3293",
+            "createdat": "2017-04-17T00:00:00.000Z",
+            "updatedat": "2022-04-28T16:59:25.930Z"
           },
           "offerType": "online",
           "loan_proceeds": "$6,500.00"
-      },
-      {
+        },
+        {
           "model_code": "individual-credit-engine-mariner-12-month",
           "cosigner_required": false,
           "loan_amount": 6000,
@@ -128,26 +128,26 @@ const mockOffers = {
           "_id": "6246c3b7ce328e04806f326d",
           "applicant": "6246c3acce328e04806f3238",
           "product": {
-              "identification": {
-                  "name": "unsecured-individual-loan-12-month",
-                  "guid": "PT-UN00001005"
-              },
-              "contenttypes": [],
-              "entitytype": "product",
-              "credit_product": "unsecured_individual_loan_12_month",
-              "credit_product_type": "loan",
-              "parent_product_type": "unsecured_individual_loan",
-              "description": "unsecured individual loan product 12 month",
-              "_id": "58f52e87924ecefde2ce3293",
-              "createdat": "2017-04-17T00:00:00.000Z",
-              "updatedat": "2022-04-28T16:59:25.930Z"
+            "identification": {
+              "name": "unsecured-individual-loan-12-month",
+              "guid": "PT-UN00001005"
+            },
+            "contenttypes": [],
+            "entitytype": "product",
+            "credit_product": "unsecured_individual_loan_12_month",
+            "credit_product_type": "loan",
+            "parent_product_type": "unsecured_individual_loan",
+            "description": "unsecured individual loan product 12 month",
+            "_id": "58f52e87924ecefde2ce3293",
+            "createdat": "2017-04-17T00:00:00.000Z",
+            "updatedat": "2022-04-28T16:59:25.930Z"
           },
           "offerType": "online",
           "loan_proceeds": "$6,000.00"
-      }     
-  ],
-  "24": [
-      {
+        }
+      ],
+      "24": [
+        {
           "model_code": "individual-credit-engine-mariner-24-month",
           "cosigner_required": false,
           "loan_amount": 7000,
@@ -173,24 +173,24 @@ const mockOffers = {
           "_id": "6246c3b7ce328e04806f3282",
           "applicant": "6246c3acce328e04806f3238",
           "product": {
-              "identification": {
-                  "name": "unsecured-individual-loan-24-month",
-                  "guid": "PT-UN00001004"
-              },
-              "contenttypes": [],
-              "entitytype": "product",
-              "credit_product": "unsecured_individual_loan_24_month",
-              "credit_product_type": "loan",
-              "parent_product_type": "unsecured_individual_loan",
-              "description": "unsecured individual loan product 24 month",
-              "_id": "58f52e74924ecefde2ce3292",
-              "createdat": "2017-04-17T00:00:00.000Z",
-              "updatedat": "2022-04-28T16:59:25.930Z"
+            "identification": {
+              "name": "unsecured-individual-loan-24-month",
+              "guid": "PT-UN00001004"
+            },
+            "contenttypes": [],
+            "entitytype": "product",
+            "credit_product": "unsecured_individual_loan_24_month",
+            "credit_product_type": "loan",
+            "parent_product_type": "unsecured_individual_loan",
+            "description": "unsecured individual loan product 24 month",
+            "_id": "58f52e74924ecefde2ce3292",
+            "createdat": "2017-04-17T00:00:00.000Z",
+            "updatedat": "2022-04-28T16:59:25.930Z"
           },
           "offerType": "online",
           "loan_proceeds": "$7,000.00"
-      },
-      {
+        },
+        {
           "model_code": "individual-credit-engine-mariner-24-month",
           "cosigner_required": false,
           "loan_amount": 6500,
@@ -216,24 +216,24 @@ const mockOffers = {
           "_id": "6246c3b7ce328e04806f3281",
           "applicant": "6246c3acce328e04806f3238",
           "product": {
-              "identification": {
-                  "name": "unsecured-individual-loan-24-month",
-                  "guid": "PT-UN00001004"
-              },
-              "contenttypes": [],
-              "entitytype": "product",
-              "credit_product": "unsecured_individual_loan_24_month",
-              "credit_product_type": "loan",
-              "parent_product_type": "unsecured_individual_loan",
-              "description": "unsecured individual loan product 24 month",
-              "_id": "58f52e74924ecefde2ce3292",
-              "createdat": "2017-04-17T00:00:00.000Z",
-              "updatedat": "2022-04-28T16:59:25.930Z"
+            "identification": {
+              "name": "unsecured-individual-loan-24-month",
+              "guid": "PT-UN00001004"
+            },
+            "contenttypes": [],
+            "entitytype": "product",
+            "credit_product": "unsecured_individual_loan_24_month",
+            "credit_product_type": "loan",
+            "parent_product_type": "unsecured_individual_loan",
+            "description": "unsecured individual loan product 24 month",
+            "_id": "58f52e74924ecefde2ce3292",
+            "createdat": "2017-04-17T00:00:00.000Z",
+            "updatedat": "2022-04-28T16:59:25.930Z"
           },
           "offerType": "online",
           "loan_proceeds": "$6,500.00"
-      },
-      {
+        },
+        {
           "model_code": "individual-credit-engine-mariner-24-month",
           "cosigner_required": false,
           "loan_amount": 6000,
@@ -259,26 +259,26 @@ const mockOffers = {
           "_id": "6246c3b7ce328e04806f3280",
           "applicant": "6246c3acce328e04806f3238",
           "product": {
-              "identification": {
-                  "name": "unsecured-individual-loan-24-month",
-                  "guid": "PT-UN00001004"
-              },
-              "contenttypes": [],
-              "entitytype": "product",
-              "credit_product": "unsecured_individual_loan_24_month",
-              "credit_product_type": "loan",
-              "parent_product_type": "unsecured_individual_loan",
-              "description": "unsecured individual loan product 24 month",
-              "_id": "58f52e74924ecefde2ce3292",
-              "createdat": "2017-04-17T00:00:00.000Z",
-              "updatedat": "2022-04-28T16:59:25.930Z"
+            "identification": {
+              "name": "unsecured-individual-loan-24-month",
+              "guid": "PT-UN00001004"
+            },
+            "contenttypes": [],
+            "entitytype": "product",
+            "credit_product": "unsecured_individual_loan_24_month",
+            "credit_product_type": "loan",
+            "parent_product_type": "unsecured_individual_loan",
+            "description": "unsecured individual loan product 24 month",
+            "_id": "58f52e74924ecefde2ce3292",
+            "createdat": "2017-04-17T00:00:00.000Z",
+            "updatedat": "2022-04-28T16:59:25.930Z"
           },
           "offerType": "online",
           "loan_proceeds": "$6,000.00"
-      }
-  ],
-  "36": [
-      {
+        }
+      ],
+      "36": [
+        {
           "model_code": "individual-credit-engine-mariner-36-month",
           "cosigner_required": false,
           "loan_amount": 7000,
@@ -304,24 +304,24 @@ const mockOffers = {
           "_id": "6246c3b7ce328e04806f3295",
           "applicant": "6246c3acce328e04806f3238",
           "product": {
-              "identification": {
-                  "name": "unsecured-individual-loan",
-                  "guid": "PT-UN00001001"
-              },
-              "contenttypes": [],
-              "entitytype": "product",
-              "credit_product": "unsecured_individual_loan_36_month",
-              "credit_product_type": "loan",
-              "parent_product_type": "unsecured_individual_loan",
-              "description": "unsecured individual loan product",
-              "_id": "58b44ccc924ecefde2ce328d",
-              "createdat": "2017-02-27T17:27:00.201Z",
-              "updatedat": "2022-04-28T16:59:25.930Z"
+            "identification": {
+              "name": "unsecured-individual-loan",
+              "guid": "PT-UN00001001"
+            },
+            "contenttypes": [],
+            "entitytype": "product",
+            "credit_product": "unsecured_individual_loan_36_month",
+            "credit_product_type": "loan",
+            "parent_product_type": "unsecured_individual_loan",
+            "description": "unsecured individual loan product",
+            "_id": "58b44ccc924ecefde2ce328d",
+            "createdat": "2017-02-27T17:27:00.201Z",
+            "updatedat": "2022-04-28T16:59:25.930Z"
           },
           "offerType": "online",
           "loan_proceeds": "$7,000.00"
-      },
-      {
+        },
+        {
           "model_code": "individual-credit-engine-mariner-36-month",
           "cosigner_required": false,
           "loan_amount": 6500,
@@ -347,24 +347,24 @@ const mockOffers = {
           "_id": "6246c3b7ce328e04806f3294",
           "applicant": "6246c3acce328e04806f3238",
           "product": {
-              "identification": {
-                  "name": "unsecured-individual-loan",
-                  "guid": "PT-UN00001001"
-              },
-              "contenttypes": [],
-              "entitytype": "product",
-              "credit_product": "unsecured_individual_loan_36_month",
-              "credit_product_type": "loan",
-              "parent_product_type": "unsecured_individual_loan",
-              "description": "unsecured individual loan product",
-              "_id": "58b44ccc924ecefde2ce328d",
-              "createdat": "2017-02-27T17:27:00.201Z",
-              "updatedat": "2022-04-28T16:59:25.930Z"
+            "identification": {
+              "name": "unsecured-individual-loan",
+              "guid": "PT-UN00001001"
+            },
+            "contenttypes": [],
+            "entitytype": "product",
+            "credit_product": "unsecured_individual_loan_36_month",
+            "credit_product_type": "loan",
+            "parent_product_type": "unsecured_individual_loan",
+            "description": "unsecured individual loan product",
+            "_id": "58b44ccc924ecefde2ce328d",
+            "createdat": "2017-02-27T17:27:00.201Z",
+            "updatedat": "2022-04-28T16:59:25.930Z"
           },
           "offerType": "online",
           "loan_proceeds": "$6,500.00"
-      },
-      {
+        },
+        {
           "model_code": "individual-credit-engine-mariner-36-month",
           "cosigner_required": false,
           "loan_amount": 6000,
@@ -390,41 +390,41 @@ const mockOffers = {
           "_id": "6246c3b7ce328e04806f3293",
           "applicant": "6246c3acce328e04806f3238",
           "product": {
-              "identification": {
-                  "name": "unsecured-individual-loan",
-                  "guid": "PT-UN00001001"
-              },
-              "contenttypes": [],
-              "entitytype": "product",
-              "credit_product": "unsecured_individual_loan_36_month",
-              "credit_product_type": "loan",
-              "parent_product_type": "unsecured_individual_loan",
-              "description": "unsecured individual loan product",
-              "_id": "58b44ccc924ecefde2ce328d",
-              "createdat": "2017-02-27T17:27:00.201Z",
-              "updatedat": "2022-04-28T16:59:25.930Z"
+            "identification": {
+              "name": "unsecured-individual-loan",
+              "guid": "PT-UN00001001"
+            },
+            "contenttypes": [],
+            "entitytype": "product",
+            "credit_product": "unsecured_individual_loan_36_month",
+            "credit_product_type": "loan",
+            "parent_product_type": "unsecured_individual_loan",
+            "description": "unsecured individual loan product",
+            "_id": "58b44ccc924ecefde2ce328d",
+            "createdat": "2017-02-27T17:27:00.201Z",
+            "updatedat": "2022-04-28T16:59:25.930Z"
           },
           "offerType": "online",
           "loan_proceeds": "$6,000.00"
-      }
-  ]
+        }
+      ]
+    }
   }
 }
-}
 
-jest.mock("../ApplyForLoanHook/useFetchOffer", ()=>({
+jest.mock("../ApplyForLoanHook/useFetchOffer", () => ({
   useFetchOffer: jest.fn(),
 }))
 
 
 const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-			retry: false,
-			staleTime: 500000,
-		},
-	},
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+      staleTime: 500000,
+    },
+  },
 });
 
 const MockActiveloans = () => {
@@ -433,9 +433,9 @@ const MockActiveloans = () => {
       <StyledEngineProvider injectFirst>
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
-          <NavContext>
-            <ApplyLoan />
-          </NavContext> 
+            <NavContext>
+              <ApplyLoan />
+            </NavContext>
           </BrowserRouter>
         </QueryClientProvider>
       </StyledEngineProvider>
@@ -451,9 +451,9 @@ describe("while loading", () => {
     }));
     const container = render(MockActiveloans());
     container.debug(undefined, 300000)
-	const selectOffer = screen.getByText("1. Select Offer");
-  screen.debug(undefined, 40000);
-	expect(selectOffer).toBeTruthy();
+    const selectOffer = screen.getByText("1. Select Offer");
+    screen.debug(undefined, 40000);
+    expect(selectOffer).toBeTruthy();
   });
 
   it("renders a loader", () => {

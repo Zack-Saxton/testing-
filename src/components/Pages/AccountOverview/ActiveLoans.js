@@ -12,9 +12,9 @@ import React from "react";
 import NumberFormat from "react-number-format";
 import { NavLink } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
+import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
 import AutoPayStatus from "./AutoPayStatus.js";
 import { useStylesAccountOverview } from "./Style";
-import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
 import "./Style.css";
 
 export default function ActiveLoans() {
@@ -116,7 +116,7 @@ export default function ActiveLoans() {
                                     today.isBefore(appData.loanDetails.NextDueDate)
                                       ? numberDaysForDueDate(appData)
                                         ? `${ classes.normalButton } pulse`
-                                        : classes.normalButton 
+                                        : classes.normalButton
                                       : `${ classes.buttonColorPastDate } pulse`
                                   }
                                 >

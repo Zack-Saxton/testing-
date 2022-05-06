@@ -614,18 +614,21 @@
 	margin: 25px 0px 0px 0px !important;
 }
 
-#selectMaritalStatusWrap{
+#selectMaritalStatusWrap {
 	text-align: left;
 	padding-bottom: 15px !important;
 }
+
 #selectMaritalStatusWrap .subOption {
 	color: #171717 !important;
 }
-#selectMaritalStatus{
+
+#selectMaritalStatus {
 	margin-top: 15px;
 
 }
-#selectMaritalStatus div label{
+
+#selectMaritalStatus div label {
 	margin-left: -14px;
 }
 

@@ -1,14 +1,14 @@
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/styles';
+import "@testing-library/jest-dom/extend-expect";
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
-import "@testing-library/jest-dom/extend-expect";
-import { ThemeProvider } from '@mui/styles';
-import { createTheme} from '@mui/material/styles'
-import LoanPurpose from "./index";
+import CheckMyOffers from "../../../../contexts/CheckMyOffers";
 import CitizenshipStatus from "../CitizenshipStatus/index";
-import SelectAmount from "../SelectAmount/index"
-import CheckMyOffers from "../../../../contexts/CheckMyOffers"
+import SelectAmount from "../SelectAmount/index";
+import LoanPurpose from "./index";
 
 afterEach(cleanup);
 const queryClient = new QueryClient({
@@ -23,23 +23,23 @@ const queryClient = new QueryClient({
 
 const theme = createTheme();
 const MockLoanPurpose = () => {
-  return (
-    <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>    
-        <BrowserRouter>
-          <CheckMyOffers>
-						<SelectAmount/>
-            <LoanPurpose/>
-						<CitizenshipStatus/>
-          </CheckMyOffers>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </ThemeProvider>
-  )
+	return (
+		<ThemeProvider theme={theme}>
+			<QueryClientProvider client={queryClient}>
+				<BrowserRouter>
+					<CheckMyOffers>
+						<SelectAmount />
+						<LoanPurpose />
+						<CitizenshipStatus />
+					</CheckMyOffers>
+				</BrowserRouter>
+			</QueryClientProvider>
+		</ThemeProvider>
+	)
 }
 
 test("Availability test", () => {
-	const container = render(<MockLoanPurpose/>);
+	const container = render(<MockLoanPurpose />);
 
 	const Home = container.getByTestId("home");
 	expect(Home).toBeTruthy();
@@ -67,7 +67,7 @@ test("Availability test", () => {
 });
 
 test("Home Loan selection test", () => {
-	const container = render(<MockLoanPurpose/>);
+	const container = render(<MockLoanPurpose />);
 
 	const Home = container.getByTestId("home");
 	const AutoExpence = container.getByTestId("autoExpense");
@@ -95,8 +95,8 @@ test("Home Loan selection test", () => {
 });
 
 test("Auto Expense selection test", () => {
-	const container = render(<MockLoanPurpose/>);
-	const AutoExpense = container.getByTestId("autoExpense");	
+	const container = render(<MockLoanPurpose />);
+	const AutoExpense = container.getByTestId("autoExpense");
 	fireEvent.click(AutoExpense);
 	expect(AutoExpense).toHaveClass("activeCard ");
 	const ContinueButton = container.getByTestId("contButtonLoanPurpose");
@@ -104,8 +104,8 @@ test("Auto Expense selection test", () => {
 });
 
 test("Vacation option selection test", () => {
-	const container = render(<MockLoanPurpose/>);
-	const Vacation = container.getByTestId("vacation");	
+	const container = render(<MockLoanPurpose />);
+	const Vacation = container.getByTestId("vacation");
 	fireEvent.click(Vacation);
 	expect(Vacation).toHaveClass("activeCard ");
 	const ContinueButton = container.getByTestId("contButtonLoanPurpose");
@@ -113,7 +113,7 @@ test("Vacation option selection test", () => {
 });
 
 test("Holiday option selection test", () => {
-	const container = render(<MockLoanPurpose/>);
+	const container = render(<MockLoanPurpose />);
 	const Holiday = container.getByTestId("holiday");
 	fireEvent.click(Holiday);
 	expect(Holiday).toHaveClass("activeCard ");
@@ -122,7 +122,7 @@ test("Holiday option selection test", () => {
 });
 
 test("Medical option selection test", () => {
-	const container = render(<MockLoanPurpose/>);
+	const container = render(<MockLoanPurpose />);
 	const Medical = container.getByTestId("medical");
 	fireEvent.click(Medical);
 	expect(Medical).toHaveClass("activeCard ");
@@ -131,7 +131,7 @@ test("Medical option selection test", () => {
 });
 
 test("Consolidation option selection test", () => {
-	const container = render(<MockLoanPurpose/>);
+	const container = render(<MockLoanPurpose />);
 	const Dept = container.getByTestId("deptConsolidation");
 	fireEvent.click(Dept);
 	expect(Dept).toHaveClass("activeCard ");
@@ -140,7 +140,7 @@ test("Consolidation option selection test", () => {
 });
 
 test("LifeEvent option selection test", () => {
-	const container = render(<MockLoanPurpose/>);
+	const container = render(<MockLoanPurpose />);
 	const LifeEvent = container.getByTestId("lifeEvent");
 	fireEvent.click(LifeEvent);
 	expect(LifeEvent).toHaveClass("activeCard ");
@@ -149,7 +149,7 @@ test("LifeEvent option selection test", () => {
 });
 
 test("Unexpected Bills option selection test", () => {
-	const container = render(<MockLoanPurpose/>);
+	const container = render(<MockLoanPurpose />);
 	const Bills = container.getByTestId("unexpectedBills");
 	fireEvent.click(Bills);
 	expect(Bills).toHaveClass("activeCard ");
@@ -158,7 +158,7 @@ test("Unexpected Bills option selection test", () => {
 });
 
 test("Major Purchase option selection test", () => {
-	const container = render(<MockLoanPurpose/>);
+	const container = render(<MockLoanPurpose />);
 	const Major = container.getByTestId("majorPurchase");
 	fireEvent.click(Major);
 	expect(Major).toHaveClass("activeCard ");
@@ -167,7 +167,7 @@ test("Major Purchase option selection test", () => {
 });
 
 test("Other option selection test", () => {
-	const container = render(<MockLoanPurpose/>);
+	const container = render(<MockLoanPurpose />);
 	const Others = container.getByTestId("others");
 	fireEvent.click(Others);
 	expect(Others).toHaveClass("activeCard ");
@@ -175,16 +175,16 @@ test("Other option selection test", () => {
 	expect(ContinueButton.hasAttribute("disabled")).toBe(false);
 });
 
-test("Routing forward to Citizenship status", async() => {
-	const container = render(<MockLoanPurpose/>);
+test("Routing forward to Citizenship status", async () => {
+	const container = render(<MockLoanPurpose />);
 	const ContinueButton = container.getByTestId("contButtonLoanPurpose");
 	fireEvent.click(ContinueButton);
 	const page = container.queryByText("Describe your citizenship status")
 	await waitFor(() => expect(page).toBeInTheDocument());
 })
 
-test("Routing Back to Select Amount page", async() => {
-	const container = render(<MockLoanPurpose/>);
+test("Routing Back to Select Amount page", async () => {
+	const container = render(<MockLoanPurpose />);
 	const BackButton = container.getByTestId("routeBackwardLoanPurpose");
 	fireEvent.click(BackButton);
 	const page = container.queryByText("Tell us how much you would like to borrow")

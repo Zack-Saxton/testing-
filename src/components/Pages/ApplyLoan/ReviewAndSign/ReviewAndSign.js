@@ -2,10 +2,11 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import React, { useEffect, useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { NavContext } from "../../../../contexts/NavContext";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { hardPullCheck } from "../../../Controllers/ApplyForLoanController";
@@ -18,7 +19,6 @@ import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
 import "./ReviewAndSign.css";
-import { NavContext } from "../../../../contexts/NavContext";
 
 
 //Initializing the Review and sign functional component
@@ -87,7 +87,7 @@ export default function ReviewAndSign(props) {
 
   const resumeNavigate = () => {
     setData({ ...data, status: true });
-     navigate('/customers/selectOffer');
+    navigate('/customers/selectOffer');
   }
 
   //Check weather the offers is passed or not
@@ -142,16 +142,16 @@ export default function ReviewAndSign(props) {
                     </Typography>
                   </Grid>
 
-                  <Grid item xs={ 12 } sm={ 6 } className={ loading ? classes.loadingOn : classes.loadingOff }>
-                   
-                      <ButtonSecondary
-                        stylebutton='{"float": "right", "color":"" }'
-                        styleicon='{ "color":"" }'
-                        id="reselect-button"
-                        onClick={ () => resumeNavigate() }
-                      > 
-                        Re-Select Offer
-                      </ButtonSecondary>
+                  <Grid item xs={12} sm={6} className={loading ? classes.loadingOn : classes.loadingOff}>
+
+                    <ButtonSecondary
+                      stylebutton='{"float": "right", "color":"" }'
+                      styleicon='{ "color":"" }'
+                      id="reselect-button"
+                      onClick={() => resumeNavigate()}
+                    >
+                      Re-Select Offer
+                    </ButtonSecondary>
                   </Grid>
                 </Grid>
                 {!selectedOffer ?

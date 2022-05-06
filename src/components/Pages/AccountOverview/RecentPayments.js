@@ -14,8 +14,8 @@ import NumberFormat from "react-number-format";
 import { NavLink } from "react-router-dom";
 import { LoanAccount } from "../../../contexts/LoanAccount";
 import { ButtonPrimary, Select, TableCellWrapper } from "../../FormsUI";
-import { useStylesAccountOverview } from "./Style";
 import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
+import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
 export default function RecentPayments() {
 	//Material UI css class
@@ -207,17 +207,17 @@ export default function RecentPayments() {
 									</TableRow>
 								</TableBody>)
 								:
-							accountDetails?.data?.loanHistory?.length ? (
-								<TableCellWrapper parseData={parData}/>
-							) : (
-								<TableBody data-testid="error_Recent_Payments">
-								<TableRow>
-									<TableCell colSpan="7" align="center">
-										You do not have any payments to display
-									</TableCell>
-								</TableRow>
-							</TableBody>
-							)}
+								accountDetails?.data?.loanHistory?.length ? (
+									<TableCellWrapper parseData={parData} />
+								) : (
+									<TableBody data-testid="error_Recent_Payments">
+										<TableRow>
+											<TableCell colSpan="7" align="center">
+												You do not have any payments to display
+											</TableCell>
+										</TableRow>
+									</TableBody>
+								)}
 						</Table>
 					</TableContainer>
 				</Grid>

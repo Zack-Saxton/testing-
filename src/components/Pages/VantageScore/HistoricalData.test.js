@@ -1,12 +1,11 @@
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
 //import {jest} from "jest";
-import { cleanup,fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import Historical from "./HistoricalData";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ThemeProvider } from '@mui/styles';
-import { createTheme, StyledEngineProvider } from '@mui/material/styles'
+import { BrowserRouter } from "react-router-dom";
 import HistoricalData from "./HistoricalData";
 const theme = createTheme();
 
@@ -22,12 +21,12 @@ const queryClient = new QueryClient({
 it("All the text Messages are loaded", () => {
   render(
     <ThemeProvider theme={theme}>
-    <QueryClientProvider client={queryClient}>
-				<BrowserRouter>
-          <HistoricalData/>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <HistoricalData />
         </BrowserRouter>
-		</QueryClientProvider>
-    </ThemeProvider> 
-    )
-    expect(screen.getByTestId('vantagescoreedit')).toBeInTheDocument(); 
+      </QueryClientProvider>
+    </ThemeProvider>
+  )
+  expect(screen.getByTestId('vantagescoreedit')).toBeInTheDocument();
 })

@@ -1,4 +1,4 @@
-import { makeStyles, createStyles } from "@mui/styles";
+import { createStyles, makeStyles } from "@mui/styles";
 
 //Styling Part
 const useStylesMFA = makeStyles((theme) =>

@@ -1,28 +1,28 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import RecentPayments from './RecentPayments';
-import PaymentHistory from '../PaymentHistory/PaymentHistory';
-import { BrowserRouter } from "react-router-dom"
-import '@testing-library/jest-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import React from "react";
-import "@testing-library/jest-dom/extend-expect";
+import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
-import { createTheme} from '@mui/material/styles'
-import LoanAccount  from '../../../contexts/LoanAccount';
-import  {useAccountOverview}  from './AccountOverviewHook/useAccountOverview';
+import '@testing-library/jest-dom';
+import "@testing-library/jest-dom/extend-expect";
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import React from "react";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter } from "react-router-dom";
+import LoanAccount from '../../../contexts/LoanAccount';
+import PaymentHistory from '../PaymentHistory/PaymentHistory';
+import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
+import RecentPayments from './RecentPayments';
 import { mockData, mockDataOne } from './RecentPaymentsMockData';
 
 const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-			retry: false,
-			staleTime: 500000,
-		},
-	},
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+      staleTime: 500000,
+    },
+  },
 });
 
-jest.mock("./AccountOverviewHook/useAccountOverview", ()=>({
+jest.mock("./AccountOverviewHook/useAccountOverview", () => ({
   useAccountOverview: jest.fn(),
 }))
 
@@ -31,11 +31,11 @@ window.scrollTo = jest.fn();
 const MockRecentPayments = () => {
   return (
     <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>    
+      <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <LoanAccount>
-              <RecentPayments/>
-              <PaymentHistory/>
+            <RecentPayments />
+            <PaymentHistory />
           </LoanAccount>
         </BrowserRouter>
       </QueryClientProvider>
@@ -54,14 +54,14 @@ it("While Loading", () => {
 
 it("While Error", () => {
   useAccountOverview.mockImplementation(() => ({
-    isError:true,
+    isError: true,
   }));
   const container = render(MockRecentPayments());
   const headingElement = container.getByTestId("error_Recent_Payments");
   expect(headingElement).toBeTruthy();
 });
 
-it("Fetching data and rendering the content Test",() => {
+it("Fetching data and rendering the content Test", () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
     accountDetails: mockData,
@@ -71,7 +71,7 @@ it("Fetching data and rendering the content Test",() => {
   expect(headingElement).toBeTruthy();
 });
 
-it("Payment history Button is navigating to Payment History page", async() => {
+it("Payment history Button is navigating to Payment History page", async () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
     accountDetails: mockData,
@@ -84,7 +84,7 @@ it("Payment history Button is navigating to Payment History page", async() => {
   await waitFor(() => expect(page).toBeInTheDocument());
 });
 
-it("No Recent Payment Test",() => {
+it("No Recent Payment Test", () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
     accountDetails: mockDataOne,
