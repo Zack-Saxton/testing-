@@ -189,6 +189,9 @@
     align-items: center;
     justify-content: center;
 }
+.buttonSecondaryWrap a{
+    text-decoration: none;
+}
 #claimButton{
     border-radius: 20px;
 }

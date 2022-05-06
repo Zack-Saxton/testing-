@@ -31,7 +31,7 @@ export default function ControlledAccordions(keyFactors) {
 
   //View
   return (
-    <div >
+    <div  data-testid="keyfactors">
       <h3 className={classes.KeyFactorsHeading}>
         Key Factors Influencing Your Credit Score
       </h3>
@@ -57,7 +57,7 @@ export default function ControlledAccordions(keyFactors) {
         ))
       }
 
-      <Grid className={classes.VantageScoreCredit} data-testid="vantagescoreedit">
+      <Grid className={classes.VantageScoreCredit}>
         <p className={classes.VantageScoreText}>VantageScore® Credit Score</p>
         <p className={classes.VantageScoreText}>Mariner Finance, LLC and its affiliates, (collectively “Mariner”) is providing you access to your VantageScore ® credit score, (which is provided by VantageScore Solutions, LLC) only for your educational, personal, and non-commercial use. VantageScore ® is used by some institutions to evaluate creditworthiness and to make information more uniform between the three main credit bureaus so that consumers have a clearer understanding of their credit health. Your VantageScore® credit score is calculated by a model (as may be updated from time to time) that predicts credit risk and is just one of many credit scoring models available. Please note that your VantageScore® credit score is provided for informational purposes only and is not used by Mariner. Mariner has no responsibility for the content provided in connection with your VantageScore® credit score and cannot act on your behalf to dispute the accuracy
           of any information that appears in your credit report, other than information reported by Mariner.

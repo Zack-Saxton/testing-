@@ -270,8 +270,8 @@ function NewUser() {
 												}
 											/>
 											<p className="subText passwordMeetTxt">
-												Please ensure your password meets the following criteria: between 8 and 30 characters in length,
-												at least 1 uppercase letter, at least 1 lowercase letter, at least 1 symbol and at least 1 number.
+												Please ensure your password meets the following criteria: between 10 and 30 characters in length,
+												at least 1 uppercase letter, at least 1 lowercase letter, at least 1 symbol, and at least 1 number.
 											</p>
 											<PasswordField
 												id="confirmPasswordWrap"
