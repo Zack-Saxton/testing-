@@ -73,7 +73,7 @@ function ActiveDuty() {
 	let disableLoan = formik.values.activeDutyRank === "E4 and below" && formik.values.activeDuty === "Active Military" ? true : false;
 	//JSX part
 	return (
-		<div>
+		<div data-testid="ActiveDuty_Component">
 			<ScrollToTopOnMount />
 			<div className={classes.mainDiv}>
 				<Box>
