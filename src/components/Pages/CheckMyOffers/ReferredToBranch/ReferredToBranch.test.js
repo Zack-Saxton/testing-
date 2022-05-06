@@ -15,7 +15,7 @@ test("Text Availability test", () => {
 		</BrowserRouter>
 	);
 
-	const CongratsText  = container.getByTestId("CongratsTypography");
+	const CongratsText  = container.getByTestId("congratsTypography");
 	expect(CongratsText).toBeTruthy();
 });
 

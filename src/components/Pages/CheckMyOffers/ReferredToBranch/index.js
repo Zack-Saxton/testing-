@@ -85,7 +85,7 @@ function ReferredToBranch(props) {
 								alignItems="center"
 							>
 								<Typography
-									data-testid="CongratsTypography" 
+									data-testid="congratsTypography" 
 									id="referCongratsTxt"
 									variant="h3"
 									className="margin2p mainTextMsg smallLineHeight"
