@@ -5,8 +5,9 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from '@mui/styles';
-import { createTheme, StyledEngineProvider } from '@mui/material/styles'
-import Credit from Credit;
+import { createTheme, StyledEngineProvider } from '@mui/material/styles';
+import VantageScore from "./VantageScore";
+import Credit from  "./Credit";
 const theme = createTheme();
 
 const queryClient = new QueryClient({
@@ -18,15 +19,20 @@ const queryClient = new QueryClient({
     },
   },
 });
-it("All the text Messages are loaded", () => {
+it("Credit is Loading in the Vantage Score", () => {
   render(
     <ThemeProvider theme={theme}>
     <QueryClientProvider client={queryClient}>
 				<BrowserRouter>
-          <HistoricalData/>
-        </BrowserRouter>
+      <VantageScore>
+          <Credit/>
+      </VantageScore>
+    </BrowserRouter>
 		</QueryClientProvider>
-    </ThemeProvider> 
+    </ThemeProvider>
     )
-    expect(screen.getByTestId('creditFiles')).toBeInTheDocument(); 
+    expect(screen.getByTestId('creditFiles')).toBeInTheDocument();
 })
+
+
+
