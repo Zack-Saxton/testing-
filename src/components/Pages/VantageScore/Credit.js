@@ -68,7 +68,7 @@ export default function Credit(creditData) {
 
   //View
   return (
-    <Grid container direction="row" spacing={3}>
+    <Grid container direction="row" spacing={3} >
       <Grid className={classes.graph} item xs={12} sm={6}>
         <GaugeChart
           id="gauge-chart4"
@@ -99,7 +99,7 @@ export default function Credit(creditData) {
         <p>{compareLastmnth}</p>
         {(loanStatus && loanStatus?.toLowerCase() !== "closed") &&
           <>
-            <ButtonPrimary onClick={navigateCheckMyOffers} data-testid="creditFiles"stylebutton='{"background": ""}' >
+            <ButtonPrimary onClick={navigateCheckMyOffers} stylebutton='{"background": ""}'>
               {" "}
               Check My Offers
             </ButtonPrimary>

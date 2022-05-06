@@ -65,7 +65,7 @@ export default function VantageScore() {
             </Typography>
           </Grid>
         </Grid>
-        <div id="creditContainer">
+        <div id="creditContainer" data-testid="creditFiles">
           <Grid item xs={12}>
             <Paper id="vantageScorePaper" className={classes.paper}>
               {creditData ? (
@@ -88,8 +88,8 @@ export default function VantageScore() {
             </Paper>
           </Grid>
         </div>
-        <div id="dropDown" className={classes.root}>
-          <Paper>
+        <div id="dropDown" className={classes.root} data-testid="keyfactors">
+          <Paper data-testid="keyfactors-loading">
             {keyFactors && creditData ? (
               creditData[ 0 ]?.parsed.vantage_score ? (
                 <KeyFactors keyFactors={keyFactors} />) : <Paper className={classes.paper}><div>You do not have any Key Factor</div></Paper>
