@@ -30,11 +30,11 @@ export default function BranchLocatorFooter() {
           link: `${ process.env.REACT_APP_WEBSITE }/personal-loans/vacation-loans/`,
         },
         {
-          name: "Loan for Debt Consolidation",
+          name: "Debt Consolidation Loans",
           link: `${ process.env.REACT_APP_WEBSITE }/personal-loans/debt-consolidation-loans/`,
         },
         {
-          name: "Loan for Home Improvements",
+          name: "Home Improvement Loans",
           link: `${ process.env.REACT_APP_WEBSITE }/personal-loans/home-improvement-loans/`,
         },
         {
@@ -64,15 +64,15 @@ export default function BranchLocatorFooter() {
       title: "Car Loans",
       description: [
         {
-          name: "Auto Refinancing Loan",
+          name: "Auto Refinancing Loans",
           link: `${ process.env.REACT_APP_WEBSITE }/car-loans/auto-refinance/`,
         },
         {
-          name: "Finance Car Loan",
+          name: "Finance Car Loans",
           link: `${ process.env.REACT_APP_WEBSITE }/car-loans/new-car-loan/`,
         },
         {
-          name: "Finance a Used Car",
+          name: "Finance Used Car Loans",
           link: `${ process.env.REACT_APP_WEBSITE }/car-loans/used-car-loan/`,
         },
       ],
@@ -89,10 +89,6 @@ export default function BranchLocatorFooter() {
           link: `${ process.env.REACT_APP_WEBSITE }/home-loans/home-refinance/`,
         },
         {
-          name: "FHA Loans and VA Loans",
-          link: `${ process.env.REACT_APP_WEBSITE }/home-loans/fha-and-va-loans/`,
-        },
-        {
           name: "Meet our Loan Officers",
           link: `${ process.env.REACT_APP_WEBSITE }/home-loans/meet-our-loan-officers/`,
         },
@@ -106,7 +102,7 @@ export default function BranchLocatorFooter() {
           link: `${ process.env.REACT_APP_WEBSITE }/resources/how-to-apply/`,
         },
         {
-          name: "FAQ",
+          name: "FAQs",
           link: "/faq",
         },
         {
@@ -123,20 +119,20 @@ export default function BranchLocatorFooter() {
       title: "Quick Links",
       description: [
         {
-          name: "Why Us",
-          link: `${ process.env.REACT_APP_WEBSITE }/why-mariner-finance/`,
+          name: "Careers",
+          link: `${ process.env.REACT_APP_WEBSITE }/why-mariner-finance/careers/`,
         },
         {
-          name: "Branch Locator",
-          link: "branch-locator",
+          name: "Resume Application",
+          link: `${ process.env.REACT_APP_WEBSITE }/customer-support/`,
         },
         {
           name: "Customer Support",
           link: `${ process.env.REACT_APP_WEBSITE }/customer-support/`,
         },
         {
-          name: "Careers",
-          link: `${ process.env.REACT_APP_WEBSITE }/why-mariner-finance/careers/`,
+          name: "Branch Locator",
+          link: "/branch-locator",
         },
       ],
     },
@@ -166,6 +162,14 @@ export default function BranchLocatorFooter() {
         {
           name: "Website Accessibility",
           link: `${ process.env.REACT_APP_WEBSITE }/resources/legal/#fusion-tab-websiteaccessibilitystatement`,
+        },
+        {
+          name: "California Personal Information Collection Notice",
+          link: `${ process.env.REACT_APP_WEBSITE }/resources/legal/#fusion-tab-privacystatement`,
+        },
+        {
+          name: "California Residents – Do Not Sell My Personal Information",
+          link: "#",
         },
       ],
     },
