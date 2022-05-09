@@ -250,7 +250,7 @@ export default function BranchLocator() {
     <Grid>
 
       <Typography className="mainHeading">
-        Apply Online For a Personal Loans
+        <b>Apply Online</b> For a Personal Loan
       </Typography>
       <p className="mainParagraph">
         Do you live in one of the 24 states in which we operate and need a
@@ -258,7 +258,7 @@ export default function BranchLocator() {
         you’re in luck! You can apply online today*. It’s quick, easy, and secure.
       </p>
       <Typography className="mainHeading">
-        Need money but don’t know much about personal loans?
+        <b>Need money</b> but don’t know much about personal loans?
       </Typography>
       <p className="mainParagraph">
         You’re not alone. We understand taking out a personal loans may be a big decision
@@ -490,9 +490,7 @@ export default function BranchLocator() {
           </h4>
 
           <Typography className="branchLocatorHeading">
-            <b className="numberText">470+</b>
-
-            <span className="branchSmallText">Branches in 24 states</span>
+            <span className="branchSmallText"><b>Operating coast-to-coast</b> with physical locations in over half the states</span>
           </Typography>
 
           <Typography className="branchLocatorHeading">
