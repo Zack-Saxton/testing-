@@ -7,7 +7,7 @@ import CitizenshipStatus from "./index.js";
 
 afterEach(cleanup);
 
-test("Availability test One", () => {
+test("Select On Highlight Test", () => {
 	const container = render(
 		<BrowserRouter>
 			<CheckMyOffers>
