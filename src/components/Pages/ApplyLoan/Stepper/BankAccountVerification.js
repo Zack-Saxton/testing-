@@ -117,7 +117,7 @@ export default function BankAccountVerification(props) {
 				repayment: paymnetMode,
 			};
 			if (verifyRequired && !fileUploadSuccess) {
-				toast.error(messages?.bankAccountVerification?.pleaseUploadDoc);
+				toast.error(messages?.bankAccountVerification?.notValid);
 				props.setLoadingFlag(false);
 			}
 			else if (verifyRequired && fileUploadSuccess) {
