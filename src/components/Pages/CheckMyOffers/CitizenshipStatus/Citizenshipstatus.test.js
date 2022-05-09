@@ -1,12 +1,13 @@
 import { cleanup, fireEvent, render } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import CheckMyOffers from "../../../contexts/CheckMyOffers";
+import CheckMyOffers from "../../../../contexts/CheckMyOffers";
 import CitizenshipStatus from "./index.js";
 
 afterEach(cleanup);
 
-test("Availability test", () => {
+test("Select On Highlight Test", () => {
 	const container = render(
 		<BrowserRouter>
 			<CheckMyOffers>

@@ -136,7 +136,7 @@ function CitizenshipStatus() {
 										<Paper
 											id="usButton"
 											elevation={3}
-											data-test-id="usCitizen"
+											data-testid="usCitizen"
 											className={
 												citizenship === citizenshipData.USCitizen
 													? "activeBorder radioBlock "
@@ -153,7 +153,7 @@ function CitizenshipStatus() {
 										<Paper
 											id="permanentResidentButton"
 											elevation={3}
-											data-test-id="permanentResident"
+											data-testid="permanentResident"
 											className={
 												citizenship === citizenshipData.permanentResident
 													? "activeBorder radioBlock "
@@ -170,7 +170,7 @@ function CitizenshipStatus() {
 										<Paper
 											id="foreignResidentButton"
 											elevation={3}
-											data-test-id="foreignResident"
+											data-testid="foreignResident"
 											className={
 												citizenship === citizenshipData.foreignResident
 													? "activeBorder radioBlock "
@@ -195,7 +195,7 @@ function CitizenshipStatus() {
 									<Grid item lg={8} md={8} xs={12} className="alignButton">
 										<ButtonPrimary
 											onClick={handleRoute}
-											data-test-id="citizenshipContButton"
+											data-testid="citizenshipContButton"
 											disabled={
 												!citizenship || citizenship === citizenshipData.foreignResident
 											}

@@ -11,15 +11,18 @@ import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import Moment from "moment";
 import React from "react";
+import { useQuery } from 'react-query';
 import NumberFormat from 'react-number-format';
 import { NavLink } from "react-router-dom";
 import { useStylesLoanHistory } from "./Style";
+import usrAccountDetails from "../../Controllers/AccountOverviewController"
 import "./Style.css";
 
-export default function LoanHistoryTable(historyOfLoans) {
+export default function LoanHistoryTable() {
 
   //Material UI css class
   const classes = useStylesLoanHistory();
+  const { isLoading, data: loanHistoryStatus } = useQuery('loan-data', usrAccountDetails);
 
   //View part
   return (
@@ -36,12 +39,13 @@ export default function LoanHistoryTable(historyOfLoans) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {!historyOfLoans?.userLoanHistoryData ? (
+            {isLoading && (
               <TableRow>
                 <TableCell colSpan="7" align="center"><CircularProgress /></TableCell>
               </TableRow>
-            ) : historyOfLoans?.userLoanHistoryData?.length ? (
-              historyOfLoans?.userLoanHistoryData.map((row) => (
+            )}  
+            { loanHistoryStatus?.data?.activeLoans?.length && (
+              loanHistoryStatus?.data?.activeLoans.map((row) => (
                 <TableRow key={row.loanData.accountNumber}>
                   <TableCell component="th" className={classes.tableHeadRow} scope="row" align="left">{row.loanData.accountNumber}</TableCell>
                   <TableCell className={classes.tableHeadRow} align="left" >{row.loanData?.loanOriginationDate ? Moment(row.loanData.loanOriginationDate).format("MM/DD/YYYY") : ''}</TableCell>
@@ -60,7 +64,8 @@ export default function LoanHistoryTable(historyOfLoans) {
                   </TableCell>
                 </TableRow>
               ))
-            ) : (
+            )} 
+            { !isLoading && !loanHistoryStatus?.data?.activeLoans?.length && (
               <TableRow>
                 <TableCell colSpan="7" align="center">You do not have an active loan</TableCell>
               </TableRow>
