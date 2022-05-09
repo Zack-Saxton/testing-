@@ -10,28 +10,28 @@ import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { useStylesLoanHistory } from "./Style";
 import "./Style.css";
 
-export default function LoanHistoryCard(historyOfLoans) {
+export default function LoanHistoryCard() {
 
   const navigate = useNavigate();
   //Material UI css class
   const classes = useStylesLoanHistory();
 
-  const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
+  const { data: loanHistoryStatus } = useQuery('loan-data', usrAccountDetails);
   const [ checkPresenceOfLoan, setCheckPresenceOfLoan ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const [ currentLoan, setCurrentLoan ] = useState(true);
 
   useEffect(() => {
-    let activeLoan = dataAccountOverview?.data?.applicants;
+    let activeLoan = loanHistoryStatus?.data?.applicants;
 
     const presenceOfLoan = activeLoan?.some((applicant) => applicant?.isActive && applicant?.status !== "referred" && applicant?.status !== "contact_branch");
     const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant?.isActive);
-    const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
+    const userAccountStatus = loanHistoryStatus?.data?.customer?.user_account?.status;
 
     setCurrentLoan(presenceOfLoan || userAccountStatus === "closed" ? true : false);
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
     setCheckPresenceOfLoan(presenceOfLoan);
-  }, [ dataAccountOverview ]);
+  }, [ loanHistoryStatus ]);
 
   const redirectToApplyForLoan = () => {
     navigate("/customers/applyForLoan", { state: { from: "user" } });
@@ -53,12 +53,12 @@ export default function LoanHistoryCard(historyOfLoans) {
             <Paper className={classes.papertotal} id="cardLoanHistory-bg">
               <div className={classes.cardContentLoanHistory}>
                 Total Number of Loans
-                {!historyOfLoans?.userLoanHistoryCard ? (
+                {!loanHistoryStatus ? (
                   <p>0</p>
                 ) : (
                   <p id="numberOfLoans" className={classes.cardAmountLoanHistory}>
-                    {historyOfLoans?.userLoanHistoryCard?.length
-                      ? ('0' + historyOfLoans.userLoanHistoryCard.length).slice(-2)
+                    {loanHistoryStatus?.data?.activeLoans?.length
+                      ? ('0' + loanHistoryStatus.data.activeLoans.length).slice(-2)
                       : 0}
                   </p>
                 )}
