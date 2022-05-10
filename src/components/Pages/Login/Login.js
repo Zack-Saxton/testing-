@@ -13,7 +13,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { useQueryClient, useQuery } from "react-query";
+import { useQueryClient } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -53,7 +53,6 @@ export default function Login(props) {
   const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
   const [ disableRecaptcha, setDisableRecaptcha ] = useState(true);
   const queryClient = useQueryClient();
-  const {data:ClientIP} = useQuery('ipaddress', getClientIp);
   let location = useLocation();
 
   const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
@@ -64,7 +63,8 @@ export default function Login(props) {
   window.onReCaptchaSuccess = async function () {
     try {
       let grecaptchaResponse = grecaptcha.getResponse();
-      let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ClientIP);
+      let ipAddress = await getClientIp();
+      let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
 
       if (recaptchaVerifyResponse.status === 200) {
         toast.success(globalMessages.Recaptcha_Verify);
@@ -95,19 +95,18 @@ export default function Login(props) {
     // On login submit
     onSubmit: async (values) => {
       setLoading(true);
-      // Sending value to  login controller
+      let ipAddress = await getClientIp();
+      //Sending value to  login controller
       let retVal = await LoginController(
         values?.email,
         values?.password,
-        ClientIP,
-        'Mozilla HP', //It is static for now. Will add the dynamic code later
+        ipAddress,
         props?.setToken
       );
-      if(!retVal?.data?.user?.extensionattributes?.MFA){
       if (retVal?.data?.user && retVal?.data?.userFound) {
         let login_date = retVal?.data?.user?.extensionattributes?.login
           ?.last_timestamp_date
-          ? moment(retVal.data.user.extensionattributes.login.last_timestamp_date)
+          ? moment(retVal?.data?.user?.extensionattributes?.login?.last_timestamp_date)
             .subtract(addVal, "hours")
             .format("MM/DD/YYYY")
           : "";
@@ -122,7 +121,6 @@ export default function Login(props) {
             applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
           })
         );
-        Cookies.set("mfaData", JSON.stringify(retVal?.data?.user?.extensionattributes));
         Cookies.set("cred", encryptAES(JSON.stringify({ email: values?.email, password: values?.password })));
         Cookies.set("email", values?.email);
         Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
@@ -160,16 +158,8 @@ export default function Login(props) {
         setLoading(false);
         alert(globalMessages.Network_Error);
       }
-    } else {
-      navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes}}); 
-    }
     },
   });
-
-  const emailOnChange = (event) => {
-    setLoginFailed("");
-    formik.handleChange(event);
-  }
 
   const passwordOnChange = (event) => {
     setLoginFailed("");
@@ -263,7 +253,7 @@ export default function Login(props) {
                         }
                         onKeyDown={preventSpace}
                         value={formik.values?.email}
-                        onChange={emailOnChange}
+                        onChange={passwordOnChange}
                         onBlur={formik.handleBlur}
                         disablePaste={true}
                         error={
