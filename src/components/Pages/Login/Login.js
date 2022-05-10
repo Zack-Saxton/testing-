@@ -273,7 +273,7 @@ export default function Login(props) {
                         id="password"
                         type="password"
                         onKeyDown={preventSpace}
-                        materialProps={{ maxLength: "100" }}
+                        materialProps={{ maxLength: "30" }}
                         value={formik.values?.password}
                         onChange={passwordOnChange}
                         onBlur={formik.handleBlur}
