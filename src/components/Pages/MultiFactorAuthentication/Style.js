@@ -32,6 +32,7 @@ const useStylesMFA = makeStyles((theme) =>
       color: "#ffbc23",
     },
     twoStepPaper: {
+      width: "100%",
       padding: "20px 40px",
       margin: "40px 0px",
       boxSizing: "border-box",
