@@ -91,6 +91,10 @@
 
 #selectActiveDuty div label {
 	font-size: 0.968rem !important;
+	margin-left: -14px;
+}
+#selectActiveDuty div p {
+	margin: 3px 0px;
 }
 
 #selectActiveDuty div div:nth-child(2) {
@@ -99,8 +103,11 @@
 
 #activeDutyRankWrap div label {
 	font-size: 0.968rem !important;
+	margin-left: -14px;
 }
-
+#activeDutyRankWrap div p {
+	margin: 3px 0px;
+}
 #activeDutyRankWrap div div:nth-child(2) {
 	padding-bottom: 6px !important;
 }

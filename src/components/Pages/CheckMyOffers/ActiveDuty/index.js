@@ -202,11 +202,17 @@ function ActiveDuty() {
 												}
 											/>
 										</Grid>
+										<Grid
+										item
+										lg={8}
+										md={8}
+										xs={12}
+										>
 										<h4
 											className={disableLoan ? "showMsg" : "hideMsg"}
 										>
-											Unfortunately, based on the application information provided, <br />you do not meet our application requirements.
-										</h4>
+											Unfortunately, based on the application information provided, you do not meet our application requirements.</h4>							
+										</Grid>
 										<Grid item lg={8} md={8} xs={12} className="alignButton">
 											<ButtonPrimary
 												type="submit"
