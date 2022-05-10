@@ -103,7 +103,7 @@ export default function Login(props) {
         'Mozilla HP', //It is static for now. Will add the dynamic code later
         props?.setToken
       );
-      if(!retVal?.data?.user?.extensionattributes?.MFA){
+       if(!retVal?.data?.user?.extensionattributes?.MFA){
       if (retVal?.data?.user && retVal?.data?.userFound) {
         let login_date = retVal?.data?.user?.extensionattributes?.login
           ?.last_timestamp_date
@@ -122,7 +122,6 @@ export default function Login(props) {
             applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
           })
         );
-        Cookies.set("mfaData", JSON.stringify(retVal?.data?.user?.extensionattributes));
         Cookies.set("cred", encryptAES(JSON.stringify({ email: values?.email, password: values?.password })));
         Cookies.set("email", values?.email);
         Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
