@@ -632,14 +632,21 @@
 	margin-left: -14px;
 }
 
+#selectMaritalStatus div p {
+	margin: 3px 0px;
+}
+
+#activeDutySelect,#activeDutyRank {
+	display: flex;
+}
 #activeDutySelect .subOption {
 	color: #171717 !important;
-
+	padding: 0 !important;
 }
 
 #activeDutyRank .subOption {
 	color: #171717 !important;
-
+	padding: 0 !important;
 }
 
 @media (min-width: 600px) {
