@@ -112,6 +112,7 @@
   "Error_executing_mapInformationBranchLocator": "Error from mapInformationBranchLocator",
   "Error_executing_RegisterController_API": "Error executing RegisterController API",
   "Error_executing_MyBranchAPI_API": "Error executing MyBranchAPI API",
+  "Error_executing_Verify_Login_Passcode_API": "Error executing MyBranchAPI API",
   "Error_executing_mailingAddress_API": "Error executing mailingAddress API",
   "Error_executing_textNotification_API": "Error executing textNotification API",
   "Error_executing_uploadNewProfileImage_API": "Error executing uploadNewProfileImage API",
