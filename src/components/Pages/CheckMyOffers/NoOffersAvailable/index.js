@@ -66,7 +66,7 @@ function NoOffersAvailable(props) {
 								justifyContent="center"
 								alignItems="center"
 							>
-								<img className="noOffersAvailableImage" src={NoOffersAvailableLogo} alt="NoOffersAvailable" />
+								<img data-testid="noOffersAvailableImage" className="noOffersAvailableImage" src={NoOffersAvailableLogo} alt="NoOffersAvailable" />
 							</Grid>
 						</Grid>
 						<br />
@@ -90,6 +90,7 @@ function NoOffersAvailable(props) {
 								alignItems="center"
 							>
 								<Typography
+									data-testid="noOffersTypography"
 									variant="h4"
 									className="mobileFontSize lessBorrowCSS margin2p"
 								>
@@ -117,6 +118,7 @@ function NoOffersAvailable(props) {
 								alignItems="center"
 							>
 								<Typography
+									data-testid="noOffersBrifTypography"
 									variant="h6"
 									className="mobileFontParagraph lessBorrowCSS "
 								>
