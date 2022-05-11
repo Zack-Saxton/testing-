@@ -434,11 +434,11 @@
 
 .branchImage {
   background-color: #f6f6f6 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.branchImage img {
-  max-width: 100%;
-}
 
 .greyBackground {
   background-color: #f6f6f6 !important;
@@ -458,6 +458,7 @@
 .mobileImage {
   display: none;
   width: 100%;
+  max-width: 100%;
 }
 
 #getDirectionSearch {
@@ -639,7 +640,6 @@
 .branchLayoutGrid {
   max-width: 1200px;
   width: 100%;
-  min-height: 70vh;
 }
 
 .blueBoxWrap {
@@ -855,9 +855,15 @@
   margin-top: 14px;
   display: inline-block;
 }
+.webImage{
+  max-width: 93%;
+}
 @media only screen and (max-width: 1200px) {
   .staticTextWrap {
     margin: 10px 30px 20px 30px;
+  }
+  .branchLayoutGrid{
+    min-height: 60vh;
   }
 }
 
@@ -993,6 +999,9 @@
 
   .personalLoanText h3 {
     font-size: 1.25rem !important;
+  }
+  .webImage{
+    max-width:unset;
   }
 }
 
