@@ -1,3 +1,4 @@
+import CloseIcon from "@mui/icons-material/Close";
 import { FormControlLabel } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -8,7 +9,6 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";

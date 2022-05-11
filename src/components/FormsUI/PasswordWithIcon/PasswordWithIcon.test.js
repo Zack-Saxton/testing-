@@ -41,4 +41,3 @@ test('should match the snapshot', () => {
   const { asFragment } = render(component());
   expect(asFragment).toMatchSnapshot();
 });
-

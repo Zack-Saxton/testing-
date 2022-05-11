@@ -4,6 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from '@mui/material/DialogContent';
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
+import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 import { useQuery } from 'react-query';
@@ -19,9 +20,8 @@ import Disclaimer from "./Marketing_offer/Disclaimer";
 import MarketingOffer from "./Marketing_offer/MarketingOffer";
 import OptOutNotice from "./Marketing_offer/OptOutNotice";
 import PreScreen from "./Marketing_offer/PreScreen";
+import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
-import Typography from '@mui/material/Typography'
-import { useStylesAccountOverview } from "./Style"
 
 export default function LimitedOffer(userOfferData) {
 
@@ -78,12 +78,12 @@ export default function LimitedOffer(userOfferData) {
             <Grid className="yellowBackground">
               <Grid container item md={6} lg={6}>
 
-              <img
-                className="bannerImage"
-                src={adBanner}
-                data-testid="background"
-                alt="ad_banner"
-              />
+                <img
+                  className="bannerImage"
+                  src={adBanner}
+                  data-testid="background"
+                  alt="ad_banner"
+                />
               </Grid>
               <Grid item md={6} lg={6} className="secondGrid">
                 {userOfferData.isLoading ? (
@@ -95,7 +95,7 @@ export default function LimitedOffer(userOfferData) {
 
                       <Typography id="personalText" variant="h6" color="initial">
                         You may have money available now! Up to
-                      </Typography> 
+                      </Typography>
                       <NumberFormat
                         id="offerMoney"
                         value={userOfferAmount}
@@ -106,13 +106,13 @@ export default function LimitedOffer(userOfferData) {
                     </Grid>
                     <Grid id="applyForLoanLink">
 
-                    <ButtonPrimary
-                      onClick={showModal}
-                      id="applyForLoanButton"
-                      stylebutton='{"color":""}'
-                    >
-                      Check My Offer
-                    </ButtonPrimary>
+                      <ButtonPrimary
+                        onClick={showModal}
+                        id="applyForLoanButton"
+                        stylebutton='{"color":""}'
+                      >
+                        Check My Offer
+                      </ButtonPrimary>
                     </Grid>
                   </div>
                 ) : (
@@ -120,8 +120,8 @@ export default function LimitedOffer(userOfferData) {
 
                     <Grid className="offerTextWrap">
                       <Typography id="personalText" variant="h6" color="initial">
-                        Personal loans <br/> with a personal touch
-                      </Typography> 
+                        Personal loans <br /> with a personal touch
+                      </Typography>
                     </Grid>
                     <NavLink
                       id="applyForLoanLink"
@@ -139,7 +139,7 @@ export default function LimitedOffer(userOfferData) {
                         Apply for a Loan
                       </ButtonPrimary>
                     </NavLink>
-                    <small>  
+                    <small>
                       <i className="disclosureLink">*Important disclosure information </i>
                     </small>
                   </div>
@@ -151,36 +151,38 @@ export default function LimitedOffer(userOfferData) {
         <Grid className="secondBannerWrapNewtop" item sm={6} md={6} xs={12} lg={6} xl={6}>
           <Grid className="imageholdernew">
             <Grid className="greyBackgroundHolder">
-                <Grid className={classes.secondBannerImage} container item  md={5}>
-                  <img
+              <Grid className={classes.secondBannerImage} container item md={5}>
+                <img
                   className="secondBannerImage"
                   src={MortgageBanner}
                   data-testid="background"
                   alt="mortgage_banner"
-                  />
+                />
+              </Grid>
+              <Grid className="mortgageText" container item md={7} >
+                <Typography className="mortgageHeading" variant="h4">
+                  Put Your Home{"'"}s <br /> Equity To Work!
+                </Typography>
+                <Typography className="mortgageParagraph" variant="h6">
+                  refinance your mortgage
+                </Typography>
+                <Grid className="buttonSecondaryWrap" container>
+                  <a rel="noreferrer" target="_blank" href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage" alt="mortgage link">
+                    <ButtonSecondary
+                      id="applyNowButton"
+                      stylebutton='{"color":"", "textTransform": ""}'
+                    >
+                      Apply Now
+                    </ButtonSecondary>
+                  </a>
                 </Grid>
-                <Grid className="mortgageText" container item  md={7} >
-                  <Typography className="mortgageHeading" variant="h4">
-                      Put Your Home{"'"}s <br/> Equity To Work!
-                  </Typography>
-                  <Typography className="mortgageParagraph" variant="h6">
-                      refinance your mortgage
-                  </Typography>
-                  <Grid className="buttonSecondaryWrap" container>
-                      <ButtonSecondary
-                           id="applyNowButton"
-                           stylebutton='{"color":"", "textTransform": ""}'
-                         >
-                           Apply Now
-                         </ButtonSecondary>
-                  </Grid>
-                  <Typography className="adText">
-                  <small>  
-                      <i className="disclosureLink">No payments until Aug 2022* </i>
-                    </small>
-                      
-                  </Typography>
-                </Grid>
+                <Typography className="adText">
+                  <small>
+                    <i className="disclosureLink">No payments until Aug 2022* </i>
+                  </small>
+
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

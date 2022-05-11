@@ -227,7 +227,7 @@ export default function PhoneVerification(props) {
 				</Grid>
 				<div data-testid="enterPasscode" className={hasPasscode ? "open" : "close"}>
 					<Grid item sm={5}>
-						<TextField	
+						<TextField
 							name="firstName"
 							label="Enter Passcode"
 							value={passcode}

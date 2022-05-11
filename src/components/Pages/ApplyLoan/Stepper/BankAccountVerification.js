@@ -1,15 +1,15 @@
+import CloseIcon from "@mui/icons-material/Close";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import FormHelperText from "@mui/material/FormHelperText";
 import Grid from "@mui/material/Grid";
-import { makeStyles } from "@mui/styles";
 import TextFieldWithToolTip from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import CloseIcon from "@mui/icons-material/Close";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -117,7 +117,7 @@ export default function BankAccountVerification(props) {
 				repayment: paymnetMode,
 			};
 			if (verifyRequired && !fileUploadSuccess) {
-				toast.error(messages?.bankAccountVerification?.pleaseUploadDoc);
+				toast.error(messages?.bankAccountVerification?.notValid);
 				props.setLoadingFlag(false);
 			}
 			else if (verifyRequired && fileUploadSuccess) {
@@ -239,7 +239,7 @@ export default function BankAccountVerification(props) {
 							name="bankRoutingNumber"
 							style={{ width: "100%" }}
 							value={formik.values.bankRoutingNumber}
-							inputProps={{ maxLength: "9", "data-test-id": "BRN" }}
+							inputProps={{ maxLength: "9", "data-testid": "bankRoutingNumber" }}
 							onChange={(event) => {
 								setInvalidRN(false);
 								restrictTextOnChange(event);
@@ -304,7 +304,7 @@ export default function BankAccountVerification(props) {
 							disabled={true}
 							inputProps={{
 								maxLength: "100",
-								"data-test-id": "bankInformation",
+								"data-testid": "bankInformation",
 							}}
 							onBlur={formik.handleBlur}
 							error={

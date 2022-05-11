@@ -295,289 +295,289 @@ export default function StatePage() {
         </Grid>
         <Grid className="mapAndListWrap">
           <Grid className="whiteBackgroundGrid">
-          <Grid
-            className="mapWrap"
-            ref={refMapSection}
-            container
-          >
-            <h3 className="mapTopHeading">Branches Near You</h3>
             <Grid
-              id="mapGridWrap"
-              item
-              xs={12}
-              sm={12}
-              md={6}
-              xl={6}
-            >
-              <Map
-                id="mapBox"
-                googleMap={googleMap}
-                CurrentLocation={currentLocation}
-                Zoom={zoomDepth}
-              />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={6}
-              xl={6}
-              className="personalLoanGrid"
-            >
-              <Grid className="personalLoanText">
-                <h4 className="PesonalLoanHeading">
-                  <span>Personal Loans in {name}</span>
-                </h4>
-                <p className="PesonalLoanParagraph">
-                  Mariner Finance branches are all over {name}, from {" "}
-                  {branchList && <ShowFirstandLastBranch BranchInformation={branchList[ 0 ]} />}
-                  {" "} to {" "}
-                  {branchList && <ShowFirstandLastBranch BranchInformation={branchList[ branchList.length - 1 ]} />}
-                  . Use our interactive map to locate the one closest to
-                  you.
-                </p>
-                <h3>We’re here for you.</h3>
-                <p className="PesonalLoanParagraph">
-                  Every one of our {name} branches share a common benefit: lending
-                  professionals proud of the neighborhoods they live and work in,
-                  who are totally focused on solving your personal financial
-                  challenges.
-                </p>
-                <p className="PesonalLoanParagraph">
-                  For all the reasons to choose Mariner Finance, visit{" "}
-                  <Link
-                    target="_blank"
-                    rel="link"
-                    className="Links"
-                    href="https://www.marinerfinance.com/why-mariner-finance/"
-                  >
-                    Why Us{" "}
-                  </Link>
-                  .
-                </p>
-              </Grid>
-            </Grid>
-
-          </Grid>
-          <Grid id="greyBackground" container>
-            <Grid
-              id="getDirectionButton"
+              className="mapWrap"
+              ref={refMapSection}
               container
-              className={classes.gridPadding}
-              item
-              md={6}
-              sm={12}
-              xs={12}
             >
-              <ButtonPrimary
-                href={branchAddress}
-                id="Continue"
-                onClick={() => {
-                  if (refSearch2.current.value) {
-                    openGetDirectionModal();
-                    setBranchAddress(`https://www.google.com/maps/search/${ refSearch2.current.value }`);
-                    setAddress2("");
-                  } else if (branchList && branchList[ 0 ]?.Address) {
-                    openGetDirectionModal();
-                    setBranchAddress(`https://www.google.com/maps/search/${ branchList[ 0 ]?.Address }`);
-                  }
-                  else {
-                    toast.error(`Please enter address in search.`);
-                  }
-                }}
-                stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'
-                target="_blank"
+              <h3 className="mapTopHeading">Branches Near You</h3>
+              <Grid
+                id="mapGridWrap"
+                item
+                xs={12}
+                sm={12}
+                md={6}
+                xl={6}
               >
-                Get Driving Directions To Nearest Location
-              </ButtonPrimary>
-            </Grid>
-            <Grid id="searchBoxBottom" item md={6} sm={12} xs={12}>
-              <Grid id="findBranchGrid">
-                <p className="zipLabel">
-                  {" Can't find it? Try searching another "}
-                </p>
-                <SearchIcon
-                  className="searchIconBottomTwo"
+                <Map
+                  id="mapBox"
+                  googleMap={googleMap}
+                  CurrentLocation={currentLocation}
+                  Zoom={zoomDepth}
                 />
-                <PlacesAutocomplete
-                  id="addressOne"
-                  value={address2}
-                  onChange={setAddress2}
-                  onSelect={handleSelect2}
-                >
-                  {({
-                    getInputProps,
-                    suggestions,
-                    getSuggestionItemProps,
-                    loading2,
-                  }) => (
-                    <div className="searchInputWrap">
-                      <input
-                        id="search2"
-                        ref={refSearch2}
-                        className="branchSearchTwo"
-                        {...getInputProps({
-                          placeholder: "Enter city & state or zip code",
-                        })}
-                      />
-                      <div className="serachResult">
-                        {loading2 && <div>Loading...</div>}
-                        {suggestions.map((suggestion) => {
-                          const style = {
-                            backgroundColor: suggestion.active
-                              ? "#41b6e6"
-                              : "#fff",
-                          };
-                          return (
-                            <div
-                              key={suggestion.placeId}
-                              {...getSuggestionItemProps(suggestion, {
-                                style,
-                              })}
-                            >
-                              <span>{suggestion.description}</span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-                </PlacesAutocomplete>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={6}
+                xl={6}
+                className="personalLoanGrid"
+              >
+                <Grid className="personalLoanText">
+                  <h4 className="PesonalLoanHeading">
+                    <span>Personal Loans in {name}</span>
+                  </h4>
+                  <p className="PesonalLoanParagraph">
+                    Mariner Finance branches are all over {name}, from {" "}
+                    {branchList && <ShowFirstandLastBranch BranchInformation={branchList[ 0 ]} />}
+                    {" "} to {" "}
+                    {branchList && <ShowFirstandLastBranch BranchInformation={branchList[ branchList.length - 1 ]} />}
+                    . Use our interactive map to locate the one closest to
+                    you.
+                  </p>
+                  <h3>We’re here for you.</h3>
+                  <p className="PesonalLoanParagraph">
+                    Every one of our {name} branches share a common benefit: lending
+                    professionals proud of the neighborhoods they live and work in,
+                    who are totally focused on solving your personal financial
+                    challenges.
+                  </p>
+                  <p className="PesonalLoanParagraph">
+                    For all the reasons to choose Mariner Finance, visit{" "}
+                    <Link
+                      target="_blank"
+                      rel="link"
+                      className="Links"
+                      href="https://www.marinerfinance.com/why-mariner-finance/"
+                    >
+                      Why Us{" "}
+                    </Link>
+                    .
+                  </p>
+                </Grid>
+              </Grid>
+
+            </Grid>
+            <Grid id="greyBackground" container>
+              <Grid
+                id="getDirectionButton"
+                container
+                className={classes.gridPadding}
+                item
+                md={6}
+                sm={12}
+                xs={12}
+              >
                 <ButtonPrimary
-                  className="branchSearchButton"
-                  onClick={getActivePlaces}
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
+                  href={branchAddress}
+                  id="Continue"
+                  onClick={() => {
+                    if (refSearch2.current.value) {
+                      openGetDirectionModal();
+                      setBranchAddress(`https://www.google.com/maps/search/${ refSearch2.current.value }`);
+                      setAddress2("");
+                    } else if (branchList && branchList[ 0 ]?.Address) {
+                      openGetDirectionModal();
+                      setBranchAddress(`https://www.google.com/maps/search/${ branchList[ 0 ]?.Address }`);
+                    }
+                    else {
+                      toast.error(`Please enter address in search.`);
+                    }
+                  }}
+                  stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'
+                  target="_blank"
                 >
-                  <ArrowForwardIcon className="goIcon" />
+                  Get Driving Directions To Nearest Location
                 </ButtonPrimary>
               </Grid>
-            </Grid>
-          </Grid>
-
-        <Grid className="findBranchWrap" item xs={12} sm={12} >
-          {loading ? (
-            <div align="center">
-              <CircularProgress />{" "}
-            </div>
-          ) : (
-            <Grid
-              id="branchLists"
-            >
-              <Grid container className="addressList">
-                {branchList ? (
-                  branchList.map((item, index) => {
-                    if (Number(item?.distance.replace(' mi', '')) <= branchDistance) {
-                      return (
-                        <Grid key={index} className="locationInfo" item lg={4} md={4} sm={6} xs={12}>
-                          <NavLink
-                            to={`/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[.]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }`}
-                            state={{ branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
-                            className="nav_link"
-                          >
-                            <b>
-                              <h4 className={classes.h4tag}>
-                                {item?.BranchName} Branch
-                              </h4>
-                            </b>
-                            <ChevronRightIcon />
-                          </NavLink>
-                          <p className={classes.ptag}>
-                            {convertDistanceUnit(item.distance)} away |{" "}
-                            {item?.BranchTime?.Value1}{" "}
-                            {item?.BranchTime?.Value2}
-                          </p>
-                          <p
-                            className={classes.addressFont}
-                            id={item?.id}
-                          >
-                            {item?.Address}
-                          </p>
-                          <p className={classes.phoneNumber}>
-                            <PhoneIcon />
-                            <a
-                              className="blueColorLink"
-                              href={"tel:+1" + item?.PhoneNumber}
-                            >
-                              {" "}
-                              {item?.PhoneNumber}
-                            </a>
-                          </p>
-                          <ButtonSecondary
-                            onClick={() => {
-                              setBranchAddress(
-                                "https://www.google.com/maps/search/" +
-                                item.Address
-                              );
-                              openGetDirectionModal();
-                            }}
-                            stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
-                          >
-                            Get Directions
-                          </ButtonSecondary>
-                        </Grid>
-                      );
-                    }
-                  })
-                ) : (
-                  <p> No Branch found.</p>
-                )}
-                <Dialog
-                  id="directionModal"
-                  open={directionModal}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                  classes={{ paper: directionsClass.consumerDialog }}
-                >
-                  <div
-                    id="closeBtn"
-                    className={directionsClass.buttonClose}
+              <Grid id="searchBoxBottom" item md={6} sm={12} xs={12}>
+                <Grid id="findBranchGrid">
+                  <p className="zipLabel">
+                    {" Can't find it? Try searching another "}
+                  </p>
+                  <SearchIcon
+                    className="searchIconBottomTwo"
+                  />
+                  <PlacesAutocomplete
+                    id="addressOne"
+                    value={address2}
+                    onChange={setAddress2}
+                    onSelect={handleSelect2}
                   >
-                    <IconButton
-                      aria-label="close"
-                      onClick={closeGetDirectionModal}
-                      className={directionsClass.closeButton}
-                    >
-                      <CloseIcon />
-                    </IconButton>
-                  </div>
-                  <h2
-                    id="consumerDialogHeading"
-                    className={directionsClass.consumerDialogHeading}
+                    {({
+                      getInputProps,
+                      suggestions,
+                      getSuggestionItemProps,
+                      loading2,
+                    }) => (
+                      <div className="searchInputWrap">
+                        <input
+                          id="search2"
+                          ref={refSearch2}
+                          className="branchSearchTwo"
+                          {...getInputProps({
+                            placeholder: "Enter city & state or zip code",
+                          })}
+                        />
+                        <div className="serachResult">
+                          {loading2 && <div>Loading...</div>}
+                          {suggestions.map((suggestion) => {
+                            const style = {
+                              backgroundColor: suggestion.active
+                                ? "#41b6e6"
+                                : "#fff",
+                            };
+                            return (
+                              <div
+                                key={suggestion.placeId}
+                                {...getSuggestionItemProps(suggestion, {
+                                  style,
+                                })}
+                              >
+                                <span>{suggestion.description}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </PlacesAutocomplete>
+                  <ButtonPrimary
+                    className="branchSearchButton"
+                    onClick={getActivePlaces}
+                    stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                   >
-                    You are about to leave marinerfinance.com
-                  </h2>
-                  <div>
-                    <p className={directionsClass.consumerParagaraph}>
-                      Mariner Finance provides this link for your
-                      convenience and is not responsible for and makes no
-                      claims or representations regarding the content, terms
-                      of use, or privacy policies of third party websites.
-                    </p>
-                  </div>
-                  <div id="buttonWrap">
-                    <ButtonSecondary
-                      id="stayBtn"
-                      onClick={closeGetDirectionModal}
-                      stylebutton='{"float": "" }'
-                    >
-                      Stay on Marinerfinance.com
-                    </ButtonSecondary>
-                    <ButtonPrimary
-                      href={branchAddress}
-                      onClick={closeGetDirectionModal}
-                      id="Continue"
-                      stylebutton='{"float": "" }'
-                      target="_blank"
-                    >
-                      Continue
-                    </ButtonPrimary>
-                  </div>
-                </Dialog>
+                    <ArrowForwardIcon className="goIcon" />
+                  </ButtonPrimary>
+                </Grid>
               </Grid>
             </Grid>
-          )}
-        </Grid>
-        </Grid>
+
+            <Grid className="findBranchWrap" item xs={12} sm={12} >
+              {loading ? (
+                <div align="center">
+                  <CircularProgress />{" "}
+                </div>
+              ) : (
+                <Grid
+                  id="branchLists"
+                >
+                  <Grid container className="addressList">
+                    {branchList ? (
+                      branchList.map((item, index) => {
+                        if (Number(item?.distance.replace(' mi', '')) <= branchDistance) {
+                          return (
+                            <Grid key={index} className="locationInfo" item lg={4} md={4} sm={6} xs={12}>
+                              <NavLink
+                                to={`/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[.]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }`}
+                                state={{ branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
+                                className="nav_link"
+                              >
+                                <b>
+                                  <h4 className={classes.h4tag}>
+                                    {item?.BranchName} Branch
+                                  </h4>
+                                </b>
+                                <ChevronRightIcon />
+                              </NavLink>
+                              <p className={classes.ptag}>
+                                {convertDistanceUnit(item.distance)} away |{" "}
+                                {item?.BranchTime?.Value1}{" "}
+                                {item?.BranchTime?.Value2}
+                              </p>
+                              <p
+                                className={classes.addressFont}
+                                id={item?.id}
+                              >
+                                {item?.Address}
+                              </p>
+                              <p className={classes.phoneNumber}>
+                                <PhoneIcon />
+                                <a
+                                  className="blueColorLink"
+                                  href={"tel:+1" + item?.PhoneNumber}
+                                >
+                                  {" "}
+                                  {item?.PhoneNumber}
+                                </a>
+                              </p>
+                              <ButtonSecondary
+                                onClick={() => {
+                                  setBranchAddress(
+                                    "https://www.google.com/maps/search/" +
+                                    item.Address
+                                  );
+                                  openGetDirectionModal();
+                                }}
+                                stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
+                              >
+                                Get Directions
+                              </ButtonSecondary>
+                            </Grid>
+                          );
+                        }
+                      })
+                    ) : (
+                      <p> No Branch found.</p>
+                    )}
+                    <Dialog
+                      id="directionModal"
+                      open={directionModal}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                      classes={{ paper: directionsClass.consumerDialog }}
+                    >
+                      <div
+                        id="closeBtn"
+                        className={directionsClass.buttonClose}
+                      >
+                        <IconButton
+                          aria-label="close"
+                          onClick={closeGetDirectionModal}
+                          className={directionsClass.closeButton}
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                      </div>
+                      <h2
+                        id="consumerDialogHeading"
+                        className={directionsClass.consumerDialogHeading}
+                      >
+                        You are about to leave marinerfinance.com
+                      </h2>
+                      <div>
+                        <p className={directionsClass.consumerParagaraph}>
+                          Mariner Finance provides this link for your
+                          convenience and is not responsible for and makes no
+                          claims or representations regarding the content, terms
+                          of use, or privacy policies of third party websites.
+                        </p>
+                      </div>
+                      <div id="buttonWrap">
+                        <ButtonSecondary
+                          id="stayBtn"
+                          onClick={closeGetDirectionModal}
+                          stylebutton='{"float": "" }'
+                        >
+                          Stay on Marinerfinance.com
+                        </ButtonSecondary>
+                        <ButtonPrimary
+                          href={branchAddress}
+                          onClick={closeGetDirectionModal}
+                          id="Continue"
+                          stylebutton='{"float": "" }'
+                          target="_blank"
+                        >
+                          Continue
+                        </ButtonPrimary>
+                      </div>
+                    </Dialog>
+                  </Grid>
+                </Grid>
+              )}
+            </Grid>
+          </Grid>
         </Grid>
         <Grid className="customerRatingsWrap">
           <CustomerRatings />

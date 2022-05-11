@@ -85,6 +85,7 @@
 #mfInfoImgOne {
   max-width: 100%;
 }
+
 .spanLeftAlignAddress {
   margin: 0;
   cursor: pointer;
@@ -96,16 +97,17 @@
 }
 
 @media all and (max-width: 1200px) {
-  #badge{
+  #badge {
     width: 100%;
   }
 }
 
 @media all and (max-width: 900px) {
-  #badge{
+  #badge {
     width: unset;
   }
 }
+
 @media all and (max-width: 700px) {
 
   #mfInfo {
@@ -133,4 +135,3 @@
     display: unset !important;
   }
 }
-

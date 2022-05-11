@@ -15,13 +15,13 @@ function NavigationContext(props) {
 
   return (
     <NavContext.Provider
-      value={ {
+      value={{
         dataNavmessage: data,
         setData,
         resetNavContext,
-      } }
+      }}
     >
-      { props.children }
+      {props.children}
     </NavContext.Provider>
   );
 }

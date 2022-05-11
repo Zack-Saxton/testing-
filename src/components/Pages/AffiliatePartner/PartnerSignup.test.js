@@ -1,14 +1,14 @@
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render,waitFor, screen,act } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import PartnerSignUp from "./PartnerSignUp";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from '@mui/styles';
-import { createTheme } from '@mui/material/styles'
-import { mockData2 } from './PartnerMockData';
-import SelectOffer from "../ApplyLoan/SelectOffer/SelectOffer"
 import NavContext from "../../../contexts/NavContext";
+import SelectOffer from "../ApplyLoan/SelectOffer/SelectOffer";
+import { mockData2 } from './PartnerMockData';
+import PartnerSignUp from "./PartnerSignUp";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -22,17 +22,17 @@ const queryClient = new QueryClient({
 const theme = createTheme();
 
 
-const component = () =>{
-	return(
+const component = () => {
+	return (
 		<ThemeProvider theme={theme}>
-		<QueryClientProvider client={queryClient}>
-			<BrowserRouter>
-        <NavContext>
-				<PartnerSignUp />
-        <SelectOffer />
-        </NavContext>
-			</BrowserRouter>
-		</QueryClientProvider>
+			<QueryClientProvider client={queryClient}>
+				<BrowserRouter>
+					<NavContext>
+						<PartnerSignUp />
+						<SelectOffer />
+					</NavContext>
+				</BrowserRouter>
+			</QueryClientProvider>
 		</ThemeProvider>
 	);
 }
@@ -44,7 +44,7 @@ test("Checks the component is rendered", () => {
 	expect(element).toBeTruthy();
 });
 
-test("Render Email ", ()=>{
+test("Render Email ", () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="email"]`);
 	fireEvent.change(input, { target: { value: "mariner@gmail.com" } });
@@ -63,7 +63,7 @@ test("Check invalid email", () => {
 	expect(input.value).not.toBe(true);
 });
 
-test("Render  Last 4 digit Social Security Number ", ()=>{
+test("Render  Last 4 digit Social Security Number ", () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="ssn"]`);
 	fireEvent.change(input, { target: { value: "1234" } });
@@ -72,7 +72,7 @@ test("Render  Last 4 digit Social Security Number ", ()=>{
 });
 
 test("Check Valid Last 4 digit Social Security Number", () => {
-  const { container } = render(component());
+	const { container } = render(component());
 	const input = container.querySelector(`input[name="ssn"]`);
 	fireEvent.change(input, { target: { value: "abc" } });
 	expect(input.value).toBe("");
@@ -81,37 +81,37 @@ test("Check Valid Last 4 digit Social Security Number", () => {
 });
 
 
-test("Render phone number ", ()=>{
-	const { container } = render(component());	
+test("Render phone number ", () => {
+	const { container } = render(component());
 	const input = container.querySelector(`input[name="callPhNo"]`);
-		fireEvent.change(input, { target: { value: "(123) 123-1233" } });			
-    expect(input).toBeTruthy();	
-    expect(input.value).toBe('(123) 123-1233');
+	fireEvent.change(input, { target: { value: "(123) 123-1233" } });
+	expect(input).toBeTruthy();
+	expect(input.value).toBe('(123) 123-1233');
 });
 
-test("Check Phonenumber masking after entering phone number", async ()=>{
-	const { container } = render(component());	
+test("Check Phonenumber masking after entering phone number", async () => {
+	const { container } = render(component());
 	const input = container.querySelector(`input[name="callPhNo"]`);
-	expect(input).toBeTruthy();	
+	expect(input).toBeTruthy();
 	await act(() => {
-		fireEvent.change(input, { target: { value: "1231231233" } });		
-		fireEvent.blur(input);	
+		fireEvent.change(input, { target: { value: "1231231233" } });
+		fireEvent.blur(input);
 	});
 	expect(input.value).not.toBe('1231231233');
 });
 
-test("Render phone Type ", ()=>{
-	const { container } = render(component());	
-	const input = container.querySelector(`input[name="phoneType"]`);		
-  expect(input).toBeTruthy();	   
+test("Render phone Type ", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="phoneType"]`);
+	expect(input).toBeTruthy();
 });
 
-test("Select phone Type ", ()=>{
-	const { container } = render(component());	
+test("Select phone Type ", () => {
+	const { container } = render(component());
 	const input = container.querySelector(`input[name="phoneType"]`);
-		fireEvent.change(input, { target: { value: "cell" } });			
-    expect(input).toBeTruthy();	
-    expect(input.value).toBe('cell');
+	fireEvent.change(input, { target: { value: "cell" } });
+	expect(input).toBeTruthy();
+	expect(input.value).toBe('cell');
 });
 
 test("Render password", () => {
@@ -124,30 +124,30 @@ test("Render password", () => {
 
 
 test('Password Length Test', () => {
-  const { container } = render(component());
-  const input = container.querySelector(`input[name="password"]`);
-  expect(input.maxLength).toBe(30);
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="password"]`);
+	expect(input.maxLength).toBe(30);
 })
 
 test('Password Prevent Cut Test', () => {
-  const { container } = render(component());
-  const input = container.querySelector(`input[name="password"]`);
-  fireEvent.cut(input);
-  expect(input.value).toBe('');
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="password"]`);
+	fireEvent.cut(input);
+	expect(input.value).toBe('');
 })
 
 test('Password Prevent Copy Test', () => {
-  const { container } = render(component());
-  const input = container.querySelector(`input[name="password"]`);
-  fireEvent.copy(input);
-  expect(input.value).toBe('');
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="password"]`);
+	fireEvent.copy(input);
+	expect(input.value).toBe('');
 })
 
 test('Password Prevent Paste Test', () => {
-  const { container } = render(component());
-  const input = container.querySelector(`input[name="password"]`);
-  fireEvent.paste(input);
-  expect(input.value).toBe('');
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="password"]`);
+	fireEvent.paste(input);
+	expect(input.value).toBe('');
 })
 
 
@@ -160,67 +160,67 @@ test("Render confirmPassword", () => {
 });
 
 test('confirmPassword Length Test', () => {
-  const { container } = render(component());
-  const input = container.querySelector(`input[name="confirmPassword"]`);
-  expect(input.maxLength).toBe(30);
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="confirmPassword"]`);
+	expect(input.maxLength).toBe(30);
 })
 
 test('confirmPassword Prevent Cut Test', () => {
-  const { container } = render(component());
-  const input = container.querySelector(`input[name="confirmPassword"]`);
-  fireEvent.cut(input);
-  expect(input.value).toBe('');
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="confirmPassword"]`);
+	fireEvent.cut(input);
+	expect(input.value).toBe('');
 })
 
 test('confirmPassword Prevent Copy Test', () => {
-  const { container } = render(component());
-  const input = container.querySelector(`input[name="confirmPassword"]`);
-  fireEvent.copy(input);
-  expect(input.value).toBe('');
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="confirmPassword"]`);
+	fireEvent.copy(input);
+	expect(input.value).toBe('');
 })
 
 test('confirmPassword Prevent Paste Test', () => {
-  const { container } = render(component());
-  const input = container.querySelector(`input[name="confirmPassword"]`);
-  fireEvent.paste(input);
-  expect(input.value).toBe('');
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="confirmPassword"]`);
+	fireEvent.paste(input);
+	expect(input.value).toBe('');
 })
 
-test("Check Password Match", async ()=>{
-	const { container } = render(component());	
-  const newPassword = container.querySelector(`input[name="password"]`);
+test("Check Password Match", async () => {
+	const { container } = render(component());
+	const newPassword = container.querySelector(`input[name="password"]`);
 	const input = container.querySelector(`input[name="confirmPassword"]`);
-	expect(input).toBeTruthy();	
+	expect(input).toBeTruthy();
 	await act(() => {
 		fireEvent.change(input, { target: { value: "Mariner1@1" } });
-    fireEvent.change(newPassword, { target: { value: "Mariner1@" } });
-    fireEvent.blur(input);	
-	});	
-  const errorInfo = container.querySelector(`p[id="cpass-helper-text"]`);
-	expect(errorInfo).toBeTruthy();	
+		fireEvent.change(newPassword, { target: { value: "Mariner1@" } });
+		fireEvent.blur(input);
+	});
+	const errorInfo = container.querySelector(`p[id="cpass-helper-text"]`);
+	expect(errorInfo).toBeTruthy();
 	expect(errorInfo).toHaveTextContent('Your confirmation password must match your password');
 });
 
 
 test("Button Onclick", () => {
-	 render(component());  
+	render(component());
 	const button = screen.getByTestId("submit");
 	fireEvent.click(button);
 });
 
 
-it("Navigate to Respective Page", async() => {
-  render(component());  
- const input = screen.getByTestId("submit");
-  expect(input).toBeTruthy();
-  fireEvent.click(input);
-  const asyncMock = jest.fn().mockResolvedValue(mockData2);
-  await asyncMock(); 
-  const page = screen.getByTestId("selectOfferComponent")
+it("Navigate to Respective Page", async () => {
+	render(component());
+	const input = screen.getByTestId("submit");
+	expect(input).toBeTruthy();
+	fireEvent.click(input);
+	const asyncMock = jest.fn().mockResolvedValue(mockData2);
+	await asyncMock();
+	const page = screen.getByTestId("selectOfferComponent")
 	await waitFor(() => expect(page).toBeInTheDocument());
 });
 
 test('Should match the snapshot', () => {
-  const { asFragment } = render(component());
-  expect(asFragment).toMatchSnapshot();
+	const { asFragment } = render(component());
+	expect(asFragment).toMatchSnapshot();
 });

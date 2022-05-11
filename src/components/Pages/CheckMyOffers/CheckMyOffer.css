@@ -614,29 +614,39 @@
 	margin: 25px 0px 0px 0px !important;
 }
 
-#selectMaritalStatusWrap{
+#selectMaritalStatusWrap {
 	text-align: left;
 	padding-bottom: 15px !important;
 }
+
 #selectMaritalStatusWrap .subOption {
 	color: #171717 !important;
 }
-#selectMaritalStatus{
+
+#selectMaritalStatus {
 	margin-top: 15px;
 
 }
-#selectMaritalStatus div label{
+
+#selectMaritalStatus div label {
 	margin-left: -14px;
 }
 
+#selectMaritalStatus div p {
+	margin: 3px 0px;
+}
+
+#activeDutySelect,#activeDutyRank {
+	display: flex;
+}
 #activeDutySelect .subOption {
 	color: #171717 !important;
-
+	padding: 0 !important;
 }
 
 #activeDutyRank .subOption {
 	color: #171717 !important;
-
+	padding: 0 !important;
 }
 
 @media (min-width: 600px) {

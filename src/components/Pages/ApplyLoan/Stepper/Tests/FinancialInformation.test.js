@@ -13,19 +13,19 @@ const handleClickMock = jest.fn();
 const theme = createTheme();
 
 const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-			retry: false,
-			staleTime: 500000,
-		},
-	},
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+      staleTime: 500000,
+    },
+  },
 });
 
 
 const component = () => {
   window.scrollTo = jest.fn()
-  let stepsMock  = [
+  let stepsMock = [
     "Email Verification",
     "Phone Verification",
     "Financial Information",
@@ -33,20 +33,20 @@ const component = () => {
     "ID Verification Questions",
     "Bank Account Verification",
     "Income Verification"
-]
+  ]
 
-const classes = {
-  "root": "makeStyles-root-76",
-  "button_div": "makeStyles-button_div-77",
-  "steplabel": "makeStyles-steplabel-78",
-  "actionsContainer": "makeStyles-actionsContainer-79",
-  "loadingOn": "makeStyles-loadingOn-80",
-  "loadingOff": "makeStyles-loadingOff-81",
-  "linkStyle": "makeStyles-linkStyle-82",
-  "resetContainer": "makeStyles-resetContainer-83",
-  "padTop": "makeStyles-padTop-84",
-  "textDecoreNone": "makeStyles-textDecoreNone-85"
-};
+  const classes = {
+    "root": "makeStyles-root-76",
+    "button_div": "makeStyles-button_div-77",
+    "steplabel": "makeStyles-steplabel-78",
+    "actionsContainer": "makeStyles-actionsContainer-79",
+    "loadingOn": "makeStyles-loadingOn-80",
+    "loadingOff": "makeStyles-loadingOff-81",
+    "linkStyle": "makeStyles-linkStyle-82",
+    "resetContainer": "makeStyles-resetContainer-83",
+    "padTop": "makeStyles-padTop-84",
+    "textDecoreNone": "makeStyles-textDecoreNone-85"
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -71,44 +71,37 @@ const classes = {
 
 
 test("Availability test: Employer Name Field", () => {
-	render(component());
+  render(component());
   const employerName = screen.getByText("Employer Name *");
   expect(employerName).toBeTruthy();
 });
 
 test("Availability test: Current Job Title Field", () => {
-	render(component());
+  render(component());
   const jobTitle = screen.getByText("Current Job Title *");
   expect(jobTitle).toBeTruthy();
 });
 
 test("Availability test: Years at current address Field", () => {
-	render(component());
+  render(component());
   const yearsAtAddress = screen.getByText("Years at current address *");
   expect(yearsAtAddress).toBeTruthy();
 });
 
 test("Availability test: How did you hear about us Field", () => {
-	render(component());
+  render(component());
   const howHearAboutUs = screen.getByText("How did you hear about us? *");
   expect(howHearAboutUs).toBeTruthy();
 });
 
 test("Availability test: Reset button", () => {
-	render(component());
+  render(component());
   const resetButton = screen.getByText("Reset");
   expect(resetButton).toBeTruthy();
 });
 
 test("Availability test: Next button", () => {
-	render(component());
+  render(component());
   const nextButton = screen.getByText("Next");
   expect(nextButton).toBeTruthy();
 });
-
-
-
-
-
-
-

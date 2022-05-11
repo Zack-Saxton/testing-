@@ -221,8 +221,8 @@
   color: white;
   margin: 0 !important;
 }
-feefowidget-merchant-header 
-.feefowidget-merchant-header__content.feefowidget-viewport-tablet-mobile{
+
+feefowidget-merchant-header .feefowidget-merchant-header__content.feefowidget-viewport-tablet-mobile {
   padding: 40px 16px 10px 16px !important;
 }
 
@@ -383,7 +383,8 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
     padding-right: 0px;
     margin-bottom: 30px;
   }
-  .blueBoxWrap{
+
+  .blueBoxWrap {
     padding: 20px 12px;
   }
 }

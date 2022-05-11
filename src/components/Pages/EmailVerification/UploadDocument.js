@@ -1,10 +1,10 @@
 import CloseIcon from '@mui/icons-material/Close';
 import Chip from "@mui/material/Chip";
+import CircularProgress from '@mui/material/CircularProgress';
 import Grid from "@mui/material/Grid";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
-import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from "prop-types";
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
@@ -184,12 +184,12 @@ function UploadDocument(props) {
     setDisableNext(true);
   }
   return (
-    <>{ loading ?
+    <>{loading ?
       <Grid className="circleprog" style={{ width: "100%", textAlign: "center", margin: "20px 0px" }}>
         <CircularProgress />
       </Grid>
       :
-        <>
+      <>
         <ButtonPrimary
           onClick={handleMenuOpen}
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
@@ -301,8 +301,8 @@ function UploadDocument(props) {
             Next
           </ButtonPrimary>
         </Grid>
-        </>
-      }      
+      </>
+    }
     </>
   );
 }

@@ -5,7 +5,7 @@ import SSNumber from './index.js';
 
 const component = () => {
   return (
-        <SSNumber name="ssn" />
+    <SSNumber name="ssn" />
   );
 };
 

@@ -1,14 +1,14 @@
-import { cleanup, fireEvent, render, act, waitFor } from "@testing-library/react";
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/styles';
+import "@testing-library/jest-dom/extend-expect";
+import { act, cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
-import "@testing-library/jest-dom/extend-expect";
-import { ThemeProvider } from '@mui/styles';
-import { createTheme} from '@mui/material/styles'
-import EmploymentStatus from "./index.js";
+import CheckMyOffers from "../../../../contexts/CheckMyOffers";
+import AnnualIncome from "../AnnualIncome/index";
 import PersonalInfo from "../PersonalInfo/index";
-import AnnualIncome from "../AnnualIncome/index"
-import CheckMyOffers from "../../../../contexts/CheckMyOffers"
+import EmploymentStatus from "./index.js";
 
 afterEach(cleanup);
 const queryClient = new QueryClient({
@@ -23,24 +23,24 @@ const queryClient = new QueryClient({
 
 const theme = createTheme();
 const MockEmploymentStatus = () => {
-  return (
-    <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>    
-        <BrowserRouter>
-          <CheckMyOffers>
-						<PersonalInfo/>
-            <EmploymentStatus/>
-						<AnnualIncome/>
-          </CheckMyOffers>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </ThemeProvider>
-  )
+	return (
+		<ThemeProvider theme={theme}>
+			<QueryClientProvider client={queryClient}>
+				<BrowserRouter>
+					<CheckMyOffers>
+						<PersonalInfo />
+						<EmploymentStatus />
+						<AnnualIncome />
+					</CheckMyOffers>
+				</BrowserRouter>
+			</QueryClientProvider>
+		</ThemeProvider>
+	)
 }
 
 
 test("Employment Status Render test", () => {
-	const container = render(<MockEmploymentStatus/>);
+	const container = render(<MockEmploymentStatus />);
 	const Hourly = container.getByTestId("Hourly");
 	expect(Hourly).toBeTruthy();
 	const Salary = container.getByTestId("Employed Salaried");
@@ -57,14 +57,14 @@ test("Employment Status Render test", () => {
 });
 
 test("Employment Status on Clicking Hourly", () => {
-	const container = render(<MockEmploymentStatus/>);
+	const container = render(<MockEmploymentStatus />);
 
 	const Hourly = container.getByTestId("Hourly");
 	const Salary = container.getByTestId("Employed Salaried");
 	const selfEmployed = container.getByTestId("Self-Employed");
 	const Unemployed = container.getByTestId("Unemployed");
 	const Retired = container.getByTestId("Retired");
-	act(() => {fireEvent.click(Hourly)})
+	act(() => { fireEvent.click(Hourly) })
 	expect(Hourly).toHaveClass("activeBorder");
 	expect(Salary).not.toHaveClass("activeBorder");
 	expect(selfEmployed).not.toHaveClass("activeBorder");
@@ -79,14 +79,14 @@ test("Employment Status on Clicking Hourly", () => {
 });
 
 test("Employment Status on Clicking Salaried", () => {
-	const container = render(<MockEmploymentStatus/>);
+	const container = render(<MockEmploymentStatus />);
 
 	const Hourly = container.getByTestId("Hourly");
 	const Salary = container.getByTestId("Employed Salaried");
 	const selfEmployed = container.getByTestId("Self-Employed");
 	const Unemployed = container.getByTestId("Unemployed");
 	const Retired = container.getByTestId("Retired");
-	act(() => {fireEvent.click(Salary)})
+	act(() => { fireEvent.click(Salary) })
 	expect(Hourly).not.toHaveClass("activeBorder");
 	expect(Salary).toHaveClass("activeBorder");
 	expect(selfEmployed).not.toHaveClass("activeBorder");
@@ -101,14 +101,14 @@ test("Employment Status on Clicking Salaried", () => {
 });
 
 test("Employment Status on Clicking Self-Employed", () => {
-	const container = render(<MockEmploymentStatus/>);
+	const container = render(<MockEmploymentStatus />);
 
 	const Hourly = container.getByTestId("Hourly");
 	const Salary = container.getByTestId("Employed Salaried");
 	const selfEmployed = container.getByTestId("Self-Employed");
 	const Unemployed = container.getByTestId("Unemployed");
 	const Retired = container.getByTestId("Retired");
-	act(() => {fireEvent.click(selfEmployed)})
+	act(() => { fireEvent.click(selfEmployed) })
 	expect(Hourly).not.toHaveClass("activeBorder");
 	expect(Salary).not.toHaveClass("activeBorder");
 	expect(selfEmployed).toHaveClass("activeBorder");
@@ -123,14 +123,14 @@ test("Employment Status on Clicking Self-Employed", () => {
 });
 
 test("Employment Status on Clicking Unemployed", () => {
-	const container = render(<MockEmploymentStatus/>);
+	const container = render(<MockEmploymentStatus />);
 
 	const Hourly = container.getByTestId("Hourly");
 	const Salary = container.getByTestId("Employed Salaried");
 	const selfEmployed = container.getByTestId("Self-Employed");
 	const Unemployed = container.getByTestId("Unemployed");
 	const Retired = container.getByTestId("Retired");
-	act(() => {fireEvent.click(Unemployed)})
+	act(() => { fireEvent.click(Unemployed) })
 	expect(Hourly).not.toHaveClass("activeBorder");
 	expect(Salary).not.toHaveClass("activeBorder");
 	expect(selfEmployed).not.toHaveClass("activeBorder");
@@ -145,14 +145,14 @@ test("Employment Status on Clicking Unemployed", () => {
 });
 
 test("Employment Status on Clicking Retired", () => {
-	const container = render(<MockEmploymentStatus/>);
+	const container = render(<MockEmploymentStatus />);
 
 	const Hourly = container.getByTestId("Hourly");
 	const Salary = container.getByTestId("Employed Salaried");
 	const selfEmployed = container.getByTestId("Self-Employed");
 	const Unemployed = container.getByTestId("Unemployed");
 	const Retired = container.getByTestId("Retired");
-	act(() => {fireEvent.click(Retired)})
+	act(() => { fireEvent.click(Retired) })
 	expect(Hourly).not.toHaveClass("activeBorder");
 	expect(Salary).not.toHaveClass("activeBorder");
 	expect(selfEmployed).not.toHaveClass("activeBorder");
@@ -166,19 +166,18 @@ test("Employment Status on Clicking Retired", () => {
 	expect(PhoneNumberField).toHaveClass("hideMsg")
 });
 
-test("Routing forward to Annual Income", async() => {
-	const container = render(<MockEmploymentStatus/>);
+test("Routing forward to Annual Income", async () => {
+	const container = render(<MockEmploymentStatus />);
 	const ContinueButton = container.getByTestId("cntButton");
 	fireEvent.click(ContinueButton);
 	const page = container.queryByText("Tell us about your income")
 	await waitFor(() => expect(page).toBeInTheDocument());
 })
 
-test("Routing Back to Personal Info Test", async() => {
-	const container = render(<MockEmploymentStatus/>);
+test("Routing Back to Personal Info Test", async () => {
+	const container = render(<MockEmploymentStatus />);
 	const BackButton = container.getByTestId("route backward");
 	fireEvent.click(BackButton);
 	const page = container.queryByText("Tell us about yourself")
 	await waitFor(() => expect(page).toBeInTheDocument());
 })
-

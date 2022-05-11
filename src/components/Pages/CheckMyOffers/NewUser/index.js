@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState } from "react";
@@ -270,8 +270,8 @@ function NewUser() {
 												}
 											/>
 											<p className="subText passwordMeetTxt">
-												Please ensure your password meets the following criteria: between 8 and 30 characters in length,
-												at least 1 uppercase letter, at least 1 lowercase letter, at least 1 symbol and at least 1 number.
+												Please ensure your password meets the following criteria: between 10 and 30 characters in length,
+												at least 1 uppercase letter, at least 1 lowercase letter, at least 1 symbol, and at least 1 number.
 											</p>
 											<PasswordField
 												id="confirmPasswordWrap"

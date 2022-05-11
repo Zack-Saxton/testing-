@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -202,11 +202,17 @@ function ActiveDuty() {
 												}
 											/>
 										</Grid>
+										<Grid
+										item
+										lg={8}
+										md={8}
+										xs={12}
+										>
 										<h4
 											className={disableLoan ? "showMsg" : "hideMsg"}
 										>
-											Unfortunately, based on the application information provided, <br />you do not meet our application requirements.
-										</h4>
+											Unfortunately, based on the application information provided, you do not meet our application requirements.</h4>							
+										</Grid>
 										<Grid item lg={8} md={8} xs={12} className="alignButton">
 											<ButtonPrimary
 												type="submit"

@@ -156,7 +156,7 @@ export default function Faq() {
             {...a11yProps(3)}
           />
           <Tab
-          data-testid="about-mariner"
+            data-testid="about-mariner"
             label={
               <>
                 {" "}

@@ -11,15 +11,15 @@ import { toast } from "react-toastify";
 import { offerTypeData } from "../../../../assets/data/constants";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
-import { fetchAvailableOffers, submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
+import { submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
 import { ButtonWithIcon } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import ScrollToTopOnMount from "../../ScrollToTop";
+import { useFetchOffer } from "../ApplyForLoanHook/useFetchOffer";
 import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
 import OfferTable from "./offersTable";
-import { useFetchOffer } from "../ApplyForLoanHook/useFetchOffer"
 import "./SelectOffer.css";
 
 //Initializing functional component Apply for loan
@@ -244,7 +244,7 @@ export default function ApplyLoan() {
 										sm={3}
 										className={`${ loading ? classes.loadingOnWithoutBlur : classes.loadingOff } ${ classes.fullWidth }`}
 									>
-										<Paper className={classes.paperVerticalTab} data-testid = "tabsBlock"> 
+										<Paper className={classes.paperVerticalTab} data-testid="tabsBlock">
 											{terms ? (
 												<Tabs
 													value={values}
@@ -299,7 +299,7 @@ export default function ApplyLoan() {
 													<CircularProgress />
 												</Grid>
 											)}
-										</Paper>	
+										</Paper>
 									</Grid>
 
 									<OfferTable

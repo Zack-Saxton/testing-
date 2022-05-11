@@ -14,8 +14,8 @@ import React from "react";
 import NumberFormat from 'react-number-format';
 import { useNavigate } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
-import { useStylesAccountOverview } from "./Style";
 import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
+import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
 
 export default function RecentApplications() {
@@ -124,7 +124,7 @@ export default function RecentApplications() {
                 accountDetails?.data?.applicants?.length
                   ?
                   accountDetails.data.applicants.map((appData, index) => (
-                    <TableRow key={index}data-testid="with_Data">
+                    <TableRow key={index} data-testid="with_Data">
                       <TableCell className={classes.tableheadrow} >
                         {appData.submissionDate}
                       </TableCell>
@@ -149,7 +149,7 @@ export default function RecentApplications() {
                               Resume
                             </ButtonPrimary>
                           ) : (
-                            <ButtonPrimary data-testid={`navigate_View_Account_${index}`} stylebutton='{"color":"","width":"72%","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }' onClick={() => viewAppData(accountDetails?.data?.applicant?.contact, appData)} >
+                            <ButtonPrimary data-testid={`navigate_View_Account_${ index }`} stylebutton='{"color":"","width":"72%","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }' onClick={() => viewAppData(accountDetails?.data?.applicant?.contact, appData)} >
                               View
                             </ButtonPrimary>
                           )

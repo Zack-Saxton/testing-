@@ -855,7 +855,7 @@ export default function MakePayment(props) {
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogTitle id="autopayText">
-        <IconButton
+          <IconButton
             id="autopayCloseBtn"
             aria-label="close"
             className={classes.closeButton}
@@ -919,7 +919,7 @@ export default function MakePayment(props) {
             )}
             {/* </Typography> */}
           </>
-        </DialogContent> 
+        </DialogContent>
 
         <DialogActions className={`actionButtons ${ classes.dialogActionStyle }`}>
           <ButtonSecondary
@@ -1013,7 +1013,7 @@ export default function MakePayment(props) {
           </IconButton>
         </DialogTitle>
         <DialogContent>
-        <Typography id="scheduleTxt" className={classes.dialogHeading}>
+          <Typography id="scheduleTxt" className={classes.dialogHeading}>
             Your Payment of: {numberFormat(paymentAmount)} will be applied to
             your account.
           </Typography>
@@ -1112,7 +1112,7 @@ export default function MakePayment(props) {
           <Typography className={classes.dialogHeading}>
             Confirm Your Payment?
           </Typography>
-          </DialogContent>
+        </DialogContent>
 
         <DialogActions className={` ${ classes.dialogActionStyle }`}>
           <ButtonSecondary

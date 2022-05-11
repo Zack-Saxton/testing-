@@ -15,6 +15,7 @@ import {
   Popup,
   RenderContent
 } from "../../../components/FormsUI";
+import { saveAcquireClick, saveConsentStatus, validateActivationToken } from "../../Controllers/EmailVerificationController";
 import ErrorLogger from "../../lib/ErrorLogger";
 import BankAccountVerification from "./BankAccountVerification";
 import DocumentIdAndPhotoId from "./DocumentIdAndPhotoId";
@@ -22,7 +23,6 @@ import "./EmailVerification.css";
 import IncomeVerification from "./IncomeVerification";
 import { useStylesEmailVerification } from "./Style";
 import VehiclePhotos from "./VehiclePhotos";
-import { validateActivationToken, saveConsentStatus, saveAcquireClick } from "../../Controllers/EmailVerificationController";
 
 function getSteps() {
   return [

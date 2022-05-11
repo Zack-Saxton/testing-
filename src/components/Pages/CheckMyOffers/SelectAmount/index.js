@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 //initializing check my offers functonal component
 function SelectAmount() {
   const { data, setData, resetData } = useContext(Check);
-  const [hasOfferCode, setHasOfferCode] = useState("");
+  const [ hasOfferCode, setHasOfferCode ] = useState("");
   const classes = preLoginStyle();
   const innerClasses = useStyles();
   const navigate = useNavigate();
@@ -51,12 +51,12 @@ function SelectAmount() {
   };
   let params = useParams();
   let selectedAmount = getValidValue(params?.amount);
-  const [select, setSelect] = useState(
+  const [ select, setSelect ] = useState(
     data.loanAmount
       ? data.loanAmount
       : selectedAmount
-      ? parseInt(selectedAmount)
-      : 10000
+        ? parseInt(selectedAmount)
+        : 10000
   );
   let location = useLocation();
   useEffect(() => {

@@ -1,16 +1,16 @@
-import React from "react";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import { useStylesMFA } from "./Style";
-import "./MultiFactorAuthentication.css";
-import { ButtonPrimary } from "../../FormsUI";
 import {
   FormControl,
   FormControlLabel,
   Radio,
   RadioGroup,
-  Typography,
+  Typography
 } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import React from "react";
+import { ButtonPrimary } from "../../FormsUI";
+import "./MultiFactorAuthentication.css";
+import { useStylesMFA } from "./Style";
 
 const MultiFactorAuthentication = () => {
   const classes = useStylesMFA();

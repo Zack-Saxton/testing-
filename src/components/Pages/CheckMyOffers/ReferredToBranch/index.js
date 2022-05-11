@@ -85,6 +85,7 @@ function ReferredToBranch(props) {
 								alignItems="center"
 							>
 								<Typography
+									data-testid="congratsTypography"
 									id="referCongratsTxt"
 									variant="h3"
 									className="margin2p mainTextMsg smallLineHeight"
@@ -107,6 +108,7 @@ function ReferredToBranch(props) {
 								md={6}
 								lg={6}
 								xl={6}
+								data-testid="receiveMoneyGrid"
 								className=" row"
 								container
 								justifyContent="center"
@@ -185,13 +187,13 @@ function ReferredToBranch(props) {
 									</ButtonPrimary>
 								</Grid>
 								<br />
-								<Typography
+								<Typography data-testid="beforeVisitingTypography"
 									variant="h6"
 									className=" smallTextImg beforeVisitOne"
 								>
 									Things you should know before you call or visit.
 								</Typography>
-								<Typography
+								<Typography data-testid="precautionsTypography"
 									variant="h6"
 									className=" minText beforeVisit"
 								>
@@ -202,7 +204,7 @@ function ReferredToBranch(props) {
 									one of our team members or finish the process by phone in the
 									comfort your home.*
 								</Typography>
-								<div className="leftAlign">
+								<div data-testid="loanApprovalTextDiv" className="leftAlign">
 									<Typography
 										variant="h6"
 										className=" minText bullet leftAlignment"
@@ -217,7 +219,7 @@ function ReferredToBranch(props) {
 										you may need at loan closing.
 									</Typography>
 								</div>
-								<Typography
+								<Typography data-testid="loanApprovalApplicationTypography"
 									variant="h6"
 									className="minText"
 								>

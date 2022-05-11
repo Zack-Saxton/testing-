@@ -179,7 +179,8 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #citizenshipWrap {
     padding: 0 !important;
 }
-#citizenshipWrap div p{
+
+#citizenshipWrap div p {
     margin: 3px 0px 0px 0px;
 }
 
@@ -212,6 +213,10 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
     font-size: 0.968rem !important;
     margin-left: -14px;
 }
+#phoneTypeWrap div p {
+    margin: 3px 0px;
+}
+
 #employementWrap div p {
     margin: 3px 0px 0px 0px;
 }

@@ -5,12 +5,13 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { validStates } from "../../../../assets/data/constants";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 import AddressLogo from "../../../../assets/icon/I-Address.png";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
@@ -21,7 +22,6 @@ import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
 import ScrollToTopOnMount from "../ScrollToTop";
-import { validStates } from "../../../../assets/data/constants"
 
 //yup validation schema
 const validationSchema = yup.object({

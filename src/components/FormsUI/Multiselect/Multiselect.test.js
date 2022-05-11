@@ -1,9 +1,9 @@
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/styles';
 import '@testing-library/jest-dom';
 import { fireEvent, render, within } from "@testing-library/react";
 import React from "react";
 import MultiSelect from './index.js';
-import { ThemeProvider } from '@mui/styles';
-import { createTheme} from '@mui/material/styles'
 
 const theme = createTheme();
 const component = () => {
@@ -14,7 +14,7 @@ const component = () => {
         labelform="Language Known"
         multiselect='[{"value":"Tamil"}, {"value":"Eng"}]'
         checkboxcolor="red"
-        />
+      />
     </ThemeProvider>
   )
 }

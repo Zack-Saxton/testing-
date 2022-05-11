@@ -353,6 +353,12 @@
   margin: 0;
   display: inline-block;
 }
+.branchSmallText b{
+  font-size: 0.938rem;
+  font-weight:bolder ;
+  margin: 0;
+  display: inline-block;
+}
 
 .navigateNextIcon {
   font-size: 14px !important;
@@ -428,11 +434,11 @@
 
 .branchImage {
   background-color: #f6f6f6 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.branchImage img {
-  max-width: 100%;
-}
 
 .greyBackground {
   background-color: #f6f6f6 !important;
@@ -452,6 +458,7 @@
 .mobileImage {
   display: none;
   width: 100%;
+  max-width: 100%;
 }
 
 #getDirectionSearch {
@@ -633,7 +640,6 @@
 .branchLayoutGrid {
   max-width: 1200px;
   width: 100%;
-  min-height: 70vh;
 }
 
 .blueBoxWrap {
@@ -648,11 +654,12 @@
   height: auto;
 }
 
-.boxDivWrap{
+.boxDivWrap {
   width: 100%;
   background-color: white;
 }
-.boxDiv{
+
+.boxDiv {
   max-width: 1200px;
   margin: -90px auto 0px auto;
   background-color: white;
@@ -660,11 +667,13 @@
   border-radius: 10px;
   padding: 10px 40px;
 }
-.staticTextWrap{
-  max-width: 1200px; 
+
+.staticTextWrap {
+  max-width: 1200px;
   margin: 10px auto 20px auto;
 }
-.whiteBackgroundGrid{
+
+.whiteBackgroundGrid {
   max-width: 1200px;
   margin: -90px auto 40px auto;
   background-color: white;
@@ -672,7 +681,8 @@
   border-radius: 10px;
   padding: 10px 40px;
 }
-.branchPageWrap{
+
+.branchPageWrap {
   max-width: 1200px;
   margin: -90px auto 40px auto;
   background-color: white;
@@ -834,33 +844,49 @@
   margin: auto;
   justify-content: space-between;
 }
-.branchPageGrid{
+
+.branchPageGrid {
   width: 100%;
   background-color: #fff;
 }
-@media only screen and (max-width: 1200px){
-  .staticTextWrap{
+.mainHeading b{
+  font-weight: 700;
+  font-family: "MuliBold";
+  margin-top: 14px;
+  display: inline-block;
+}
+.webImage{
+  max-width: 93%;
+}
+@media only screen and (max-width: 1200px) {
+  .staticTextWrap {
     margin: 10px 30px 20px 30px;
   }
+  .branchLayoutGrid{
+    min-height: 60vh;
+  }
 }
-@media only screen and (max-width: 900px){
-  .personalLoanGrid{
-    padding: 10px 0px 20px 0px ; 
+
+@media only screen and (max-width: 900px) {
+  .personalLoanGrid {
+    padding: 10px 0px 20px 0px;
   }
-  .branchtextSection{
-    padding: 10px 0px 20px 0px ; 
+
+  .branchtextSection {
+    padding: 10px 0px 20px 0px;
   }
-  .branchPageWrap{
+
+  .branchPageWrap {
     margin: 0px auto 40px auto;
     padding: 10px 10px 20px 10px;
   }
-  
+
   .mobileImage {
     display: block;
     height: unset !important;
   }
 
-  
+
   .branchLocatorHeadingMain {
     display: none;
   }
@@ -868,15 +894,18 @@
   .branchLocatorHeading {
     display: none;
   }
+
   .webImage {
     display: none;
   }
 }
+
 @media (max-width: 960px) {
-  .boxDiv{
+  .boxDiv {
     margin: 0;
   }
-  .whiteBackgroundGrid{
+
+  .whiteBackgroundGrid {
     margin: 0px auto 40px auto;
   }
 
@@ -971,16 +1000,22 @@
   .personalLoanText h3 {
     font-size: 1.25rem !important;
   }
+  .webImage{
+    max-width:unset;
+  }
 }
+
 @media (max-width: 760px) {
   #scheduleAppointmentBtn {
     padding: 0px 15px !important;
   }
 }
+
 @media (max-width: 599px) {
-  .boxDiv{
+  .boxDiv {
     padding: 10px 10px;
   }
+
   .mobilePadding {
     padding: 2% 15px !important;
   }
@@ -993,11 +1028,13 @@
     padding-right: 0px;
     margin-bottom: 30px;
   }
-  .blueBoxWrap{
+
+  .blueBoxWrap {
     padding: 20px 10px;
   }
-  .whiteBackgroundGrid{
+
+  .whiteBackgroundGrid {
     padding: 10px 10px;
   }
-  
+
 }

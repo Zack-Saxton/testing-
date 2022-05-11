@@ -1,31 +1,31 @@
-import "@testing-library/jest-dom/extend-expect";
+import { createTheme, StyledEngineProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/styles';
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen, waitFor, act } from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import PhoneVerification from "../PhoneVerification";
-import { ThemeProvider, makeStyles } from '@mui/styles';
-import { createTheme, StyledEngineProvider } from '@mui/material/styles'
 
 const handleClickMock = jest.fn();
 
 const theme = createTheme();
 
 const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-			retry: false,
-			staleTime: 500000,
-		},
-	},
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+      staleTime: 500000,
+    },
+  },
 });
 
 
 const component = () => {
   window.scrollTo = jest.fn()
-  let stepsMock  = [
+  let stepsMock = [
     "Email Verification",
     "Phone Verification",
     "Financial Information",
@@ -33,20 +33,20 @@ const component = () => {
     "ID Verification Questions",
     "Bank Account Verification",
     "Income Verification"
-]
+  ]
 
-const classes = {
-  "root": "makeStyles-root-76",
-  "button_div": "makeStyles-button_div-77",
-  "steplabel": "makeStyles-steplabel-78",
-  "actionsContainer": "makeStyles-actionsContainer-79",
-  "loadingOn": "makeStyles-loadingOn-80",
-  "loadingOff": "makeStyles-loadingOff-81",
-  "linkStyle": "makeStyles-linkStyle-82",
-  "resetContainer": "makeStyles-resetContainer-83",
-  "padTop": "makeStyles-padTop-84",
-  "textDecoreNone": "makeStyles-textDecoreNone-85"
-};
+  const classes = {
+    "root": "makeStyles-root-76",
+    "button_div": "makeStyles-button_div-77",
+    "steplabel": "makeStyles-steplabel-78",
+    "actionsContainer": "makeStyles-actionsContainer-79",
+    "loadingOn": "makeStyles-loadingOn-80",
+    "loadingOff": "makeStyles-loadingOff-81",
+    "linkStyle": "makeStyles-linkStyle-82",
+    "resetContainer": "makeStyles-resetContainer-83",
+    "padTop": "makeStyles-padTop-84",
+    "textDecoreNone": "makeStyles-textDecoreNone-85"
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -71,19 +71,19 @@ const classes = {
 
 
 test("Availability test: Phone number Field", () => {
-	render(component());
+  render(component());
   const phoneNumber = screen.getByText("Phone number *");
   expect(phoneNumber).toBeTruthy();
 });
 
 test("Availability test: Delivery Method Field", () => {
-	render(component());
+  render(component());
   const deliveryMethod = screen.getByText("Delivery Method");
   expect(deliveryMethod).toBeTruthy();
 });
 
 test("Availability test: Text and call options", () => {
-	render(component());
+  render(component());
   const textOption = screen.getByText("Text");
   expect(textOption).toBeTruthy();
   const callOption = screen.getByText("Call");
@@ -91,7 +91,7 @@ test("Availability test: Text and call options", () => {
 });
 
 test("Availability test: Text content", () => {
-	render(component());
+  render(component());
   const phoneNumberFrom = screen.getByText("This is the Phone number you provided in your application");
   expect(phoneNumberFrom).toBeTruthy();
   const ratesApplyText = screen.getByText("Standard text message and voice rates apply.");
@@ -99,49 +99,49 @@ test("Availability test: Text content", () => {
 });
 
 test("Availability test: Send passcode", () => {
-	render(component());
+  render(component());
   const textOption = screen.getByText("Send Passcode");
   expect(textOption).toBeTruthy();
 });
 
 test("Availability test: Send passcode", () => {
-	render(component());
+  render(component());
   const sendPasscode = screen.getByTestId("enterPasscode");
   expect(sendPasscode).toHaveClass("close");
 });
 
 test("Enter passcode field appear on click", async () => {
-	render(component());
+  render(component());
   const sendPasscode = screen.getByTestId("enterPasscode");
   expect(sendPasscode).toBeTruthy();
   const sendPasscodeButton = screen.getByText("Send Passcode");
   await act(() => {
-    fireEvent.click(sendPasscodeButton)			
-	});
+    fireEvent.click(sendPasscodeButton)
+  });
   await waitFor(() => expect(screen.getByTestId("enterPasscode")).toHaveClass("open"))
 });
 
 test("Availability test: I do not have access to this phone", () => {
-	render(component());
+  render(component());
   const textOption = screen.getByText("I do not have access to this phone");
   expect(textOption).toBeTruthy();
 });
 
 test("I do not have access to this phone : On click", async () => {
-	render(component());
+  render(component());
   const textOption = screen.getByText("I do not have access to this phone");
   await act(() => {
-    fireEvent.click(textOption)			
-	});
+    fireEvent.click(textOption)
+  });
   await waitFor(() => expect(screen.getByRole("dialog")).toBeTruthy())
 });
 
 test("Confirmation pop up - availability", async () => {
-	render(component());
+  render(component());
   const textOption = screen.getByText("I do not have access to this phone");
   await act(() => {
-    fireEvent.click(textOption)			
-	});
+    fireEvent.click(textOption)
+  });
   await waitFor(() => expect(screen.getByRole("dialog")).toBeTruthy())
 
   const confirmText = screen.getByTestId("confirmationText");
@@ -153,11 +153,11 @@ test("Confirmation pop up - availability", async () => {
 });
 
 test("Confirmation pop up - close", async () => {
-	render(component());
+  render(component());
   const textOption = screen.getByText("I do not have access to this phone");
   await act(() => {
-    fireEvent.click(textOption)			
-	});
+    fireEvent.click(textOption)
+  });
   await waitFor(() => expect(screen.getByRole("dialog")).toBeTruthy())
 
   const confirmText = screen.getByTestId("confirmationText");
@@ -165,7 +165,7 @@ test("Confirmation pop up - close", async () => {
   const returnToSelection = screen.getByText("Return To Selection");
   expect(returnToSelection).toBeTruthy();
   await act(() => {
-    fireEvent.click(returnToSelection)			
-	});
+    fireEvent.click(returnToSelection)
+  });
   await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument())
 });

@@ -1,8 +1,10 @@
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import DesktopMacIcon from "@mui/icons-material/DesktopMac";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { withStyles } from "@mui/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,20 +13,18 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import DesktopMacIcon from "@mui/icons-material/DesktopMac";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { withStyles } from "@mui/styles";
 import PropTypes from "prop-types";
-import React, { useState,useContext } from "react";
+import React, { useContext, useState } from "react";
+import { NavContext } from "../../../../contexts/NavContext";
 import {
   ButtonPrimary,
   ButtonSecondary, Checkbox,
   Radio
 } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
+import { useStylesApplyForLoan } from "../Style";
 import LoadChart from "./loadChart";
-import { useStylesApplyForLoan } from "../Style"
-import { NavContext } from "../../../../contexts/NavContext";
 
 
 function TabVerticalPanel(props) {
@@ -64,19 +64,19 @@ const HtmlTooltip = withStyles((theme) => ({
 }))(Tooltip);
 
 export default function OfferTable(props) {
-	const [ termDataMax, setTermDataMax ] = useState();
-	const [ selectData, setSelectData ] = useState([]);
+  const [ termDataMax, setTermDataMax ] = useState();
+  const [ selectData, setSelectData ] = useState([]);
   const { resetNavContext } = useContext(NavContext);
 
-	let offersComp = props.offersToCompare ?? [];
-	let offersCompChart = props.offersToCompareChart ?? [];
-	const classes = useStylesApplyForLoan();
-	// Shows the Brnach icon
-	const branch = (
-		<Grid container direction="row" alignItems="center">
-			<AccountBalanceIcon /> In Branch
-		</Grid>
-	);
+  let offersComp = props.offersToCompare ?? [];
+  let offersCompChart = props.offersToCompareChart ?? [];
+  const classes = useStylesApplyForLoan();
+  // Shows the Brnach icon
+  const branch = (
+    <Grid container direction="row" alignItems="center">
+      <AccountBalanceIcon /> In Branch
+    </Grid>
+  );
 
   //Shows the Online icon
   const online = (
@@ -144,16 +144,16 @@ export default function OfferTable(props) {
     props.setOffersToCompare([]);
   }
 
-	const onClickViewCompare = () => {
-		props.onCompareOfferTabClick();
-		props.handleTabChange(props.noOfTerms, props.noOfTerms);
-		window.scrollTo(0, 0);
-	}
+  const onClickViewCompare = () => {
+    props.onCompareOfferTabClick();
+    props.handleTabChange(props.noOfTerms, props.noOfTerms);
+    window.scrollTo(0, 0);
+  }
 
   const resetNav = () => {
     resetNavContext()
   }
-	return (
+  return (
     <Grid
       id="loanListTable"
       item
@@ -165,7 +165,7 @@ export default function OfferTable(props) {
           : props.classes.loadingOff
       }
     >
-      <Paper className={props.classes.paper}  data-testid="offerTableBlock">
+      <Paper className={props.classes.paper} data-testid="offerTableBlock">
         {props.rowData ? (
           <TabVerticalPanel tabValue={props.value} verticalIndex={props.value}>
             <Grid item xs={12} className={classes.chartGrid}>
@@ -407,7 +407,7 @@ export default function OfferTable(props) {
                         ? props.loading
                         : true
                     }
-                    
+
                   >
                     Continue
                     <i

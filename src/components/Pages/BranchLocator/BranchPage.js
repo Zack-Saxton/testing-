@@ -447,88 +447,88 @@ export default function StatePage(props) {
         {DrivingDirectionPopup}
         <Grid className="branchPageGrid">
           <Grid className="branchPageWrap">
-        <Grid className="branchPageMap">
-          <Grid className="mapContainerWrap" container>
-            <Grid className="branchMapSection" item md={6}>
-              <Grid>
-                <h4 className="PesonalLoanMapHeading">
-                  <strong>
-                    One-On-One Support With Your Personal Loans in{" "}
-                    {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName}, {stateShortName ?? stateShortNm?.current}
-                  </strong>
-                </h4>
+            <Grid className="branchPageMap">
+              <Grid className="mapContainerWrap" container>
+                <Grid className="branchMapSection" item md={6}>
+                  <Grid>
+                    <h4 className="PesonalLoanMapHeading">
+                      <strong>
+                        One-On-One Support With Your Personal Loans in{" "}
+                        {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName}, {stateShortName ?? stateShortNm?.current}
+                      </strong>
+                    </h4>
+                  </Grid>
+                  {DisplayBranchMap}
+                </Grid>
+                <Grid className="branchtextSection" item md={6}>
+                  <h4 className="PesonalLoanMapHeading">
+                    <strong>
+                      The {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName}, {stateShortName ?? stateShortNm?.current} Branch
+                      Welcomes You For Personal Loans That Fit Your Needs
+                    </strong>
+                  </h4>
+                  <p className="PesonalLoanMapParagraph">
+                    Our {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName} lending professionals are proud
+                    of the neighborhoods they live and work in. Ready to speak to a {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName} lending professional in person? The better we know
+                    you, the more we can help. You have your own unique goals to
+                    meet, and it all starts with a conversation at your local
+                    branch. <br /><br />A personal loans can meet a variety of needs, including
+                    medical emergencies, home improvement projects, vacations,
+                    weddings, tuitions costs, and debt consolidation. Mariner
+                    Finance has a personal loans that fits every one of those
+                    situations, and more. Ready to apply for a personal loans at the{" "}
+                    {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName}, {stateShortName ?? stateShortNm?.current} branch? Our {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName} branch is totally focused on solving your personal
+                    financial challenges.
+                  </p>
+                </Grid>
               </Grid>
-              {DisplayBranchMap}
             </Grid>
-            <Grid className="branchtextSection" item md={6}>
-              <h4 className="PesonalLoanMapHeading">
-                <strong>
-                  The {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName}, {stateShortName ?? stateShortNm?.current} Branch
-                  Welcomes You For Personal Loans That Fit Your Needs
-                </strong>
-              </h4>
-              <p className="PesonalLoanMapParagraph">
-                Our {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName} lending professionals are proud
-                of the neighborhoods they live and work in. Ready to speak to a {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName} lending professional in person? The better we know
-                you, the more we can help. You have your own unique goals to
-                meet, and it all starts with a conversation at your local
-                branch. <br /><br />A personal loans can meet a variety of needs, including
-                medical emergencies, home improvement projects, vacations,
-                weddings, tuitions costs, and debt consolidation. Mariner
-                Finance has a personal loans that fits every one of those
-                situations, and more. Ready to apply for a personal loans at the{" "}
-                {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName}, {stateShortName ?? stateShortNm?.current} branch? Our {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName} branch is totally focused on solving your personal
-                financial challenges.
-              </p>
-            </Grid>
-          </Grid>
-        </Grid>
 
-        <Grid className="fullWidth">
-          <Grid className="findNearbyBranch">
-            <Grid style={{ margin: "auto" }}>
-              <h4 className="PesonalLoanMapHeading">
-                <strong>Find nearby {stateLongNm?.current} branches</strong>
-              </h4>
-              <p className="PesonalLoanMapParagraph">
-                Mariner Finance, serving communities since 1927, operates over 470 branch locations in twenty-seven
-                states, working and living as close to our customers as we can.
-                Chances are we’re in your neighborhood, or we will be soon as we
-                continue to grow. Our experienced team members are ready to assist
-                with your financial needs. See other branches with personal loans
-                near you below:
-              </p>
-            </Grid>
-            {Display3moreClosestBranchList}
-            <Grid>
-              <Typography className="learnMoreLinks">
-                Learn more about our{" "}
-                <a href="https://www.marinerfinance.com/personal-loans/">
-                  personal loans
-                </a>
-                ,{" "}
-                <a href="https://www.marinerfinance.com/car-loans/">car loans</a>,{" "}
-                <a href="https://www.marinerfinance.com/personal-loans/debt-consolidation-loans/">
-                  debt consolidation loans
-                </a>
-                ,{" "}
-                <a href="https://www.marinerfinance.com/personal-loans/home-improvement-loans/">
-                  home improvement loans
-                </a>
-                ,{" "}
-                <a href="https://www.marinerfinance.com/personal-loans/vacation-loans/">
-                  vacation loans
-                </a>
-                , and{" "}
-                <a href="https://www.marinerfinance.com/personal-loans/wedding-loans/">
-                  wedding loans
-                </a>
-                .
-              </Typography>
+            <Grid className="fullWidth">
+              <Grid className="findNearbyBranch">
+                <Grid style={{ margin: "auto" }}>
+                  <h4 className="PesonalLoanMapHeading">
+                    <strong>Find nearby {stateLongNm?.current} branches</strong>
+                  </h4>
+                  <p className="PesonalLoanMapParagraph">
+                    Mariner Finance, serving communities since 1927, operates over 470 branch locations in twenty-seven
+                    states, working and living as close to our customers as we can.
+                    Chances are we’re in your neighborhood, or we will be soon as we
+                    continue to grow. Our experienced team members are ready to assist
+                    with your financial needs. See other branches with personal loans
+                    near you below:
+                  </p>
+                </Grid>
+                {Display3moreClosestBranchList}
+                <Grid>
+                  <Typography className="learnMoreLinks">
+                    Learn more about our{" "}
+                    <a href="https://www.marinerfinance.com/personal-loans/">
+                      personal loans
+                    </a>
+                    ,{" "}
+                    <a href="https://www.marinerfinance.com/car-loans/">car loans</a>,{" "}
+                    <a href="https://www.marinerfinance.com/personal-loans/debt-consolidation-loans/">
+                      debt consolidation loans
+                    </a>
+                    ,{" "}
+                    <a href="https://www.marinerfinance.com/personal-loans/home-improvement-loans/">
+                      home improvement loans
+                    </a>
+                    ,{" "}
+                    <a href="https://www.marinerfinance.com/personal-loans/vacation-loans/">
+                      vacation loans
+                    </a>
+                    , and{" "}
+                    <a href="https://www.marinerfinance.com/personal-loans/wedding-loans/">
+                      wedding loans
+                    </a>
+                    .
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        </Grid>
         </Grid>
         {ApplyNowOnlineButton}
         <Grid className="customerRatingsWrap">
