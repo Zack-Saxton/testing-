@@ -1,5 +1,5 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Link, TextField, Typography, Hidden } from "@mui/material";
+import { Link, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
@@ -9,12 +9,20 @@ import { ButtonPrimary } from "../../FormsUI";
 import "./MultiFactorAuthentication.css";
 import { useStylesMFA } from "./Style";
 import { toast } from "react-toastify";
-import {VerifyLoginPassCode} from "./../../Controllers/MFAController"
+import { VerifyLoginPassCode } from "./../../Controllers/MFAController"
+import { useLocation, useNavigate } from "react-router-dom";
 
-const MultiFactorAuthenticationOTP = (props) => {
+const MultiFactorAuthenticationOTP = () => {
+  let location = useLocation();
+  const navigate = useNavigate();
   const classes = useStylesMFA();
-  const [currentCount, setCount] = useState(10);  
+  const [ currentCount, setCount ] = useState(60);  
+  const [ disabledButton, setDisabledButton ] = useState(false);  
   const [ otpValue, setOtpValue ] = useState({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""});
+  const customerEmail = location?.state?.customerEmail ?? "";
+  const customerPhoneNumber = location?.state?.customerPhoneNumber ?? "";
+  const MFAInformation = location?.state?.mfaDetails ?? "";
+  const isSecurityQuestionSaved = MFAInformation?.state?.mfaDetails?.securityQuestionsSaved ?? false;
   useEffect(
     () => {
         const timer = () => setCount(currentCount - 1);
@@ -26,9 +34,9 @@ const MultiFactorAuthenticationOTP = (props) => {
     },
         [currentCount]
     );  
-  const checkEnteredOTP = (obj) => {
-      for (var key in obj) {
-          if (obj[key] === "")
+  const checkEnteredOTP = (OTPObject) => {
+      for (var key in OTPObject) {
+          if (OTPObject[key] === "")
             return true;
       }
       return false;
@@ -40,7 +48,7 @@ const MultiFactorAuthenticationOTP = (props) => {
         [name]: value
     }));
   }
-  const inputfocus = (event) => {
+  const focusInputBox = (event) => {
     if (event.key === "Delete" || event.key === "Backspace") {
       const next = event.target.tabIndex - 1;
       if (next > 0) {
@@ -64,16 +72,54 @@ const MultiFactorAuthenticationOTP = (props) => {
   }
 
   const handleClickSubmit = async () => {
+    setDisabledButton(true);
     let enteredOTP = getPasscode(otpValue);
-    let response = await VerifyLoginPassCode(enteredOTP, "zdunkerton@marinerfinance.com","1231231234");
+    let response = await VerifyLoginPassCode(enteredOTP, customerEmail,customerPhoneNumber);
     if(response?.data?.statusCode === 200){
       toast.success(response.data?.Message);
+      if(isSecurityQuestionSaved){// redirect to Account overview
+        navigate("/customers/accountOverview");
+      }else{// redirect to security question page
+        navigate("/MFA-SecurityQuestions");
+      }
+    }else {
+      toast.error(response.data?.Message ?? response.data?.errorMessage);
+    }
+    setDisabledButton(false);
+  }
+
+  const resendOTP = async () => {    
+    let response = await SendLoginPassCode(customerPhoneNumber);
+    if(response?.data?.passcodeInTextMessage){
+      toast.success("Successfully sent passcode");
+      setCount(60);
     }else {
       toast.error(response.data?.Message);
     }
+  }
 
+  const backToVarificationStep = () => {
+    navigate(-1);
   }
   
+  const getOTPTextField = (id, name, tabIndex) => {
+    return (<Grid item xs={2} sm={2} md={2} lg={2}>
+      <TextField
+        id={ id }
+        name={ name }
+        className={classes.otpNumber}
+        lable="OTP"
+        type="number"
+        variant="standard"
+        onChange={event => handleChange(event)}
+        inputProps={{ tabIndex: tabIndex, maxLength: 1 }}  
+        onKeyUp={event => focusInputBox( event)}   
+        onInput = {(e) =>{
+          e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,1)
+        }}
+      />
+    </Grid>);
+  }
   return (
     <div>
       <Grid>
@@ -93,12 +139,12 @@ const MultiFactorAuthenticationOTP = (props) => {
                 Security Code
               </Typography>
               <IconButton className={classes.backArrow}>
-                <ArrowBackIcon className={classes.yellowBackArrow} />
+                <ArrowBackIcon className={classes.yellowBackArrow} onClick={ backToVarificationStep }/>
               </IconButton>
             </Grid>
             <Typography className={classes.twoStepParagraph}>
               Enter the 6 digit passcode received on your mobile{" "}
-              <span>(**) ** 1234</span>. Code is valid for 15 minutes.
+              <span>{`(**) ** ${customerPhoneNumber.substr(-4)}`}</span>. Code is valid for 15 minutes.
             </Typography>
 
             <Grid container>
@@ -106,115 +152,19 @@ const MultiFactorAuthenticationOTP = (props) => {
                 Enter 6 digit security code
               </Typography>
 
-              <Grid className={classes.otpWrap} container>
-                <Grid item xs={2} sm={2} md={2} lg={2}>
-                  <TextField
-                    id="otpNumberOne"
-                    name="otp1"
-                    // inputProps={{ style: { textAlign: 'center' }}}
-                    className={classes.otpNumber}
-                    lable="OTP"
-                    type="number"
-                    variant="standard"
-                    onChange={event => handleChange(event)}
-                    inputProps={{ tabIndex: "1", maxLength: 1 }}  
-                    onKeyUp={event => inputfocus( event)}   
-                    onInput = {(e) =>{
-                      e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,1)
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={2} sm={2} md={2} lg={2}>
-                  <TextField
-                    id="otpNumberTwo"
-                    name="otp2"
-                    className={classes.otpNumber}
-                    lable="OTP"
-                    type="number"
-                    variant="standard"
-                    onChange={event => handleChange(event)}
-                    inputProps={{ tabIndex: "2", maxLength: 1 }}
-                    onKeyUp={event => inputfocus(event)}
-                    onInput = {(e) =>{
-                      e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,1)
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={2} sm={2} md={2} lg={2}>
-                  <TextField
-                    id="otpNumberThree"
-                    name="otp3"
-                    className={classes.otpNumber}
-                    lable="OTP"
-                    type="number"
-                    variant="standard"
-                    onChange={event => handleChange(event)}
-                    inputProps={{ tabIndex: "3", maxLength: 1 }}
-                    onKeyUp={event => inputfocus(event)}  
-                    onInput = {(e) =>{
-                      e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,1)
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={2} sm={2} md={2} lg={2}>
-                  <TextField
-                    id="otpNumberFour"
-                    name="otp4"
-                    className={classes.otpNumber}
-                    lable="OTP"
-                    type="number"
-                    variant="standard"
-                    onChange={event => handleChange(event)}
-                    inputProps={{ tabIndex: "4", maxLength: 1 }}
-                    onKeyUp={event => inputfocus(event)}
-                    onInput = {(e) =>{
-                      e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,1)
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={2} sm={2} md={2} lg={2}>
-                  <TextField
-                    id="otpNumberFive"
-                    name="otp5"
-                    className={classes.otpNumber}
-                    lable="OTP"
-                    type="number"
-                    variant="standard"
-                    onChange={event => handleChange(event)}
-                    inputProps={{ tabIndex: "5", maxLength: 1 }}
-                    onKeyUp={event => inputfocus(event)}
-                    onInput = {(e) =>{
-                      e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,1)
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={2} sm={2} md={2} lg={2}>
-                  <TextField
-                    id="otpNumberSix"
-                    name="otp6"
-                    className={classes.otpNumber}
-                    lable="email"
-                    type="number"
-                    variant="standard"
-                    onChange={event => handleChange(event)}
-                    inputProps={{ tabIndex: "6", maxLength: 1 }}
-                    onKeyUp={event => inputfocus(event)}
-                    onInput = {(e) =>{
-                      e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,1)
-                    }}
-                  />
-                </Grid>
+              <Grid className={classes.otpWrap} container>                
+                { getOTPTextField("otpNumberOne", "otp1", 1) }
+                { getOTPTextField("otpNumberTwo", "otp2", 2) }
+                { getOTPTextField("otpNumberThree", "otp3", 3) }
+                { getOTPTextField("otpNumberFour", "otp4", 4) }
+                { getOTPTextField("otpNumberFive", "otp5", 5) }
+                { getOTPTextField("otpNumberSix", "otp6", 6) }
               </Grid>
             </Grid>
 
             <Grid className={classes.nextButtonGrid} container>
               <ButtonPrimary stylebutton='{"color":""}'
-                disabled={ checkEnteredOTP(otpValue) } 
+                disabled={ checkEnteredOTP(otpValue) || disabledButton } 
                 onClick={ handleClickSubmit }
                 >
                 Verify Now
@@ -222,9 +172,15 @@ const MultiFactorAuthenticationOTP = (props) => {
             </Grid>
             <Typography className={classes.resetText}>
               Didnt receive code?{" "}
-              <Link href="#" className={ currentCount > 0 ? "" : "blueColorLink"}>
+              { currentCount > 0 ? 
+              <Link href="#" className="blueColorLink" >
                 Resend 
-              </Link>              
+              </Link>  : 
+              <Link href="#" onClick={ resendOTP } className="blueColorLink" >
+                Resend 
+              </Link> 
+            }
+                           
               { currentCount>0 ? ` (in 0:${currentCount} secs)` : "" }
             </Typography>
           </Paper>
