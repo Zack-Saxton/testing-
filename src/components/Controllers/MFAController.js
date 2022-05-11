@@ -26,7 +26,7 @@ export async function SendLoginPassCode(customerPhone) {
 
 
 /***** To verify the login passcode  *****/
-export default async function VerifyLoginPassCode(passCode, email, customerPhone) {
+export async function VerifyLoginPassCode(passCode, email, customerPhone) {
   try {
     //API
     let url = "verify_login_passcode";

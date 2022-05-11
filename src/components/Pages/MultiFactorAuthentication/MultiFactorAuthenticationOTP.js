@@ -9,7 +9,7 @@ import { ButtonPrimary } from "../../FormsUI";
 import "./MultiFactorAuthentication.css";
 import { useStylesMFA } from "./Style";
 import { toast } from "react-toastify";
-import VerifyLoginPassCode from "./../../Controllers/MFAController"
+import {VerifyLoginPassCode} from "./../../Controllers/MFAController"
 
 const MultiFactorAuthenticationOTP = (props) => {
   const classes = useStylesMFA();

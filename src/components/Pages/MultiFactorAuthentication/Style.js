@@ -102,6 +102,17 @@ const useStylesMFA = makeStyles((theme) =>
       margin: "15px 0px",
       color: "##595959",
     },
+    loadingOn: {
+      opacity: 0.55,
+      pointerEvents: "none",
+    },
+    loadingOnWithoutBlur: {
+      pointerEvents: "none",
+    },
+    loadingOff: {
+      opacity: 1,
+      pointerEvents: "initial",
+    },
   })
 );
 

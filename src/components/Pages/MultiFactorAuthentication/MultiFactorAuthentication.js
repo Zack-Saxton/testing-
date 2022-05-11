@@ -1,11 +1,14 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./MultiFactorAuthentication.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import OnePhoneNumber from "./OnePhoneNumber";
 import TwoPhoneNumbers from "./TwoPhoneNumbers";
+import {SendLoginPassCode} from "../../Controllers/MFAController"
+import {useMutation} from "react-query";
 
 const MultiFactorAuthentication = () => {
   const location = useLocation();
+  const navigate = useNavigate()
 
 //   const location = {
 //     "hash":"",
@@ -46,12 +49,21 @@ const MultiFactorAuthentication = () => {
 //     }
 //  }
   const [selection, setSelection] = useState();
-
-  console.log(selection);
+  const sendPassCode = useMutation(SendLoginPassCode);
 
   // /MFA-SecurityQuestions
 
-  selection ? console.log(true) : console.log(false);
+  console.log(sendPassCode?.data);
+  console.log(sendPassCode.isLoading);
+
+  useEffect(()=> {
+    if(sendPassCode?.data?.passCode){
+      navigate('/MFA-OTP')
+    }
+    // eslint-disable-next-line
+  },[sendPassCode])
+
+  
 
 //Display only Security Questions if there is no data about Phone Numbers
 //Users having Optional Texting & Phone Type === Cell, then prompt the user to select one through Radio button & PopUp
@@ -104,6 +116,8 @@ if(situationSix) {
           setSelection={setSelection}
           selection={selection ? false : true}
           selectionValue={selection}
+          sendPassCode={sendPassCode}
+          isLoading={sendPassCode.isLoading}
           />
   );
 };

@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import PhoneNumberPopUp from './PhoneNumberPopUp';
 import { useNavigate } from "react-router-dom";
 
-const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, selection, selectionValue}) => {
+const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, selection, selectionValue, sendPassCode, isLoading}) => {
 
   const classes = useStylesMFA();
   const navigate = useNavigate();
@@ -33,7 +33,9 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
   }
 
   const handleClick = () =>{
-    selectionValue === 'security questions' && navigate('/MFA-SecurityQuestions')
+    selectionValue === 'security questions' 
+     ? navigate('/MFA-SecurityQuestions')
+     : sendPassCode.mutate(selectionValue);
   }
 
   const securityCode = (
@@ -50,7 +52,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
   );
 
   return (
-    <div>
+    <div className={isLoading ? classes.loadingOn : classes.loadingOff}>
       <Grid>
         <Grid
           spacing={1}
@@ -114,12 +116,13 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
 }
 
 TwoPhoneNumbers.propTypes = {
- 
   cellPhoneNumber: PropTypes.string,
   optionalPhoneNumber: PropTypes.string,
   setSelection: PropTypes.func,
   selection: PropTypes.bool,
   selectionValue: PropTypes.any,
+  sendPassCode: PropTypes.object,
+  isLoading: PropTypes.bool,
 };
 
 export default TwoPhoneNumbers
