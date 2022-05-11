@@ -100,7 +100,7 @@ export default function Login(props) {
         values?.email,
         values?.password,
         ClientIP,
-        'Mozilla HP', //It is static for now. Will add the dynamic code later
+        'Chrome HP', //It is static for now. Will add the dynamic code later
         props?.setToken
       );
        if(!retVal?.data?.user?.extensionattributes?.MFA){

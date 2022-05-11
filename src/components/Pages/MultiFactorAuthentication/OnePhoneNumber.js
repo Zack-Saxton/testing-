@@ -12,7 +12,7 @@ import { ButtonPrimary } from "../../FormsUI";
 import { useStylesMFA } from "./Style";
 import PropTypes from "prop-types";
 
-const OnePhoneNumber = ({phoneNumber, setSelection}) => {
+const OnePhoneNumber = ({phoneNumber, setSelection, selection}) => {
 
   const classes = useStylesMFA();
   const [value, setValue] = useState('');
@@ -85,7 +85,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection}) => {
               </RadioGroup>
             </FormControl>
             <Grid className={classes.nextButtonGrid} container>
-              <ButtonPrimary stylebutton='{"color":""}'>Next</ButtonPrimary>
+              <ButtonPrimary stylebutton='{"color":""}' disabled={selection}>Next</ButtonPrimary>
             </Grid>
           </Paper>
         </Grid>
@@ -95,9 +95,9 @@ const OnePhoneNumber = ({phoneNumber, setSelection}) => {
 }
 
 OnePhoneNumber.propTypes = {
- 
   phoneNumber: PropTypes.string,
   setSelection: PropTypes.func,
+  selection: PropTypes.bool,
 };
 
 export default OnePhoneNumber
