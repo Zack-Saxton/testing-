@@ -63,11 +63,11 @@ function ExistingUser() {
 
 	const queryClient = useQueryClient();
 	useEffect(() => {
-		//redirects to select amount on directr page call
+		// redirects to select amount on directr page call
 		if (data.completedPage < data?.page?.personalInfo || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		//eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	// Formik configuraion
 	const formik = useFormik({
@@ -251,9 +251,10 @@ function ExistingUser() {
 											xs={12}
 											className="textBlock alignButton"
 										>
+										
 											<ButtonPrimary
+												data-testid="SignInButton"
 												type="submit"
-												data-testid="contButton"
 												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
 												disabled={loading}
 											>
