@@ -1,7 +1,28 @@
-import { toast } from "react-toastify";
 import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+
+
+/***** To Send the passcode *****/
+export async function SendLoginPassCode(customerPhone) {
+  try {
+    //API
+    let url = "send_login_passcode";
+    let param = "";
+    let data = {
+      deliveryMethod: "phone",
+      customerPhone: customerPhone
+    };
+    let method = "POST";
+    let addAccessToken = true;
+
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_Verify_Login_Passcode_API, error);
+  }
+}
+
 
 
 /***** To verify the login passcode  *****/

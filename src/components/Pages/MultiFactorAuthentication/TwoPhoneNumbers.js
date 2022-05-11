@@ -12,10 +12,12 @@ import { ButtonPrimary, Popup } from "../../FormsUI";
 import { useStylesMFA } from "./Style";
 import PropTypes from "prop-types";
 import PhoneNumberPopUp from './PhoneNumberPopUp';
+import { useNavigate } from "react-router-dom";
 
-const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, selection}) => {
+const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, selection, selectionValue}) => {
 
   const classes = useStylesMFA();
+  const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [popUp, setPopUp] = useState(false);
   const handleChange = (event) => {
@@ -28,6 +30,10 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
 
   const handlePopUpClose = () => {
     setPopUp(false);
+  }
+
+  const handleClick = () =>{
+    selectionValue === 'security questions' && navigate('/MFA-SecurityQuestions')
   }
 
   const securityCode = (
@@ -89,13 +95,13 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
                   id="FormControlLabel"
                   className={classes.smallRadioButton}
                   value="security questions"
-                  control={<Radio color="primary" onClick={()=>setSelection({deliveryMethod: 'security questions'})} />}
+                  control={<Radio color="primary" onClick={()=>setSelection('security questions')} />}
                   label={securityQuestions}
                 />
               </RadioGroup>
             </FormControl>
             <Grid className={classes.nextButtonGrid} container>
-              <ButtonPrimary stylebutton='{"color":""}' disabled={selection}>Next</ButtonPrimary>
+              <ButtonPrimary stylebutton='{"color":""}' disabled={selection} onClick={handleClick}>Next</ButtonPrimary>
             </Grid>
           </Paper>
         </Grid>
@@ -113,6 +119,7 @@ TwoPhoneNumbers.propTypes = {
   optionalPhoneNumber: PropTypes.string,
   setSelection: PropTypes.func,
   selection: PropTypes.bool,
+  selectionValue: PropTypes.any,
 };
 
 export default TwoPhoneNumbers

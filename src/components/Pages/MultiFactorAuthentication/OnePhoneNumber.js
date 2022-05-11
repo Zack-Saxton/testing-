@@ -23,7 +23,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection}) => {
   const securityCode = (
     <div className={classes.securityCodeText}>
       Security code via SMS :<br />
-      <span>Get a code on {phoneNumber}</span>
+      <span>{`Get a code on (***) *** ${phoneNumber.substr(-4)}`}</span>
     </div>
   );
   const securityQuestions = (
@@ -79,7 +79,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection}) => {
                   id="FormControlLabel"
                   className={classes.smallRadioButton}
                   value="security questions"
-                  control={<Radio color="primary" onClick={()=>setSelection({deliveryMethod: 'security questions'})} />}
+                  control={<Radio color="primary" onClick={()=>setSelection('security questions')} />}
                   label={securityQuestions}
                 />
               </RadioGroup>

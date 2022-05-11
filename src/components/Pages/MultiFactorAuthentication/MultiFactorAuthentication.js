@@ -5,27 +5,51 @@ import OnePhoneNumber from "./OnePhoneNumber";
 import TwoPhoneNumbers from "./TwoPhoneNumbers";
 
 const MultiFactorAuthentication = () => {
-  //  const location = useLocation();
+  const location = useLocation();
 
-  const location = {
-    "hash":"",
-    "key":"f094a9ts",
-    "pathname":"/MFA",
-    "search":"",
-    "state":{
-       "mfaDetails":{
-          "MFA":true,
-          "opted_phone_texting":"2232223221",
-          "phone_number_primary":"1231231234",
-          "phone_type":"Home",
-          "securityQuestionsSaved":true,
-          "unread_messages":0
-       }
-    }
- }
+//   const location = {
+//     "hash":"",
+//     "key":"f094a9ts",
+//     "pathname":"/MFA",
+//     "search":"",
+//     "state":{
+//        "mfaDetails":{
+//           "MFA":true,
+//           "opted_phone_texting":"2232223221",
+//           "phone_number_primary":"8472085643",
+//           "phone_type":"Cell",
+//           "securityQuestions": [
+//             {
+//                 "question_id": "2",
+//                 "question": "What was the name of your favorite teacher?"
+//             },
+//             {
+//                 "question_id": "4",
+//                 "question": "What is your favorite vacation destination?"
+//             },
+//             {
+//                 "question_id": "12",
+//                 "question": "What is your favorite color?"
+//             },
+//             {
+//                 "question_id": "3",
+//                 "question": "What city did you meet your current spouse?"
+//             },
+//             {
+//                 "question_id": "5",
+//                 "question": "Where did you and your spouse marry?"
+//             }
+//         ],
+//           "securityQuestionsSaved":true,
+//           "unread_messages":0
+//        }
+//     }
+//  }
   const [selection, setSelection] = useState();
 
-  console.log(location);
+  console.log(selection);
+
+  // /MFA-SecurityQuestions
 
   selection ? console.log(true) : console.log(false);
 
@@ -79,6 +103,7 @@ if(situationSix) {
           optionalPhoneNumber={location?.state?.mfaDetails?.opted_phone_texting}
           setSelection={setSelection}
           selection={selection ? false : true}
+          selectionValue={selection}
           />
   );
 };

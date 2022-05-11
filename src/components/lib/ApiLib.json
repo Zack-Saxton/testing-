@@ -76,6 +76,7 @@
     "save_acquire_click": "/verification/saveAcquireClickInfo",
     "verify_login_passcode": "/customer/verifyLoginPassCode",
     "mfa_user_detials": "/customer/getMFADetailsFromUser",
-    "save_security_id_answer": "/customer/saveSecurityIdsAnswers"
+    "save_security_id_answer": "/customer/saveSecurityIdsAnswers",
+    "send_login_passcode": "/customer/sendLoginPassCode"
   }
 }
