@@ -100,6 +100,10 @@ label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLab
 #activeDutyGrid .MuiFormControl-fullWidth label {
     margin-left: -14px;
 }
+#activeDutyGrid .MuiFormControl-fullWidth p,
+#activeDutyRankGrid .MuiFormControl-fullWidth p{
+    margin: 3px 0px;
+}
 
 #activeDutyGrid,
 #activeDutyRankGrid {

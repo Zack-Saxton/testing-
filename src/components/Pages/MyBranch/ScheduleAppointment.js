@@ -174,6 +174,7 @@ export default function ScheduleAppointment({
           id="scheduleAppointmentBtn"
           stylebutton='{"float": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
           onClick={handleScheduleAppointment}
+          data-testid="appointment"
         >
           Schedule An Appointment
         </ButtonPrimary>
@@ -184,6 +185,7 @@ export default function ScheduleAppointment({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.dialogPaper }}
+        data-testid="dialog"
       >
         <div className={classes.buttonClose}>
           <IconButton
