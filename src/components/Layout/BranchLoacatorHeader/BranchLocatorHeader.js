@@ -247,8 +247,8 @@ const BranchLocatorHeader = () => {
                 <Typography className={classes.subtitle}>Sign out</Typography>
               </div>
             )}
-            <NavLink
-              to="/customers/resumeApplication"
+
+            <NavLink  to= {!loginToken.isLoggedIn ? "/select-amount" : "/customers/resumeApplication" }
               className="nav_link branchHeaderLinksLast"
             >
               <ButtonPrimary
@@ -532,7 +532,7 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link href="/select-amount">Check My Offers</Link>
+                  <Link to= {!loginToken.isLoggedIn ? "/select-amount" : "/customers/resumeApplication" }>Check My Offers</Link>                
               </AccordionDetails>
             </Accordion>
           </Grid>

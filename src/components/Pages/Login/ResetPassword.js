@@ -124,7 +124,7 @@ export default function Login(props) {
                                                 InputLabelProps={{ style: { fontSize: 40 } }}
                                                 label="Create new password for"
                                                 materialProps={{ maxLength: "100" }}
-                                                value={location.state.Email}
+                                                value={location?.state?.Email}
                                             />
                                         </Grid>
                                         <Grid
@@ -141,7 +141,7 @@ export default function Login(props) {
                                                 id="password"
                                                 type="password"
                                                 onKeyDown={preventSpace}
-                                                materialProps={{ maxLength: "100" }}
+                                                materialProps={{ maxLength: "30" }}
                                                 value={formik.values.password}
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
