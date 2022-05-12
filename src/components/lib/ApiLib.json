@@ -77,6 +77,7 @@
     "verify_login_passcode": "/customer/verifyLoginPassCode",
     "mfa_user_detials": "/customer/getMFADetailsFromUser",
     "save_security_id_answer": "/customer/saveSecurityIdsAnswers",
-    "send_login_passcode": "/customer/sendLoginPassCode"
+    "send_login_passcode": "/customer/sendLoginPassCode",
+    "get_all_mfa_question": "/customer/mfa_SecurityQuestionsList"
   }
 }

@@ -62,6 +62,21 @@ export async function fetchQuestionMFA(emailData) {
   }
 }
 
+export async function fetchAllMFAQuestion() {
+  try {
+    let url = "get_all_mfa_question";
+    let param = "";
+    let data = {};
+    let method = "GET";
+    let addAccessToken = false;
+
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_AccountDetails_API, error);
+  }
+}
+
 export async function saveSecurityAnswer(answerData) {
   try {
     let url = "save_security_id_answer";
