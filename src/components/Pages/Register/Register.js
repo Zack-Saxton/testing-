@@ -312,6 +312,7 @@ export default function Register() {
                     justifyContent="center"
                     alignItems="center"
                   >
+                    <Grid container>
                     <Grid
                       className="fullWidth"
                       item
@@ -371,6 +372,7 @@ export default function Register() {
                         }
                       />
                     </Grid>
+                    </Grid>
 
                     <Grid
                       className="fullWidth"
@@ -395,8 +397,8 @@ export default function Register() {
                       />
                     </Grid>
 
+                    <Grid className={classes.inputWrap} container>
                     <Grid
-                      className={classes.paddingBottom}
                       id="socialNum"
                       item
                       xs={12}
@@ -468,6 +470,7 @@ export default function Register() {
                         error={andLogic(formik.touched.dob, Boolean(formik.errors.dob))}
                         helperText={andLogic(formik.touched.dob, formik.errors.dob)}
                       />
+                    </Grid>
                     </Grid>
 
                     <Grid
