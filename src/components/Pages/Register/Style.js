@@ -66,9 +66,11 @@ const useStylesRegister = makeStyles((theme) => ({
   paddingBottom: {
     paddingBottom: "32px"
   },
+  inputWrap: {
+    paddingBottom: "32px"
+  },
   paddingLeft: {
-    paddingLeft: "32px",
-    paddingBottom: "32px",
+    paddingLeft: "25px",
     "@media (max-width: 599px)": {
       paddingLeft: "0px",
     },
