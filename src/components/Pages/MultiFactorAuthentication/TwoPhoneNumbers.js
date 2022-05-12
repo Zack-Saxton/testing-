@@ -12,9 +12,10 @@ import { ButtonPrimary, Popup } from "../../FormsUI";
 import { useStylesMFA } from "./Style";
 import PropTypes from "prop-types";
 import PhoneNumberPopUp from './PhoneNumberPopUp';
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, selection, selectionValue, sendPassCode, isLoading}) => {
+const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, selection, selectionValue, sendPassCode, isLoading, mfaDetails}) => {
 
   const classes = useStylesMFA();
   const navigate = useNavigate();
@@ -32,10 +33,14 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
     setPopUp(false);
   }
 
-  const handleClick = () =>{
-    selectionValue === 'security questions' 
-     ? navigate('/MFA-SecurityQuestions')
-     : sendPassCode.mutate(selectionValue);
+  const handleClick = async() =>{
+    if (selectionValue === 'security questions'){ 
+     navigate('/MFA-SecurityQuestions')
+    } else {
+      const passCodeResponse = await sendPassCode(selectionValue);
+      passCodeResponse?.data?.passCode ? navigate('/MFA-OTP', {state: {phoneNumber : selectionValue, mfaQueries:mfaDetails}}) : toast.error(passCodeResponse.data?.Message);
+      console.log(passCodeResponse);
+    }
   }
 
   const securityCode = (
@@ -121,8 +126,9 @@ TwoPhoneNumbers.propTypes = {
   setSelection: PropTypes.func,
   selection: PropTypes.bool,
   selectionValue: PropTypes.any,
-  sendPassCode: PropTypes.object,
+  sendPassCode: PropTypes.func,
   isLoading: PropTypes.bool,
+  mfaDetails: PropTypes.object,
 };
 
 export default TwoPhoneNumbers

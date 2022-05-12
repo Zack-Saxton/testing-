@@ -1,7 +1,6 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link, TextField, Typography } from "@mui/material";
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
@@ -9,20 +8,24 @@ import { ButtonPrimary } from "../../FormsUI";
 import "./MultiFactorAuthentication.css";
 import { useStylesMFA } from "./Style";
 import { toast } from "react-toastify";
-import { VerifyLoginPassCode } from "./../../Controllers/MFAController"
-import { useLocation, useNavigate } from "react-router-dom";
+import {VerifyLoginPassCode} from "./../../Controllers/MFAController"
+import { useNavigate, useLocation } from "react-router-dom";
 
 const MultiFactorAuthenticationOTP = () => {
-  let location = useLocation();
+  const otpLocation = useLocation();
   const navigate = useNavigate();
   const classes = useStylesMFA();
-  const [ currentCount, setCount ] = useState(60);  
+  const [ currentCount, setCount ] = useState(10); 
+  const customerPhoneNumber = otpLocation?.state?.phoneNumber;
+  const customerEmail = otpLocation?.state?.mfaQueries?.customerEmail;
+  const customerDevice = otpLocation?.state?.mfaQueries?.deviceType; 
   const [ disabledButton, setDisabledButton ] = useState(false);  
   const [ otpValue, setOtpValue ] = useState({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""});
-  const customerEmail = location?.state?.customerEmail ?? "";
-  const customerPhoneNumber = location?.state?.customerPhoneNumber ?? "";
-  const MFAInformation = location?.state?.mfaDetails ?? "";
-  const isSecurityQuestionSaved = MFAInformation?.state?.mfaDetails?.securityQuestionsSaved ?? false;
+  const isSecurityQuestionSaved = otpLocation?.state?.mfaQueries?.mfaDetails?.securityQuestionsSaved ?? false;
+  
+  // const [currentCount, setCount] = useState(10);  
+  // const [ otpValue, setOtpValue ] = useState({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""});
+  console.log(otpLocation);
   useEffect(
     () => {
         const timer = () => setCount(currentCount - 1);
@@ -74,7 +77,8 @@ const MultiFactorAuthenticationOTP = () => {
   const handleClickSubmit = async () => {
     setDisabledButton(true);
     let enteredOTP = getPasscode(otpValue);
-    let response = await VerifyLoginPassCode(enteredOTP, customerEmail,customerPhoneNumber);
+    let response = await VerifyLoginPassCode(enteredOTP, customerEmail, customerDevice, customerPhoneNumber);
+    console.log(response);
     if(response?.data?.statusCode === 200){
       toast.success(response.data?.Message);
       if(isSecurityQuestionSaved){// redirect to Account overview

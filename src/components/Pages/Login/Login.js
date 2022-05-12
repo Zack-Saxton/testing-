@@ -99,11 +99,12 @@ export default function Login(props) {
       let retVal = await LoginController(
         values?.email,
         values?.password,
-        ClientIP,
-        'Chrome HP', //It is static for now. Will add the dynamic code later
+          ClientIP,
+        'Chrome browser HP', //It is static for now. Will add the dynamic code later
         props?.setToken
       );
-       if(!retVal?.data?.user?.extensionattributes?.MFA){
+      console.log(retVal);
+      //  if(!retVal?.data?.user?.extensionattributes?.MFA){
       if (retVal?.data?.user && retVal?.data?.userFound) {
         let login_date = retVal?.data?.user?.extensionattributes?.login
           ?.last_timestamp_date
@@ -131,10 +132,12 @@ export default function Login(props) {
         Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email }) : JSON.stringify({ selected: false, email: '' }));
         queryClient.removeQueries();
         setLoading(false);
-        if (retVal?.data?.user?.attributes?.password_reset) {
-          navigate("/resetpassword", { state: { Email: values?.email } });
+        if(retVal?.data?.user?.extensionattributes?.MFA){
+          navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType:'Chrome browser HP' }});
         } else {
-          navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
+          retVal?.data?.user?.attributes?.password_reset 
+          ? navigate("/resetpassword", { state: { Email: values?.email } })
+          : navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
         }
         if (location.state?.activationToken) {
           navigate(0);
@@ -162,9 +165,9 @@ export default function Login(props) {
         setLoading(false);
         alert(globalMessages.Network_Error);
       }
-    } else {
-      navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes}}); 
-    }
+    // } else {
+    //   navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType:'Chrome HP' }}); 
+    // }
     },
   });
 
