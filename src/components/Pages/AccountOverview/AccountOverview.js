@@ -19,9 +19,11 @@ export default function AccountOverview() {
   //Load data
   let offerData = accountDetails?.data?.offerData;
   let activeLoansData = accountDetails?.data?.activeLoans;
+  let activeApplication = accountDetails?.data?.applicants
   Cookies.set("hasActiveLoan", true);
-  if (Array.isArray(activeLoansData) && !(activeLoansData.length)) Cookies.set("hasActiveLoan", false);
+  if (Array.isArray(activeLoansData) && !(activeLoansData.length)) Cookies.set("hasActiveLoan", false);  
   Cookies.set("hasApplicationStatus", accountDetails?.data?.applicant?.processing?.status);
+  if (Array.isArray(activeApplication) && !(activeApplication.length)) Cookies.set("hasApplicationStatus", "rejected");
 
   return (
     <div>
