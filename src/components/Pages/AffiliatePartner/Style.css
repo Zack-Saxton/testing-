@@ -100,6 +100,10 @@ label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLab
 #activeDutyGrid .MuiFormControl-fullWidth label {
     margin-left: -14px;
 }
+#activeDutyGrid .MuiFormControl-fullWidth p,
+#activeDutyRankGrid .MuiFormControl-fullWidth p{
+    margin: 3px 0px;
+}
 
 #activeDutyGrid,
 #activeDutyRankGrid {
@@ -212,6 +216,9 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #phoneTypeWrap div label {
     font-size: 0.968rem !important;
     margin-left: -14px;
+}
+#phoneTypeWrap div p {
+    margin: 3px 0px;
 }
 
 #employementWrap div p {

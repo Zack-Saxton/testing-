@@ -154,7 +154,10 @@ export default function Login(props) {
         );
         setCounter(counter + 1);
         setLoading(false);
-        setLoginFailed(retVal?.data?.errorMessage);
+        setLoginFailed(globalMessages.Invalid_Login_Message);
+        if (counter >= 1) {
+          navigate("/register?email=" + values?.email);
+        }
       } else {
         setLoading(false);
         alert(globalMessages.Network_Error);
@@ -282,7 +285,7 @@ export default function Login(props) {
                         id="password"
                         type="password"
                         onKeyDown={preventSpace}
-                        materialProps={{ maxLength: "100" }}
+                        materialProps={{ maxLength: "30" }}
                         value={formik.values?.password}
                         onChange={passwordOnChange}
                         onBlur={formik.handleBlur}
