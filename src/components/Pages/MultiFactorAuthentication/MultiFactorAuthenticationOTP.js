@@ -23,9 +23,6 @@ const MultiFactorAuthenticationOTP = () => {
   const [ otpValue, setOtpValue ] = useState({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""});
   const isSecurityQuestionSaved = otpLocation?.state?.mfaQueries?.mfaDetails?.securityQuestionsSaved ?? false;
   
-  // const [currentCount, setCount] = useState(10);  
-  // const [ otpValue, setOtpValue ] = useState({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""});
-  console.log(otpLocation);
   useEffect(
     () => {
         const timer = () => setCount(currentCount - 1);
@@ -77,7 +74,6 @@ const MultiFactorAuthenticationOTP = () => {
   const handleClickSubmit = async () => {
     setDisabledButton(true);
     let enteredOTP = getPasscode(otpValue);
-    console.log(customerPhoneNumber);
     let response = await VerifyLoginPassCode(enteredOTP, customerEmail, customerDevice, customerPhoneNumber);
     console.log(response);
     if(response?.data?.statusCode === 200){
@@ -143,8 +139,8 @@ const MultiFactorAuthenticationOTP = () => {
               <Typography className={classes.twoStepHeading} variant="h5">
                 Security Code
               </Typography>
-              <IconButton className={classes.backArrow}>
-                <ArrowBackIcon className={classes.yellowBackArrow} onClick={ backToVarificationStep }/>
+              <IconButton className={classes.backArrow} onClick={ backToVarificationStep }>
+                <ArrowBackIcon className={classes.yellowBackArrow}/>
               </IconButton>
             </Grid>
             <Typography className={classes.twoStepParagraph}>

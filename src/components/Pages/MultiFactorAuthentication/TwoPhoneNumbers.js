@@ -36,6 +36,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
   const handleClick = async() =>{
     if (selectionValue !== 'security questions'){ 
       const passCodeResponse = await sendPassCode(selectionValue);
+      console.log(passCodeResponse);
       passCodeResponse?.data?.passCode ? navigate('/MFA-OTP', {state: {phoneNumber : selectionValue, mfaQueries:mfaDetails}}) : toast.error(passCodeResponse.data?.Message);   
     } else if (selectionValue === 'security questions' && securityQuestionsSaved) {
       navigate('/MFA-SecurityQuestions', {state: {mfaSecurityQuestions: mfaDetails}});
@@ -43,8 +44,6 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
       selectionValue === 'security questions' && !securityQuestionsSaved && navigate('/mfa-kbaQuestions')
     }
   }
-
-  console.log(selectionValue);
 
   const securityCode = (
     <div className={classes.securityCodeText}>
