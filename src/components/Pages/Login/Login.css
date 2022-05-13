@@ -24,7 +24,7 @@
 }
 
 #reset-main-content {
-	margin: auto;
+	max-width: 520px;
 }
 
 #remember-me {
@@ -34,6 +34,7 @@
 #signInContainer {
 	border-radius: 6px !important;
 	padding: 30px;
+	width: 100%;
 }
 
 .fullWidth {
@@ -42,8 +43,9 @@
 
 #fullWidth {
 	width: 100%;
-	padding-left: 16px;
-	padding: 16px 0px 0px 16px;
+}
+.passwordInputGrid{
+	padding: 0px 0px 16px 0px;
 }
 
 .nonDecoratedLink {

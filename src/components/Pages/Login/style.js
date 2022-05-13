@@ -95,14 +95,15 @@ const useStylesLogin = makeStyles((theme) => ({
   },
   emailInputGrid: {
     lineHeight: "2",
-    padding: "8px"
+    padding: "0px 0px 16px 0px",
   },
   logInGrid: {
-    paddingTop: "30px"
+    paddingTop: "30px",
+    margin:"0"
   },
   passwordWrap: {
     width: "100%",
-    gap: 15,
+    padding: "0px 0px 16px 0px",
     marginBottom: 10
   },
   loginRecaptcha: {
