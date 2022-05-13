@@ -216,6 +216,7 @@ function ExistingUser() {
 												label="Password *"
 												type="password"
 												data-testid="password"
+												id="textBlock"
 												onKeyDown={preventSpace}
 												materialProps={{ maxLength: "30" }}
 												value={formik.values.password}
@@ -255,12 +256,10 @@ function ExistingUser() {
 											<ButtonPrimary
 												data-testid="SignInButton"
 												type="submit"
-												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
+												stylebutton='{"background": "#FFBC23", "color": "black", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
 												disabled={loading}
 											>
-												<Typography align="center" className="textCSS ">
 													Sign In
-												</Typography>
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
 													style={{

@@ -148,6 +148,9 @@
 	animation-duration: 3s;
 }
 
+#textBlock{
+	padding-bottom: 10px;
+}
 @keyframes rotation {
 	from {
 		-webkit-transform: rotate(0deg);
@@ -162,7 +165,7 @@
 	text-align: center;
 	text-decoration: none !important;
 	margin-top: 10px !important;
-	color: blue;
+	color: #214476;
 }
 
 .linkBlock {
