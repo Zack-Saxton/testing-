@@ -76,7 +76,7 @@ const PreApproved = () => {
                                 alignitems="center"
                                 id="selectAmountWrap"
                             >
-                                <Grid className="floatLeft">
+                                <Grid className="floatLeft" data-testid="backarrow">
                                     <Link
                                         to={{
                                             pathname: "/select-amount",
@@ -103,7 +103,7 @@ const PreApproved = () => {
                                             &nbsp;We checked your offer code<br />
                                             and {"your'e"} eligible for at least,<br />
                                         </Typography>
-                                        <h2 className={classes.offerAmountStyle}>{offerAmount}</h2>
+                                        <h2 className={classes.offerAmountStyle} data-testid="offeramount">{offerAmount}</h2>
                                         <Typography align="center" className={classes.typoStyle} >
 
                                             and possibly more!
@@ -136,6 +136,7 @@ const PreApproved = () => {
                                             <ButtonPrimary
                                                 stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
                                                 onClick={onClickContinuepreApproved}
+                                                data-testid="continue"
                                             >
                                                 Continue
                                             </ButtonPrimary>
