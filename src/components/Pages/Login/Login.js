@@ -100,7 +100,7 @@ export default function Login(props) {
         values?.email,
         values?.password,
           ClientIP,
-        'Chrome browser HP', //It is static for now. Will add the dynamic code later
+        'MacBook', //It is static for now. Will add the dynamic code later
         props?.setToken
       );
       console.log(retVal);
@@ -133,7 +133,7 @@ export default function Login(props) {
         queryClient.removeQueries();
         setLoading(false);
         if(retVal?.data?.user?.extensionattributes?.MFA){
-          navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType:'Chrome browser HP' }});
+          navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType:'MacBook' }});
         } else {
           retVal?.data?.user?.attributes?.password_reset 
           ? navigate("/resetpassword", { state: { Email: values?.email } })

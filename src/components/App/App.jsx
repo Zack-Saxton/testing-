@@ -62,6 +62,7 @@ import MFASecurityQuestions from "../Pages/MultiFactorAuthentication/MFA-Securit
 import MFASelectSecurityQuestions from "../Pages/MultiFactorAuthentication/MFA-SelectSecurityQuestions";
 import MultiFactorAuthentication from "../Pages/MultiFactorAuthentication/MultiFactorAuthentication";
 import MultiFactorAuthenticationOTP from "../Pages/MultiFactorAuthentication/MultiFactorAuthenticationOTP";
+import KbaQuestions from '../Pages/MultiFactorAuthentication/KbaQuestions';
 import MyBranch from "../Pages/MyBranch/MyBranch";
 import MyProfile from "../Pages/MyProfile/MyProfile";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
@@ -142,6 +143,7 @@ function App() {
                                                 <Route path='/MFA-OTP' element={loadGeneralUserComponent(<MultiFactorAuthenticationOTP />)} />
                                                 <Route path='/MFA-SecurityQuestions' element={loadGeneralUserComponent(<MFASecurityQuestions />)} />
                                                 <Route path='/MFA-SelectSecurityQuestions' element={loadGeneralUserComponent(<MFASelectSecurityQuestions />)} />
+                                                <Route path='/mfa-kbaQuestions' element={loadGeneralUserComponent(<KbaQuestions/>)}/>
                                                 <Route path='/register' element={loadGeneralUserComponent(<RegisterPage />)} />
                                                 <Route path='/faq' element={loadGeneralUserComponent(<FaqBeforeLogin />)} />
                                                 <Route path='/privacyStatement' element={loadGeneralUserComponent(<Disclosure URL="/privacy" />)} />

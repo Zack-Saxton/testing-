@@ -7,7 +7,7 @@ import {SendLoginPassCode} from "../../Controllers/MFAController"
 import {useMutation} from "react-query";
 
 const MultiFactorAuthentication = () => {
-  const location = useLocation();
+ const location = useLocation();
 
 //   const location = {
 //     "hash":"",
@@ -47,6 +47,39 @@ const MultiFactorAuthentication = () => {
 //        }
 //     }
 //  }
+
+  // const location = {
+  //   "state":{
+  //   "mfaDetails":{
+  //     "login":{
+  //        "attempts":0,
+  //        "timestamp":1652371777174,
+  //        "timestamp_date":"2022-05-12T16:09:38.002Z",
+  //        "flagged":false,
+  //        "freezeTime":1652371777174,
+  //        "freezeTime_date":"2022-05-12T16:09:37.174Z",
+  //        "jwt_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI2MTRhMzViY2VjMjI4ZTA0ZWVmY2JlYjIiLCJlbnQiOiJ1c2VyIiwiZXhwIjoxNjUyMzczNTc3MTc0fQ.cR6rtfQhdX1il5WamouneeDYX99eHCbVCnjNU2qITNQ",
+  //        "last_timestamp_date":"2022-05-12T16:09:37.696Z",
+  //        "last_ip":"14.97.228.214"
+  //     },
+  //     "unread_messages":0,
+  //     "attempts":0,
+  //     "MFAttributes":{
+  //        "deviceType":null,
+  //        "deviceTimeStamp":"2022-04-21T09:46:42.563Z",
+  //        "deviceFlag":true
+  //     },
+  //     "MFA":false,
+  //     "MFAByPass":{
+  //        "MFAByPassFlag":false
+  //     },
+  //     "phone_number_primary":"2012012012",
+  //     "phone_type":"Cell",
+  //     "opted_phone_texting":"2012012012"
+  //  },
+  // }
+  // }
+
   const [selection, setSelection] = useState();
   const {mutateAsync, isLoading} = useMutation(SendLoginPassCode);
  
@@ -93,6 +126,23 @@ if(situationThree || situationFour) {
   )
 }
 
+//Two Phone Numbers with no security questions === In Process
+if(situationFive) {
+  return (
+    <TwoPhoneNumbers
+      cellPhoneNumber={location?.state?.mfaDetails?.phone_number_primary}
+      optionalPhoneNumber={location?.state?.mfaDetails?.opted_phone_texting}
+      setSelection={setSelection}
+      selection={selection ? false : true}
+      selectionValue={selection}
+      sendPassCode={mutateAsync}
+      isLoading={isLoading}
+      mfaDetails={location?.state}
+      securityQuestionsSaved={false}
+    />
+  )
+}
+
 //Phone number options with security questions === Done
 if(situationSix) {
   return (
@@ -105,6 +155,7 @@ if(situationSix) {
           sendPassCode={mutateAsync}
           isLoading={isLoading}
           mfaDetails={location?.state}
+          securityQuestionsSaved={true}
           />
   );
 };

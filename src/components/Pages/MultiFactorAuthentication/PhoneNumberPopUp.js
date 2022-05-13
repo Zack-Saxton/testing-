@@ -55,7 +55,7 @@ const PhoneNumberPopUp = ({cellPhoneNumber, optionalPhoneNumber, setSelection}) 
                   id="FormControlLabel"
                   className={classes.smallRadioButton}
                   value={optionalPhoneNumber}
-                  control={<Radio color="primary" onClick={()=>setSelection(`${optionalPhoneNumber}}`)} />}
+                  control={<Radio color="primary" onClick={()=>setSelection(`${optionalPhoneNumber}`)} />}
                   label={securityCode(optionalPhoneNumber)}
                 />
               </RadioGroup>

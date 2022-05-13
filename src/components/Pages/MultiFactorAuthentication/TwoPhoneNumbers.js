@@ -15,7 +15,7 @@ import PhoneNumberPopUp from './PhoneNumberPopUp';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, selection, selectionValue, sendPassCode, isLoading, mfaDetails}) => {
+const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, selection, selectionValue, sendPassCode, isLoading, mfaDetails, securityQuestionsSaved}) => {
 
   const classes = useStylesMFA();
   const navigate = useNavigate();
@@ -34,14 +34,17 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
   }
 
   const handleClick = async() =>{
-    if (selectionValue === 'security questions'){ 
-     navigate('/MFA-SecurityQuestions')
-    } else {
+    if (selectionValue !== 'security questions'){ 
       const passCodeResponse = await sendPassCode(selectionValue);
-      passCodeResponse?.data?.passCode ? navigate('/MFA-OTP', {state: {phoneNumber : selectionValue, mfaQueries:mfaDetails}}) : toast.error(passCodeResponse.data?.Message);
-      console.log(passCodeResponse);
+      passCodeResponse?.data?.passCode ? navigate('/MFA-OTP', {state: {phoneNumber : selectionValue, mfaQueries:mfaDetails}}) : toast.error(passCodeResponse.data?.Message);   
+    } else if (selectionValue === 'security questions' && securityQuestionsSaved) {
+      navigate('/MFA-SecurityQuestions', {state: {mfaSecurityQuestions: mfaDetails}});
+    } else {
+      selectionValue === 'security questions' && !securityQuestionsSaved && navigate('/mfa-kbaQuestions')
     }
   }
+
+  console.log(selectionValue);
 
   const securityCode = (
     <div className={classes.securityCodeText}>
@@ -129,6 +132,7 @@ TwoPhoneNumbers.propTypes = {
   sendPassCode: PropTypes.func,
   isLoading: PropTypes.bool,
   mfaDetails: PropTypes.object,
+  securityQuestionsSaved: PropTypes.bool,
 };
 
 export default TwoPhoneNumbers

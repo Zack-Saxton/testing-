@@ -77,6 +77,7 @@ const MultiFactorAuthenticationOTP = () => {
   const handleClickSubmit = async () => {
     setDisabledButton(true);
     let enteredOTP = getPasscode(otpValue);
+    console.log(customerPhoneNumber);
     let response = await VerifyLoginPassCode(enteredOTP, customerEmail, customerDevice, customerPhoneNumber);
     console.log(response);
     if(response?.data?.statusCode === 200){
