@@ -21,7 +21,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
 
   //View part
   return (
-    <Grid item xs={12} style={{ paddingTop: "10px", paddingBottom: "20px" }}>
+    <Grid item xs={12} data-testid="recordTableGridItem" style={{ paddingTop: "10px", paddingBottom: "20px" }}>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -48,7 +48,8 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                   {val?.loanHistory[ 0 ]?.AppAccountHistory.map((row) => (
                     <>
                       <TableRow key={(Math.random() * 1000)}>
-                        <TableCell
+                        <TableCell 
+                          data-testid="dateTableCell" 
                           component="th"
                           className={classes.tableHeadRow}
                           scope="row"
@@ -56,24 +57,28 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                           {Moment(row.TransactionDate).format("MM/DD/YYYY")}
                         </TableCell>
                         <TableCell
+                          data-testid="transactionDataTableCell" 
                           className={classes.tableHeadRow}
                           align="center"
                         >
                           {row.TransactionDescription}
                         </TableCell>
                         <TableCell
+                          data-testid="principalAmountTableCell" 
                           className={classes.tableHeadRow}
                           align="center"
                         >
                           {row.PrincipalAmount}
                         </TableCell>
                         <TableCell
+                          data-testid="interestAmountTableCell" 
                           className={classes.tableHeadRow}
                           align="center"
                         >
                           {row.InterestAmount}
                         </TableCell>
                         <TableCell
+                          data-testid="otherAmountTableCell" 
                           className={classes.tableHeadRow}
                           align="center"
                         >
@@ -86,6 +91,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
                           -
                         </TableCell>
                         <TableCell
+                          data-testid="runningPrincipalBalanceTableCell" 
                           className={classes.tableHeadRow}
                           align="center"
                         >
@@ -99,7 +105,7 @@ export default function PaymentHistoryTable(userRecentPaymentData) {
             ) : (
               // :
               <TableRow>
-                <TableCell colSpan="7" align="center">
+                <TableCell data-testid="recordTableNoRecentApps" colSpan="7" align="center">
                   You do not have any recent applications
                 </TableCell>
               </TableRow>
