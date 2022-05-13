@@ -55,7 +55,7 @@ export default function EmailVerification() {
     let applicationNo = verificationData?.data?.emailVerificationRecord?.attributes?.applicationNumber ?? "";
     let autoVerification = verificationData?.data?.emailVerificationRecord?.attributes?.autoVerification ?? "off";
     let collaborateOption = verificationData?.data?.emailVerificationRecord?.attributes?.collaborateOption ?? "off";
-    let emailVerifiedStatus = verificationData?.data?.emailVerificationRecord?.attributes?.email_verified ?? false;
+    let emailVerifiedStatus = verificationData?.data?.emailVerificationRecord?.attributes?.consents_verified ?? false;
     let customerEmail = verificationData?.data?.emailVerificationRecord?.customer_email ?? "";
     setCustomerEmail(customerEmail);
     setApplicationNumber(applicationNo);
