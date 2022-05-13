@@ -171,21 +171,22 @@ export default function Register() {
       //API call
       try {
         let customerStatus = await RegisterController(body);
-
+        
         if (
-          (!customerStatus.data?.customerFound && !customerStatus.data?.userFound && !customerStatus.data?.is_registration_failed) ||
-          (customerStatus.data?.result === "success" && !customerStatus.data?.hasError)
+          (!customerStatus.data?.customerFound && !customerStatus.data?.userFound 
+            && !customerStatus.data?.is_registration_failed && customerStatus?.status === 200)
         ) {
           //On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
           loginUser(values);
+          toast.success(globalMessages.Registration_Success);
         }
         else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful") {
           toast.success(customerStatus.data?.successMessage);
           loginUser(values);
         }
         else if (
-          customerStatus.data?.result === "error" &&
-          customerStatus.data?.hasError
+          customerStatus?.data?.result === "error" &&
+          customerStatus?.data?.hasError
         ) {
           setFailed(customerStatus.data?.errorMessage);
           setSuccessPopup(false);
