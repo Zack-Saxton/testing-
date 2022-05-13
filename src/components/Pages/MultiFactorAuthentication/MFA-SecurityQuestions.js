@@ -4,11 +4,15 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ButtonPrimary, Select } from "../../FormsUI";
 import "./MultiFactorAuthentication.css";
 import { useStylesMFA } from "./Style";
 import { fetchQuestionMFA, saveSecurityAnswer } from "../../Controllers/MFAController";
 import { useFormik } from "formik";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
+
 import * as yup from "yup";
 
 
@@ -28,10 +32,11 @@ const validationSchema = yup.object({
 
 const MFASecurityQuestions = () => {
   const classes = useStylesMFA();
+  let location = useLocation();
+  const navigate = useNavigate();
   let questionArray = [];
   // const { questions, setQuestions } = useState([]); 
   const [ questions, setQuestions ] = useState([]);
-
 
     //Form Submission
     const formik = useFormik({
@@ -43,9 +48,10 @@ const MFASecurityQuestions = () => {
   
       validationSchema: validationSchema,
       onSubmit: async (values) => {
+        const userEmail = Cookies.get("email");
 
         let answerData = {
-          email: "zdunkerton@marinerfinance.com",
+          email: userEmail,
           deviceType: "IPhone NEW!!",
           securityQuestions: [
               {question_id: values.selectSecurityQuestion, answer: values.answer} 
@@ -53,26 +59,22 @@ const MFASecurityQuestions = () => {
         }
 
         let verify = await saveSecurityAnswer(answerData);
-        if(verify?.data?.hasError === false  && verify?.data?.result === "ok")
+        if(verify?.data?.hasError === false  && verify?.data?.result === "Ok")
         {
-          alert("verification successfull");
+          toast.success(verify?.data?.Message);
+          navigate("/customers/accountoverview")
         }
         else if (verify?.data?.hasError === true && verify?.data?.result === "error")
         {
-          alert("verificatiofailed");
+          toast.error(verify?.data?.Message);
         }
         else {
-          alert("network error");
+          toast.error("Network error");
         }
       },
     });
   const getMFAQuestion  = async () => {
-    let emailData = {
-      email: "zdunkerton@marinerfinance.com"
-    }
-    let mfaQuestion = await fetchQuestionMFA(emailData);
-
-    mfaQuestion?.data?.MFAInformation?.securityQuestions.forEach(element => {
+    location?.state?.mfaSecurityQuestions?.mfaDetails?.securityQuestions.forEach(element => {
       questionArray.push(
         {
           "label": element.question, 

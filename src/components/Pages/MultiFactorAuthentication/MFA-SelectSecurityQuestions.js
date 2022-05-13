@@ -6,10 +6,12 @@ import Paper from "@mui/material/Paper";
 import React, { useEffect, useState } from "react";
 import { ButtonPrimary, Select, Checkbox } from "../../FormsUI";
 import "./MultiFactorAuthentication.css";
+import Cookies from "js-cookie";
 import { useStylesMFA } from "./Style";
 import { fetchQuestionMFA, saveSecurityAnswer, fetchAllMFAQuestion } from "../../Controllers/MFAController";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { toast } from "react-toastify";
 import { ConstructionOutlined } from "@mui/icons-material";
 
 
@@ -29,12 +31,11 @@ const validationSchema = yup.object({
 
 const MFASelectSecurityQuestions = () => {
   const classes = useStylesMFA();
+  const navigate = useNavigate();
   let questionArray = [];
   // const { questions, setQuestions } = useState([]); 
   const [ questions, setQuestions ] = useState([]);
   const [ selectedQuestions, setSelectedQuestions ] = useState([]);
-
-
 
     //Form Submission
     const formik = useFormik({
@@ -70,34 +71,29 @@ const MFASelectSecurityQuestions = () => {
       },
     });
 
-    const handleAdd = (selectedOffer) => {
+    const handleAdd = (selectData) => {
       const newRecord = [ ...selectData ];
-      newRecord.push(selectedOffer);
-      setSelectData(newRecord);
+      // newRecord.push(selectedOffer);
+      setSelectedQuestions(newRecord);  
     };
 
     const addSelectedQuestion = (row) => {
       let offersComp = selectedQuestions;
-      
-      if (offersComp.findIndex((offerInfo) => offerInfo.id === row.question_id) === -1) {
-        let temp = {
-          question: row.question,
-          id: row.question_id,
-          answer: ""
-        }
-        offersComp.push(temp)
-      } else {
-        // offersComp.findIndex((offerInfo) => offerInfo._id === row._id) === -1
-        // 	? offersComp.push(row)
-        // :
-        offersComp.splice(row, 1);
-      }
-      setSelectedQuestions(offersComp);
-      console.log("offersComp", offersComp)
-      // handleAdd(row);
+
+        if (offersComp.findIndex((offerInfo) => offerInfo.id === row.question_id) === -1) {
+          // if(offersComp.length <)
+          let temp = {
+            question: row.question,
+            id: row.question_id,
+            answer: ""
+          }
+          offersComp.push(temp)
+        } else {
+          offersComp.splice( offersComp.findIndex((offerInfo) => offerInfo.id === row.question_id), 1);
+        } 
+      handleAdd(offersComp);
     };
 
-    console.log("selectedQuestions",selectedQuestions);
 
 
 
@@ -106,17 +102,48 @@ const MFASelectSecurityQuestions = () => {
       email: "zdunkerton@marinerfinance.com"
     }
     let mfaQuestion = await fetchAllMFAQuestion();
-    console.log(mfaQuestion.data.questionsList);
     setQuestions(mfaQuestion.data.questionsList);
-//     mfaQuestion?.data?.MFAInformation?.securityQuestions.forEach(element => {
-//       questionArray.push(
-//         {
-//           "label": element.question, 
-//           "value": element.question_id
-//         }
-//       )
-//     });
-// setQuestions(questionArray)
+  }
+
+  const handleAnswerOnchange = (event, que) => {
+    let tempt = selectedQuestions
+    tempt[selectedQuestions.findIndex( (x) => x.id === que.question_id )].answer = event.target.value;
+    handleAdd(tempt);
+  }
+
+  const onClickSave = async () => {
+  
+    if(selectedQuestions.length === 5) {
+      let selectedQuestionsArray = [];
+      selectedQuestions.forEach((question) => {
+        selectedQuestionsArray.push({
+          question_id: question.id,
+          answer: question.answer
+        })
+      })
+      const userEmail = Cookies.get("email");
+      let answerData = {   
+        "email": userEmail,
+        "deviceType": "Samsung NEW!!!",
+        "securityQuestions": selectedQuestionsArray
+      }
+      let verify = await saveSecurityAnswer(answerData);
+      if(!verify?.data?.hasError && verify?.data?.result === "Ok" && verify?.data?.statusCode === 200)
+      {
+        toast.success(verify?.data?.Message);
+        navigate("/customers/accountoverview")
+      }
+      else if(verify?.data?.hasError || verify?.data?.Message)
+      {
+        toast.error(verify?.data?.Message);
+      }
+      else
+      {
+        toast.error("Network error, please try again");
+      }
+    } else {
+      toast.error("please slect 5 questions");
+    }
   }
 
   useEffect(() => {
@@ -126,10 +153,8 @@ const MFASelectSecurityQuestions = () => {
   }, []);
 
   useEffect(() => {
-    console.log(selectedQuestions);
   }, [selectedQuestions]);
 
-  console.log("question", questions);
   return (
     <div>
       <Grid>
@@ -157,37 +182,25 @@ const MFASelectSecurityQuestions = () => {
             </Grid>
             
             <Grid className={classes.otpWrap} container>
-              <Grid
-                className={classes.securityQuestionsInput}
-                item
-                xs={12}
-                sm={12}
-                md={12}
-                lg={12}
-              >
-                <TextField
-                  id="Answer"
-                  name="answer"
-                  label="Answer"
-                  type="text"
-                  variant="standard"
-                  fullWidth
-                  value={formik.values.answer}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.answer && Boolean(formik.errors.answer)}
-                  helperText={formik.touched.answer && formik.errors.answer}
-                />
-              </Grid>   
+                
               <Grid>
-                <p>hello</p>
                 {
                   questions ?
                   questions.map((que, index) => {
                     return(
                       // <p key={index}>{que.question}</p>
+                      <Grid key={index} container>
+                      <Grid
+                        
+                        className={classes.selectSecurityQuestionsInput}
+                        item
+                        xs={12}
+                        sm={12}
+                        md={12}
+                        lg={12}
+                      >
                       <Checkbox
-                                key={index}
+                               
                                 name="offerToCompare"
                                 label={que.question}
                                 labelid="offerToCompare"
@@ -211,6 +224,46 @@ const MFASelectSecurityQuestions = () => {
                                 stylecheckbox='{ "color":"" }'
                                 stylecheckboxlabel='{ "color":"" }'
                               />
+                              </Grid>
+                              <Grid
+                                // className={classes.securityQuestionsInput}
+                                className={
+                                  selectedQuestions.findIndex(
+                                    (x) => x.id === que.question_id
+                                  ) === -1
+                                    ? `${classes.divHide} ${classes.securityQuestionsInput}`
+                                    : `${classes.divShow} ${classes.securityQuestionsInput}`
+                                }
+                                item
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                lg={12}
+                              >
+                                <TextField
+                                  id="Answer"
+                                  name="answer"
+                                  label="Answer"
+                                  type="text"
+                                  variant="standard"
+                                  fullWidth
+                                  className={
+                                    selectedQuestions.findIndex(
+                                      (x) => x.id === que.question_id
+                                    ) === -1
+                                      ? classes.divHide
+                                      : classes.divShow
+                                  }
+                                  value={ selectedQuestions ? selectedQuestions[selectedQuestions.findIndex( (x) => x.id === que.question_id )]?.answer : ""}
+                                  onChange={(event) => {
+                                    handleAnswerOnchange(event, que)
+                                  }}
+                                  // onBlur={formik.handleBlur}
+                                  // error={formik.touched.answer && Boolean(formik.errors.answer)}
+                                  // helperText={formik.touched.answer && formik.errors.answer}
+                                />
+                              </Grid>
+                              </Grid>
                     )
                     
                   })
@@ -220,8 +273,10 @@ const MFASelectSecurityQuestions = () => {
               </Grid>
             </Grid>
             <Grid className={classes.nextButtonGrid} container>
-              <ButtonPrimary stylebutton='{"color":""}' type="submit">
-                Verify Now
+              <ButtonPrimary stylebutton='{"color":""}' onClick={() => {
+                onClickSave()
+              }}>
+                Save
               </ButtonPrimary>
             </Grid>
             </form>

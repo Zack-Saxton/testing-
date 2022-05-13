@@ -10,6 +10,12 @@ const useStylesMFA = makeStyles((theme) =>
         height: "20px !important",
       },
     },
+    divHide: {
+      display: "none"
+    },
+    divShow: {
+      display: "show"
+    },
     twoStepWrap: {
       margin: "auto",
       maxWidth: "630px",
@@ -88,8 +94,13 @@ const useStylesMFA = makeStyles((theme) =>
     },
     securityQuestionsInput: {
       padding: "0px 5px",
-      textAlign: "center",
+      textAlign: "left",
       margin: "15px 0",
+    },
+    selectSecurityQuestionsInput: {
+      padding: "0px 5px",
+      textAlign: "left",
+      margin: "5px 0",
     },
     resetText: {
       fontSize: "0.844rem",
