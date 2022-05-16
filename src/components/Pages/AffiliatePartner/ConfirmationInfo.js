@@ -1118,7 +1118,7 @@ export default function ConfirmationInfo() {
             onClick={handleClose}
             className="modalButton"
           >
-            <Typography align="center">Ok</Typography>
+            <Typography align="center">OK</Typography>
           </ButtonPrimary>
         </DialogActions>
       </Dialog>
@@ -1146,7 +1146,7 @@ export default function ConfirmationInfo() {
             onClick={handleCloseOhio}
             className="modalButton"
           >
-            <Typography align="center">Ok</Typography>
+            <Typography align="center">OK</Typography>
           </ButtonPrimary>
         </DialogActions>
       </Dialog>

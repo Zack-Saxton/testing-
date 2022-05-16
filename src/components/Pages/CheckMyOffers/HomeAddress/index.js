@@ -433,7 +433,7 @@ function HomeAddress() {
 						onClick={handleClose}
 						className="modalButton"
 					>
-						<Typography align="center">Ok</Typography>
+						<Typography align="center">OK</Typography>
 					</ButtonPrimary>
 				</DialogActions>
 			</Dialog>
@@ -461,7 +461,7 @@ function HomeAddress() {
 						onClick={handleCloseOhio}
 						className="modalButton"
 					>
-						<Typography align="center">Ok</Typography>
+						<Typography align="center">OK</Typography>
 					</ButtonPrimary>
 				</DialogActions>
 			</Dialog>

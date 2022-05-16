@@ -166,7 +166,7 @@ const CheckLoginTimeout = () => {
                 stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
                 onClick={handleClosePopUp}
               >
-                <Typography align="center">Ok</Typography>
+                <Typography align="center">OK</Typography>
               </ButtonPrimary>
             </DialogActions>
           </Dialog>
