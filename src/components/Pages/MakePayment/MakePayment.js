@@ -45,6 +45,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
 import { useStylesMakePayment } from "./Style";
+import setAccountDetails from "../../Controllers/AccountOverviewController";
 
 const paymentMaxDate = new Date();
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
@@ -95,6 +96,7 @@ export default function MakePayment(props) {
   const { data: payments } = useQuery("payment-method", usrPaymentMethods, { refetchOnMount: false, });
   const { data: holidayCalenderData } = useQuery("holiday-calendar", HolidayCalender, { refetchOnMount: false, });
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
+  const [stateName,setStatename] = useState("");
 
   let nextDueDateCheck = new Date();
 
@@ -104,6 +106,14 @@ export default function MakePayment(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ payments, User ]);
+
+  useEffect(()=>{
+    setAccountDetails().then((res)=>{
+      const {data} = res;
+      setStatename(data?.applicant?.contact?.address_state);
+    })
+  },[])
+
 
   useEffect(() => {
     setPaymentDatepicker(scheduleDate ? scheduleDate : new Date());
@@ -155,8 +165,8 @@ export default function MakePayment(props) {
     });
     return checkNickName;
   }
-
-  let paymentAmountWithFees = parseFloat(paymentAmount) + parseFloat(2.50);
+  let extraCharges = stateName == "VA"  ? 0 : stateName == "SC" ? 0 : stateName == "WI" ? 0 : stateName == "MD" ? 0 : "2.50";
+  let paymentAmountWithFees = parseFloat(paymentAmount) + parseFloat(extraCharges);
   //Enable auto payment
   async function enableAutoPayment(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit, removeScheduledPayment) {
     let result = await enableAutoPay(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit, removeScheduledPayment);
@@ -1048,7 +1058,7 @@ export default function MakePayment(props) {
                     <TableCell align="left">
                       Third Party Convenience fee:
                     </TableCell>
-                    <TableCell align="left">$2.50</TableCell>
+                    <TableCell align="left">{"$"+extraCharges}</TableCell>
                     <TableCell
                       className={classes.tableheadrow}
                       align="left"
