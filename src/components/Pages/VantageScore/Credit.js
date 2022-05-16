@@ -68,7 +68,7 @@ export default function Credit(creditData) {
 
   //View
   return (
-    <Grid container direction="row" spacing={3} >
+    <Grid container direction="row" spacing={3} data-testid="credit-score-testid">
       <Grid className={classes.graph} item xs={12} sm={6}>
         <GaugeChart
           id="gauge-chart4"

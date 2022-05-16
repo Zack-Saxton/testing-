@@ -110,7 +110,6 @@ function CheckMyOffersContext(props) {
       data.stateFullform =
         statesFullForm.length === 2 ? states[ statesFullForm ] : statesFullForm;
       data.last4SSN = identification?.last4SSN ? identification?.last4SSN : '';
-      data.loanPurpose = '';
       data.ssn = identification?.social_security_number ?? '';
       data.loading = false;
       data.password = cred.password;

@@ -277,8 +277,7 @@ export default function StatePage() {
                 Get one on one support for a personal loans near you
               </h4>
               <Typography className="branchLocatorHeading">
-                <b className="numberText">470+</b>
-                <span className="branchSmallText">Branches in 24 states</span>
+                <span className="branchSmallText"><b>Operating coast-to-coast</b> with physical locations in over half the states</span>
               </Typography>
               <Typography className="branchLocatorHeading">
                 <b className="numberText">$1k - $25k</b>

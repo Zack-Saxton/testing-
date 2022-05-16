@@ -153,10 +153,7 @@ export default function Login(props) {
         );
         setCounter(counter + 1);
         setLoading(false);
-        setLoginFailed(globalMessages.Invalid_Login_Message);
-        if (counter >= 1) {
-          navigate("/register?email=" + values?.email);
-        }
+        setLoginFailed(retVal?.data?.errorMessage);
       } else {
         setLoading(false);
         alert(globalMessages.Network_Error);

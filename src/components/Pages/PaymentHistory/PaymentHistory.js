@@ -154,13 +154,13 @@ export default function PaymentHistory() {
 
   //View part
   return (
-    <div>
+    <div data-testid="paymentHistoryDiv">
       <CheckLoginStatus />
       <ScrollToTopOnMount />
       <Grid container className={classes.centerGrid} data-testid="payment_History">
         <Grid className={classes.gridStyle} container>
           <Grid item xs={12} sm={8}>
-            <Typography variant="h3" className={classes.heading}>
+            <Typography data-testid="historyHeading" variant="h3" className={classes.heading}>
               <NavLink
                 to="/customers/accountOverview"
               >

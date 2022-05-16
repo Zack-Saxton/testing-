@@ -54,6 +54,7 @@ function TablePaginationActions(props) {
   return (
     <div className={classes.root}>
       <IconButton
+        data-testid="handleFirstPageButtonClick"
         onClick={handleFirstPageButtonClick}
         disabled={!page}
         aria-label="first page"
@@ -61,6 +62,7 @@ function TablePaginationActions(props) {
         {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
+        data-testid="handleBackButtonClick"
         onClick={handleBackButtonClick}
         disabled={!page}
         aria-label="previous page"
@@ -72,6 +74,7 @@ function TablePaginationActions(props) {
         )}
       </IconButton>
       <IconButton
+        data-testid="handleNextButtonClick"
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
@@ -83,6 +86,7 @@ function TablePaginationActions(props) {
         )}
       </IconButton>
       <IconButton
+        data-testid="handleLastPageButtonClick"
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
@@ -232,6 +236,7 @@ export default function PaymentHistoryTable({ userRecentPaymentData }) {
           <TableFooter>
             <TableRow>
               <TablePagination
+                data-testid="paymentRecordsTablePagination"
                 rowsPerPageOptions={[ 5, 10, { label: "All", value: -1 } ]}
                 count={userRecentPaymentData?.length}
                 rowsPerPage={rowsPerPage}
