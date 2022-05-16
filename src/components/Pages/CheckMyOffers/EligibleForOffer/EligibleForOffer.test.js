@@ -1,87 +1,71 @@
-import { cleanup, render } from "@testing-library/react";
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/styles';
+import { cleanup, render, screen } from "@testing-library/react";
 import React from "react";
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import CheckMyOffers from "../../../../contexts/CheckMyOffers";
 import EligibleForOffer from "./index.js";
 
 afterEach(cleanup);
 
-test("Image Availability test", () => {
-  const container = render(
-    <BrowserRouter>
-      <CheckMyOffers>
-        <EligibleForOffer />
-      </CheckMyOffers>
-    </BrowserRouter>
-  );
 
-  const EligibleForOffersImage = container.getByTestId(
-    "EligibleForOffersImage"
-  );
-  expect(EligibleForOffersImage).toBeTruthy();
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			retry: false,
+			staleTime: 500000,
+		},
+	},
+});
+const theme = createTheme();
+const component = () => {
+	return (
+		<ThemeProvider theme={theme}>
+			<QueryClientProvider client={queryClient}>
+				<BrowserRouter>
+					<CheckMyOffers>
+						<EligibleForOffer  />
+					</CheckMyOffers>
+				</BrowserRouter>
+			</QueryClientProvider>
+		</ThemeProvider>
+	);
+}
+
+test("Image Availability test", () => {
+	render(component());
+	const element = screen.getByTestId('EligibleForOffersImage');
+	expect(element).toBeTruthy();
 });
 
 test("Congrats Text Availability test", () => {
-  const container = render(
-    <BrowserRouter>
-      <CheckMyOffers>
-        <EligibleForOffer />
-      </CheckMyOffers>
-    </BrowserRouter>
-  );
-
-  const CongratsText = container.getByTestId("congratsTypography");
-  expect(CongratsText).toBeTruthy();
+	render(component());
+	const element = screen.getByTestId('congratsTypography');
+	expect(element).toBeTruthy();
 });
 
 test("Eligible Text Availability test", () => {
-  const container = render(
-    <BrowserRouter>
-      <CheckMyOffers>
-        <EligibleForOffer />
-      </CheckMyOffers>
-    </BrowserRouter>
-  );
-
-  const EligibleText = container.getByTestId("eligibleTypography");
-  expect(EligibleText).toBeTruthy();
+	render(component());
+	const element = screen.getByTestId('eligibleTypography');
+	expect(element).toBeTruthy();
 });
 
 test("View Offers button Availability Test", () => {
-  const container = render(
-    <BrowserRouter>
-      <CheckMyOffers>
-        <EligibleForOffer />
-      </CheckMyOffers>
-    </BrowserRouter>
-  );
-
-  const viewOffersButton = container.getByText("View Offers");
-  expect(viewOffersButton).toBeTruthy();
+	render(component());
+	const element = screen.getByText('View Offers');
+	expect(element).toBeTruthy();
 });
 
 test("Loan Funding Text Availability test", () => {
-  const container = render(
-    <BrowserRouter>
-      <CheckMyOffers>
-        <EligibleForOffer />
-      </CheckMyOffers>
-    </BrowserRouter>
-  );
-
-  const LoanFundingText = container.getByTestId("loanFundingTypography");
-  expect(LoanFundingText).toBeTruthy();
+	render(component());
+	const element = screen.getByTestId('loanFundingTypography');
+	expect(element).toBeTruthy();
 });
 
 test("Loan Funding Text Availability test", () => {
-  const container = render(
-    <BrowserRouter>
-      <CheckMyOffers>
-        <EligibleForOffer />
-      </CheckMyOffers>
-    </BrowserRouter>
-  );
-
-  const ApprovalLoanText = container.getByTestId("approvalLoanTextTypography");
-  expect(ApprovalLoanText).toBeTruthy();
+	render(component());
+	const element = screen.getByTestId('approvalLoanTextTypography');
+	expect(element).toBeTruthy();
 });
