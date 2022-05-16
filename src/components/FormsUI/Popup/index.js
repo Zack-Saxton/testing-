@@ -32,7 +32,7 @@ const usePopUp = makeStyles((theme) => ({
     }
 }))
 
-const Popup = ({ children, popupFlag, openPopup, title, closePopup }) => {
+const Popup = ({ children, popupFlag, title, closePopup, maxWidth }) => {
 
     const classes = usePopUp();
 
@@ -43,6 +43,7 @@ const Popup = ({ children, popupFlag, openPopup, title, closePopup }) => {
             open={popupFlag}
             data-testid="popup"
             id="customeDialogBox"
+            maxWidth={maxWidth}
         >
             <DialogTitle className="dialogTitleWrap" id="customized-dialog-title" onClose={closePopup}>
                 <Grid container>
@@ -86,7 +87,8 @@ Popup.propTypes = {
     popupFlag: PropTypes.bool,
     openPopup: PropTypes.func,
     closePopup: PropTypes.func,
-    title: PropTypes.string
+    title: PropTypes.string,
+    maxWidth: PropTypes.string,
 };
 
 export default Popup;

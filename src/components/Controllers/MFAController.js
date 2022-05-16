@@ -91,3 +91,19 @@ export async function saveSecurityAnswer(answerData) {
     ErrorLogger(globalMessages.Error_executing_AccountDetails_API, error);
   }
 }
+
+/***** Submit id verification answers multi*****/
+export async function idVerificationAnswer(passData) {
+  try {
+    let url = "mfa_disambiguate_answer";
+    let param = "";
+    let data = passData;
+    let method = "POST";
+    let addAccessToken = true;
+
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_idVerificationAnswer_API, error);
+  }
+}

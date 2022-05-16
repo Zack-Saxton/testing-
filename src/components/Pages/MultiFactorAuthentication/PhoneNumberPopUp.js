@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {
   FormControl,
   FormControlLabel,
+  Grid,
   Radio,
   RadioGroup,
   Typography
@@ -26,7 +27,7 @@ const PhoneNumberPopUp = ({cellPhoneNumber, optionalPhoneNumber, setSelection}) 
   }
 
   return (
-    <Paper className={classes.twoStepPaper}>
+    <Grid>
             
             <Typography className={classes.twoStepParagraph}>
               Select one of your preferred phone number to receive your passcode.
@@ -45,14 +46,12 @@ const PhoneNumberPopUp = ({cellPhoneNumber, optionalPhoneNumber, setSelection}) 
                 onChange={handleChange}
               >
                 <FormControlLabel
-                  id="FormControlLabel"
                   className={classes.smallRadioButton}
                   value={cellPhoneNumber}
                   control={<Radio color="primary" onClick={()=>setSelection(`${cellPhoneNumber}`)} />}
                   label={securityCode(cellPhoneNumber)}
                 />
                 <FormControlLabel
-                  id="FormControlLabel"
                   className={classes.smallRadioButton}
                   value={optionalPhoneNumber}
                   control={<Radio color="primary" onClick={()=>setSelection(`${optionalPhoneNumber}`)} />}
@@ -60,7 +59,7 @@ const PhoneNumberPopUp = ({cellPhoneNumber, optionalPhoneNumber, setSelection}) 
                 />
               </RadioGroup>
             </FormControl>
-          </Paper>
+          </Grid>
   )
 }
 
