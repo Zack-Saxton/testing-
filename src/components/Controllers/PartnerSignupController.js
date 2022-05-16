@@ -162,6 +162,6 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
         },
       }
     )
-    : toast.error("Please login again");
+    : toast.error("Please try again");
   return PartnerConfirmationAPI;
 }
