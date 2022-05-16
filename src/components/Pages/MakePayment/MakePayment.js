@@ -1127,7 +1127,7 @@ export default function MakePayment(props) {
               onClick={handleSchedulePaymentSubmit}
               disabled={loading}
             >
-              Ok
+              OK
               <i
                 className="fa fa-refresh fa-spin customSpinner"
                 style={{
@@ -1315,7 +1315,7 @@ export default function MakePayment(props) {
             stylebutton='{"background": "", "color":"" }'
             onClick={handleAutoPayClose}
           >
-            Ok
+            OK
           </ButtonPrimary>
         </DialogActions>
       </Dialog>
