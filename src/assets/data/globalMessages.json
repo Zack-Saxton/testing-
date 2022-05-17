@@ -207,6 +207,7 @@
   "Please_Select_File_Upload": "Please Select a file to upload",
   "Please_Upload_File_Below_Size": "Please upload file size below 10mb",
   "Registration_Failed": "Registration failed. Please contact us at (844) 306-7300",
+  "Registration_Success": "Registered Successfully.",
   "Regular_Amount": "Regular Amount",
   "Rent_Mortgage_Min": "Amount should be a minimum of $100",
   "Rent_Mortgage_Zero": "Rent/Mortgage amount should not be zero",
@@ -256,5 +257,6 @@
   "ZipCodeMax": "Zip Code should be 5 characters in length",
   "ZipCodeRequired": "Your home Zip Code is required",
   "Zipcode_Required": "Zipcode is required",
-  "ConsentStatusUpdateError": "Error executing save consent API"
+  "ConsentStatusUpdateError": "Error executing save consent API",
+  "INVALIDENTRY":"Invalid Entry Please Try Another Email Address"
 }

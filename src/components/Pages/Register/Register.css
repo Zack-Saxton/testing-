@@ -21,9 +21,6 @@
 	margin-bottom: 2%;
 }
 
-#dateWrap {
-	align-self: flex-end
-}
 
 #dateWrap label {
 	font-size: 16px !important;
@@ -38,6 +35,9 @@
 	width: 100% !important;
 }
 
+#dob{
+	padding-bottom: 15px !important;
+}
 @media (max-width: 599px) {
 	#socialNum {
 		margin-top: 0px !important;

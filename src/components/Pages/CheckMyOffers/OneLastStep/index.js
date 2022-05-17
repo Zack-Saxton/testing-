@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
+import { findByTestId } from "@testing-library/react";
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
@@ -85,6 +86,7 @@ function SSN() {
 	const handleOnClickwebTOU = () => {
 		setWebTOUPopup(true);
 	};
+
 	const handleOnClickwebTOUClose = () => {
 		setWebTOUPopup(false);
 	};
@@ -151,7 +153,7 @@ function SSN() {
 		if (data.completedPage < data?.page?.livingPlace || data?.completedPage < data?.page?.activeDuty || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		//eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const redirectNC = data.state === "NC" ? "/active-duty" : "/living-place";
@@ -286,16 +288,16 @@ function SSN() {
 											onChange={(event) => {
 												setAgree(event.target.checked);
 											}}
+											data-testid="reviewedcheckbox"
 											label={
 												<p className="agreeText">
 													By clicking this box, you acknowledge that you have received,
 													reviewed and agree to the following disclosures and consents:
 													<br />
-
-													<span className={classes.linkDesign} onClick={() => { handleOnClickEsign(); }}>E-Signature Disclosure and Consent,</span>
-													<span className={classes.linkDesign} onClick={() => { handleOnClickCredit(); }}>Credit and Contact Authorization,</span>
-													<span className={classes.linkDesign} onClick={() => { handleOnClickwebTOU(); }}>Website Terms of Use,</span>
-													<span className={classes.linkDesign} onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
+													<span data-testid="eSignatureLink" className={classes.linkDesign} onClick={() => { handleOnClickEsign(); }}>E-Signature Disclosure and Consent,</span>
+													<span data-testid="creditContactAuth"className={classes.linkDesign} onClick={() => { handleOnClickCredit(); }}>Credit and Contact Authorization,</span>
+													<span data-testid="websiteTerms" className={classes.linkDesign} onClick={() => { handleOnClickwebTOU(); }}>Website Terms of Use,</span>
+													<span data-testid="websitePrivacy" className={classes.linkDesign} onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
 												</p>
 											}
 											required={true}
@@ -314,6 +316,7 @@ function SSN() {
 													setAgreeDelaware(event.target.checked);
 												}}
 												className={"space checkBoxClass"}
+
 												label={
 													<p className="agreeText MT5">
 														By clicking this box you acknowledge that you have
@@ -423,6 +426,7 @@ function SSN() {
 													)
 											}
 											onClick={handleOnClick}
+											data-testid="submit-application"
 											stylebutton='{"background": "#FFBC23", "fontSize": "0.938rem","color": "black", "padding": "0px 30px"}'
 										>
 											Submit Application

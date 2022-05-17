@@ -102,8 +102,7 @@ function ExistingUser() {
 						JSON.stringify({ email: data.email, password: values.password })
 					)
 				);
-				queryClient.removeQueries();
-				setLoading(false);
+				queryClient.removeQueries();				
 				let accountDetail = await usrAccountDetails();
 
 				if (accountDetail?.data?.customer?.user_account?.status?.toLowerCase() === "closed") {
@@ -113,10 +112,11 @@ function ExistingUser() {
 				} else {
 					navigate("/employment-status");
 				}
+				setLoading(false);
 			} else if (retVal?.data?.result?.toLowerCase() === "error" || retVal?.data?.hasError) {
 				Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
 				setLoading(false);
-				setLoginFailed(retVal?.data?.errorMessage);
+				toast.error(retVal?.data?.errorMessage);
 			} else {
 				alert(globalMessages.Network_Error);
 				setLoading(false);
@@ -216,6 +216,7 @@ function ExistingUser() {
 												label="Password *"
 												type="password"
 												data-testid="password"
+												id="textBlock"
 												onKeyDown={preventSpace}
 												materialProps={{ maxLength: "30" }}
 												value={formik.values.password}
@@ -255,12 +256,10 @@ function ExistingUser() {
 											<ButtonPrimary
 												data-testid="SignInButton"
 												type="submit"
-												stylebutton='{"background": "#FFBC23", "height": "inherit", "color": "black"}'
+												stylebutton='{"background": "#FFBC23", "color": "black", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
 												disabled={loading}
 											>
-												<Typography align="center" className="textCSS ">
 													Sign In
-												</Typography>
 												<i
 													className="fa fa-refresh fa-spin customSpinner"
 													style={{

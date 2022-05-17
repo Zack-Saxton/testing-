@@ -15,7 +15,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 93vh;
+	min-height: 90vh;
 	background-color: #f6f6f6 !important;
 }
 
@@ -24,7 +24,7 @@
 }
 
 #reset-main-content {
-	margin: auto;
+	max-width: 520px;
 }
 
 #remember-me {
@@ -34,6 +34,7 @@
 #signInContainer {
 	border-radius: 6px !important;
 	padding: 30px;
+	width: 100%;
 }
 
 .fullWidth {
@@ -42,6 +43,9 @@
 
 #fullWidth {
 	width: 100%;
+}
+.passwordInputGrid{
+	padding: 0px 0px 16px 0px;
 }
 
 .nonDecoratedLink {

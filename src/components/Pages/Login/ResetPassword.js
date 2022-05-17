@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -86,8 +85,6 @@ export default function Login(props) {
         <div>
             <ScrollToTopOnMount />
             <div className={classes.mainContentBackground} id="resetPasswordWrap">
-                <Box>
-                    <Grid container>
                         <Grid container
                             item
                             xl={6}
@@ -110,7 +107,7 @@ export default function Login(props) {
                                     Create New Password
                                 </Typography>
                                 <form onSubmit={formik.handleSubmit}>
-                                    <Grid container spacing={2} className={classes.logInGrid}>
+                                    <Grid container className={classes.logInGrid}>
                                         <Grid
                                             id="fullWidth"
                                             className={classes.emailInputGrid}
@@ -124,11 +121,11 @@ export default function Login(props) {
                                                 InputLabelProps={{ style: { fontSize: 40 } }}
                                                 label="Create new password for"
                                                 materialProps={{ maxLength: "100" }}
-                                                value={location.state.Email}
+                                                value={location?.state?.Email}
                                             />
                                         </Grid>
                                         <Grid
-                                            className="fullWidth"
+                                            className="fullWidth passwordInputGrid"
                                             item
                                             xs={12}
                                             container
@@ -141,7 +138,7 @@ export default function Login(props) {
                                                 id="password"
                                                 type="password"
                                                 onKeyDown={preventSpace}
-                                                materialProps={{ maxLength: "100" }}
+                                                materialProps={{ maxLength: "30" }}
                                                 value={formik.values.password}
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
@@ -165,7 +162,7 @@ export default function Login(props) {
                                                 id="retypeNewPasswordWrap"
                                                 name="confirmPassword"
                                                 type="password"
-                                                label="Confirm New Password"
+                                                label="Confirm New Password *"
                                                 onKeyDown={preventSpace}
                                                 autoComplete="new-password"
                                                 materialProps={{ maxLength: "30", autoComplete: "off" }}
@@ -201,8 +198,6 @@ export default function Login(props) {
                                 </form>
                             </Paper>
                         </Grid>
-                    </Grid>
-                </Box>
             </div>
         </div>
     );

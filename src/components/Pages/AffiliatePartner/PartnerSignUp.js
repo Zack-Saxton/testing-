@@ -674,7 +674,7 @@ export default function PartnerSignUp() {
             onClick={handleCloseCA}
             className="modalButton"
           >
-            <Typography align="center">Ok</Typography>
+            <Typography align="center">OK</Typography>
           </ButtonPrimary>
         </DialogActions>
       </Dialog>
@@ -703,7 +703,7 @@ export default function PartnerSignUp() {
             onClick={handleCloseOhio}
             className="modalButton"
           >
-            <Typography align="center">Ok</Typography>
+            <Typography align="center">OK</Typography>
           </ButtonPrimary>
         </DialogActions>
       </Dialog>

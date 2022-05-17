@@ -71,7 +71,7 @@ const Popup = ({ children, popupFlag, title, closePopup, maxWidth }) => {
                     onClick={closePopup}
                     className="modalButton"
                 >
-                    <Typography align="center">Ok</Typography>
+                    <Typography align="center">OK</Typography>
                 </ButtonPrimary>
             </DialogActions>
         </Dialog>

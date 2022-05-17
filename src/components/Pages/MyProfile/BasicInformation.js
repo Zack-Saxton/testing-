@@ -119,7 +119,8 @@ export default function BasicInformation(props) {
       };
       const uploadBasicInfoChange = () => {
         if (!toast.isActive("closeToast")) {
-          refetch().then(() => toast.success(globalMessages.UpdatedSuccessfully, {
+          refetch().then( () => 
+            toast.success(globalMessages.UpdatedSuccessfully, {
             toastId: "closeToast",
             onClose: () => {
               setLoading(false);
@@ -262,8 +263,16 @@ export default function BasicInformation(props) {
             uploadBasicInfoChange();
           }
         } else if (formik.initialValues.email !== values.email || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email)) {
-          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
-            uploadBasicInfoChangeLogOut();
+           if(res?.data?.statusCode == 400){
+            if (!toast.isActive("closeToast")) {
+              toast.error(globalMessages.INVALIDENTRY, {
+                toastId: "closeToast",
+                onClose: () => { setLoading(false); }
+              });
+            }
+          }
+           if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
+              uploadBasicInfoChangeLogOut();
           }
         } else {
           if (!toast.isActive("closeToast")) {
