@@ -144,7 +144,7 @@ function DocumentIdAndPhotoId(props) {
           let fileSize = fileObject.files[ 0 ].size;
           let filesInfo = getFileInfo(fileName, fileType, fileExtension, fileSize);
           let response = await uploadEmailVerificationDocument(compressedFile, filesInfo, props.applicationNumber, props.customerEmail, "customer_identification_license");
-          if (response) {
+          if (response?.status === 200) {
             fileObject.value = "";
             if (callSecondFunction) {
               uploadSelfieDocument();
@@ -153,6 +153,8 @@ function DocumentIdAndPhotoId(props) {
               toast.success(response?.data?.message ?? globalMessages.Document_upload);
               props.next();
             }
+          }else{
+            setLoading(false);
           }
         };
         reader.readAsDataURL(fileObject.files[ 0 ]);
@@ -250,7 +252,7 @@ function DocumentIdAndPhotoId(props) {
 
       let filesInfo = getFileInfo(fileName, "image/jpeg", "jpeg", "0");
       let response = await uploadEmailVerificationDocument(compressedFile, filesInfo, props.applicationNumber, props.customerEmail, "customer_identification_license");
-      if (response) {
+      if (response?.status === 200) {
         setShowCamera(false);
         setImgSrc(null);
         handleMenuClose();
@@ -261,6 +263,8 @@ function DocumentIdAndPhotoId(props) {
           setLoading(false);
           props.next();
         }
+      }else{
+        setLoading(false);
       }
     } catch (error) {
       ErrorLogger(" Error in emailVerificationDocument", error);
