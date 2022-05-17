@@ -316,7 +316,7 @@ function PersonalInfo() {
 
 	//JSX [part]
 	return (
-		<div>
+		<div data-testid="personal_Info_component">
 			<ScrollToTopOnMount />
 			<div className={classes.mainDiv}>
 				<Box>
