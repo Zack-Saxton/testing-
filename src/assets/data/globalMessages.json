@@ -58,6 +58,7 @@
   "City_Required": "City is required.",
   "Complete_Autopay_Setup": "Complete Auto Pay Setup",
   "CVV_Required": "CVV is required",
+  "CVV_Valid" : "Please enter valid CVV",
   "Document_download": "Document Downloaded Successfully",
   "Document_download_error": "Downloading failed",
   "Document_print_error": "Error printing file",
