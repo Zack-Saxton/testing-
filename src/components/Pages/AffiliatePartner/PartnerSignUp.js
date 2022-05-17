@@ -32,15 +32,16 @@ const validationSchema = yup.object({
     .matches(/^[a-zA-Z][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, globalMessages.EmailValid)
     .required(globalMessages.EmailRequired),
   password: yup
-    .string(globalMessages.PasswordEnter)
-    .matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/, globalMessages.PasswordCriteria)
+    .string(globalMessages.PasswordEnter)    
     .max(30, globalMessages.PasswordMax)
     .min(10, globalMessages.PasswordMin)
+    .matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/, globalMessages.PasswordCriteria)
     .required(globalMessages.PasswordRequired),
   confirmPassword: yup
     .string()
     .max(30, globalMessages.PasswordMax)
     .min(10, globalMessages.PasswordMin)
+    .matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/, globalMessages.PasswordCriteria)
     .required(globalMessages.PasswordConfirmationRequired)
     .when("password", {
       is: (password) => password?.length > 0,

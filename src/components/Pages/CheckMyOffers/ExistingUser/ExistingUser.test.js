@@ -9,7 +9,7 @@ import ExistingUser from "./index.js";
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 afterEach(cleanup);
-
+window.scrollTo = jest.fn();
 const queryClient = new QueryClient({
 	defaultOptions: {
 	  queries: {

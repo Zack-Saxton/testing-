@@ -82,7 +82,12 @@ const validationSchemaDebitCard = yup.object({
   cvv: yup
     .string(globalMessages.Enter_CVV)
     .required(globalMessages.CVV_Required)
+    .matches(
+      /^(?!000)\d{3}$/,
+      globalMessages.CVV_Valid
+  )
     .min(3, globalMessages.CVV_Required),
+
   expiryDate: yup
     .date(globalMessages.Card_Valid_Date)
     .nullable()

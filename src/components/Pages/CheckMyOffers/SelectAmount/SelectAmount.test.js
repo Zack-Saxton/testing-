@@ -41,7 +41,6 @@ const component1 = () => {
 test("Check the component is rendered", () => {
 	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('check-my-affer-select-amout');
-	//screen.debug(undefined, 300000);
 	expect(element).toBeTruthy();
 })
 

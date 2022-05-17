@@ -8,6 +8,7 @@ import { MemoryRouter } from "react-router-dom";
 import ProfilePicture from "../../../contexts/ProfilePicture";
 import ScheduleCall from "./ScheduleCall";
 const theme = createTheme();
+window.scrollTo = jest.fn();
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -47,7 +48,6 @@ test("Check Dialog Avaliabilty", () => {
 
 test("Check Date Picker Avalability", () => {
 	render(component(), { wrapper: MemoryRouter });
-	screen.debug(undefined, 50000)
 	const button = screen.getByText("Schedule a call");
 	fireEvent.click(button);
 	const Date = screen.getByText("Date")
@@ -56,7 +56,6 @@ test("Check Date Picker Avalability", () => {
 
 test("Check can able to set value in the date input filed.", () => {
 	render(component(), { wrapper: MemoryRouter });
-	screen.debug(undefined, 50000)
 	const button = screen.getByText("Schedule a call");
 	fireEvent.click(button);
 	const Date = screen.getByText("Date")
@@ -64,7 +63,6 @@ test("Check can able to set value in the date input filed.", () => {
 })
 test("Check the time slot input field is rendered.", () => {
 	render(component(), { wrapper: MemoryRouter });
-	screen.debug(undefined, 50000)
 	const button = screen.getByText("Schedule a call");
 	fireEvent.click(button);
 	const Time = screen.getByText("Time Slot")
@@ -72,7 +70,6 @@ test("Check the time slot input field is rendered.", () => {
 })
 test("when selecting the holiday date, the slot field should not be displayed.", () => {
 	render(component(), { wrapper: MemoryRouter });
-	screen.debug(undefined, 50000)
 	const button = screen.getByText("Schedule a call");
 	fireEvent.click(button);
 	const Time = screen.getByText("Time Slot")
