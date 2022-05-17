@@ -73,6 +73,14 @@
     "branch_mail_verification": "/verification/branchemail",
     "upload_email_verification_document": "/gps/send_email_attachment",
     "save_consents": "/verification/save_LBP_consents",
-    "save_acquire_click": "/verification/saveAcquireClickInfo"
+    "save_acquire_click": "/verification/saveAcquireClickInfo",
+    "verify_login_passcode": "/customer/verifyLoginPassCode",
+    "mfa_user_detials": "/customer/getMFADetailsFromUser",
+    "save_security_id_answer": "/customer/saveSecurityIdsAnswers",
+    "send_login_passcode": "/customer/sendLoginPassCode",
+    "get_all_mfa_question": "/customer/mfa_SecurityQuestionsList",
+    "mfa_questions_cac": "/integration/lexisnexis/mfa_kba_questions?test=true",
+    "mfa_disambiguate_answer": "/integration/lexisnexis/mfa_kba_disambiguate_answers?test=true",
+    "mfa_answers_cac": "/integration/lexisnexis/mfa_kba_answers?test=true"
   }
 }

@@ -10,6 +10,12 @@ const useStylesMFA = makeStyles((theme) =>
         height: "20px !important",
       },
     },
+    divHide: {
+      display: "none"
+    },
+    divShow: {
+      display: "show"
+    },
     twoStepWrap: {
       margin: "auto",
       maxWidth: "630px",
@@ -32,6 +38,7 @@ const useStylesMFA = makeStyles((theme) =>
       color: "#ffbc23",
     },
     twoStepPaper: {
+      width: "100%",
       padding: "20px 40px",
       margin: "40px 0px",
       boxSizing: "border-box",
@@ -87,8 +94,13 @@ const useStylesMFA = makeStyles((theme) =>
     },
     securityQuestionsInput: {
       padding: "0px 5px",
-      textAlign: "center",
+      textAlign: "left",
       margin: "15px 0",
+    },
+    selectSecurityQuestionsInput: {
+      padding: "0px 5px",
+      textAlign: "left",
+      margin: "5px 0",
     },
     resetText: {
       fontSize: "0.844rem",
@@ -100,6 +112,21 @@ const useStylesMFA = makeStyles((theme) =>
       textAlign: "center",
       margin: "15px 0px",
       color: "##595959",
+    },
+    loadingOn: {
+      opacity: 0.55,
+      pointerEvents: "none",
+    },
+    loadingOnWithoutBlur: {
+      pointerEvents: "none",
+    },
+    loadingOff: {
+      opacity: 1,
+      pointerEvents: "initial",
+    },
+    button_div: {
+      marginTop: theme.spacing(3),
+      marginRight: theme.spacing(1),
     },
   })
 );

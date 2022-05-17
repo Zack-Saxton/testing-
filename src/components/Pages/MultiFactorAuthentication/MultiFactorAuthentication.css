@@ -13,7 +13,9 @@ input[type="number"]::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 }
-
+input[type=number] {
+  -moz-appearance:textfield;
+}
 #otpNumberOne,
 #otpNumberTwo,
 #otpNumberThree,
@@ -38,4 +40,15 @@ input[type="number"]::-webkit-outer-spin-button {
 #questionsFive-label {
   font-size: 0.938rem;
   color: #595959;
+}
+
+@media (max-width: 400px) {
+
+	#button_stepper_next,
+	#button_stepper_prev,
+	#button_stepper_reset {
+		width: 100% !important;
+
+		margin-top: 10px !important;
+	}
 }

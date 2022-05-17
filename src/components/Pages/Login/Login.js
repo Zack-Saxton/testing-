@@ -13,7 +13,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQuery } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -53,6 +53,7 @@ export default function Login(props) {
   const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
   const [ disableRecaptcha, setDisableRecaptcha ] = useState(true);
   const queryClient = useQueryClient();
+  const {data:ClientIP} = useQuery('ipaddress', getClientIp);
   let location = useLocation();
 
   const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
@@ -63,8 +64,7 @@ export default function Login(props) {
   window.onReCaptchaSuccess = async function () {
     try {
       let grecaptchaResponse = grecaptcha.getResponse();
-      let ipAddress = await getClientIp();
-      let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
+      let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ClientIP);
 
       if (recaptchaVerifyResponse.status === 200) {
         toast.success(globalMessages.Recaptcha_Verify);
@@ -95,18 +95,19 @@ export default function Login(props) {
     // On login submit
     onSubmit: async (values) => {
       setLoading(true);
-      let ipAddress = await getClientIp();
-      //Sending value to  login controller
+      // Sending value to  login controller
       let retVal = await LoginController(
         values?.email,
         values?.password,
-        ipAddress,
+        ClientIP,
+        window.navigator.userAgent, //It is static for now. Will add the dynamic code later
         props?.setToken
       );
+      //  if(!retVal?.data?.user?.extensionattributes?.MFA){
       if (retVal?.data?.user && retVal?.data?.userFound) {
         let login_date = retVal?.data?.user?.extensionattributes?.login
           ?.last_timestamp_date
-          ? moment(retVal?.data?.user?.extensionattributes?.login?.last_timestamp_date)
+          ? moment(retVal.data.user.extensionattributes.login.last_timestamp_date)
             .subtract(addVal, "hours")
             .format("MM/DD/YYYY")
           : "";
@@ -119,6 +120,8 @@ export default function Login(props) {
             apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
             setupTime: now,
             applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
+            isMFA:retVal?.data?.user?.extensionattributes?.MFA ?? false,
+            isMFACompleted: false
           })
         );
         Cookies.set("cred", encryptAES(JSON.stringify({ email: values?.email, password: values?.password })));
@@ -130,10 +133,12 @@ export default function Login(props) {
         Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email }) : JSON.stringify({ selected: false, email: '' }));
         queryClient.removeQueries();
         setLoading(false);
-        if (retVal?.data?.user?.attributes?.password_reset) {
-          navigate("/resetpassword", { state: { Email: values?.email } });
+        if(retVal?.data?.user?.extensionattributes?.MFA){
+          navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }});
         } else {
-          navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
+          retVal?.data?.user?.attributes?.password_reset 
+          ? navigate("/resetpassword", { state: { Email: values?.email } })
+          : navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
         }
         if (location.state?.activationToken) {
           navigate(0);
@@ -158,8 +163,16 @@ export default function Login(props) {
         setLoading(false);
         alert(globalMessages.Network_Error);
       }
+    // } else {
+    //   navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType:'Chrome HP' }}); 
+    // }
     },
   });
+
+  const emailOnChange = (event) => {
+    setLoginFailed("");
+    formik.handleChange(event);
+  }
 
   const passwordOnChange = (event) => {
     setLoginFailed("");
@@ -253,7 +266,7 @@ export default function Login(props) {
                         }
                         onKeyDown={preventSpace}
                         value={formik.values?.email}
-                        onChange={passwordOnChange}
+                        onChange={emailOnChange}
                         onBlur={formik.handleBlur}
                         disablePaste={true}
                         error={
