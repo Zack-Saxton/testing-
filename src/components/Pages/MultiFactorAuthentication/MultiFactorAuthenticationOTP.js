@@ -10,6 +10,7 @@ import { useStylesMFA } from "./Style";
 import { toast } from "react-toastify";
 import {VerifyLoginPassCode, SendLoginPassCode} from "./../../Controllers/MFAController"
 import { useNavigate, useLocation } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const MultiFactorAuthenticationOTP = () => {
   const otpLocation = useLocation();
@@ -80,6 +81,10 @@ const MultiFactorAuthenticationOTP = () => {
     if(response?.data?.statusCode === 200){
       toast.success(response.data?.Message);
       if(isSecurityQuestionSaved){// redirect to Account overview
+        const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
+        let userToken = JSON.parse(tokenString);
+        userToken.isMFACompleted = true;
+        Cookies.set("token",JSON.stringify(userToken));
         navigate("/customers/accountOverview");
       }else{// redirect to security question page
         navigate("/MFA-SecurityQuestions");

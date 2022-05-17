@@ -120,6 +120,8 @@ export default function Login(props) {
             apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
             setupTime: now,
             applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
+            isMFA:retVal?.data?.user?.extensionattributes?.MFA ?? false,
+            isMFACompleted: false
           })
         );
         Cookies.set("cred", encryptAES(JSON.stringify({ email: values?.email, password: values?.password })));

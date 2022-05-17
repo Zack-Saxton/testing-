@@ -62,6 +62,10 @@ const MFASecurityQuestions = () => {
         if(verify?.data?.hasError === false  && verify?.data?.result === "Ok")
         {
           toast.success(verify?.data?.Message);
+          const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
+          let userToken = JSON.parse(tokenString);
+          userToken.isMFACompleted = true;
+          Cookies.set("token",JSON.stringify(userToken));
           navigate("/customers/accountoverview")
         }
         else if (verify?.data?.hasError === true && verify?.data?.result === "error")
