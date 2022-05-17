@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ButtonPrimary, Select, Checkbox } from "../../FormsUI";
 import "./MultiFactorAuthentication.css";
 import Cookies from "js-cookie";
@@ -32,6 +33,7 @@ const validationSchema = yup.object({
 const MFASelectSecurityQuestions = () => {
   const classes = useStylesMFA();
   const navigate = useNavigate();
+  const userEmail = Cookies.get("email");
   let questionArray = [];
   // const { questions, setQuestions } = useState([]); 
   const [ questions, setQuestions ] = useState([]);
@@ -47,10 +49,9 @@ const MFASelectSecurityQuestions = () => {
   
       validationSchema: validationSchema,
       onSubmit: async (values) => {
-
         let answerData = {
-          email: "zdunkerton@marinerfinance.com",
-          deviceType: "IPhone NEW!!",
+          email: userEmail,
+          deviceType: navigator.userAgent,
           securityQuestions: [
               {question_id: values.selectSecurityQuestion, answer: values.answer} 
           ]
@@ -59,14 +60,15 @@ const MFASelectSecurityQuestions = () => {
         let verify = await saveSecurityAnswer(answerData);
         if(verify?.data?.hasError === false  && verify?.data?.result === "ok")
         {
-          alert("verification successfull");
+          toast.success(verify?.data?.Message);
+          navigate("/customers/accountoverview")
         }
         else if (verify?.data?.hasError === true && verify?.data?.result === "error")
         {
-          alert("verificatiofailed");
+          toast.success(verify?.data?.Message);
         }
         else {
-          alert("network error");
+          toast.success("Network error");
         }
       },
     });
@@ -97,10 +99,7 @@ const MFASelectSecurityQuestions = () => {
 
 
 
-  const getMFAQuestion  = async () => {
-    let emailData = {
-      email: "zdunkerton@marinerfinance.com"
-    }
+  const getMFAQuestion  = async () => { 
     let mfaQuestion = await fetchAllMFAQuestion();
     setQuestions(mfaQuestion.data.questionsList);
   }
@@ -121,10 +120,10 @@ const MFASelectSecurityQuestions = () => {
           answer: question.answer
         })
       })
-      const userEmail = Cookies.get("email");
+      
       let answerData = {   
         "email": userEmail,
-        "deviceType": "Samsung NEW!!!",
+        "deviceType": navigator.userAgent,
         "securityQuestions": selectedQuestionsArray
       }
       let verify = await saveSecurityAnswer(answerData);

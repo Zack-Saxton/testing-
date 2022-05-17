@@ -52,7 +52,7 @@ const MFASecurityQuestions = () => {
 
         let answerData = {
           email: userEmail,
-          deviceType: "IPhone NEW!!",
+          deviceType: navigator.userAgent,
           securityQuestions: [
               {question_id: values.selectSecurityQuestion, answer: values.answer} 
           ]
