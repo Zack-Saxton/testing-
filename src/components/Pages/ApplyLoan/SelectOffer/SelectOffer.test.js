@@ -450,9 +450,7 @@ describe("while loading", () => {
       offers: mockOffers,
     }));
     const container = render(MockActiveloans());
-    container.debug(undefined, 300000)
     const selectOffer = screen.getByText("1. Select Offer");
-    screen.debug(undefined, 40000);
     expect(selectOffer).toBeTruthy();
   });
 

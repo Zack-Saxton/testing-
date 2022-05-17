@@ -8,6 +8,7 @@ import { MemoryRouter } from "react-router-dom";
 import ProfilePicture from "../../../contexts/ProfilePicture";
 import FaqBeforeLogin from "./FaqBeforeLogin";
 const theme = createTheme();
+window.scrollTo = jest.fn();
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

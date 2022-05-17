@@ -8,6 +8,7 @@ import { MemoryRouter } from "react-router-dom";
 import ProfilePicture from "../../../contexts/ProfilePicture";
 import ScheduleAppointment from "./ScheduleAppointment";
 const theme = createTheme();
+window.scrollTo = jest.fn();
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -48,8 +49,7 @@ test("Check Dialog Avaliabilty", () => {
 
 test("Check Date Picker Avalability Once Click on the Button", () => {
 	render(component(), { wrapper: MemoryRouter });
-	screen.debug(undefined, 50000)
-  const button = screen.getByTestId("appointment"); 
+	const button = screen.getByTestId("appointment"); 
 	fireEvent.click(button);
 	const Date = screen.getByText("Date")
 	expect(Date).toBeInTheDocument(); 
@@ -57,7 +57,6 @@ test("Check Date Picker Avalability Once Click on the Button", () => {
 
 test("Check the time slot input field is rendered.", () => {
 	render(component(), { wrapper: MemoryRouter });
-	screen.debug(undefined, 50000)
 	const button = screen.getByTestId("appointment"); 
 	fireEvent.click(button);
 	const Time = screen.getByText("Time Slot")

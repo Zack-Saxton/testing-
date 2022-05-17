@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import VantageScore from "./VantageScore";
 
 const theme = createTheme();
-
+window.scrollTo = jest.fn();
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
     },
   },
 });
-
+window.scrollTo = jest.fn();
 let spoofedData = [
     {   
             "loanHistory": [
