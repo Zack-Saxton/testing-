@@ -404,7 +404,7 @@ export default function Login(props) {
             stylebutton='{"background": "", "color":"" }'
             onClick={handleHelpLoginClose}
           >
-            ok
+            OK
           </ButtonPrimary>
         </DialogActions>
       </Dialog>

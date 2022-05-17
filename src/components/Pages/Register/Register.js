@@ -594,7 +594,7 @@ export default function Register() {
             onClick={handleCloseFailed}
             className="modalButton"
           >
-            <Typography align="center">Ok</Typography>
+            <Typography align="center">OK</Typography>
           </Button>
         </DialogActions>
       </Dialog>
@@ -617,7 +617,7 @@ export default function Register() {
             onClick={handleCloseSuccess}
             className="modalButton"
           >
-            <Typography align="center">Ok</Typography>
+            <Typography align="center">OK</Typography>
           </Button>
         </DialogActions>
       </Dialog>

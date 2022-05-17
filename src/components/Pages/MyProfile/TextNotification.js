@@ -321,7 +321,7 @@ export default function TextNotification() {
             stylebutton='{"background": "", "color":"" }'
             onClick={handleDisclosureClose}
           >
-            Ok
+            OK
           </ButtonPrimary>
         </DialogActions>
       </Dialog>

@@ -208,7 +208,7 @@ export default function Notification() {
                 />
               </ButtonSecondary>
               <ButtonPrimary stylebutton='{"background": "", "color":"" }' onClick={handleCloseDialog}>
-                Ok
+                OK
               </ButtonPrimary> </>}
 
         </DialogActions>
