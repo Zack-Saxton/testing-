@@ -89,11 +89,13 @@ function UploadDocument(props) {
           let fileSize = selectedFile.files[ 0 ].size;
           let filesInfo = getFileInfo(fileName, fileType, fileExtension, fileSize);
           let response = await uploadEmailVerificationDocument(compressedFile, filesInfo, props.applicationNumber, props.customerEmail, documentType);
-          if (response) {
+          if (response?.status === 200) {
             setLoading(false);
             selectedFile.value = "";
             toast.success(response?.data?.message ?? globalMessages.Document_upload);
             props.next();
+          }else{
+            setLoading(false);
           }
         };
         reader.readAsDataURL(selectedFile.files[ 0 ]);
@@ -157,13 +159,15 @@ function UploadDocument(props) {
 
       let filesInfo = getFileInfo(fileName, "image/jpeg", "jpeg", "0");
       let response = await uploadEmailVerificationDocument(compressedFile, filesInfo, props.applicationNumber, props.customerEmail, documentType);
-      if (response) {
+      if (response?.status === 200) {
         setLoading(false);
         setShowCamera(false);
         setImgSrc(null);
         handleMenuClose();
         toast.success(response?.data?.message ?? globalMessages.Document_upload);
         props.next();
+      }else{
+        setLoading(false);
       }
       return response;
     } catch (error) {
