@@ -60,7 +60,6 @@ export default function MultipleQuestion(props) {
 			};
 
 			let response = await idVerificationAnswer(passData);
-			console.log(response);
 			if (response?.data?.result === 'success') {
 				props.setLoadingFlag(false);
 				props.navigate('/MFA-SelectSecurityQuestions')

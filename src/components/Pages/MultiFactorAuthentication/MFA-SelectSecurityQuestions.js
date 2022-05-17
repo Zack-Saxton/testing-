@@ -21,7 +21,7 @@ const validationSchema = yup.object({
   answer: yup
     .string("Enter your answer")
     .trim()
-    .max(30, "Should be maximum of 50 characters")
+    .max(30, "Should be maximum of 30 characters")
     .required("Enter your answer"),
   selectSecurityQuestion: yup
     .string("Please select a security question")

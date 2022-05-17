@@ -24,7 +24,6 @@ const MultiFactorAuthenticationOTP = () => {
   const [ otpValue, setOtpValue ] = useState({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""});
   const isSecurityQuestionSaved = otpLocation?.state?.mfaQueries?.mfaDetails?.securityQuestionsSaved ?? false;
   
-console.log(otpLocation);
 
   useEffect(
     () => {
@@ -78,7 +77,6 @@ console.log(otpLocation);
     setDisabledButton(true);
     let enteredOTP = getPasscode(otpValue);
     let response = await VerifyLoginPassCode(enteredOTP, customerEmail, customerDevice, customerPhoneNumber);
-    console.log(response);
     if(response?.data?.statusCode === 200){
       toast.success(response.data?.Message);
       if(isSecurityQuestionSaved){// redirect to Account overview
@@ -98,8 +96,7 @@ console.log(otpLocation);
 
   const resendOTP = async () => {    
     let response = await SendLoginPassCode(customerPhoneNumber);
-    console.log('resent response', response);
-    console.log(otpLocation);
+    console.log('resent response', response); //Left this console log intentionally for QA
     if(response?.data?.passcodeInTextMessage){
       toast.success("Successfully sent passcode");
       setCount(60);
