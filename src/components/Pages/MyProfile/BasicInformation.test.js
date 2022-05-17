@@ -39,7 +39,6 @@ const component = () => {
 test("Checks the component is rendered", () => {
 	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('basic-information-component');
-	//screen.debug(undefined, 300000);
 	expect(element).toBeTruthy();
 });
 

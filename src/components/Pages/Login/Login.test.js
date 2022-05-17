@@ -9,7 +9,7 @@ import Login from "./Login";
 
 
 const theme = createTheme();
-
+window.scrollTo = jest.fn();
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {

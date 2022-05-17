@@ -21,6 +21,7 @@ const queryClient = new QueryClient({
 	},
 });
 const theme = createTheme();
+window.scrollTo = jest.fn();
 const component = () => {
 	return (
 		<ThemeProvider theme={theme}>

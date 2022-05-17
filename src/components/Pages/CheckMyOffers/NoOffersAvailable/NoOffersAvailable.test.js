@@ -8,7 +8,7 @@ import CheckMyOffers from "../../../../contexts/CheckMyOffers";
 import NoOffersAvailable from "./index.js";
 
 afterEach(cleanup);
-
+window.scrollTo = jest.fn();
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {

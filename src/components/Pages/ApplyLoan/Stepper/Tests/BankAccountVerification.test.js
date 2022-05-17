@@ -98,8 +98,7 @@ test("Availability test: Bank Routing number test on change", async () => {
   expect(bankRouting).toBeTruthy();
   jest.useFakeTimers();
   setTimeout(() => {
-    expect(bankInfo.value).toBe('BANK OF AMERICA, N.A.')
-    screen.debug(bankInfo, 50000);
+    expect(bankInfo.value).toBe('BANK OF AMERICA, N.A.')    
   }, 10000);
   // jest.runAllTimers();
   // await waitFor(() => expect(bankInfo.value).toBe('BANK OF AMERICA, N.A.'))
