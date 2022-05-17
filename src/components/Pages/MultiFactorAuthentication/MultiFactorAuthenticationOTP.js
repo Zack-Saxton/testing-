@@ -8,7 +8,7 @@ import { ButtonPrimary } from "../../FormsUI";
 import "./MultiFactorAuthentication.css";
 import { useStylesMFA } from "./Style";
 import { toast } from "react-toastify";
-import {VerifyLoginPassCode} from "./../../Controllers/MFAController"
+import {VerifyLoginPassCode, SendLoginPassCode} from "./../../Controllers/MFAController"
 import { useNavigate, useLocation } from "react-router-dom";
 
 const MultiFactorAuthenticationOTP = () => {
@@ -23,6 +23,7 @@ const MultiFactorAuthenticationOTP = () => {
   const [ otpValue, setOtpValue ] = useState({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""});
   const isSecurityQuestionSaved = otpLocation?.state?.mfaQueries?.mfaDetails?.securityQuestionsSaved ?? false;
   
+
   useEffect(
     () => {
         const timer = () => setCount(currentCount - 1);
@@ -91,6 +92,8 @@ const MultiFactorAuthenticationOTP = () => {
 
   const resendOTP = async () => {    
     let response = await SendLoginPassCode(customerPhoneNumber);
+    console.log('resent response', response);
+    console.log(otpLocation);
     if(response?.data?.passcodeInTextMessage){
       toast.success("Successfully sent passcode");
       setCount(60);
@@ -145,9 +148,9 @@ const MultiFactorAuthenticationOTP = () => {
             </Grid>
             <Typography className={classes.twoStepParagraph}>
               Enter the 6 digit passcode received on your mobile{" "}
-              <span>{`(**) ** ${customerPhoneNumber.substr(-4)}`}</span>. Code is valid for 15 minutes.
+              <span>{`(***) *** ${customerPhoneNumber.substr(-4)}`}</span>. Code is valid for 15 minutes.
             </Typography>
-
+              {/* {${customerPhoneNumber.substr(-4)} */}
             <Grid container>
               <Typography className={classes.twoStepParagraph}>
                 Enter 6 digit security code
@@ -174,12 +177,12 @@ const MultiFactorAuthenticationOTP = () => {
             <Typography className={classes.resetText}>
               Didnt receive code?{" "}
               { currentCount > 0 ? 
-              <Link href="#" className="blueColorLink" >
+              <span className="blueColorLink" style={{cursor: "pointer"}} >
                 Resend 
-              </Link>  : 
-              <Link href="#" onClick={ resendOTP } className="blueColorLink" >
+              </span>  : 
+              <span onClick={ resendOTP } style={{cursor: "pointer"}} className="blueColorLink" >
                 Resend 
-              </Link> 
+              </span> 
             }
                            
               { currentCount>0 ? ` (in 0:${currentCount} secs)` : "" }

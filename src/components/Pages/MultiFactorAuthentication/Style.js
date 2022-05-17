@@ -124,6 +124,10 @@ const useStylesMFA = makeStyles((theme) =>
       opacity: 1,
       pointerEvents: "initial",
     },
+    button_div: {
+      marginTop: theme.spacing(3),
+      marginRight: theme.spacing(1),
+    },
   })
 );
 

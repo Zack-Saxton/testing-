@@ -100,10 +100,9 @@ export default function Login(props) {
         values?.email,
         values?.password,
           ClientIP,
-        'MacBook', //It is static for now. Will add the dynamic code later
+        'MacBook Chrome 45', //It is static for now. Will add the dynamic code later
         props?.setToken
       );
-      console.log(retVal);
       //  if(!retVal?.data?.user?.extensionattributes?.MFA){
       if (retVal?.data?.user && retVal?.data?.userFound) {
         let login_date = retVal?.data?.user?.extensionattributes?.login
@@ -133,7 +132,7 @@ export default function Login(props) {
         queryClient.removeQueries();
         setLoading(false);
         if(retVal?.data?.user?.extensionattributes?.MFA){
-          navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType:'MacBook' }});
+          navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType:'MacBook Chrome 45' }});
         } else {
           retVal?.data?.user?.attributes?.password_reset 
           ? navigate("/resetpassword", { state: { Email: values?.email } })
