@@ -19,7 +19,7 @@ export async function SendLoginPassCode(customerPhone) {
     //API call
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
-    ErrorLogger(globalMessages.Error_executing_Verify_Login_Passcode_API, error);
+    ErrorLogger(globalMessages.Error_executing_Send_Login_Passcode_API, error);
   }
 }
 
