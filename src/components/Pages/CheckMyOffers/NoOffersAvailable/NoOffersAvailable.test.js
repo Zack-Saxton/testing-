@@ -5,7 +5,7 @@ import CheckMyOffers from "../../../../contexts/CheckMyOffers";
 import NoOffersAvailable from "./index.js";
 
 afterEach(cleanup);
-
+window.scrollTo = jest.fn();
 test("Image Availability test", () => {
   const container = render(
     <BrowserRouter>

@@ -39,7 +39,6 @@ const component = () => {
 test("Checks the component is rendered", () => {
 	const container = render(component(), { wrapper: MemoryRouter });
 	const element = container.getByTestId('annual-income-component');
-	//screen.debug(undefined, 300000);
 	expect(element).toBeTruthy();
 });
 

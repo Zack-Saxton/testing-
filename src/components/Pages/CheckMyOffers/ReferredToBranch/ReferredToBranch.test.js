@@ -5,7 +5,7 @@ import CheckMyOffers from "../../../../contexts/CheckMyOffers";
 import ReferredToBranch from "./index.js";
 
 afterEach(cleanup);
-
+window.scrollTo = jest.fn();
 test("Text Availability test", () => {
 	const container = render(
 		<BrowserRouter>
