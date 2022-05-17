@@ -61,14 +61,18 @@ const MFASelectSecurityQuestions = () => {
         if(verify?.data?.hasError === false  && verify?.data?.result === "ok")
         {
           toast.success(verify?.data?.Message);
+          const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
+          let userToken = JSON.parse(tokenString);
+          userToken.isMFACompleted = true;
+          Cookies.set("token",JSON.stringify(userToken));
           navigate("/customers/accountoverview")
         }
         else if (verify?.data?.hasError === true && verify?.data?.result === "error")
         {
-          toast.success(verify?.data?.Message);
+          toast.error(verify?.data?.Message);
         }
         else {
-          toast.success("Network error");
+          toast.error("Network error");
         }
       },
     });

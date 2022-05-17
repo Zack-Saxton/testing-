@@ -24,6 +24,7 @@ const MultiFactorAuthenticationOTP = () => {
   const [ otpValue, setOtpValue ] = useState({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""});
   const isSecurityQuestionSaved = otpLocation?.state?.mfaQueries?.mfaDetails?.securityQuestionsSaved ?? false;
   
+console.log(otpLocation);
 
   useEffect(
     () => {
@@ -86,8 +87,8 @@ const MultiFactorAuthenticationOTP = () => {
         userToken.isMFACompleted = true;
         Cookies.set("token",JSON.stringify(userToken));
         navigate("/customers/accountOverview");
-      }else{// redirect to security question page
-        navigate("/MFA-SecurityQuestions");
+      }else{// redirect to select security question page
+        navigate('/MFA-SelectSecurityQuestions', {state: otpLocation});
       }
     }else {
       toast.error(response.data?.Message ?? response.data?.errorMessage);
@@ -107,7 +108,7 @@ const MultiFactorAuthenticationOTP = () => {
     }
   }
 
-  const backToVarificationStep = () => {
+  const backToVerificationStep = () => {
     navigate(-1);
   }
   
@@ -147,7 +148,7 @@ const MultiFactorAuthenticationOTP = () => {
               <Typography className={classes.twoStepHeading} variant="h5">
                 Security Code
               </Typography>
-              <IconButton className={classes.backArrow} onClick={ backToVarificationStep }>
+              <IconButton className={classes.backArrow} onClick={ backToVerificationStep }>
                 <ArrowBackIcon className={classes.yellowBackArrow}/>
               </IconButton>
             </Grid>

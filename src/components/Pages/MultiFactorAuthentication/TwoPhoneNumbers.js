@@ -41,7 +41,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
     } else if (selectionValue === 'security questions' && securityQuestionsSaved) {
       navigate('/MFA-SecurityQuestions', {state: {mfaSecurityQuestions: mfaDetails}});
     } else {
-      selectionValue === 'security questions' && !securityQuestionsSaved && navigate('/mfa-kbaQuestions')
+      selectionValue === 'security questions' && !securityQuestionsSaved && navigate('/mfa-kbaQuestions', {state: {mfaSecurityQuestions: mfaDetails}})
     }
   }
 
@@ -115,7 +115,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
           </Paper>
         </Grid>
       </Grid>
-      <Popup popupFlag={popUp} closePopup={handlePopUpClose} title="Select your preferred Phone Number">
+      <Popup maxWidth="sm" popupFlag={popUp} closePopup={handlePopUpClose} title="Select your preferred Phone Number">
         <PhoneNumberPopUp cellPhoneNumber={cellPhoneNumber} optionalPhoneNumber={optionalPhoneNumber} setSelection={setSelection}/>
       </Popup>
     </div>

@@ -67,7 +67,8 @@ export default function MultipleQuestion(props) {
 			} else if(response?.data?.result === 'error') {
 				props.setLoadingFlag(false);
 				toast.error(response?.data?.Message);
-				// props.navigate(0);
+				props.navigate(0);
+				window.scrollTo(0, 0);
 			} else {
 				toast.error("Internal Server Error")
 			}

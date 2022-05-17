@@ -7,7 +7,8 @@ import {SendLoginPassCode} from "../../Controllers/MFAController"
 import {useMutation} from "react-query";
 
 const MultiFactorAuthentication = () => {
- const location = useLocation();
+    const location = useLocation();
+    console.log(location);
 
 //   const location = {
 //     "hash":"",
@@ -18,8 +19,8 @@ const MultiFactorAuthentication = () => {
 //        "mfaDetails":{
 //           "MFA":true,
 //           "opted_phone_texting":"2232223221",
-//           "phone_number_primary":"8472085643",
-//           "phone_type":"Cell",
+//            "phone_number_primary":"8472085643",
+//            "phone_type":"Cell",
 //           "securityQuestions": [
 //             {
 //                 "question_id": "2",
@@ -69,64 +70,68 @@ const MultiFactorAuthentication = () => {
   //        "deviceTimeStamp":"2022-04-21T09:46:42.563Z",
   //        "deviceFlag":true
   //     },
-  //     "MFA":false,
+  //     "MFA":true,
   //     "MFAByPass":{
   //        "MFAByPassFlag":false
   //     },
   //     "phone_number_primary":"2012012012",
   //     "phone_type":"Cell",
-  //     "opted_phone_texting":"2012012012"
+  //     "opted_phone_texting":"2012012013"
   //  },
+  //  "customerEmail" : "zdunkerton@marinerfinance.com",
+  //  "deviceType" : window.navigator.userAgent
   // }
   // }
 
   const [selection, setSelection] = useState();
   const {mutateAsync, isLoading} = useMutation(SendLoginPassCode);
- 
-
-//Display only Security Questions if there is no data about Phone Numbers
-//Users having Optional Texting & Phone Type === Cell, then prompt the user to select one through Radio button & PopUp
-//Users having Phone Type === Cell, but no Optional Texting ==> follow the Wireframe
-//Users having Phone Type ==/== Cell, but Optional Texting ==> follow the Wireframe
-//Users having Phone Type ==/==Cell, no Optional Texting ==> Display only Security Questions
 
 
+  let situationOne = location?.state?.mfaDetails?.phone_type === 'Cell' && !location?.state?.mfaDetails?.opted_phone_texting && !location?.state?.mfaDetails?.securityQuestionsSaved
+  let situationTwo = location?.state?.mfaDetails?.phone_type !== 'Cell' && location?.state?.mfaDetails?.opted_phone_texting && !location?.state?.mfaDetails?.securityQuestionsSaved
+  let situationThree = location?.state?.mfaDetails?.phone_type === 'Cell' && !location?.state?.mfaDetails?.opted_phone_texting && location?.state?.mfaDetails?.securityQuestionsSaved
+  let situationFour = location?.state?.mfaDetails?.phone_type !== 'Cell' && location?.state?.mfaDetails?.opted_phone_texting && location?.state?.mfaDetails?.securityQuestionsSaved
+  let situationFive = location?.state?.mfaDetails?.phone_type === 'Cell' && location?.state?.mfaDetails?.opted_phone_texting && !location?.state?.mfaDetails?.securityQuestionsSaved
+  let situationSix = location?.state?.mfaDetails?.phone_type === 'Cell' && location?.state?.mfaDetails?.opted_phone_texting && location?.state?.mfaDetails?.securityQuestionsSaved
+  let situationSeven = location?.state.mfaDetails?.phone_type !== 'Cell' && !location?.state?.mfaDetails?.opted_phone_texting && !location?.state?.mfaDetails?.securityQuestionsSaved
+  let situationEight = location?.state.mfaDetails?.phone_type !== 'Cell' && !location?.state?.mfaDetails?.opted_phone_texting && location?.state?.mfaDetails?.securityQuestionsSaved
 
 
+/** One Phone number with No security questions **/
+if(situationOne || situationTwo) {
+  return (
+  <OnePhoneNumber 
+      phoneNumber={location?.state?.mfaDetails?.phone_type === 'Cell' ? location?.state?.mfaDetails?.phone_number_primary : location?.state?.mfaDetails?.opted_phone_texting}
+      setSelection={setSelection}
+      selection={selection ? false : true}
+      selectionValue={selection}
+      sendPassCode={mutateAsync}
+      isLoading={isLoading}
+      mfaDetails={location?.state}
+      securityQuestionsSaved={false}
+      phoneNumberSaved={true}
+  />
+  )
+}
 
-//One Phone Number with no security questions ==> To be completed
-let situationOne = location?.state?.mfaDetails?.phone_type === 'Cell' && !location?.state?.mfaDetails?.opted_phone_texting && !location?.state?.mfaDetails?.securityQuestionsSaved
-let situationTwo = location?.state?.mfaDetails?.phone_type !== 'Cell' && location?.state?.mfaDetails?.opted_phone_texting && !location?.state?.mfaDetails?.securityQuestionsSaved
-
-//Phone number options with no security questions ==> To be completed
-let situationFive = location?.state?.mfaDetails?.phone_type === 'Cell' && location?.state?.mfaDetails?.opted_phone_texting && !location?.state?.mfaDetails?.securityQuestionsSaved
-
-
-
-
-let situationThree = location?.state?.mfaDetails?.phone_type === 'Cell' && !location?.state?.mfaDetails?.opted_phone_texting && location?.state?.mfaDetails?.securityQuestionsSaved
-let situationFour = location?.state?.mfaDetails?.phone_type !== 'Cell' && location?.state?.mfaDetails?.opted_phone_texting && location?.state?.mfaDetails?.securityQuestionsSaved
-let situationSix = location?.state?.mfaDetails?.phone_type === 'Cell' && location?.state?.mfaDetails?.opted_phone_texting && location?.state?.mfaDetails?.securityQuestionsSaved
-
-//no Phone Number & No Security Questions has to route to KBA ---> I need to set this in Login component
-
-
-if(situationOne || situationTwo) console.log("No security Qns");
-if(situationFive) console.log("options with no qns");
-
-
-//One Phone number with security questions === Done
+/*** One Phone number with security questions ***/
 if(situationThree || situationFour) {
   return (
   <OnePhoneNumber 
       phoneNumber={location?.state?.mfaDetails?.phone_type === 'Cell' ? location?.state?.mfaDetails?.phone_number_primary : location?.state?.mfaDetails?.opted_phone_texting}
       setSelection={setSelection}
       selection={selection ? false : true}
+      selectionValue={selection}
+      sendPassCode={mutateAsync}
+      isLoading={isLoading}
+      mfaDetails={location?.state}
+      securityQuestionsSaved={true}
+      phoneNumberSaved={true}
   />
   )
 }
 
-//Two Phone Numbers with no security questions === In Process
+/*** Two Phone Numbers with no security questions ***/
 if(situationFive) {
   return (
     <TwoPhoneNumbers
@@ -143,7 +148,7 @@ if(situationFive) {
   )
 }
 
-//Phone number options with security questions === Done
+/*** Phone number options with security questions ***/
 if(situationSix) {
   return (
       <TwoPhoneNumbers
@@ -158,7 +163,40 @@ if(situationSix) {
           securityQuestionsSaved={true}
           />
   );
-};
+}
+
+/*** No Phone Number without Security Questions ***/
+if(situationSeven) {
+  return (
+  <OnePhoneNumber 
+      setSelection={setSelection}
+      selection={selection ? false : true}
+      selectionValue={selection}
+      sendPassCode={mutateAsync}
+      isLoading={isLoading}
+      mfaDetails={location?.state}
+      securityQuestionsSaved={false}
+      phoneNumberSaved={false}
+  />
+  )
+}
+
+/*** No Phone Number with Security Questions ***/
+if(situationEight) {
+  return (
+  <OnePhoneNumber 
+      setSelection={setSelection}
+      selection={selection ? false : true}
+      selectionValue={selection}
+      sendPassCode={mutateAsync}
+      isLoading={isLoading}
+      mfaDetails={location?.state}
+      securityQuestionsSaved={true}
+      phoneNumberSaved={false}
+  />
+  )
+}
+
 }
 
 export default MultiFactorAuthentication;

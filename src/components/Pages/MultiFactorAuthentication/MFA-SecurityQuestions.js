@@ -89,6 +89,10 @@ const MFASecurityQuestions = () => {
 setQuestions(questionArray)
   }
 
+  const backToVerificationStep = () => {
+    navigate(-1);
+  }
+
   useEffect(() => {
 
     getMFAQuestion()
@@ -116,7 +120,7 @@ setQuestions(questionArray)
               <Typography className={classes.securityCubText} variant="h6">
                 Answers are not case sensitive
               </Typography>
-              <IconButton className={classes.backArrow}>
+              <IconButton className={classes.backArrow} onClick={ backToVerificationStep }>
                 <ArrowBackIcon className={classes.yellowBackArrow} />
               </IconButton>
             </Grid>

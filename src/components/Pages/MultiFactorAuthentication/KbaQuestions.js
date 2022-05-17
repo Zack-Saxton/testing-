@@ -74,8 +74,7 @@ const KbaQuestions = () => {
               2-Step Verification
             </Typography>
             <Typography className={classes.twoStepParagraph}>
-            Please answer the questions below to help verify your identity. Please
-            provide your response within 5 minutes.
+            Please answer the questions below to help verify your identity.
             </Typography>
             <div className={classes.button_div} >
               {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : <CircularProgress />}

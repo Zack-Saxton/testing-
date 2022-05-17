@@ -99,8 +99,8 @@ export default function Login(props) {
       let retVal = await LoginController(
         values?.email,
         values?.password,
-          ClientIP,
-        'MacBook Chrome 45', //It is static for now. Will add the dynamic code later
+        ClientIP,
+        window.navigator.userAgent, //It is static for now. Will add the dynamic code later
         props?.setToken
       );
       //  if(!retVal?.data?.user?.extensionattributes?.MFA){
@@ -134,7 +134,7 @@ export default function Login(props) {
         queryClient.removeQueries();
         setLoading(false);
         if(retVal?.data?.user?.extensionattributes?.MFA){
-          navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType:'MacBook Chrome 45' }});
+          navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }});
         } else {
           retVal?.data?.user?.attributes?.password_reset 
           ? navigate("/resetpassword", { state: { Email: values?.email } })
