@@ -269,7 +269,7 @@ function HomeAddress() {
 												name="streetAddress"
 												label="Street Address *"
 												materialProps={{
-													"data-test-id": "streetAddress",
+													"data-testid": "streetAddress",
 													maxLength: "100",
 												}}
 												onKeyDown={preventSpace}
@@ -301,7 +301,7 @@ function HomeAddress() {
 												id="zip"
 												name="zip"
 												label="Zipcode *"
-												materialProps={{ "data-test-id": "zipcode" }}
+												materialProps={{ "data-testid": "zipcode" }}
 												value={formik.values.zip}
 												onChange={fetchAddress}
 												onBlur={formik.handleBlur}
@@ -338,7 +338,7 @@ function HomeAddress() {
 													name="city"
 													label="City"
 													disabled={true}
-													materialProps={{ "data-test-id": "city" }}
+													materialProps={{ "data-testid": "city" }}
 													value={formik.values.city}
 													onChange={formik.handleChange}
 													onBlur={formik.handleBlur}
@@ -364,7 +364,7 @@ function HomeAddress() {
 													name="state"
 													label="State"
 													disabled={true}
-													materialProps={{ "data-test-id": "state" }}
+													materialProps={{ "data-testid": "state" }}
 													value={formik.values.state}
 													onChange={formik.handleChange}
 													onBlur={formik.handleBlur}
@@ -392,7 +392,7 @@ function HomeAddress() {
 												type="submit"
 												stylebutton='{"fontSize":"0.938rem","background": "#FFBC23", "padding": "0px 30px", "color": "black"}'
 												disabled={!validZip}
-												data-test-id="homeAddressCntBtn"
+												data-testid="homeAddressCntBtn"
 											>
 												Continue
 											</ButtonPrimary>

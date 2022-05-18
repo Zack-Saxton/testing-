@@ -2,7 +2,6 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import userEvent from '@testing-library/user-event';
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from "react-router-dom";
@@ -123,7 +122,7 @@ test("Check can able to enter Zipcode in UI", async () => {
 
 test("Check can able to click Save button", () => {
 	const { container } = render(component(), { wrapper: MemoryRouter });
-	userEvent.click(screen.getByText('Save Changes'));
+	fireEvent.click(screen.getByText('Save Changes'));
 });
 
 test('Should match the snapshot', () => {

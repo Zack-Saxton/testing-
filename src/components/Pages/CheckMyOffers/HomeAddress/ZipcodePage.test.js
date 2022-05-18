@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import CheckMyOffers from "../../../contexts/CheckMyOffers";
+import CheckMyOffers from "../../../../contexts/CheckMyOffers";
 import Zipcode from "./index.js";
 
 afterEach(cleanup);
@@ -40,7 +40,6 @@ test("Button initially disabled", () => {
 
 	const input = container.getByTestId("homeAddressCntBtn");
 	expect(input).toBeTruthy();
-	// expect(input.value).toBe('');
 	expect(input.hasAttribute("disabled")).toBe(false);
 });
 
