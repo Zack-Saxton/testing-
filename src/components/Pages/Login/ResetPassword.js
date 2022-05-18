@@ -117,7 +117,7 @@ export default function Login(props) {
                                                 name="email"
                                                 type="email"
                                                 testid="email-input"
-                                                disabled="true"
+                                                disabled={true}
                                                 InputLabelProps={{ style: { fontSize: 40 } }}
                                                 label="Create new password for"
                                                 materialProps={{ maxLength: "100" }}
