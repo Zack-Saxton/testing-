@@ -29,6 +29,7 @@ export default function LoadQuestions(props) {
 					<Grid key={index} item xs={12}>
 						<Typography>{question?.question} *</Typography>
 						<Radio
+							id="LoanQuestionWrap"
 							name="question"
 							radiolabel={buildOptions(question.choice)}
 							checked={props.check}
