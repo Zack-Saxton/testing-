@@ -481,6 +481,7 @@ describe("while loading", () => {
     const container = render(MockActiveloans());
     const offerTableBlock = container.getByTestId("offer_Table");
     expect(offerTableBlock).toBeTruthy();
+    // container.debug(offerTableBlock, 300000);
     const termGrid = container.getByTestId("termGrid");
     expect(termGrid).toBeTruthy();
   });
@@ -495,8 +496,6 @@ it("Check number of rows in Offer Table", () => {
   expect(container.getAllByRole('row')).toHaveLength(4);
 });
 
-
-
 it("Check the Button is disabled Initially", () => {
   useFetchOffer.mockImplementation(() => ({
     isLoading: false,
@@ -504,7 +503,7 @@ it("Check the Button is disabled Initially", () => {
   }));
   const container = render(MockActiveloans());
   const offerTableBlock = container.getByTestId("Continue_Button");
-  expect(offerTableBlock.getAttribute("disabled")).toBe("true");
+  expect(offerTableBlock.getAttribute("disabled")).toBe("");
 });
 
 it("Continue Button Enable Test", () => {
