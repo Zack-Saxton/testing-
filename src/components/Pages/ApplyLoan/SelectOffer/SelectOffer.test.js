@@ -1,7 +1,7 @@
 import { createTheme, StyledEngineProvider } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
@@ -454,7 +454,7 @@ describe("while loading", () => {
     expect(selectOffer).toBeTruthy();
   });
 
-  it("renders a loader", () => {
+  it("renders the Stepper Bar with all the steps", () => {
     useFetchOffer.mockImplementation(() => ({
       isLoading: true,
       offers: mockOffers,
@@ -473,16 +473,50 @@ describe("while loading", () => {
     expect(reciveMoney.hasAttribute('disabled')).toBe(true);
   });
 
-  it("renders a loader", () => {
+  it("Renders Offer Table Page", () => {
     useFetchOffer.mockImplementation(() => ({
-      isLoading: true,
+      isLoading: false,
       offers: mockOffers,
     }));
-    render(MockActiveloans());
-    const offerTableBlock = screen.getByTestId("offerTableBlock");
+    const container = render(MockActiveloans());
+    const offerTableBlock = container.getByTestId("offer_Table");
     expect(offerTableBlock).toBeTruthy();
-    const termGrid = screen.getByTestId("termGrid");
+    const termGrid = container.getByTestId("termGrid");
     expect(termGrid).toBeTruthy();
   });
+});
 
+it("Check number of rows in Offer Table", () => {
+  useFetchOffer.mockImplementation(() => ({
+    isLoading: false,
+    offers: mockOffers,
+  }));
+  const container = render(MockActiveloans());
+  expect(container.getAllByRole('row')).toHaveLength(4);
+});
+
+
+
+it("Check the Button is disabled Initially", () => {
+  useFetchOffer.mockImplementation(() => ({
+    isLoading: false,
+    offers: mockOffers,
+  }));
+  const container = render(MockActiveloans());
+  const offerTableBlock = container.getByTestId("Continue_Button");
+  expect(offerTableBlock.getAttribute("disabled")).toBe("true");
+});
+
+it("Continue Button Enable Test", () => {
+  useFetchOffer.mockImplementation(() => ({
+    isLoading: false,
+    offers: mockOffers,
+  }));
+  const container = render(MockActiveloans());
+  const radioButtonDetect = container.getByTestId("offer_Table_Radio_1")
+  expect(radioButtonDetect).toBeTruthy();
+  fireEvent.click(radioButtonDetect);
+  container.debug(radioButtonDetect, 300000)
+  const offerTableBlock = container.getByTestId("Continue_Button");
+  expect(offerTableBlock.getAttribute("disabled")).toBe("");
 });
