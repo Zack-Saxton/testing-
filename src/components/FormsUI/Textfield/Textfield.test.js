@@ -13,7 +13,7 @@ test('Render DatePicker', () => {
       required={true}
       type="email"
       materialProps={{ "data-testid": "test" }}
-    />);
+    />)
 
   const input = container.getByTestId('test');
   expect(input).toBeTruthy();
@@ -54,22 +54,3 @@ test('Changing value', () => {
   expect(input.value).toBe('123');
 });
 
-it('should match  snapshot', () => {
-  const { asFragment } = render(<TextField
-    name="firstName"
-    form={true}
-    label="Enter your first name"
-    required={true}
-    type="email"
-    materialProps={{ "data-testid": "test" }}
-  />);
-
-  expect(asFragment(<TextField
-    name="firstName"
-    form={true}
-    label="Enter your first name"
-    required={true}
-    type="email"
-    materialProps={{ "data-testid": "test" }}
-  />)).toMatchSnapshot();
-});

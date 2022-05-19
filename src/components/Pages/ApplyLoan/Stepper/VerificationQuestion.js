@@ -56,7 +56,7 @@ export default function VerificationQuestion(props) {
 
   //Purposly commented
   return (
-    <div>
+    <div data-testid = "verificationQuestion_testid">
       <p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
         Please answer the questions below to help verify your identity. Please
         provide your response within 5 minutes.
@@ -73,6 +73,7 @@ export default function VerificationQuestion(props) {
                 variant="contained"
                 color="primary"
                 id="button_stepper_next"
+                data-testid="finishButton"
                 stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                 onClick={async () => {
                   if (check) {

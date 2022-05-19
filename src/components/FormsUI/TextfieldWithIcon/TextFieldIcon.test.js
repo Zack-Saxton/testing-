@@ -34,8 +34,3 @@ test("Check can able to enter value", () => {
     expect(input.value).toBe('Mariner');
 });
 
-
-test('should match the snapshot', () => {
-    const { asFragment } = render(component());
-    expect(asFragment).toMatchSnapshot();
-});

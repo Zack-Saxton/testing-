@@ -2,7 +2,6 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import userEvent from '@testing-library/user-event';
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from "react-router-dom";
@@ -162,7 +161,7 @@ test("Check number masking after entering phone number", async () => {
 test("Verify can able to click file upload", async () => {
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[id="selectImage"]`);
-	userEvent.click(input);
+	fireEvent.click(input);
 	expect(input).toBeTruthy();
 });
 

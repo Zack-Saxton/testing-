@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom";
-import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from "react-router-dom";
@@ -122,21 +122,6 @@ test("Check the validation is working for House hold Income field", async () => 
 	const errorInfo = container.querySelector(`p[id="householdIncome-helper-text"]`);
 	expect(errorInfo).toBeTruthy();
 	expect(errorInfo).toHaveTextContent('Annual household income is required');
-});
-
-test("Show error message if button is click without entering Annual and house hold income", async () => {
-	const { container } = render(component(), { wrapper: MemoryRouter });
-	const element = screen.getByText("Continue")
-	expect(element).toBeTruthy();
-	await act(() => {
-		fireEvent.click(element);
-	});
-	const personalError = container.querySelector(`p[id="personalIncome-helper-text"]`);
-	expect(personalError).toBeTruthy();
-	expect(personalError).toHaveTextContent('Annual personal income is required');
-	const houseHoldError = container.querySelector(`p[id="householdIncome-helper-text"]`);
-	expect(houseHoldError).toBeTruthy();
-	expect(houseHoldError).toHaveTextContent('Annual household income is required');
 });
 
 test('Should match the snapshot', () => {

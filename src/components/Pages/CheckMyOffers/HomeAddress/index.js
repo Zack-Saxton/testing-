@@ -243,201 +243,200 @@ function HomeAddress() {
                   Enter your home address
                 </Typography>
 
-                <form onSubmit={formik.handleSubmit}>
-                  <Grid
-                    item
-                    md={12}
-                    className="blockDiv"
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    
-                    <Grid
-                      container
-                      justifyContent="center"
-                      alignItems="center"
-                      item
-                      lg={8}
-                      md={8}
-                      xs={12}
-                      className="textBlockShort"
-                    >
-                      <TextField
-                        fullWidth
-                        autoFocus
-                        id="streetAddress"
-                        name="streetAddress"
-                        label="Street Address *"
-                        materialProps={{
-                          "data-testid": "streetAddress",
-                          maxLength: "100",
-                        }}
-                        onKeyDown={preventSpace}
-                        value={formik.values.streetAddress}
-                        onChange={formik.handleChange}
-                        onBlur={onBlurAddress}
-                        error={
-                          formik.touched.streetAddress &&
-                          Boolean(formik.errors.streetAddress)
-                        }
-                        helperText={
-                          formik.touched.streetAddress &&
-                          formik.errors.streetAddress
-                        }
-                      />
-                    </Grid>
-                    <Grid
-                      container
-                      justifyContent="center"
-                      alignItems="center"
-                      item
-                      lg={8}
-                      md={8}
-                      xs={12}
-                      className="textBlockShort"
-                    >
-                      <Zipcode
-                        fullWidth
-                        id="zip"
-                        name="zip"
-                        label="Zipcode *"
-                        materialProps={{ "data-testid": "zipcode" }}
-                        value={formik.values.zip}
-                        onChange={fetchAddress}
-                        onBlur={formik.handleBlur}
-                        error={
-                          (formik.touched.zip && Boolean(formik.errors.zip)) ||
-                          !validZip
-                        }
-                        helperText={
-                          validZip
-                            ? formik.touched.zip && formik.errors.zip
-                            : errorMsg
-                        }
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      justifyContent="flex-start"
-                      container
-                      md={8}
-                      lg={8}
-                      xs={12}
-                      className="textBlockShort"
-                    >
-                      <Grid
-                        item
-                        lg={6}
-                        md={6}
-                        xs={6}
-                        className=" padding-right-1"
-                      >
-                        <TextField
-                          fullWidth
-                          id="city"
-                          name="city"
-                          label="City"
-                          disabled={true}
-                          materialProps={{ "data-testid": "city" }}
-                          value={formik.values.city}
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          error={
-                            formik.touched.city && Boolean(formik.errors.city)
-                          }
-                          helperText={formik.touched.city && formik.errors.city}
-                        />
-                      </Grid>
-                      <Grid
-                        container
-                        justifyContent="center"
-                        alignItems="center"
-                        item
-                        lg={6}
-                        md={6}
-                        xs={6}
-                        className=" padding-left-1"
-                      >
-                        <TextField
-                          fullWidth
-                          id="state"
-                          name="state"
-                          label="State"
-                          disabled={true}
-                          materialProps={{ "data-testid": "state" }}
-                          value={formik.values.state}
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          error={
-                            formik.touched.state && Boolean(formik.errors.state)
-                          }
-                          helperText={
-                            formik.touched.state && formik.errors.state
-                          }
-                        />
-                      </Grid>
-                    </Grid>
+								<form onSubmit={formik.handleSubmit}>
+									<Grid
+										item
+										md={12}
+										className="blockDiv"
+										container
+										justifyContent="center"
+										alignItems="center"
+									>
+										<Grid
+											container
+											justifyContent="center"
+											alignItems="center"
+											item
+											lg={8}
+											md={8}
+											xs={12}
+											className="textBlockShort"
+										>
+											<TextField
+												fullWidth
+												autoFocus
+												id="streetAddress"
+												name="streetAddress"
+												label="Street Address *"
+												materialProps={{
+													"data-testid": "streetAddress",
+													maxLength: "100",
+												}}
+												onKeyDown={preventSpace}
+												value={formik.values.streetAddress}
+												onChange={formik.handleChange}
+												onBlur={onBlurAddress}
+												error={
+													formik.touched.streetAddress &&
+													Boolean(formik.errors.streetAddress)
+												}
+												helperText={
+													formik.touched.streetAddress &&
+													formik.errors.streetAddress
+												}
+											/>
+										</Grid>
+										<Grid
+											container
+											justifyContent="center"
+											alignItems="center"
+											item
+											lg={8}
+											md={8}
+											xs={12}
+											className="textBlockShort"
+										>
+											<Zipcode
+												fullWidth
+												id="zip"
+												name="zip"
+												label="Zipcode *"
+												materialProps={{ "data-testid": "zipcode" }}
+												value={formik.values.zip}
+												onChange={fetchAddress}
+												onBlur={formik.handleBlur}
+												error={
+													(formik.touched.zip && Boolean(formik.errors.zip)) ||
+													!validZip
+												}
+												helperText={
+													validZip
+														? formik.touched.zip && formik.errors.zip
+														: errorMsg
+												}
+											/>
+										</Grid>
+										<Grid
+											item
+											justifyContent="flex-start"
+											container
+											md={8}
+											lg={8}
+											xs={12}
+											className="textBlockShort"
+										>
+											<Grid
+												item
+												lg={6}
+												md={6}
+												xs={6}
+												className=" padding-right-1"
+											>
+												<TextField
+													fullWidth
+													id="city"
+													name="city"
+													label="City"
+													disabled={true}
+													materialProps={{ "data-testid": "city" }}
+													value={formik.values.city}
+													onChange={formik.handleChange}
+													onBlur={formik.handleBlur}
+													error={
+														formik.touched.city && Boolean(formik.errors.city)
+													}
+													helperText={formik.touched.city && formik.errors.city}
+												/>
+											</Grid>
+											<Grid
+												container
+												justifyContent="center"
+												alignItems="center"
+												item
+												lg={6}
+												md={6}
+												xs={6}
+												className=" padding-left-1"
+											>
+												<TextField
+													fullWidth
+													id="state"
+													name="state"
+													label="State"
+													disabled={true}
+													materialProps={{ "data-testid": "state" }}
+													value={formik.values.state}
+													onChange={formik.handleChange}
+													onBlur={formik.handleBlur}
+													error={
+														formik.touched.state && Boolean(formik.errors.state)
+													}
+													helperText={
+														formik.touched.state && formik.errors.state
+													}
+												/>
+											</Grid>
+										</Grid>
 
-                    <Grid
-                      container
-                      justifyContent="center" 
-                      item
-                      lg={8}
-                      md={8}
-                      xs={12}
-                      alignItems="center"
-                      className="textBlock alignButton"
-                    >
-                      <ButtonPrimary
-                        type="submit"
-                        stylebutton='{"fontSize":"0.938rem","background": "#FFBC23", "padding": "0px 30px", "color": "black"}'
-                        disabled={!validZip}
-                        data-testid="homeAddressCntBtn"
-                      >
-                        Continue
-                      </ButtonPrimary>
-                    </Grid>
-                  </Grid>
-                </form>
-                <Paper className={innerClasses.subPaper} style={{ display: notAvailInCity ? "block" : "none" }}>
-                  <div >
-                    <p className={innerClasses.paraInsideSubPaper} >
-                      If your state is not listed, it means that Mariner Finance does not operate in your state.
-                    </p>
-                    <p className={innerClasses.paraInsideSubPaper} >
-                      Mariner Finance currently operates in Alabama, Arizona, California, Delaware, Florida, Georgia, Indiana, Illinois, Kentucky, Louisiana, Maryland, Mississippi, Missouri, New Jersey, New Mexico, New York, North Carolina, Ohio, Oklahoma, Oregon, Pennsylvania, South Carolina, Tennessee, Texas, Utah, Virginia, Washington, and Wisconsin.
-                    </p>
-                  </div>
-                </Paper>
-              </Paper>
-            </Grid>
-          </Grid>
-        </Box>
-      </div>
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Notice to CA Residents
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography align="justify" gutterBottom>
-            If you are married, you may apply for a separate account.
-          </Typography>
-        </DialogContent>
-        <DialogActions className="modalAction">
-          <ButtonPrimary
-            stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-            onClick={handleClose}
-            className="modalButton"
-          >
-            <Typography align="center">Ok</Typography>
-          </ButtonPrimary>
-        </DialogActions>
-      </Dialog>
+										<Grid
+											container
+											justifyContent="center"
+											item
+											lg={8}
+											md={8}
+											xs={12}
+											alignItems="center"
+											className="textBlock alignButton"
+										>
+											<ButtonPrimary
+												type="submit"
+												stylebutton='{"fontSize":"0.938rem","background": "#FFBC23", "padding": "0px 30px", "color": "black"}'
+												disabled={!validZip}
+												data-testid="homeAddressCntBtn"
+											>
+												Continue
+											</ButtonPrimary>
+										</Grid>
+									</Grid>
+								</form>
+								<Paper className={innerClasses.subPaper} style={{ display: notAvailInCity ? "block" : "none" }}>
+									<div >
+										<p className={innerClasses.paraInsideSubPaper} >
+											If your state is not listed, it means that Mariner Finance does not operate in your state.
+										</p>
+										<p className={innerClasses.paraInsideSubPaper} >
+											Mariner Finance currently operates in Alabama, Arizona, California, Delaware, Florida, Georgia, Indiana, Illinois, Kentucky, Louisiana, Maryland, Mississippi, Missouri, New Jersey, New Mexico, New York, North Carolina, Ohio, Oklahoma, Oregon, Pennsylvania, South Carolina, Tennessee, Texas, Utah, Virginia, Washington, and Wisconsin.
+										</p>
+									</div>
+								</Paper>
+							</Paper>
+						</Grid>
+					</Grid>
+				</Box>
+			</div>
+			<Dialog
+				onClose={handleClose}
+				aria-labelledby="customized-dialog-title"
+				open={open}
+			>
+				<DialogTitle id="customized-dialog-title" onClose={handleClose}>
+					Notice to CA Residents
+				</DialogTitle>
+				<DialogContent dividers>
+					<Typography align="justify" gutterBottom>
+						If you are married, you may apply for a separate account.
+					</Typography>
+				</DialogContent>
+				<DialogActions className="modalAction">
+					<ButtonPrimary
+						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
+						onClick={handleClose}
+						className="modalButton"
+					>
+						<Typography align="center">OK</Typography>
+					</ButtonPrimary>
+				</DialogActions>
+			</Dialog>
 
       <Dialog
         onClose={handleCloseOhio}
