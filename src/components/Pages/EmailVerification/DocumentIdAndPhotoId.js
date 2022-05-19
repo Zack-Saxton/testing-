@@ -6,7 +6,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
-import * as imageConversion from 'image-conversion';
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Webcam from "react-webcam";
@@ -23,13 +22,7 @@ import { useStylesEmailVerification } from "./Style";
 const videoConstraints = {
   facingMode: "environment"
 };
-async function filetoImage(file) {
-  try {
-    return await imageConversion.filetoDataURL(file);
-  } catch (error) {
-    ErrorLogger("Error executing image conversion", error);
-  }
-}
+
 function DocumentIdAndPhotoId(props) {
   const [ docType, setDocType ] = useState("");
   const [ loading, setLoading ] = useState(false);
@@ -137,27 +130,14 @@ function DocumentIdAndPhotoId(props) {
     try {
       if (fileObject.files && fileObject.files[ 0 ]) {
         reader.onload = async () => {
-          const compressFile = await imageConversion.compressAccurately(fileObject.files[ 0 ], {
-            size: 80,
-            accuracy: '',
-            type: "image/jpeg",
-            width: '',
-            height: "200",
-            scale: 0.5,
-            orientation: 2
-          });
-          const compressImage = await filetoImage(compressFile);
-          const buffer2 = Buffer.from(compressImage, "base64");
-          let encodedFile = Buffer.from(buffer2).toString("base64");
-          let imageData = encodedFile
-            .toString()
-            .replace(/^dataimage\/[a-z]+base64/, "");
+          const buffer2 = Buffer.from(reader.result, "base64");
+          let fileData = Buffer.from(buffer2).toJSON().data;
           let fileName = fileObject.files[ 0 ].name;
-          let fileType = compressFile.type;
+          let fileType = fileObject.files[ 0 ].type;
           setLoading(true);
           let compressedFile = [ {
             sourcePath: "",
-            data: imageData,
+            data: fileData,
             fileName: fileName
           } ];
           let fileExtension = fileName.split('.').pop();
@@ -263,7 +243,7 @@ function DocumentIdAndPhotoId(props) {
       let fileName = `${ docType }.jpeg`;
       let fileData = imageData
         .toString()
-        .replace(/^dataimage\/[a-z]+base64/, "");
+        .replace(/^data:image\/[a-z]+base64/, "");
       let compressedFile = [ {
         sourcePath: "",
         data: fileData,
