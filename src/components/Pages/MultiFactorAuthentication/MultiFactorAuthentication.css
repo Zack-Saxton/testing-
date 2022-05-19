@@ -41,6 +41,9 @@ input[type=number] {
   font-size: 0.938rem;
   color: #595959;
 }
+#LoanQuestionWrap{
+  flex-direction: column;
+}
 
 @media (max-width: 400px) {
 
