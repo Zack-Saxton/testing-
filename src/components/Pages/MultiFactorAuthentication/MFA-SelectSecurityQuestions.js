@@ -13,7 +13,7 @@ import { fetchQuestionMFA, saveSecurityAnswer, fetchAllMFAQuestion } from "../..
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { ConstructionOutlined } from "@mui/icons-material";
+import { ConstructionOutlined, TrendingUpTwoTone } from "@mui/icons-material";
 
 
 //Yup validations for all the input fields
@@ -37,6 +37,7 @@ const MFASelectSecurityQuestions = () => {
   let questionArray = [];
   // const { questions, setQuestions } = useState([]); 
   const [ questions, setQuestions ] = useState([]);
+  const [ loading, setLoading ] = useState(false);
   const [ selectedQuestions, setSelectedQuestions ] = useState([]);
 
     //Form Submission
@@ -88,12 +89,19 @@ const MFASelectSecurityQuestions = () => {
 
         if (offersComp.findIndex((offerInfo) => offerInfo.id === row.question_id) === -1) {
           // if(offersComp.length <)
-          let temp = {
-            question: row.question,
-            id: row.question_id,
-            answer: ""
+          if(selectedQuestions.length >= 5)
+          {
+            toast.error("Can't select more than 5 question")
           }
-          offersComp.push(temp)
+          else
+          {
+            let temp = {
+              question: row.question,
+              id: row.question_id,
+              answer: ""
+            }
+            offersComp.push(temp)
+          }
         } else {
           offersComp.splice( offersComp.findIndex((offerInfo) => offerInfo.id === row.question_id), 1);
         } 
@@ -115,8 +123,8 @@ const MFASelectSecurityQuestions = () => {
   }
 
   const onClickSave = async () => {
-  
     if(selectedQuestions.length === 5) {
+      setLoading(true);
       let selectedQuestionsArray = [];
       selectedQuestions.forEach((question) => {
         selectedQuestionsArray.push({
@@ -133,15 +141,18 @@ const MFASelectSecurityQuestions = () => {
       let verify = await saveSecurityAnswer(answerData);
       if(!verify?.data?.hasError && verify?.data?.result === "Ok" && verify?.data?.statusCode === 200)
       {
+        setLoading(false)
         toast.success(verify?.data?.Message);
         navigate("/customers/accountoverview")
       }
       else if(verify?.data?.hasError || verify?.data?.Message)
       {
+        setLoading(false)
         toast.error(verify?.data?.Message);
       }
       else
       {
+        setLoading(false)
         toast.error("Network error, please try again");
       }
     } else {
@@ -219,10 +230,6 @@ const MFASelectSecurityQuestions = () => {
                                     ? false
                                     : true
                                 }
-                                // checked={true}
-                                // onChange={() => {
-                                //   selectOfferToCompare(row);
-                                // }}
                                 stylelabelform='{ "color":"" }'
                                 stylecheckbox='{ "color":"" }'
                                 stylecheckboxlabel='{ "color":"" }'
@@ -257,7 +264,7 @@ const MFASelectSecurityQuestions = () => {
                                       ? classes.divHide
                                       : classes.divShow
                                   }
-                                  value={ selectedQuestions ? selectedQuestions[selectedQuestions.findIndex( (x) => x.id === que.question_id )]?.answer : ""}
+                                  value={ selectedQuestions ? (selectedQuestions[selectedQuestions.findIndex( (x) => x.id === que.question_id )]?.answer ?? "") : ""}
                                   onChange={(event) => {
                                     handleAnswerOnchange(event, que)
                                   }}
@@ -276,7 +283,7 @@ const MFASelectSecurityQuestions = () => {
               </Grid>
             </Grid>
             <Grid className={classes.nextButtonGrid} container>
-              <ButtonPrimary stylebutton='{"color":""}' onClick={() => {
+              <ButtonPrimary stylebutton='{"color":""}' disabled = { loading } onClick={() => {
                 onClickSave()
               }}>
                 Save

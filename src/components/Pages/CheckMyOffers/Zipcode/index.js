@@ -39,7 +39,7 @@ function Zipcode() {
 
 	//JSX part
 	return (
-		<div>
+		<div data-testid = "zipCode_Component">
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
@@ -132,7 +132,7 @@ function Zipcode() {
 										>
 											<ButtonPrimary
 												type="submit"
-												data-testid="zipcodeCntuButton"
+                        data-testid="submit"
 												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem", "padding": "0px 30px"}'
 												disabled={Boolean(formik.errors.zip)}
 											>
