@@ -250,9 +250,9 @@ export default function OfferTable(props) {
                   </TableHead>
 
                   {props.rowData ? (
-                    <TableBody>
+                    <TableBody data-testid="offer_Table">
                       {props.rowData.map((row, ind) => (
-                        <TableRow key={ind}>
+                        <TableRow key={ind} data-testid={`offer_Table_Row_${ind}`}>
                           <TableCell
                             component="th"
                             className={props.classes.tableHeadRow}
@@ -261,6 +261,7 @@ export default function OfferTable(props) {
                             <Radio
                               name="select"
                               radiolabel={'[{ "value":"' + row._id + '"}]'}
+                              data-testid={`offer_Table_Radio_${ind}`}
                               checked={props.checkedValue}
                               value={row._id}
                               onClick={() => {
@@ -401,6 +402,7 @@ export default function OfferTable(props) {
                       );
                       resetNav()
                     }}
+                    data-testid="Continue_Button"
                     disabled={
                       props.selectedTerm &&
                         (props.selectedIndex || !props.selectedIndex)
