@@ -2,7 +2,7 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { render, screen } from "@testing-library/react";
+import { render, fireEvent,screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
@@ -64,7 +64,7 @@ const component = () => {
 }
 
 
-test("render page", () => {
+test("render verification Question", () => {
 	render(component());
 	const input = screen.getByTestId("verificationQuestion_testid");
 	expect(input).toBeTruthy();
@@ -76,4 +76,11 @@ test("Availability test: Continue button", () => {
   render(component());
   const nextButton = screen.getByText("Continue");
   expect(nextButton).toBeTruthy();
+});
+
+
+test("Continue Onclick", () => {
+	render(component());
+  const button = screen.getByText("Continue");
+	fireEvent.click(button);
 });

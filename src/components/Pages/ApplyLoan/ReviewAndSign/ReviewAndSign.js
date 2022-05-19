@@ -92,7 +92,7 @@ export default function ReviewAndSign(props) {
 
   //Check weather the offers is passed or not
   return (
-    <div>
+    <div data-testid = "reviewAndSign_testid">
       <CheckLoginStatus /> {/* To check the user logged in or not  */}
       <ScrollToTopOnMount /> {/* To show the top of the page on load */}
       <Grid
@@ -148,6 +148,7 @@ export default function ReviewAndSign(props) {
                       stylebutton='{"float": "right", "color":"" }'
                       styleicon='{ "color":"" }'
                       id="reselect-button"
+                      data-testid = "reselect_button"
                       onClick={() => resumeNavigate()}
                     >
                       Re-Select Offer
@@ -274,7 +275,7 @@ export default function ReviewAndSign(props) {
               </Grid>
               <Grid item xs={12} className={classes.fullWidth}>
                 <Paper className={classes.paper}>
-                  <Grid item xs={12} md={12} lg={12}>
+                  <Grid item xs={12} md={12} lg={12} data-testid="iframe">
                     {url ? <Iframe src={url} /> : <p>Loading...</p>}
                   </Grid>
                 </Paper>
@@ -294,6 +295,8 @@ export default function ReviewAndSign(props) {
                         </span>
                       }
                       labelid="confirm"
+                      id= "confirm_checkbox"
+                      data-testid = "confirm_checkbox"
                       value={confirm}
                       onChange={(event) => {
                         setConfirm(event.target.checked);
@@ -320,6 +323,7 @@ export default function ReviewAndSign(props) {
                       stylebutton='{ "color":"" }'
                       styleicon='{ "color":"" }'
                       id="review-submit-button"
+                      data-testid = "review-submit-button"
                       disabled={!confirm || loading}
                       onClick={submitOnClick}
                     >
