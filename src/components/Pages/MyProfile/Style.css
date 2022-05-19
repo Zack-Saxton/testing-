@@ -126,6 +126,15 @@
 #basicInfo {
 	border-radius: 10px !important;
 }
+#basicFirstName,
+#basicLastName,
+#basicDOB,
+#email,
+#phone {
+color: black !important;
+	-webkit-text-fill-color: #000 !important;
+	opacity: unset !important;
+}
 
 #basicFirstName {
 	padding-bottom: 15px;
