@@ -47,6 +47,7 @@
   "Bank_Name_Max": "Account Holder Name can be up to 50 characters in length.",
   "Bank_Name_Min": "Bank Name should be minimum of 3 letters.",
   "Bank_Name_Required": "Bank Name is required.",
+  "BankAccountNumber_Valid" : "please enter valid Bank Account Number",
   "Card_Expiry_Date_Required": "Expiration Date is required",
   "Card_Holder_Name_Required": "Cardholder Name is required.",
   "Card_Min_Number": "Card Number should be 13 digits.",
