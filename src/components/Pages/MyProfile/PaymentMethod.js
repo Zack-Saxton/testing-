@@ -123,7 +123,8 @@ const validationSchemaAddBank = yup.object({
     .string(globalMessages.Enter_Account_No)
     .required(globalMessages.Accoun_No_Required)
     .min(4, globalMessages.validAccountNumber)
-    .max(17, globalMessages.validAccountNumber),
+    .max(17, globalMessages.validAccountNumber)
+    .matches(/^0*[1-9]\d*$/,globalMessages.BankAccountNumber_Valid),
 });
 
 export default function PaymentMethod() {
@@ -567,6 +568,7 @@ export default function PaymentMethod() {
         accountType,
         checkedAddBank ? 1 : 0
       );
+
       if (resBankData?.data?.Success) {
         toast.success("Payment method added successfully");
         refetch();
