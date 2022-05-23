@@ -10,18 +10,23 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useContext } from "react";
 import NumberFormat from 'react-number-format';
 import { useNavigate } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
 import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
 import { useStylesAccountOverview } from "./Style";
+import { NavContext } from "../../../contexts/NavContext";
+
 import "./Style.css";
 
 export default function RecentApplications() {
   //Material UI css class
   const classes = useStylesAccountOverview();
   const { isLoading, accountDetails } = useAccountOverview();
+  const { data, setData } = useContext(NavContext);
+  const { dataNavmessage } = useContext(NavContext);
+
 
   let statusStr = {
     "approved": "Approved",
@@ -67,6 +72,11 @@ export default function RecentApplications() {
 
   //resumebtn click
   const resumeNavigate = (appData) => navigate(statusStrLink[ appData ]);
+
+  const resumeNavigaeSelectOffer  = () => {
+    setData({ ...data, status: true });
+    navigate('/customers/selectOffer');
+  }
 
   //viewBtn click
   const viewAppData = (contactdata, appData) => {
@@ -143,6 +153,12 @@ export default function RecentApplications() {
                       <TableCell align="center">
                         {appData.isActive && appData?.status !== "referred" && appData?.status !== "contact_branch" ?
                           (
+                            dataNavmessage.status === true ?
+                            <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
+                              onClick={() => resumeNavigaeSelectOffer()}
+                            >
+                              Resume
+                            </ButtonPrimary> :
                             <ButtonPrimary stylebutton='{"color":"","width":"72%" }'
                               onClick={() => resumeNavigate(appData.status)}
                             >
