@@ -154,7 +154,7 @@ export default function PaymentMethod() {
   const [ validZip, setValidZip ] = useState(true);
   const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
   const [ mailingZipcode, setMailingZipcode ] = useState("");
-  const { data: dataAccountOverview } = useQuery(
+  const { data: accountDetails } = useQuery(
     "loan-data",
     usrAccountDetails
   );
@@ -166,11 +166,11 @@ export default function PaymentMethod() {
     }
   );
   useEffect(() => {
-    let schedulePayment = dataAccountOverview?.data?.activeLoans?.length
-      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation?.scheduledPayments
+    let schedulePayment = accountDetails?.data?.activeLoans?.length
+      ? accountDetails.data.activeLoans[ 0 ].loanPaymentInformation?.scheduledPayments
       : null;
-    let autoPay = dataAccountOverview?.data?.activeLoans?.length
-      ? dataAccountOverview.data.activeLoans[ 0 ].loanPaymentInformation?.appRecurringACHPayment?.LastFourOfPaymentAccount
+    let autoPay = accountDetails?.data?.activeLoans?.length
+      ? accountDetails.data.activeLoans[ 0 ].loanPaymentInformation?.appRecurringACHPayment?.LastFourOfPaymentAccount
       : null;
     //User shouldn't be allowed to delete the payment method accounts where there is scheduled future payment
     if (schedulePayment?.length > 0) {
@@ -196,7 +196,7 @@ export default function PaymentMethod() {
     if (autoPay) {
       setAutoPayAccountNo(autoPay);
     }
-  }, [ dataAccountOverview ]);
+  }, [ accountDetails ]);
   const formikAddBankAccount = useFormik({
     initialValues: {
       accountNickname: "",
@@ -394,33 +394,33 @@ export default function PaymentMethod() {
     setPaymentMethodDiv(false);
     scrollToTop();
     if (
-      dataAccountOverview?.data?.customer?.latest_contact
+      accountDetails?.data?.customer?.latest_contact
         ?.mailing_address_postal_code
     ) {
       setMailingZipcode(
-        dataAccountOverview?.data?.customer?.latest_contact
+        accountDetails?.data?.customer?.latest_contact
           ?.mailing_address_postal_code
       );
       setMailingStreetAddress(
-        dataAccountOverview?.data?.customer?.latest_contact
+        accountDetails?.data?.customer?.latest_contact
           ?.mailing_address_street
       );
 
       formikAddDebitCard.setFieldValue(
         "zipcode",
-        dataAccountOverview?.data?.customer?.latest_contact
+        accountDetails?.data?.customer?.latest_contact
           ?.mailing_address_postal_code
       );
       formikAddDebitCard.setFieldValue(
         "streetAddress",
-        dataAccountOverview?.data?.customer?.latest_contact
+        accountDetails?.data?.customer?.latest_contact
           ?.mailing_address_street
       );
 
       let event = {
         target: {
           value:
-            dataAccountOverview?.data?.customer?.latest_contact
+            accountDetails?.data?.customer?.latest_contact
               ?.mailing_address_postal_code,
           id: "addDebitcard",
           name: "addDebitcard",
@@ -596,7 +596,7 @@ export default function PaymentMethod() {
   };
   //  view part
   return (
-    <div className={loading ? classes.loadingOn : classes.loadingOff}>
+    <div className={loading ? classes.loadingOn : classes.loadingOff} data-testid="profile-payment-method">
       <div
         className={paymentMethodDiv ? "showContent" : "hideContent"}
       >
@@ -761,6 +761,7 @@ export default function PaymentMethod() {
                 stylebutton='{"marginLeft": "","fontSize":""}'
                 styleicon='{ "color":"" }'
                 id="addBankAccount_button"
+                data-testid="add-new-account-number"
                 onClick={() => {
                   setEditMode(false);
                   setRoutingError("");
@@ -779,6 +780,7 @@ export default function PaymentMethod() {
                 stylebutton='{"background": "", "float":"" }'
                 styleicon='{ "color":"" }'
                 id="addDebitCard_button"
+                data-testid="add-new-debit-card"
                 onClick={() => {
                   setSameAsMailAddress(true);
                   setValidZip(true);
@@ -802,7 +804,7 @@ export default function PaymentMethod() {
       </div>
       {/* ******************************************Add Bank account begin*********************************************************** */}
 
-      <div className={addBankAccount ? "showContent" : "hideContent"}>
+      <div className={addBankAccount ? "showContent" : "hideContent"} data-testid="add-new-bank-account-container">
         <form onSubmit={formikAddBankAccount.handleSubmit}>
           <Grid
             id="addAccountGrid"
@@ -1031,7 +1033,7 @@ export default function PaymentMethod() {
               className={editMode ? classes.hideSection : classes.showSection}
             >
               <Checkbox
-                name="setDefault"
+                name="addBankSetDefault"
                 label="Set as Default"
                 labelid="setDefault"
                 stylelabelform='{ "paddingTop":"0px" }'
@@ -1041,6 +1043,7 @@ export default function PaymentMethod() {
                 value={checkedAddBank}
                 checked={checkedAddBank}
                 disabled={editMode}
+                materialProps={{ "data-testid": "add-bank-default-checkbox" }}
                 onChange={(event) => {
                   setCheckedAddBank(event.target.checked);
                 }}
@@ -1122,7 +1125,7 @@ export default function PaymentMethod() {
       </div>
 
       {/* *********************************************DEbit card begins*************************************************************************                    */}
-      <div className={addDebitCard ? "showContent" : "hideContent"}>
+      <div className={addDebitCard ? "showContent" : "hideContent"} data-testid="add-new-debit-card-container">
         <form onSubmit={formikAddDebitCard.handleSubmit}>
           <Grid
             spacing={4}
@@ -1202,6 +1205,7 @@ export default function PaymentMethod() {
             >
               {/* <MasterCard /> */}
               <img
+                data-testid= "selected-card-type-image"
                 src={
                   window.location.origin +
                   "/Card/" +
