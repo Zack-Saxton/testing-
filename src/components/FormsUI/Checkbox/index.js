@@ -23,6 +23,7 @@ const CheckboxWrapper = ({
   stylecheckboxlabel,
   stylelabelform,
   required,
+  materialProps,
   ...otherProps
 }) => {
 
@@ -53,7 +54,7 @@ const CheckboxWrapper = ({
       <FormLabel style={styleLabelForm}>{formlabel}</FormLabel>
       <FormGroup >
         <FormControlLabel
-          control={<Checkbox id={id} {...configCheckbox} className={classes.checkboxStyle} style={styleCheckBox} />}
+          control={<Checkbox id={id} name={name} {...configCheckbox} className={classes.checkboxStyle} style={styleCheckBox} inputProps={materialProps} />}
           label={label}
           style={styleCheckBoxLabel}
           id={labelid}
@@ -74,6 +75,7 @@ CheckboxWrapper.propTypes = {
   stylecheckboxlabel: PropTypes.string,
   stylelabelform: PropTypes.string,
   required: PropTypes.bool,
+  materialProps: PropTypes.object,
 };
 
 export default CheckboxWrapper;
