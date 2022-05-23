@@ -67,8 +67,14 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
               2-Step Verification
             </Typography>
             <Typography className={classes.twoStepParagraph}>
-              For your security we are asking you to verify your identity.
-              Select one of the following methods to complete your login.
+              {phoneNumberSaved 
+              ? 
+              `For your security we are asking you to verify your identity.
+              Select one of the following methods to complete your login.`
+              :
+              `For your security we are asking you to verify your identity.
+              Select Security Question Verification to complete your login.`
+              }
             </Typography>
           <FormControl
               className={classes.radioButtonwrap}

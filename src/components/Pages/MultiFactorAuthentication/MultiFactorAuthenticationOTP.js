@@ -83,7 +83,7 @@ const MultiFactorAuthenticationOTP = () => {
         const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
         let userToken = JSON.parse(tokenString);
         userToken.isMFACompleted = true;
-        Cookies.set("token",JSON.stringify(userToken));
+        Cookies.set("token",JSON.stringify(userToken));//Setting MFA Flag to complete Login
         navigate("/customers/accountOverview");
       }else{// redirect to select security question page
         navigate('/MFA-SelectSecurityQuestions', {state: otpLocation});
