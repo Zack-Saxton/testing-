@@ -34,6 +34,9 @@ const useStylesMFA = makeStyles((theme) =>
       width: "32px",
       height: "32px",
     },
+    alignCenterDiv: {
+      textAlign: "center"
+    },
     yellowBackArrow: {
       color: "#ffbc23",
     },
