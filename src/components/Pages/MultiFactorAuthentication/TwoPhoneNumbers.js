@@ -45,10 +45,15 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
     }
   }
 
+
   const securityCode = (
     <div className={classes.securityCodeText}>
       Security code via SMS :<br />
-      <span>Get a code on your preferred phone number</span>
+      {
+        selection ? <span>Get a code on your preferred phone number</span> : <span>To phone number : {selectionValue}</span>
+      }
+      
+      
     </div>
   );
   const securityQuestions = (
@@ -57,6 +62,8 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
       Answer security questions{" "}
     </div>
   );
+
+  console.log("selection", selectionValue);
 
   return (
     <div className={isLoading ? classes.loadingOn : classes.loadingOff}>

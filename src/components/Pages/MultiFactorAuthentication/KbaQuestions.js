@@ -55,6 +55,13 @@ const KbaQuestions = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if(setOneFinished){
+      toast.success("Saved");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setOneFinished]);
+
   return (
     <div className={loadingFlag ? classes.loadingOn : classes.loadingOff}>
       <Grid>
@@ -83,6 +90,7 @@ const KbaQuestions = () => {
               </div>
               {
             !setOneFinished ?
+            <div className={classes.alignCenterDiv}>
               <ButtonPrimary
                 variant="contained"
                 color="primary"
@@ -131,8 +139,9 @@ const KbaQuestions = () => {
                   }
                  }}
               >
-                Next
+                Submit and Continue
               </ButtonPrimary>
+              </div>
               :
               null
           }
