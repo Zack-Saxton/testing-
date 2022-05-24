@@ -74,7 +74,7 @@ const KbaQuestions = () => {
               2-Step Verification
             </Typography>
             <Typography className={classes.twoStepParagraph}>
-            Please answer the questions below to help verify your identity.
+            Please answer the questions below to help verify your identity. Please provide your responses within five minutes.
             </Typography>
             <div className={classes.button_div} >
               {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : <CircularProgress />}
@@ -137,6 +137,10 @@ const KbaQuestions = () => {
               null
           }
             </div>
+            <Typography className={classes.twoStepParagraph}>
+            Loan funding and disbursement is conditioned upon our satisfactory review of any documents and other information that we require from you to verify your loan application and/or your identity.
+             This loan may not be consummated if you obtain another loan from us prior to our disbursing funds for this loan. If you have any questions, please contact us.
+             </Typography>
           </Paper>
         </Grid>
       </Grid>

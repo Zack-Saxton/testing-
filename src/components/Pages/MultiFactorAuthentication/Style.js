@@ -59,7 +59,7 @@ const useStylesMFA = makeStyles((theme) =>
     },
     twoStepParagraph: {
       width: "100%",
-      textAlign: "center",
+      textAlign: "justify",
       margin: "15px 0px",
       fontSize: "0.938rem",
       color: "#595959",
