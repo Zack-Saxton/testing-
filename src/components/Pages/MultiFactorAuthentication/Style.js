@@ -34,6 +34,9 @@ const useStylesMFA = makeStyles((theme) =>
       width: "32px",
       height: "32px",
     },
+    alignCenterDiv: {
+      textAlign: "center"
+    },
     yellowBackArrow: {
       color: "#ffbc23",
     },
@@ -59,7 +62,7 @@ const useStylesMFA = makeStyles((theme) =>
     },
     twoStepParagraph: {
       width: "100%",
-      textAlign: "center",
+      textAlign: "justify",
       margin: "15px 0px",
       fontSize: "0.938rem",
       color: "#595959",

@@ -48,7 +48,9 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
   const securityCode = (
     <div className={classes.securityCodeText}>
       Security code via SMS :<br />
-      <span>Get a code on your preferred phone number</span>
+      {
+        selection ? <span>Get a code on your preferred phone number</span> : <span>To phone number : {selectionValue}</span>
+      }
     </div>
   );
   const securityQuestions = (
