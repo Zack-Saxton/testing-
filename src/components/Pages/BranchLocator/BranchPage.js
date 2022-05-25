@@ -57,6 +57,18 @@ export default function StatePage(props) {
     stateShortNm.current = location?.state ? location?.state?.stateShortNm : "";
   }
 
+  const directions = ["-n-", "-s-", "-e-", "-w-", "-nw-", "-ne-", "-sw-", "-se-"];
+  const formatBranchName = (brName) => {
+    let tempText = brName;
+    directions.forEach((direction) => {
+      if(brName.includes(direction) )
+      {
+        tempText = brName.replace(direction, direction.toUpperCase());
+      }
+    })
+    return tempText;
+  }
+
   //API call
   const getBranchLists = async (search_text) => {
     try {
@@ -128,7 +140,7 @@ export default function StatePage(props) {
     if (!location?.state) {
       let pathName = location?.pathname.split('/');
       let FixString = 'personal-loans-in-'.length;
-      let branchNm = pathName[ 3 ].substring(FixString).split(pathName[ 3 ].substring(FixString).slice(-3));
+      let branchNm = formatBranchName(pathName[ 3 ]).substring(FixString).split(pathName[ 3 ].substring(FixString).slice(-3));
       stateLongNm.current = formatString(pathName[ 2 ]);
       stateShortNm.current = pathName[ 3 ].substring(FixString).slice(-2).toUpperCase();
       branch_Details.current = { BranchName: formatString(branchNm[ 0 ]) };

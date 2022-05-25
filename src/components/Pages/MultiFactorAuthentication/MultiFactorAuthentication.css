@@ -41,7 +41,7 @@ input[type=number] {
   font-size: 0.938rem;
   color: #595959;
 }
-#LoanQuestionWrap{
+#LoanQuestionWrap, #radioSelectTxt{
   flex-direction: column;
 }
 

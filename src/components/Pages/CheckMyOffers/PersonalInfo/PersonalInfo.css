@@ -195,8 +195,12 @@
 #date,
 #ssn,
 #email,
-#phone {
+#phone,
+#last4ssn {
 	padding-bottom: 15px !important;
+	color: black !important;
+	-webkit-text-fill-color: #000 !important;
+	opacity: unset !important;
 }
 
 #firstName-label,

@@ -442,7 +442,7 @@ export default function MakePayment(props) {
 
   //Schedule Payment
   const handleSchedulePaymentClick = () => {
-    if (!card) {
+    if (!card && card !== 0) {
       refSelectPaymentOption.current.focus();
       setRequiredSelect(globalMessages.Please_Select_Any_Account);
     } else if (!paymentAmount) {

@@ -433,7 +433,7 @@ export default function SideNav() {
   };
 
   const handleMobileMenuClose = () => {
-    if (!checked || !check) {
+    if ((!checked || !check) && window.matchMedia("only screen and (max-width: 760px)").matches ) {
       setOpen(false);
     }
   };
