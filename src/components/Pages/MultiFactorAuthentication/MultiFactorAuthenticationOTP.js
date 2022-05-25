@@ -128,7 +128,7 @@ const MultiFactorAuthenticationOTP = () => {
     </Grid>);
   }
   return (
-    <div>
+    <div data-testid="passcode-verification-container">
       <Grid>
         <Grid
           spacing={1}
