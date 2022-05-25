@@ -127,11 +127,11 @@ const KbaQuestions = () => {
                   }
                   else {
                     setLoadingFlag(false);
-                    toast.error("Internal Server Error");
+                    toast.error("Please answer the question before continuing");
                   }
                  }}
               >
-                Next
+                Continue
               </ButtonPrimary>
               :
               null
