@@ -124,6 +124,7 @@ export default function Notification() {
         <div>
 
           <IconButton
+          data-testid='BellButton'
             ref={anchorRef}
             id="composition-button"
             aria-controls={open ? "composition-menu" : undefined}
@@ -159,7 +160,7 @@ export default function Notification() {
               >
                 <Paper>
                   <ClickAwayListener onClickAway={handleClose}>
-                    <div id="notification-menu"  >
+                    <div id="notification-menu">
                       {messages.length ?
                         messages.map((val, index) => (
                           val.message_id ?
