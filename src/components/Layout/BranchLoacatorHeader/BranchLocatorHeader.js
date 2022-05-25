@@ -50,7 +50,7 @@ const BranchLocatorHeader = () => {
   };
   //View Part
   return (
-    <div id="headerWrap" className={classes.grow}>
+    <div id="headerWrap" className={classes.grow} data-testid="branch_locater_header_component">
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="branchLocatorHeaderToolBar">
           <Typography
@@ -58,6 +58,7 @@ const BranchLocatorHeader = () => {
             className={classes.title}
           >
             <img
+              data-testid="MF_logo"
               className={classes.logoFormat}
               src={Logo}
               alt="MF logo"
@@ -66,29 +67,31 @@ const BranchLocatorHeader = () => {
           <div id="desktopMenu" className={classes.sectionDesktop}>
             <Grid className="personalLoanHolder">
               <Typography className="branchHeaderLinks">
-                <Link href={`${ ServerURL }/personal-loans/`}>
+                <Link data-testid="desktopMenuLink" href={`${ ServerURL }/personal-loans/`}>
                   Personal Loans
                 </Link>
               </Typography>
 
               <Grid className="personalLoansubLinks">
-                <Link href={`${ ServerURL }/personal-loans/unexpected-expenses/`}>
+                <Link data-testid="unexpectedExpenses" href={`${ ServerURL }/personal-loans/unexpected-expenses/`}>
                   Unexpected Expenses
                 </Link>
-                <Link href={`${ ServerURL }/personal-loans/vacation-loans/`}>
+                <Link data-testid="vacationLoans" href={`${ ServerURL }/personal-loans/vacation-loans/`}>
                   Vacation Loans
                 </Link>
                 <Link
+                  data-testid="debtConsolidationLoans"
                   href={`${ ServerURL }/personal-loans/debt-consolidation-loans/`}
                 >
                   Debt Consolidation Loans
                 </Link>
                 <Link
+                  data-testid="homeImprovementLoans"
                   href={`${ ServerURL }/personal-loans/home-improvement-loans/`}
                 >
                   Home Improvement Loans
                 </Link>
-                <Link href={`${ ServerURL }/personal-loans/wedding-loans/`}>
+                <Link data-testid="weddingLoans" href={`${ ServerURL }/personal-loans/wedding-loans/`}>
                   Wedding Loans
                 </Link>
               </Grid>
@@ -96,19 +99,19 @@ const BranchLocatorHeader = () => {
 
             <Grid className="carLoansHolder">
               <Typography className="branchHeaderLinks">
-                <Link href={`${ ServerURL }/car-loans/`}>
+                <Link data-testid="carLoansLink" href={`${ ServerURL }/car-loans/`}>
                   Car Loans
                 </Link>
               </Typography>
 
               <Grid className="carLoanSubLinks">
-                <Link href={`${ ServerURL }/car-loans/auto-refinance/`}>
+                <Link data-testid="autoRefinancingLoans" href={`${ ServerURL }/car-loans/auto-refinance/`}>
                   Auto Refinancing Loans
                 </Link>
-                <Link href={`${ ServerURL }/car-loans/new-car-loan/`}>
+                <Link data-testid="financeCarLoans" href={`${ ServerURL }/car-loans/new-car-loan/`}>
                   Finance Car Loans
                 </Link>
-                <Link href={`${ ServerURL }/car-loans/used-car-loan/`}>
+                <Link data-testid="financeUsedCarLoan" href={`${ ServerURL }/car-loans/used-car-loan/`}>
                   Finance Used Car Loan
                 </Link>
               </Grid>
@@ -116,20 +119,19 @@ const BranchLocatorHeader = () => {
 
             <Grid className="homeLoansHolder">
               <Typography className="branchHeaderLinks">
-
-                <Link href={`${ ServerURL }/home-loans/`}>
+                <Link data-testid="homeLoansLink" href={`${ ServerURL }/home-loans/`}>
                   Home Loans
                 </Link>
               </Typography>
 
               <Grid className="homeLoanSubLinks">
-                <Link href={`${ ServerURL }/home-loans/mortgage-loans/`}>
+                <Link data-testid="homePurchase" href={`${ ServerURL }/home-loans/mortgage-loans/`}>
                   Home Purchase
                 </Link>
-                <Link href={`${ ServerURL }/home-loans/home-refinance/`}>
+                <Link data-testid="homeRefinance" href={`${ ServerURL }/home-loans/home-refinance/`}>
                   Home Refinance
                 </Link>
-                <Link href={`${ ServerURL }/home-loans/meet-our-loan-officers/`}>
+                <Link data-testid="meetOurLoanOfficers" href={`${ ServerURL }/home-loans/meet-our-loan-officers/`}>
                   Meet Our Loan Officers
                 </Link>
               </Grid>
@@ -137,64 +139,69 @@ const BranchLocatorHeader = () => {
 
             <Grid className="resourcesHolder">
               <Typography className="branchHeaderLinks">
-                <Link href={`${ ServerURL }/resources//`}>
+                <Link data-testid="ResourcesLink" href={`${ ServerURL }/resources//`}>
                   Resources
                 </Link>
               </Typography>
 
               <Grid className="resourcesSubLinks">
-                <Link href={`${ ServerURL }/resources/how-to-apply/`}>
+                <Link data-testid="howToApplyLink" href={`${ ServerURL }/resources/how-to-apply/`}>
                   How to Apply for a Personal loan
                 </Link>
-                <Link href="/faq">FAQ</Link>
-                <Link href={`${ ServerURL }/blog/`}>Blog</Link>
-                <Link href="/branch-locator">Mariner States</Link>
-                <Link href={`${ ServerURL }/resources/legal/`}>Legal</Link>
+                <Link data-testid="FAQLink" href="/faq">FAQ</Link>
+                <Link data-testid="BlogLink" href={`${ ServerURL }/blog/`}>Blog</Link>
+                <Link data-testid="marinerStates" href="/branch-locator">Mariner States</Link>
+                <Link data-testid="LegalLink" href={`${ ServerURL }/resources/legal/`}>Legal</Link>
               </Grid>
             </Grid>
 
             <Grid className="whyUsHolder">
               <Typography className="branchHeaderLinks">
-
-                <Link href={`${ ServerURL }/why-mariner-finance/`}>
+                <Link data-testid="whyUsLink" href={`${ ServerURL }/why-mariner-finance/`}>
                   Why Us?
                 </Link>
               </Typography>
 
               <Grid className="whyUsSubLinks">
-                <Link href={`${ ServerURL }/testimonials/`}>Testimonials</Link>
+                <Link data-testid="testimonialsLink" href={`${ ServerURL }/testimonials/`}>Testimonials</Link>
                 <Link
+                  data-testid="marinerFinanceReviewsLink"
                   href={`${ ServerURL }/why-mariner-finance/mariner-finance-reviews/`}
                 >
                   Mariner Finance Reviews
                 </Link>
                 <Link
+                  data-testid="customerServiceLink"
                   href={`${ ServerURL }/why-mariner-finance/excellent-customer-service/`}
                 >
                   Excellent Customer Service
                 </Link>
-                <Link href={`${ ServerURL }/why-mariner-finance/history/`}>
+                <Link data-testid="marinerFinanceHistoryLink" href={`${ ServerURL }/why-mariner-finance/history/`}>
                   Mariner Finance History
                 </Link>
 
                 <Grid className="subLinkDropdown">
                   <Link
+                    data-testid="partnerWithUs"
                     href={`${ ServerURL }/why-mariner-finance/partner-with-us/`}
                   >
                     Partner With Us
                   </Link>
                   <Grid className="subLinkList">
                     <Link
+                      data-testid="pointOfSaleLink"
                       href={`${ ServerURL }/why-mariner-finance/partner-with-us/point-of-sale-financing/`}
                     >
                       Point of Sale Financing
                     </Link>
                     <Link
+                      data-testid="corporateAcquisitionLink"
                       href={`${ ServerURL }/why-mariner-finance/partner-with-us/corporate-acquisition/`}
                     >
                       Corporate Acquisition
                     </Link>
                     <Link
+                      data-testid="affiliateProgramLink"
                       href={`${ ServerURL }/why-mariner-finance/partner-with-us/affiliate-program/`}
                     >
                       Affiliate Program
@@ -203,36 +210,39 @@ const BranchLocatorHeader = () => {
                 </Grid>
 
                 <Link
+                  data-testid="communityOutreachLink"
                   href={`${ ServerURL }/why-mariner-finance/community-outreach/`}
                 >
                   Community Outreach
                 </Link>
 
                 <Grid className="subLinkDropdown">
-                  <Link href={`${ ServerURL }/careers/`}>Careers</Link>
+                  <Link data-testid="careersLink" href={`${ ServerURL }/careers/`}>Careers</Link>
                   <Grid className="subLinkList">
                     <Link
+                      data-testid="branchProgramLink"
                       href={`${ ServerURL }/careers/branch-manager-trainee-and-internship-programs/`}
                     >
                       Branch Manager Trainee and Internship programs
                     </Link>
-                    <Link href={`${ ServerURL }/careers/jobs-for-veterans/`}>
+                    <Link data-testid="jobsForVeteransLink" href={`${ ServerURL }/careers/jobs-for-veterans/`}>
                       Jobs For Veterans
                     </Link>
-                    <Link href={`${ ServerURL }/careers/corporate-culture/`}>
+                    <Link data-testid="corporateCultureLink" href={`${ ServerURL }/careers/corporate-culture/`}>
                       Corporate Culture
                     </Link>
-                    <Link href={`${ ServerURL }/careers/benefits/`}>
+                    <Link data-testid="benefitsLink" href={`${ ServerURL }/careers/benefits/`}>
                       Benefits
                     </Link>
-                    <Link href={`${ ServerURL }/careers/faq/`}>FAQ</Link>
+                    <Link data-testid="FAQsLink" href={`${ ServerURL }/careers/faq/`}>FAQ</Link>
                   </Grid>
                 </Grid>
-                <Link href={`${ ServerURL }/sweepstakes/`}>Sweepstakes</Link>
+                <Link data-testid="sweepstakesLink" href={`${ ServerURL }/sweepstakes/`}>Sweepstakes</Link>
               </Grid>
             </Grid>
 
             <NavLink
+              data-testid="MailOfferLink"
               to="/select-amount/"
               className="nav_link branchHeaderLinks mailOffer"
             >
@@ -252,6 +262,7 @@ const BranchLocatorHeader = () => {
               className="nav_link branchHeaderLinksLast"
             >
               <ButtonPrimary
+                data-testid="checkMyOffers"
                 id="Continue"
                 stylebutton='{"fontSize":"1rem","fontWeight":"400","color":"#151147"}'
                 target="_blank"
@@ -261,6 +272,7 @@ const BranchLocatorHeader = () => {
             </NavLink>
           </div>
           <button
+            data-testid="menuHamburgerButton"
             onClick={(event) => {
               setdisplay(display ? false : true);
             }}
@@ -278,6 +290,7 @@ const BranchLocatorHeader = () => {
                 expandIcon={<ExpandMoreIcon />}
               >
                 <a
+                  data-testid="personalLoansLink"
                   target="_blank"
                   rel="noreferrer"
                   href={`${ ServerURL }/personal-loans/`}
@@ -286,8 +299,9 @@ const BranchLocatorHeader = () => {
                 </a>
               </AccordionSummary>
               <AccordionDetails className="menuSubLinksWrap">
-                <Grid className="subMenuWrap">
+                <Grid  className="subMenuWrap">
                   <a
+                    data-testid="unexpectedExpensesLink"
                     target="_blank"
                     rel="noreferrer"
                     href={`${ ServerURL }/personal-loans/unexpected-expenses/`}
@@ -295,6 +309,7 @@ const BranchLocatorHeader = () => {
                     Unexpected Expenses
                   </a>
                   <a
+                    data-testid="vacationLoansLinks"
                     target="_blank"
                     rel="noreferrer"
                     href={`${ ServerURL }/personal-loans/vacation-loans/`}
@@ -302,6 +317,7 @@ const BranchLocatorHeader = () => {
                     Vacation Loans
                   </a>
                   <a
+                    data-testid="debtConsolidationLoanLink"
                     target="_blank"
                     rel="noreferrer"
                     href={`${ ServerURL }/personal-loans/debt-consolidation-loans/`}
@@ -310,6 +326,7 @@ const BranchLocatorHeader = () => {
                   </a>
 
                   <a
+                    data-testid="homeImprovementLoansLinks"
                     target="_blank"
                     rel="noreferrer"
                     href={`${ ServerURL }/personal-loans/home-improvement-loans/`}
@@ -317,6 +334,7 @@ const BranchLocatorHeader = () => {
                     Home Improvement Loans
                   </a>
                   <a
+                    data-testid="weddingLoansLinks"
                     target="_blank"
                     rel="noreferrer"
                     href={`${ ServerURL }/personal-loans/wedding-loans/`}
@@ -332,6 +350,7 @@ const BranchLocatorHeader = () => {
                 expandIcon={<ExpandMoreIcon />}
               >
                 <a
+                  data-testid="carLoanLinkMobile"
                   target="_blank"
                   rel="noreferrer"
                   href={`${ ServerURL }/car-loans/`}
@@ -341,13 +360,13 @@ const BranchLocatorHeader = () => {
               </AccordionSummary>
               <AccordionDetails className="menuSubLinksWrap">
                 <Grid className="subMenuWrap">
-                  <Link href={`${ ServerURL }/car-loans/auto-refinance/`}>
+                  <Link data-testid="autoRefinancingLoansLinks" href={`${ ServerURL }/car-loans/auto-refinance/`}>
                     Auto Refinancing Loans
                   </Link>
-                  <Link href={`${ ServerURL }/car-loans/new-car-loan/`}>
+                  <Link data-testid="financeCarLoansLinks" href={`${ ServerURL }/car-loans/new-car-loan/`}>
                     Finance Car Loans
                   </Link>
-                  <Link href={`${ ServerURL }/car-loans/used-car-loan/`}>
+                  <Link data-testid="financeUsedCarLoanLinks" href={`${ ServerURL }/car-loans/used-car-loan/`}>
                     Finance Used Car Loan
                   </Link>
                 </Grid>
@@ -359,6 +378,7 @@ const BranchLocatorHeader = () => {
                 expandIcon={<ExpandMoreIcon />}
               >
                 <a
+                  data-testid="homeLoansLinks"
                   target="_blank"
                   rel="noreferrer"
                   href={`${ ServerURL }/home-loans`}
@@ -368,13 +388,14 @@ const BranchLocatorHeader = () => {
               </AccordionSummary>
               <AccordionDetails className="menuSubLinksWrap">
                 <Grid className="subMenuWrap">
-                  <Link href={`${ ServerURL }/home-loans/mortgage-loans/`}>
+                  <Link data-testid="homePurchaseLinks" href={`${ ServerURL }/home-loans/mortgage-loans/`}>
                     Home Purchase
                   </Link>
-                  <Link href={`${ ServerURL }/home-loans/home-refinance/`}>
+                  <Link data-testid="homeRefinanceLinks" href={`${ ServerURL }/home-loans/home-refinance/`}>
                     Home Refinance
                   </Link>
                   <Link
+                    data-testid="meetOurLoanOfficersLinks"
                     href={`${ ServerURL }/home-loans/meet-our-loan-officers/`}
                   >
                     Meet Our Loan Officers
@@ -388,6 +409,7 @@ const BranchLocatorHeader = () => {
                 expandIcon={<ExpandMoreIcon />}
               >
                 <a
+                  data-testid="ResourcesLinks"
                   target="_blank"
                   rel="noreferrer"
                   href={`${ ServerURL }/resources/`}
@@ -397,13 +419,13 @@ const BranchLocatorHeader = () => {
               </AccordionSummary>
               <AccordionDetails className="menuSubLinksWrap">
                 <Grid className="subMenuWrap">
-                  <Link href={`${ ServerURL }/resources/how-to-apply/`}>
+                  <Link data-testid="ApplyLoanLinks" href={`${ ServerURL }/resources/how-to-apply/`}>
                     How to Apply for a Personal loan
                   </Link>
-                  <Link href="/faq">FAQ</Link>
-                  <Link href={`${ ServerURL }/blog/`}>Blog</Link>
-                  <Link href={`${ ServerURL }/state/`}>Mariner States</Link>
-                  <Link href={`${ ServerURL }/resources/legal/`}>Legal</Link>
+                  <Link data-testid="FAQLinks" href="/faq">FAQ</Link>
+                  <Link data-testid="blogLinks" href={`${ ServerURL }/blog/`}>Blog</Link>
+                  <Link data-testid="marinerStatesLinks" href={`${ ServerURL }/state/`}>Mariner States</Link>
+                  <Link data-testid="LegalLinks" href={`${ ServerURL }/resources/legal/`}>Legal</Link>
                 </Grid>
               </AccordionDetails>
             </Accordion>
@@ -413,6 +435,7 @@ const BranchLocatorHeader = () => {
                 expandIcon={<ExpandMoreIcon />}
               >
                 <a
+                  data-testid="whyUsLinks"
                   target="_blank"
                   rel="noreferrer"
                   href={`${ ServerURL }/why-mariner-finance/`}
@@ -422,18 +445,20 @@ const BranchLocatorHeader = () => {
               </AccordionSummary>
               <AccordionDetails className="menuSubLinksWrap">
                 <Grid className="subMenuWrap">
-                  <Link href={`${ ServerURL }/testimonials/`}>Testimonials</Link>
+                  <Link data-testid="testimonialsLinks" href={`${ ServerURL }/testimonials/`}>Testimonials</Link>
                   <Link
+                    data-testid="marinerFinanceReviewsLinks"
                     href={`${ ServerURL }/why-mariner-finance/mariner-finance-reviews/`}
                   >
                     Mariner Finance Reviews
                   </Link>
                   <Link
+                    data-testid="excellentCustomerServiceLinks"
                     href={`${ ServerURL }/why-mariner-finance/excellent-customer-service/`}
                   >
                     Excellent Customer Service
                   </Link>
-                  <Link href={`${ ServerURL }/why-mariner-finance/history/`}>
+                  <Link data-testid="marinerFinanceHistoryLinks" href={`${ ServerURL }/why-mariner-finance/history/`}>
                     Mariner Finance History
                   </Link>
                   <Accordion className="borderTop">
@@ -442,6 +467,7 @@ const BranchLocatorHeader = () => {
                       expandIcon={<ExpandMoreIcon />}
                     >
                       <a
+                        data-testid="partnerWithUsLinks"
                         target="_blank"
                         rel="noreferrer"
                         href={`${ ServerURL }/why-mariner-finance/partner-with-us/`}
@@ -452,17 +478,20 @@ const BranchLocatorHeader = () => {
                     <AccordionDetails className="pointOfSale">
                       <Grid className="subMenuWrapTwo">
                         <Link
+                          data-testid="pointofSaleFinancingLink"
                           className=""
                           href={`${ ServerURL }/why-mariner-finance/partner-with-us/point-of-sale-financing/`}
                         >
                           Point of Sale Financing
                         </Link>
                         <Link
+                          data-testid="corporateAcquisitionLinks"
                           href={`${ ServerURL }/why-mariner-finance/partner-with-us/corporate-acquisition/`}
                         >
                           Corporate Acquisition
                         </Link>
                         <Link
+                          data-testid="affiliateProgramLinks"
                           href={`${ ServerURL }/why-mariner-finance/partner-with-us/`}
                         >
                           Affiliate Program
@@ -471,6 +500,7 @@ const BranchLocatorHeader = () => {
                     </AccordionDetails>
                   </Accordion>
                   <Link
+                    data-testid="communityOutreachLinks"
                     className="mobileMenuLink"
                     href={`${ ServerURL }/why-mariner-finance/community-outreach/`}
                   >
@@ -482,6 +512,7 @@ const BranchLocatorHeader = () => {
                       expandIcon={<ExpandMoreIcon />}
                     >
                       <a
+                        data-testid="careersLinks"
                         className="noBorder"
                         target="_blank"
                         rel="noreferrer"
@@ -493,20 +524,21 @@ const BranchLocatorHeader = () => {
                     <AccordionDetails className="noPadding">
                       <Grid className="subMenuWrapThree">
                         <Link
+                          data-testid="programsLinks"
                           href={`${ ServerURL }/careers/branch-manager-trainee-and-internship-programs/`}
                         >
                           Branch Manager Trainee and Internship programs
                         </Link>
-                        <Link href={`${ ServerURL }/careers/jobs-for-veterans/`}>
+                        <Link data-testid="jobsForVeteransLinks" href={`${ ServerURL }/careers/jobs-for-veterans/`}>
                           Jobs For Veterans
                         </Link>
-                        <Link href={`${ ServerURL }/careers/corporate-culture/`}>
+                        <Link data-testid="corporateCultureLinks" href={`${ ServerURL }/careers/corporate-culture/`}>
                           Corporate Culture
                         </Link>
-                        <Link href={`${ ServerURL }/careers/benefits/`}>
+                        <Link data-testid="benefitsLinks" href={`${ ServerURL }/careers/benefits/`}>
                           Benefits
                         </Link>
-                        <Link href={`${ ServerURL }/careers/faq/`}>FAQ</Link>
+                        <Link data-testid="FAQ_Links" href={`${ ServerURL }/careers/faq/`}>FAQ</Link>
                       </Grid>
                     </AccordionDetails>
                   </Accordion>
@@ -516,7 +548,7 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link href='/select-amount/'>Mail Offer?</Link>
+                <Link data-testid="MailOfferLinks" href='/select-amount/'>Mail Offer?</Link>
               </AccordionDetails>
             </Accordion>
             <Accordion className="noShadow">
@@ -532,7 +564,7 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                  <Link to= {!loginToken.isLoggedIn ? "/select-amount" : "/customers/resumeApplication" }>Check My Offers</Link>                
+                  <Link data-testid="checkMyLinks" to= {!loginToken.isLoggedIn ? "/select-amount" : "/customers/resumeApplication" }>Check My Offers</Link>                
               </AccordionDetails>
             </Accordion>
           </Grid>
