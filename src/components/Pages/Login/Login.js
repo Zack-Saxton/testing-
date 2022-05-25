@@ -154,7 +154,8 @@ export default function Login(props) {
             apiKey: "",
             setupTime: "",
             applicantGuid: "",
-          })
+          }),
+          toast.error(retVal?.data?.Message)
         );
         setCounter(counter + 1);
         setLoading(false);
