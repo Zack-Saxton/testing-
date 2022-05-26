@@ -16,7 +16,7 @@ export default function Footer() {
   };
   //View Part
   return (
-    <div>
+    <div data-testid="prelogin_footer_component">
       <footer id="mainFooter">
         <Grid className="FooterGridWrap">
           <Grid className="footerWrap" container>
@@ -32,8 +32,8 @@ export default function Footer() {
                   </Typography>
                 </NavLink>
               </div>
-              <div className="footer-content">
-                <NavLink
+              <div className="footer-content" >
+                <NavLink  data-testid="privacyStatement"
                   to="/privacyStatement"
                   target="_blank"
                   className="hrefTag"
@@ -43,15 +43,15 @@ export default function Footer() {
                   </Typography>
                 </NavLink>
               </div>
-              <div className="footer-content">
-                <NavLink to="/termsofuse" target="_blank" className="hrefTag">
+              <div className="footer-content" >
+                <NavLink to="/termsofuse" target="_blank" className="hrefTag" data-testid="termsofuse">
                   <Typography className="normalFooterFont">
                     Terms of Use
                   </Typography>
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink
+                <NavLink data-testid="licenseDisclosure"
                   to="/licenseDisclosure"
                   target="_blank"
                   className="hrefTag"
@@ -62,7 +62,7 @@ export default function Footer() {
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink
+                <NavLink data-testid="textingTermsOfUse"
                   to="/textingTermsOfUse"
                   target="_blank"
                   className="hrefTag"
@@ -76,7 +76,7 @@ export default function Footer() {
 
             <Grid item sm={12} md={4} lg={4}>
               <div className="footer-content">
-                <NavLink
+                <NavLink data-testid="websiteAccessibility"
                   to="/websiteAccessibility"
                   target="_blank"
                   className="hrefTag"
@@ -87,7 +87,7 @@ export default function Footer() {
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink
+                <NavLink data-testid="cac-termsofuse"
                   to="/cac-termsofuse"
                   target="_blank"
                   className="hrefTag"
@@ -98,7 +98,7 @@ export default function Footer() {
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink
+                <NavLink data-testid="californiaResident"
                   to="/californiaResident"
                   target="_blank"
                   className="hrefTag"
