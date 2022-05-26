@@ -8,22 +8,24 @@ import {
   Typography
 } from "@mui/material";
 import { useStylesMFA } from "./Style";
-import Paper from "@mui/material/Paper";
 import PropTypes from "prop-types";
 
-const PhoneNumberPopUp = ({cellPhoneNumber, optionalPhoneNumber, setSelection}) => {
+const PhoneNumberPopUp = (props) => {
+
+let cellPhoneNumber = props.cellPhoneNumber;
+let optionalPhoneNumber = props.optionalPhoneNumber;
+let setSelection = props.setSelection;
+
   const classes = useStylesMFA();
   const [value, setValue] = useState('');
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
-  console.log("cellPhoneNumber",cellPhoneNumber)
   const securityCode = (number) => {
-    console.log("dd",number)
-    return (
+      return (
     <div data-testid = "securitycode_func" className={classes.securityCodeText}>
-      <span>{`Get a code on (***) *** ${number.substr(-4)}`}</span>
+      <span>{`Get a code on (***) *** ${number !== undefined ? number.substr(-4) : ""}`}</span>
     </div>
     )
   }
@@ -50,7 +52,7 @@ const PhoneNumberPopUp = ({cellPhoneNumber, optionalPhoneNumber, setSelection}) 
                 <FormControlLabel
                   className={classes.smallRadioButton}
                   value={cellPhoneNumber}
-                  control={<Radio color="primary" onClick={()=>setSelection(`${cellPhoneNumber}`)} />}
+                  control={<Radio data-testid = "radio_primary_phone" color="primary" onClick={()=>setSelection(`${cellPhoneNumber}`)} />}
                   label={securityCode(cellPhoneNumber)}
                 />
                 <FormControlLabel

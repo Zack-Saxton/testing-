@@ -38,17 +38,18 @@ test("Checks the component is rendered", () => {
 	expect(element).toBeTruthy();
 });
 
-test("Render Sequrity Code", () => {
+test("Render Security Code", () => {
 	render(component());
 	const element = screen.getByTestId("textAndCallss");
 	expect(element).toBeTruthy();
 });
 
-test("Render Sequrity Question", () => {
+test("Render Security Question", () => {
 	render(component());
 	const element = screen.getByTestId("securityQuestion");
 	expect(element).toBeTruthy();
 });
+
 
 test("Button Onclick", () => {
 	render(component());
