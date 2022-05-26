@@ -18,16 +18,18 @@ const PhoneNumberPopUp = ({cellPhoneNumber, optionalPhoneNumber, setSelection}) 
     setValue(event.target.value);
   };
 
+  console.log("cellPhoneNumber",cellPhoneNumber)
   const securityCode = (number) => {
+    console.log("dd",number)
     return (
-    <div className={classes.securityCodeText}>
+    <div data-testid = "securitycode_func" className={classes.securityCodeText}>
       <span>{`Get a code on (***) *** ${number.substr(-4)}`}</span>
     </div>
     )
   }
 
   return (
-    <Grid>
+    <Grid data-testid = "PhoneNumberPopUp_component">
             
             <Typography className={classes.twoStepParagraph}>
               Select one of your preferred phone number to receive your passcode.
