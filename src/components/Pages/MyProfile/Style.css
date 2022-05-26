@@ -17,6 +17,26 @@
 	background: #ffbc23 !important;
 	color: #171717 !important;
 }
+.validation-failed{
+	color:red
+}
+.validation-success{
+	color:green
+}
+.error-validation li{
+	list-style: none;
+}
+
+.validation-success:before{
+	content:"✓";
+}
+
+.validation-failed:before{
+	content:"✘";
+	padding:1px;
+}
+
+
 
 .posRelativeWidthAuto {
 	position: relative !important;

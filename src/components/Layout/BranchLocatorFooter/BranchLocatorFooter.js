@@ -184,7 +184,7 @@ export default function BranchLocatorFooter() {
 
   //View Part
   return (
-    <div className="mainDivBranchLocatorFooter">
+    <div data-testid="branch_locater_footer_component" className="mainDivBranchLocatorFooter">
       <footer className="footeBranchLocator">
         <Grid className="branchLocatorFooterWrap">
           <section className="branch-Locator-Footer">
@@ -199,6 +199,7 @@ export default function BranchLocatorFooter() {
                       {element.title === "Stay Connected" ? (
                         <Grid className="socialIconsWrap">
                           <a
+                            data-testid="facebookIcon"
                             target="_blank"
                             rel="noreferrer"
                             href="https://www.facebook.com/MarinerFinance/"
@@ -208,6 +209,7 @@ export default function BranchLocatorFooter() {
                             </IconButton>
                           </a>
                           <a
+                            data-testid="twitterIcon"
                             target="_blank"
                             rel="noreferrer"
                             href="https://twitter.com/MarinerFinance"
@@ -217,6 +219,7 @@ export default function BranchLocatorFooter() {
                             </IconButton>
                           </a>
                           <a
+                            data-testid="linkedInIcon"
                             target="_blank"
                             rel="noreferrer"
                             href="https://www.linkedin.com/company/mariner-finance/"
@@ -251,7 +254,7 @@ export default function BranchLocatorFooter() {
           </section>
           <section className="paragraph">
             <p>
-              <small>
+              <small data-testid="personalTexts">
                 We offer personal loans from $1,000 to $25,000, with minimum and
                 maximum amounts dependent on an applicant’s state of residence
                 and the underwriting of the loan. Loans between $1,500 and
@@ -270,7 +273,7 @@ export default function BranchLocatorFooter() {
               </small>
             </p>
             <p>
-              <small>
+              <small data-testid="helpTexts">
                 To help the government fight the funding of terrorism and money
                 laundering activities, Federal law requires all financial
                 institutions to obtain, verify, and record information that
@@ -282,7 +285,7 @@ export default function BranchLocatorFooter() {
               </small>
             </p>
             <p>
-              <small>
+              <small data-testid="processTexts">
                 *The process uses a “soft” credit inquiry to determine whether a
                 loan offer is available, which does not impact your credit
                 score. If you continue with the application process online and
@@ -293,7 +296,7 @@ export default function BranchLocatorFooter() {
               </small>
             </p>
             <p>
-              <small>
+              <small data-testid="satisfactionText">
                 **15 Day Satisfaction Guarantee: If, for any reason, you are
                 dissatisfied with your loan and repay it in full within 15 days
                 we will waive all finance charges with no penalties. Your
@@ -301,7 +304,7 @@ export default function BranchLocatorFooter() {
               </small>
             </p>
             <p className="californiaPara" >
-              <small>
+              <small data-testid="californiaText">
                 California Residents: Loans made or arranged pursuant to a
                 California Financing Law license.
               </small>
@@ -311,13 +314,13 @@ export default function BranchLocatorFooter() {
             <Grid container className="footerLogoLinksWrap">
               <Grid item xs={12} sm={12} md={3}>
                 <a className="footerLogoimageWrap" href="#">
-                  <img src={Logo} />
+                  <img data-testid="footerLogoImage" src={Logo} />
                 </a>
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
                 <div className="row">
                   <div className="alignAddressDiv">
-                    <p className="centerAlignAddress">
+                    <p data-testid="footerAddressText" className="centerAlignAddress">
                       Mariner Finance, LLC, NMLS No. 166564
                       <span
                         className="alignAddressSpan"
@@ -337,6 +340,7 @@ export default function BranchLocatorFooter() {
               <Grid item xs={12} sm={12} md={3}>
                 <a className="footerLogoimageWrap" href="#">
                   <img
+                    data-testid="housingImage"
                     src={Housing}
                     className="imgHousing"
                   />
@@ -347,7 +351,7 @@ export default function BranchLocatorFooter() {
         </Grid>
         <section className="section-bottom">
           <div>
-            <span className="copyrightSpan">
+            <span data-testid="copyrightText" className="copyrightSpan">
               &copy; {new Date().getFullYear()} Mariner Finance All rights
               reserved.
             </span>
