@@ -107,7 +107,7 @@ export default function StatePage(props) {
       ErrorLogger(" Error from listForMapView", error);
     }
   };
-  const apiGetBranchList = async (value) => {
+  const apiGetBranchList = async (value, branchName) => {
     try {
       let result = await getBranchLists(value);
       console.log(' BEFORE ::', result)
@@ -116,6 +116,9 @@ export default function StatePage(props) {
       for (let ele in result) {
         let BranchTime = await findBranchTimings(result[ ele ]);
         result[ ele ] = Object.assign(result[ ele ], { BranchTime: BranchTime });
+        if((result[ ele ].BranchName.trim()).toLowerCase() === (branchName.trim()).toLocaleLowerCase()){
+          branch_Details.current = { BranchName: result[ ele ].BranchName };
+        }
       }
       setBranchList(result);
       listForMapView(result);
@@ -140,13 +143,13 @@ export default function StatePage(props) {
     if (!location?.state) {
       let pathName = location?.pathname.split('/');
       let FixString = 'personal-loans-in-'.length;
-      let branchNm = formatBranchName(pathName[ 3 ]).substring(FixString).split(pathName[ 3 ].substring(FixString).slice(-3));
+      let branchNm = formatBranchName(pathName[ 3 ]).substring(FixString).slice(0, -3) ;
       stateLongNm.current = formatString(pathName[ 2 ]);
       stateShortNm.current = pathName[ 3 ].substring(FixString).slice(-2).toUpperCase();
-      branch_Details.current = { BranchName: formatString(branchNm[ 0 ]) };
-      apiGetBranchList(pathName[ 3 ].substring(FixString));
+      branch_Details.current = { BranchName: "" };
+      apiGetBranchList(pathName[ 3 ].substring(FixString), formatString(branchNm));
     } else {
-      apiGetBranchList(branch_Details?.current?.Address);
+      apiGetBranchList(branch_Details?.current?.Address, formatString(branchNm));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ location.pathname, stateShortNm, stateLongNm ]);
