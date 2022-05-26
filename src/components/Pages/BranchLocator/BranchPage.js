@@ -116,7 +116,7 @@ export default function StatePage(props) {
       for (let ele in result) {
         let BranchTime = await findBranchTimings(result[ ele ]);
         result[ ele ] = Object.assign(result[ ele ], { BranchTime: BranchTime });
-        if((result[ ele ].BranchName.trim()).toLowerCase() === (branchName.trim()).toLocaleLowerCase()){
+        if((branchName) && (result[ ele ].BranchName.trim()).toLowerCase() === (branchName.trim()).toLocaleLowerCase()){
           branch_Details.current = { BranchName: result[ ele ].BranchName };
         }
       }
@@ -149,7 +149,7 @@ export default function StatePage(props) {
       branch_Details.current = { BranchName: "" };
       apiGetBranchList(pathName[ 3 ].substring(FixString), formatString(branchNm));
     } else {
-      apiGetBranchList(branch_Details?.current?.Address, formatString(branchNm));
+      apiGetBranchList(branch_Details?.current?.Address, "");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ location.pathname, stateShortNm, stateLongNm ]);
