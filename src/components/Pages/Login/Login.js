@@ -136,7 +136,7 @@ export default function Login(props) {
         if(retVal?.data?.user?.extensionattributes?.MFA){
           navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }});
         } else {
-          retVal?.data?.user?.attributes?.password_reset 
+          retVal?.data?.user?.attributes?.password_reset
           ? navigate("/resetpassword", { state: { Email: values?.email } })
           : navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
         }
@@ -162,10 +162,10 @@ export default function Login(props) {
         setLoginFailed(retVal?.data?.errorMessage);
       } else {
         setLoading(false);
-        alert(globalMessages.Network_Error);
+        alert(globalMessages.Network_Error_Please_Try_Again);
       }
     // } else {
-    //   navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType:'Chrome HP' }}); 
+    //   navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType:'Chrome HP' }});
     // }
     },
   });

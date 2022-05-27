@@ -20,7 +20,7 @@ import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import DocumentUpload from "./DocumentUpload";
 import "./stepper.css";
-
+import globalMessages from "../../../../assets/data/globalMessages.json";
 //Styling part
 const useStyles = makeStyles((theme) => ({
 	content_grid: {
@@ -143,7 +143,7 @@ export default function BankAccountVerification(props) {
 					alert(messages?.bankAccountVerification?.notValid);
 				} else {
 					props.setLoadingFlag(false);
-					alert("Network Error");
+					alert(globalMessages.Network_Error_Please_Try_Again);
 				}
 			}
 		},
