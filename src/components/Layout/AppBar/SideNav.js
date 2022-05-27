@@ -529,8 +529,9 @@ export default function SideNav() {
   //View part
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-      <div id="headerWrap" className={classes.grow}>
+      <div data-testid="side_nav_component" id="headerWrap" className={classes.grow}>
         <AppBar
+          data-testid="appBar"
           id="MainHeaderWrapping"
           position="static"
           elevation={0}
@@ -540,6 +541,7 @@ export default function SideNav() {
         >
           <Toolbar id="toolbar">
             <IconButton
+              data-testid="menuIcon"
               aria-label="open drawer"
               onClick={handleMenuButtonOpen}
               id="close1"
@@ -553,6 +555,7 @@ export default function SideNav() {
             <div className={classes.grow} />
             <div id="tool-bar-list">
               <NavLink
+                data-testid="qickPayIcon"
                 id="quickNameIcon"
                 to="/customers/makePayment"
                 onClick={(event) => {
@@ -575,6 +578,7 @@ export default function SideNav() {
               <Stack direction="row" spacing={2}>
                 <div>
                   <IconButton
+                    data-testid="settingsIcon"
                     ref={anchorRef}
                     id="composition-button"
                     aria-controls={open ? "composition-menu" : undefined}
@@ -686,6 +690,7 @@ export default function SideNav() {
 
               <div id="close" ref={refClose} className={classes.logoIconDiv}>
                 <img
+                  data-testid="mfLogo"
                   src={logoIcon}
                   alt="logo icon"
                   className={classes.logoIcon}
@@ -762,7 +767,7 @@ export default function SideNav() {
                     )}
                   </List>
                 </ListItem>
-                <NavLink to="/customers/accountOverview" className="nav_link">
+                <NavLink data-testid="sideNavAccountOverviewNavigation" to="/customers/accountOverview" className="nav_link">
                   <ListItem className="titleSidenav">
                     <ListItemIcon>
                       {" "}
@@ -775,6 +780,7 @@ export default function SideNav() {
                 </NavLink>
 
                 <NavLink
+                  data-testid="sideNavMakePaymentNavigation"
                   to="/customers/makePayment"
                   onClick={(event) => {
                     activeLoanData && event.preventDefault();
@@ -821,6 +827,7 @@ export default function SideNav() {
                   )
                 ) : (
                   <NavLink
+                    data-testid="sideNavApplyLoanNavigation"
                     id="applyForLoanNav"
                     ref={refApplyForLoanNav}
                     to="/customers/applyForLoan"
@@ -841,6 +848,7 @@ export default function SideNav() {
                 )}
 
                 <NavLink
+                  data-testid="sideNavLoanDocumentsNavigation"
                   to="/customers/loanDocument"
                   onClick={(event) => {
                     activeLoanData && event.preventDefault();
@@ -865,6 +873,7 @@ export default function SideNav() {
                 </NavLink>
 
                 <NavLink
+                  data-testid="sideNavMyBranchNavigation"
                   to="/customers/myBranch"
                   onClick={(event) => {
                     activeLoanData &&
@@ -890,6 +899,7 @@ export default function SideNav() {
                 </NavLink>
 
                 <NavLink
+                  data-testid="sideNavMyProfileNavigation"
                   to="/customers/myProfile"
                   onClick={(menuType) => handleMenuProfile("side")}
                   className="nav_link"
@@ -904,6 +914,7 @@ export default function SideNav() {
                 </NavLink>
 
                 <NavLink
+                  data-testid="sideNavLoanHistoryNavigation"
                   to="/customers/loanHistory"
                   onClick={(event) => {
                     activeLoanData && event.preventDefault();
@@ -920,6 +931,7 @@ export default function SideNav() {
                 </NavLink>
 
                 <NavLink
+                  data-testid="sideNavVantageScoreNavigation"
                   to="/customers/vantageScore"
                   onClick={(event) => {
                     activeLoanData && event.preventDefault();
@@ -935,7 +947,7 @@ export default function SideNav() {
                   </ListItem>
                 </NavLink>
 
-                <ListItem id="moneySkillNavLink" onClick={handleMoneySkillNav}>
+                <ListItem data-testid="moneySkill" id="moneySkillNavLink" onClick={handleMoneySkillNav}>
                   <ListItemIcon>
                     {" "}
                     <DataUsageOutlinedIcon />{" "}
@@ -946,6 +958,7 @@ export default function SideNav() {
                   </ListItemText>
                 </ListItem>
                 <a
+                 data-testid="sideNavBlogNavigation"
                   href={`${ process.env.REACT_APP_WEBSITE }/blog/`}
                   className="titleSidenav"
                   target="_blank"
@@ -959,7 +972,7 @@ export default function SideNav() {
                     <ListItemText> Blog </ListItemText>
                   </ListItem>
                 </a>
-                <NavLink to="/customers/faq" className="titleSidenav">
+                <NavLink data-testid="sideNavfaqNavigation" to="/customers/faq" className="titleSidenav">
                   <ListItem>
                     <ListItemIcon>
                       {" "}
