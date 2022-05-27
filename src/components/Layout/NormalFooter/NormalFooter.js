@@ -17,7 +17,7 @@ export default function NormalFooter() {
 
   //View Part
   return (
-    <div className="mainDivNormalFooter" >
+    <div className="mainDivNormalFooter" data-testid="postlogin_footer_component">
       <footer className="mivNormalFooter">
         <Grid className="mainFooterWrap">
 
@@ -31,28 +31,28 @@ export default function NormalFooter() {
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink to="/privacyStatement" target="_blank" className="hrefTag">
+                <NavLink to="/privacyStatement" target="_blank" className="hrefTag" data-testid="privacyStatement">
                   <Typography className="normalFooterFont">
                     Privacy Statement
                   </Typography>
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink to="/termsofuse" target="_blank" className="hrefTag">
+                <NavLink to="/termsofuse" target="_blank" className="hrefTag" data-testid="termsofuse">
                   <Typography className="normalFooterFont">
                     Terms of Use
                   </Typography>
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink to="/licenseDisclosure" target="_blank" className="hrefTag">
+                <NavLink to="/licenseDisclosure" target="_blank" className="hrefTag" data-testid="licenseDisclosure">
                   <Typography className="normalFooterFont">
                     Licensing & Disclosures
                   </Typography>
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink to="/textingTermsOfUse" target="_blank" className="hrefTag">
+                <NavLink to="/textingTermsOfUse" target="_blank" className="hrefTag" data-testid="textingTermsOfUse">
                   <Typography className="normalFooterFont">
                     Texting Terms of Use
                   </Typography>
@@ -63,21 +63,21 @@ export default function NormalFooter() {
             <Grid item xs={12} sm={12} md={4} lg={4}>
 
               <div className="footer-content">
-                <NavLink to="/websiteAccessibility" target="_blank" className="hrefTag">
+                <NavLink to="/websiteAccessibility" target="_blank" className="hrefTag" data-testid="websiteAccessibility">
                   <Typography className="normalFooterFont">
                     Website Accessibility Statement
                   </Typography>
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink to="/cac-termsofuse" target="_blank" className="hrefTag">
+                <NavLink to="/cac-termsofuse" target="_blank" className="hrefTag" data-testid="cac-termsofuse">
                   <Typography className="normalFooterFont">
                     CAC Terms of Use
                   </Typography>
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink to="/californiaResident" target="_blank" className="hrefTag">
+                <NavLink to="/californiaResident" target="_blank" className="hrefTag" data-testid="californiaResident">
                   <Typography className="normalFooterFont">
                     For California Residents Do Not Sell My
                     personal Information

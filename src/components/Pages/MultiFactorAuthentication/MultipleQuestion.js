@@ -72,7 +72,7 @@ export default function MultipleQuestion(props) {
 			}
 			props.setLoadingFlag(false);
 		} else {
-			toast.error("Internal Server Error");
+			toast.error("Please answer every question before continuing");
 			props.setLoadingFlag(false);
 		}
 		function myFunction(value, index, array) {

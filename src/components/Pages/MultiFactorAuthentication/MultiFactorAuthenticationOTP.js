@@ -23,8 +23,6 @@ const MultiFactorAuthenticationOTP = () => {
   const [ disabledButton, setDisabledButton ] = useState(false);  
   const [ otpValue, setOtpValue ] = useState({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""});
   const isSecurityQuestionSaved = otpLocation?.state?.mfaQueries?.mfaDetails?.securityQuestionsSaved ?? false;
-  
-
   useEffect(
     () => {
         const timer = () => setCount(currentCount - 1);
@@ -89,7 +87,13 @@ const MultiFactorAuthenticationOTP = () => {
         navigate('/MFA-SelectSecurityQuestions', {state: otpLocation});
       }
     }else {
+      if(response.data?.Message === "Your account has been locked.  Please contact your branch for further assistance." || response.data?.errorMessage === "Your account has been locked.  Please contact your branch for further assistance."){
       toast.error(response.data?.Message ?? response.data?.errorMessage);
+      navigate("/login");
+      }
+      else{
+      toast.error(response.data?.Message ?? response.data?.errorMessage);
+      }
     }
     setDisabledButton(false);
   }
@@ -128,7 +132,7 @@ const MultiFactorAuthenticationOTP = () => {
     </Grid>);
   }
   return (
-    <div>
+    <div data-testid="passcode-verification-container">
       <Grid>
         <Grid
           spacing={1}

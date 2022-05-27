@@ -1014,7 +1014,7 @@ export default function PaymentMethod() {
                 disabled={editMode}
                 materialProps={{ maxLength: "16" }}
                 onKeyDown={preventSpace}
-                value={formikAddBankAccount.values.bankAccountNumber}
+                value={editMode ? `******${formikAddBankAccount.values.bankAccountNumber.slice(-4)}` : formikAddBankAccount.values.bankAccountNumber }
                 onChange={(event) => validateCardAndAccountNumber(event, 1)}
                 onBlur={formikAddBankAccount.handleBlur}
                 error={

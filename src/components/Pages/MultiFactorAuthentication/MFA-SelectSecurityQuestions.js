@@ -154,7 +154,7 @@ let selectedQuestionStructured =
 
 
 
-  const getMFAQuestion  = async () => { 
+  const getMFAQuestion = async () => {
     let mfaQuestion = await fetchAllMFAQuestion();
     setQuestions(mfaQuestion.data.questionsList);
     let mfaQuestionsArray = [];
@@ -169,9 +169,8 @@ let selectedQuestionStructured =
   }
 
 
-
   const onClickSave = async () => {
-    if(selectedQuestions.length === 5) {
+    if (selectedQuestions.length === 5) {
       setLoading(true);
       let selectedQuestionsArray = [];
       selectedQuestions.forEach((question) => {
@@ -180,26 +179,23 @@ let selectedQuestionStructured =
           answer: question.answer
         })
       })
-      
-      let answerData = {   
+
+      let answerData = {
         "email": userEmail,
         "deviceType": navigator.userAgent,
         "securityQuestions": selectedQuestionsArray
       }
       let verify = await saveSecurityAnswer(answerData);
-      if(!verify?.data?.hasError && verify?.data?.result === "Ok" && verify?.data?.statusCode === 200)
-      {
+      if (!verify?.data?.hasError && verify?.data?.result === "Ok" && verify?.data?.statusCode === 200) {
         setLoading(false)
         toast.success(verify?.data?.Message);
         navigate("/customers/accountoverview")
       }
-      else if(verify?.data?.hasError || verify?.data?.Message)
-      {
+      else if (verify?.data?.hasError || verify?.data?.Message) {
         setLoading(false)
         toast.error(verify?.data?.Message);
       }
-      else
-      {
+      else {
         setLoading(false)
         toast.error("Network error, please try again");
       }
