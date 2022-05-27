@@ -63,7 +63,7 @@ const KbaQuestions = () => {
   }, [setOneFinished]);
 
   return (
-    <div className={loadingFlag ? classes.loadingOn : classes.loadingOff}>
+    <div data-testid = "KbaQuestions_component" className={loadingFlag ? classes.loadingOn : classes.loadingOff}>
       <Grid>
         <Grid
           spacing={1}
@@ -83,7 +83,7 @@ const KbaQuestions = () => {
             <Typography className={classes.twoStepParagraph}>
             Please answer the questions below to help verify your identity. Please provide your responses within five minutes.
             </Typography>
-            <div className={classes.button_div} >
+            <div data-testid = "question_component" className={classes.button_div} >
               {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : <CircularProgress />}
               <div>
                 {setOneFinished ? <MultipleQuestion setLoadingFlag={setLoadingFlag} customerEmail={customerEmail} transactionIdMultiple={transactionIdMultiple} questionSetIdMultiple={questionSetIdMultiple} responseData={responseDataMultipleQ} setResponseData={setResponseDataMultipleQ} classes={classes} check={check} setCheck={setCheck} navigate={navigate} /> : null}

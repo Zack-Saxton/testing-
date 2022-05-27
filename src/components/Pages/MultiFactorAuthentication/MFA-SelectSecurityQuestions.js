@@ -143,7 +143,7 @@ const MFASelectSecurityQuestions = () => {
       if (!verify?.data?.hasError && verify?.data?.result === "Ok" && verify?.data?.statusCode === 200) {
         setLoading(false)
         toast.success(verify?.data?.Message);
-        navigate("/customers/accountoverview")
+        navigate("/resetpassword", { state: { Email: userEmail }})
       }
       else if (verify?.data?.hasError || verify?.data?.Message) {
         setLoading(false)
