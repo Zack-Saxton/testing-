@@ -68,6 +68,7 @@ import MyProfile from "../Pages/MyProfile/MyProfile";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
+import MFAGetPhoneNumber from "../Pages/MultiFactorAuthentication/MFAGetPhoneNumber";
 import "./App.css";
 
 const queryClient = new QueryClient({
@@ -139,6 +140,7 @@ function App() {
                                                 <Route path='/' element={<Navigate replace to="/customers/accountOverview" />} />
                                                 <Route path='/components' element={loadGeneralUserComponent(<CustomComponents />)} />
                                                 <Route path='/login' element={loadGeneralUserComponent(<LoginPage />)} />
+                                                <Route path='/MFA-phoneNumber' element={loadGeneralUserComponent(<MFAGetPhoneNumber />)} />
                                                 <Route path='/MFA' element={loadGeneralUserComponent(<MultiFactorAuthentication />)} />
                                                 <Route path='/MFA-OTP' element={loadGeneralUserComponent(<MultiFactorAuthenticationOTP />)} />
                                                 <Route path='/MFA-SecurityQuestions' element={loadGeneralUserComponent(<MFASecurityQuestions />)} />
