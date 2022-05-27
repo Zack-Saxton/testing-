@@ -21,6 +21,7 @@ export default function ChangePassword(basicInformationData) {
   const navigate = useNavigate();
   const [ loading, setLoading ] = useState(false);
   const [ , setProfileTabNumber ] = useGlobalState();
+  const numberValidation = /\d/;
 
   let basicInfo = basicInformationData?.basicInformationData?.latest_contact;
   const passwordValidationSchema = yup.object().shape({
@@ -191,10 +192,28 @@ export default function ChangePassword(basicInformationData) {
               helperText={formikPassword.touched.newPassword && formikPassword.errors.newPassword}
               disabled={false}
             />
-            <p className={classes.passwordText}>
-              Please ensure your password meets the following criteria: between 10 and 30 characters in length, at least 1 uppercase letter, at least 1 lowercase letter, at least 1 number, at least 1 special character.
-            </p>
-          </Grid>
+              <ul className="error-validation">
+                <span>
+              <li className={((formikPassword?.values?.newPassword).length >= 10 && (formikPassword?.values?.newPassword).length < 30) ? "validation-success" : "validation-failed"}>
+                Between 10 and 30 characters in length
+                </li>
+              <li className={/[A-Z]/.test(formikPassword?.values?.newPassword) ? "validation-success" : "validation-failed"}>
+                At least 1 uppercase letter
+              </li>
+              <li className={/[a-z]/.test(formikPassword?.values?.newPassword) ? "validation-success" : "validation-failed"}>
+                At least 1 lowercase letter
+                </li>
+                </span>
+                <span>
+              <li className={/\d/.test(formikPassword?.values?.newPassword) ? "validation-success" : "validation-failed" }>
+                At least 1 number
+              </li>
+              <li className={/[*@!#$%()^~{}]+/.test(formikPassword?.values?.newPassword) ? "validation-success" : "validation-failed"}>
+                At least 1 special character.
+              </li>
+              </span>
+              </ul>
+           </Grid>
           <Grid
             item
             xs={12}
