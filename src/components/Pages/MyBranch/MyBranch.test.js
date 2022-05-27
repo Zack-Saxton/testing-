@@ -53,12 +53,3 @@ it("Branch Map is loaded",() => {
   let branchMap = screen.getByTestId("branch-map"); 
   expect(branchMap).toBeInTheDocument();
 })
-
-
-
-
-
-
-
-
-
