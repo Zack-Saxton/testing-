@@ -34,10 +34,11 @@ export default function MyBranch() {
         justifyContent={"center"}
         className={classes.centerGrid}
       >
-        <Grid container className={classes.gridMyBranch}>
+        <Grid container className={classes.gridMyBranch} data-testid="main-content">
           <Grid container className={classes.branchlocatorStyle} item xs={12}>
             <Typography variant="h3" className={classes.heading}>
               <NavLink
+              data-testid="my-branch"
                 to="/customers/accountOverview"
                 className={classes.navLinkMyBranch} >
                 <ButtonWithIcon
@@ -53,7 +54,7 @@ export default function MyBranch() {
               </NavLink>{" "}
               My Branch
             </Typography>
-            <Typography variant="h3" className={classes.heading}>
+            <Typography variant="h3" className={classes.heading} data-testid="branch-location">
               Need to find another branch location? Click&nbsp;
               <NavLink to="/branch-locator"
                 className={classes.navLinkMyBranch} >
@@ -74,7 +75,7 @@ export default function MyBranch() {
               </Paper>
             )}
           </Grid>
-          <Grid item xs={12} sm={7}>
+          <Grid item xs={12} sm={7} data-testid="branch-map">
             <BranchMap MyBranchDetail={myBranchData} />
           </Grid>
         </Grid>
