@@ -13,20 +13,52 @@ import { fetchQuestionMFA, saveSecurityAnswer, fetchAllMFAQuestion } from "../..
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { ConstructionOutlined, TrendingUpTwoTone } from "@mui/icons-material";
+import { ConstructionOutlined, FormatLineSpacingOutlined, TrendingUpTwoTone } from "@mui/icons-material";
 
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
-  answer: yup
-    .string("Enter your answer")
-    .trim()
-    .max(30, "Should be maximum of 30 characters")
-    .required("Enter your answer"),
-  selectSecurityQuestion: yup
+
+  question1: yup
     .string("Please select a security question")
     .max(70, "Maximum of 70")
     .required("Please select a security question"),
+  question2: yup
+    .string("Please select a security question")
+    .max(70, "Maximum of 70")
+    .required("Please select a security question"),  
+  question3: yup
+    .string("Please select a security question")
+    .max(70, "Maximum of 70")
+    .required("Please select a security question"),  
+  question4: yup
+    .string("Please select a security question")
+    .max(70, "Maximum of 70")
+    .required("Please select a security question"),
+  question5: yup
+    .string("Please select a security question")
+    .max(70, "Maximum of 70")
+    .required("Please select a security question"),
+    answer1: yup
+    .string("Please answer the question")
+    .max(70, "Maximum of 70")
+    .required("Please answer the question"),
+    answer2: yup
+    .string("Please answer the question")
+    .max(70, "Maximum of 70")
+    .required("Please answer the question"),
+    answer3: yup
+    .string("Please answer the question")
+    .max(70, "Maximum of 70")
+    .required("Please answer the question"),
+    answer4: yup
+    .string("Please answer the question")
+    .max(70, "Maximum of 70")
+    .required("Please answer the question"),
+    answer5: yup
+    .string("Please answer the question")
+    .max(70, "Maximum of 70")
+    .required("Please answer the question"),
 });
 
 
@@ -38,75 +70,86 @@ const MFASelectSecurityQuestions = () => {
   // const { questions, setQuestions } = useState([]); 
   const [ questions, setQuestions ] = useState([]);
   const [ loading, setLoading ] = useState(false);
+  const [ questionOption, setQuestionOption ] = useState([]);
   const [ selectedQuestions, setSelectedQuestions ] = useState([]);
+  let constQuestions;
 
     //Form Submission
     const formik = useFormik({
       enableReinitialize: true,
       initialValues: {
         selectSecurityQuestion : "",
-        answer : ""
+        answer : "",
+        question1: "",
+        question2: "",
+        question3: "",
+        question4: "",
+        question5: "",
+        answer1: "",
+        answer2: "",
+        answer3: "",
+        answer4: "",
+        answer5: ""
       },
   
       validationSchema: validationSchema,
       onSubmit: async (values) => {
-        let answerData = {
-          email: userEmail,
-          deviceType: navigator.userAgent,
-          securityQuestions: [
-              {question_id: values.selectSecurityQuestion, answer: values.answer} 
-          ]
-        }
 
+let selectedQuestionStructured = 
+[
+  {
+      "question_id": values.question1,
+      "answer": values.answer1
+  },
+  {
+    "question_id": values.question2,
+    "answer": values.answer2
+  },
+  {
+    "question_id": values.question3,
+    "answer": values.answer3
+  },
+  {
+    "question_id": values.question4,
+    "answer": values.answer4
+  },
+  {
+    "question_id": values.question5,
+    "answer": values.answer5
+  }
+];
+
+        let answerData = {   
+          "email": userEmail,
+          "deviceType": navigator.userAgent,
+          "securityQuestions": selectedQuestionStructured
+        }
         let verify = await saveSecurityAnswer(answerData);
-        if(verify?.data?.hasError === false  && verify?.data?.result === "ok")
+        if(!verify?.data?.hasError && verify?.data?.result === "Ok" && verify?.data?.statusCode === 200)
         {
+          setLoading(false)
           toast.success(verify?.data?.Message);
-          const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
-          let userToken = JSON.parse(tokenString);
-          userToken.isMFACompleted = true;
-          Cookies.set("token",JSON.stringify(userToken));
           navigate("/customers/accountoverview")
         }
-        else if (verify?.data?.hasError === true && verify?.data?.result === "error")
+        else if(verify?.data?.hasError || verify?.data?.Message)
         {
+          setLoading(false)
           toast.error(verify?.data?.Message);
         }
-        else {
-          toast.error("Network error");
+        else
+        {
+          setLoading(false)
+          toast.error("Network error, please try again");
         }
       },
     });
 
-    const handleAdd = (selectData) => {
-      const newRecord = [ ...selectData ];
-      // newRecord.push(selectedOffer);
-      setSelectedQuestions(newRecord);  
-    };
+    // const handleAdd = (selectData) => {
+    //   const newRecord = [ ...selectData ];
+    //   // newRecord.push(selectedOffer);
+    //   setSelectedQuestions(newRecord);  
+    // };
 
-    const addSelectedQuestion = (row) => {
-      let offersComp = selectedQuestions;
-
-        if (offersComp.findIndex((offerInfo) => offerInfo.id === row.question_id) === -1) {
-          // if(offersComp.length <)
-          if(selectedQuestions.length >= 5)
-          {
-            toast.error("Can't select more than 5 question")
-          }
-          else
-          {
-            let temp = {
-              question: row.question,
-              id: row.question_id,
-              answer: ""
-            }
-            offersComp.push(temp)
-          }
-        } else {
-          offersComp.splice( offersComp.findIndex((offerInfo) => offerInfo.id === row.question_id), 1);
-        } 
-      handleAdd(offersComp);
-    };
 
 
 
@@ -114,13 +157,18 @@ const MFASelectSecurityQuestions = () => {
   const getMFAQuestion  = async () => { 
     let mfaQuestion = await fetchAllMFAQuestion();
     setQuestions(mfaQuestion.data.questionsList);
+    let mfaQuestionsArray = [];
+    mfaQuestion.data.questionsList.forEach((question) => {
+      mfaQuestionsArray.push({
+        label: question.question,
+        value: question.question_id
+      })
+    })
+    setQuestionOption(mfaQuestionsArray);
+    constQuestions = mfaQuestionsArray;
   }
 
-  const handleAnswerOnchange = (event, que) => {
-    let tempt = selectedQuestions
-    tempt[selectedQuestions.findIndex( (x) => x.id === que.question_id )].answer = event.target.value;
-    handleAdd(tempt);
-  }
+
 
   const onClickSave = async () => {
     if(selectedQuestions.length === 5) {
@@ -160,6 +208,18 @@ const MFASelectSecurityQuestions = () => {
     }
   }
 
+
+
+  const filterSelectOption = (options) => {
+    let finalOptionArray = options;
+    options.map((option) => {
+      if(option.value === formik.values.question1 || option.value === formik.values.question2 ){
+        finalOptionArray.splice( finalOptionArray.findIndex((finOption) => finOption.value === option.value), 1);
+      }
+    })
+    return finalOptionArray;
+  } 
+
   useEffect(() => {
 
     getMFAQuestion()
@@ -167,7 +227,9 @@ const MFASelectSecurityQuestions = () => {
   }, []);
 
   useEffect(() => {
+
   }, [selectedQuestions]);
+
 
   return (
     <div>
@@ -176,12 +238,15 @@ const MFASelectSecurityQuestions = () => {
           spacing={1}
           container
           item
-          md={6}
-          lg={6}
-          xl={6}
+          md={8}
+          lg={8}
+          xl={8}
           className={classes.twoStepWrap}
         >
-          <Paper className={classes.twoStepPaper}>
+          <Paper item
+          md={8}
+          lg={8}
+          xl={8} className={classes.twoStepPaper}>
           <form onSubmit={formik.handleSubmit}>
             <Grid className={classes.headingTextWrap}>
               <Typography className={classes.twoStepHeading} variant="h5">
@@ -197,95 +262,164 @@ const MFASelectSecurityQuestions = () => {
             
             <Grid className={classes.otpWrap} container>
                 
-              <Grid>
+              <Grid style={{ width: "100%"}}>
                 {
                   questions ?
-                  questions.map((que, index) => {
-                    return(
-                      // <p key={index}>{que.question}</p>
-                      <Grid key={index} container>
-                      <Grid
-                        
-                        className={classes.selectSecurityQuestionsInput}
-                        item
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        lg={12}
-                      >
-                      <Checkbox
-                               
-                                name="offerToCompare"
-                                label={que.question}
-                                labelid="offerToCompare"
-                                testid="checkbox"
-                                value={que.question_id}
-                                onChange={ () => {
-                                  addSelectedQuestion(que)
-                                }}
-                                checked={
-                                  selectedQuestions.findIndex(
-                                    (x) => x.id === que.question_id
-                                  ) === -1
-                                    ? false
-                                    : true
-                                }
-                                stylelabelform='{ "color":"" }'
-                                stylecheckbox='{ "color":"" }'
-                                stylecheckboxlabel='{ "color":"" }'
-                              />
-                              </Grid>
-                              <Grid
-                                // className={classes.securityQuestionsInput}
-                                className={
-                                  selectedQuestions.findIndex(
-                                    (x) => x.id === que.question_id
-                                  ) === -1
-                                    ? `${classes.divHide} ${classes.securityQuestionsInput}`
-                                    : `${classes.divShow} ${classes.securityQuestionsInput}`
-                                }
-                                item
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                lg={12}
-                              >
-                                <TextField
+                      <Grid  container>
+                      <Grid container>
+                      <Grid item md={6} style={{ padding: "10px" }}>
+                      <Select
+                          id="question1"
+                          name="question1"
+                          labelform="Question 1"
+                          value={formik.values.question1}
+                          onChange={ (event) => {
+
+                            formik.handleChange(event);
+                          }}
+                          error={(formik.touched.question1 && Boolean(formik.errors.question1))}
+                          helperText={formik.touched.question1 && formik.errors.question1 }
+                          select={JSON.stringify(questionOption)}
+                        />      
+                        </Grid>
+                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <TextField
                                   id="Answer"
-                                  name="answer"
+                                  name="answer1"
                                   label="Answer"
                                   type="text"
                                   variant="standard"
                                   fullWidth
-                                  className={
-                                    selectedQuestions.findIndex(
-                                      (x) => x.id === que.question_id
-                                    ) === -1
-                                      ? classes.divHide
-                                      : classes.divShow
-                                  }
-                                  value={ selectedQuestions ? (selectedQuestions[selectedQuestions.findIndex( (x) => x.id === que.question_id )]?.answer ?? "") : ""}
-                                  onChange={(event) => {
-                                    handleAnswerOnchange(event, que)
-                                  }}
-                                  // onBlur={formik.handleBlur}
-                                  // error={formik.touched.answer && Boolean(formik.errors.answer)}
-                                  // helperText={formik.touched.answer && formik.errors.answer}
+                                  value={formik.values.answer1}
+                                  onChange={formik.handleChange}
+                                  error={(formik.touched.answer1 && Boolean(formik.errors.answer1))}
+                                  helperText={formik.touched.answer1 && formik.errors.answer1 }
                                 />
-                              </Grid>
-                              </Grid>
-                    )
+                        </Grid>
+                        </Grid>
+                        <Grid container>
+                        <Grid item md={6}  style={{ padding: "10px" }}>
+                      <Select
+                          id="question2"
+                          name="question2"
+                          labelform="Question 2"
+                          value={formik.values.question2}
+                          onChange={formik.handleChange}
+                          error={(formik.touched.question2 && Boolean(formik.errors.question2))}
+                          helperText={formik.touched.question2 && formik.errors.question2 }
+                          select={JSON.stringify(questionOption)}
+                        />      
+                        </Grid>
+                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <TextField
+                                  id="Answer"
+                                  name="answer2"
+                                  label="Answer"
+                                  type="text"
+                                  variant="standard"
+                                  value={formik.values.answer2}
+                                  onChange={formik.handleChange}
+                                  fullWidth
+                                  error={(formik.touched.answer2 && Boolean(formik.errors.answer2))}
+                                  helperText={formik.touched.answer2 && formik.errors.answer2 }
+                                />
+                        </Grid>
+                        </Grid>
+                        <Grid container>
+                        <Grid item md={6}  style={{ padding: "10px" }}>
+                      <Select
+                          id="question3"
+                          name="question3"
+                          labelform="Question 3"
+                          value={formik.values.question3}
+                          onChange={formik.handleChange}
+                          error={(formik.touched.question3 && Boolean(formik.errors.question3))}
+                          helperText={formik.touched.question3 && formik.errors.question3 } 
+                          select={JSON.stringify(questionOption)}
+                        />      
+                        </Grid>
+                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <TextField
+                                  id="Answer"
+                                  name="answer3"
+                                  label="Answer"
+                                  type="text"
+                                  variant="standard"
+                                  fullWidth
+                                  value={formik.values.answer3}
+                                  onChange={formik.handleChange}
+                                  error={(formik.touched.answer3 && Boolean(formik.errors.answer3))}
+                                  helperText={formik.touched.answer3 && formik.errors.answer3 }
+                                />
+                        </Grid>
+                        </Grid>
+                        <Grid container>
+                        <Grid item md={6}  style={{ padding: "10px" }}>
+                      <Select
+                          id="question4"
+                          name="question4"
+                          labelform="Question 4"
+                          value={formik.values.question4}
+                          onChange={formik.handleChange}
+                          error={(formik.touched.question4 && Boolean(formik.errors.question4))}
+                          helperText={formik.touched.question4 && formik.errors.question4 }
+                          select={JSON.stringify(questionOption)}
+                        />      
+                        </Grid>
+                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <TextField
+                                  id="Answer"
+                                  name="answer4"
+                                  label="Answer"
+                                  type="text"
+                                  variant="standard"
+                                  fullWidth
+                                  value={formik.values.answer4}
+                                  onChange={formik.handleChange}
+                                  error={(formik.touched.answer4 && Boolean(formik.errors.answer4))}
+                                  helperText={formik.touched.answer4 && formik.errors.answer4 }
+                                />
+                        </Grid>
+                        </Grid>
+                        <Grid container>
+                        <Grid item md={6}  style={{ padding: "10px" }}>
+                      <Select
+                          id="question5"
+                          name="question5"
+                          labelform="Question 5"
+                          value={formik.values.question5}
+                          onChange={formik.handleChange}
+                          error={(formik.touched.question5 && Boolean(formik.errors.question5))}
+                          helperText={formik.touched.question5 && formik.errors.question5 }
+                          select={JSON.stringify(questionOption)}
+                        />      
+                        </Grid>
+                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <TextField
+                                  id="Answer"
+                                  name="answer5"
+                                  label="Answer"
+                                  type="text"
+                                  variant="standard"
+                                  fullWidth
+                                  value={formik.values.answer5}
+                                  onChange={formik.handleChange}
+                                  error={(formik.touched.answer5 && Boolean(formik.errors.answer5))}
+                                  helperText={formik.touched.answer5 && formik.errors.answer5 }
+                                  />
+                        </Grid>
+                        </Grid>
+                      </Grid>
                     
-                  })
+                    
+                  
                   : 
                   <p>Empty</p>
                 }
               </Grid>
             </Grid>
             <Grid className={classes.nextButtonGrid} container>
-              <ButtonPrimary stylebutton='{"color":""}' disabled = { loading } onClick={() => {
-                onClickSave()
-              }}>
+              <ButtonPrimary stylebutton='{"color":""}' disabled = { loading }  type="submit" >
                 Save
               </ButtonPrimary>
             </Grid>
