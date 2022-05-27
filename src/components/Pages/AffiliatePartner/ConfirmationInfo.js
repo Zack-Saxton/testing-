@@ -13,6 +13,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import states from '../../../assets/data/States.json';
+import { validStates } from "../../../assets/data/constants";
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
 import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
@@ -321,6 +322,12 @@ export default function ConfirmationInfo() {
         formik.setFieldValue("city", result?.data?.cityName);
         formik.setFieldValue("state", result?.data?.stateCode);
         setValidZip(true);
+        if (validStates.indexOf(result?.data?.stateCode.toUpperCase()) === -1) {
+          setValidZip(false);
+          setErrorMsg(globalMessages.WeDoNotServeArea);
+          formik.setFieldValue("city", "");
+          formik.setFieldValue("state", "");
+        }
         if (result?.data?.stateCode === "CA") {
           handleClickOpen();
         }
@@ -591,7 +598,7 @@ export default function ConfirmationInfo() {
                         onChange={fetchAddress}
                         onBlur={formik.handleBlur}
                         error={(formik.touched.zip && Boolean(formik.errors.zip)) || !validZip}
-                        helperText={validZip ? formik.touched.zip && formik.errors.zip : globalMessages.ZipCodeValid}
+                        helperText={validZip ? formik.touched.zip && formik.errors.zip : errorMsg}
                       />
                     </Grid>
                     <Grid item xs={12} sm={4} container direction="row">
@@ -1076,7 +1083,7 @@ export default function ConfirmationInfo() {
                         data-testid="submit"
                         stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={
-                          formik.values.citizenship === "Foreign Resident" || formik.values.activeDutyRank === "E4 and below"
+                          formik.values.citizenship === "Foreign Resident" || formik.values.activeDutyRank === "E4 and below" || !validZip
                             ? true
                             : loading
                         }

@@ -36,7 +36,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
   }
 
   const securityCode = (
-    <div className={classes.securityCodeText}>
+    <div className={classes.securityCodeText} >
       Security code via SMS :<br />
       <span>{`Get a code on (***) *** ${phoneNumber?.substr(-4)}`}</span>
     </div>
@@ -49,7 +49,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
   );
 
   return (
-    <div className={isLoading ? classes.loadingOn : classes.loadingOff}>
+    <div data-testid = "OnePhoneNumber_component" className={isLoading ? classes.loadingOn : classes.loadingOff}>
       <Grid>
         <Grid
           spacing={1}
@@ -83,6 +83,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
               <RadioGroup
                 className={classes.radioGroupWrap}
                 id="textAndCallss"
+                data-testid = "textAndCallss"
                 aria-label="method"
                 name="method"
                 row={true}
@@ -91,16 +92,18 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
               >
                 {phoneNumberSaved &&
                     <FormControlLabel
-                      id="FormControlLabel"
+                      id="FormControlLabel_securityCode"
                       className={classes.smallRadioButton}
+                      data-testid = "securityCode"
                       value="phone"
                       control={<Radio color="primary" onClick={()=>setSelection(`${phoneNumber}` )} />}
                       label={securityCode}
                     />
                 }
                     <FormControlLabel
-                      id="FormControlLabel"
+                      id="FormControlLabel_securityQuestion"
                       className={classes.smallRadioButton}
+                      data-testid = "securityQuestion"
                       value="security questions"
                       control={<Radio color="primary" onClick={()=>setSelection('security questions')} />}
                       label={securityQuestions}
@@ -108,7 +111,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
               </RadioGroup>
             </FormControl>
             <Grid className={classes.nextButtonGrid} container>
-              <ButtonPrimary stylebutton='{"color":""}' disabled={selection} onClick={handleClick}>Next</ButtonPrimary>
+              <ButtonPrimary  data-testid = "next_button" stylebutton='{"color":""}' disabled={selection} onClick={handleClick}>Next</ButtonPrimary>
             </Grid>
           </Paper>
         </Grid>
