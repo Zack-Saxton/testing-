@@ -129,7 +129,7 @@ let selectedQuestionStructured =
         {
           setLoading(false)
           toast.success(verify?.data?.Message);
-          navigate("/customers/accountoverview")
+          navigate("/resetpassword", { state: { Email: userEmail }})
         }
         else if(verify?.data?.hasError || verify?.data?.Message)
         {

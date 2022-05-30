@@ -94,6 +94,7 @@ const KbaQuestions = () => {
               <ButtonPrimary
                 variant="contained"
                 color="primary"
+                data-testid = "submit"
                 id="button_stepper_next"
                 stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                 onClick={async () => {
@@ -146,7 +147,7 @@ const KbaQuestions = () => {
               null
           }
             </div>
-            <Typography className={classes.twoStepParagraph}>
+            <Typography data-testid = "kba_content" className={classes.twoStepParagraph}>
             Loan funding and disbursement is conditioned upon our satisfactory review of any documents and other information that we require from you to verify your loan application and/or your identity.
              This loan may not be consummated if you obtain another loan from us prior to our disbursing funds for this loan. If you have any questions, please contact us.
              </Typography>
