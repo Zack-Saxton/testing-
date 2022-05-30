@@ -129,7 +129,7 @@ export default function Register() {
         setLoading(false);
       } else {
         setLoading(false);
-        alert(globalMessages.Network_Error);
+        alert(globalMessages.Network_Error_Please_Try_Again);
       }
     } catch (error) {
       ErrorLogger("Error executing Login API", error);
@@ -171,9 +171,9 @@ export default function Register() {
       //API call
       try {
         let customerStatus = await RegisterController(body);
-        
+
         if (
-          (!customerStatus.data?.customerFound && !customerStatus.data?.userFound 
+          (!customerStatus.data?.customerFound && !customerStatus.data?.userFound
             && !customerStatus.data?.is_registration_failed && customerStatus?.status === 200)
         ) {
           //On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
@@ -192,7 +192,7 @@ export default function Register() {
           setSuccessPopup(false);
           setLoading(false);
         } else {
-          alert(globalMessages.Network_Error);
+          alert(globalMessages.Network_Error_Please_Try_Again);
           setFailed(globalMessages.Network_Error_Please_Try_Again);
           setSuccessPopup(false);
           setLoading(false);

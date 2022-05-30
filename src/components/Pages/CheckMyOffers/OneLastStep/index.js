@@ -18,7 +18,7 @@ import {
 import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
-
+import globalMessages from "../../../../assets/data/globalMessages.json";
 //oneLastStep component initialization
 function SSN() {
 	let response = [];
@@ -140,7 +140,7 @@ function SSN() {
 				refetch();
 				navigate("/no-offers-available", { formcomplete: "yes" });
 			} else {
-				alert("Network Error");
+				alert(globalMessages.Network_Error_Please_Try_Again);
 				setLoading(false);
 				setApplicationLoading(false);
 			}
