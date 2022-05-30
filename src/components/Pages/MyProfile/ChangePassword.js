@@ -193,6 +193,7 @@ export default function ChangePassword(basicInformationData) {
               disabled={false}
             />
               <ul className="error-validation">
+                <span>
               <li className={((formikPassword?.values?.newPassword).length >= 10 && (formikPassword?.values?.newPassword).length < 30) ? "validation-success" : "validation-failed"}>
                 Between 10 and 30 characters in length
                 </li>
@@ -202,12 +203,15 @@ export default function ChangePassword(basicInformationData) {
               <li className={/[a-z]/.test(formikPassword?.values?.newPassword) ? "validation-success" : "validation-failed"}>
                 At least 1 lowercase letter
                 </li>
+                </span>
+                <span>
               <li className={/\d/.test(formikPassword?.values?.newPassword) ? "validation-success" : "validation-failed" }>
                 At least 1 number
               </li>
               <li className={/[*@!#$%()^~{}]+/.test(formikPassword?.values?.newPassword) ? "validation-success" : "validation-failed"}>
                 At least 1 special character.
               </li>
+              </span>
               </ul>
            </Grid>
           <Grid

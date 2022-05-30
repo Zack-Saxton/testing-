@@ -30,6 +30,7 @@ const NormalHeader = () => {
   //Menu button on mobile view
   const renderMobileMenu = (
     <Menu
+      data-testid="mobileMenu"
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       id={mobileMenuId}
@@ -40,18 +41,18 @@ const NormalHeader = () => {
     >
       <MenuItem>
         <Typography className={classes.headerAlign}>
-          <a href={`${ process.env.REACT_APP_WEBSITE }/blog/`} target="_blank" className="hrefTag" rel="noreferrer">
+          <a data-testid="blogNavigation" href={`${ process.env.REACT_APP_WEBSITE }/blog/`} target="_blank" className="hrefTag" rel="noreferrer">
             Blog
           </a>
         </Typography>
       </MenuItem>
       <MenuItem >
-        <NavLink to="/faq" className="nav_link ">
+        <NavLink data-testid="faqMobileNavigation" to="/faq" className="nav_link ">
           <Typography className={classes.headerAlign}>FAQ</Typography>
         </NavLink>
       </MenuItem>
       <MenuItem >
-        <NavLink to="/branch-locator" className="nav_link">
+        <NavLink data-testid="branchLocatorMobileNavigation" to="/branch-locator" className="nav_link">
           <Typography className={classes.headerAlign}>Branch Locator</Typography>
         </NavLink>
       </MenuItem>
@@ -64,28 +65,29 @@ const NormalHeader = () => {
 
   //View Part
   return (
-    <div id="headerWrap" className={classes.grow}>
+    <div id="headerWrap" data-testid="pre_login_component" className={classes.grow}>
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="headerToolBar">
           <Typography onClick={redirectToAccountOverview} className={classes.title}>
-            <img className={classes.logoFormat} src={Logo} alt="MF logo" />
+            <img data-testid="MF_logo" className={classes.logoFormat} src={Logo} alt="MF logo" />
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Typography id="blogsLink" className={classes.subtitle}>
-              <a href={`${ process.env.REACT_APP_WEBSITE }/blog/`} target="_blank" className="hrefTag" rel="noreferrer">
-                Blog
+              <a data-testid="blogsLink" href={`${ process.env.REACT_APP_WEBSITE }/blog/`} target="_blank" className="hrefTag" rel="noreferrer">
+                Blogs
               </a>
             </Typography>
-            <NavLink className="faqLink" to="/faq"  >
+            <NavLink data-testid="faqNavigation" className="faqLink" to="/faq"  >
               <Typography className={classes.subtitle}>FAQ</Typography>
             </NavLink>
-            <NavLink to="/branch-locator" className="nav_link branchLocatorLink">
+            <NavLink data-testid="branchLocatorNavigation" to="/branch-locator" className="nav_link branchLocatorLink">
               <Typography className={classes.subtitle}>Branch Locator</Typography>
             </NavLink>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
+              data-testid="moreIcon"
               aria-label="show more"
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}

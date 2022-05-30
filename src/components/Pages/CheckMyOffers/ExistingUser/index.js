@@ -102,7 +102,7 @@ function ExistingUser() {
 						JSON.stringify({ email: data.email, password: values.password })
 					)
 				);
-				queryClient.removeQueries();				
+				queryClient.removeQueries();
 				let accountDetail = await usrAccountDetails();
 
 				if (accountDetail?.data?.customer?.user_account?.status?.toLowerCase() === "closed") {
@@ -118,7 +118,7 @@ function ExistingUser() {
 				setLoading(false);
 				toast.error(retVal?.data?.errorMessage);
 			} else {
-				alert(globalMessages.Network_Error);
+				alert(globalMessages.Network_Error_Please_Try_Again);
 				setLoading(false);
 			}
 		},
@@ -252,7 +252,7 @@ function ExistingUser() {
 											xs={12}
 											className="textBlock alignButton"
 										>
-										
+
 											<ButtonPrimary
 												data-testid="SignInButton"
 												type="submit"
