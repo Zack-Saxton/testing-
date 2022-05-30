@@ -75,7 +75,7 @@ const NormalHeader = () => {
           <div className={classes.sectionDesktop}>
             <Typography id="blogsLink" className={classes.subtitle}>
               <a data-testid="blogsLink" href={`${ process.env.REACT_APP_WEBSITE }/blog/`} target="_blank" className="hrefTag" rel="noreferrer">
-                Blogs
+                Blog
               </a>
             </Typography>
             <NavLink data-testid="faqNavigation" className="faqLink" to="/faq"  >
