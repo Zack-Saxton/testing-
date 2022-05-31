@@ -131,6 +131,16 @@ const useStylesMFA = makeStyles((theme) =>
       marginTop: theme.spacing(3),
       marginRight: theme.spacing(1),
     },
+    button_space: {
+      color: "black",
+      width: "auto",
+      height: "36px",
+      padding: "0px 30px",
+      background: "#FFBC23",
+      whiteSpace: 'nowrap',
+      borderRadius: '50px',
+      margin: '5px'
+    }
   })
 );
 
