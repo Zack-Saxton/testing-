@@ -18,7 +18,7 @@ const useStylesMFA = makeStyles((theme) =>
     },
     twoStepWrap: {
       margin: "auto",
-      maxWidth: "630px",
+      // maxWidth: "630px",
       minHeight: "88vh",
       alignItems: "center",
       width: "100%",

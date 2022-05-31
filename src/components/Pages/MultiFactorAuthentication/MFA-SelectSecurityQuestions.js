@@ -234,15 +234,12 @@ let selectedQuestionStructured =
           spacing={1}
           container
           item
-          md={8}
+          md={10}
           lg={8}
-          xl={8}
+          xl={7}
           className={classes.twoStepWrap}
         >
-          <Paper item
-          md={8}
-          lg={8}
-          xl={8} className={classes.twoStepPaper}>
+          <Paper className={classes.twoStepPaper}>
           <form onSubmit={formik.handleSubmit}>
             <Grid className={classes.headingTextWrap}>
               <Typography className={classes.twoStepHeading} variant="h5">
@@ -261,9 +258,9 @@ let selectedQuestionStructured =
               <Grid style={{ width: "100%"}}>
                 {
                   questions ?
-                      <Grid  container>
                       <Grid container>
-                      <Grid item md={6} style={{ padding: "10px" }}>
+                      <Grid container>
+                      <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question1"
                           name="question1"
@@ -278,7 +275,7 @@ let selectedQuestionStructured =
                           select={JSON.stringify(questionOption)}
                         />      
                         </Grid>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid className="answerGrid" container item md={6}  style={{ padding: "10px" }}>
                         <TextField
                                   id="Answer"
                                   name="answer1"
@@ -294,7 +291,7 @@ let selectedQuestionStructured =
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question2"
                           name="question2"
@@ -306,7 +303,7 @@ let selectedQuestionStructured =
                           select={JSON.stringify(questionOption)}
                         />      
                         </Grid>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
                                   id="Answer"
                                   name="answer2"
@@ -322,7 +319,7 @@ let selectedQuestionStructured =
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question3"
                           name="question3"
@@ -334,7 +331,7 @@ let selectedQuestionStructured =
                           select={JSON.stringify(questionOption)}
                         />      
                         </Grid>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
                                   id="Answer"
                                   name="answer3"
@@ -350,7 +347,7 @@ let selectedQuestionStructured =
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question4"
                           name="question4"
@@ -362,7 +359,7 @@ let selectedQuestionStructured =
                           select={JSON.stringify(questionOption)}
                         />      
                         </Grid>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
                                   id="Answer"
                                   name="answer4"
@@ -378,7 +375,7 @@ let selectedQuestionStructured =
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question5"
                           name="question5"
@@ -390,7 +387,7 @@ let selectedQuestionStructured =
                           select={JSON.stringify(questionOption)}
                         />      
                         </Grid>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
                                   id="Answer"
                                   name="answer5"
