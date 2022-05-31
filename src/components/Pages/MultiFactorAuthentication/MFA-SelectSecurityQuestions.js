@@ -9,6 +9,7 @@ import { ButtonPrimary, Select, Checkbox } from "../../FormsUI";
 import "./MultiFactorAuthentication.css";
 import Cookies from "js-cookie";
 import { useStylesMFA } from "./Style";
+import message from "../../../assets/data/globalMessages.json"
 import { fetchQuestionMFA, saveSecurityAnswer, fetchAllMFAQuestion } from "../../Controllers/MFAController";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -20,45 +21,50 @@ import { ConstructionOutlined, FormatLineSpacingOutlined, TrendingUpTwoTone } fr
 const validationSchema = yup.object({
 
   question1: yup
-    .string("Please select a security question")
+    .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required("Please select a security question"),
+    .required(message.Please_Select_Security_Question),
   question2: yup
-    .string("Please select a security question")
+    .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required("Please select a security question"),  
+    .required(message.Please_Select_Security_Question),  
   question3: yup
-    .string("Please select a security question")
+    .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required("Please select a security question"),  
+    .required(message.Please_Select_Security_Question),  
   question4: yup
-    .string("Please select a security question")
+    .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required("Please select a security question"),
+    .required(message.Please_Select_Security_Question),
   question5: yup
-    .string("Please select a security question")
+    .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required("Please select a security question"),
+    .required(message.Please_Select_Security_Question),
     answer1: yup
-    .string("Please answer the question")
-    .max(70, "Maximum of 70")
-    .required("Please answer the question"),
+    .string(message.provideAnswerForEachQuestion)
+    .max(40, message.Security_Question_Answer_Length)
+    .min(3, message.Security_Question_Answer_Length)
+    .required(message.provideAnswerForEachQuestion),
     answer2: yup
-    .string("Please answer the question")
-    .max(70, "Maximum of 70")
-    .required("Please answer the question"),
+    .string(message.provideAnswerForEachQuestion)
+    .max(40, message.Security_Question_Answer_Length)
+    .min(3, message.Security_Question_Answer_Length)
+    .required(message.provideAnswerForEachQuestion),
     answer3: yup
-    .string("Please answer the question")
-    .max(70, "Maximum of 70")
-    .required("Please answer the question"),
+    .string(message.provideAnswerForEachQuestion)
+    .max(40, message.Security_Question_Answer_Length)
+    .min(3, message.Security_Question_Answer_Length)
+    .required(message.provideAnswerForEachQuestion),
     answer4: yup
-    .string("Please answer the question")
-    .max(70, "Maximum of 70")
-    .required("Please answer the question"),
+    .string(message.provideAnswerForEachQuestion)
+    .max(40, message.Security_Question_Answer_Length)
+    .min(3, message.Security_Question_Answer_Length)
+    .required(message.provideAnswerForEachQuestion),
     answer5: yup
-    .string("Please answer the question")
-    .max(70, "Maximum of 70")
-    .required("Please answer the question"),
+    .string(message.provideAnswerForEachQuestion)
+    .max(40, message.Security_Question_Answer_Length)
+    .min(3, message.Security_Question_Answer_Length)
+    .required(message.provideAnswerForEachQuestion),
 });
 
 
@@ -168,6 +174,12 @@ let selectedQuestionStructured =
     constQuestions = mfaQuestionsArray;
   }
 
+  const preventSpace = (event) => {
+    if (event.keyCode === 32) {
+      event.preventDefault();
+    }
+  };
+
 
   const onClickSave = async () => {
     if (selectedQuestions.length === 5) {
@@ -245,6 +257,7 @@ let selectedQuestionStructured =
               <Typography className={classes.twoStepHeading} variant="h5">
                 Select Security Questions
               </Typography>
+              
               <Typography className={classes.securityCubText} variant="h6">
                 Select 5 questions and fill the answers
               </Typography>
@@ -270,6 +283,7 @@ let selectedQuestionStructured =
 
                             formik.handleChange(event);
                           }}
+                          onBlur={formik.handleBlur}
                           error={(formik.touched.question1 && Boolean(formik.errors.question1))}
                           helperText={formik.touched.question1 && formik.errors.question1 }
                           select={JSON.stringify(questionOption)}
@@ -285,6 +299,8 @@ let selectedQuestionStructured =
                                   fullWidth
                                   value={formik.values.answer1}
                                   onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  onKeyDown={preventSpace}
                                   error={(formik.touched.answer1 && Boolean(formik.errors.answer1))}
                                   helperText={formik.touched.answer1 && formik.errors.answer1 }
                                 />
@@ -298,6 +314,7 @@ let selectedQuestionStructured =
                           labelform="Question 2"
                           value={formik.values.question2}
                           onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                           error={(formik.touched.question2 && Boolean(formik.errors.question2))}
                           helperText={formik.touched.question2 && formik.errors.question2 }
                           select={JSON.stringify(questionOption)}
@@ -312,6 +329,8 @@ let selectedQuestionStructured =
                                   variant="standard"
                                   value={formik.values.answer2}
                                   onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  onKeyDown={preventSpace}
                                   fullWidth
                                   error={(formik.touched.answer2 && Boolean(formik.errors.answer2))}
                                   helperText={formik.touched.answer2 && formik.errors.answer2 }
@@ -326,6 +345,7 @@ let selectedQuestionStructured =
                           labelform="Question 3"
                           value={formik.values.question3}
                           onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                           error={(formik.touched.question3 && Boolean(formik.errors.question3))}
                           helperText={formik.touched.question3 && formik.errors.question3 } 
                           select={JSON.stringify(questionOption)}
@@ -341,6 +361,8 @@ let selectedQuestionStructured =
                                   fullWidth
                                   value={formik.values.answer3}
                                   onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  onKeyDown={preventSpace}
                                   error={(formik.touched.answer3 && Boolean(formik.errors.answer3))}
                                   helperText={formik.touched.answer3 && formik.errors.answer3 }
                                 />
@@ -354,6 +376,7 @@ let selectedQuestionStructured =
                           labelform="Question 4"
                           value={formik.values.question4}
                           onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                           error={(formik.touched.question4 && Boolean(formik.errors.question4))}
                           helperText={formik.touched.question4 && formik.errors.question4 }
                           select={JSON.stringify(questionOption)}
@@ -369,6 +392,8 @@ let selectedQuestionStructured =
                                   fullWidth
                                   value={formik.values.answer4}
                                   onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  onKeyDown={preventSpace}
                                   error={(formik.touched.answer4 && Boolean(formik.errors.answer4))}
                                   helperText={formik.touched.answer4 && formik.errors.answer4 }
                                 />
@@ -382,6 +407,7 @@ let selectedQuestionStructured =
                           labelform="Question 5"
                           value={formik.values.question5}
                           onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                           error={(formik.touched.question5 && Boolean(formik.errors.question5))}
                           helperText={formik.touched.question5 && formik.errors.question5 }
                           select={JSON.stringify(questionOption)}
@@ -397,6 +423,8 @@ let selectedQuestionStructured =
                                   fullWidth
                                   value={formik.values.answer5}
                                   onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  onKeyDown={preventSpace}
                                   error={(formik.touched.answer5 && Boolean(formik.errors.answer5))}
                                   helperText={formik.touched.answer5 && formik.errors.answer5 }
                                   />
