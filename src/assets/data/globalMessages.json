@@ -263,5 +263,6 @@
   "ZipCodeRequired": "Your home Zip Code is required",
   "Zipcode_Required": "Zipcode is required",
   "ConsentStatusUpdateError": "Error executing save consent API",
-  "INVALIDENTRY":"Invalid Entry Please Try Another Email Address"
+  "INVALIDENTRY":"Invalid Entry Please Try Another Email Address",
+  "Error_executing_SavePhoneNumber_API": "Error executing save phonenumber API"
 }

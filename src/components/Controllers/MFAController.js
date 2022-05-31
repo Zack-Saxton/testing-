@@ -107,3 +107,20 @@ export async function idVerificationAnswer(passData) {
     ErrorLogger(globalMessages.Error_executing_idVerificationAnswer_API, error);
   }
 }
+/***** Save phonenumber*****/
+export async function SavePhoneNumber(email, phone) {
+  try {
+    let url = "mfa_save_phone_number";
+    let param = "";
+    let data = {
+      email: email,
+      mfa_phone_texting: phone
+    };
+    let method = "POST";
+    let addAccessToken = true;
+    //API call
+    return  await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_SavePhoneNumber_API, error);
+  }
+}
