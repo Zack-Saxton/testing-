@@ -121,3 +121,26 @@ label+.MuiInput-formControl {
 	font-size: 0.938rem !important;
 	padding-bottom: 10px !important;
 }
+.validation-failed{
+	color:black
+}
+.validation-success{
+	color:green
+}
+.error-validation li{
+	list-style: none;
+}
+.error-validation{
+	width:700px;
+	display:flex;
+	justify-content: space-between;
+}
+
+.validation-success:before{
+	content:"✓";
+}
+
+.validation-failed:before{
+	content:"✘";
+	padding:1px;
+}
