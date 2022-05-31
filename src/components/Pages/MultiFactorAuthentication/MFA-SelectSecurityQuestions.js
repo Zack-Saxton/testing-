@@ -255,11 +255,11 @@ let selectedQuestionStructured =
           <form onSubmit={formik.handleSubmit}>
             <Grid className={classes.headingTextWrap}>
               <Typography className={classes.twoStepHeading} variant="h5">
-                Select Security Questions
+                Verification Questions Setup
               </Typography>
               
               <Typography className={classes.securityCubText} variant="h6">
-                Select 5 questions and fill the answers
+                Select five different questions from the list below and enter your answers.
               </Typography>
               <IconButton className={classes.backArrow}>
                 <ArrowBackIcon className={classes.yellowBackArrow} />
@@ -441,7 +441,7 @@ let selectedQuestionStructured =
             </Grid>
             <Grid className={classes.nextButtonGrid} container>
               <ButtonPrimary stylebutton='{"color":""}' disabled = { loading }  type="submit" >
-                Save
+                Submit Answers
               </ButtonPrimary>
             </Grid>
             </form>
