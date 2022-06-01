@@ -23,6 +23,29 @@
 	width: 100%;
 }
 
+.validation-failed{
+	color:black
+}
+.validation-success{
+	color:green
+}
+.error li{
+	list-style: none;
+}
+.error{
+	width: 500px;
+	display:flex;
+	justify-content: space-between;
+}
+
+.validation-success:before{
+	content:"✓";
+}
+
+.validation-failed:before{
+	content:"✘";
+	padding:1px;
+}
 #reset-main-content {
 	max-width: 520px;
 }
