@@ -299,6 +299,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer1}
                                   onChange={formik.handleChange}
@@ -330,6 +331,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   value={formik.values.answer2}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -361,6 +363,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer3}
                                   onChange={formik.handleChange}
@@ -392,6 +395,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer4}
                                   onChange={formik.handleChange}
@@ -423,6 +427,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer5}
                                   onChange={formik.handleChange}
@@ -438,7 +443,7 @@ let selectedQuestionStructured =
                     
                   
                   : 
-                  <p>Empty</p>
+                  <p>Something went wrong, please try again</p>
                 }
               </Grid>
             </Grid>
