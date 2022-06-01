@@ -151,6 +151,29 @@ export default function Login(props) {
                                                 }
                                             />
                                         </Grid>
+                                        </Grid>
+                      <Grid>
+                       <ul className="error">
+                <span>
+              <li className={((formik?.values?.password).length >= 10 && (formik?.values?.password).length < 30) ? "validation-success" : "validation-failed"}>
+                Between 10 and 30 characters in length
+                </li>
+              <li className={/[A-Z]/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
+                At least 1 uppercase letter
+              </li>
+              <li className={/[a-z]/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
+                At least 1 lowercase letter
+                </li>
+                </span>
+                <span>
+              <li className={/\d/.test(formik?.values?.password) ? "validation-success" : "validation-failed" }>
+                At least 1 number
+              </li>
+              <li className={/[*@!#$%()^~{}]+/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
+                At least 1 special character.
+              </li>
+              </span>
+              </ul>
                                         <Grid
                                             className={classes.passwordWrap}
                                             item
