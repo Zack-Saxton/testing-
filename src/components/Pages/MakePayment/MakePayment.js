@@ -545,7 +545,7 @@ export default function MakePayment(props) {
   }
   //View
   return (
-    <div>
+    <div data-testid="makePaymentComponent">
       <CheckLoginStatus />
       <ScrollToTopOnMount />
       <Grid id="makePaymentWrap" container className={classes.centerGrid}>
@@ -569,7 +569,7 @@ export default function MakePayment(props) {
           </Grid>
         </Grid>
         {showCircularProgress ? (
-          <Grid item xs={12} className={classes.tableStyle}>
+          <Grid data-testid="activeLoans" item xs={12} className={classes.tableStyle}>
             <TableContainer id="pdfdiv" component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead>
@@ -839,7 +839,7 @@ export default function MakePayment(props) {
         ) : ("")
         }
         <Grid item xs={12}>
-          <p className={classes.endMessage}>
+          <p data-testid="pleaseContact" className={classes.endMessage}>
             {" "}
             <small>
               If you have questions or would like to obtain a payoff balance on
