@@ -137,6 +137,8 @@ function PersonalInfo() {
 	const [ ssnEmailMatch, setSsnEmailMatch ] = useState(true);
 	const [ error, setError ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
+	const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
+  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
 	const componentMounted = useRef(true);                                               //
 	const navigate = useNavigate();
 	const innerClasses = useStyles();
@@ -145,12 +147,25 @@ function PersonalInfo() {
 	myDate.setDate(myDate.getDate() - 6571);
 	let refFirstName = useRef();
 	let refLastName = useRef();
-	function phoneNumberMask(values) {
+
+	const phoneNumberMask = (values) => {
 		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
 		values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
 		return (values);
 	}
 
+	const maskPhoneNumberWithAsterisk = (phoneNumber) => {
+		let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);		
+		return firstNumber.replace(/\d/g, '*') + phoneNumber.slice(10);		
+		}
+
+		useEffect(() => {
+			setPhoneNumberValue( data?.phone ?? "");
+			setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask( data.phone ?? "")));
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [ data.phone ]);
+
+	
 	//configuring formik
 	const formik = useFormik({
 		initialValues: {
@@ -159,7 +174,7 @@ function PersonalInfo() {
 			email: data.email ? data.email : "",
 			ssn: data.ssn ? data.ssn : "",
 			lastSSN: data.last4SSN ? data.last4SSN : "",
-			phone: data.phone ? phoneNumberMask(data.phone) : "",
+			phone: data.phone ? data.phone : "",
 			dob: data.dob ? data.dob : null,
 			checkSSN: data.last4SSN ? true : false,
 		},
@@ -177,14 +192,8 @@ function PersonalInfo() {
 				data.phone = values.phone;
 				data.ssn = data.last4SSN
 					? data.ssn
-					: values.ssn.replace(/-/g, "").replace(/ /g, "") || "";
-				const phone =
-					values.phone
-						.replace(/-/g, "")
-						.replace(/\)/g, "")
-						.replace(/\(/g, "")
-						.replace(/ /g, "") || "";
-				data.phone = phone;
+					: values.ssn.replace(/-/g, "").replace(/ /g, "") || "";			
+				data.phone = phoneNumberValue;
 				data.dob = values.dob;
 				data.completedPage = data.page.personalInfo;
 
@@ -313,6 +322,17 @@ function PersonalInfo() {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	const updateActualValue = (_event) => {
+	    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
+  }
+  const updateMaskValue = (_event) => {	
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
+  }
+  const updateEnterPhoneNo = (event) =>{
+	  setPhoneNumberValue(event.target.value);
+    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
+  }
 
 	//JSX [part]
 	return (
@@ -576,21 +596,30 @@ function PersonalInfo() {
 											className="textBlock"
 											id="phoneInput"
 										>
-											<PhoneNumber
-												name="phone"
-												label="Phone number *"
-												placeholder="Enter your phone number"
-												id="phone"
-												type="text"
-												onKeyDown={preventSpace}
-												value={formik.values.phone}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												error={
-													formik.touched.phone && Boolean(formik.errors.phone)
-												}
-												helperText={formik.touched.phone && formik.errors.phone}
-											/>
+											 <TextField
+															name="phone"
+															label="Phone number *"
+															placeholder="Enter your phone number"
+															id="phone"
+															type="text"
+															onKeyDown={preventSpace}
+															onBlur={(event)=>{
+																updateMaskValue(event);
+																formik.handleBlur(event);
+															}}
+															value = { phoneNumberCurrentValue }
+															onChange={(event)=>{
+																updateEnterPhoneNo(event);
+																formik.handleChange(event);
+															}}
+															error={
+																formik.touched.phone && Boolean(formik.errors.phone)
+															}
+															helperText={formik.touched.phone && formik.errors.phone}
+															
+															onFocus={ updateActualValue }
+
+														/>
 											<div className="alignErrorLeft">
 												<Typography
 													className={

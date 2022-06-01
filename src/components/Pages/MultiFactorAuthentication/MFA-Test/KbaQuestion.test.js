@@ -44,3 +44,21 @@ test("Render Questions", () => {
 	expect(element).toBeTruthy();
 });
 
+test("Render Paragraph Content", () => {
+	render(component());
+	const element = screen.getByTestId("kba_content");
+	expect(element).toBeTruthy();
+});
+
+test("Render Button", () => {
+	render(component());
+	const element = screen.getByTestId("submit");
+	expect(element).toBeTruthy();
+});
+
+test("Button Onclick", () => {
+	render(component());
+	const button = screen.getByTestId("submit");
+	fireEvent.click(button);
+});
+

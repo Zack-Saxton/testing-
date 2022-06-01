@@ -1,28 +1,24 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import {
 	FormControl,
-	FormControlLabel,
-	Radio,
-	RadioGroup,
 	Typography
 } from "@mui/material";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import { makeStyles } from "@mui/styles";
 import {
 	ButtonPrimary,
-	DatePicker,
-	EmailTextField,
-	PhoneNumber,
-	SocialSecurityNumber,
-	TextField, Popup
+	PhoneNumber
 } from "../../FormsUI";
 import { useStylesMFA } from "./Style";
-import PropTypes from "prop-types";
+import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import globalMessages from '../../../assets/data/globalMessages.json';
+import { SavePhoneNumber } from "./../../Controllers/MFAController"
+
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -39,61 +35,59 @@ const validationSchema = yup.object({
 		.min(10, globalMessages.PhoneMin)
 });
 
-const handleClick = async() =>{
-    if (selectionValue !== 'security questions'){ 
-      const passCodeResponse = await sendPassCode(selectionValue);
-      console.log(passCodeResponse); //Left this console log intentionally for QA
-      passCodeResponse?.data?.passCode ? navigate('/MFA-OTP', {state: {phoneNumber : selectionValue, mfaQueries:mfaDetails}}) : toast.error(passCodeResponse.data?.Message); //Navigate to OTP page or else show error.  
-    } else if (selectionValue === 'security questions' && securityQuestionsSaved) {
-      navigate('/MFA-SecurityQuestions', {state: {mfaSecurityQuestions: mfaDetails}});
-    } else {
-      selectionValue === 'security questions' && !securityQuestionsSaved && navigate('/mfa-kbaQuestions', {state: {mfaSecurityQuestions: mfaDetails}})
-    }
-  }
-  const selection  = async(phone) =>{
-    phone.length > 10 ? false : true
-  }
 const MFAGetPhoneNumber = ({
 }) => {
-
 	const classes = useStylesMFA();
 	const navigate = useNavigate();
-	//const { data } = useContext(CheckMyOffers);
-	const [error, setError] = useState(false);
-	const [loading, setLoading] = useState(false);
-	function phoneNumberMask(values) {
-		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-		values = !phoneNumber[2] ? phoneNumber[1] : '(' + phoneNumber[1] + ') ' + phoneNumber[2] + (phoneNumber[3] ? '-' + phoneNumber[3] : '');
-		return (values);
-	}
+	const [disabledButton, setDisabledButton] = useState(true);
+	const [phoneNumber,SetPhoneNumber] =useState("");
+
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 			event.preventDefault();
 		}
 	};
+	const checkMobileNumber = (event) => {
+		console.log("clicked");
+		let mobileNUmber = event.target.value;
+		SetPhoneNumber(event.target.value);
+		console.log(SetPhoneNumber);
+		let phone = mobileNUmber.replace(/[()-\s]/g, '');
+		if (phone.length >= 10) {
+			setDisabledButton(false);
+		} else {
+			setDisabledButton(true);
+		}
+	}
+	const handleToSaveContinue = async () => {
+		setDisabledButton(true);
+		const email = Cookies.get("email");
+		let response = await SavePhoneNumber(email, phoneNumber.replace(/[()-\s]/g, ''));
+		if (response?.data?.statusCode === 200) {
+			toast.success(response.data?.Message);
+			navigate('/customers/accountOverview');
+		} else {
+			toast.error(response.data?.Message ?? response.data?.errorMessage);
+		}
+		setDisabledButton(false);
+	}
+	const handleToSkipContinue = async () => {
+		const email = Cookies.get("email");
+		let mobile = "";
+		let response = await SavePhoneNumber(email, mobile);
+		if (response?.data?.statusCode === 200) {
+			toast.success(response.data?.Message);
+			navigate('/customers/accountOverview');
+		} else {
+			toast.error(response.data?.Message ?? response.data?.errorMessage);
+		}
+	}
 	//configuring formik
 	const formik = useFormik({
 		initialValues: {
 			phone: "",
 		},
 		validationSchema: validationSchema,
-		//On submit functionality updating context values
-		onSubmit: async (values) => {
-			const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
-			setLoading(true);
-			//To check the component is mounted or not to update the state
-			if (componentMounted.current) {
-				data.phone = values.phone;
-				const phone =
-					values.phone
-						.replace(/-/g, "")
-						.replace(/\)/g, "")
-						.replace(/\(/g, "")
-						.replace(/ /g, "") || "";
-				data.phone = phone;
-				
-			}
-		},
 	});
 
 	return (
@@ -126,8 +120,8 @@ const MFAGetPhoneNumber = ({
 								container
 								alignItems="center"
 								item
-								lg={8}
-								md={8}
+								lg={12}
+								md={12}
 								xs={12}
 								className="textBlock"
 								id="phoneInput"
@@ -140,7 +134,7 @@ const MFAGetPhoneNumber = ({
 									type="text"
 									onKeyDown={preventSpace}
 									value={formik.values.phone}
-									onChange={formik.handleChange}
+									onChange={checkMobileNumber}
 									onBlur={formik.handleBlur}
 									error={
 										formik.touched.phone && Boolean(formik.errors.phone)
@@ -149,9 +143,10 @@ const MFAGetPhoneNumber = ({
 								/>
 							</Grid>
 						</FormControl>
-						<Grid className={classes.nextButtonGrid} container>
-							<ButtonPrimary stylebutton='{"color":""}' >Skip</ButtonPrimary>
-							<ButtonPrimary stylebutton='{"color":""}' disabled={selection} onClick={handleClick}>Continue</ButtonPrimary>
+						<Grid className={classes.nextButtonGrid} container >
+							<ButtonPrimary stylebutton='{"color":""}' onClick={handleToSkipContinue} className={classes.button_space}>Skip</ButtonPrimary>
+							<ButtonPrimary stylebutton='{"color":""}' disabled={disabledButton}  className={classes.button_space}
+								onClick={handleToSaveContinue}>Continue</ButtonPrimary>
 						</Grid>
 					</Paper>
 				</Grid>
@@ -159,7 +154,4 @@ const MFAGetPhoneNumber = ({
 		</div>
 	)
 }
-
-
-
 export default MFAGetPhoneNumber

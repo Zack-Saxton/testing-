@@ -9,6 +9,7 @@ import { ButtonPrimary, Select, Checkbox } from "../../FormsUI";
 import "./MultiFactorAuthentication.css";
 import Cookies from "js-cookie";
 import { useStylesMFA } from "./Style";
+import message from "../../../assets/data/globalMessages.json"
 import { fetchQuestionMFA, saveSecurityAnswer, fetchAllMFAQuestion } from "../../Controllers/MFAController";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -20,45 +21,50 @@ import { ConstructionOutlined, FormatLineSpacingOutlined, TrendingUpTwoTone } fr
 const validationSchema = yup.object({
 
   question1: yup
-    .string("Please select a security question")
+    .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required("Please select a security question"),
+    .required(message.Please_Select_Security_Question),
   question2: yup
-    .string("Please select a security question")
+    .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required("Please select a security question"),  
+    .required(message.Please_Select_Security_Question),  
   question3: yup
-    .string("Please select a security question")
+    .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required("Please select a security question"),  
+    .required(message.Please_Select_Security_Question),  
   question4: yup
-    .string("Please select a security question")
+    .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required("Please select a security question"),
+    .required(message.Please_Select_Security_Question),
   question5: yup
-    .string("Please select a security question")
+    .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required("Please select a security question"),
+    .required(message.Please_Select_Security_Question),
     answer1: yup
-    .string("Please answer the question")
-    .max(70, "Maximum of 70")
-    .required("Please answer the question"),
+    .string(message.provideAnswerForEachQuestion)
+    .max(40, message.Security_Question_Answer_Length)
+    .min(3, message.Security_Question_Answer_Length)
+    .required(message.provideAnswerForEachQuestion),
     answer2: yup
-    .string("Please answer the question")
-    .max(70, "Maximum of 70")
-    .required("Please answer the question"),
+    .string(message.provideAnswerForEachQuestion)
+    .max(40, message.Security_Question_Answer_Length)
+    .min(3, message.Security_Question_Answer_Length)
+    .required(message.provideAnswerForEachQuestion),
     answer3: yup
-    .string("Please answer the question")
-    .max(70, "Maximum of 70")
-    .required("Please answer the question"),
+    .string(message.provideAnswerForEachQuestion)
+    .max(40, message.Security_Question_Answer_Length)
+    .min(3, message.Security_Question_Answer_Length)
+    .required(message.provideAnswerForEachQuestion),
     answer4: yup
-    .string("Please answer the question")
-    .max(70, "Maximum of 70")
-    .required("Please answer the question"),
+    .string(message.provideAnswerForEachQuestion)
+    .max(40, message.Security_Question_Answer_Length)
+    .min(3, message.Security_Question_Answer_Length)
+    .required(message.provideAnswerForEachQuestion),
     answer5: yup
-    .string("Please answer the question")
-    .max(70, "Maximum of 70")
-    .required("Please answer the question"),
+    .string(message.provideAnswerForEachQuestion)
+    .max(40, message.Security_Question_Answer_Length)
+    .min(3, message.Security_Question_Answer_Length)
+    .required(message.provideAnswerForEachQuestion),
 });
 
 
@@ -129,7 +135,7 @@ let selectedQuestionStructured =
         {
           setLoading(false)
           toast.success(verify?.data?.Message);
-          navigate("/customers/accountoverview")
+          navigate("/resetpassword", { state: { Email: userEmail }})
         }
         else if(verify?.data?.hasError || verify?.data?.Message)
         {
@@ -167,6 +173,12 @@ let selectedQuestionStructured =
     setQuestionOption(mfaQuestionsArray);
     constQuestions = mfaQuestionsArray;
   }
+
+  const preventSpace = (event) => {
+    if (event.keyCode === 32) {
+      event.preventDefault();
+    }
+  };
 
 
   const onClickSave = async () => {
@@ -234,22 +246,20 @@ let selectedQuestionStructured =
           spacing={1}
           container
           item
-          md={8}
+          md={10}
           lg={8}
-          xl={8}
+          xl={7}
           className={classes.twoStepWrap}
         >
-          <Paper item
-          md={8}
-          lg={8}
-          xl={8} className={classes.twoStepPaper}>
+          <Paper className={classes.twoStepPaper}>
           <form onSubmit={formik.handleSubmit}>
             <Grid className={classes.headingTextWrap}>
               <Typography className={classes.twoStepHeading} variant="h5">
-                Select Security Questions
+                Verification Questions Setup
               </Typography>
+              
               <Typography className={classes.securityCubText} variant="h6">
-                Select 5 questions and fill the answers
+                Select five different questions from the list below and enter your answers.
               </Typography>
               <IconButton className={classes.backArrow}>
                 <ArrowBackIcon className={classes.yellowBackArrow} />
@@ -261,9 +271,9 @@ let selectedQuestionStructured =
               <Grid style={{ width: "100%"}}>
                 {
                   questions ?
-                      <Grid  container>
                       <Grid container>
-                      <Grid item md={6} style={{ padding: "10px" }}>
+                      <Grid container>
+                      <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question1"
                           name="question1"
@@ -273,48 +283,56 @@ let selectedQuestionStructured =
 
                             formik.handleChange(event);
                           }}
+                          onBlur={formik.handleBlur}
                           error={(formik.touched.question1 && Boolean(formik.errors.question1))}
                           helperText={formik.touched.question1 && formik.errors.question1 }
                           select={JSON.stringify(questionOption)}
                         />      
                         </Grid>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid className="answerGrid" container item md={6}  style={{ padding: "10px" }}>
                         <TextField
                                   id="Answer"
                                   name="answer1"
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer1}
                                   onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  onKeyDown={preventSpace}
                                   error={(formik.touched.answer1 && Boolean(formik.errors.answer1))}
                                   helperText={formik.touched.answer1 && formik.errors.answer1 }
                                 />
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question2"
                           name="question2"
                           labelform="Question 2"
                           value={formik.values.question2}
                           onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                           error={(formik.touched.question2 && Boolean(formik.errors.question2))}
                           helperText={formik.touched.question2 && formik.errors.question2 }
                           select={JSON.stringify(questionOption)}
                         />      
                         </Grid>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
                                   id="Answer"
                                   name="answer2"
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   value={formik.values.answer2}
                                   onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  onKeyDown={preventSpace}
                                   fullWidth
                                   error={(formik.touched.answer2 && Boolean(formik.errors.answer2))}
                                   helperText={formik.touched.answer2 && formik.errors.answer2 }
@@ -322,84 +340,96 @@ let selectedQuestionStructured =
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question3"
                           name="question3"
                           labelform="Question 3"
                           value={formik.values.question3}
                           onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                           error={(formik.touched.question3 && Boolean(formik.errors.question3))}
                           helperText={formik.touched.question3 && formik.errors.question3 } 
                           select={JSON.stringify(questionOption)}
                         />      
                         </Grid>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
                                   id="Answer"
                                   name="answer3"
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer3}
                                   onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  onKeyDown={preventSpace}
                                   error={(formik.touched.answer3 && Boolean(formik.errors.answer3))}
                                   helperText={formik.touched.answer3 && formik.errors.answer3 }
                                 />
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question4"
                           name="question4"
                           labelform="Question 4"
                           value={formik.values.question4}
                           onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                           error={(formik.touched.question4 && Boolean(formik.errors.question4))}
                           helperText={formik.touched.question4 && formik.errors.question4 }
                           select={JSON.stringify(questionOption)}
                         />      
                         </Grid>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
                                   id="Answer"
                                   name="answer4"
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer4}
                                   onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  onKeyDown={preventSpace}
                                   error={(formik.touched.answer4 && Boolean(formik.errors.answer4))}
                                   helperText={formik.touched.answer4 && formik.errors.answer4 }
                                 />
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question5"
                           name="question5"
                           labelform="Question 5"
                           value={formik.values.question5}
                           onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                           error={(formik.touched.question5 && Boolean(formik.errors.question5))}
                           helperText={formik.touched.question5 && formik.errors.question5 }
                           select={JSON.stringify(questionOption)}
                         />      
                         </Grid>
-                        <Grid item md={6}  style={{ padding: "10px" }}>
+                        <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
                                   id="Answer"
                                   name="answer5"
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer5}
                                   onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  onKeyDown={preventSpace}
                                   error={(formik.touched.answer5 && Boolean(formik.errors.answer5))}
                                   helperText={formik.touched.answer5 && formik.errors.answer5 }
                                   />
@@ -410,13 +440,13 @@ let selectedQuestionStructured =
                     
                   
                   : 
-                  <p>Empty</p>
+                  <p>Something went wrong, please try again</p>
                 }
               </Grid>
             </Grid>
             <Grid className={classes.nextButtonGrid} container>
               <ButtonPrimary stylebutton='{"color":""}' disabled = { loading }  type="submit" >
-                Save
+                Submit Answers
               </ButtonPrimary>
             </Grid>
             </form>

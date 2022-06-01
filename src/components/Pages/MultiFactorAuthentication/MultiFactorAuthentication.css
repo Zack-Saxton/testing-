@@ -44,6 +44,15 @@ input[type=number] {
 #LoanQuestionWrap, #radioSelectTxt{
   flex-direction: column;
 }
+.questionWrap div label{
+  margin-left: -14px;
+}
+.answerGrid{
+  align-items: flex-end;
+}
+.answerGrid .MuiTextField-root{
+  margin-bottom: 3px !important;
+}
 
 @media (max-width: 400px) {
 

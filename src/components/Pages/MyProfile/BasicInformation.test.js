@@ -59,7 +59,7 @@ test("Check the Date of Birth field in UI", () => {
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="dob"]`);
 	expect(input).toBeTruthy();
-	expect(input.value).toBe('05/09/1984');
+	expect(input.value).toBe('**/**/1984');
 });
 
 test("Check the Email Address field in UI", () => {
@@ -73,7 +73,7 @@ test("Check the Primary phone number field in UI", () => {
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
-	expect(input.value).toBe('(123) 123-1234');
+	expect(input.value).toBe('(***) ***-1234');
 });
 
 test("Check the upload image field in UI", () => {
@@ -155,7 +155,7 @@ test("Check number masking after entering phone number", async () => {
 		fireEvent.change(input, { target: { value: "1231231233" } });
 		fireEvent.blur(input);
 	});
-	expect(input.value).toBe('(123) 123-1233');
+	expect(input.value).toBe('(***) ***-1233');
 });
 
 test("Verify can able to click file upload", async () => {

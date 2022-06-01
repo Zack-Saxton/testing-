@@ -208,6 +208,8 @@
   "Please_Select_A_Saving_0r_Checking": "Please select a saving or checking account",
   "Please_Select_File_Upload": "Please Select a file to upload",
   "Please_Upload_File_Below_Size": "Please upload file size below 10mb",
+  "Please_Select_Security_Question": "Please select a security question",
+  "provideAnswerForEachQuestion": "You must provide an answer for each question",
   "Registration_Failed": "Registration failed. Please contact us at (844) 306-7300",
   "Registration_Success": "Registered Successfully.",
   "Regular_Amount": "Regular Amount",
@@ -238,6 +240,7 @@
   "State_Required": "State is required",
   "Street_Address": "Enter street address",
   "Street_Address_Required": "Street Address is required.",
+  "Security_Question_Answer_Length": "Your answer must be 3 to 40 characters in length",
   "Total": "Total",
   "Todays_Payoff": "Today's Pay Off",
   "TryAgain": "Please try again",
@@ -260,5 +263,6 @@
   "ZipCodeRequired": "Your home Zip Code is required",
   "Zipcode_Required": "Zipcode is required",
   "ConsentStatusUpdateError": "Error executing save consent API",
-  "INVALIDENTRY":"Invalid Entry Please Try Another Email Address"
+  "INVALIDENTRY":"Invalid Entry Please Try Another Email Address",
+  "Error_executing_SavePhoneNumber_API": "Error executing save phonenumber API"
 }
