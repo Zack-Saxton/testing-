@@ -49,7 +49,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
     <div className={classes.securityCodeText}>
       Security code via SMS :<br />
       {
-        selection ? <span>Get a code on your preferred phone number</span> : <span>To phone number : {`(***) *** ${selectionValue?.substr(-4)}`}</span>
+        selection || selectionValue?.substr(-4) == "ions" ? <span>Get a code on your preferred phone number</span> : <span>To phone number : {`(***) *** ${selectionValue?.substr(-4)}`}</span>
       }
     </div>
   );
