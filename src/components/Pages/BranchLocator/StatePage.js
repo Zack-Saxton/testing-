@@ -155,7 +155,7 @@ export default function StatePage() {
   }
   //View part
   return (
-    <div>
+    <div data-testid="branch-locator-state-page">
       <Helmet>
         <meta charSet="utf-8" />
         <title>
@@ -240,6 +240,7 @@ export default function StatePage() {
                           {...getInputProps({
                             placeholder: "Enter city & state or zip code",
                           })}
+                          data-testid="search-branch-1"
                         />
                         <div className="serachResult">
                           {loading2 && <div>Loading...</div>}
@@ -418,6 +419,7 @@ export default function StatePage() {
                           {...getInputProps({
                             placeholder: "Enter city & state or zip code",
                           })}
+                          data-testid="search-branch-2"
                         />
                         <div className="serachResult">
                           {loading2 && <div>Loading...</div>}
