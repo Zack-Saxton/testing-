@@ -1,3 +1,4 @@
+import { textTransform } from "@mui/material/node_modules/@mui/system";
 import { createStyles, makeStyles } from "@mui/styles";
 
 //Styling Part
@@ -139,7 +140,8 @@ const useStylesMFA = makeStyles((theme) =>
       background: "#FFBC23",
       whiteSpace: 'nowrap',
       borderRadius: '50px',
-      margin: '5px'
+      margin: '5px',
+      textTransform: 'none'
     }
   })
 );

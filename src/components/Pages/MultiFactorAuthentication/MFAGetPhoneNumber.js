@@ -127,7 +127,7 @@ const MFAGetPhoneNumber = ({
 							>
 								<PhoneNumber
 									name="phone"
-									label="Phone number *"
+									label="Phone number"
 									placeholder="Enter your phone number"
 									id="phone"
 									type="text"
