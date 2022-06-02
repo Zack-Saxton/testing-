@@ -22,11 +22,12 @@ export default function LoanHistoryTable() {
 
   //Material UI css class
   const classes = useStylesLoanHistory();
-  const { isLoading, data: loanHistoryStatus } = useQuery('loan-data', usrAccountDetails);
-
+  const { isLoading, data: accountDetails } = useQuery('loan-data', usrAccountDetails);
+  console.log("#########");
+  console.log(accountDetails);
   //View part
   return (
-    <Grid item xs={12} className={classes.gridRecordTable}>
+    <Grid item xs={12} className={classes.gridRecordTable} data-testid="with_Data">
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
@@ -41,12 +42,12 @@ export default function LoanHistoryTable() {
           <TableBody>
             {isLoading && (
               <TableRow>
-                <TableCell colSpan="7" align="center"><CircularProgress /></TableCell>
+                <TableCell colSpan="7" align="center" data-testid="while_Loading"><CircularProgress /></TableCell>
               </TableRow>
             )}  
-            { loanHistoryStatus?.data?.activeLoans?.length && (
-              loanHistoryStatus?.data?.activeLoans.map((row) => (
-                <TableRow key={row.loanData.accountNumber}>
+            { accountDetails?.data?.activeLoans?.length && (
+              accountDetails?.data?.activeLoans.map((row) => (
+                <TableRow key={row.loanData.accountNumber} >
                   <TableCell component="th" className={classes.tableHeadRow} scope="row" align="left">{row.loanData.accountNumber}</TableCell>
                   <TableCell className={classes.tableHeadRow} align="left" >{row.loanData?.loanOriginationDate ? Moment(row.loanData.loanOriginationDate).format("MM/DD/YYYY") : ''}</TableCell>
                   <TableCell className={classes.tableHeadRow} align="left" >{row.loanData.dueDate ? Moment(row.loanData.dueDate).format("MM/DD/YYYY") : ''}</TableCell>
@@ -65,11 +66,13 @@ export default function LoanHistoryTable() {
                 </TableRow>
               ))
             )} 
-            { !isLoading && !loanHistoryStatus?.data?.activeLoans?.length && (
-              <TableRow>
-                <TableCell colSpan="7" align="center">You do not have an active loan</TableCell>
+            { 
+           !isLoading && !accountDetails?.data?.activeLoans?.length && (
+              <TableRow data-testid="while_Error">
+                <TableCell colSpan="7" align="center" >You do not have an active loan</TableCell>
               </TableRow>
-            )}
+           )
+            }
           </TableBody>
         </Table>
       </TableContainer>
