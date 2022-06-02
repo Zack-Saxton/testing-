@@ -63,7 +63,7 @@ const KbaQuestions = () => {
   }, [setOneFinished]);
 
   return (
-    <div className={loadingFlag ? classes.loadingOn : classes.loadingOff}>
+    <div data-testid = "KbaQuestions_component" className={loadingFlag ? classes.loadingOn : classes.loadingOff}>
       <Grid>
         <Grid
           spacing={1}
@@ -83,7 +83,7 @@ const KbaQuestions = () => {
             <Typography className={classes.twoStepParagraph}>
             Please answer the questions below to help verify your identity. Please provide your responses within five minutes.
             </Typography>
-            <div className={classes.button_div} >
+            <div data-testid = "question_component" className={classes.button_div} >
               {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : <CircularProgress />}
               <div>
                 {setOneFinished ? <MultipleQuestion setLoadingFlag={setLoadingFlag} customerEmail={customerEmail} transactionIdMultiple={transactionIdMultiple} questionSetIdMultiple={questionSetIdMultiple} responseData={responseDataMultipleQ} setResponseData={setResponseDataMultipleQ} classes={classes} check={check} setCheck={setCheck} navigate={navigate} /> : null}
@@ -94,6 +94,7 @@ const KbaQuestions = () => {
               <ButtonPrimary
                 variant="contained"
                 color="primary"
+                data-testid = "submit"
                 id="button_stepper_next"
                 stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                 onClick={async () => {
@@ -146,7 +147,7 @@ const KbaQuestions = () => {
               null
           }
             </div>
-            <Typography className={classes.twoStepParagraph}>
+            <Typography data-testid = "kba_content" className={classes.twoStepParagraph}>
             Loan funding and disbursement is conditioned upon our satisfactory review of any documents and other information that we require from you to verify your loan application and/or your identity.
              This loan may not be consummated if you obtain another loan from us prior to our disbursing funds for this loan. If you have any questions, please contact us.
              </Typography>

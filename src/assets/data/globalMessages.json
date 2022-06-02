@@ -168,8 +168,7 @@
   "Marital_Status_Select": "Please select your marital status",
   "Marital_Status_Max": "Marital status should be less than 100 characters",
   "NameEnter": "Enter a name",
-  "Network_Error": "Network Error",
-  "Network_Error_Please_Try_Again": "Network error, Please try again.",
+  "Network_Error_Please_Try_Again": "We are experiencing issues in processing your request. Please try again later",
   "Next_Due_Date": "Due Date",
   "Nick_Name_Required": "Account Nickname is required.",
   "No_Backspace_Only": "* This field cannot contain only backspaces",
@@ -264,5 +263,6 @@
   "ZipCodeRequired": "Your home Zip Code is required",
   "Zipcode_Required": "Zipcode is required",
   "ConsentStatusUpdateError": "Error executing save consent API",
-  "INVALIDENTRY":"Invalid Entry Please Try Another Email Address"
+  "INVALIDENTRY":"Invalid Entry Please Try Another Email Address",
+  "Error_executing_SavePhoneNumber_API": "Error executing save phonenumber API"
 }

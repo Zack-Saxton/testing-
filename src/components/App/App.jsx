@@ -68,7 +68,35 @@ import MyProfile from "../Pages/MyProfile/MyProfile";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
+import MFAGetPhoneNumber from "../Pages/MultiFactorAuthentication/MFAGetPhoneNumber";
 import "./App.css";
+import {useState,useEffect} from 'react'
+import axios from 'axios';
+
+function AppLocation() {
+    //creating IP state
+    const [ip, setIP] = useState('');
+  
+    //creating function to load ip address from the API
+    const getData = async () => {
+      const res = await axios.get('https://geolocation-db.com/json/')
+      console.log(res.data);
+      setIP(res.data.IPv4)
+    }
+    
+    useEffect( () => {
+      //passing getData method to the lifecycle method
+      getData()
+  
+    }, [])
+  
+    return (
+      <div className="App">
+        <h2>Your IP Address is</h2>
+        <h4>{ip}</h4>
+      </div>
+    );
+  }
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -139,6 +167,7 @@ function App() {
                                                 <Route path='/' element={<Navigate replace to="/customers/accountOverview" />} />
                                                 <Route path='/components' element={loadGeneralUserComponent(<CustomComponents />)} />
                                                 <Route path='/login' element={loadGeneralUserComponent(<LoginPage />)} />
+                                                <Route path='/MFA-phoneNumber' element={loadGeneralUserComponent(<MFAGetPhoneNumber />)} />
                                                 <Route path='/MFA' element={loadGeneralUserComponent(<MultiFactorAuthentication />)} />
                                                 <Route path='/MFA-OTP' element={loadGeneralUserComponent(<MultiFactorAuthenticationOTP />)} />
                                                 <Route path='/MFA-SecurityQuestions' element={loadGeneralUserComponent(<MFASecurityQuestions />)} />

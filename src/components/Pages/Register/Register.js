@@ -129,7 +129,7 @@ export default function Register() {
         setLoading(false);
       } else {
         setLoading(false);
-        alert(globalMessages.Network_Error);
+        alert(globalMessages.Network_Error_Please_Try_Again);
       }
     } catch (error) {
       ErrorLogger("Error executing Login API", error);
@@ -171,9 +171,9 @@ export default function Register() {
       //API call
       try {
         let customerStatus = await RegisterController(body);
-        
+
         if (
-          (!customerStatus.data?.customerFound && !customerStatus.data?.userFound 
+          (!customerStatus.data?.customerFound && !customerStatus.data?.userFound
             && !customerStatus.data?.is_registration_failed && customerStatus?.status === 200)
         ) {
           //On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
@@ -192,7 +192,7 @@ export default function Register() {
           setSuccessPopup(false);
           setLoading(false);
         } else {
-          alert(globalMessages.Network_Error);
+          alert(globalMessages.Network_Error_Please_Try_Again);
           setFailed(globalMessages.Network_Error_Please_Try_Again);
           setSuccessPopup(false);
           setLoading(false);
@@ -500,12 +500,27 @@ export default function Register() {
 
                         }
                       />
-                      <p id="passwordTitle" className={classes.passwordTitle}>
-                        Please ensure your password meets the following
-                        criteria: between 10 and 30 characters in length, at
-                        least 1 uppercase letter, at least 1 lowercase letter,
-                        at least 1 symbol and at least 1 number.
-                      </p>
+                     <ul className="error-validation">
+                <span>
+              <li className={((formik?.values?.password).length >= 10 && (formik?.values?.password).length < 30) ? "validation-success" : "validation-failed"}>
+                Between 10 and 30 characters in length
+                </li>
+              <li className={/[A-Z]/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
+                At least 1 uppercase letter
+              </li>
+              <li className={/[a-z]/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
+                At least 1 lowercase letter
+                </li>
+                </span>
+                <span>
+              <li className={/\d/.test(formik?.values?.password) ? "validation-success" : "validation-failed" }>
+                At least 1 number
+              </li>
+              <li className={/[*@!#$%()^~{}]+/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
+                At least 1 special character.
+              </li>
+              </span>
+              </ul>
                     </Grid>
                     <Grid
                       className="confirmPasswordGrid"

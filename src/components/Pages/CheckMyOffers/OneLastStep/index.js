@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
-import { findByTestId } from "@testing-library/react";
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
@@ -18,7 +17,7 @@ import {
 import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
-
+import globalMessages from "../../../../assets/data/globalMessages.json";
 //oneLastStep component initialization
 function SSN() {
 	let response = [];
@@ -140,7 +139,7 @@ function SSN() {
 				refetch();
 				navigate("/no-offers-available", { formcomplete: "yes" });
 			} else {
-				alert("Network Error");
+				alert(globalMessages.Network_Error_Please_Try_Again);
 				setLoading(false);
 				setApplicationLoading(false);
 			}
