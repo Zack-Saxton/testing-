@@ -5,7 +5,7 @@ import * as imageConversion from 'image-conversion';
 import Cookies from "js-cookie";
 import Moment from "moment";
 import PropTypes from "prop-types";
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import { useQuery } from 'react-query';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -47,7 +47,19 @@ async function filetoImage(file) {
     ErrorLogger("Error executing image conversion", error);
   }
 }
-
+const phoneNumberMask = (values) => {
+  let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+  values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+  return (values);
+}
+const maskPhoneNumberWithAsterisk = (phoneNumber) => {
+  let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
+  return firstNumber.replace(/[0-9]/g, '*') + phoneNumber.slice(10);
+}
+const maskDOB = (dob) => {
+  let monthDay = (dob.slice(0, 6)).replace(/[0-9]/g, '*'); 
+  return monthDay + dob.slice(6);
+}
 export default function BasicInformation(props) {
   const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
@@ -69,6 +81,9 @@ export default function BasicInformation(props) {
   const [ docType ] = useState("");
   const [ uploadedImage, setUploadedImage ] = useState(null);
 
+  const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
+  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
+  
   const handleInputChange = () => {
     refSelectImage.current.click();
     setSelectedFile(refSelectImage.current);
@@ -89,13 +104,12 @@ export default function BasicInformation(props) {
     toast.success(globalMessages.LoggedOut, {
       onClose: () => logOut(),
     });
-  };
-  function phoneNumberMask(values) {
-    let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-    values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-    return (values);
-  }
-
+  };  
+  useEffect(() => {
+    setPhoneNumberValue(basicInfo?.phone_number_primary ?? "");
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(basicInfo?.phone_number_primary ?? "")));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ basicInfo?.phone_number_primary ]);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -114,9 +128,10 @@ export default function BasicInformation(props) {
           .replace(/ /g, "") || "";
 
       let body = {
-        primaryPhoneNumber: phone,
+        primaryPhoneNumber: phoneNumberValue,
         email: values.email,
       };
+      
       const uploadBasicInfoChange = () => {
         if (!toast.isActive("closeToast")) {
           refetch().then( () => 
@@ -291,7 +306,18 @@ export default function BasicInformation(props) {
       event.preventDefault();
     }
   };
-
+  
+  const updateActualValue = (event) => {
+    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
+  }
+  const updateMaskValue = (event) => {
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
+  }
+  const updateEnterPhoneNo = (event) =>{
+    setPhoneNumberValue(event.target.value);
+    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
+  }
+  
   return (
     <div data-testid="basic-information-component">
       <form onSubmit={formik.handleSubmit} style={{
@@ -347,7 +373,7 @@ export default function BasicInformation(props) {
               type="date"
               format={"DD/MM/YYYY"}
               disabled={true}
-              value={basicData?.date_of_birth ? Moment(basicData?.date_of_birth).format("MM/DD/YYYY") : ""}
+              value={basicData?.date_of_birth ? maskDOB(Moment(basicData?.date_of_birth).format("MM/DD/YYYY")) : ""}
             />
           </Grid>
           <Grid
@@ -388,12 +414,19 @@ export default function BasicInformation(props) {
               type="text"
               materialProps={{ maxLength: "14" }}
               onKeyDown={preventSpace}
-              onBlur={formik.handleBlur}
-              value={formik.values.phone ? phoneNumberMask(formik.values.phone) : ""}
-              onChange={formik.handleChange}
+              onBlur={(event)=>{
+                updateMaskValue(event);
+                formik.handleBlur(event);
+              }}
+              value = { phoneNumberCurrentValue }
+              onChange={(event)=>{
+                updateEnterPhoneNo(event);
+                formik.handleChange(event);
+              }}
               error={formik.touched.phone && Boolean(formik.errors.phone)}
               helperText={formik.touched.phone && formik.errors.phone}
               disabled={!disableField}
+              onFocus={ updateActualValue }
 
             />
           </Grid>

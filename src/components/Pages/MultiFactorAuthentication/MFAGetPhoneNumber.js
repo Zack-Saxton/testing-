@@ -7,7 +7,6 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { makeStyles } from "@mui/styles";
 import {
 	ButtonPrimary,
 	PhoneNumber
@@ -15,7 +14,7 @@ import {
 import { useStylesMFA } from "./Style";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import globalMessages from '../../../assets/data/globalMessages.json';
 import { SavePhoneNumber } from "./../../Controllers/MFAController"
 
@@ -41,7 +40,7 @@ const MFAGetPhoneNumber = ({
 	const navigate = useNavigate();
 	const [disabledButton, setDisabledButton] = useState(true);
 	const [phoneNumber,SetPhoneNumber] =useState("");
-
+    const location = useLocation();
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 			event.preventDefault();
@@ -65,7 +64,7 @@ const MFAGetPhoneNumber = ({
 		let response = await SavePhoneNumber(email, phoneNumber.replace(/[()-\s]/g, ''));
 		if (response?.data?.statusCode === 200) {
 			toast.success(response.data?.Message);
-			navigate('/customers/accountOverview');
+			navigate("/MFA", {state:{mfaDetails : location?.state?.mfaDetails, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent }});
 		} else {
 			toast.error(response.data?.Message ?? response.data?.errorMessage);
 		}
@@ -77,7 +76,7 @@ const MFAGetPhoneNumber = ({
 		let response = await SavePhoneNumber(email, mobile);
 		if (response?.data?.statusCode === 200) {
 			toast.success(response.data?.Message);
-			navigate('/customers/accountOverview');
+			navigate("/MFA", {state:{mfaDetails : location?.state?.mfaDetails, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent }});
 		} else {
 			toast.error(response.data?.Message ?? response.data?.errorMessage);
 		}
@@ -128,7 +127,7 @@ const MFAGetPhoneNumber = ({
 							>
 								<PhoneNumber
 									name="phone"
-									label="Phone number *"
+									label="Phone number"
 									placeholder="Enter your phone number"
 									id="phone"
 									type="text"

@@ -17,7 +17,7 @@ export default function LoanHistory() {
 
   //View Part
   return (
-    <div>
+    <div data-testid="loan_history_component">
       <CheckLoginStatus />
       <ScrollToTopOnMount />
       <Grid

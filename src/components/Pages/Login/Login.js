@@ -133,7 +133,10 @@ export default function Login(props) {
         Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email }) : JSON.stringify({ selected: false, email: '' }));
         queryClient.removeQueries();
         setLoading(false);
-        if(retVal?.data?.user?.extensionattributes?.MFA){
+        if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter === 1 && retVal?.data?.user?.extensionattributes?.MFA){
+          navigate("/MFA-phoneNumber", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }});
+        }
+        else if(retVal?.data?.user?.extensionattributes?.MFA){
           navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }});
         } else {
           retVal?.data?.user?.attributes?.password_reset

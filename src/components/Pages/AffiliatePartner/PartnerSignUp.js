@@ -416,12 +416,30 @@ export default function PartnerSignUp() {
                           formik.touched.password && formik.errors.password
                         }
                       />
-                      <p id="passwordTitle" className={classes.passwordTitle}>
-                        Please ensure your password meets the following
-                        criteria: between 10 and 30 characters in length, at
-                        least 1 uppercase letter, at least 1 lowercase letter,
-                        at least 1 symbol and at least 1 number.
-                      </p>
+                      </Grid>
+                      <Grid>
+                       <ul className="error-validation">
+                <span>
+              <li className={((formik?.values?.password).length >= 10 && (formik?.values?.password).length < 30) ? "validation-success" : "validation-failed"}>
+                Between 10 and 30 characters in length
+                </li>
+              <li className={/[A-Z]/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
+                At least 1 uppercase letter
+              </li>
+              <li className={/[a-z]/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
+                At least 1 lowercase letter
+                </li>
+                </span>
+                <span>
+              <li className={/\d/.test(formik?.values?.password) ? "validation-success" : "validation-failed" }>
+                At least 1 number
+              </li>
+              <li className={/[*@!#$%()^~{}]+/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
+                At least 1 special character.
+              </li>
+              </span>
+              </ul>
+                      
                     </Grid>
                     <Grid item xs={12}>
                       <PasswordField

@@ -5,16 +5,16 @@ import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ButtonPrimary, Select, Checkbox } from "../../FormsUI";
+import { ButtonPrimary, Select } from "../../FormsUI";
 import "./MultiFactorAuthentication.css";
 import Cookies from "js-cookie";
 import { useStylesMFA } from "./Style";
 import message from "../../../assets/data/globalMessages.json"
-import { fetchQuestionMFA, saveSecurityAnswer, fetchAllMFAQuestion } from "../../Controllers/MFAController";
+import {  saveSecurityAnswer, fetchAllMFAQuestion } from "../../Controllers/MFAController";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { ConstructionOutlined, FormatLineSpacingOutlined, TrendingUpTwoTone } from "@mui/icons-material";
+import "./mfa.css";
 
 
 //Yup validations for all the input fields
@@ -273,7 +273,7 @@ let selectedQuestionStructured =
                   questions ?
                       <Grid container>
                       <Grid container>
-                      <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
+                      <Grid id="questionGrid" container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question1"
                           name="question1"
@@ -296,6 +296,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer1}
                                   onChange={formik.handleChange}
@@ -307,7 +308,7 @@ let selectedQuestionStructured =
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
+                        <Grid id="questionGrid" container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question2"
                           name="question2"
@@ -327,6 +328,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   value={formik.values.answer2}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -338,7 +340,7 @@ let selectedQuestionStructured =
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
+                        <Grid container id="questionGrid" className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question3"
                           name="question3"
@@ -358,6 +360,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer3}
                                   onChange={formik.handleChange}
@@ -369,7 +372,7 @@ let selectedQuestionStructured =
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
+                        <Grid container id="questionGrid" className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question4"
                           name="question4"
@@ -389,6 +392,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer4}
                                   onChange={formik.handleChange}
@@ -400,7 +404,7 @@ let selectedQuestionStructured =
                         </Grid>
                         </Grid>
                         <Grid container>
-                        <Grid container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
+                        <Grid id="questionGrid" container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
                           id="question5"
                           name="question5"
@@ -420,6 +424,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
+                                  inputProps={{maxLength: 40}}
                                   fullWidth
                                   value={formik.values.answer5}
                                   onChange={formik.handleChange}

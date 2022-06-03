@@ -37,7 +37,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
     if (selectionValue !== 'security questions'){ 
       const passCodeResponse = await sendPassCode(selectionValue);
       console.log(passCodeResponse); //Left this console log intentionally for QA
-      passCodeResponse?.data?.passCode ? navigate('/MFA-OTP', {state: {phoneNumber : selectionValue, mfaQueries:mfaDetails}}) : toast.error(passCodeResponse.data?.Message); //Navigate to OTP page or else show error.  
+      passCodeResponse?.data?.passcodeInTextMessage ? navigate('/MFA-OTP', {state: {phoneNumber : selectionValue, mfaQueries:mfaDetails}}) : toast.error(passCodeResponse.data?.Message); //Navigate to OTP page or else show error.  
     } else if (selectionValue === 'security questions' && securityQuestionsSaved) {
       navigate('/MFA-SecurityQuestions', {state: {mfaSecurityQuestions: mfaDetails}});
     } else {
@@ -49,7 +49,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
     <div className={classes.securityCodeText}>
       Security code via SMS :<br />
       {
-        selection ? <span>Get a code on your preferred phone number</span> : <span>To phone number : {`(***) *** ${selectionValue?.substr(-4)}`}</span>
+        selection || selectionValue?.substr(-4) == "ions" ? <span>Get a code on your preferred phone number</span> : <span>To phone number : {`(***) *** ${selectionValue?.substr(-4)}`}</span>
       }
     </div>
   );
