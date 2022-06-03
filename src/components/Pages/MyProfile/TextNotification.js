@@ -218,7 +218,7 @@ export default function TextNotification() {
             stylelabelform='{ "fontSize":"12px" }'
             stylecheckbox='{ "fontSize":"12px" }'
             stylecheckboxlabel='{ "fontSize":"12px" }'
-            inputProps={{ "data-testid": "notification-terms" }}
+            data-testid="notification-terms"
             required
           />
           <Grid
