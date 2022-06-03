@@ -9,7 +9,7 @@ import { useStylesEmailVerification } from "./Style";
 function VehiclePhotos(props) {
   const classes = useStylesEmailVerification();
   return (
-    <Grid>
+    <Grid data-testid = "vehiclePhotos_component">
       <span className={classes.exampleText}>
         Click Below To Take Vehicle Pictures If Discussed With Your Loan
         Officer.
@@ -22,6 +22,7 @@ function VehiclePhotos(props) {
         <ButtonPrimary
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
           target="_blank" href={`https://collateralcapturemarinerfinance.goldpointbeta.com/?applicationNumber=${ props.applicationNumber }`}
+          data-testid = "UploadVehicle_photo"
         >
           Upload Vehicle Photo
         </ButtonPrimary>
