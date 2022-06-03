@@ -143,7 +143,7 @@ export default function StatePage(props) {
     if (!location?.state) {
       let pathName = location?.pathname.split('/');
       let FixString = 'personal-loans-in-'.length;
-      let branchNm = formatBranchName(pathName[ 3 ]).substring(FixString).slice(0, -3) ;
+      let branchNm = formatBranchName(pathName[ 3 ]).substring(FixString).slice(0, -3);
       stateLongNm.current = formatString(pathName[ 2 ]);
       stateShortNm.current = pathName[ 3 ].substring(FixString).slice(-2).toUpperCase();
       branch_Details.current = { BranchName: "" };
@@ -161,7 +161,7 @@ export default function StatePage(props) {
   }, []);
   const BranchDetailsInCard = (
     <Grid container className="fullWidth">
-      <Grid className="branchImage" item md={7} sm={12} xs={12}>
+      <Grid data-testid = "check_banner" className="branchImage" item md={7} sm={12} xs={12}>
         <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
         <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
       </Grid>
@@ -190,6 +190,7 @@ export default function StatePage(props) {
           <Link
             className="breadcrumbLink"
             onClick={() => window.open(`/branch-locator/`, "_self")}
+            data-testid = "findBranch"
           >
             Find a branch
           </Link>
@@ -206,7 +207,7 @@ export default function StatePage(props) {
             {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName}
           </Link>
         </Breadcrumbs>
-        <Grid className="blueBoxWrap">
+        <Grid data-testid = "personalLoan_branch" className="blueBoxWrap">
           <h4 className="branchHeading">
             Personal Loans in{" "}
             <strong>
@@ -225,7 +226,7 @@ export default function StatePage(props) {
                 className="marinerFinanceBuildingImage"
                 src={MarinerFinanceBuilding}
               />
-              <Grid>
+              <Grid data-testid = "branch_address">
                 <span className="branchAddressSpan">
                   {branch_Details?.current?.Address ? branch_Details?.current?.Address : branchList && branchList[ 0 ]?.Address}
                 </span>
@@ -240,7 +241,7 @@ export default function StatePage(props) {
                 </span>
               </Grid>
             </Grid>
-            <Grid item sm={6} md={6} lg={6} className="businessHours">
+            <Grid  data-testid = "businessHours" item sm={6} md={6} lg={6} className="businessHours">
               <span className="businessHoursSpan">
                 Business Hours{" "}
                 <InfoIcon
@@ -276,7 +277,7 @@ export default function StatePage(props) {
                 ""
               )}
               <hr />
-              <Grid className="branchManager">
+              <Grid data-testid = "branchManager" className="branchManager">
                 <small>Branch Manager</small>
                 <br />
                 <span>{branch_Details?.current?.branchManager ? branch_Details?.current?.branchManager : branchList && branchList[ 0 ]?.branchManager}</span>
@@ -284,7 +285,8 @@ export default function StatePage(props) {
             </Grid>
           </Grid>
           <Grid className="secondaryButtonWrap" container>
-            <ButtonSecondary
+            <ButtonSecondary 
+            data-testid = "directionButton"
               onClick={() => {
                 setBranchAddress(
                   `https://www.google.com/maps/search/${ branch_Details?.current?.Address ? branch_Details?.current?.Address : branchList && branchList[ 0 ]?.Address }`
@@ -369,12 +371,13 @@ export default function StatePage(props) {
         <Typography className="applyOnlineHeading">
           {"Can't get to a branch? No worries, apply for an online loan today!"}
         </Typography>
-        <Typography className="applyOnlineParagraph">
+        <Typography data-testid = "applynowHeader" className="applyOnlineParagraph">
           Apply now! Loans starting from $1k up to $25k | Fast Application |
           Quick Decision | ACH Money Transfers Available
         </Typography>
         <Grid container className="applyOnlineButton">
           <ButtonPrimary
+          data-testid = "applynowButton"
             onClick={ApplyOnlineLoan}
             stylebutton='{"padding":"0px 30px","fontWeight":"400", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
           >
@@ -437,7 +440,7 @@ export default function StatePage(props) {
   );
 
   const DisplayBranchMap = (
-    <Grid className="branchMap">
+    <Grid data-testid = "branchMap" className="branchMap">
       <Map
         googleMap={googleMap}
         CurrentLocation={currentLocation}
@@ -447,8 +450,8 @@ export default function StatePage(props) {
   );
   //View part
   return (
-    <div>
-      <Helmet>
+    <div data-testid = "branchpage_component">
+      <Helmet >
         <meta charSet="utf-8" />
         <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
         <meta
