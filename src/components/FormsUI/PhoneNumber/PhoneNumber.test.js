@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, act } from '@testing-library/react';
 import React from 'react';
 import PhoneNumber from './index.js';
 
@@ -10,6 +10,7 @@ const component = () => {
       placeholder="Enter your phone number"
       data-testid="phone"
       type="text"
+      value="1231231234"
       materialProps={{ maxLength: "14" }}
     />
   );
@@ -23,17 +24,23 @@ test('Check PhoneField availability', () => {
   expect(input.hasAttribute('name')).toBe(true);
 });
 
-test('PhoneNumber Visibility test', () => {
+test('PhoneNumber Visibility test', async () => {
   const container = render(component());
   const input = container.getByTestId('phone');
-  fireEvent.change(input, { target: { value: "1234567890" } });
-  expect(input.value).toBe('(123) 456-7890');
+  await act(() => {
+		fireEvent.change(input, { target: { value: "1234567890" } });
+		fireEvent.blur(input);
+	});
+  expect(input.value).toBe('(***) ***-7890');
 })
 
-test('PhoneNumber prevent alphabet Test', () => {
+test('PhoneNumber prevent alphabet Test', async () => {
   const container = render(component());
-  const input = container.getByTestId('phone');
-  fireEvent.change(input, { target: { value: "abcde" } });
+  const input = container.getByTestId('phone');  
+  await act(() => {
+		fireEvent.change(input, { target: { value: "abcde" } });
+		fireEvent.blur(input);
+	});
   expect(input.value).toBe('');
 })
 

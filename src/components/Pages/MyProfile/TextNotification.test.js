@@ -120,7 +120,7 @@ test("Check number masking after entering phone number", async () => {
 		fireEvent.change(element, { target: { value: "1231231235" } });
 		fireEvent.blur(element);
 	});
-	expect(element.value).toBe('(123) 123-1235');
+	expect(element.value).toBe('(***) ***-1235');
 });
 
 test("Check can able to select terms check box UI", () => {
