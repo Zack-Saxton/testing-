@@ -313,6 +313,7 @@ function DocumentIdAndPhotoId(props) {
     return (
       <>
         <ButtonPrimary
+        data-testId = "render_selectDocument"
           onClick={handleMenuOpen}
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
         >
@@ -343,6 +344,7 @@ function DocumentIdAndPhotoId(props) {
               Select from Existing Files
               <input
                 id="selectFile"
+                data-testid="selectFile"
                 accept="image/png, image/jpeg, application/pdf, image/jpg "
                 style={{ display: "none" }}
                 type="file"
@@ -354,7 +356,7 @@ function DocumentIdAndPhotoId(props) {
           </MenuItem>
           <MenuItem>
             <a to="/faq" className="nav_link ">
-              <Typography className={classes.dropdownMenu} onClick={() => enableCameraOption()}>
+              <Typography data-testid = "render_uploadFromCamera" className={classes.dropdownMenu} onClick={() => enableCameraOption()}>
                 Upload from Camera
               </Typography>
             </a>
@@ -520,7 +522,7 @@ function DocumentIdAndPhotoId(props) {
           <CircularProgress />
         </Grid>
         :
-        <Grid>
+        <Grid  data-testid = "render_CheckList">
           <span className={classes.ensureTitle}>
             Please upload an image of your driver’s license, passport, state-issued
             photo ID card, or military/federal government photo ID.
@@ -573,6 +575,7 @@ function DocumentIdAndPhotoId(props) {
             {fileOptionDesignSelfie(refSelfieChangeEvent, "user")}
             <Grid className={classes.nextButton} container>
               <ButtonPrimary
+               data-testid = "render_NextButton"
                 stylebutton='{"color": ""}'
                 disabled={disableNext}
                 onClick={uploadDocument}

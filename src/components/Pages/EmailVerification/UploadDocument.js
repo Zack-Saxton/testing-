@@ -216,6 +216,7 @@ function UploadDocument(props) {
       <>
         <ButtonPrimary
           onClick={handleMenuOpen}
+          data-testId = "render_selectDocument"
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
         >
           {props.title ?? 'Select Your Document'}
@@ -245,6 +246,7 @@ function UploadDocument(props) {
               Select from Existing Files
               <input
                 id="selectFile"
+                data-testid="selectFile"
                 accept="image/png, image/jpeg, application/pdf, image/jpg "
                 style={{ display: "none" }}
                 type="file"
@@ -256,7 +258,7 @@ function UploadDocument(props) {
           </MenuItem>
           <MenuItem>
             <a to="/faq" className="nav_link ">
-              <Typography className={classes.dropdownMenu} onClick={enableCameraOption}>
+              <Typography data-testid = "render_uploadFromCamera" className={classes.dropdownMenu} onClick={enableCameraOption}>
                 Upload from Camera
               </Typography>
             </a>
@@ -314,6 +316,7 @@ function UploadDocument(props) {
             id="buttonMarginRight"
             stylebutton='{"color": "black", "borderRadius": "50px"}'
             onClick={props.prev}
+            data-testid = "render_prevButton"
           >
             Prev
           </ButtonSecondary>
@@ -321,6 +324,7 @@ function UploadDocument(props) {
             stylebutton='{"color": ""}'
             disabled={disableNext}
             onClick={UploadDocument}
+            data-testid = "render_nextButton"
           >
             Next
           </ButtonPrimary>

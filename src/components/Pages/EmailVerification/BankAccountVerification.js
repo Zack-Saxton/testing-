@@ -8,7 +8,7 @@ function BankAccountVerification(props) {
   const classes = useStylesEmailVerification();
 
   return (
-    <Grid>
+    <Grid data-testid = "BankAccountVerification_component">
       <ul className={classes.ulText}>
         <li className={classes.exampleText}>
           Please upload a voided personal check for the bank account you
