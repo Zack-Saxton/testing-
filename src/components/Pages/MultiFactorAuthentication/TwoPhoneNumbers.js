@@ -21,18 +21,20 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
   const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [popUp, setPopUp] = useState(false);
+  const [spopUp, ssetPopUp] = useState(false);
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
   const handlePopUp = () => {
-		setPopUp(true);
+    (cellPhoneNumber === optionalPhoneNumber) ? ssetPopUp(true) : setPopUp(true);
 	};
-
   const handlePopUpClose = () => {
     setPopUp(false);
   }
-
+  const handlesPopUpClose = () =>{
+    ssetPopUp(false);
+  }
   const handleClick = async() =>{
     if (selectionValue !== 'security questions'){ 
       const passCodeResponse = await sendPassCode(selectionValue);
@@ -120,6 +122,10 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
       <Popup maxWidth="sm" popupFlag={popUp} closePopup={handlePopUpClose} title="Select your preferred Phone Number">
         <PhoneNumberPopUp cellPhoneNumber={cellPhoneNumber} optionalPhoneNumber={optionalPhoneNumber} setSelection={setSelection}/>
       </Popup>
+      <Popup maxWidth="sm" popupFlag={spopUp} closePopup={handlesPopUpClose} title="Select your preferred Phone Number">
+        <PhoneNumberPopUp cellPhoneNumber={cellPhoneNumber} setSelection={setSelection}/>
+      </Popup>
+
     </div>
   )
 }

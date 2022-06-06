@@ -55,7 +55,7 @@ let setSelection = props.setSelection;
                   control={<Radio data-testid = "radio_primary_phone" color="primary" onClick={()=>setSelection(`${cellPhoneNumber}`)} />}
                   label={securityCode(cellPhoneNumber)}
                 />
-                <FormControlLabel
+                <FormControlLabel style={{ display: optionalPhoneNumber ? 'flex' : 'none'}}
                   className={classes.smallRadioButton}
                   value={optionalPhoneNumber}
                   control={<Radio color="primary" onClick={()=>setSelection(`${optionalPhoneNumber}`)} />}

@@ -72,6 +72,5 @@ it("Check number of Recent Applications", () => {
   }));
 
   render(MockRecentApplications());
-  screen.debug(undefined,10000000);
   expect(screen.getAllByTestId('with_Data')).toHaveLength(1);
 });
