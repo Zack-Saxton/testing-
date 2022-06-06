@@ -77,8 +77,8 @@ const MFASelectSecurityQuestions = () => {
   const [ questions, setQuestions ] = useState([]);
   const [ loading, setLoading ] = useState(false);
   const [ questionOption, setQuestionOption ] = useState([]);
-  const [ selectedQuestions, setSelectedQuestions ] = useState([]);
-  let constQuestions;
+  const [ selectQuestionArray, setSelectQuestionArry ] = useState([null, null, null, null, null])
+const [ selectOptionArray, setSelectOptionArray ] = useState([[], [], [], [], []])
 
     //Form Submission
     const formik = useFormik({
@@ -150,14 +150,6 @@ let selectedQuestionStructured =
       },
     });
 
-    // const handleAdd = (selectData) => {
-    //   const newRecord = [ ...selectData ];
-    //   // newRecord.push(selectedOffer);
-    //   setSelectedQuestions(newRecord);  
-    // };
-
-
-
 
 
   const getMFAQuestion = async () => {
@@ -171,7 +163,13 @@ let selectedQuestionStructured =
       })
     })
     setQuestionOption(mfaQuestionsArray);
-    constQuestions = mfaQuestionsArray;
+    let temp = [...selectOptionArray];
+    temp[0] = mfaQuestionsArray;
+    temp[1] = mfaQuestionsArray;
+    temp[2] = mfaQuestionsArray;
+    temp[3] = mfaQuestionsArray;
+    temp[4] = mfaQuestionsArray;
+    setSelectOptionArray(temp)
   }
 
   const preventSpace = (event) => {
@@ -181,52 +179,27 @@ let selectedQuestionStructured =
   };
 
 
-  const onClickSave = async () => {
-    if (selectedQuestions.length === 5) {
-      setLoading(true);
-      let selectedQuestionsArray = [];
-      selectedQuestions.forEach((question) => {
-        selectedQuestionsArray.push({
-          question_id: question.id,
-          answer: question.answer
-        })
-      })
 
-      let answerData = {
-        "email": userEmail,
-        "deviceType": navigator.userAgent,
-        "securityQuestions": selectedQuestionsArray
-      }
-      let verify = await saveSecurityAnswer(answerData);
-      if (!verify?.data?.hasError && verify?.data?.result === "Ok" && verify?.data?.statusCode === 200) {
-        setLoading(false)
-        toast.success(verify?.data?.Message);
-        navigate("/resetpassword", { state: { Email: userEmail }})
-      }
-      else if (verify?.data?.hasError || verify?.data?.Message) {
-        setLoading(false)
-        toast.error(verify?.data?.Message);
-      }
-      else {
-        setLoading(false)
-        toast.error("Network error, please try again");
-      }
-    } else {
-      toast.error("please slect 5 questions");
-    }
+
+  const handleOnChangeQuestions = (event, index) => {
+
+    formik.handleChange(event);
+    let temp = [...selectQuestionArray];
+    temp[index] = event.target.value;
+    setSelectQuestionArry(temp);
+    
   }
 
 
 
-  const filterSelectOption = (options) => {
-    let finalOptionArray = options;
-    options.map((option) => {
-      if(option.value === formik.values.question1 || option.value === formik.values.question2 ){
-        finalOptionArray.splice( finalOptionArray.findIndex((finOption) => finOption.value === option.value), 1);
-      }
-    })
-    return finalOptionArray;
-  } 
+  const getAvailableOptions = (inde) => {
+    const availableOptionsLeft = questionOption;
+    return availableOptionsLeft.filter(questionOptions => {
+
+        return selectQuestionArray.indexOf(questionOptions.value) === -1 || selectQuestionArray.indexOf(questionOptions.value) === inde;
+
+    });
+};
 
   useEffect(() => {
 
@@ -234,9 +207,7 @@ let selectedQuestionStructured =
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
 
-  }, [selectedQuestions]);
 
 
   return (
@@ -280,13 +251,13 @@ let selectedQuestionStructured =
                           labelform="Question 1"
                           value={formik.values.question1}
                           onChange={ (event) => {
-
-                            formik.handleChange(event);
+                            handleOnChangeQuestions(event, 0)
                           }}
                           onBlur={formik.handleBlur}
                           error={(formik.touched.question1 && Boolean(formik.errors.question1))}
                           helperText={formik.touched.question1 && formik.errors.question1 }
-                          select={JSON.stringify(questionOption)}
+                          select={JSON.stringify(getAvailableOptions(0))}
+
                         />      
                         </Grid>
                         <Grid className="answerGrid" container item md={6}  style={{ padding: "10px" }}>
@@ -314,11 +285,14 @@ let selectedQuestionStructured =
                           name="question2"
                           labelform="Question 2"
                           value={formik.values.question2}
-                          onChange={formik.handleChange}
+                          onChange={ (event) => {
+                            handleOnChangeQuestions(event, 1)
+                          }}
                           onBlur={formik.handleBlur}
                           error={(formik.touched.question2 && Boolean(formik.errors.question2))}
-                          helperText={formik.touched.question2 && formik.errors.question2 }
-                          select={JSON.stringify(questionOption)}
+                          helperText={formik.touched.question2 && formik.errors.question2 } 
+                          select={JSON.stringify(getAvailableOptions(1))}
+
                         />      
                         </Grid>
                         <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
@@ -346,11 +320,14 @@ let selectedQuestionStructured =
                           name="question3"
                           labelform="Question 3"
                           value={formik.values.question3}
-                          onChange={formik.handleChange}
+                          onChange={ (event) => {
+                            handleOnChangeQuestions(event, 2)
+                          }}
                           onBlur={formik.handleBlur}
                           error={(formik.touched.question3 && Boolean(formik.errors.question3))}
-                          helperText={formik.touched.question3 && formik.errors.question3 } 
-                          select={JSON.stringify(questionOption)}
+                          helperText={formik.touched.question3 && formik.errors.question3 }  
+                          select={JSON.stringify(getAvailableOptions(2))} 
+
                         />      
                         </Grid>
                         <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
@@ -376,13 +353,16 @@ let selectedQuestionStructured =
                       <Select
                           id="question4"
                           name="question4"
-                          labelform="Question 4"
-                          value={formik.values.question4}
-                          onChange={formik.handleChange}
+                          labelform="Question 4"      
+                          value={formik.values.question4}                    
+                          onChange={ (event) => {
+                            handleOnChangeQuestions(event, 3)
+                          }}
                           onBlur={formik.handleBlur}
                           error={(formik.touched.question4 && Boolean(formik.errors.question4))}
-                          helperText={formik.touched.question4 && formik.errors.question4 }
-                          select={JSON.stringify(questionOption)}
+                          helperText={formik.touched.question4 && formik.errors.question4 } 
+                          select={JSON.stringify(getAvailableOptions(3))} 
+
                         />      
                         </Grid>
                         <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
@@ -410,11 +390,13 @@ let selectedQuestionStructured =
                           name="question5"
                           labelform="Question 5"
                           value={formik.values.question5}
-                          onChange={formik.handleChange}
+                          onChange={ (event) => {
+                            handleOnChangeQuestions(event, 4)
+                          }}
                           onBlur={formik.handleBlur}
                           error={(formik.touched.question5 && Boolean(formik.errors.question5))}
-                          helperText={formik.touched.question5 && formik.errors.question5 }
-                          select={JSON.stringify(questionOption)}
+                          helperText={formik.touched.question5 && formik.errors.question5 } 
+                          select={JSON.stringify(getAvailableOptions(4))} 
                         />      
                         </Grid>
                         <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
@@ -435,12 +417,9 @@ let selectedQuestionStructured =
                                   />
                         </Grid>
                         </Grid>
-                      </Grid>
-                    
-                    
-                  
+                      </Grid> 
                   : 
-                  <p>Empty</p>
+                  <p>Somthing went wrong</p>
                 }
               </Grid>
             </Grid>
