@@ -191,7 +191,7 @@ export default function EmailVerification() {
   const showConsentsLinks = () => {
     return (
       <>
-        <a>{' '}<span className={classes.linkDesign} onClick={() => { handleOnClickeSign(); }}>E-Signature Disclosure and Consent,</span></a>
+        <a>{' '}<span data-testid = "esignClick" className={classes.linkDesign} onClick={() => { handleOnClickeSign(); }}>E-Signature Disclosure and Consent,</span></a>
         <a>{' '}<span className={classes.linkDesign} onClick={() => { handleOnClickCreditTerms(); }}>Credit and Contact Authorization,</span></a>
         <a>{' '}<span className={classes.linkDesign} onClick={() => { handleOnClickCacTerms(); }}>Website Terms of Use,</span></a>
         <a>{' '}<span className={classes.linkDesign} onClick={() => { handleOnClickWebsiteTerms(); }}>Website Privacy Statement</span></a>
@@ -200,9 +200,9 @@ export default function EmailVerification() {
   }
 
   return (
-    <Grid>
+    <Grid data-testid = "emailVerification_component">
       {isLoading ?
-        <Grid className="circleprog" style={{ width: "100%", textAlign: "center", margin: "20px 0px" }}>
+        <Grid   data-testid="while_Loading" className="circleprog" style={{ width: "100%", textAlign: "center", margin: "20px 0px" }}>
           <CircularProgress />
         </Grid>
         :
@@ -270,7 +270,7 @@ export default function EmailVerification() {
               }
 
             </Grid>
-            <Grid id="checkBoxGrid" className={agreeTerms ? classes.showCheckbox : classes.hideCheckbox}>
+            <Grid data-testid ="checkboxGrid" id="checkBoxGrid" className={agreeTerms ? classes.showCheckbox : classes.hideCheckbox}>
               <Stepper activeStep={activeStep} orientation="vertical">
                 {steps.map((label, index) => (
                   <Step key={Math.random() * 1000}>
@@ -295,6 +295,7 @@ export default function EmailVerification() {
                   Click the Button below to begin the secure loan closing process
                 </Typography>
                 <ButtonPrimary
+                data-testid = "closing_button"
                   onClick={showCoBrowseCodeBox}
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'>
                   Secure Closing Portal
@@ -302,19 +303,19 @@ export default function EmailVerification() {
               </Grid>
             </Grid>
           </Grid>
-          <Popup popupFlag={eSign} title='E-Signature Disclosure and Consent' closePopup={handleOnClickeSignClose}>
+          <Popup data-testid = "eSign" popupFlag={eSign} title='E-Signature Disclosure and Consent' closePopup={handleOnClickeSignClose}>
             <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
             <RenderContent disclosureLink="/eSign" />
           </Popup>
-          <Popup popupFlag={creditTerms} title='Credit and Contact Authorization' closePopup={handleOnClickCreditTermsClose}>
+          <Popup data-testid = "creditTerms" popupFlag={creditTerms} title='Credit and Contact Authorization' closePopup={handleOnClickCreditTermsClose}>
             <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
             <RenderContent disclosureLink="/credit" findContent="<h2>Credit and Contact Authorization</h2>" replaceContent='' />
           </Popup>
-          <Popup popupFlag={cacTerms} title='Website Terms of Use' closePopup={handleOnClickCacTermsClose}>
+          <Popup data-testid = "cacTerms" popupFlag={cacTerms} title='Website Terms of Use' closePopup={handleOnClickCacTermsClose}>
             <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
             <RenderContent disclosureLink="/cacTermsOfUse" findContent="<h2>Terms Of Use</h2>" replaceContent='' />
           </Popup>
-          <Popup popupFlag={websiteTerms} title='Website Privacy Statement' closePopup={handleOnClickWebsiteTermsClose}>
+          <Popup data-testid = "websiteTerms" popupFlag={websiteTerms} title='Website Privacy Statement' closePopup={handleOnClickWebsiteTermsClose}>
             <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
             <RenderContent disclosureLink="/websiteAccessibility" findContent="<h2>Website Privacy Statement</h2>" replaceContent='' />
           </Popup>

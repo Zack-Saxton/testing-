@@ -7,7 +7,7 @@ import UploadDocument from "./UploadDocument";
 function IncomeVerification(props) {
   const classes = useStylesEmailVerification();
   return (
-    <Grid>
+    <Grid data-testid = "incomeVerification_component">
       <ul className={classes.ulText}>
         <li className={classes.exampleText}>
           Recent Pay Statements (your most recent), or most recent Benefits
@@ -18,6 +18,7 @@ function IncomeVerification(props) {
       </ul>
       <Grid item sm={12} md={6} >
         <UploadDocument
+       
           title="Select Your Document"
           applicationNumber={props.applicationNumber}
           customerEmail={props.customerEmail}
