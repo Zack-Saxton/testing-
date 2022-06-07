@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
-import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField } from "../../../FormsUI";
+import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField, PhoneNumber } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 
 const useStyles = makeStyles((Theme) => ({
@@ -166,14 +166,16 @@ export default function PhoneVerification(props) {
 					className="textBlock"
 					id="applyForLoanPhone"
 				>
-					<TextField
+					<PhoneNumber
 						name="phone"
 						label="Phone number *"
 						id="phone"
 						type="text"
 						onKeyDown={preventSpace}
 						value={formik.values.phone ? phoneNumberMask(formik.values.phone) : ""}
-						onChange={formik.handleChange}
+						onLoad={formik.handleChange}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
 						disabled={true}
 						error={formik.touched.phone && Boolean(formik.errors.phone)}
 						helperText={formik.touched.phone && formik.errors.phone}
