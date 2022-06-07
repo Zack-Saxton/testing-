@@ -58,9 +58,7 @@ test("Select Document Type ", () => {
 
 test("Upload button renders and functions ", () => {
   render(component());
-
   const uploadBtn = screen.getByTestId("uploadButton");
-
 });
 
 
