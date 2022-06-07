@@ -9,12 +9,14 @@ import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useRef, useState } from "react";
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import getClientIp from "../../Controllers/CommonController";
-import LoginController, { RegisterController } from "../../Controllers/LoginController";
+import LoginController, {
+  RegisterController,
+} from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
 import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
@@ -26,7 +28,7 @@ import {
   PasswordField,
   SocialSecurityNumber,
   TextField,
-  Zipcode
+  Zipcode,
 } from "../../FormsUI";
 import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
 import { encryptAES } from "../../lib/Crypto";
@@ -42,15 +44,14 @@ const validationSchema = formValidation.getFormValidationRule("");
 
 //Begin: Login page
 export default function Register() {
-
   const classes = useStylesRegister();
-  const [ validZip, setValidZip ] = useState(true);
-  const [ state, setState ] = useState("");
-  const [ city, setCity ] = useState("");
-  const [ successPopup, setSuccessPopup ] = useState(false);
-  const [ failed, setFailed ] = useState("");
-  const [ loading, setLoading ] = useState(false);
-  const [ disableRecaptcha, setDisableRecaptcha ] = useState(true);
+  const [validZip, setValidZip] = useState(true);
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [successPopup, setSuccessPopup] = useState(false);
+  const [failed, setFailed] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [disableRecaptcha, setDisableRecaptcha] = useState(true);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   let refFirstName = useRef();
@@ -60,13 +61,15 @@ export default function Register() {
     try {
       let grecaptchaResponse = grecaptcha.getResponse();
       let ipAddress = await getClientIp();
-      let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ipAddress);
+      let recaptchaVerifyResponse = await RecaptchaValidationController(
+        grecaptchaResponse,
+        ipAddress
+      );
 
       if (recaptchaVerifyResponse.status === 200) {
         toast.success(globalMessages.Recaptcha_Verify);
         setDisableRecaptcha(false);
-      }
-      else {
+      } else {
         toast.error(globalMessages.Recaptcha_Error);
         grecaptcha.reset();
         setDisableRecaptcha(true);
@@ -87,7 +90,11 @@ export default function Register() {
 
   const loginUser = async (values) => {
     try {
-      let retrivedValue = await LoginController(values.email, values.password, "");
+      let retrivedValue = await LoginController(
+        values.email,
+        values.password,
+        ""
+      );
       if (retrivedValue?.data?.user && retrivedValue?.data?.userFound) {
         let rememberMe = false;
         let now = new Date().getTime();
@@ -97,7 +104,8 @@ export default function Register() {
           "token",
           JSON.stringify({
             isLoggedIn: true,
-            apiKey: retrivedValue?.data?.user?.extensionattributes?.login?.jwt_token,
+            apiKey:
+              retrivedValue?.data?.user?.extensionattributes?.login?.jwt_token,
             setupTime: now,
           })
         );
@@ -113,19 +121,30 @@ export default function Register() {
         queryClient.removeQueries();
         rememberMe
           ? Cookies.set(
-            "rememberMe",
-            JSON.stringify({
-              isLoggedIn: true,
-              apiKey: retrivedValue?.data?.user?.extensionattributes?.login?.jwt_token,
-              setupTime: now,
-            })
-          )
-          : Cookies.set("rememberMe", JSON.stringify({ selected: false, email: "", password: "" }));
+              "rememberMe",
+              JSON.stringify({
+                isLoggedIn: true,
+                apiKey:
+                  retrivedValue?.data?.user?.extensionattributes?.login
+                    ?.jwt_token,
+                setupTime: now,
+              })
+            )
+          : Cookies.set(
+              "rememberMe",
+              JSON.stringify({ selected: false, email: "", password: "" })
+            );
 
         setLoading(false);
         navigate("/customers/accountoverview");
-      } else if (retrivedValue?.data?.result === "error" || retrivedValue?.data?.hasError) {
-        Cookies.set("token", JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" }));
+      } else if (
+        retrivedValue?.data?.result === "error" ||
+        retrivedValue?.data?.hasError
+      ) {
+        Cookies.set(
+          "token",
+          JSON.stringify({ isLoggedIn: false, apiKey: "", setupTime: "" })
+        );
         setLoading(false);
       } else {
         setLoading(false);
@@ -147,7 +166,7 @@ export default function Register() {
       zip: "",
       ssn: "",
       dob: null,
-      isRegisterForm: 1
+      isRegisterForm: 1,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -162,8 +181,8 @@ export default function Register() {
         zip_code: values.zip,
         password: values.password,
         birth_year: values.dob.getFullYear().toString(),
-        birth_month: String(values.dob.getMonth() + 1).padStart(2, '0'),
-        birth_day: String(values.dob.getDate()).padStart(2, '0'),
+        birth_month: String(values.dob.getMonth() + 1).padStart(2, "0"),
+        birth_day: String(values.dob.getDate()).padStart(2, "0"),
         address_street: "",
         address_city: city,
         address_state: state,
@@ -173,18 +192,21 @@ export default function Register() {
         let customerStatus = await RegisterController(body);
 
         if (
-          (!customerStatus.data?.customerFound && !customerStatus.data?.userFound
-            && !customerStatus.data?.is_registration_failed && customerStatus?.status === 200)
+          !customerStatus.data?.customerFound &&
+          !customerStatus.data?.userFound &&
+          !customerStatus.data?.is_registration_failed &&
+          customerStatus?.status === 200
         ) {
           //On succes, calls the login API to the JWT token and save it in storage, and make the user logged in and redirecting to home page
           loginUser(values);
           toast.success(globalMessages.Registration_Success);
-        }
-        else if (customerStatus.data?.result === "succcces" && customerStatus.data?.successMessage === "Password reset successful") {
+        } else if (
+          customerStatus.data?.result === "succcces" &&
+          customerStatus.data?.successMessage === "Password reset successful"
+        ) {
           toast.success(customerStatus.data?.successMessage);
           loginUser(values);
-        }
-        else if (
+        } else if (
           customerStatus?.data?.result === "error" &&
           customerStatus?.data?.hasError
         ) {
@@ -200,7 +222,7 @@ export default function Register() {
       } catch (error) {
         setFailed(globalMessages.Please_Contact_Us_At);
         setLoading(false);
-        ErrorLogger('Error from register_new_user API', error);
+        ErrorLogger("Error from register_new_user API", error);
       }
     },
   });
@@ -265,7 +287,7 @@ export default function Register() {
   };
 
   const andLogic = (valueOne, valueTwo) => {
-    return (valueOne && valueTwo);
+    return valueOne && valueTwo;
   };
 
   //View Part
@@ -308,71 +330,65 @@ export default function Register() {
                 </p>
 
                 <form onSubmit={formik.handleSubmit}>
-                  <Grid
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                  >
+                  <Grid container justifyContent="center" alignItems="center">
                     <Grid container>
-                    <Grid
-                      className="fullWidth"
-                      item
-                      xs={12}
-                      sm={6}
-                      container
-                      direction="row"
-                    >
-                      <TextField
-                        className={classes.paddingRight}
-                        name="firstName"
-                        id="firstName"
-                        label="First Name *"
-                        placeholder={globalMessages.FirstNameEnter}
-                        materialProps={{ maxLength: "30", ref: refFirstName, }}
-                        value={formik.values.firstName}
-                        onChange={(event) => NameChange(event)}
-                        onBlur={formik.handleBlur}
-                        error={
-                          andLogic(formik.touched.firstName, Boolean(formik.errors.firstName))
+                      <Grid
+                        className="fullWidth"
+                        item
+                        xs={12}
+                        sm={6}
+                        container
+                        direction="row"
+                      >
+                        <TextField
+                          className={classes.paddingRight}
+                          name="firstName"
+                          id="firstName"
+                          label="First Name *"
+                          placeholder={globalMessages.FirstNameEnter}
+                          materialProps={{ maxLength: "30", ref: refFirstName }}
+                          value={formik.values.firstName}
+                          onChange={(event) => NameChange(event)}
+                          onBlur={formik.handleBlur}
+                          error={andLogic(
+                            formik.touched.firstName,
+                            Boolean(formik.errors.firstName)
+                          )}
+                          helperText={andLogic(
+                            formik.touched.firstName,
+                            formik.errors.firstName
+                          )}
+                        />
+                      </Grid>
 
-                        }
-                        helperText={
-                          andLogic(formik.touched.firstName, formik.errors.firstName)
-
-                        }
-                      />
-                    </Grid>
-
-                    <Grid
-                      className="fullWidth"
-                      item
-                      xs={12}
-                      sm={6}
-                      container
-                      direction="row"
-                    >
-                      <TextField
-                        className={classes.paddingBottom}
-                        name="lastName"
-                        id="lastName"
-                        label="Last Name *"
-                        placeholder={globalMessages.LastNameEnter}
-                        materialProps={{ maxLength: "30", ref: refLastName }}
-                        value={formik.values.lastName}
-                        onChange={NameChange}
-                        onBlur={formik.handleBlur}
-                        error={
-
-                          andLogic(formik.touched.lastName, Boolean(formik.errors.lastName)
-
-                          )
-                        }
-                        helperText={
-                          andLogic(formik.touched.lastName, formik.errors.lastName)
-
-                        }
-                      />
-                    </Grid>
+                      <Grid
+                        className="fullWidth"
+                        item
+                        xs={12}
+                        sm={6}
+                        container
+                        direction="row"
+                      >
+                        <TextField
+                          className={classes.paddingBottom}
+                          name="lastName"
+                          id="lastName"
+                          label="Last Name *"
+                          placeholder={globalMessages.LastNameEnter}
+                          materialProps={{ maxLength: "30", ref: refLastName }}
+                          value={formik.values.lastName}
+                          onChange={NameChange}
+                          onBlur={formik.handleBlur}
+                          error={andLogic(
+                            formik.touched.lastName,
+                            Boolean(formik.errors.lastName)
+                          )}
+                          helperText={andLogic(
+                            formik.touched.lastName,
+                            formik.errors.lastName
+                          )}
+                        />
+                      </Grid>
                     </Grid>
 
                     <Grid
@@ -393,85 +409,111 @@ export default function Register() {
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={andLogic(formik.touched.email, Boolean(formik.errors.email))}
-                        helperText={andLogic(formik.touched.email, formik.errors.email)}
+                        error={andLogic(
+                          formik.touched.email,
+                          Boolean(formik.errors.email)
+                        )}
+                        helperText={andLogic(
+                          formik.touched.email,
+                          formik.errors.email
+                        )}
                       />
                     </Grid>
 
                     <Grid className={classes.inputWrap} container>
-                    <Grid
-                      id="socialNum"
-                      item
-                      xs={12}
-                      sm={4}
-                      container
-                      direction="row"
-                    >
-                      <SocialSecurityNumber
-                        name="ssn"
-                        label="Social Security Number *"
-                        placeholder={globalMessages.SSNEnter}
-                        id="ssn"
-                        type="ssn"
-                        value={formik.values.ssn}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={andLogic(formik.touched.ssn, Boolean(formik.errors.ssn))}
-                        helperText={andLogic(formik.touched.ssn, formik.errors.ssn)}
-                      />
-                    </Grid>
-                    <Grid
-                      className={classes.paddingLeft}
-                      id="ZipcodeWrap"
-                      item
-                      xs={12}
-                      sm={4}
-                      container
-                      direction="row"
-                    >
-                      <Zipcode
-                        fullWidth
-                        id="zip"
-                        name="zip"
-                        label="Zip Code *"
-                        placeholder={globalMessages.ZipCodeEnter}
-                        value={formik.values.zip}
-                        onChange={fetchAddress}
-                        onBlur={formik.handleBlur}
-                        error={(formik.touched.zip && Boolean(formik.errors.zip)) || !validZip}
-                        helperText={validZip ? formik.touched.zip && formik.errors.zip : `${ globalMessages.ZipCodeValid }`}
-                      />
-                    </Grid>
+                      <Grid
+                        id="socialNum"
+                        item
+                        xs={12}
+                        sm={4}
+                        container
+                        direction="row"
+                      >
+                        <SocialSecurityNumber
+                          name="ssn"
+                          label="Social Security Number *"
+                          placeholder={globalMessages.SSNEnter}
+                          id="ssn"
+                          type="ssn"
+                          value={formik.values.ssn}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          error={andLogic(
+                            formik.touched.ssn,
+                            Boolean(formik.errors.ssn)
+                          )}
+                          helperText={andLogic(
+                            formik.touched.ssn,
+                            formik.errors.ssn
+                          )}
+                        />
+                      </Grid>
+                      <Grid
+                        className={classes.paddingLeft}
+                        id="ZipcodeWrap"
+                        item
+                        xs={12}
+                        sm={4}
+                        container
+                        direction="row"
+                      >
+                        <Zipcode
+                          fullWidth
+                          id="zip"
+                          name="zip"
+                          label="Zip Code *"
+                          placeholder={globalMessages.ZipCodeEnter}
+                          value={formik.values.zip}
+                          onChange={fetchAddress}
+                          onBlur={formik.handleBlur}
+                          error={
+                            (formik.touched.zip &&
+                              Boolean(formik.errors.zip)) ||
+                            !validZip
+                          }
+                          helperText={
+                            validZip
+                              ? formik.touched.zip && formik.errors.zip
+                              : `${globalMessages.ZipCodeValid}`
+                          }
+                        />
+                      </Grid>
 
-                    <Grid
-                      className={classes.paddingLeft}
-                      id="dateWrap"
-                      item
-                      xs={12}
-                      sm={4}
-                      container
-                      direction="row"
-                      data-testid="dobtest"
-                    >
-                      <DatePicker
-                        name="dob"
-                        label="Date of Birth *"
-                        id="dob"
-                        placeholder="MM/DD/YYYY"
-                        format="MM/dd/yyyy"
-                        autoComplete="off"
-                        maxdate={myDate}
-                        minyear={102}
-                        value={formik.values.dob}
-                        onChange={(values) => {
-                          formik.values.dob = values;
-                          formik.setFieldValue("dob", values);
-                        }}
-                        onBlur={formik.handleBlur}
-                        error={andLogic(formik.touched.dob, Boolean(formik.errors.dob))}
-                        helperText={andLogic(formik.touched.dob, formik.errors.dob)}
-                      />
-                    </Grid>
+                      <Grid
+                        className={classes.paddingLeft}
+                        id="dateWrap"
+                        item
+                        xs={12}
+                        sm={4}
+                        container
+                        direction="row"
+                        data-testid="dobtest"
+                      >
+                        <DatePicker
+                          name="dob"
+                          label="Date of Birth *"
+                          id="dob"
+                          placeholder="MM/DD/YYYY"
+                          format="MM/dd/yyyy"
+                          autoComplete="off"
+                          maxdate={myDate}
+                          minyear={102}
+                          value={formik.values.dob}
+                          onChange={(values) => {
+                            formik.values.dob = values;
+                            formik.setFieldValue("dob", values);
+                          }}
+                          onBlur={formik.handleBlur}
+                          error={andLogic(
+                            formik.touched.dob,
+                            Boolean(formik.errors.dob)
+                          )}
+                          helperText={andLogic(
+                            formik.touched.dob,
+                            formik.errors.dob
+                          )}
+                        />
+                      </Grid>
                     </Grid>
 
                     <Grid
@@ -492,35 +534,90 @@ export default function Register() {
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={andLogic(formik.touched.password, Boolean(formik.errors.password))
-
-                        }
-                        helperText={
-                          andLogic(formik.touched.password, formik.errors.password)
-
-                        }
+                        error={andLogic(
+                          formik.touched.password,
+                          Boolean(formik.errors.password)
+                        )}
+                        helperText={andLogic(
+                          formik.touched.password,
+                          formik.errors.password
+                        )}
                       />
-                     <ul className="error-validation">
-                <span>
-              <li className={((formik?.values?.password).length >= 10 && (formik?.values?.password).length < 30) ? "validation-success" : "validation-failed"}>
-                Between 10 and 30 characters in length
-                </li>
-              <li className={/[A-Z]/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
-                At least 1 uppercase letter
-              </li>
-              <li className={/[a-z]/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
-                At least 1 lowercase letter
-                </li>
-                </span>
-                <span>
-              <li className={/\d/.test(formik?.values?.password) ? "validation-success" : "validation-failed" }>
-                At least 1 number
-              </li>
-              <li className={/[*@!#$%()^~{}]+/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
-                At least 1 special character.
-              </li>
-              </span>
-              </ul>
+                      <Grid className="errorValidationWrap" container>
+                        <Grid
+                          className="errorValidationOne"
+                          item
+                          md={7}
+                          sm={7}
+                          xs={12}
+                        >
+                          <ul>
+                            <span>
+                              <li
+                                className={
+                                  (formik?.values?.password).length >= 10 &&
+                                  (formik?.values?.password).length < 30
+                                    ? "validation-success"
+                                    : "validation-failed"
+                                }
+                              >
+                                Between 10 and 30 characters in length
+                              </li>
+                              <li
+                                className={
+                                  /[A-Z]/.test(formik?.values?.password)
+                                    ? "validation-success"
+                                    : "validation-failed"
+                                }
+                              >
+                                At least 1 uppercase letter
+                              </li>
+                              <li
+                                className={
+                                  /[a-z]/.test(formik?.values?.password)
+                                    ? "validation-success"
+                                    : "validation-failed"
+                                }
+                              >
+                                At least 1 lowercase letter
+                              </li>
+                            </span>
+                          </ul>
+                        </Grid>
+
+                        <Grid
+                          className="errorValidationTwo"
+                          item
+                          md={5}
+                          sm={5}
+                          xs={12}
+                        >
+                          <ul>
+                            <span>
+                              <li
+                                className={
+                                  /\d/.test(formik?.values?.password)
+                                    ? "validation-success"
+                                    : "validation-failed"
+                                }
+                              >
+                                At least 1 number
+                              </li>
+                              <li
+                                className={
+                                  /[*@!#$%()^~{}]+/.test(
+                                    formik?.values?.password
+                                  )
+                                    ? "validation-success"
+                                    : "validation-failed"
+                                }
+                              >
+                                At least 1 special character.
+                              </li>
+                            </span>
+                          </ul>
+                        </Grid>
+                      </Grid>
                     </Grid>
                     <Grid
                       className="confirmPasswordGrid"
@@ -540,11 +637,14 @@ export default function Register() {
                         value={formik.values.confirmPassword}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={andLogic(formik.touched.confirmPassword, Boolean(formik.errors.confirmPassword))
-                        }
-                        helperText={
-                          andLogic(formik.touched.confirmPassword, formik.errors.confirmPassword)
-                        }
+                        error={andLogic(
+                          formik.touched.confirmPassword,
+                          Boolean(formik.errors.confirmPassword)
+                        )}
+                        helperText={andLogic(
+                          formik.touched.confirmPassword,
+                          formik.errors.confirmPassword
+                        )}
                       />
                       <br />
                       <p
@@ -560,7 +660,7 @@ export default function Register() {
                       </p>
                     </Grid>
 
-                    <Grid >
+                    <Grid>
                       <Recaptcha />
                     </Grid>
 

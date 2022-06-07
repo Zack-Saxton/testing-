@@ -1,146 +1,153 @@
 #main-content-background {
-	min-height: 500px;
+  min-height: 500px;
 
-	/* Create the parallax scrolling effect */
-	background-attachment: fixed;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .MuiInput-underline:before {
-	border-bottom: 2px solid #0f4eb3;
+  border-bottom: 2px solid #0f4eb3;
 }
 
 .cardWOPadding {
-	text-align: center;
+  text-align: center;
 }
 
 .cardWrapper {
-	margin-top: 5%;
-	margin-bottom: 2%;
+  margin-top: 5%;
+  margin-bottom: 2%;
 }
 
-
 #dateWrap label {
-	font-size: 16px !important;
+  font-size: 16px !important;
 }
 
 .confirmPasswordGrid {
-	width: 100% !important;
-	padding-bottom: 20px;
+  width: 100% !important;
+  padding-bottom: 20px;
 }
 
 .passwordGrid {
-	width: 100% !important;
+  width: 100% !important;
 }
 
-#dob{
-	padding-bottom: 15px !important;
+#dob {
+  padding-bottom: 15px !important;
 }
 @media (max-width: 599px) {
-	#socialNum {
-		margin-top: 0px !important;
-	}
+  #socialNum {
+    margin-top: 0px !important;
+  }
 
-	#ZipcodeWrap {
-		margin-top: 0px !important;
-	}
+  #ZipcodeWrap {
+    margin-top: 0px !important;
+  }
 }
 
 @media (max-width: 400px) {
-
-	#email-label,
-	#password-label,
-	#c-pass-label,
-	#firstname-label,
-	#lastname-label,
-	#zip-label {
-		font-size: 4vw;
-	}
+  #email-label,
+  #password-label,
+  #c-pass-label,
+  #firstname-label,
+  #lastname-label,
+  #zip-label {
+    font-size: 4vw;
+  }
 }
 
 @media (max-width: 400px) {
-
-	#dob-title,
-	#password-title {
-		font-size: 3vw;
-	}
+  #dob-title,
+  #password-title {
+    font-size: 3vw;
+  }
 }
 
-label+.MuiInput-formControl {
-	background: transparent;
+label + .MuiInput-formControl {
+  background: transparent;
 }
 
 .showError {
-	display: block;
-	color: red;
-	text-align: left;
-	margin-top: 0;
-	margin-bottom: 0;
+  display: block;
+  color: red;
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .hideError {
-	display: none;
+  display: none;
 }
 
 .Mui-focused {
-	background-color: transparent !important;
-	color: white;
+  background-color: transparent !important;
+  color: white;
 }
 
 .add-pad {
-	margin-left: -1px !important;
-	padding-top: 20px !important;
-	font-size: 14px !important;
+  margin-left: -1px !important;
+  padding-top: 20px !important;
+  font-size: 14px !important;
 }
 
 #registerMainContent {
-	min-height: 80vh !important;
+  min-height: 80vh !important;
 }
 
 #socialNum div div label {
-	font-size: 0.968rem !important;
+  font-size: 0.968rem !important;
 }
 
 #socialNum div div div input {
-	padding-bottom: 15px !important;
+  padding-bottom: 15px !important;
 }
 
 #firstname,
 #lastname,
 #email,
 #cpass {
-	padding-bottom: 15px !important;
+  padding-bottom: 15px !important;
 }
 
 #firstname-label,
 #lastname-label,
 #email-label,
 #cpass-label {
-	font-size: 0.938rem !important;
-	padding-bottom: 10px !important;
+  font-size: 0.938rem !important;
+  padding-bottom: 10px !important;
 }
-.validation-failed{
-	color:black
+.validation-failed {
+  color: black;
 }
-.validation-success{
-	color:green
+.validation-success {
+  color: green;
 }
-.error-validation li{
-	list-style: none;
+.errorValidationOne li,
+.errorValidationTwo li {
+  list-style: none;
 }
-.error-validation{
-	width: 545px;
-	display:flex;
-	justify-content: space-between;
+.errorValidationWrap {
+  margin: 16px 0px;
 }
-
-.validation-success:before{
-	content:"✓";
+.errorValidationOne {
+  margin: 0px;
+  padding: 0px 0px 0px 0px;
 }
-
-.validation-failed:before{
-	content:"✘";
-	padding:1px;
+.errorValidationOne ul,
+.errorValidationTwo ul {
+  padding: 0px;
+  margin: 0px; 
+}
+.errorValidationTwo {
+  margin: 0px;
+  padding: 0px 0px 0px 0px;
+}
+.validation-success:before {
+  content: "✓";
+}
+.validation-failed:before {
+  content: "✘";
+  padding: 1px;
 }
