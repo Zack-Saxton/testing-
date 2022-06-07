@@ -69,6 +69,7 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
 import MFAGetPhoneNumber from "../Pages/MultiFactorAuthentication/MFAGetPhoneNumber";
+import NoOfferAvailable from "../Layout/offers/NoOfferAvailable"
 import "./App.css";
 
 const queryClient = new QueryClient({
@@ -219,6 +220,10 @@ function App() {
                                                 </Route>
                                                 <Route path='EmailVerification' >
                                                     <Route path='verifyemail' element={loadGeneralUserWithoutHeader(<EmailVerification />)} />
+                                                    <Route path='*' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
+                                                </Route>
+                                                <Route path='offers' >
+                                                    <Route path='none-available' element={loadGeneralUserComponent(<NoOfferAvailable />)} />
                                                     <Route path='*' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
                                                 </Route>
                                             </Routes>
