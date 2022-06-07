@@ -166,13 +166,13 @@ export default function LoanDocument() {
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell className={classes.tableHead}>
+                      <TableCell data-testid='documentName' className={classes.tableHead}>
                         Document Name
                       </TableCell>
-                      <TableCell className={classes.tableHead}>
+                      <TableCell data-testid='dateUploaded' className={classes.tableHead}>
                         Date Uploaded
                       </TableCell>
-                      <TableCell className={classes.tableHead}>
+                      <TableCell data-testid='actions' className={classes.tableHead}>
                         Actions
                       </TableCell>
                     </TableRow>
@@ -231,6 +231,7 @@ export default function LoanDocument() {
                 >
                   Upload
                   <i
+                   data-testid="uploadButton"
                     className="fa fa-refresh fa-spin customSpinner"
                     style={{
                       marginRight: "10px",
