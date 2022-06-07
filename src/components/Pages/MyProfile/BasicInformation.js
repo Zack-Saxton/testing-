@@ -91,6 +91,8 @@ export default function BasicInformation(props) {
 
   const onClickCancelChange = () => {
     formik.resetForm();
+    setPhoneNumberValue(basicInfo?.phone_number_primary ?? "");
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(basicInfo?.phone_number_primary ?? "")));
     setSelectedFile(null);
   };
 
