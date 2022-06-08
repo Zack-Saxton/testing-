@@ -1,15 +1,14 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { render, fireEvent, screen, act } from '@testing-library/react';
+import { render,cleanup, fireEvent, screen, act } from '@testing-library/react';
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from "react-router-dom";
 import ProfilePicture from '../../../contexts/ProfilePicture';
 import StatePage from './StatePage';
-import BranchLocatorController from "../../Controllers/BranchLocatorController";
 
-
+beforeEach(cleanup);
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -138,20 +137,6 @@ test("Check the 'Get Driving Directions To Nearest Location' button exist in the
     </MemoryRouter>
   );
   expect(getByText("Get Driving Directions To Nearest Location")).toBeTruthy();
-});
-
-test("Check can able to enter value in first search input box", async ()=>{
-  render( 
-    <MemoryRouter  initialEntries={[{ pathname: '/', state: {value : "indiana", flag:true}} ]}>
-      {component()}
-    </MemoryRouter>
-  );
-  const element = screen.getByTestId('search-branch-1');
-  expect(element).toBeTruthy();	
-  await act(() => {
-		fireEvent.change(element, { target: { value: "kentucky" } });
-	});
-	expect(element.value).toBe('kentucky');
 });
 
 test("Check can able to enter value in second search input box", async ()=>{
