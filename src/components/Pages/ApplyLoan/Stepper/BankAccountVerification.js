@@ -597,11 +597,10 @@ export default function BankAccountVerification(props) {
 				</div>
 				<DialogActions className="modalAction">
 					<ButtonPrimary
-						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
+						stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px","padding":"0px 30px","margin":"0px 0px 20px 0px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
 						onClick={handleCloseAutoPayAuth}
 						className="modalButton"
-					>
-						<Typography align="center">Close</Typography>
+					>Close
 					</ButtonPrimary>
 				</DialogActions>
 			</Dialog>
