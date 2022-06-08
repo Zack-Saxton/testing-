@@ -85,7 +85,7 @@ export default function BranchDetail(MyBranchDetail) {
 
   //View part
   return (
-    <div>
+    <div data-testid="branch-details-component">
       <Paper id="branchNameBox" className={classes.paper}>
         {branchDetail?.MyBranchDetail?.result ? (
           <p>No branch information</p>
