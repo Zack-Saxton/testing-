@@ -63,6 +63,9 @@ const useStylesPartner = makeStyles((theme) => ({
   fullWidth: {
     width: "100%"
   },
+  paddingBottom: {
+    paddingBottom:"18px"
+  },
   confirmationGrid: {
     paddingTop: "30px",
     paddingBottom: "40px",
