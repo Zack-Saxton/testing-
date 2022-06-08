@@ -99,10 +99,5 @@ test("proper accordion functionality after selecting option 3) account inquiries
 
   //checks that accordion sub-item is visible
   expect(await screen.findByText(`No, there is no prepayment penalty.`, { exact: false })).toBeVisible();
-
-  //hides accordion
-  fireEvent.click(firstAccordionItem);
-
-  //checks that accordion sub-item is no longer visible
-  expect(await screen.findByText(`No, there is no prepayment penalty.`, { exact: false })).not.toBeVisible();
+  
 });

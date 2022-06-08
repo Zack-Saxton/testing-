@@ -11,6 +11,7 @@ import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
 import RecentApplications from './RecentApplications';
 import { mockData } from './RecentApplicationsMockData';
 import ViewAccountDetails from './ViewAccountDetails';
+import  NavContext  from "../../../contexts/NavContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,8 +35,10 @@ const MockRecentApplications = () => {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <LoanAccount>
+            <NavContext>
             <RecentApplications />
             <ViewAccountDetails />
+            </NavContext>
           </LoanAccount>
         </BrowserRouter>
       </QueryClientProvider>

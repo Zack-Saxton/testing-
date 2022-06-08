@@ -168,6 +168,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
         <ButtonPrimary
           stylebutton='{"float": "", "padding":"0px 30px", "fontSize":"0.938rem" }'
           onClick={handleScheduleCall}
+          data-testid="schedule-call-component"
         >
           Schedule a call
         </ButtonPrimary>
