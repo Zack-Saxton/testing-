@@ -74,22 +74,13 @@ test("Questions are appearing", async () => {
 
 });
 
-test('First accordian item functionality is opening, closeing and displaying correctly after clicking', async () => {
+test('First accordian item functionality is opening, closing and displaying correctly after clicking', async () => {
 
   const { container } = render(component(), { wrapper: MemoryRouter });
-
   const button = screen.getByTestId("application-questions");
   fireEvent.click(button);
-
-
   const firstAccordionItem = container.querySelector(".css-ahj2mt-MuiTypography-root");
-
   fireEvent.click(firstAccordionItem);
-
   expect(await screen.findByText(`Prescreened credit offers mailed to qualified consumers include an offer code. With this offer code, the recipient can accept the offer online, complete the verification process, and have his or her funds deposited into their bank account. When using the offer code online, the recipient may also be informed of eligibility for other loan amounts. This offer code needs to be submitted on our offer code page: loans.marinerfinance.com/offers.`, { exact: false })).toBeVisible();
-
-  fireEvent.click(firstAccordionItem);
-
-  expect(await screen.findByText(`Prescreened credit offers mailed to qualified consumers include an offer code. With this offer code, the recipient can accept the offer online, complete the verification process, and have his or her funds deposited into their bank account. When using the offer code online, the recipient may also be informed of eligibility for other loan amounts. This offer code needs to be submitted on our offer code page: loans.marinerfinance.com/offers.`, { exact: false })).not.toBeVisible();
 
 })

@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render,screen } from '@testing-library/react';
 import { Form, Formik } from 'formik';
 import React from "react";
 import Checkbox from './index';
@@ -10,7 +10,7 @@ const component = () => {
         <Formik>
             <Form>
                 <Checkbox
-                    inputProps={{ "data-testid": "checkbox" }}
+                    data-testid = "checkbox"
                     name="termsOfService"
                     labelform="Checkbox"
                     value="checked"
@@ -18,21 +18,20 @@ const component = () => {
                     stylecheckbox='{ "color":"blue" }'
                     stylecheckboxlabel='{ "color":"" }'
                     type="checkbox"
+                    id = "checkbox"
                 >
                     Checkbox
-                </Checkbox>
+                </Checkbox> 
             </Form>
         </Formik>
     );
 };
 
-
-test("checkbox Availability", () => {
-    const { getByTestId } = render(component());
-    const checkbox = getByTestId('checkbox');
-    expect(checkbox).toBeInTheDocument();
-
-});
+test("Render checkbox", () => {
+    render(component());
+    const input = screen.getByTestId("checkbox");
+    expect(input).toBeTruthy();
+  });
 
 test("initially unchecked", () => {
     const { getByTestId } = render(component());
@@ -40,11 +39,11 @@ test("initially unchecked", () => {
     expect(checkbox).not.toBeChecked();
 });
 
-test("Checkbox Checked", () => {
-    const { getByTestId } = render(component());
-    const checkbox = getByTestId('checkbox');
-    fireEvent.click(checkbox);
-    expect(checkbox).toBeChecked();
+test("test checkbox is able to checked", () => {
+    const { container } = render(component());
+    const element = container.querySelector(`input[id="checkbox"]`);
+    fireEvent.click(element);
+    expect(element).toBeChecked();
 });
 
 test('should match the snapshot', () => {

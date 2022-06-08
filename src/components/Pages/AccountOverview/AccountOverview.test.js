@@ -6,6 +6,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import LoanAccount from '../../../contexts/LoanAccount';
+import  NavContext  from "../../../contexts/NavContext";
 import AccountOverview from './AccountOverview';
 
 const queryClient = new QueryClient({
@@ -26,7 +27,9 @@ const MockAccountOverview = () => {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <LoanAccount>
+            <NavContext>
             <AccountOverview />
+            </NavContext>
           </LoanAccount>
         </BrowserRouter>
       </QueryClientProvider>
