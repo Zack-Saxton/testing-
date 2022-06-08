@@ -162,6 +162,13 @@
 	line-height: 26px !important;
 }
 
+#file{
+	padding: 0px 15px;
+}
+.modalButton{
+	padding: 10px 40px !important;
+	text-transform: capitalize;
+}
 @media only screen and (max-width: 599px) {
 	.confirmationButtons {
 		margin: 0 !important;

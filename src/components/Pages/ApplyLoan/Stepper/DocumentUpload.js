@@ -90,12 +90,11 @@ export default function DocumentUpload(props) {
 					}
 					}
 					id="button_stepper_prev"
-					stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+					stylebutton='{"padding":"0px 30px","margin":"0px 0px 20px 0px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 				>
 					Upload
 				</ButtonPrimary>
 				<input
-					style={{ padding: "0px 15px" }}
 					accept="image/png, image/jpeg, application/pdf, image/jpg "
 					id="file"
 					multiple={props?.multiple}
