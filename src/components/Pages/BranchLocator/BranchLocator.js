@@ -320,7 +320,7 @@ export default function BranchLocator() {
                       <div key={suggestion.placeId}{...getSuggestionItemProps(suggestion, {
                         style
                       })}>
-                        <span>{suggestion.description}</span>
+                        <span data-testid="suggestion">{suggestion.description}</span>
                       </div>
                     );
                   })}
@@ -417,7 +417,7 @@ export default function BranchLocator() {
   );
 
   const search1andgetList = (
-    <Grid id="findBranchWrapTwo" className={classes.blueBackground}>
+    <Grid id="findBranchWrapTwo" className={classes.blueBackground} data-testid="searchBranchBox">
       <h4 className={classes.headigText}>Find a <span>Branch Near You!</span></h4>
       <Grid id="findBranchGrid">
         <SearchIcon className="searchIcon" />
@@ -429,7 +429,7 @@ export default function BranchLocator() {
         >
           {({ getInputProps, suggestions, getSuggestionItemProps, loading2 }) => (
             <div className="searchInputWrap">
-              <input id="search1" ref={refSearch1} className="stateSearch" {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
+              <input data-testid="stateSearchInput" id="search1" ref={refSearch1} className="stateSearch" {...getInputProps({ placeholder: 'Enter city & state or zip code' })} />
               <div className="serachResult">
                 {loading2 && <div>Loading...</div>}
                 {React.Children.toArray(suggestions.map(suggestion => {
