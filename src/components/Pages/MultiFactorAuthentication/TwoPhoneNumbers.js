@@ -15,25 +15,28 @@ import PhoneNumberPopUp from './PhoneNumberPopUp';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, selection, selectionValue, sendPassCode, isLoading, mfaDetails, securityQuestionsSaved}) => {
+const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, setSelection, selection, selectionValue, sendPassCode, isLoading, mfaDetails, securityQuestionsSaved}) => {
 
   const classes = useStylesMFA();
   const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [popUp, setPopUp] = useState(false);
-  const [spopUp, ssetPopUp] = useState(false);
+  const [singlePhoneNumberPopUp, setSinglePhoneNumberPopUp] = useState(false);
+  const [mfaPhoneNumberPopUp, setMfaPhoneNumberPopUp] = useState(false);
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-
   const handlePopUp = () => {
-    (cellPhoneNumber === optionalPhoneNumber) ? ssetPopUp(true) : setPopUp(true);
+    (mfaPhoneNumber != " ") ? setMfaPhoneNumberPopUp(true) : (cellPhoneNumber === optionalPhoneNumber) ? setSinglePhoneNumberPopUp(true) : setPopUp(true);
 	};
   const handlePopUpClose = () => {
     setPopUp(false);
   }
-  const handlesPopUpClose = () =>{
-    ssetPopUp(false);
+  const handleSinglePhoneNumberPopUpClose = () =>{
+    setSinglePhoneNumberPopUp(false);
+  }
+  const handleMfaPhoneNumberPopUpClose = () =>{
+    setMfaPhoneNumberPopUp(false);
   }
   const handleClick = async() =>{
     if (selectionValue !== 'security questions'){ 
@@ -122,8 +125,11 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
       <Popup maxWidth="sm" popupFlag={popUp} closePopup={handlePopUpClose} title="Select your preferred Phone Number">
         <PhoneNumberPopUp cellPhoneNumber={cellPhoneNumber} optionalPhoneNumber={optionalPhoneNumber} setSelection={setSelection}/>
       </Popup>
-      <Popup maxWidth="sm" popupFlag={spopUp} closePopup={handlesPopUpClose} title="Select your preferred Phone Number">
+      <Popup maxWidth="sm" popupFlag={singlePhoneNumberPopUp} closePopup={handleSinglePhoneNumberPopUpClose} title="Select your preferred Phone Number">
         <PhoneNumberPopUp cellPhoneNumber={cellPhoneNumber} setSelection={setSelection}/>
+      </Popup>
+      <Popup maxWidth="sm" popupFlag={mfaPhoneNumberPopUp} closePopup={handleMfaPhoneNumberPopUpClose} title="Select your preferred Phone Number">
+        <PhoneNumberPopUp cellPhoneNumber={cellPhoneNumber} optionalPhoneNumber={optionalPhoneNumber} mfaPhoneNumber={mfaPhoneNumber} setSelection={setSelection}/>
       </Popup>
 
     </div>
@@ -133,6 +139,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, setSelection, se
 TwoPhoneNumbers.propTypes = {
   cellPhoneNumber: PropTypes.string,
   optionalPhoneNumber: PropTypes.string,
+  mfaPhoneNumber : PropTypes.string,
   setSelection: PropTypes.func,
   selection: PropTypes.bool,
   selectionValue: PropTypes.any,

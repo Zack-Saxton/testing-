@@ -135,6 +135,7 @@ if(situationFive) {
     <TwoPhoneNumbers
       cellPhoneNumber={location?.state?.mfaDetails?.phone_number_primary}
       optionalPhoneNumber={location?.state?.mfaDetails?.opted_phone_texting}
+      mfaPhoneNumber ={location?.state?.mfaDetails?.mfa_phone_texting}
       setSelection={setSelection}
       selection={selection ? false : true}
       selectionValue={selection}
@@ -152,6 +153,7 @@ if(situationSix) {
       <TwoPhoneNumbers
           cellPhoneNumber={location?.state?.mfaDetails?.phone_number_primary}
           optionalPhoneNumber={location?.state?.mfaDetails?.opted_phone_texting}
+          mfaPhoneNumber ={location?.state?.mfaDetails?.mfa_phone_texting}
           setSelection={setSelection}
           selection={selection ? false : true}
           selectionValue={selection}
