@@ -81,7 +81,63 @@ test("Check the verify button in  UI", () => {
   );
 	expect(getByText("Verify Now")).toBeTruthy();
 });
+-test("Check the resend option in the UI", () => {
+	const { container, getByText } = render(
+    <MemoryRouter initialEntries={[{ pathname: '/', state: {phoneNumber : "96532545588", mfaQueries:{}}} ]}>
+      {component()}
+    </MemoryRouter>
+  );
+	expect(getByText("Resend")).toBeTruthy();
+});
 
+test("Check the OTP field allow only number", async () => {
+	const { container } = render(
+    <MemoryRouter initialEntries={[{ pathname: '/', state: {phoneNumber : "96532545588", mfaQueries:{}}} ]}>
+      {component()}
+    </MemoryRouter>
+  );
+	const otp1 = container.querySelector(`input[name="otp1"]`);
+	expect(otp1).toBeTruthy();
+	expect(otp1.value).toBe('');
+  await act(() => {
+		fireEvent.change(otp1, { target: { value: "aa" } });
+		fireEvent.blur(otp1);
+	});
+	expect(otp1.value).toBe('');
+});
+
+test("Check can able to enter passcode in OTP filed", async () => {
+	const { container } = render(
+    <MemoryRouter initialEntries={[{ pathname: '/', state: {phoneNumber : "96532545588", mfaQueries:{}}} ]}>
+      {component()}
+    </MemoryRouter>
+  );
+	const otp1 = container.querySelector(`input[name="otp1"]`);
+	expect(otp1).toBeTruthy();
+	expect(otp1.value).toBe('');
+  await act(() => {
+		fireEvent.change(otp1, { target: { value: "8" } });
+		fireEvent.blur(otp1);
+	});
+	expect(otp1.value).toBe('8');
+});
+
+test("Check the focus is moving to next input field", async () => {
+	const { container } = render(
+    <MemoryRouter initialEntries={[{ pathname: '/', state: {phoneNumber : "96532545588", mfaQueries:{}}} ]}>
+      {component()}
+    </MemoryRouter>
+  );
+	const otp1 = container.querySelector(`input[name="otp1"]`);
+  const otp2 = container.querySelector(`input[name="otp2"]`);
+	expect(otp1).toBeTruthy();
+	expect(otp1.value).toBe('');
+  await act(() => {
+    fireEvent.change(otp1, { target: { value: "2" } });
+    fireEvent.keyUp(otp1, {key: '2', code: '50'})
+	});
+  expect(otp2).toHaveFocus();
+});
 test('Should match the snapshot', () => {
 	const { asFragment } = render(
     <MemoryRouter initialEntries={[{ pathname: '/', state: {phoneNumber : "96532545588", mfaQueries:{}}} ]}>

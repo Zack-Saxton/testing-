@@ -52,7 +52,6 @@ const MFAGetPhoneNumber = ({
 	const checkMobileNumber = (event) => {
 		let mobileNUmber = event.target.value;
 		SetPhoneNumber(event.target.value);
-		console.log(SetPhoneNumber);
 		let phone = mobileNUmber.replace(/[()-\s]/g, '');
 		if (phone.length >= 10) {
 			setDisabledButton(false);
