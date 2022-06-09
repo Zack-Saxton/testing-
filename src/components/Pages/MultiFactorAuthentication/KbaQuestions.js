@@ -27,6 +27,7 @@ const KbaQuestions = () => {
   const [questionSetIdMultiple, setQuestionSetIdMultiple] = useState(null);
   const [transactionIdMultiple, setTransactionIdMultiple] = useState(null);
   const [popUp, setPopUp] = useState(false);
+  const [isProd, setIsProd] = useState(false);
 
   const handlePopUp = () => {
     setPopUp(true);
@@ -56,6 +57,27 @@ const KbaQuestions = () => {
       });
       setResponseData(tempArray);
     }
+    else if (response?.data?.result && response?.data?.result?.questions?.question.length > 1) {
+      setIsProd(true);
+      setQuestionSetIdMultiple(response?.data?.result?.questions?.["question-set-id"]);
+      setTransactionIdMultiple(response?.data?.result?.["transaction-status"]?.["transaction-id"]);
+      response?.data?.result?.questions?.question.map((val, key) => {
+        tempArray.push({
+          "key": key,
+          "fullData": val,
+          "question": val.text.statement,
+          "choice": val.choice,
+          "questionId": val["question-id"]
+        });
+        return null;
+      });
+      setResponseDataMultipleQ(tempArray);
+      setSetOneFinished(true);
+      setLoadingFlag(false);
+    }
+    else{
+      toast.error("Somthing went wrong, please try again");
+    }
   }
 
   // get the function to fetch api on page load
@@ -65,7 +87,7 @@ const KbaQuestions = () => {
   }, []);
 
   useEffect(() => {
-    if (setOneFinished) {
+    if (setOneFinished && !isProd) {
       toast.success("Saved");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,7 +115,7 @@ const KbaQuestions = () => {
               Please answer the questions below to help verify your identity. Please provide your responses within five minutes.
             </Typography>
             <div data-testid="question_component" className={classes.button_div} >
-              {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : <CircularProgress />}
+              {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : isProd ? <> </> : <CircularProgress />}
               <div>
                 {setOneFinished ? <MultipleQuestion setLoadingFlag={setLoadingFlag} customerEmail={customerEmail} transactionIdMultiple={transactionIdMultiple} questionSetIdMultiple={questionSetIdMultiple} responseData={responseDataMultipleQ} setResponseData={setResponseDataMultipleQ} classes={classes} check={check} setCheck={setCheck} navigate={navigate} /> : null}
               </div>
