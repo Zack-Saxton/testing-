@@ -136,12 +136,24 @@ const useStylesMFA = makeStyles((theme) =>
       width: "auto",
       height: "36px",
       padding: "0px 30px",
-      background: "#FFBC23",
+      background: "#FFBC23 !important",
       whiteSpace: 'nowrap',
       borderRadius: '50px',
       margin: '5px',
       textTransform: 'none'
-    }
+    },
+    skip_button:{
+      color: '#1B488A',
+      border: '1px solid  #1B488A',
+      width: "auto",
+      height: "36px",
+      padding: "0px 30px",
+      background: "transparent",
+      whiteSpace: 'nowrap',
+      borderRadius: '50px',
+      margin: '5px',
+      textTransform: 'none'
+    },
   })
 );
 

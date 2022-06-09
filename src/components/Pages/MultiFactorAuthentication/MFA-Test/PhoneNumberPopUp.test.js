@@ -36,27 +36,22 @@ test("Checks the PhoneNumberPopUp  is rendered", () => {
 	const element = screen.getByTestId('PhoneNumberPopUp_component');
 	expect(element).toBeTruthy();
 });
-
 test("Checks the Phone Number function  is rendered", () => {
 	render(component());
 	const element = screen.getByText('Get a code on (***) *** 5588');
 	expect(element).toBeTruthy();
 });
-
 test("Checks the Option Phone Number function  is rendered", () => {
 	render(component());
 	const element = screen.getByText('Get a code on (***) *** 7365');
 	expect(element).toBeTruthy();
 });
-
-
 test("Check Radio Button is rendered", () => {
   const { container } = render(component());
 	const input = container.querySelector(`input[name="method"]`);
   expect(input).toBeTruthy();
   
 });
-
 test("Select Phone Number for OTP", () => {
   const {container} = render(component());
   const radio = container.querySelector(`input[name="method"]`);
