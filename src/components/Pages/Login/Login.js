@@ -213,7 +213,7 @@ export default function Login(props) {
   return (
     <div>
       <ScrollToTopOnMount />
-      <div className={classes.mainContentBackground} id="mainContentBackground">
+      <div className={classes.mainContentBackground} id="mainContentBackgroundWrap">
         <Box>
           <Grid
             className={classes.mainContentGrid}

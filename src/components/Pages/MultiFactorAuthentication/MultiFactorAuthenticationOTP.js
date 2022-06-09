@@ -144,7 +144,7 @@ const MultiFactorAuthenticationOTP = () => {
           className={classes.twoStepWrap}
         >
           <form>
-          <Paper className={classes.twoStepPaper}>
+          <Paper className={classes.otpPaper}>
             <Grid className={classes.headingTextWrap}>
               <Typography className={classes.twoStepHeading} variant="h5">
                 Security Code
