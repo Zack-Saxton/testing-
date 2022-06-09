@@ -150,7 +150,7 @@ const MFAGetPhoneNumber = ({
 								/>
 							</Grid>
 						</FormControl>
-						<Typography className={classes.twoStepParagraph} style={{ textAlign: 'center' }}>
+						<Typography className={classes.twoStepParagraph} style={{ textAlign: 'center',fontSize:'0.85rem'}}>
 							We will only use this number for account security.
 						</Typography>
 						<Grid className={classes.nextButtonGrid} container >
