@@ -70,13 +70,13 @@ export default function LimitedOffer(userOfferData) {
 
   //View
   return (
-    <div id="limitedOfferWrap" className="limitedOfferWrap" data-testid="limited offer">
+    <div id="limitedOfferWrap" className="limitedOfferWrap" data-testid="limited_offer">
       <Grid container id="overviewWrap" className="overviewWrap">
         <Grid item sm={6} md={6} xs={12} lg={6} xl={6} className="imageholdernewtop">
 
           <Grid className="imageholdernew">
             <Grid className="yellowBackground">
-              <Grid container item md={6} lg={6}>
+              <Grid container data-testid = "bannerGrid" item md={6} lg={6}>
 
                 <img
                   className="bannerImage"
@@ -89,7 +89,7 @@ export default function LimitedOffer(userOfferData) {
                 {userOfferData.isLoading ? (
                   <CircularProgress />
                 ) : userOfferAmount ? (
-                  <div id="offerText">
+                  <div data-testid = "offerText" id="offerText">
 
                     <Grid className="offerTextWrap">
 
@@ -98,6 +98,8 @@ export default function LimitedOffer(userOfferData) {
                       </Typography>
                       <NumberFormat
                         id="offerMoney"
+                        data-testid = "offerMoney"
+                        name = "offerMoney"
                         value={userOfferAmount}
                         displayType={"text"}
                         thousandSeparator={true}
@@ -109,6 +111,7 @@ export default function LimitedOffer(userOfferData) {
                       <ButtonPrimary
                         onClick={showModal}
                         id="applyForLoanButton"
+                        data-testid = "checkMyOfferButton"
                         stylebutton='{"color":""}'
                       >
                         Check My Offer
@@ -116,7 +119,7 @@ export default function LimitedOffer(userOfferData) {
                     </Grid>
                   </div>
                 ) : (
-                  <div className="offerTextTwo" id="offerText">
+                  <div className="offerTextTwo" data-testid = "offerTextTwo" id="offerText">
 
                     <Grid className="offerTextWrap">
                       <Typography id="personalText" variant="h6" color="initial">
@@ -135,6 +138,7 @@ export default function LimitedOffer(userOfferData) {
                         id="applyForLoanButton"
                         stylebutton='{"color":"", "textTransform": "none"}'
                         disabled={currentLoan}
+                        data-testid = "applyForLoanButton"
                       >
                         Apply for a Loan
                       </ButtonPrimary>
@@ -155,11 +159,11 @@ export default function LimitedOffer(userOfferData) {
                 <img
                   className="secondBannerImage"
                   src={MortgageBanner}
-                  data-testid="background"
+                  data-testid="mortgage_banner"
                   alt="mortgage_banner"
                 />
               </Grid>
-              <Grid className="mortgageText" container item md={7} >
+              <Grid className="mortgageText" data-testid = "mortgageText" container item md={7} >
                 <Typography className="mortgageHeading" variant="h4">
                   Put Your Home{"'"}s <br /> Equity To Work!
                 </Typography>
@@ -170,6 +174,7 @@ export default function LimitedOffer(userOfferData) {
                   <a rel="noreferrer" target="_blank" href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage" alt="mortgage link">
                     <ButtonSecondary
                       id="applyNowButton"
+                      data-testid = "mortgageApplyNowbutton"
                       stylebutton='{"color":"", "textTransform": ""}'
                     >
                       Apply Now
@@ -197,7 +202,7 @@ export default function LimitedOffer(userOfferData) {
           >
             <CloseIcon />
           </IconButton>
-          <Grid className="popupHeading">
+          <Grid data-testid = "popUpheading" className="popupHeading">
             <h2>The money you need, when you need it!</h2>
             <h4>When life happens, we have your back*</h4>
           </Grid>
@@ -225,6 +230,7 @@ export default function LimitedOffer(userOfferData) {
             <Grid className="apply-offer">
               <p>Yes, I want to apply for this offer</p>
               <ButtonPrimary
+              data-testid = "popupApplyNowButton"
                 id="applyForLoanButton"
                 stylebutton='{"color":"", "textTransform": "none"}'
                 onClick={handleContinue}
