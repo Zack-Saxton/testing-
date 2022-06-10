@@ -54,7 +54,18 @@ const validationSchema = yup.object({
 		.matches(/^(\d)(?!\1+$)\d{9}$/, messages?.phoneVerification?.invalidPhone)
 		.min(10, messages?.phoneVerification?.phoneNumMin),
 });
-
+const phoneNumberMask = (values) => {
+	if(values){
+		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+  	values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+  	return (values);
+	}
+  return '';
+}
+const maskPhoneNumberWithAsterisk = (phoneNumber) => {
+  let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
+  return firstNumber.replace(/[0-9]/g, '*') + phoneNumber.slice(10);
+}
 //View Part
 export default function PhoneVerification(props) {
 	const [ hasPasscode, setOfferCode ] = useState(false);
@@ -64,12 +75,9 @@ export default function PhoneVerification(props) {
 	const [ open, setOpen ] = useState(false);
 	const innerClasses = useStyles();
 	const { data: accountDetials } = useQuery('loan-data', usrAccountDetails);
-
-	function phoneNumberMask(values) {
-		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-		values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-		return (values);
-	}
+  const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
+  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
+	
 	// get the phone number on load
 	useEffect(() => {
 		setPhoneNum(accountDetials?.data?.customer?.latest_contact?.phone_number_primary);
@@ -78,6 +86,8 @@ export default function PhoneVerification(props) {
 
 	useEffect(() => {
 		formik.setFieldValue("phone", phoneNum);
+		setPhoneNumberValue(phoneNum);
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNum)));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ phoneNum ]);
 
@@ -94,7 +104,7 @@ export default function PhoneVerification(props) {
 		onSubmit: async (values) => {
 			setOfferCode(true);
 			setOfferCode(hasPasscode ? hasPasscode : !hasPasscode);
-			await OTPInitialSubmission(values.phone, value);
+			await OTPInitialSubmission(phoneNumberValue, value);
 		},
 	});
 	const [ value, setValue ] = useState("T");
@@ -148,6 +158,16 @@ export default function PhoneVerification(props) {
 	const handleClose = () => {
 		setOpen(false);
 	};
+	const updateActualValue = (event) => {
+    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
+  }
+  const updateMaskValue = (event) => {
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
+  }
+  const updateEnterPhoneNo = (event) =>{
+    setPhoneNumberValue(event.target.value);
+    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
+  }
 	//view part
 	return (
 		<div>
@@ -166,19 +186,26 @@ export default function PhoneVerification(props) {
 					className="textBlock"
 					id="applyForLoanPhone"
 				>
-					<PhoneNumber
+					<TextField
 						name="phone"
 						label="Phone number *"
 						id="phone"
 						type="text"
-						onKeyDown={preventSpace}
-						value={formik.values.phone ? phoneNumberMask(formik.values.phone) : ""}
-						onLoad={formik.handleChange}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-						disabled={true}
-						error={formik.touched.phone && Boolean(formik.errors.phone)}
-						helperText={formik.touched.phone && formik.errors.phone}
+						materialProps={{ maxLength: "14" }}
+              onKeyDown={preventSpace}
+              onBlur={(event)=>{
+                updateMaskValue(event);
+                formik.handleBlur(event);
+              }}
+              value = { phoneNumberCurrentValue }
+              onChange={(event)=>{
+                updateEnterPhoneNo(event);
+                formik.handleChange(event);
+              }}
+              error={formik.touched.phone && Boolean(formik.errors.phone)}
+              helperText={formik.touched.phone && formik.errors.phone}
+              disabled={true}
+              onFocus={ updateActualValue }
 					/>
 					<div className="MuiTypography-alignLeft">
 						<Typography
