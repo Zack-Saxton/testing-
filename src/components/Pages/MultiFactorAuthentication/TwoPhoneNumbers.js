@@ -27,7 +27,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
     setValue(event.target.value);
   };
   const handlePopUp = () => {
-    (mfaPhoneNumber !== " " && mfaPhoneNumber !== null) ?  setMfaPhoneNumberPopUp(true): (cellPhoneNumber === optionalPhoneNumber) ? setSinglePhoneNumberPopUp(true) : setPopUp(true);
+    (mfaPhoneNumber) ?  setMfaPhoneNumberPopUp(true): (cellPhoneNumber === optionalPhoneNumber) ? setSinglePhoneNumberPopUp(true) : setPopUp(true);
 	};
   const handlePopUpClose = () => {
     setPopUp(false);
