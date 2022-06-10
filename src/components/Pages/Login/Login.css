@@ -134,6 +134,9 @@
 #mainContentBackground {
   min-height: 93vh;
 }
+#mainContentBackgroundWrap {
+  min-height: 93vh;
+}
 
 #email,
 #password {

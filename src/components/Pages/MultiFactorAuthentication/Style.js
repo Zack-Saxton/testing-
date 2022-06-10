@@ -40,18 +40,23 @@ const useStylesMFA = makeStyles((theme) =>
     yellowBackArrow: {
       color: "#ffbc23",
     },
-    twoStepPaper: {
-      width: "100%",
+    otpPaper:{
+      idth: "100%",
       padding: "20px 40px",
-      margin: "40px 0px",
+      margin: "40px 20px",
       boxSizing: "border-box",
       height: "fit-content",
       boxShadow: "rgb(61 61 61 / 10%) 0px 8px 44px 0px",
-      "@media (max-width: 699px)": {
-        margin: "0px 30px",
-      },
+    },
+    twoStepPaper: {
+      width: "100%",
+      padding: "20px 40px",
+      margin: "40px 20px",
+      boxSizing: "border-box",
+      height: "fit-content",
+      boxShadow: "rgb(61 61 61 / 10%) 0px 8px 44px 0px",
       "@media (max-width: 420px)": {
-        padding: "20px 10px",
+        padding: "30px 20px",
       },
     },
     twoStepHeading: {
