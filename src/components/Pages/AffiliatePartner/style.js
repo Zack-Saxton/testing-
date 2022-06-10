@@ -74,7 +74,20 @@ const useStylesPartner = makeStyles((theme) => ({
   },
   redText: {
     color: "#ff0000"
-  }
+  },
+
+  paddingBottom_Right: {
+    paddingBottom:"18px",
+    paddingRight : "18px",
+    "@media (max-width: 599px)": {
+
+      paddingRight: "0px",
+
+    },
+  },
+
+  
+
 
 }));
 

@@ -81,8 +81,7 @@ test("Check the verify button in  UI", () => {
   );
 	expect(getByText("Verify Now")).toBeTruthy();
 });
-
-test("Check the resend option in the UI", () => {
+-test("Check the resend option in the UI", () => {
 	const { container, getByText } = render(
     <MemoryRouter initialEntries={[{ pathname: '/', state: {phoneNumber : "96532545588", mfaQueries:{}}} ]}>
       {component()}
@@ -139,7 +138,6 @@ test("Check the focus is moving to next input field", async () => {
 	});
   expect(otp2).toHaveFocus();
 });
-
 test('Should match the snapshot', () => {
 	const { asFragment } = render(
     <MemoryRouter initialEntries={[{ pathname: '/', state: {phoneNumber : "96532545588", mfaQueries:{}}} ]}>

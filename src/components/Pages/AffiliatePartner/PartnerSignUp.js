@@ -359,7 +359,7 @@ export default function PartnerSignUp() {
                       />
                     </Grid>
 
-                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12} sm={6} container direction="row">
+                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom_Right}`} item xs={12} sm={6} container direction="row">
                       <TextField
                         name="callPhNo"
                         label="Phone number *"
