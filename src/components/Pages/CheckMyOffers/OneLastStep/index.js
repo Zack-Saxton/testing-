@@ -102,13 +102,16 @@ function SSN() {
 			completedPage: data.page.ssn,
 		});
 		setApplicationLoading(false);
-		if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "offers_available") {
+		if ( response?.appSubmissionResult?.data?.applicationStatus === "offers_available") {
 			setData({ ...data, applicationStatus: "offers_available" });
 			navigate("/eligible-for-offers", { formcomplete: "yes" });
-		} else if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "rejected") {
+		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected" && response?.appSubmissionResult?.data?.borrowerType === "new borrower") {
+			setData({ ...data, applicationStatus: "rejected" });
+			navigate("/no-offers", { formcomplete: "yes" });
+		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected") {
 			setData({ ...data, applicationStatus: "rejected" });
 			navigate("/no-offers-available", { formcomplete: "yes" });
-		} else if (response.appSubmissionResult && response.appSubmissionResult?.data?.applicationStatus === "referred") {
+		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "referred") {
 			setData({ ...data, applicationStatus: "referred" });
 			navigate("/referred-to-branch", { formcomplete: "yes" });
 		}
