@@ -490,17 +490,17 @@ export default function BranchLocator() {
           </h4>
 
           <Typography className="branchLocatorHeading">
-            <span className="branchSmallText"><b>Operating coast-to-coast</b> with physical locations in over half the states</span>
+            <b className="boldText">470+</b>Branches in 25 states
           </Typography>
 
           <Typography className="branchLocatorHeading">
-            <b className="numberText">$1k - $25k</b>
+            <b>$1k - $25k</b>
 
             <span className="branchSmallText">Available loan amount</span>
           </Typography>
 
           <Typography className="branchLocatorHeading">
-            <b className="numberText">4.8</b>
+            <b>4.8</b>
 
             <span className="branchSmallText">
               Star Rating based on over 13,000 verified reviews

@@ -322,9 +322,12 @@
 }
 
 .branchLocatorHeading b {
-  font-size: 1.25rem !important;
+  font-family: MuliBold, sans-serif !important;
+  font-size: 1.875rem !important;
   font-weight: 700;
   line-height: normal;
+  display: inline-block;
+  margin: 2% 2% 0% 0%;
 }
 
 .branchLocatorHeadingMain {
@@ -336,17 +339,15 @@
 }
 
 .branchLocatorHeading {
-  font-size: 2.125rem !important;
+  font-size: 0.938rem !important;
   font-weight: 400;
-  line-height: normal !important;
+  line-height: normal;
   color: #fff;
   margin: 1% 0;
 }
-
-.numberText {
-  margin: 17px 2% 14px 0%;
+.boldText{
+  font-weight: bolder !important;
 }
-
 .branchSmallText {
   font-size: 0.938rem;
   color: #000;
