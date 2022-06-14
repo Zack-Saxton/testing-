@@ -220,7 +220,7 @@ function App() {
                                                     <Route path='confirm-signup' element={loadGeneralUserComponent(<ConfirmationInfo />)} />
                                                     <Route path='*' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
                                                 </Route>
-                                                <Route path='EmailVerification' >
+                                                <Route path='branch' >
                                                     <Route path='verifyemail' element={loadGeneralUserWithoutHeader(<EmailVerification />)} />
                                                     <Route path='*' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
                                                 </Route>
