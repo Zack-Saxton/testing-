@@ -84,9 +84,7 @@ it("Checking if first accordion rendering and functions", async () => {
   const button = container.querySelector(".MuiAccordionSummary-expandIconWrapper");
   fireEvent.click(button);
 
-  expect(
-    await screen.findByText(
-      `Make all future payments on time. The impact on your credit score from the bankruptcy will diminish over time.`,{ exact: false })).toBeVisible();
+  expect(await screen.findByText(`Make all future payments on time. The impact on your credit score from the bankruptcy will diminish over time.`,{ exact: false })).toBeVisible();
 });
 
 it("Checking if second accordion rendering and functions", async () => {
@@ -99,8 +97,7 @@ it("Checking if second accordion rendering and functions", async () => {
       </QueryClientProvider>
     </ThemeProvider>
   );
-  expect(
-    screen.getByText("No open bankcard or revolving accounts in your credit file")).toBeVisible();
+  expect(screen.getByText("No open bankcard or revolving accounts in your credit file")).toBeVisible();
 
   const button = container.querySelector(".MuiAccordionSummary-expandIconWrapper");
   fireEvent.click(button);
@@ -134,12 +131,8 @@ it("Checking if forth accordion rendering and functions", async () => {
     </ThemeProvider>
   );
 
-  expect(
-    screen.getByText(
-      "The date that you opened your oldest account is too recent")).toBeVisible();
+  expect(screen.getByText("The date that you opened your oldest account is too recent")).toBeVisible();
 
-  const button = container.querySelector(
-    ".MuiAccordionSummary-expandIconWrapper"
-  );
+  const button = container.querySelector(".MuiAccordionSummary-expandIconWrapper");
   fireEvent.click(button);
 });
