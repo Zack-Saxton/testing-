@@ -70,6 +70,8 @@ import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
 import MFAGetPhoneNumber from "../Pages/MultiFactorAuthentication/MFAGetPhoneNumber";
 import NoOfferAvailable from "../Layout/offers/NoOfferAvailable"
+import AmOneNoOffersAvailable from "../Pages/CheckMyOffers/AmOneNoOffersAvailable/AmOneNoOffersAvailable"
+import ReferredFromAffiliate from "../Pages/CheckMyOffers/ReferredFromAffiliate/ReferredFromAffiliate"
 import "./App.css";
 
 const queryClient = new QueryClient({
@@ -224,6 +226,8 @@ function App() {
                                                 </Route>
                                                 <Route path='offers' >
                                                     <Route path='none-available' element={loadGeneralUserComponent(<NoOfferAvailable />)} />
+                                                    <Route path='AmOne-NoOffers-Available' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />
+                                                    <Route path='Referred' element={loadGeneralUserComponent(<ReferredFromAffiliate />)} />
                                                     <Route path='*' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
                                                 </Route>
                                             </Routes>
