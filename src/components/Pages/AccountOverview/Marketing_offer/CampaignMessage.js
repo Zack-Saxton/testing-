@@ -21,19 +21,19 @@ export default function CampaignMessage({ amount, offerCode, handleContinue, exp
         setAmount("$ " + (Math.round(number * 100) / 100).toLocaleString());
     };
     return (
-        <Grid className="checkMyOffers">
+        <Grid data-testid = "CampaignMessage_component" className="checkMyOffers">
             <Grid className="leftcheckMyOffers">
                 <img src={logo} width="120px" height="70px"></img>
                 <p className="common">{`Don't wait! This offer expires`} {expiryDate}</p>
             </Grid>
-            <Grid className="rightcheckMyOffers">
+            <Grid data-testid = "preQualified_amount" className="rightcheckMyOffers">
                 <p className="common">You are prequalified up to</p>
-                <p className="common" style={{ color: "#0F4EB3", fontSize: "bold", textAlign: "center" }}>
+                <p data-testid = "check_preQualified_amount" className="common" style={{ color: "#0F4EB3", fontSize: "bold", textAlign: "center" }}>
                     {formattedAmount}
                 </p>
                 <p className="common">Use it to get things done.</p>
                 <p className="common">Offer Code:{offerCode}</p>
-                <ButtonPrimary id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={handleContinue}>
+                <ButtonPrimary data-testid = "claim_button" id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={handleContinue}>
                     Continue
                 </ButtonPrimary>
             </Grid>

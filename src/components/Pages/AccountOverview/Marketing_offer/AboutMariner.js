@@ -3,7 +3,7 @@ import React from "react";
 
 export default function AboutMariner() {
   return (
-    <Grid>
+    <Grid data-testid = "aboutMariner_component">
       <Typography className="common para">About Mariner Finance<br />
         <span className="small">
           {`Since 1927, the Mariner Finance family of companies have provided individually tailored and convenient lending options to its customers with the goal of
