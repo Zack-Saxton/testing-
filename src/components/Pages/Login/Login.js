@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQueryClient, useQuery } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -55,10 +55,23 @@ export default function Login(props) {
   const queryClient = useQueryClient();
   const {data:ClientIP} = useQuery('ipaddress', getClientIp);
   let location = useLocation();
+  const [latitude,setLatitude] = useState();
+  const [longitude,setLongitude] = useState();
 
   const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
   let remMeData = JSON.parse(remMeDataRaw);
   const [ remMe, setRemMe ] = useState(remMeData?.selected);
+
+
+  useEffect(()=>{
+     navigator.geolocation.getCurrentPosition(function(position){
+        setLatitude(position.coords.latitude);
+         setLongitude(position.coords.longitude);
+     })
+  },[])
+
+
+
 
   //reCaptcha validation
   window.onReCaptchaSuccess = async function () {
@@ -100,6 +113,8 @@ export default function Login(props) {
         values?.email,
         values?.password,
         ClientIP,
+        longitude,
+        latitude,
         window.navigator.userAgent, //It is static for now. Will add the dynamic code later
         props?.setToken
       );
