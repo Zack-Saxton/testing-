@@ -56,7 +56,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
   let commonHoliday = [ 0, 6 ]; //Sunday and Saturday
   //US holidays
   function disableHolidays(appointmentDate) {
-    const holidayAPIData = holidayData?.holidays ?? [];
+    const holidayAPIData = holidayData ?? [];
     const holidayAPIDataValues = holidayAPIData?.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });
@@ -168,6 +168,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
         <ButtonPrimary
           stylebutton='{"float": "", "padding":"0px 30px", "fontSize":"0.938rem" }'
           onClick={handleScheduleCall}
+          data-testid="schedule-call-component"
         >
           Schedule a call
         </ButtonPrimary>
@@ -303,5 +304,5 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
 
 ScheduleCall.propTypes = {
   MyBranchCall: PropTypes.object,
-  holidayData: PropTypes.object,
+  holidayData: PropTypes.array,
 };

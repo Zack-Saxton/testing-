@@ -5,3 +5,7 @@
 #questionGrid  label {
 	margin: 3px 0px 0px -14px !important;
 }
+.skip_button:hover{
+	background :#214476;
+	color : #FFFFFF;
+  }

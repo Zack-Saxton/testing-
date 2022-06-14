@@ -14,9 +14,12 @@ import {
 import { useStylesMFA } from "./Style";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import globalMessages from '../../../assets/data/globalMessages.json';
-import { SavePhoneNumber } from "./../../Controllers/MFAController"
+import { SavePhoneNumber } from "./../../Controllers/MFAController";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import IconButton from "@mui/material/IconButton";
+import "./mfa.css";
 
 
 //Yup validation schema
@@ -39,18 +42,16 @@ const MFAGetPhoneNumber = ({
 	const classes = useStylesMFA();
 	const navigate = useNavigate();
 	const [disabledButton, setDisabledButton] = useState(true);
-	const [phoneNumber,SetPhoneNumber] =useState("");
-    const location = useLocation();
+	const [phoneNumber, SetPhoneNumber] = useState("");
+	const location = useLocation();
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 			event.preventDefault();
 		}
 	};
 	const checkMobileNumber = (event) => {
-		console.log("clicked");
 		let mobileNUmber = event.target.value;
 		SetPhoneNumber(event.target.value);
-		console.log(SetPhoneNumber);
 		let phone = mobileNUmber.replace(/[()-\s]/g, '');
 		if (phone.length >= 10) {
 			setDisabledButton(false);
@@ -64,7 +65,7 @@ const MFAGetPhoneNumber = ({
 		let response = await SavePhoneNumber(email, phoneNumber.replace(/[()-\s]/g, ''));
 		if (response?.data?.statusCode === 200) {
 			toast.success(response.data?.Message);
-			navigate("/MFA", {state:{mfaDetails : location?.state?.mfaDetails, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent }});
+			navigate("/MFA", { state: { mfaDetails: location?.state?.mfaDetails, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
 		} else {
 			toast.error(response.data?.Message ?? response.data?.errorMessage);
 		}
@@ -76,7 +77,7 @@ const MFAGetPhoneNumber = ({
 		let response = await SavePhoneNumber(email, mobile);
 		if (response?.data?.statusCode === 200) {
 			toast.success(response.data?.Message);
-			navigate("/MFA", {state:{mfaDetails : location?.state?.mfaDetails, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent }});
+			navigate("/MFA", { state: { mfaDetails: location?.state?.mfaDetails, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
 		} else {
 			toast.error(response.data?.Message ?? response.data?.errorMessage);
 		}
@@ -88,9 +89,11 @@ const MFAGetPhoneNumber = ({
 		},
 		validationSchema: validationSchema,
 	});
-
+	const backToVerificationStep = () => {
+		navigate(-1);
+	}
 	return (
-		<div >
+		<div data-testid="phoneNumber-container">
 			<Grid>
 				<Grid
 					spacing={1}
@@ -99,17 +102,21 @@ const MFAGetPhoneNumber = ({
 					xs={12}
 					sm={12}
 					md={6}
-					lg={6}
+					lg={5}
 					xl={6}
 					className={classes.twoStepWrap}
 				>
 					<Paper className={classes.twoStepPaper}>
-						<Typography className={classes.twoStepHeading} variant="h5">
-							Enter Mobile Number
-						</Typography>
-						<Typography className={classes.twoStepParagraph}>
-							For your security we are asking you to verify your identity.
-							Enter your mobile number to complete your login.
+						<Grid className={classes.headingTextWrap}>
+							<Typography className={classes.twoStepHeading} variant="h5">
+								Let&apos;s set up your phone for 2-Step Verification
+							</Typography>
+							<IconButton className={classes.backArrow} onClick={backToVerificationStep}>
+								<ArrowBackIcon className={classes.yellowBackArrow} />
+							</IconButton>
+						</Grid>
+						<Typography className={classes.twoStepParagraph} style={{ textAlign: 'center' }}>
+							What mobile number do you want to use? We will send a text message to make sure the number is yours.
 						</Typography>
 						<FormControl
 							className={classes.radioButtonwrap}
@@ -142,10 +149,13 @@ const MFAGetPhoneNumber = ({
 								/>
 							</Grid>
 						</FormControl>
+						<Typography className={classes.twoStepParagraph} style={{ textAlign: 'center',fontSize:'0.85rem'}}>
+							We will only use this number for account security.
+						</Typography>
 						<Grid className={classes.nextButtonGrid} container >
-							<ButtonPrimary stylebutton='{"color":""}' onClick={handleToSkipContinue} className={classes.button_space}>Skip</ButtonPrimary>
-							<ButtonPrimary stylebutton='{"color":""}' disabled={disabledButton}  className={classes.button_space}
-								onClick={handleToSaveContinue}>Continue</ButtonPrimary>
+							<ButtonPrimary data-testid="skip_button" stylebutton='{"color":""}' onClick={handleToSkipContinue}  className={classes.skip_button} >Skip</ButtonPrimary>
+							<ButtonPrimary data-testid="next_button" stylebutton='{"color":""}' disabled={disabledButton} className={classes.button_space}
+								onClick={handleToSaveContinue} >Next</ButtonPrimary>
 						</Grid>
 					</Paper>
 				</Grid>

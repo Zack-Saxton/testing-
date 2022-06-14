@@ -23,8 +23,6 @@ export default function LoanHistoryTable() {
   //Material UI css class
   const classes = useStylesLoanHistory();
   const { isLoading, data: accountDetails } = useQuery('loan-data', usrAccountDetails);
-  console.log("#########");
-  console.log(accountDetails);
   //View part
   return (
     <Grid item xs={12} className={classes.gridRecordTable} data-testid="with_Data">

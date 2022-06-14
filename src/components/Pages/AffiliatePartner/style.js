@@ -63,6 +63,9 @@ const useStylesPartner = makeStyles((theme) => ({
   fullWidth: {
     width: "100%"
   },
+  paddingBottom: {
+    paddingBottom:"18px"
+  },
   confirmationGrid: {
     paddingTop: "30px",
     paddingBottom: "40px",
@@ -71,7 +74,20 @@ const useStylesPartner = makeStyles((theme) => ({
   },
   redText: {
     color: "#ff0000"
-  }
+  },
+
+  paddingBottom_Right: {
+    paddingBottom:"18px",
+    paddingRight : "18px",
+    "@media (max-width: 599px)": {
+
+      paddingRight: "0px",
+
+    },
+  },
+
+  
+
 
 }));
 

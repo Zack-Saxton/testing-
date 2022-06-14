@@ -323,9 +323,8 @@ export default function PartnerSignUp() {
                 <form onSubmit={formik.handleSubmit}>
                   <Grid
                     container
-                    spacing={4}
                   >
-                    <Grid className={classes.fullWidth} item xs={12}>
+                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12}>
                       <EmailTextField
                         id="email"
                         name="email"
@@ -344,7 +343,7 @@ export default function PartnerSignUp() {
                       />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12}>
                       <SocialSecurityNumber
                         name="ssn"
                         label="Enter your last 4 digits of SSN"
@@ -360,7 +359,7 @@ export default function PartnerSignUp() {
                       />
                     </Grid>
 
-                    <Grid item xs={12} sm={6} container direction="row">
+                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom_Right}`} item xs={12} sm={6} container direction="row">
                       <TextField
                         name="callPhNo"
                         label="Phone number *"
@@ -376,7 +375,7 @@ export default function PartnerSignUp() {
                       />
                     </Grid>
 
-                    <Grid item xs={12} sm={6} container direction="row" id="phoneTypeWrap">
+                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12} sm={6} container direction="row" id="phoneTypeWrap">
                       <Select
                         id="phoneType"
                         name="phoneType"
@@ -396,7 +395,7 @@ export default function PartnerSignUp() {
                       />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12}>
                       <PasswordField
                         name="password"
                         label="Create New Password *"
@@ -417,8 +416,10 @@ export default function PartnerSignUp() {
                         }
                       />
                       </Grid>
-                      <Grid>
-                       <ul className="error-validation">
+
+                      <Grid container>
+                      <Grid className="errorvalidationOne">
+                      <ul className="error-validation">
                 <span>
               <li className={((formik?.values?.password).length >= 10 && (formik?.values?.password).length < 30) ? "validation-success" : "validation-failed"}>
                 Between 10 and 30 characters in length
@@ -430,6 +431,10 @@ export default function PartnerSignUp() {
                 At least 1 lowercase letter
                 </li>
                 </span>
+              </ul>
+                      </Grid>
+                      <Grid>
+                       <ul className="error-validation">
                 <span>
               <li className={/\d/.test(formik?.values?.password) ? "validation-success" : "validation-failed" }>
                 At least 1 number
@@ -441,7 +446,9 @@ export default function PartnerSignUp() {
               </ul>
                       
                     </Grid>
-                    <Grid item xs={12}>
+                    </Grid>
+
+                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12}>
                       <PasswordField
                         name="confirmPassword"
                         label="Re-enter Your Password *"

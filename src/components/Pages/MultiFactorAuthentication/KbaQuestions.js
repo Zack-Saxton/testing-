@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import {Typography} from "@mui/material";
+import React, { useState, useEffect } from 'react'
+import { Typography, Link } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -8,7 +8,7 @@ import { useStylesMFA } from "./Style";
 import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
 import APICall from "../../lib/AxiosLib";
-import'./MultiFactorAuthentication.css';
+import './MultiFactorAuthentication.css';
 import LoadQuestions from "../ApplyLoan/Stepper/LoadQuestions";
 import MultipleQuestion from './MultipleQuestion';
 import KbaQuestionsPopup from './KbaQuestionsPopup';
@@ -21,14 +21,22 @@ const KbaQuestions = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const customerEmail = location?.state?.mfaSecurityQuestions?.customerEmail;
-  const [ responseData, setResponseData ] = useState();
-  const [ loadingFlag, setLoadingFlag ] = useState(false); 
-  const [ responseDataMultipleQ, setResponseDataMultipleQ ] = useState([]);
-  const [ setOneFinished, setSetOneFinished ] = useState(false);
-  const [ check, setCheck ] = useState(null);
-  const [ questionSetIdMultiple, setQuestionSetIdMultiple ] = useState(null);
-  const [ transactionIdMultiple, setTransactionIdMultiple ] = useState(null);
+  const [responseData, setResponseData] = useState();
+  const [loadingFlag, setLoadingFlag] = useState(false);
+  const [responseDataMultipleQ, setResponseDataMultipleQ] = useState([]);
+  const [setOneFinished, setSetOneFinished] = useState(false);
+  const [check, setCheck] = useState(null);
+  const [questionSetIdMultiple, setQuestionSetIdMultiple] = useState(null);
+  const [transactionIdMultiple, setTransactionIdMultiple] = useState(null);
+  const [popUp, setPopUp] = useState(false);
+  const [isProd, setIsProd] = useState(false);
 
+  const handlePopUp = () => {
+    setPopUp(true);
+  };
+  const handlePopUpClose = () => {
+    setPopUp(false);
+  }
   async function getKbaQuestions() {
     let url = "mfa_questions_cac";
     let data = {
@@ -46,10 +54,31 @@ const KbaQuestions = () => {
         "fullData": response.data?.kba_response?.data,
         "question": response.data?.kba_response?.data?.questions?.question["help-text"]?.statement,
         "choice": response.data?.kba_response?.data?.questions?.question?.choice,
-        "questionId": response.data?.kba_response?.data?.questions?.question[ "question-id" ],
+        "questionId": response.data?.kba_response?.data?.questions?.question["question-id"],
         "answer": ""
       });
       setResponseData(tempArray);
+    }
+    else if (response?.data?.result && response?.data?.result?.questions?.question.length > 1) {
+      setIsProd(true);
+      setQuestionSetIdMultiple(response?.data?.result?.questions?.["question-set-id"]);
+      setTransactionIdMultiple(response?.data?.result?.["transaction-status"]?.["transaction-id"]);
+      response?.data?.result?.questions?.question.map((val, key) => {
+        tempArray.push({
+          "key": key,
+          "fullData": val,
+          "question": val.text.statement,
+          "choice": val.choice,
+          "questionId": val["question-id"]
+        });
+        return null;
+      });
+      setResponseDataMultipleQ(tempArray);
+      setSetOneFinished(true);
+      setLoadingFlag(false);
+    }
+    else{
+      toast.error("Somthing went wrong, please try again");
     }
   }
 
@@ -60,7 +89,7 @@ const KbaQuestions = () => {
   }, []);
 
   useEffect(() => {
-    if(setOneFinished){
+    if (setOneFinished && !isProd) {
       toast.success("Saved");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,80 +115,88 @@ const KbaQuestions = () => {
               2-Step Verification
             </Typography>
             <Typography className={classes.twoStepParagraph}>
-            Please answer the questions below to help verify your identity. Please provide your responses within five minutes.
+              Please answer the questions below to help verify your identity. Please provide your responses within five minutes.
             </Typography>
-            <div data-testid = "question_component" className={classes.button_div} >
-              {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : <CircularProgress />}
+            <div data-testid="question_component" className={classes.button_div} >
+              {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : isProd ? <> </> : <CircularProgress />}
               <div>
                 {setOneFinished ? <MultipleQuestion setLoadingFlag={setLoadingFlag} customerEmail={customerEmail} transactionIdMultiple={transactionIdMultiple} questionSetIdMultiple={questionSetIdMultiple} responseData={responseDataMultipleQ} setResponseData={setResponseDataMultipleQ} classes={classes} check={check} setCheck={setCheck} navigate={navigate} /> : null}
               </div>
               {
-            !setOneFinished ?
-            <div className={classes.alignCenterDiv}>
-              <ButtonPrimary
-                variant="contained"
-                color="primary"
-                data-testid = "submit"
-                id="button_stepper_next"
-                stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-                onClick={async () => {
-                  if (check) {
-                    setLoadingFlag(true);
-                    let sendData = {
-                      "email": customerEmail,
-                      "ref": responseData[ 0 ]?.fullData?.['transaction-status']?.['transaction-id'],
-                      "answers": {
-                        "question_set_id": responseData[ 0 ]?.fullData?.questions?.[ "question-set-id" ],
-                        "questions": [ {
-                          "id": responseData[ 0 ]?.questionId,
-                          "answer": check
-                        } ]
-                      }
-                    };
-                    let nxtRes = await APICall("mfa_answers_cac", '', sendData, "POST", true);
-                    let tempArray = [];
-                    if (nxtRes?.data?.result) {
-                      setQuestionSetIdMultiple(nxtRes?.data?.result?.questions?.[ "question-set-id" ]);
-                      setTransactionIdMultiple(nxtRes?.data?.result?.[ "transaction-status" ]?.[ "transaction-id" ]);
-                      nxtRes?.data?.result?.questions?.question.map((val, key) => {
-                        tempArray.push({
-                          "key": key,
-                          "fullData": val,
-                          "question": val.text.statement,
-                          "choice": val.choice,
-                          "questionId": val[ "question-id" ]
-                        });
-                        return null;
-                      });
-                      setResponseDataMultipleQ(tempArray);
-                      setSetOneFinished(true);
-                      setLoadingFlag(false);
-                    } else {
-                      setLoadingFlag(false);
-                      toast.error("Internal Server Error");
-                    }
-                  }
-                  else {
-                    setLoadingFlag(false);
-                    toast.error("Please answer the question before continuing");
-                  }
-                 }}
-              >
-                Submit and Continue
-              </ButtonPrimary>
-              </div>
-              :
-              null
-          }
+                !setOneFinished ?
+                  <div className={classes.alignCenterDiv}>
+                    <ButtonPrimary
+                      variant="contained"
+                      color="primary"
+                      data-testid="submit"
+                      id="button_stepper_next"
+                      stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+                      onClick={async () => {
+                        if (check) {
+                          setLoadingFlag(true);
+                          let sendData = {
+                            "email": customerEmail,
+                            "ref": responseData[0]?.fullData?.['transaction-status']?.['transaction-id'],
+                            "answers": {
+                              "question_set_id": responseData[0]?.fullData?.questions?.["question-set-id"],
+                              "questions": [{
+                                "id": responseData[0]?.questionId,
+                                "answer": check
+                              }]
+                            }
+                          };
+                          let nxtRes = await APICall("mfa_answers_cac", '', sendData, "POST", true);
+                          let tempArray = [];
+                          if (nxtRes?.data?.result) {
+                            setQuestionSetIdMultiple(nxtRes?.data?.result?.questions?.["question-set-id"]);
+                            setTransactionIdMultiple(nxtRes?.data?.result?.["transaction-status"]?.["transaction-id"]);
+                            nxtRes?.data?.result?.questions?.question.map((val, key) => {
+                              tempArray.push({
+                                "key": key,
+                                "fullData": val,
+                                "question": val.text.statement,
+                                "choice": val.choice,
+                                "questionId": val["question-id"]
+                              });
+                              return null;
+                            });
+                            setResponseDataMultipleQ(tempArray);
+                            setSetOneFinished(true);
+                            setLoadingFlag(false);
+                          } else {
+                            setLoadingFlag(false);
+                            toast.error("Internal Server Error");
+                          }
+                        }
+                        else {
+                          setLoadingFlag(false);
+                          toast.error("Please answer the question before continuing");
+                        }
+                      }}
+                    >
+                      Submit and Continue
+                    </ButtonPrimary>
+                  </div>
+                  :
+                  null
+              }
             </div>
-            <Typography data-testid = "kba_content" className={classes.twoStepParagraph}>
-            Loan funding and disbursement is conditioned upon our satisfactory review of any documents and other information that we require from you to verify your loan application and/or your identity.
-             This loan may not be consummated if you obtain another loan from us prior to our disbursing funds for this loan. If you have any questions, please contact us.
-             </Typography>
+            <Typography data-testid="kba_content" className={classes.twoStepParagraph}>
+              Loan funding and disbursement is conditioned upon our satisfactory review of any documents and other information that we require from you to verify your loan application and/or your identity.
+              This loan may not be consummated if you obtain another loan from us prior to our disbursing funds for this loan. If you have any questions, please <Link style={{ cursor: 'pointer' }} onClick={() => { handlePopUp(); }}>contact us.</Link>
+            </Typography>
           </Paper>
+          <Popup maxWidth="sm" popupFlag={popUp} closePopup={handlePopUpClose} title="Contact Us">
+            <Typography className="printPage" style={{ textDecoration: 'none'}}>Please contact us with any questions<br /></Typography>
+            <ul>
+              <li><strong>Phone</strong> : 833-421-3184 <br /></li>
+              <li> <strong>Hours</strong> : M,W,Th:9:00a.m.-5:00 p.m. Tue:9:00 a.m. - 7:00 p.m. Fri:9:00 a.m. - 5:30 p.m. <br /></li>
+            </ul>
+            <Typography>We look forward to hearing from you!</Typography>
+          </Popup>
         </Grid>
       </Grid>
-      </div>
+    </div>
   )
 }
 

@@ -57,7 +57,7 @@ export default function ScheduleAppointment({
   let commonHoliday = [ 0, 6 ]; //Sunday and Saturday
   //US holidays
   function disableHolidays(appointmentDate) {
-    const holidayAPIData = holidayData?.holidays ?? [];
+    const holidayAPIData = holidayData ?? [];
     const holidayAPIDataValues = holidayAPIData.map((arrVal) => {
       return new Date(arrVal + "T00:00").getTime();
     });
@@ -302,5 +302,5 @@ export default function ScheduleAppointment({
 }
 ScheduleAppointment.propTypes = {
   MyBranchAppointment: PropTypes.object,
-  holidayData: PropTypes.object,
+  holidayData: PropTypes.array,
 };

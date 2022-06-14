@@ -14,6 +14,7 @@ const PhoneNumberPopUp = (props) => {
 
 let cellPhoneNumber = props.cellPhoneNumber;
 let optionalPhoneNumber = props.optionalPhoneNumber;
+let mfaPhoneNumber = props.mfaPhoneNumber;
 let setSelection = props.setSelection;
 
   const classes = useStylesMFA();
@@ -21,7 +22,6 @@ let setSelection = props.setSelection;
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-
   const securityCode = (number) => {
       return (
     <div data-testid = "securitycode_func" className={classes.securityCodeText}>
@@ -55,11 +55,17 @@ let setSelection = props.setSelection;
                   control={<Radio data-testid = "radio_primary_phone" color="primary" onClick={()=>setSelection(`${cellPhoneNumber}`)} />}
                   label={securityCode(cellPhoneNumber)}
                 />
-                <FormControlLabel
+                <FormControlLabel style={{ display: optionalPhoneNumber ? 'flex' : 'none'}}
                   className={classes.smallRadioButton}
                   value={optionalPhoneNumber}
                   control={<Radio color="primary" onClick={()=>setSelection(`${optionalPhoneNumber}`)} />}
                   label={securityCode(optionalPhoneNumber)}
+                />
+                <FormControlLabel style={{ display: mfaPhoneNumber ? 'flex' : 'none'}}
+                  className={classes.smallRadioButton}
+                  value={mfaPhoneNumber}
+                  control={<Radio color="primary" onClick={()=>setSelection(`${mfaPhoneNumber}`)} />}
+                  label={securityCode(mfaPhoneNumber)}
                 />
               </RadioGroup>
             </FormControl>
@@ -68,9 +74,9 @@ let setSelection = props.setSelection;
 }
 
 PhoneNumberPopUp.propTypes = {
- 
   cellPhoneNumber: PropTypes.string,
   optionalPhoneNumber: PropTypes.string,
+  mfaPhoneNumber : PropTypes.string,
   setSelection: PropTypes.func,
 };
 

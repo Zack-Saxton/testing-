@@ -173,6 +173,7 @@ export default function PaymentHistory() {
                         "padding": "0px",
                         "marginRight": "5px", "marginTop":"unset" }'
                   styleicon='{ "color":"" }'
+                  data-testid = "buttonIcon"
                 />
               </NavLink>{" "}
               Active Loan{" "}
@@ -192,6 +193,7 @@ export default function PaymentHistory() {
               aria-haspopup="true"
               stylebutton='{"float": "right", "color":"" }'
               onClick={handleClick}
+              data-testid = "downloadButton"
             >
               Download
             </ButtonPrimary>
@@ -201,6 +203,7 @@ export default function PaymentHistory() {
               keepMounted
               open={Boolean(anchorEl)}
               onClose={handleClose}
+              data-testid = "downloadOption"
             >
               <MenuItem key={"csv"} >
                 <CSVLink
@@ -209,6 +212,7 @@ export default function PaymentHistory() {
                   headers={headersCSV}
                   filename={"" + selectedLoanAccount + ".csv"}
                   data={dataCSV}
+                  data-testid = "csvOption"
                 >
                   <InsertDriveFileIcon className={classes.csvStyle} />{" "}
                   CSV
@@ -218,6 +222,7 @@ export default function PaymentHistory() {
                 key={"pdf"}
                 onClick={downloadPDF}
                 className={classes.menuColor}
+                data-testid = "pdfOption"
               >
                 <PictureAsPdfIcon className={classes.pdfStyle} /> PDF
               </MenuItem>
@@ -226,7 +231,7 @@ export default function PaymentHistory() {
         </Grid>
         {!historyOfLoans ? (
           <Grid item xs={12}>
-            <TableContainer id="pdfdiv" component={Paper}>
+            <TableContainer data-testid = "pdfDiv" id="pdfdiv" component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                   <TableRow>

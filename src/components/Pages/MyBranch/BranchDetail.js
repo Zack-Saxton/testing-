@@ -49,8 +49,8 @@ export default function BranchDetail(MyBranchDetail) {
   }, []);
 
   //Holiday Calender from API
-  let holidayCalenderData = Object.assign({}, holidayCalenderApi?.data?.MFYearHolidays.map(({ Date }) => formatDate(Date)));
-
+  let holidayCalenderData = holidayCalenderApi?.data?.MFYearHolidays.map(({ Date }) => formatDate(Date));
+  
   //Branch details from API
   let branchDetail = MyBranchDetail;
 
@@ -85,7 +85,7 @@ export default function BranchDetail(MyBranchDetail) {
 
   //View part
   return (
-    <div>
+    <div data-testid="branch-details-component">
       <Paper id="branchNameBox" className={classes.paper}>
         {branchDetail?.MyBranchDetail?.result ? (
           <p>No branch information</p>

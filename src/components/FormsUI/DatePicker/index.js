@@ -39,7 +39,7 @@ const DatePickerWrapper = ({ format, label, views,
 
 	const disableCustomDate = (event) => {
 		if (disableDate) {
-			disableDate(event)
+			return disableDate(event)
 		}
 	}
 	const dateNow = new Date();
