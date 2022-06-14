@@ -3,6 +3,7 @@ import { Typography, Link } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
+import { ButtonPrimary, Popup } from "../../FormsUI";
 import { useStylesMFA } from "./Style";
 import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -11,7 +12,8 @@ import './MultiFactorAuthentication.css';
 import LoadQuestions from "../ApplyLoan/Stepper/LoadQuestions";
 import MultipleQuestion from './MultipleQuestion';
 import KbaQuestionsPopup from './KbaQuestionsPopup';
-import { ButtonPrimary, Popup } from "../../FormsUI";
+import ScrollToTopOnMount from "../ScrollToTop";
+import globalMessages from "../../../assets/data/globalMessages.json";
 
 
 const KbaQuestions = () => {
@@ -95,6 +97,7 @@ const KbaQuestions = () => {
 
   return (
     <div data-testid="KbaQuestions_component" className={loadingFlag ? classes.loadingOn : classes.loadingOff}>
+      <ScrollToTopOnMount />
       <Grid>
         <Grid
           spacing={1}

@@ -42,7 +42,10 @@ export default function DocumentPhoto(props) {
 		let iframe = await getIframe();
 		setIframeSrc(iframe?.data?.iframeSrc);
 	}
-
+	function getValueByLable(text, ctx) {
+		return document.evaluate("//*[.='" + text + "']",
+			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
+	}
 	const onMessageHandler = async (event) => {
 		try {
 			if (event.data.trace_id || event.data.request_id) {
@@ -84,6 +87,7 @@ export default function DocumentPhoto(props) {
 		if (res?.data?.id_photo && res?.data?.id_document) {
 			props.next();
 			props.reference.current[ 4 ].current.scrollIntoView({ behavior: 'smooth' });
+			getValueByLable("ID Document & Photo").scrollIntoView();
 		} else {
 			setError(true);
 		}

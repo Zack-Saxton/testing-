@@ -13,21 +13,26 @@ export default function ControlledAccordions(keyFactors) {
   const classes = useStyleVantageScore();
   const [ expanded, setExpanded ] = useState(false);
 
+
   //Key factors for the Credit score
   let reasoneOne = keyFactors?.keyFactors ? keyFactors.keyFactors.reason1 : null;
   let reasoneTwo = keyFactors?.keyFactors ? keyFactors.keyFactors.reason2 : null;
   let reasoneThree = keyFactors?.keyFactors ? keyFactors.keyFactors.reason3 : null;
   let reasoneFour = keyFactors?.keyFactors ? keyFactors.keyFactors.reason4 : null;
-
+  
   let keyFactorList = [];
   keyFactorList.push(creditScore[ reasoneOne ]);
   keyFactorList.push(creditScore[ reasoneTwo ]);
   keyFactorList.push(creditScore[ reasoneThree ]);
   keyFactorList.push(creditScore[ reasoneFour ]);
 
+ 
+ 
+
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+  
 
   //View
   return (
@@ -44,6 +49,7 @@ export default function ControlledAccordions(keyFactors) {
               id={`panel${ index }bh-header`}
             >
               <Typography className={classes.MainkeyFactorHeading}>{factor.label}</Typography>
+
             </AccordionSummary>
             <AccordionDetails>
               <div className={classes.VantageScoreSmallText}>
