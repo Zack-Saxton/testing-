@@ -193,7 +193,10 @@ let selectedQuestionStructured =
 
 
   const getAvailableOptions = (inde) => {
+    console.log("#33333");
+    
     const availableOptionsLeft = questionOption;
+    console.log(availableOptionsLeft);
     return availableOptionsLeft.filter(questionOptions => {
 
         return selectQuestionArray.indexOf(questionOptions.value) === -1 || selectQuestionArray.indexOf(questionOptions.value) === inde;
@@ -213,7 +216,7 @@ let selectedQuestionStructured =
 
 
   return (
-    <div>
+    <div data-testid="selectSecurityQuestions">
       <Grid>
         <Grid
           spacing={1}
@@ -227,11 +230,11 @@ let selectedQuestionStructured =
           <Paper className={classes.twoStepPaper}>
           <form onSubmit={formik.handleSubmit}>
             <Grid className={classes.headingTextWrap}>
-              <Typography className={classes.twoStepHeading} variant="h5">
+              <Typography className={classes.twoStepHeading} variant="h5" data-testid="title">
                 Verification Questions Setup
               </Typography>
               
-              <Typography className={classes.securityCubText} variant="h6">
+              <Typography className={classes.securityCubText} variant="h6" data-testid="title1">
                 Select five different questions from the list below and enter your answers.
               </Typography>
               <IconButton className={classes.backArrow} onClick={goBack}>
@@ -259,7 +262,6 @@ let selectedQuestionStructured =
                           error={(formik.touched.question1 && Boolean(formik.errors.question1))}
                           helperText={formik.touched.question1 && formik.errors.question1 }
                           select={JSON.stringify(getAvailableOptions(0))}
-
                         />      
                         </Grid>
                         <Grid className="answerGrid" container item md={6}  style={{ padding: "10px" }}>
