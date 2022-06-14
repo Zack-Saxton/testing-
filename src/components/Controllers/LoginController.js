@@ -4,7 +4,7 @@ import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Login method *****/
-export default async function LoginController(email, password, clientIp, deviceType) {
+export default async function LoginController(email, password, clientIp,longitude,latitude, deviceType) {
   try {
     let url = "login_customer";
     let param = "";
@@ -13,6 +13,8 @@ export default async function LoginController(email, password, clientIp, deviceT
       password: password,
       clientIp: clientIp,
       deviceType: deviceType,
+      longitude : longitude || " ",
+      latitude : latitude || " "
     };
     let method = "POST";
     let addAccessToken = false;
