@@ -207,6 +207,10 @@ let selectedQuestionStructured =
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const goBack = (event) => {
+    history.back();
+  }
+
 
 
 
@@ -232,7 +236,7 @@ let selectedQuestionStructured =
               <Typography className={classes.securityCubText} variant="h6">
                 Select five different questions from the list below and enter your answers.
               </Typography>
-              <IconButton className={classes.backArrow}>
+              <IconButton className={classes.backArrow} onClick={goBack}>
                 <ArrowBackIcon className={classes.yellowBackArrow} />
               </IconButton>
             </Grid>
