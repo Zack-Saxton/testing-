@@ -86,8 +86,8 @@ const MFASecurityQuestions = () => {
   }, []);
 
   return (
-    <div>
-      <Grid>
+    <div data-testid="mfa-security-questions-component">
+      <Grid >
         <Grid
           spacing={1}
           container
@@ -126,6 +126,7 @@ const MFASecurityQuestions = () => {
                   <TextField
                     id="Answer"
                     name="answer"
+                    data-testid="security-input"
                     label={selectedQuestions?.question}
                     type="text"
                     variant="standard"
@@ -141,7 +142,7 @@ const MFASecurityQuestions = () => {
                 </Grid>
               </Grid>
               <Grid className={classes.nextButtonGrid} container>
-                <ButtonPrimary stylebutton='{"color":""}' type="submit">
+                <ButtonPrimary stylebutton='{"color":""}' type="submit" data-testid="submit">
                   Verify Now
                 </ButtonPrimary>
               </Grid>
