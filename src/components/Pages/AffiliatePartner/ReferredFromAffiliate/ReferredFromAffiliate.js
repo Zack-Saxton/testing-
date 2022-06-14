@@ -6,7 +6,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import React from "react";
+import CircularProgress from '@mui/material/CircularProgress';
+import React, { useEffect, useState } from "react";
+import { useQuery } from 'react-query';
+import { useNavigate, useLocation } from "react-router-dom";
+import  { PopulatePartnerReferred } from "../../../Controllers/PartnerSignupController";
 import CongratulationsImage from "../../../../assets/images/Referred-to-Branch.png";
 import CustomerRatings from "../../../Pages/MyBranch/CustomerRatings"
 import "../../../Pages/MyBranch/BranchInfo.css"
@@ -17,15 +21,43 @@ import "./ReferredFromAffiliate.css";
 //Referred From Affiliate functional component initialization
 function ReferredFromAffiliate() {
   const classes = ReferredUsestyle()
+  const navigate = useNavigate();
+
+  const useQueryURL = () => new URLSearchParams(useLocation().search);
+  const query = useQueryURL();
+  const applicantId = query.get("REF");
+
+  const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
+  //API Call
+  const { data: PopulatePartnerSignupData } = useQuery([ 'populate-data-referred',  applicantId], () => PopulatePartnerReferred( applicantId ));
+
+  useEffect(() => {
+    SetPopulatePartnerSignupState(PopulatePartnerSignupData);
+    if(!applicantId)
+    {
+      navigate("/error")
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ PopulatePartnerSignupData ]);
+
+  //Populate referred application username from API
+   let populateSignupData = populatePartnerSignupState?.data?.application?.identification?.full_name;
+  const splitOnSpace = populateSignupData ?  populateSignupData?.split(' ') : [];
+  const firstNameCaps = splitOnSpace[0];
+  const firstName = firstNameCaps ? firstNameCaps.charAt(0).toUpperCase() + firstNameCaps.slice(1) : "";
 
 	//JSX part
 	return (
 		<div>
+      {!firstName ?
+      <Grid className={classes.circularGrid}>
+      <CircularProgress /> 
+      </Grid>:
       <Grid>
         <Grid className={classes.congratulationsGrid}>
 			  <img className="congratulationsImage" alt="Congratulations Image" src={CongratulationsImage}/>
         <Typography className={classes.congratsHeading} variant="h4">
-          Congratulations! anne
+          Congratulations! {firstName}
         </Typography>
 
         <Typography className={classes.congratsPara}>
@@ -122,6 +154,7 @@ function ReferredFromAffiliate() {
 
         </Grid>
       </Grid>
+}
 		</div>
 	);
 }

@@ -2,6 +2,11 @@ import { makeStyles } from "@mui/styles";
 
 //Styling
 const ReferredUsestyle = makeStyles((theme) => ({
+  circularGrid: {    
+      display: "flex",
+      justifyContent: "center",
+      padding: "50px 0"
+  },  
   congratulationsGrid: {
     maxWidth: "800px",
     margin: "auto",

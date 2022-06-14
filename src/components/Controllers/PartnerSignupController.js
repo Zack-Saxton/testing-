@@ -119,6 +119,21 @@ export async function PopulatePartnerSignup(
     ErrorLogger(globalMessages.Error_executing_PopulatePartnerSignup_API, error);
   }
 }
+
+export async function PopulatePartnerReferred(applicantId) {
+  try {
+    let url = "populate_partner_referred";
+    let param = "";
+    let data = { application_id: applicantId };
+    let method = "POST";
+    let addAccessToken = false;
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_PopulatePartnerSignup_API, error);
+  }
+}
+
 export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
   let url = "partner_confirm_info";
   let param = "";

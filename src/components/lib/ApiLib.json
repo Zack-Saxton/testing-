@@ -44,6 +44,7 @@
     "cis_hardpull": "/api/v2/cis_hardpull",
     "partner_signup": "/applicant/partner_signup_cac",
     "populate_partner_signup": "/applicant/populate_parner_sign_up",
+    "populate_partner_referred" : "/application/get_current_application",
     "partner_confirm_info": "/api/v2/ckconfirm",
     "getMoneySkillLink": "/customer/getMoneySkillLink",
     "add_ach_payment_method": "/gps/add_new_ACH_payment_method_cac",
