@@ -226,7 +226,7 @@ function App() {
                                                 </Route>
                                                 <Route path='offers' >
                                                     <Route path='none-available' element={loadGeneralUserComponent(<NoOfferAvailable />)} />
-                                                    <Route path='AmOne-NoOffers-Available' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />
+                                                    <Route path='no-offers' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />
                                                     <Route path='Referred' element={loadGeneralUserComponent(<ReferredFromAffiliate />)} />
                                                     <Route path='*' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
                                                 </Route>

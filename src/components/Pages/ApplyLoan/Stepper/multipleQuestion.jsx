@@ -28,7 +28,10 @@ export default function MultipleQuestion(props) {
 	const [ questionArray, setQuestionArray ] = useState([]);
 	const [ refresh, setRefresh ] = useState([]);
 	let qarr = [];
-
+	function getValueByLable(text, ctx) {
+		return document.evaluate("//*[.='" + text + "']",
+			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
+	}
 	useEffect(() => {
 		for (const x of props.responseData) {
 			qarr[ x.questionId ] = "";
@@ -63,6 +66,7 @@ export default function MultipleQuestion(props) {
 			if (result?.data?.id_questions) {
 				props.setLoadingFlag(false);
 				props.next();
+				getValueByLable("ID Verification Questions").scrollIntoView();	
 			} else {
 				toast.error(messages?.verificationQuestions?.verificationUnsuccess);
 				props.setLoadingFlag(false);
