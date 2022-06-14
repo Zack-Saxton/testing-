@@ -13,8 +13,8 @@ export default async function LoginController(email, password, clientIp,longitud
       password: password,
       clientIp: clientIp,
       deviceType: deviceType,
-      longitude : longitude || " ",
-      latitude : latitude || " "
+      longitude : longitude || "",
+      latitude : latitude || ""
     };
     let method = "POST";
     let addAccessToken = false;
