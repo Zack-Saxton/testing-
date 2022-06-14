@@ -120,12 +120,7 @@ export async function PopulatePartnerSignup(
   }
 }
 
-export async function PopulatePartnerReferred(
- 
-  applicantId,
- 
-) {
-  console.log("controller",applicantId)
+export async function PopulatePartnerReferred(applicantId) {
   try {
     let url = "populate_partner_referred";
     let param = "";
