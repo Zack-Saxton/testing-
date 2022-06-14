@@ -12,7 +12,7 @@ import VantageScore from "./VantageScore";
 
 const theme = createTheme();
 window.scrollTo = jest.fn();
-const queryClient = new QueryClient({
+const queryClient = new QueryClient({ 
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
@@ -78,8 +78,7 @@ it("Checking if first accordion rendering and functions", async () => {
     </ThemeProvider>
   );
 
-  expect(
-    screen.getByText("There is a bankruptcy on your credit report")).toBeVisible();
+  expect(screen.getByText("There is a bankruptcy on your credit report")).toBeVisible();
 
   const button = container.querySelector(".MuiAccordionSummary-expandIconWrapper");
   fireEvent.click(button);
