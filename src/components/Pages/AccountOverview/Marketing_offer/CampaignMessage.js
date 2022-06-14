@@ -32,7 +32,7 @@ export default function CampaignMessage({ amount, offerCode, handleContinue, exp
                     {formattedAmount}
                 </p>
                 <p className="common">Use it to get things done.</p>
-                <p className="common">Offer Code:{offerCode}</p>
+                <p data-testid = "offerCode_disp" className="common">Offer Code:{offerCode}</p>
                 <ButtonPrimary data-testid = "claim_button" id="ClaimButton" stylebutton='{"color":"", "textTransform": "none","marginLeft":"40px"}' onClick={handleContinue}>
                     Continue
                 </ButtonPrimary>

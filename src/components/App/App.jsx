@@ -71,7 +71,7 @@ import VantageScore from "../Pages/VantageScore/VantageScore";
 import MFAGetPhoneNumber from "../Pages/MultiFactorAuthentication/MFAGetPhoneNumber";
 import NoOfferAvailable from "../Layout/offers/NoOfferAvailable"
 import AmOneNoOffersAvailable from "../Pages/CheckMyOffers/AmOneNoOffersAvailable/AmOneNoOffersAvailable"
-import ReferredFromAffiliate from "../Pages/CheckMyOffers/ReferredFromAffiliate/ReferredFromAffiliate"
+import ReferredFromAffiliate from "../Pages/AffiliatePartner/ReferredFromAffiliate/ReferredFromAffiliate";
 import "./App.css";
 
 const queryClient = new QueryClient({
@@ -143,6 +143,7 @@ function App() {
                                                 <Route path='/' element={<Navigate replace to="/customers/accountOverview" />} />
                                                 <Route path='/components' element={loadGeneralUserComponent(<CustomComponents />)} />
                                                 <Route path='/login' element={loadGeneralUserComponent(<LoginPage />)} />
+                                                <Route path='/error' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
                                                 <Route path='/MFA-phoneNumber' element={loadGeneralUserComponent(<MFAGetPhoneNumber />)} />
                                                 <Route path='/MFA' element={loadGeneralUserComponent(<MultiFactorAuthentication />)} />
                                                 <Route path='/MFA-OTP' element={loadGeneralUserComponent(<MultiFactorAuthenticationOTP />)} />
@@ -226,9 +227,8 @@ function App() {
                                                 </Route>
                                                 <Route path='offers' >
                                                     <Route path='none-available' element={loadGeneralUserComponent(<NoOfferAvailable />)} />
-                                                    <Route path='AmOne-NoOffers-Available' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />
-                                                    <Route path='Referred' element={loadGeneralUserComponent(<ReferredFromAffiliate />)} />
-                                                    <Route path='*' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
+                                                    <Route path='AmOne-NoOffers-Available' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />                                                   
+                                                    <Route path='referral' element={loadGeneralUserComponent(<ReferredFromAffiliate />)} />                                                    
                                                 </Route>
                                             </Routes>
                                         </NavContext>
