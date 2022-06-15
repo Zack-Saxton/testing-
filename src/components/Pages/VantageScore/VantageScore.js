@@ -35,7 +35,7 @@ export default function VantageScore() {
 
   //View
   return (
-    <div >
+    <div data-testid="vantageScoreComponent">
       <CheckLoginStatus />
       <ScrollToTopOnMount />
       <Grid
@@ -47,6 +47,7 @@ export default function VantageScore() {
           <Grid item xs={12}>
             <Typography variant="h5" className={classes.heading}>
               <NavLink
+                data-testid="creditMonitoringButton"
                 to="/customers/accountOverview"
                 className={classes.textDecoration}
               >
@@ -65,9 +66,9 @@ export default function VantageScore() {
             </Typography>
           </Grid>
         </Grid>
-        <div id="creditContainer" data-testid="creditFiles">
+        <div id="creditContainer">
           <Grid item xs={12}>
-            <Paper id="vantageScorePaper" className={classes.paper}>
+            <Paper id="vantageScorePaper" data-testid="creditFiles" className={classes.paper}>
               {creditData ? (
                 creditData[ 0 ]?.parsed.vantage_score ?
                   (<Credit creditData={creditData} />) : <div>You do not have any credit score</div>
@@ -80,7 +81,7 @@ export default function VantageScore() {
 
         <div id="HistoricalDataContainer">
           <Grid item xs={12}>
-            <Paper style={{ padding: "36px" }} className={classes.paper}>
+            <Paper data-testid="HistoricalData" style={{ padding: "36px" }} className={classes.paper}>
               {creditData ? (
                 creditData[ 0 ]?.parsed.vantage_score ? (
                   <HistoricalData creditData={creditData} />) : <div>You do not have any historical data </div>
