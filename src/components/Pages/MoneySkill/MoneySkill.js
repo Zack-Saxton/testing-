@@ -38,16 +38,18 @@ export default function MoneySkill(props) {
 
   //View part
   return (
-    <div>
+    <div data-testid = "MoneySkill_component">
       <Dialog
         id="moneySkillDialogBox"
         open={props?.moneySkill}
+        data-testid = "MoneySkill_dialog"
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         classes={{ paper: classes.moneySkillDialog }}
       >
         <div id="closeBtn" className={classes.buttonClose}>
           <IconButton
+          data-testid = "closeIcon_Button"
             aria-label="close"
             onClick={handleCloseMoneySkill}
             className={classes.closeButton}
@@ -56,7 +58,7 @@ export default function MoneySkill(props) {
           </IconButton>
         </div>
 
-        <h2 id="moneySkillDialogHeading" className={classes.moneySkillDialogHeading}>
+        <h2 id="moneySkillDialogHeading" data-testid = "Dialog_Heading" className={classes.moneySkillDialogHeading}>
           You are about to leave <br /> marinerfinance.com
         </h2>
 
@@ -71,7 +73,7 @@ export default function MoneySkill(props) {
             The information you provide to register and use MoneySKILL is
             governed by the privacy policy of the American Financial Services
             Association Education Foundation &nbsp;
-            <a target="blank" id="moneySkillInfoLink" href="https://www.afsaef.org/Privacy-Policy">(found here)</a>&nbsp;
+            <a target="blank" data-testid = "moneySkillInfoLink" id="moneySkillInfoLink" href="https://www.afsaef.org/Privacy-Policy">(found here)</a>&nbsp;
             and the privacy policy of Mariner Finance &nbsp;
             <a target="blank" id="moneySkillInfoLink" href="https://www.marinerfinance.com/resources/legal/privacy-statement/">(found here)</a>.
             &nbsp; If you have any questions about the collection and use of the
@@ -83,6 +85,7 @@ export default function MoneySkill(props) {
         <div id="buttonWrap">
           <ButtonSecondary
             id="stayBtn"
+            data-testid = "stayBtn"
             onClick={handleCloseMoneySkill}
             stylebutton='{"float": "" }'
           >
@@ -92,6 +95,7 @@ export default function MoneySkill(props) {
           <ButtonPrimary
             href={moneySkillUrl}
             id="Continue"
+            data-testid = "Continue_Btn"
             stylebutton='{"float": "" }'
             target="_blank"
             disabled={!moneySkillUrl}
