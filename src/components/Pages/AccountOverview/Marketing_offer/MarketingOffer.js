@@ -77,16 +77,16 @@ export default function MarketingOffer(data) {
   ];
 
   return (
-    <Grid>
+    <Grid data-testid = "MarketingOffer_component">
       {
-        Object.keys(message).map(key => {
+        Object?.keys(message).map(key => {
           if (key !== "campaignType") {
             return <p key={key}>{message[ key ]}</p>;
           }
         })
       }
       why mariner Finance?
-      <ul>
+      <ul data-testid = "whyMariner">
         <li>Fast - Get money as soon as the same day.</li>
         <li>Easy - Apply online, by phone, or in a branch.*</li>
         <li>Affordable - with a fixed monthly payment, a fixed rate, and a set payoff date.</li>

@@ -20,7 +20,7 @@ export default function PreScreen(offerData) {
 
     if (preScreenMessage) {
         return (
-            <Grid className="content">
+            <Grid data-testid = "preScreen_component" className="content">
                 {preScreenMessage}
             </Grid>
         );

@@ -39,7 +39,7 @@ export default function Disclaimer(offerData) {
                     disclaimerIndecies = [ 8, 5, 2, 7, 3, 4, 6 ];
             }
 
-        disclaimerIndecies.forEach(index => {
+        disclaimerIndecies?.forEach(index => {
             disclaimers.push(allDisclaimers[ index ]);
         });
         setFilteredDisclaimers(disclaimers);
@@ -128,7 +128,7 @@ export default function Disclaimer(offerData) {
 
     //View
     return (
-        <div id="discalimerContainer">
+        <div data-testid = "discalimerContainer" id="discalimerContainer">
             <Grid>
                 <p className="common para">Important Offer Information
                 </p>
@@ -137,7 +137,7 @@ export default function Disclaimer(offerData) {
                 filteredDisclaimers.map((disclaimer) => {
                     return (
                         <Grid key={disclaimer.index.toString()}>
-                            <Typography className="common para">{disclaimer.title}
+                            <Typography  data-testid = "discalimertitle" className="common para">{disclaimer.title}
                                 <span className="small">{disclaimer.content}</span>
                             </Typography>
                         </Grid>
