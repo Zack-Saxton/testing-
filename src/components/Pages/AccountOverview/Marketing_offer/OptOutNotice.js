@@ -20,7 +20,7 @@ export default function OptOutNotice(offerData) {
 
     if (optOutNotice !== "") {
         return (
-            <Grid className="content">
+            <Grid  data-testid = "OptOutNotice_component" className="content">
                 <Typography align={'center'}><u>PRESCREEN & OPT-OUT NOTICE</u></Typography>
                 <p>{optOutNotice}</p>
             </Grid>
