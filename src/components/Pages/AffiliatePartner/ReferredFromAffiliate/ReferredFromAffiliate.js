@@ -56,6 +56,7 @@ function ReferredFromAffiliate() {
       <Grid>
         <Grid className={classes.congratulationsGrid}>
 			  <img className="congratulationsImage" alt="Congratulations Image" src={CongratulationsImage}/>
+        <Grid className="congratulationsTextWrap">
         <Typography className={classes.congratsHeading} variant="h4">
           Congratulations! {firstName}
         </Typography>
@@ -67,16 +68,15 @@ function ReferredFromAffiliate() {
           Upon completion of your application and verification of your information,<br/>
           we may be able to extend your final offer as soon as today!* Let{"'"}s get on a call!**
         </Typography>
-
+        </Grid>
         <Grid>
         <ButtonPrimary id="telephoneNmber" stylebutton='{"background": "", "color":"" }'>
           <a className={classes.telNumber} href="tel:+8152779090">
-          Call : (815) 277-9090
+          Call : (615) 277-9090
           </a>
         </ButtonPrimary>
         </Grid>
-        
-        <Grid>
+                  <Grid className="questionsText">
           <Typography className={classes.congratsPara}>
             Questions?
           </Typography>

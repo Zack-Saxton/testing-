@@ -486,7 +486,7 @@ export default function BranchLocator() {
         <Grid className="blueBoxWrap">
           {search1andgetList}
           <h4 className="branchLocatorHeadingMain">
-            Get one on one support for a personal loans near you
+            Get one on one support for a personal loan near you
           </h4>
 
           <Typography className="branchLocatorHeading">

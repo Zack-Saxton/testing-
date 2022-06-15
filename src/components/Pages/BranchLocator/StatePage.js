@@ -275,7 +275,7 @@ export default function StatePage() {
                 </Grid>
               </Grid>
               <h4 className="branchLocatorHeadingMain">
-                Get one on one support for a personal loans near you
+                Get one on one support for a personal loan near you
               </h4>
               <Typography className="branchLocatorHeading">
                 <b className="boldText">470+</b>Branches in 25 states
@@ -287,7 +287,7 @@ export default function StatePage() {
               <Typography className="branchLocatorHeading">
                 <b>4.8</b>
                 <span className="branchSmallText">
-                  Star Rating based on over 10,000 verified reviews
+                  Star Rating based on over 13,000 verified reviews
                 </span>
               </Typography>
             </Grid>
