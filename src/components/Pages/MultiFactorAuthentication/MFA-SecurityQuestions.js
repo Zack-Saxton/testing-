@@ -54,11 +54,20 @@ const MFASecurityQuestions = () => {
       let verify = await saveSecurityAnswer(answerData);
       if (verify?.data?.hasError === false && verify?.data?.result === "Ok") {
         toast.success(verify?.data?.Message);
-        const tokenString = Cookies.get("token") ? Cookies.get("token") : "{ }";
-        let userToken = JSON.parse(tokenString);
-        userToken.isMFACompleted = true;
-        Cookies.set("token", JSON.stringify(userToken));
-        navigate("/customers/accountoverview");
+       
+        const resetPassword = Cookies.get("forceResetPassword");
+        if(resetPassword){
+          const email = Cookies.get("email");
+          navigate("/resetpassword", { state: { Email: email } })
+        } 
+        else{
+          const tokenString = Cookies.get("token") ? Cookies.get("token") : "{ }";
+          let userToken = JSON.parse(tokenString);
+          userToken.isMFACompleted = true;
+          Cookies.set("token", JSON.stringify(userToken));
+          navigate("/customers/accountoverview");
+        }
+
       } else if (
         verify?.data?.hasError === true &&
         verify?.data?.result === "error"
@@ -96,6 +105,7 @@ const MFASecurityQuestions = () => {
           lg={6}
           xl={6}
           className={classes.twoStepWrap}
+          data-testid="securityQuestionInput"
         >
           <Paper className={classes.twoStepPaper}>
             <form onSubmit={formik.handleSubmit}>

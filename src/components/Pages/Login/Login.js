@@ -59,6 +59,7 @@ export default function Login(props) {
   const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
   let remMeData = JSON.parse(remMeDataRaw);
   const [ remMe, setRemMe ] = useState(remMeData?.selected);
+  Cookies.set("forceResetPassword", false);
 
   //reCaptcha validation
   window.onReCaptchaSuccess = async function () {
@@ -134,9 +135,11 @@ export default function Login(props) {
         queryClient.removeQueries();
         setLoading(false);
         if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter === 1 && retVal?.data?.user?.extensionattributes?.MFA){
+          Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
           navigate("/MFA-phoneNumber", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }});
         }
         else if(retVal?.data?.user?.extensionattributes?.MFA){
+          Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
           navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }});
         } else {
           retVal?.data?.user?.attributes?.password_reset
