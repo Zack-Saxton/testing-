@@ -16,7 +16,6 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, setSelection, selection, selectionValue, sendPassCode, isLoading, mfaDetails, securityQuestionsSaved}) => {
-
   const classes = useStylesMFA();
   const navigate = useNavigate();
   const [value, setValue] = useState('');
@@ -66,8 +65,8 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
   );
 
   return (
-    <div className={isLoading ? classes.loadingOn : classes.loadingOff}>
-      <Grid>
+    <div className={isLoading ? classes.loadingOn : classes.loadingOff} >
+      <Grid data-testid="twophoneNumber">
         <Grid
           spacing={1}
           container
@@ -80,10 +79,10 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
           className={classes.twoStepWrap}
         >
           <Paper className={classes.twoStepPaper}>
-            <Typography className={classes.twoStepHeading} variant="h5">
+            <Typography className={classes.twoStepHeading} variant="h5" data-testid="title">
               2-Step Verification
             </Typography>
-            <Typography className={classes.twoStepParagraph}>
+            <Typography className={classes.twoStepParagraph} data-testid="title1">
               For your security we are asking you to verify your identity.
               Select one of the following methods to complete your login.
             </Typography>
@@ -104,7 +103,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
                   id="FormControlLabel"
                   className={classes.smallRadioButton}
                   value="phone"
-                  control={<Radio color="primary" onClick={() => { handlePopUp(); }} />}
+                  control={<Radio color="primary" data-testid="phoneSelection" onClick={() => { handlePopUp(); }} />}
                   label={securityCode}
                 />
                 <FormControlLabel
@@ -128,7 +127,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
       <Popup maxWidth="sm" popupFlag={singlePhoneNumberPopUp} closePopup={handleSinglePhoneNumberPopUpClose} title="Select your preferred Phone Number">
         <PhoneNumberPopUp cellPhoneNumber={cellPhoneNumber} setSelection={setSelection}/>
       </Popup>
-      <Popup maxWidth="sm" popupFlag={mfaPhoneNumberPopUp} closePopup={handleMfaPhoneNumberPopUpClose} title="Select your preferred Phone Number">
+      <Popup maxWidth="sm" popupFlag={mfaPhoneNumberPopUp} closePopup={handleMfaPhoneNumberPopUpClose} title="Select your preferred Phone Number" data-testid="mfaPhoneNumber">
         <PhoneNumberPopUp cellPhoneNumber={cellPhoneNumber} optionalPhoneNumber={optionalPhoneNumber} mfaPhoneNumber={mfaPhoneNumber} setSelection={setSelection}/>
       </Popup>
 
