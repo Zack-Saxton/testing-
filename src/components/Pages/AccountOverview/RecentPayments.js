@@ -35,8 +35,8 @@ export default function RecentPayments() {
 
 	useEffect(() => {
 		if (accountDetails?.data?.loanHistory?.length) {
-			setDefaultLoanAccount(selectedLoanAccount ?? accountDetails.data.loanHistory[ 0 ].accountNumber)
-			setSelectedLoanAccount(selectedLoanAccount ?? accountDetails.data.loanHistory[ 0 ].accountNumber)
+			setDefaultLoanAccount(selectedLoanAccount ? selectedLoanAccount : accountDetails.data.loanHistory[ 0 ].accountNumber)
+		  setSelectedLoanAccount(selectedLoanAccount ? selectedLoanAccount : accountDetails.data.loanHistory[ 0 ].accountNumber)
 			setLoanAccountsList(accountDetails.data.loanHistory);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
