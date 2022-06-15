@@ -128,3 +128,7 @@ test("When select on the saturday and sunday, the time slot should not be shown"
 	const dataBtn = getByText(dateToCheck).closest('button');
 	fireEvent.click(dataBtn);
 });
+test('Should match the snapshot', () => {
+	const { asFragment } = render(component(), { wrapper: MemoryRouter });
+	expect(asFragment).toMatchSnapshot();
+});
