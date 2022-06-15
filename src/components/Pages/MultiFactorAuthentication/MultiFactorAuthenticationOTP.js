@@ -78,11 +78,19 @@ const MultiFactorAuthenticationOTP = () => {
     if(response?.data?.statusCode === 200){
       toast.success(response.data?.Message);
       if(isSecurityQuestionSaved){// redirect to Account overview
-        const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
-        let userToken = JSON.parse(tokenString);
-        userToken.isMFACompleted = true;
-        Cookies.set("token",JSON.stringify(userToken));//Setting MFA Flag to complete Login
-        navigate("/customers/accountOverview");
+        const resetPassword = JSON.parse(Cookies.get("forceResetPassword") ? Cookies.get("forceResetPassword") : '{ }');
+        if(resetPassword){
+          const email = Cookies.get("email");
+          navigate("/resetpassword", { state: { Email: email } })
+        } 
+        else{
+          const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
+          let userToken = JSON.parse(tokenString);
+          userToken.isMFACompleted = true;
+          Cookies.set("token",JSON.stringify(userToken));//Setting MFA Flag to complete Login
+          navigate("/customers/accountOverview");
+        }
+
       }else{// redirect to select security question page
         navigate('/MFA-SelectSecurityQuestions', {state: otpLocation});
       }
