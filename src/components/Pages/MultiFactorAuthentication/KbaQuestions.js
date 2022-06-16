@@ -14,6 +14,8 @@ import MultipleQuestion from './MultipleQuestion';
 import KbaQuestionsPopup from './KbaQuestionsPopup';
 import ScrollToTopOnMount from "../ScrollToTop";
 import globalMessages from "../../../assets/data/globalMessages.json";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 
 const KbaQuestions = () => {
@@ -77,7 +79,7 @@ const KbaQuestions = () => {
       setSetOneFinished(true);
       setLoadingFlag(false);
     }
-    else{
+    else {
       toast.error("Somthing went wrong, please try again");
     }
   }
@@ -94,6 +96,9 @@ const KbaQuestions = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setOneFinished]);
+  const backToVerificationStep = () => {
+    navigate(-1);
+  }
 
   return (
     <div data-testid="KbaQuestions_component" className={loadingFlag ? classes.loadingOn : classes.loadingOff}>
@@ -111,9 +116,14 @@ const KbaQuestions = () => {
           className={classes.twoStepWrap}
         >
           <Paper className={classes.twoStepPaper}>
-            <Typography className={classes.twoStepHeading} variant="h5">
-              2-Step Verification
-            </Typography>
+            <Grid className={classes.headingTextWrap}>
+              <Typography className={classes.twoStepHeading} variant="h5">
+                2-Step Verification
+              </Typography>
+              <IconButton className={classes.backArrow} onClick={backToVerificationStep}>
+                <ArrowBackIcon className={classes.yellowBackArrow} />
+              </IconButton>
+            </Grid>
             <Typography className={classes.twoStepParagraph}>
               Please answer the questions below to help verify your identity. Please provide your responses within five minutes.
             </Typography>
@@ -187,7 +197,7 @@ const KbaQuestions = () => {
             </Typography>
           </Paper>
           <Popup maxWidth="sm" popupFlag={popUp} closePopup={handlePopUpClose} title="Contact Us">
-            <Typography className="printPage" style={{ textDecoration: 'none'}}>Please contact us with any questions<br /></Typography>
+            <Typography className="printPage" style={{ textDecoration: 'none' }}>Please contact us with any questions<br /></Typography>
             <ul>
               <li><strong>Phone</strong> : 833-421-3184 <br /></li>
               <li> <strong>Hours</strong> : M,W,Th:9:00a.m.-5:00 p.m. Tue:9:00 a.m. - 7:00 p.m. Fri:9:00 a.m. - 5:30 p.m. <br /></li>
