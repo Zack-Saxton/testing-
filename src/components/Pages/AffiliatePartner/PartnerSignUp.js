@@ -208,7 +208,7 @@ export default function PartnerSignUp() {
         <Box>
           <Grid
             className={classes.partnerSignUpGrid}
-            xs={10}
+            xs={12}
             item
             container
             justifyContent="center"
