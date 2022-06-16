@@ -156,7 +156,7 @@ let selectedQuestionStructured =
     let mfaQuestion = await fetchAllMFAQuestion();
     setQuestions(mfaQuestion.data.questionsList);
     let mfaQuestionsArray = [];
-    mfaQuestion.data.questionsList.forEach((question) => {
+    mfaQuestion.data.questionsList?.forEach((question) => {
       mfaQuestionsArray.push({
         label: question.question,
         value: question.question_id
@@ -178,9 +178,6 @@ let selectedQuestionStructured =
     }
   };
 
-
-
-
   const handleOnChangeQuestions = (event, index) => {
 
     formik.handleChange(event);
@@ -189,9 +186,6 @@ let selectedQuestionStructured =
     setSelectQuestionArry(temp);
     
   }
-
-
-
   const getAvailableOptions = (inde) => {
     const availableOptionsLeft = questionOption;
     return availableOptionsLeft.filter(questionOptions => {
@@ -213,7 +207,7 @@ let selectedQuestionStructured =
 
 
   return (
-    <div>
+    <div data-testid="selectSecurityQuestions">
       <Grid>
         <Grid
           spacing={1}
@@ -227,11 +221,11 @@ let selectedQuestionStructured =
           <Paper className={classes.twoStepPaper}>
           <form onSubmit={formik.handleSubmit}>
             <Grid className={classes.headingTextWrap}>
-              <Typography className={classes.twoStepHeading} variant="h5">
+              <Typography className={classes.twoStepHeading} variant="h5" data-testid="title">
                 Verification Questions Setup
               </Typography>
               
-              <Typography className={classes.securityCubText} variant="h6">
+              <Typography className={classes.securityCubText} variant="h6" data-testid="title1">
                 Select five different questions from the list below and enter your answers.
               </Typography>
               <IconButton className={classes.backArrow} onClick={goBack}>
@@ -259,7 +253,6 @@ let selectedQuestionStructured =
                           error={(formik.touched.question1 && Boolean(formik.errors.question1))}
                           helperText={formik.touched.question1 && formik.errors.question1 }
                           select={JSON.stringify(getAvailableOptions(0))}
-
                         />      
                         </Grid>
                         <Grid className="answerGrid" container item md={6}  style={{ padding: "10px" }}>
