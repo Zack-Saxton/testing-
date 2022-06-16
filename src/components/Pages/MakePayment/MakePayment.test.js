@@ -6,6 +6,10 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import MakePayment from "./MakePayment";
+import { useAccountOverview } from './useAccountOverview';
+import { useHolidayCalender } from './useHolidayCalender';
+import { usePaymentMethod } from './usePaymentMethod';
+import { accOverviewData, holidayData, paymentData } from './MakePaymentMockData';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,7 +20,24 @@ const queryClient = new QueryClient({
     },
   },
 });
+jest.mock("./useAccountOverview", () => ({
+  useAccountOverview: jest.fn(),
+}))
+
+jest.mock("./usePaymentMethod", () => ({
+  usePaymentMethod: jest.fn(),
+}))
+
+jest.mock("./useHolidayCalender", () => ({
+  useHolidayCalender: jest.fn(),
+}))
+
+
+
 const theme = createTheme();
+window.scrollTo = jest.fn();
+
+
 
 const component = () => {
   return (
@@ -30,20 +51,24 @@ const component = () => {
   );
 };
 
-test("Checks the component is rendered", () => {
-  render(component());
-  const element = screen.getByTestId("makePaymentComponent");
-  expect(element).toBeTruthy();
-});
-
-test("Table Availability test", () => {
-  render(component());
-  const element = screen.getByTestId("activeLoans");
-  expect(element).toBeTruthy();
-});
 
 test("Please Contact Text Availability test", () => {
+  useAccountOverview.mockImplementation(() => ({
+    isFetching: false,
+    accountDetails: accOverviewData(),
+  }));
+
+  usePaymentMethod.mockImplementation(() => ({
+    isLoadingPayment: false,
+    paymentsData: paymentData()
+  }));
+
+  useHolidayCalender.mockImplementation(() => ({
+    isLoadingHoliday: false,
+    holidayCalenderData: holidayData(),
+  }));
+
   render(component());
-  const element = screen.getByTestId("pleaseContact");
+  const element = screen.getByTestId("makePaymentComponent");
   expect(element).toBeTruthy();
 });
