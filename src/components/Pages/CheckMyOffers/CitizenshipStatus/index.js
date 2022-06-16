@@ -136,7 +136,7 @@ function CitizenshipStatus() {
 										<Paper
 											id="usButton"
 											elevation={3}
-											data-testid="usCitizen"
+											data-testid="usCitizenBtn"
 											className={
 												citizenship === citizenshipData.USCitizen
 													? "activeBorder radioBlock "
@@ -153,7 +153,7 @@ function CitizenshipStatus() {
 										<Paper
 											id="permanentResidentButton"
 											elevation={3}
-											data-testid="permanentResident"
+											data-testid="permanentResidentBtn"
 											className={
 												citizenship === citizenshipData.permanentResident
 													? "activeBorder radioBlock "
@@ -170,7 +170,7 @@ function CitizenshipStatus() {
 										<Paper
 											id="foreignResidentButton"
 											elevation={3}
-											data-testid="foreignResident"
+											data-testid="foreignResidentBtn"
 											className={
 												citizenship === citizenshipData.foreignResident
 													? "activeBorder radioBlock "
