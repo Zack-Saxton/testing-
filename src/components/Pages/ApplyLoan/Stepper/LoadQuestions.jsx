@@ -26,8 +26,8 @@ export default function LoadQuestions(props) {
 		<>
 			{props.responseData.map((question, index) => {
 				return (
-					<Grid key={index} item xs={12}>
-						<Typography>{question?.question} *</Typography>
+					<Grid data-testid="loadQuestionGrid" key={index} item xs={12}>
+						<Typography data-testid={question?.questionId} >{question?.question} *</Typography>
 						<Radio
 							id="LoanQuestionWrap"
 							name="question"
