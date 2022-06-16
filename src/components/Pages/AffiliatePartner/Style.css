@@ -49,6 +49,15 @@
 #spouseCityWrap {
     padding-right: 10px;
 }
+#maritalStatusGrid{
+    margin-top: 20px;
+}
+#maritalStatusInput-label{
+    font-size: 0.938rem !important;
+}
+#maritalStatusInput{
+    padding-bottom: 15px;
+}
 
 @media (max-width:400px) {
 
@@ -175,7 +184,9 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
     font-size: 0.968rem !important;
     margin-left: -14px;
 }
-
+#employementStatusWrap div p {
+    margin: 3px 0px 0px 0px;
+}
 #employementStatusWrap div div div:nth-child(1) {
     padding-bottom: 15px !important;
 }
@@ -235,4 +246,15 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 
 #employementStatus .subOption {
     color: #171717 !important;
+}
+@media only screen and (max-width: 599px){
+    #spouseZipWrap, #spouseCityWrap{
+        padding: 0px;
+    }
+    #spouseCityWrap{
+        margin-top: 20px;
+    }
+    #spouseStateWrap{
+        margin-top: 20px;
+    }
 }

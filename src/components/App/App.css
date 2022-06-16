@@ -41,5 +41,6 @@
 @media only screen and (max-width: 500px) {
   .toast_message_box {
     font-size: 18px;
+    width: 100vw;
   }
 }

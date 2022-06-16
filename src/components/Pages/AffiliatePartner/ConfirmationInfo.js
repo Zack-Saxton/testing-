@@ -814,6 +814,7 @@ export default function ConfirmationInfo() {
                         />
                       </Grid>
                       <Grid
+                        id="maritalStatusGrid"
                         item
                         xs={12}
                         className={
@@ -825,6 +826,7 @@ export default function ConfirmationInfo() {
                         }
                       >
                         <TextField
+                          id="maritalStatusInput"
                           name="spouseadd"
                           label="Spouse's Address (if different)"
                           value={formik.values.spouseadd}
