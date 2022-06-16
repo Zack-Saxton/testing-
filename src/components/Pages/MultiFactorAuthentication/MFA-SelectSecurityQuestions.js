@@ -156,7 +156,7 @@ let selectedQuestionStructured =
     let mfaQuestion = await fetchAllMFAQuestion();
     setQuestions(mfaQuestion.data.questionsList);
     let mfaQuestionsArray = [];
-    mfaQuestion.data.questionsList.forEach((question) => {
+    mfaQuestion.data.questionsList?.forEach((question) => {
       mfaQuestionsArray.push({
         label: question.question,
         value: question.question_id
@@ -178,9 +178,6 @@ let selectedQuestionStructured =
     }
   };
 
-
-
-
   const handleOnChangeQuestions = (event, index) => {
 
     formik.handleChange(event);
@@ -189,14 +186,8 @@ let selectedQuestionStructured =
     setSelectQuestionArry(temp);
     
   }
-
-
-
   const getAvailableOptions = (inde) => {
-    console.log("#33333");
-    
     const availableOptionsLeft = questionOption;
-    console.log(availableOptionsLeft);
     return availableOptionsLeft.filter(questionOptions => {
 
         return selectQuestionArray.indexOf(questionOptions.value) === -1 || selectQuestionArray.indexOf(questionOptions.value) === inde;
