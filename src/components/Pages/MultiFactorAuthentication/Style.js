@@ -148,6 +148,7 @@ const useStylesMFA = makeStyles((theme) =>
       textTransform: 'none'
     },
     skip_button:{
+      fontFamily:"Muli, sans-serif ",
       color: '#1B488A',
       border: '1px solid  #1B488A',
       width: "auto",
