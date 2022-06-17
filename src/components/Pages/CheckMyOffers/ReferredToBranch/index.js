@@ -31,7 +31,7 @@ function ReferredToBranch(props) {
 
 	//JSX part
 	return (
-		<div>
+		<div data-testid = "referredToBranch_Component">
 			<ScrollToTopOnMount />
 			<div className={classes.mainDiv}>
 				<Box>
@@ -61,7 +61,7 @@ function ReferredToBranch(props) {
 								justifyContent="center"
 								alignItems="center"
 							>
-								<img src={ReferToBranchLogo} alt="NoOffersAvailable" />
+								<img data-testid = "ReferToBranchLogo" src={ReferToBranchLogo} alt="NoOffersAvailable" />
 							</Grid>
 						</Grid>
 						<br />
@@ -163,6 +163,7 @@ function ReferredToBranch(props) {
 									<ButtonPrimary
 										stylebutton='{"background": "", "color":"", "fontSize": "0.938rem","padding":"0px 30px"}'
 										href="customers/myBranch"
+										data-testid = "finishByPhone_button"
 									>
 										Finish by Phone
 									</ButtonPrimary>
@@ -182,6 +183,7 @@ function ReferredToBranch(props) {
 									<ButtonPrimary
 										stylebutton='{"background": "", "color":"", "fontSize": "0.938rem","padding":"0px 30px" }'
 										href="customers/myBranch"
+										data-testid = "finishByBranch_button"
 									>
 										Finish by Branch
 									</ButtonPrimary>

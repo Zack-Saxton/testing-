@@ -193,7 +193,7 @@ function HomeAddress() {
     formik.setFieldValue("streetAddress", event.target.value.trim());
   };
   return (
-    <div>
+    <div data-testid = "homeAddress_Component">
       <ScrollToTopOnMount />
       <div className={classes.mainDiv}>
         <Box>
