@@ -42,7 +42,7 @@ test("Checks the component is rendered", () => {
 });
 
 test("Check the first name field in UI", () => {
-	const { container, debug } = render(component(), { wrapper: MemoryRouter });
+	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="firstname"]`);
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('jean');
@@ -114,7 +114,7 @@ test("Check can able to enter email id in Email Address filed in UI", async () =
 });
 
 test("Show error message if entered invalid email id", async () => {
-	const { container, debug } = render(component(), { wrapper: MemoryRouter });
+	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="email"]`);
 	expect(input).toBeTruthy();
 	await act(() => {

@@ -146,7 +146,7 @@ test('Mariner Mariner Finance States section ', async () => {
     </MemoryRouter>
   );
   await act(() => {		
-    const element = screen.getByText('Branches Near You');
+    const element = screen.getByText('Branch Near You!');
 	  expect(element).toBeTruthy();
 	});	  
 });

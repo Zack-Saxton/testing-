@@ -481,7 +481,6 @@ describe("while loading", () => {
     const container = render(MockActiveloans());
     const offerTableBlock = container.getByTestId("offer_Table");
     expect(offerTableBlock).toBeTruthy();
-    // container.debug(offerTableBlock, 300000);
     const termGrid = container.getByTestId("termGrid");
     expect(termGrid).toBeTruthy();
   });
@@ -515,7 +514,6 @@ it("Continue Button Enable Test", () => {
   const radioButtonDetect = container.getByTestId("offer_Table_Radio_1")
   expect(radioButtonDetect).toBeTruthy();
   fireEvent.click(radioButtonDetect);
-  container.debug(radioButtonDetect, 300000)
   const offerTableBlock = container.getByTestId("Continue_Button");
   expect(offerTableBlock.getAttribute("disabled")).toBe("");
 });
