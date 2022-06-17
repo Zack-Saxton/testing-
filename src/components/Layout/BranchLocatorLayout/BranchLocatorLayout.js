@@ -18,7 +18,7 @@ const BranchLocatorLayout = ({ children }) => {
           </Typography>
           <Typography className="topBarLinkOne" >
             <Link href="/customers/applyForLoan" className="hrefTag">
-              Resume Application
+              Application
             </Link>
           </Typography>
           <Typography className="topBarLinkOne">

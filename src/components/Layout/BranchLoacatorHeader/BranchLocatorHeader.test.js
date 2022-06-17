@@ -374,7 +374,7 @@ test("Desktop Menu Link availability tests", () => {
 //40
 test("Check My Offers Button availability test", () => {
   render(component());
-  const element = screen.getByTestId("checkMyOffers");
+  const element = screen.getByTestId("applyNowBtn");
   expect(element).toBeTruthy();
 });
 
