@@ -221,6 +221,9 @@ let selectedQuestionStructured =
           <Paper className={classes.twoStepPaper}>
           <form onSubmit={formik.handleSubmit}>
             <Grid className={classes.headingTextWrap}>
+            <IconButton className={classes.backArrow} onClick={goBack}>
+                <ArrowBackIcon className={classes.yellowBackArrow} />
+              </IconButton>
               <Typography className={classes.twoStepHeading} variant="h5" data-testid="title">
                 Verification Questions Setup
               </Typography>
@@ -228,9 +231,7 @@ let selectedQuestionStructured =
               <Typography className={classes.securityCubText} variant="h6" data-testid="title1">
                 Select five different questions from the list below and enter your answers.
               </Typography>
-              <IconButton className={classes.backArrow} onClick={goBack}>
-                <ArrowBackIcon className={classes.yellowBackArrow} />
-              </IconButton>
+              
             </Grid>
             
             <Grid className={classes.otpWrap} container>

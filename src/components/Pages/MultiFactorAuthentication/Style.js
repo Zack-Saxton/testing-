@@ -55,14 +55,14 @@ const useStylesMFA = makeStyles((theme) =>
       boxSizing: "border-box",
       height: "fit-content",
       boxShadow: "rgb(61 61 61 / 10%) 0px 8px 44px 0px",
-      "@media (max-width: 420px)": {
-        padding: "30px 20px",
+      "@media (max-width: 520px)": {
+        padding: "30px  20px",
       },
     },
     twoStepHeading: {
       textAlign: "center",
       fontSize: "1.538rem",
-      marginTop: "0.82rem",
+      margin: "0.82rem 12% 0px 12%",
       color: "#171717",
     },
     twoStepParagraph: {
