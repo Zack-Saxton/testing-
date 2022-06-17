@@ -1,85 +1,139 @@
-import { cleanup, fireEvent, render } from "@testing-library/react";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import CheckMyOffers from "../../../../contexts/CheckMyOffers";
 import HomeAddress from "./index.js";
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/styles';
+import "@testing-library/jest-dom/extend-expect";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-afterEach(cleanup);
 
-test("Availability test", () => {
-  const container = render(
-    <BrowserRouter>
-      <CheckMyOffers>
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			retry: false,
+			staleTime: 500000,
+		},
+	},
+});
+const theme = createTheme();
+window.scrollTo = jest.fn();
+
+const component = () => {
+	return (
+		<ThemeProvider theme={theme}>
+			<QueryClientProvider client={queryClient}>
+				<BrowserRouter>
+				<CheckMyOffers>
         <HomeAddress />
       </CheckMyOffers>
-    </BrowserRouter>
-  );
+				</BrowserRouter>
+			</QueryClientProvider>
+		</ThemeProvider>
+	);
+}
 
-  const ZipcodeField = container.getByTestId("zipcode");
-  expect(ZipcodeField).toBeTruthy();
-  expect(ZipcodeField.value).toBe("");
-  const City = container.getByTestId("city");
-  expect(City).toBeTruthy();
-  expect(City.value).toBe("");
-  const streetAddress = container.getByTestId("streetAddress");
-  expect(streetAddress).toBeTruthy();
-  expect(streetAddress.value).toBe("");
-  const state = container.getByTestId("state");
-  expect(state).toBeTruthy();
-  expect(state.value).toBe("");
+test("Checks the component is rendered", () => {
+	render(component());
+	const element = screen.getByTestId('homeAddress_Component');
+	expect(element).toBeTruthy();
 });
 
-test("Button initially disabled", () => {
-  const container = render(
-    <BrowserRouter>
-      <CheckMyOffers>
-        <HomeAddress />
-      </CheckMyOffers>
-    </BrowserRouter>
-  );
-
-  const input = container.getByTestId("homeAddressCntBtn");
-  expect(input).toBeTruthy();
-  // expect(input.value).toBe('');
-  expect(input.hasAttribute("disabled")).toBe(false);
+test("Check streetAddress is rendered", () => {
+	render(component());
+	const element = screen.getByTestId('streetAddress');
+	expect(element).toBeTruthy();
 });
 
-test("input validation test", () => {
-  const container = render(
-    <BrowserRouter>
-      <CheckMyOffers>
-        <HomeAddress />
-      </CheckMyOffers>
-    </BrowserRouter>
-  );
-
-  const button = container.getByTestId("homeAddressCntBtn");
-  const input = container.getByTestId("zipcode");
-  fireEvent.change(input, { target: { value: "abc" } });
-  expect(input.value).toBe("");
-  fireEvent.change(input, { target: { value: "12345" } });
-  expect(input.value).toBe("12345");
-  const City = container.getByTestId("city");
-  fireEvent.change(City, { target: { value: "cityName" } });
-  expect(City.value).toBe("cityName");
-  const streetAddress = container.getByTestId("streetAddress");
-  fireEvent.change(streetAddress, { target: { value: "cityName" } });
-  expect(streetAddress.value).toBe("cityName");
-  const state = container.getByTestId("state");
-  fireEvent.change(state, { target: { value: "cityName" } });
-  expect(state.value).toBe("cityName");
-  expect(button.hasAttribute("disabled")).toBe(false);
+test("Check zipcode is rendered", () => {
+	render(component());
+	const element = screen.getByTestId('zipcode');
+	expect(element).toBeTruthy();
 });
 
+test("Check city is rendered", () => {
+	render(component());
+	const element = screen.getByTestId('city');
+	expect(element).toBeTruthy();
+});
 
+test("Check state is rendered", () => {
+	render(component());
+	const element = screen.getByTestId('state');
+	expect(element).toBeTruthy();
+});
 
+test("Check Button is rendered", () => {
+	render(component());
+	const element = screen.getByTestId('homeAddressCntBtn');
+	expect(element).toBeTruthy();
+});
+
+test("Render Address", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="streetAddress"]`);
+	fireEvent.change(input, { target: { value: "1234 MAIN AVE" } });
+	expect(input).toBeTruthy();
+	expect(input.value).toBe('1234 MAIN AVE');
+});
+
+it("zipcode should be 5 digits", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="zip"]`);
+	expect(input.maxLength).toBe(5);
+});
+
+test("Zipcode Valid Input", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="zip"]`);
+	fireEvent.change(input, { target: { value: "abc" } });
+	expect(input.value).toBe("");
+	fireEvent.change(input, { target: { value: "12345" } });
+	expect(input.value).toBe("12345");
+});
+
+test("Render City", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="city"]`);
+	fireEvent.change(input, { target: { value: "NEWARK" } });
+	expect(input).toBeTruthy();
+	expect(input.value).toBe('NEWARK');
+});
+
+test("Render State", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="state"]`);
+	fireEvent.change(input, { target: { value: "DE" } });
+	expect(input).toBeTruthy();
+	expect(input.value).toBe('DE');
+});
+
+test("Render Zipcode", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="zip"]`);
+	fireEvent.change(input, { target: { value: "19702" } });
+	expect(input).toBeTruthy();
+	expect(input.value).toBe('19702');
+});
+
+test("Check city field is disabled", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="city"]`);
+	expect(input).toBeTruthy();
+	expect(input).toHaveAttribute("disabled");
+});
+
+test("Check state field is disabled", () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="state"]`);
+	expect(input).toBeTruthy();
+	expect(input).toHaveAttribute("disabled");
+});
 
 test('should match the snapshot Test', () => {
-  const { asFragment } = render(<BrowserRouter>
-    <CheckMyOffers>
-      <HomeAddress />
-    </CheckMyOffers>
-  </BrowserRouter>); 
+  const { asFragment } = render(component());
   expect(asFragment).toMatchSnapshot();
 })
 
