@@ -92,6 +92,7 @@ const MultiFactorAuthenticationOTP = () => {
       navigate("/login");
       }
       else{
+      setOtpValue({ otp1: " ", otp2: " ", otp3: " ", otp4: " ", otp5: " ", otp6: " "})
       toast.error(response.data?.Message ?? response.data?.errorMessage);
       }
     }
@@ -114,10 +115,13 @@ const MultiFactorAuthenticationOTP = () => {
   }
   
   const getOTPTextField = (id, name, tabIndex) => {
-    return (<Grid item xs={2} sm={2} md={2} lg={2}>
+    const opt = Object.keys(otpValue);
+  return (
+   <Grid item xs={2} sm={2} md={2} lg={2}>
       <TextField
         id={ id }
         name={ name }
+        value = {otpValue[opt[tabIndex - 1]]}
         className={classes.otpNumber}
         lable="OTP"
         type="number"
@@ -129,7 +133,8 @@ const MultiFactorAuthenticationOTP = () => {
           e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,1)
         }}
       />
-    </Grid>);
+    </Grid>
+    );
   }
   return (
     <div data-testid="passcode-verification-container">
