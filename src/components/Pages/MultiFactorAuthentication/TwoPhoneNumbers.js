@@ -14,6 +14,7 @@ import PropTypes from "prop-types";
 import PhoneNumberPopUp from './PhoneNumberPopUp';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { compose } from '@mui/system';
 
 const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, setSelection, selection, selectionValue, sendPassCode, isLoading, mfaDetails, securityQuestionsSaved}) => {
   const classes = useStylesMFA();
@@ -26,7 +27,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
     setValue(event.target.value);
   };
   const handlePopUp = () => {
-    (mfaPhoneNumber) ?  (mfaPhoneNumber === optionalPhoneNumber || mfaPhoneNumber === cellPhoneNumber)? setPopUp(true) :setMfaPhoneNumberPopUp(true): (cellPhoneNumber === optionalPhoneNumber) ? setSinglePhoneNumberPopUp(true) : setPopUp(true);
+    (mfaPhoneNumber) ?  (mfaPhoneNumber === optionalPhoneNumber || mfaPhoneNumber === cellPhoneNumber)? setPopUp(true) :setMfaPhoneNumberPopUp(true):  (cellPhoneNumber === optionalPhoneNumber) ? setSinglePhoneNumberPopUp(true) : setPopUp(true);
 	};
   const handlePopUpClose = () => {
     setPopUp(false);

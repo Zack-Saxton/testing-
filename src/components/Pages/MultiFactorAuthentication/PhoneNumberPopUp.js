@@ -25,7 +25,7 @@ let setSelection = props.setSelection;
   const securityCode = (number) => {
       return (
     <div data-testid = "securitycode_func" className={classes.securityCodeText}>
-      <span>{`Get a code on (***) *** ${number !== undefined ? number.substr(-4) : ""}`}</span>
+      <span>{`Get a code on (***) *** ${number ? number.substr(-4) : ""}`}</span>
     </div>
     )
   }

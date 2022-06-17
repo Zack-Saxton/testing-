@@ -16,7 +16,7 @@ import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
 import globalMessages from '../../../assets/data/globalMessages.json';
-import { SavePhoneNumber } from "./../../Controllers/MFAController";
+import { SavePhoneNumber,fetchQuestionMFA } from "./../../Controllers/MFAController";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import IconButton from "@mui/material/IconButton";
 import "./mfa.css";
@@ -44,6 +44,8 @@ const MFAGetPhoneNumber = ({
 	const [disabledButton, setDisabledButton] = useState(true);
 	const [phoneNumber, SetPhoneNumber] = useState("");
 	const location = useLocation();
+	console.log(location);
+	console.log(location?.state?.mfaDetails);
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 			event.preventDefault();
@@ -65,7 +67,16 @@ const MFAGetPhoneNumber = ({
 		let response = await SavePhoneNumber(email, phoneNumber.replace(/[()-\s]/g, ''));
 		if (response?.data?.statusCode === 200) {
 			toast.success(response.data?.Message);
-			navigate("/MFA", { state: { mfaDetails: location?.state?.mfaDetails, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
+			 let mfaResponse = await fetchQuestionMFA(location?.state?.customerEmail);
+			 console.log(mfaResponse);
+			 if (mfaResponse?.data?.statusCode === 200) {
+				 console.log(mfaResponse)
+				 console.log(mfaResponse?.data);
+				navigate("/MFA", { state: { mfaDetails: mfaResponse?.data?.MFAInformation, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
+			 }
+			 else{
+				toast.error(mfaResponse.data?.Message ?? mfaResponse.data?.errorMessage);
+			 }
 		} else {
 			toast.error(response.data?.Message ?? response.data?.errorMessage);
 		}
@@ -77,7 +88,16 @@ const MFAGetPhoneNumber = ({
 		let response = await SavePhoneNumber(email, mobile);
 		if (response?.data?.statusCode === 200) {
 			toast.success(response.data?.Message);
-			navigate("/MFA", { state: { mfaDetails: location?.state?.mfaDetails, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
+			let mfaResponse = await fetchQuestionMFA(location?.state?.customerEmail);
+			 console.log(mfaResponse)
+			 if (mfaResponse?.data?.statusCode === 200) {
+				 console.log(mfaResponse)
+				 console.log(mfaResponse?.data);
+				navigate("/MFA", { state: { mfaDetails: mfaResponse?.data?.MFAInformation, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
+			 }
+			 else{
+				toast.error(mfaResponse.data?.Message ?? mfaResponse.data?.errorMessage);
+			 }
 		} else {
 			toast.error(response.data?.Message ?? response.data?.errorMessage);
 		}
