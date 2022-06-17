@@ -108,12 +108,12 @@ const MFAGetPhoneNumber = ({
 				>
 					<Paper className={classes.twoStepPaper}>
 						<Grid className={classes.headingTextWrap}>
+						<IconButton className={classes.backArrow} onClick={backToVerificationStep}>
+								<ArrowBackIcon className={classes.yellowBackArrow} />
+							</IconButton>
 							<Typography className={classes.twoStepHeading} variant="h5">
 								Let&apos;s set up your phone for 2-Step Verification
 							</Typography>
-							<IconButton className={classes.backArrow} onClick={backToVerificationStep}>
-								<ArrowBackIcon className={classes.yellowBackArrow} />
-							</IconButton>
 						</Grid>
 						<Typography className={classes.twoStepParagraph} style={{ textAlign: 'center' }}>
 							What mobile number do you want to use? We will send a text message to make sure the number is yours.
