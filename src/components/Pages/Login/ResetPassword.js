@@ -70,7 +70,10 @@ export default function ResetPassword(props) {
           Cookies.set("token",JSON.stringify(userToken));//Setting MFA Flag to complete Login
           Cookies.set("forceResetPassword", false);
           navigate("/customers/accountoverview");
-        } else {
+        }else if (retVal?.data?.statusCode === 400) {
+          toast.error(retVal?.data?.errorMessage);
+          setLoading(false);
+        }else {
           toast.error(globalValidation.TryAgain);
           navigate("/login");
         }
