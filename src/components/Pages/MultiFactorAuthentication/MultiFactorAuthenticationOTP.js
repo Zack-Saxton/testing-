@@ -92,7 +92,7 @@ const MultiFactorAuthenticationOTP = () => {
       navigate("/login");
       }
       else{
-      setOtpValue({ otp1: " ", otp2: " ", otp3: " ", otp4: " ", otp5: " ", otp6: " "})
+      setOtpValue({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""})
       toast.error(response.data?.Message ?? response.data?.errorMessage);
       }
     }
