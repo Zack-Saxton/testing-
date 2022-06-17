@@ -45,7 +45,7 @@ test('should render the entire component', () => {
 
 test('Limiter Offers render test', () => {
   const container = render(MockAccountOverview());
-  const headingElement = container.getByTestId("limited offer");
+  const headingElement = container.getByTestId("limited_offer");
   expect(headingElement).toBeTruthy();
 })
 

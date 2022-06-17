@@ -73,7 +73,7 @@ test("Checks the AutoPay option in Enabled", async () => {
 	render(componentWithData());
 
   await waitFor(() => {    
-    const element = screen.getByTestId('autoPayEnabled');
+    const element = screen.getByTestId('autoPayStatus');
 	expect(element).toBeTruthy();
 });
 });
