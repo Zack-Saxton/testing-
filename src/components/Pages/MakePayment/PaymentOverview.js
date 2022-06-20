@@ -1,5 +1,6 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import Table from "@mui/material/Table";
+import PropTypes from "prop-types";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
@@ -10,14 +11,15 @@ import NumberFormat from 'react-number-format';
 import "./MakePayment.css";
 import { useStylesMakePayment } from "./Style";
 
-export default function PaymentOverview(paymentData, status) {
 
+// export default function PaymentOverview(paymentData, status) {
+export default function PaymentOverview(props) {
     //Material UI css class
     const classes = useStylesMakePayment();
     //Payment details
-    let paymentDetails = paymentData;
+    let paymentDetails = props.paymentData;
     return (
-        <Table id="paymentTableWrap" className={classes.table} aria-label="simple table">
+        <Table data-testid="paymentOverviewTable" id="paymentTableWrap" className={classes.table} aria-label="simple table">
             <TableHead>
                 <TableRow>
                     <TableCell className={classes.tableHead}>
@@ -47,7 +49,7 @@ export default function PaymentOverview(paymentData, status) {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {(!status)
+                {(!props.status)
                     ?
                     <TableRow>
                         <TableCell
@@ -109,3 +111,8 @@ export default function PaymentOverview(paymentData, status) {
         </Table>
     );
 }
+
+PaymentOverview.propTypes = {
+    paymentData: PropTypes.object,
+    status: PropTypes.object
+  };
