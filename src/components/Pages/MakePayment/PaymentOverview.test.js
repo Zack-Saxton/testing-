@@ -197,3 +197,8 @@ test("Cell values rendered correct;y", () => {
   const shedulePayment = screen.getByText("Disabled");
   expect(shedulePayment).toBeTruthy();
 });
+
+test('should match the snapshot', () => {
+  const { asFragment } = render(component());
+  expect(asFragment).toMatchSnapshot();
+});
