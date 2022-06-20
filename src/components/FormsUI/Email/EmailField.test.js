@@ -10,7 +10,6 @@ test('Render DEmail field', () => {
   const container = render(
     <EmailWrapper
       name="Email"
-      form={true}
       label="Enter your email id"
       required={true}
       type="email"
@@ -27,7 +26,6 @@ test('Check email input field', () => {
   const container = render(
     <EmailWrapper
       name="firstName"
-      form={true}
       label="Enter your first name"
       required={true}
       type="email"

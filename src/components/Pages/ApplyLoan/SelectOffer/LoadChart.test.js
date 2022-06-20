@@ -13,6 +13,7 @@ import LoadChart from './loadChart';
 const handleClickMock = jest.fn();
 
 const theme = createTheme();
+window.scrollTo = jest.fn();
 const classes = {
 	"resetContainer": "makeStyles-resetContainer-83",
 }
