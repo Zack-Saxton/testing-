@@ -85,9 +85,6 @@
 }
 
 @media (max-width: 600px) {
-  #mainContentBackground {
-    padding: 0px 25px;
-  }
 
   #resetPasswordWrap {
     padding: 0px 25px;

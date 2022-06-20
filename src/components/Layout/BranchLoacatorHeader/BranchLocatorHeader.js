@@ -250,7 +250,7 @@ const BranchLocatorHeader = () => {
             </NavLink>
             {!loginToken.isLoggedIn ? (
               <NavLink to="/login" className="nav_link branchHeaderLinks">
-                <Typography className={classes.subtitle}>Login</Typography>
+                <Typography className={classes.subtitle}>My Account</Typography>
               </NavLink>
             ) : (
               <div onClick={logoutUser} className="nav_link branchHeaderLinks">
@@ -262,12 +262,12 @@ const BranchLocatorHeader = () => {
               className="nav_link branchHeaderLinksLast"
             >
               <ButtonPrimary
-                data-testid="checkMyOffers"
-                id="Continue"
+                data-testid="applyNowBtn"
+                id="applynowid"
                 stylebutton='{"fontSize":"1rem","fontWeight":"400","color":"#151147"}'
                 target="_blank"
               >
-                Check My Offers
+                Apply Now
               </ButtonPrimary>
             </NavLink>
           </div>
@@ -554,7 +554,7 @@ const BranchLocatorHeader = () => {
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
                 {!loginToken.isLoggedIn ? (
-                  <Link href="/login">Login</Link>
+                  <Link href="/login">Apply Now</Link>
                 ) : (
                   <div onClick={logoutMobileUser} >
                     <span className={classes.signOutSpan}>Sign out</span>

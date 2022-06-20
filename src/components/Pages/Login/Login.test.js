@@ -33,7 +33,12 @@ const component = () => {
 		</ThemeProvider>
 	);
 }
+const mockGeolocation = {
+  getCurrentPosition: jest.fn(),
+  watchPosition: jest.fn()
+};
 
+global.navigator.geolocation = mockGeolocation;
 test("Checks the title of the page", () => {
 
 	render(component());

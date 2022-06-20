@@ -7,27 +7,22 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
-import MFYearHolidaysAPI from "../../Controllers/HolidayCalenderController";
+import { useUSHolidayList } from "./useYearHolidays";
 import ErrorLogger from "../../lib/ErrorLogger";
 import "./YearHolidays.css";
 
 export default function YearHolidays(props) {
 
   const [ MFYearHolidays, SetMFYearHolidays ] = useState([]);
-  async function AsyncEffect_HolidayCalender() {
-    try {
-      let result = await MFYearHolidaysAPI();
-      SetMFYearHolidays(result.data.MFYearHolidays);
-    } catch (error) {
-      ErrorLogger(' ERROR getting Year Holidays:', error);
-    }
-  }
+  const { result } = useUSHolidayList();
   useEffect(() => {
-    AsyncEffect_HolidayCalender();
+    if(result){
+      SetMFYearHolidays(result.data.MFYearHolidays);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [ result ]);
   return (
-    <div className="overlay">
+    <div className="overlay" data-testid="year-holidays-component">
       <div className="yearholidays">
         <div className="yearholidays__content">
           <Typography component="span" className="yearholidays__description">
@@ -38,9 +33,9 @@ export default function YearHolidays(props) {
                     <Table>
                       <TableHead>
                         <TableRow className="tableHeadeing">
-                          <TableCell>Date</TableCell>
-                          <TableCell>Day</TableCell>
-                          <TableCell>Holiday Name</TableCell>
+                          <TableCell data-testid="holiday-date-header">Date</TableCell>
+                          <TableCell data-testid="holiday-day-header">Day</TableCell>
+                          <TableCell data-testid="holiday-name-header">Holiday Name</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -48,9 +43,9 @@ export default function YearHolidays(props) {
                           MFYearHolidays.map((element, index) => {
                             return (
                               <TableRow className="tableContent" key={index}>
-                                <TableCell>{element.Date}</TableCell>
-                                <TableCell>{element.Day}</TableCell>
-                                <TableCell>{element.Holiday_Name}</TableCell>
+                                <TableCell data-testid="holiday-date-body">{element.Date}</TableCell>
+                                <TableCell data-testid="holiday-day-body">{element.Day}</TableCell>
+                                <TableCell data-testid="holiday-name-body">{element.Holiday_Name}</TableCell>
                               </TableRow>
                             );
                           })
