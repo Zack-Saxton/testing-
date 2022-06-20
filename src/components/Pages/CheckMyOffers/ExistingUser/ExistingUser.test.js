@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { cleanup, render, screen, fireEvent } from "@testing-library/react";
+import { cleanup, render, act, screen, fireEvent } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { ThemeProvider } from '@mui/styles';
@@ -63,23 +63,24 @@ const component = () =>{
 	});
 
 // Check if sign in button functions correctly
-	test("Checks that Sign In button functions correctly", () => {
+	test("Checks that Sign In button functions correctly", async() => {
 		render(component(), { wrapper: MemoryRouter });
 		const button = screen.getByTestId("SignInButton");
-		fireEvent.click(button);
+		await act(() => {
+			fireEvent.click(button);
+		});
 	});
 
 	// Show and hide button functionality works
-	test("Show and hide button functionality works", () => {
+	test("Show and hide button functionality works", async () => {
 
 	const { container } = render(component(), { wrapper: MemoryRouter });
   const showButton = container.querySelector(`input[name="password"]`);
   expect(showButton).toHaveAttribute("type", "password");
-
 	const button =  container.querySelector(".MuiButtonBase-root");
-	fireEvent.click(button);
-
-
+	act(() => {	
+		fireEvent.click(button);
+	});
 	const hideButton = container.querySelector(`input[name="password"]`);
 	expect(hideButton).toHaveAttribute("type", "text");  
 	

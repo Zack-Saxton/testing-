@@ -313,7 +313,7 @@ function DocumentIdAndPhotoId(props) {
     return (
       <>
         <ButtonPrimary
-        data-testId = "render_selectDocument"
+        data-testid = "render_selectDocument"
           onClick={handleMenuOpen}
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
         >

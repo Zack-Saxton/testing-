@@ -5,7 +5,7 @@ import HomeAddress from "./index.js";
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, act, render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 
@@ -71,10 +71,13 @@ test("Check Button is rendered", () => {
 	expect(element).toBeTruthy();
 });
 
-test("Render Address", () => {
+test("Render Address", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="streetAddress"]`);
-	fireEvent.change(input, { target: { value: "1234 MAIN AVE" } });
+ await act(() => {
+    fireEvent.change(input, { target: { value: "1234 MAIN AVE" } });
+  });
+
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('1234 MAIN AVE');
 });
@@ -85,35 +88,48 @@ it("zipcode should be 5 digits", () => {
 	expect(input.maxLength).toBe(5);
 });
 
-test("Zipcode Valid Input", () => {
+test("Zipcode Valid Input", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="zip"]`);
+ await act(() => {
+  fireEvent.change(input, { target: { value: "1234 MAIN AVE" } });
 	fireEvent.change(input, { target: { value: "abc" } });
 	expect(input.value).toBe("");
 	fireEvent.change(input, { target: { value: "12345" } });
 	expect(input.value).toBe("12345");
+  });
+  	
 });
 
-test("Render City", () => {
+test("Render City", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="city"]`);
-	fireEvent.change(input, { target: { value: "NEWARK" } });
+ await act(() => {
+    fireEvent.change(input, { target: { value: "NEWARK" } });
+  });
+
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('NEWARK');
 });
 
-test("Render State", () => {
+test("Render State", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="state"]`);
-	fireEvent.change(input, { target: { value: "DE" } });
+  await act(() => {
+    fireEvent.change(input, { target: { value: "DE" } });
+  });
+
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('DE');
 });
 
-test("Render Zipcode", () => {
+test("Render Zipcode", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="zip"]`);
-	fireEvent.change(input, { target: { value: "19702" } });
+ await act(() => {
+    fireEvent.change(input, { target: { value: "19702" } });
+  });
+
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('19702');
 });

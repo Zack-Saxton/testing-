@@ -1,8 +1,6 @@
-import { Sync } from "@mui/icons-material";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/styles";
 import "@testing-library/jest-dom/extend-expect";
-//import {jest} from "jest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";

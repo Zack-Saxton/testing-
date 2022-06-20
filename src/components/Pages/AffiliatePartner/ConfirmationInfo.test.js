@@ -44,72 +44,88 @@ test("Checks the component is rendered", () => {
 	expect(element).toBeTruthy();
 });
 
-test("Render First name ", () => {
+test("Render First name ", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="firstName"]`);
-	fireEvent.change(input, { target: { value: "Mariner" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "Mariner" } });
+	});
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('Mariner');
 });
 
 
-test("Invalid Firstname", () => {
+test("Invalid Firstname", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="firstName"]`);
+	await act(() => {	
 	fireEvent.change(input, { target: { value: "123" } });
 	fireEvent.change(input, { target: { value: "" } });
 	fireEvent.change(input, { target: { value: "test123" } });
 	expect(input.value).not.toBe(true);
 });
+});
 
 
-test("Render Last name ", () => {
+test("Render Last name ", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="lastName"]`);
+	await act(() => {	
 	fireEvent.change(input, { target: { value: "Mariner" } });
+});
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('Mariner');
 });
 
-test("Invalid Last Name", () => {
+test("Invalid Last Name", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="lastName"]`);
+	await act(() => {
 	fireEvent.change(input, { target: { value: "123" } });
 	fireEvent.change(input, { target: { value: "" } });
 	fireEvent.change(input, { target: { value: "test123" } });
+});
 	expect(input.value).not.toBe(true);
 });
 
-test("Render Address", () => {
+test("Render Address", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="streetAddress"]`);
+	await act(() => {	
 	fireEvent.change(input, { target: { value: "1234 MAIN AVE" } });
+});
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('1234 MAIN AVE');
 });
 
-test("Render City", () => {
+test("Render City", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="city"]`);
+	await act(() => {	
 	fireEvent.change(input, { target: { value: "NEWARK" } });
+});
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('NEWARK');
 });
 
-test("Render State", () => {
+test("Render State", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="state"]`);
-	fireEvent.change(input, { target: { value: "DE" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "DE" } });
+	});	
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('DE');
 });
 
-test("Render Zipcode", () => {
+test("Render Zipcode", async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="zip"]`);
+	await act(() => {
 	fireEvent.change(input, { target: { value: "19702" } });
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('19702');
+});
 });
 
 test("Check city field is disabled", () => {
@@ -200,12 +216,14 @@ test("Render Citizenship", () => {
 	expect(input).toBeTruthy();
 });
 
-test("Select Citizenship", () => {
+test("Select Citizenship", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="citizenship"]`);
+	await act(() => {
 	fireEvent.change(input, { target: { value: "USA Citizen" } });
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('USA Citizen');
+});
 });
 
 test("Check Foreign citizenship", async () => {
@@ -227,12 +245,14 @@ test("Render Personal Income", () => {
 	expect(input).toBeTruthy();
 });
 
-test("Check Personal Income", () => {
+test("Check Personal Income", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="personalIncome"]`);
+	await act(() => {	
 	fireEvent.change(input, { target: { value: "$300,000" } });
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('$300,000');
+});
 });
 
 test('Check Personal Income MaxLength', () => {
@@ -247,12 +267,14 @@ test("Render HouseHold Income", () => {
 	expect(input).toBeTruthy();
 });
 
-test("Check HouseHold Income", () => {
+test("Check HouseHold Income", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="householdIncome"]`);
+	await act(() => {		
 	fireEvent.change(input, { target: { value: "$500,000" } });
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('$500,000');
+});
 });
 
 test('Check HouseHold Income MaxLength', () => {
@@ -282,26 +304,32 @@ test("Render Employement Status", () => {
 	expect(input).toBeTruthy();
 });
 
-test("Select Employement Status", () => {
+test("Select Employement Status", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="employementStatus"]`);
-	fireEvent.change(input, { target: { value: "Employed Salaried" } });
-	expect(input).toBeTruthy();
-	expect(input.value).toBe('Employed Salaried');
+	await act(() => {
+		fireEvent.change(input, { target: { value: "Employed Salaried" } });
+		expect(input).toBeTruthy();
+		expect(input.value).toBe('Employed Salaried');
+	});	
 });
 
 
-test("Button Onclick", () => {
+test("Button Onclick", async () => {
 	render(component());
 	const button = screen.getByTestId("submit");
+	await act(() => {
 	fireEvent.click(button);
+});	
 });
 
 it("Navigate to Respective Page", async () => {
 	render(component());
 	const input = screen.getByTestId("submit");
 	expect(input).toBeTruthy();
+	await act(() => {
 	fireEvent.click(input);
+});	
 	const asyncMock = jest.fn().mockResolvedValue(mockData);
 	await asyncMock();
 	const page = screen.getByTestId("selectOfferComponent")
