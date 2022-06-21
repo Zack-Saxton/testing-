@@ -22,6 +22,7 @@ const queryClient = new QueryClient({
 });
 
 const theme = createTheme();
+window.scrollTo = jest.fn();
 const MockEmploymentStatus = () => {
 	return (
 		<ThemeProvider theme={theme}>
