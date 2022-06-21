@@ -120,9 +120,11 @@ test("Check can able to enter Zipcode in UI", async () => {
 	expect(input.value).toBe('19701');
 });
 
-test("Check can able to click Save button", () => {
+test("Check can able to click Save button", async () => {
 	const { container } = render(component(), { wrapper: MemoryRouter });
-	fireEvent.click(screen.getByText('Save Changes'));
+	await act(() => {
+		fireEvent.click(screen.getByText('Save Changes'));
+	});	
 });
 
 test('Should match the snapshot', () => {

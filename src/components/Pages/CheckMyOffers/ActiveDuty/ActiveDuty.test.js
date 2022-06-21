@@ -79,10 +79,12 @@ test("Check Active Duty state for application which does not meet the requiremen
 	expect(errorInfo).toHaveTextContent('Unfortunately, based on the application information provided, you do not meet our application requirements.');
 });
 
-test("Button Onclick", () => {
+test("Button Onclick", async () => {
 	render(component());
 	const button = screen.getByTestId("contButton");
+	await act(() => {
 	fireEvent.click(button);
+	});
 });
 
 test('Should match the snapshot', () => {

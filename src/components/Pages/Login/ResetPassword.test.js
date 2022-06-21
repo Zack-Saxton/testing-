@@ -1,3 +1,4 @@
+import { AnalyticsSharp } from '@mui/icons-material';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
@@ -37,31 +38,37 @@ test("Checks the component is rendered", () => {
 	expect(element).toBeTruthy();
 });
 
-test("Render Email ", () => {
+test("Render Email ", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="email"]`);
-	fireEvent.change(input, { target: { value: "mariner@gmail.com" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "mariner@gmail.com" } });
+	});
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('mariner@gmail.com');
 });
 
-test("Check invalid email", () => {
+test("Check invalid email", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="email"]`);
+	await act(() => {
 	fireEvent.change(input, { target: { value: "test" } });
 	fireEvent.change(input, { target: { value: "test@" } });
 	fireEvent.change(input, { target: { value: "test@gmail" } });
 	fireEvent.change(input, { target: { value: "123" } });
 	fireEvent.change(input, { target: { value: "@test" } });
+	});
 	expect(input.value).not.toBe(true);
 });
 
 
-test("Render password", () => {
+test("Render password", async () => {
 	const { container } = render(component());
 	const element = container.querySelector(`input[name="password"]`);
 	expect(element.hasAttribute("name")).toBe(true);
-	fireEvent.change(element, { target: { value: "Test@123" } });
+	await act(() => {
+		fireEvent.change(element, { target: { value: "Test@123" } });
+	});
 	expect(element.value).toBe("Test@123");
 });
 
@@ -72,33 +79,41 @@ test('Password Length Test', () => {
 	expect(input.maxLength).toBe(30);
 })
 
-test('Password Prevent Cut Test', () => {
+test('Password Prevent Cut Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="password"]`);
-	fireEvent.cut(input);
+	await act(() => {
+		fireEvent.cut(input);
+	})
 	expect(input.value).toBe('');
 })
 
-test('Password Prevent Copy Test', () => {
+test('Password Prevent Copy Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="password"]`);
-	fireEvent.copy(input);
+	await act(() => {
+		fireEvent.copy(input);
+	});
 	expect(input.value).toBe('');
 })
 
-test('Password Prevent Paste Test', () => {
+test('Password Prevent Paste Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="password"]`);
-	fireEvent.paste(input);
+	await act(() => {
+		fireEvent.paste(input);
+	});
 	expect(input.value).toBe('');
 })
 
 
-test("Render confirmPassword", () => {
+test("Render confirmPassword", async () => {
 	const { container } = render(component());
 	const element = container.querySelector(`input[name="confirmPassword"]`);
 	expect(element.hasAttribute("name")).toBe(true);
-	fireEvent.change(element, { target: { value: "Test@123" } });
+	await act(() => {
+		fireEvent.change(element, { target: { value: "Test@123" } });
+	});
 	expect(element.value).toBe("Test@123");
 });
 
@@ -108,24 +123,30 @@ test('confirmPassword Length Test', () => {
 	expect(input.maxLength).toBe(30);
 })
 
-test('confirmPassword Prevent Cut Test', () => {
+test('confirmPassword Prevent Cut Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="confirmPassword"]`);
-	fireEvent.cut(input);
+	await act(() => {
+		fireEvent.cut(input);
+	});
 	expect(input.value).toBe('');
 })
 
-test('confirmPassword Prevent Copy Test', () => {
+test('confirmPassword Prevent Copy Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="confirmPassword"]`);
-	fireEvent.copy(input);
+	await act(() => {
+		fireEvent.copy(input);
+	});
 	expect(input.value).toBe('');
 })
 
-test('confirmPassword Prevent Paste Test', () => {
+test('confirmPassword Prevent Paste Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="confirmPassword"]`);
-	fireEvent.paste(input);
+	await act(() => {
+		fireEvent.paste(input);
+	});
 	expect(input.value).toBe('');
 })
 
@@ -145,10 +166,12 @@ test("Check Password Match", async () => {
 });
 
 
-test("Button Onclick", () => {
+test("Button Onclick", async () => {
 	render(component());
 	const button = screen.getByTestId("submit");
-	fireEvent.click(button);
+	await act(() => {
+		fireEvent.click(button);
+	});
 });
 
 test('Should match the snapshot', () => {
