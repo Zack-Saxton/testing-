@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render,screen } from "@testing-library/react";
+import { cleanup, fireEvent, act, render,screen } from "@testing-library/react";
 import React from "react";
 import CheckMyOffers from "../../../../contexts/CheckMyOffers";
 import Zipcode from "./index.js";
@@ -44,12 +44,14 @@ test("Checks the component is rendered", () => {
 });
 
 
-test("Render ZipCode ", () => {
+test("Render ZipCode ", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="zip"]`);
-	fireEvent.change(input, { target: { value: "12345" } });
-	expect(input).toBeTruthy();
-	expect(input.value).toBe('12345');
+	await act(() => {
+		fireEvent.change(input, { target: { value: "12345" } });
+		expect(input).toBeTruthy();
+		expect(input.value).toBe('12345');
+	});
 });
 
 
@@ -59,13 +61,15 @@ it("zipcode should be 5 digits", () => {
 	expect(input.maxLength).toBe(5);
 });
 
-test("Zipcode Valid Input", () => {
+test("Zipcode Valid Input", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="zip"]`);
-	fireEvent.change(input, { target: { value: "abc" } });
-	expect(input.value).toBe("");
-	fireEvent.change(input, { target: { value: "12345" } });
-	expect(input.value).toBe("12345");
+	await act(() => {
+		fireEvent.change(input, { target: { value: "abc" } });
+		expect(input.value).toBe("");
+		fireEvent.change(input, { target: { value: "12345" } });
+		expect(input.value).toBe("12345");
+	});
 });
 
 
