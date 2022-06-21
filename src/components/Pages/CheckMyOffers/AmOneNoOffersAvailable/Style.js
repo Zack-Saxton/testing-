@@ -1,13 +1,15 @@
 import { makeStyles } from "@mui/styles";
 
 const AmOneNoOffersStyle = makeStyles((theme) => ({
-  greyBackGround: {
-    backgroundColor: "#f6f6f6",
+  blueBackGround: {
+    backgroundColor: "#013474",
     minHeight: "90vh",
   },
   AmOneGrid: {
     maxWidth: "750px",
-    margin: "25px auto ",
+    margin: "0px auto ",
+    padding:"20px 0px",
+    backgroundColor:"#013474",
     "@media (max-width: 799px)": {
       margin: "25px",
     },
@@ -17,6 +19,9 @@ const AmOneNoOffersStyle = makeStyles((theme) => ({
   },
   AmOnePaper: {
     padding: "20px",
+    boxShadow: "0px 1px 2px rgba(0,0,0,0.2)",
+    borderRadius: "20px !important",
+    backgroundImage:"linear-gradient(#1b4788, #02295c)"
   },
   amOneMainTypography: {
     textAlign: "center",
@@ -27,14 +32,30 @@ const AmOneNoOffersStyle = makeStyles((theme) => ({
     textAlign: "center",
     maxWidth: "580px",
     margin: "30px auto",
-    color:"#8f8f8f",
-    fontSize:"0.875rem"
+    fontSize:"0.875rem",
+    color:"#fff"
+  },
+  preFooterWrap:{
+    borderTop:"2px solid #ffbd12",
+    marginTop:"2.8%"
+  },
+  preFooterText:{
+    maxWidth:"1200px",
+    margin:"auto",
+    padding:"2.8% 0 5% 0",
+  },
+  preFooterTypography:{
+    textAlign:"justify",
+    color:"#fff",
+    fontSize:"1.25rem",
+    lineHeight: "26px"
   },
   getMoreOptionGrid: {
     maxWidth: "580px",
     margin: "30px auto",
     border: "3px solid #8c8c8c",
     padding: "20px",
+    color:"#fff",
     "@media (max-width: 370px)": {
       padding: "20px 5px",
     },

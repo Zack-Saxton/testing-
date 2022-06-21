@@ -51,7 +51,9 @@ export async function fetchQuestionMFA(emailData) {
   try {
     let url = "mfa_user_detials";
     let param = "";
-    let data = emailData;
+    let data = {
+      email: emailData
+    };
     let method = "POST";
     let addAccessToken = true;
 

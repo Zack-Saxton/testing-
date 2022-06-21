@@ -23,7 +23,6 @@ const queryClient = new QueryClient({
 
 const theme = createTheme();
 window.scrollTo = jest.fn();
-
 const MockLivingPlace = () => {
 	return (
 		<ThemeProvider theme={theme}>

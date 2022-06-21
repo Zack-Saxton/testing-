@@ -91,7 +91,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
                 onChange={handleChange}
               >
                 {phoneNumberSaved &&
-                    <FormControlLabel
+                    <FormControlLabel style={{ display: phoneNumber ? 'flex' : 'none'}}
                       id="FormControlLabel_securityCode"
                       className={classes.smallRadioButton}
                       data-testid = "securityCode"

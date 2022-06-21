@@ -8,7 +8,6 @@ test('Render DatePicker', () => {
   const container = render(
     <TextField
       name="firstName"
-      form={true}
       label="Enter your first name"
       required={true}
       type="email"
@@ -25,7 +24,6 @@ test('Initially empty', () => {
   const container = render(
     <TextField
       name="firstName"
-      form={true}
       label="Enter your first name"
       required={true}
       type="email"
@@ -40,7 +38,6 @@ test('Changing value', () => {
   const container = render(
     <TextField
       name="firstName"
-      form={true}
       label="Enter your first name"
       required={true}
       type="email"

@@ -50,6 +50,12 @@ input[type=number] {
 .answerGrid{
   align-items: flex-end;
 }
+#Answer-label{
+  font-size: 1rem;
+}
+#Answer{
+  padding-bottom: 14px;
+}
 .answerGrid .MuiTextField-root{
   margin-bottom: 3px !important;
 }
