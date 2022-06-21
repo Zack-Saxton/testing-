@@ -216,7 +216,7 @@ function UploadDocument(props) {
       <>
         <ButtonPrimary
           onClick={handleMenuOpen}
-          data-testId = "render_selectDocument"
+          data-testid = "render_selectDocument"
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
         >
           {props.title ?? 'Select Your Document'}

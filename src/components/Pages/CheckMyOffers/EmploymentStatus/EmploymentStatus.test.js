@@ -22,6 +22,7 @@ const queryClient = new QueryClient({
 });
 
 const theme = createTheme();
+window.scrollTo = jest.fn();
 const MockEmploymentStatus = () => {
 	return (
 		<ThemeProvider theme={theme}>
@@ -56,7 +57,7 @@ test("Employment Status Render test", () => {
 	expect(ContinueButton.hasAttribute("disabled")).toBe(true);
 });
 
-test("Employment Status on Clicking Hourly", () => {
+test("Employment Status on Clicking Hourly", async () => {
 	const container = render(<MockEmploymentStatus />);
 
 	const Hourly = container.getByTestId("Hourly");
@@ -64,7 +65,7 @@ test("Employment Status on Clicking Hourly", () => {
 	const selfEmployed = container.getByTestId("Self-Employed");
 	const Unemployed = container.getByTestId("Unemployed");
 	const Retired = container.getByTestId("Retired");
-	act(() => { fireEvent.click(Hourly) })
+	await act(() => { fireEvent.click(Hourly) })
 	expect(Hourly).toHaveClass("activeBorder");
 	expect(Salary).not.toHaveClass("activeBorder");
 	expect(selfEmployed).not.toHaveClass("activeBorder");
@@ -78,7 +79,7 @@ test("Employment Status on Clicking Hourly", () => {
 	expect(PhoneNumberField).toHaveClass("showMsg")
 });
 
-test("Employment Status on Clicking Salaried", () => {
+test("Employment Status on Clicking Salaried", async () => {
 	const container = render(<MockEmploymentStatus />);
 
 	const Hourly = container.getByTestId("Hourly");
@@ -86,7 +87,7 @@ test("Employment Status on Clicking Salaried", () => {
 	const selfEmployed = container.getByTestId("Self-Employed");
 	const Unemployed = container.getByTestId("Unemployed");
 	const Retired = container.getByTestId("Retired");
-	act(() => { fireEvent.click(Salary) })
+	await act(() => { fireEvent.click(Salary) })
 	expect(Hourly).not.toHaveClass("activeBorder");
 	expect(Salary).toHaveClass("activeBorder");
 	expect(selfEmployed).not.toHaveClass("activeBorder");
@@ -100,7 +101,7 @@ test("Employment Status on Clicking Salaried", () => {
 	expect(PhoneNumberField).toHaveClass("showMsg")
 });
 
-test("Employment Status on Clicking Self-Employed", () => {
+test("Employment Status on Clicking Self-Employed", async () => {
 	const container = render(<MockEmploymentStatus />);
 
 	const Hourly = container.getByTestId("Hourly");
@@ -108,7 +109,7 @@ test("Employment Status on Clicking Self-Employed", () => {
 	const selfEmployed = container.getByTestId("Self-Employed");
 	const Unemployed = container.getByTestId("Unemployed");
 	const Retired = container.getByTestId("Retired");
-	act(() => { fireEvent.click(selfEmployed) })
+	await act(() => { fireEvent.click(selfEmployed) })
 	expect(Hourly).not.toHaveClass("activeBorder");
 	expect(Salary).not.toHaveClass("activeBorder");
 	expect(selfEmployed).toHaveClass("activeBorder");
@@ -122,7 +123,7 @@ test("Employment Status on Clicking Self-Employed", () => {
 	expect(PhoneNumberField).toHaveClass("hideMsg")
 });
 
-test("Employment Status on Clicking Unemployed", () => {
+test("Employment Status on Clicking Unemployed", async () => {
 	const container = render(<MockEmploymentStatus />);
 
 	const Hourly = container.getByTestId("Hourly");
@@ -130,7 +131,7 @@ test("Employment Status on Clicking Unemployed", () => {
 	const selfEmployed = container.getByTestId("Self-Employed");
 	const Unemployed = container.getByTestId("Unemployed");
 	const Retired = container.getByTestId("Retired");
-	act(() => { fireEvent.click(Unemployed) })
+	await act(() => { fireEvent.click(Unemployed) })
 	expect(Hourly).not.toHaveClass("activeBorder");
 	expect(Salary).not.toHaveClass("activeBorder");
 	expect(selfEmployed).not.toHaveClass("activeBorder");
@@ -144,7 +145,7 @@ test("Employment Status on Clicking Unemployed", () => {
 	expect(PhoneNumberField).toHaveClass("hideMsg")
 });
 
-test("Employment Status on Clicking Retired", () => {
+test("Employment Status on Clicking Retired", async () => {
 	const container = render(<MockEmploymentStatus />);
 
 	const Hourly = container.getByTestId("Hourly");
@@ -152,7 +153,7 @@ test("Employment Status on Clicking Retired", () => {
 	const selfEmployed = container.getByTestId("Self-Employed");
 	const Unemployed = container.getByTestId("Unemployed");
 	const Retired = container.getByTestId("Retired");
-	act(() => { fireEvent.click(Retired) })
+	await act(() => { fireEvent.click(Retired) })
 	expect(Hourly).not.toHaveClass("activeBorder");
 	expect(Salary).not.toHaveClass("activeBorder");
 	expect(selfEmployed).not.toHaveClass("activeBorder");
@@ -169,7 +170,9 @@ test("Employment Status on Clicking Retired", () => {
 test("Routing forward to Annual Income", async () => {
 	const container = render(<MockEmploymentStatus />);
 	const ContinueButton = container.getByTestId("cntButton");
-	fireEvent.click(ContinueButton);
+	act(() => {
+		fireEvent.click(ContinueButton);
+	});
 	const page = container.queryByText("Tell us about your income")
 	await waitFor(() => expect(page).toBeInTheDocument());
 })
@@ -177,7 +180,9 @@ test("Routing forward to Annual Income", async () => {
 test("Routing Back to Personal Info Test", async () => {
 	const container = render(<MockEmploymentStatus />);
 	const BackButton = container.getByTestId("route backward");
-	fireEvent.click(BackButton);
+	act(() => {
+		fireEvent.click(BackButton);
+	});
 	const page = container.queryByText("Tell us about yourself")
 	await waitFor(() => expect(page).toBeInTheDocument());
 })

@@ -43,13 +43,14 @@ function Zipcode() {
 			<ScrollToTopOnMount />
 			<div className="mainDiv">
 				<Box>
-					<Grid xs={12} container justifyContent="center" alignItems="center">
+					<Grid xs={12} item container justifyContent="center" alignItems="center">
 						<Grid
 							xs={11}
 							sm={10}
 							md={6}
 							lg={6}
 							xl={6}
+							item
 							className="cardWrapper"
 							justifyContent="center"
 							alignItems="center"
@@ -93,6 +94,7 @@ function Zipcode() {
 
 								<form onSubmit={formik.handleSubmit}>
 									<Grid
+									  item
 										md={12}
 										className="blockDiv"
 										container

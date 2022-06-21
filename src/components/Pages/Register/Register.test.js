@@ -37,82 +37,102 @@ test("Checks the component is rendered", () => {
 	expect(element).toBeTruthy();
 });
 
-test("Render First name ", () => {
+test("Render First name ", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="firstName"]`);
-	fireEvent.change(input, { target: { value: "Mariner" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "Mariner" } });
+	});	
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('Mariner');
 });
 
 
-test("Invalid Firstname", () => {
+test("Invalid Firstname", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="firstName"]`);
-	fireEvent.change(input, { target: { value: "123" } });
-	fireEvent.change(input, { target: { value: "" } });
-	fireEvent.change(input, { target: { value: "test123" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "123" } });
+		fireEvent.change(input, { target: { value: "" } });
+		fireEvent.change(input, { target: { value: "test123" } });
+	});	
 	expect(input.value).not.toBe(true);
 });
 
 
-test("Render Last name ", () => {
+test("Render Last name ", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="lastName"]`);
-	fireEvent.change(input, { target: { value: "Mariner" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "Mariner" } });
+	});	
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('Mariner');
 });
 
-test("Invalid Last Name", () => {
+test("Invalid Last Name", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="lastName"]`);
-	fireEvent.change(input, { target: { value: "123" } });
-	fireEvent.change(input, { target: { value: "" } });
-	fireEvent.change(input, { target: { value: "test123" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "123" } });
+		fireEvent.change(input, { target: { value: "" } });
+		fireEvent.change(input, { target: { value: "test123" } });
+	});	
 	expect(input.value).not.toBe(true);
 });
 
-test("Render Email ", () => {
+test("Render Email ", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="email"]`);
-	fireEvent.change(input, { target: { value: "mariner@gmail.com" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "mariner@gmail.com" } });
+	});	
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('mariner@gmail.com');
 });
 
-test("Check invalid email", () => {
+test("Check invalid email", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="email"]`);
-	fireEvent.change(input, { target: { value: "test" } });
-	fireEvent.change(input, { target: { value: "test@" } });
-	fireEvent.change(input, { target: { value: "test@gmail" } });
-	fireEvent.change(input, { target: { value: "123" } });
-	fireEvent.change(input, { target: { value: "@test" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "test" } });
+		fireEvent.change(input, { target: { value: "test@" } });
+		fireEvent.change(input, { target: { value: "test@gmail" } });
+		fireEvent.change(input, { target: { value: "123" } });
+		fireEvent.change(input, { target: { value: "@test" } });
+	});	
 	expect(input.value).not.toBe(true);
 });
 
-test("Render Social Security Number ", () => {
+test("Render Social Security Number ", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="ssn"]`);
-	fireEvent.change(input, { target: { value: "123-45-6789" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "123-45-6789" } });
+	});	
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('123-45-6789');
 });
 
-test("Check Valid Social Security Number", () => {
+test("Check Valid Social Security Number", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="ssn"]`);
-	fireEvent.change(input, { target: { value: "abc" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "abc" } });
+	});	
 	expect(input.value).toBe("");
-	fireEvent.change(input, { target: { value: "123-45-6789" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "123-45-6789" } });
+	});	
 	expect(input.value).toBe("123-45-6789");
 });
 
-test("Render ZipCode ", () => {
+test("Render ZipCode ", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="zip"]`);
-	fireEvent.change(input, { target: { value: "12345" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "12345" } });
+	});	
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('12345');
 });
@@ -124,28 +144,36 @@ it("zipcode should be 5 digits", () => {
 	expect(input.maxLength).toBe(5);
 });
 
-test("Zipcode Valid Input", () => {
+test("Zipcode Valid Input", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="zip"]`);
-	fireEvent.change(input, { target: { value: "abc" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "abc" } });
+	});	
 	expect(input.value).toBe("");
-	fireEvent.change(input, { target: { value: "12345" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "12345" } });
+	});	
 	expect(input.value).toBe("12345");
 });
 
 
-test("Render DOB ", () => {
+test("Render DOB ", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="dob"]`);
-	fireEvent.change(input, { target: { value: "01/01/2000" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "01/01/2000" } });
+	});	
 	expect(input).toBeTruthy();
 });
 
-test("Render password", () => {
+test("Render password", async () => {
 	const { container } = render(component());
 	const element = container.querySelector(`input[name="password"]`);
 	expect(element.hasAttribute("name")).toBe(true);
-	fireEvent.change(element, { target: { value: "Test@123" } });
+	await act(() => {
+		fireEvent.change(element, { target: { value: "Test@123" } });
+	});	
 	expect(element.value).toBe("Test@123");
 });
 
@@ -156,33 +184,41 @@ test('Password Length Test', () => {
 	expect(input.maxLength).toBe(30);
 })
 
-test('Password Prevent Cut Test', () => {
+test('Password Prevent Cut Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="password"]`);
-	fireEvent.cut(input);
+	await act(() => {
+		fireEvent.cut(input);
+	});	
 	expect(input.value).toBe('');
 })
 
-test('Password Prevent Copy Test', () => {
+test('Password Prevent Copy Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="password"]`);
-	fireEvent.copy(input);
+	await act(() => {
+		fireEvent.copy(input);
+	});	
 	expect(input.value).toBe('');
 })
 
-test('Password Prevent Paste Test', () => {
+test('Password Prevent Paste Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="password"]`);
-	fireEvent.paste(input);
+	await act(() => {
+		fireEvent.paste(input);
+	});	
 	expect(input.value).toBe('');
 })
 
 
-test("Render confirmPassword", () => {
+test("Render confirmPassword", async () => {
 	const { container } = render(component());
 	const element = container.querySelector(`input[name="confirmPassword"]`);
 	expect(element.hasAttribute("name")).toBe(true);
-	fireEvent.change(element, { target: { value: "Test@123" } });
+	await act(() => {
+		fireEvent.change(element, { target: { value: "Test@123" } });
+	});	
 	expect(element.value).toBe("Test@123");
 });
 
@@ -192,24 +228,30 @@ test('confirmPassword Length Test', () => {
 	expect(input.maxLength).toBe(30);
 })
 
-test('confirmPassword Prevent Cut Test', () => {
+test('confirmPassword Prevent Cut Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="confirmPassword"]`);
-	fireEvent.cut(input);
+	await act(() => {
+		fireEvent.cut(input);
+	});	
 	expect(input.value).toBe('');
 })
 
-test('confirmPassword Prevent Copy Test', () => {
+test('confirmPassword Prevent Copy Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="confirmPassword"]`);
-	fireEvent.copy(input);
+	await act(() => {
+		fireEvent.copy(input);
+	});	
 	expect(input.value).toBe('');
 })
 
-test('confirmPassword Prevent Paste Test', () => {
+test('confirmPassword Prevent Paste Test', async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="confirmPassword"]`);
-	fireEvent.paste(input);
+	await act(() => {
+		fireEvent.paste(input);
+	});	
 	expect(input.value).toBe('');
 })
 
@@ -229,10 +271,12 @@ test("Check Password Match", async () => {
 });
 
 
-test("Button Onclick", () => {
+test("Button Onclick", async () => {
 	render(component());
 	const button = screen.getByTestId("submit");
-	fireEvent.click(button);
+	await act(() => {
+		fireEvent.click(button);
+	});	
 });
 
 test('Should match the snapshot', () => {

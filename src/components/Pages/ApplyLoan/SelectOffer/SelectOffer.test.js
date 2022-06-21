@@ -11,7 +11,7 @@ import ApplyLoan from "./SelectOffer";
 
 
 const theme = createTheme();
-
+window.scrollTo = jest.fn();
 const mockOffers = {
   "data": {
     Offers: {

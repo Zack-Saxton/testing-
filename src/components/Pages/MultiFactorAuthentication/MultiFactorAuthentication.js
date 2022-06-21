@@ -8,9 +8,6 @@ import {useMutation} from "react-query";
 
 const MultiFactorAuthentication = () => {
     const location = useLocation();
-    console.log(location?.state?.mfaDetails?.opted_phone_texting)
-      console.log(location?.state?.mfaDetails?.phone_number_primary) 
-        console.log(location?.state?.mfaDetails?.mfa_phone_texting)
 //   const location = {
 //     "hash":"",
 //     "key":"f094a9ts",

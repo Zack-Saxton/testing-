@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { waitFor, fireEvent, render, screen } from "@testing-library/react";
+import { waitFor, render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
