@@ -7,10 +7,19 @@
       U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
       U+FEFF, U+FFFD;
 }
+.checkMyOffersLink{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
 #checkMyOptions{
   height: 58px;
-  width: 78%;
-  font-size: 1.25rem;
+  width: 85%;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border-radius: 10px;
 }
 #checkMyOptions span svg{
  color: #bd7006;
@@ -31,6 +40,7 @@
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 1.5;
+  color: #fff;
 }
 
 #getMoreOptionHeading{
@@ -39,6 +49,7 @@
   text-align: center;
   font-weight: 700;
   font-size: 1.5rem;
+  color:#fff;
 }
 @media only screen and (max-width: 799px) {
   #checkMyOptions{
