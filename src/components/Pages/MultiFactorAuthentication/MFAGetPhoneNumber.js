@@ -44,8 +44,6 @@ const MFAGetPhoneNumber = ({
 	const [disabledButton, setDisabledButton] = useState(true);
 	const [phoneNumber, SetPhoneNumber] = useState("");
 	const location = useLocation();
-	console.log(location);
-	console.log(location?.state?.mfaDetails);
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 			event.preventDefault();
@@ -68,10 +66,7 @@ const MFAGetPhoneNumber = ({
 		if (response?.data?.statusCode === 200) {
 			toast.success(response.data?.Message);
 			 let mfaResponse = await fetchQuestionMFA(location?.state?.customerEmail);
-			 console.log(mfaResponse);
 			 if (mfaResponse?.data?.statusCode === 200) {
-				 console.log(mfaResponse)
-				 console.log(mfaResponse?.data);
 				navigate("/MFA", { state: { mfaDetails: mfaResponse?.data?.MFAInformation, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
 			 }
 			 else{
@@ -89,10 +84,7 @@ const MFAGetPhoneNumber = ({
 		if (response?.data?.statusCode === 200) {
 			toast.success(response.data?.Message);
 			let mfaResponse = await fetchQuestionMFA(location?.state?.customerEmail);
-			 console.log(mfaResponse)
 			 if (mfaResponse?.data?.statusCode === 200) {
-				 console.log(mfaResponse)
-				 console.log(mfaResponse?.data);
 				navigate("/MFA", { state: { mfaDetails: mfaResponse?.data?.MFAInformation, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
 			 }
 			 else{
