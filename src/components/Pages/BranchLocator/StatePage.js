@@ -199,7 +199,7 @@ export default function StatePage() {
             >
               <Link
                 className="breadcrumbLink"
-                onClick={() => window.open(`/`, "_self")}
+                href="https://www.marinerfinance.com/"
               >
                 Home
               </Link>
