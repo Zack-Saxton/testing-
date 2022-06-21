@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, waitFor, act } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
@@ -57,7 +57,7 @@ test("Availability test", () => {
 	expect(ContinueButton.hasAttribute("disabled")).toBe(true);
 });
 
-test("Clicking Renting Test", () => {
+test("Clicking Renting Test", async() => {
 	const container = render(<MockLivingPlace />)
 
 	const Renting = container.getByTestId("Renting");
@@ -65,7 +65,9 @@ test("Clicking Renting Test", () => {
 	const HomeWithNoMortgage = container.getByTestId("HomeWithNoMortgage");
 	const MobileHome = container.getByTestId("MobileHome");
 	const LivingWithRelatives = container.getByTestId("LivingWithRelatives");
-	fireEvent.click(Renting);
+	await act(() => {
+		fireEvent.click(Renting);
+	});
 	expect(Renting).toHaveClass("activeBorder");
 	const rentOrMortgage = container.getByTestId("rentOrMortgage")
 	expect(rentOrMortgage).toBeTruthy();
@@ -77,10 +79,12 @@ test("Clicking Renting Test", () => {
 	expect(ContinueButton.hasAttribute("disabled")).toBe(false);
 });
 
-test("Clicking HomeWithMortgage Test", () => {
+test("Clicking HomeWithMortgage Test", async() => {
 	const container = render(<MockLivingPlace />)
 	const HomeWithMortgage = container.getByTestId("HomeWithMortgage");
-	fireEvent.click(HomeWithMortgage);
+	await act(() => {
+		fireEvent.click(HomeWithMortgage);
+	});
 	const rentOrMortgage = container.getByTestId("rentOrMortgage")
 	expect(rentOrMortgage).toBeTruthy();
 	expect(HomeWithMortgage).toHaveClass("activeBorder");
@@ -88,10 +92,12 @@ test("Clicking HomeWithMortgage Test", () => {
 	expect(ContinueButton.hasAttribute("disabled")).toBe(false);
 });
 
-test("Clicking HomeWithNoMortgage Test", () => {
+test("Clicking HomeWithNoMortgage Test", async () => {
 	const container = render(<MockLivingPlace />)
 	const HomeWithNoMortgage = container.getByTestId("HomeWithNoMortgage");
-	fireEvent.click(HomeWithNoMortgage);
+	await act(() => {
+		fireEvent.click(HomeWithNoMortgage);
+	});
 	expect(HomeWithNoMortgage).toHaveClass("activeBorder");
 	const rentOrMortgage = container.getByTestId("rentOrMortgage")
 	expect(rentOrMortgage).toBeTruthy();
@@ -101,10 +107,12 @@ test("Clicking HomeWithNoMortgage Test", () => {
 	expect(ContinueButton.hasAttribute("disabled")).toBe(false);
 });
 
-test("Clicking Mobile Home Test", () => {
+test("Clicking Mobile Home Test", async () => {
 	const container = render(<MockLivingPlace />)
 	const MobileHome = container.getByTestId("MobileHome");
-	fireEvent.click(MobileHome);
+	await act(() => {
+		fireEvent.click(MobileHome);
+	});
 	expect(MobileHome).toHaveClass("activeBorder");
 	const TextField = container.getByTestId("rentOrMortgage");
 	expect(TextField).toHaveClass("hideMsg")
@@ -112,10 +120,12 @@ test("Clicking Mobile Home Test", () => {
 	expect(ContinueButton.hasAttribute("disabled")).toBe(false);
 });
 
-test("Clicking Living with Relatives Test", () => {
+test("Clicking Living with Relatives Test", async() => {
 	const container = render(<MockLivingPlace />)
 	const LivingWithRelatives = container.getByTestId("LivingWithRelatives");
-	fireEvent.click(LivingWithRelatives);
+	await act(() => {
+		fireEvent.click(LivingWithRelatives);
+	});
 	expect(LivingWithRelatives).toHaveClass("activeBorder");
 	const TextField = container.getByTestId("rentOrMortgage");
 	expect(TextField).toHaveClass("hideMsg")
@@ -126,7 +136,9 @@ test("Clicking Living with Relatives Test", () => {
 test("Routing forward to One Last Step", async () => {
 	const container = render(<MockLivingPlace />);
 	const ContinueButton = container.getByTestId("cntButton");
-	fireEvent.click(ContinueButton);
+	await act(() => {
+		fireEvent.click(ContinueButton);
+	});
 	const page = container.queryByText("One last step")
 	await waitFor(() => expect(page).toBeInTheDocument());
 })
@@ -134,7 +146,9 @@ test("Routing forward to One Last Step", async () => {
 test("Routing Back to Annual Income Test", async () => {
 	const container = render(<MockLivingPlace />);
 	const BackButton = container.getByTestId("routeBackwardLivingPlace");
-	fireEvent.click(BackButton);
+	await act(() => {
+		fireEvent.click(BackButton);
+	});
 	const page = container.queryByText("Tell us about your income")
 	await waitFor(() => expect(page).toBeInTheDocument());
 })

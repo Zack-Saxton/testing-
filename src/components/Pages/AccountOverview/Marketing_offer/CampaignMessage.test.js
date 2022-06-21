@@ -24,7 +24,7 @@ const component = () => {
 		<ThemeProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
 				<BrowserRouter>
-					<CampaignMessage amount={10000} offerCode = {"MF1000"} />
+					<CampaignMessage amount={"10000"} offerCode = {"MF1000"} />
 				</BrowserRouter>
 			</QueryClientProvider>
 		</ThemeProvider>

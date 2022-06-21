@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, act } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
@@ -19,6 +19,8 @@ const queryClient = new QueryClient({
 });
 const theme = createTheme();
 window.scrollTo = jest.fn();
+
+
 const component = () => {
 	return (
 		<ThemeProvider theme={theme}>
@@ -39,88 +41,108 @@ test("Checks the component is rendered", () => {
 	expect(element).toBeTruthy();
 });
 
-test("Render First name ", () => {
+test("Render First name ", async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="firstName"]`);
-	fireEvent.change(input, { target: { value: "Mariner" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "Mariner" } });
+	});
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('Mariner');
 });
 
-test("Invalid Firstname", () => {
+test("Invalid Firstname", async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="firstName"]`);
-	fireEvent.change(input, { target: { value: "123" } });
-	fireEvent.change(input, { target: { value: "" } });
-	fireEvent.change(input, { target: { value: "test123" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "123" } });
+		fireEvent.change(input, { target: { value: "" } });
+		fireEvent.change(input, { target: { value: "test123" } });
+	});
 	expect(input.value).not.toBe(true);
 });
 
-test("Render Last name ", () => {
+test("Render Last name ", async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="lastName"]`);
-	fireEvent.change(input, { target: { value: "Mariner" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "Mariner" } });
+	});
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('Mariner');
 });
 
-test("Invalid Last Name", () => {
+test("Invalid Last Name", async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="lastName"]`);
-	fireEvent.change(input, { target: { value: "123" } });
-	fireEvent.change(input, { target: { value: "" } });
-	fireEvent.change(input, { target: { value: "test123" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "123" } });
+		fireEvent.change(input, { target: { value: "" } });
+		fireEvent.change(input, { target: { value: "test123" } });
+	});
 	expect(input.value).not.toBe(true);
 });
 
-test("Render DOB ", () => {
+test("Render DOB ", async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="dob"]`);
-	fireEvent.change(input, { target: { value: "01/01/2000" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "01/01/2000" } });
+	});
 	expect(input).toBeTruthy();
 });
 
-test("Render Social Security Number ", () => {
+test("Render Social Security Number ", async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="ssn"]`);
-	fireEvent.change(input, { target: { value: "123-45-6789" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "123-45-6789" } });
+	});
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('123-45-6789');
 });
 
-test("Check Valid Social Security Number", () => {
+test("Check Valid Social Security Number", async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="ssn"]`);
-	fireEvent.change(input, { target: { value: "abc" } });
-	expect(input.value).toBe("");
-	fireEvent.change(input, { target: { value: "123-45-6789" } });
-	expect(input.value).toBe("123-45-6789");
+	await act(() => {
+		fireEvent.change(input, { target: { value: "abc" } });
+		expect(input.value).toBe("");
+		fireEvent.change(input, { target: { value: "123-45-6789" } });
+		expect(input.value).toBe("123-45-6789");
+	});
 });
 
-test("Render Email ", () => {
+test("Render Email ", async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="email"]`);
-	fireEvent.change(input, { target: { value: "mariner@gmail.com" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "mariner@gmail.com" } });
+	});
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('mariner@gmail.com');
 });
 
-test("Check invalid email", () => {
+test("Check invalid email", async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="email"]`);
-	fireEvent.change(input, { target: { value: "test" } });
-	fireEvent.change(input, { target: { value: "test@" } });
-	fireEvent.change(input, { target: { value: "test@gmail" } });
-	fireEvent.change(input, { target: { value: "123" } });
-	fireEvent.change(input, { target: { value: "@test" } });
+	await act(() => {
+		fireEvent.change(input, { target: { value: "test" } });
+		fireEvent.change(input, { target: { value: "test@" } });
+		fireEvent.change(input, { target: { value: "test@gmail" } });
+		fireEvent.change(input, { target: { value: "123" } });
+		fireEvent.change(input, { target: { value: "@test" } });
+	});
 	expect(input.value).not.toBe(true);
 });
 
-test("Check the phone number field", () => {
+test("Check the phone number field", async() => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="phone"]`);
-  fireEvent.change(input, { target: { value: "abc" } });
-  expect(input.value).toBe("");
-  fireEvent.change(input, { target: { value: "(123) 123-1234" } });
-	expect(input).toBeTruthy();
+	await act(() => {
+		fireEvent.change(input, { target: { value: "abc" } });
+		expect(input.value).toBe("");
+		fireEvent.change(input, { target: { value: "(123) 123-1234" } });
+		expect(input).toBeTruthy();
+	});
 });

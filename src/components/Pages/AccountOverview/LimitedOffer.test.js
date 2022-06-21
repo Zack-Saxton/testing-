@@ -2,13 +2,10 @@ import LimitedOffer from './LimitedOffer';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {  fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
-import LoanAccount from '../../../contexts/LoanAccount';
-import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
-
 
 const queryClient = new QueryClient({
 	defaultOptions: {

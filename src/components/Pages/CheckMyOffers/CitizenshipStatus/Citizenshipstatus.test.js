@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent,act, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
@@ -49,14 +49,15 @@ test("Select On Highlight Test", () => {
   expect(ContinueButton.hasAttribute("disabled")).toBe(true);
 });
 
-test("Availability test", () => {
+test("Availability test", async () => {
   render(component());
-
   const USCitizen = screen.getByTestId("usCitizenBtn");
   const PermanentResident = screen.getByTestId("permanentResidentBtn");
   const ForeignResident = screen.getByTestId("foreignResidentBtn");
   expect(USCitizen).toBeTruthy();
-  fireEvent.click(USCitizen);
+  await act(() => {
+    fireEvent.click(USCitizen);
+  });
   expect(USCitizen).toHaveClass("activeBorder");
   expect(PermanentResident).not.toHaveClass("activeBorder");
   expect(ForeignResident).not.toHaveClass("activeBorder");
@@ -64,37 +65,39 @@ test("Availability test", () => {
   expect(ContinueButton.hasAttribute("disabled")).toBe(false);
 });
 
-test("Us Citizen button renders and functions correctly", () => {
+test("Us Citizen button renders and functions correctly", async () => {
   render(component());
 
   const citizenUs = screen.getByTestId("usCitizenBtn");
 
   // Making sure text on Us Citizen button Renders
 	expect(screen.queryByText("U.S Citizen",{ exact: true })).toBeVisible();
-
-  fireEvent.click(citizenUs);
+  await act(() => {
+    fireEvent.click(citizenUs);
+  })
 });
 
-test("Premanent Resident button renders and functions correctly", () => {
+test("Premanent Resident button renders and functions correctly", async () => {
   render(component());
-
   const PermanentResidentBtn = screen.getByTestId("permanentResidentBtn");
 
   // Making sure text on permanent resident button Renders
 	expect(screen.queryByText("Permanent Resident",{ exact: true })).toBeVisible();
-
-  fireEvent.click(PermanentResidentBtn);
+  await act(() => {
+    fireEvent.click(PermanentResidentBtn);
+  })
 });
 
-test("Foreign Resident button renders and functions correctly", () => {
+test("Foreign Resident button renders and functions correctly", async () => {
   render(component());
 	
   const ForeignResidentBtn = screen.getByTestId("foreignResidentBtn");
 
   // Making sure text on Foreign Residentbutton Renders
 	expect(screen.queryByText("Foreign Resident",{ exact: true })).toBeVisible();
-
+  await act(() => {    
   fireEvent.click(ForeignResidentBtn);
+  })
 
   expect(screen.queryByText("We are sorry. We do not offer loans to foreign residents.",{ exact: true })).toBeVisible();
 });
