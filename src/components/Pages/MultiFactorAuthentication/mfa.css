@@ -8,4 +8,11 @@
 .skip_button:hover{
 	background :#214476;
 	color : #FFFFFF;
-  }
+}
+#questionOne,
+#questionTwo,
+#questionThree,
+#questionFour,
+#questionFive{
+	padding-bottom: 14px;
+}
