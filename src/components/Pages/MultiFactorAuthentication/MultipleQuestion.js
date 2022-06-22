@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import PropTypes from "prop-types";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { idVerificationAnswer } from '../../Controllers/MFAController';
@@ -61,13 +62,19 @@ export default function MultipleQuestion(props) {
 			};
 
 			let response = await idVerificationAnswer(passData);
-			console.log(response); //Intentionally added this for testing purpose
 			if (response?.data?.result === 'success') {
 				props.setLoadingFlag(false);
 				props.navigate('/MFA-SelectSecurityQuestions')
 			} else if(response?.data?.result === 'error') {
 				props.setLoadingFlag(false);
 				toast.error(response?.data?.Message);
+				if(response?.data?.Message === "Your account has been locked.  Please contact your branch for further assistance."){
+					const mfaData = JSON.parse(Cookies.get("mfaDetails"));
+					props.navigate("/MFA", {state: mfaData});
+				}
+				else{
+					props.navigate("/login");
+				}
 			} else {
 				toast.error("Internal Server Error")
 			}

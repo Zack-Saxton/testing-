@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Typography, Link } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import Cookies from 'js-cookie';
 import Paper from "@mui/material/Paper";
 import CircularProgress from "@mui/material/CircularProgress";
 import { ButtonPrimary, Popup } from "../../FormsUI";
@@ -12,7 +13,7 @@ import './MultiFactorAuthentication.css';
 import LoadQuestions from "../ApplyLoan/Stepper/LoadQuestions";
 import MultipleQuestion from './MultipleQuestion';
 import KbaQuestionsPopup from './KbaQuestionsPopup';
-import ScrollToTopOnMount from "../CheckMyOffers/ScrollToTop";
+import ScrollToTopOnMount from "../ScrollToTop";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -128,9 +129,19 @@ const KbaQuestions = () => {
               Please answer the questions below to help verify your identity. Please provide your responses within five minutes.
             </Typography>
             <div data-testid="question_component" className={classes.button_div} >
-              {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : isProd ? <> </> : <CircularProgress />}
+              {responseData && !setOneFinished ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : isProd ? <> </> : setOneFinished ? <> </> : <CircularProgress />}
               <div>
-                {setOneFinished ? <MultipleQuestion setLoadingFlag={setLoadingFlag} customerEmail={customerEmail} transactionIdMultiple={transactionIdMultiple} questionSetIdMultiple={questionSetIdMultiple} responseData={responseDataMultipleQ} setResponseData={setResponseDataMultipleQ} classes={classes} check={check} setCheck={setCheck} navigate={navigate} /> : null}
+                {setOneFinished ? <MultipleQuestion 
+                setLoadingFlag={setLoadingFlag} 
+                customerEmail={customerEmail} 
+                transactionIdMultiple={transactionIdMultiple} 
+                questionSetIdMultiple={questionSetIdMultiple} 
+                responseData={responseDataMultipleQ} 
+                setResponseData={setResponseDataMultipleQ} 
+                classes={classes} 
+                check={check} 
+                setCheck={setCheck} 
+                navigate={navigate} /> : null}
               </div>
               {
                 !setOneFinished ?
@@ -176,6 +187,8 @@ const KbaQuestions = () => {
                           } else {
                             setLoadingFlag(false);
                             toast.error("Internal Server Error");
+                            const mfaData = JSON.parse(Cookies.get("mfaDetails"));
+                            navigate("/MFA", {state: mfaData});
                           }
                         }
                         else {
