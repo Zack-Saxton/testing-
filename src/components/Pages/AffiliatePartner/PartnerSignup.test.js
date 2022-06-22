@@ -38,8 +38,10 @@ const component = () => {
 }
 
 
-test("Checks the component is rendered", () => {
-	render(component());
+test("Checks the component is rendered", async () => {
+	await act(() => {
+		render(component());
+	});	
 	const element = screen.getByTestId('partnerSignup_component');
 	expect(element).toBeTruthy();
 });
@@ -49,7 +51,7 @@ test("Render Email ", async () => {
 	const input = container.querySelector(`input[name="email"]`);
 	await act(() => {
 	fireEvent.change(input, { target: { value: "mariner@gmail.com" } });
-});
+	});
 	expect(input).toBeTruthy();
 	expect(input.value).toBe('mariner@gmail.com');
 });
@@ -110,10 +112,12 @@ test("Check Phonenumber masking after entering phone number", async () => {
 	expect(input.value).not.toBe('1231231233');
 });
 
-test("Render phone Type ", () => {
-	const { container } = render(component());
-	const input = container.querySelector(`input[name="phoneType"]`);
-	expect(input).toBeTruthy();
+test("Render phone Type ", async () => {
+	const { container } = render(component());		
+	await act(() => {
+		const input = container.querySelector(`input[name="phoneType"]`);
+		expect(input).toBeTruthy();
+	});	
 });
 
 test("Select phone Type ", async () => {
@@ -137,10 +141,12 @@ test("Render password", async () => {
 });
 
 
-test('Password Length Test', () => {
+test('Password Length Test', async () => {
 	const { container } = render(component());
-	const input = container.querySelector(`input[name="password"]`);
-	expect(input.maxLength).toBe(30);
+	await act(() => {		
+		const input = container.querySelector(`input[name="password"]`);
+		expect(input.maxLength).toBe(30);
+	});
 })
 
 test('Password Prevent Cut Test', async() => {
@@ -181,10 +187,12 @@ test("Render confirmPassword", async () => {
 	});
 });
 
-test('confirmPassword Length Test', () => {
+test('confirmPassword Length Test', async () => {
 	const { container } = render(component());
+	await act(() => {
 	const input = container.querySelector(`input[name="confirmPassword"]`);
 	expect(input.maxLength).toBe(30);
+	});
 })
 
 test('confirmPassword Prevent Cut Test', async () => {
@@ -245,14 +253,16 @@ it("Navigate to Respective Page", async () => {
 	expect(input).toBeTruthy();
 	await act(() => {
 	fireEvent.click(input);
-});	
+	});	
 	const asyncMock = jest.fn().mockResolvedValue(mockData2);
 	await asyncMock();
 	const page = screen.getByTestId("selectOfferComponent")
 	await waitFor(() => expect(page).toBeInTheDocument());
 });
 
-test('Should match the snapshot', () => {
+test('Should match the snapshot', async () => {
 	const { asFragment } = render(component());
-	expect(asFragment).toMatchSnapshot();
+	await act(() => {
+		expect(asFragment).toMatchSnapshot();
+	});	
 });

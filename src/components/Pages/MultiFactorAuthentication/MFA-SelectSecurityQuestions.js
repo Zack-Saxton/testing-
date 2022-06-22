@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import { useStylesMFA } from "./Style";
 import message from "../../../assets/data/globalMessages.json"
 import {  saveSecurityAnswer, fetchAllMFAQuestion } from "../../Controllers/MFAController";
+import ScrollToTopOnMount from "../CheckMyOffers/ScrollToTop";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
@@ -208,6 +209,7 @@ let selectedQuestionStructured =
 
   return (
     <div data-testid="selectSecurityQuestions">
+      <ScrollToTopOnMount />
       <Grid>
         <Grid
           spacing={1}
@@ -243,7 +245,7 @@ let selectedQuestionStructured =
                       <Grid container>
                       <Grid id="questionGrid" container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
-                          id="question1"
+                          id="questionOne"
                           name="question1"
                           labelform="Question 1"
                           value={formik.values.question1}
@@ -277,7 +279,7 @@ let selectedQuestionStructured =
                         <Grid container>
                         <Grid id="questionGrid" container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
-                          id="question2"
+                          id="questionTwo"
                           name="question2"
                           labelform="Question 2"
                           value={formik.values.question2}
@@ -312,7 +314,7 @@ let selectedQuestionStructured =
                         <Grid container>
                         <Grid container id="questionGrid" className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
-                          id="question3"
+                          id="questionThree"
                           name="question3"
                           labelform="Question 3"
                           value={formik.values.question3}
@@ -347,7 +349,7 @@ let selectedQuestionStructured =
                         <Grid container>
                         <Grid container id="questionGrid" className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
-                          id="question4"
+                          id="questionFour"
                           name="question4"
                           labelform="Question 4"      
                           value={formik.values.question4}                    
@@ -382,7 +384,7 @@ let selectedQuestionStructured =
                         <Grid container>
                         <Grid id="questionGrid" container className="questionWrap" item md={6}  style={{ padding: "10px" }}>
                       <Select
-                          id="question5"
+                          id="questionFive"
                           name="question5"
                           labelform="Question 5"
                           value={formik.values.question5}

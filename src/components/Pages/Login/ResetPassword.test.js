@@ -42,23 +42,22 @@ test("Render Email ", async () => {
 	const input = container.querySelector(`input[name="email"]`);
 	await act(() => {
 		fireEvent.change(input, { target: { value: "mariner@gmail.com" } });
-		expect(input).toBeTruthy();
-		expect(input.value).toBe('mariner@gmail.com');
 	});
-
+	expect(input).toBeTruthy();
+	expect(input.value).toBe('mariner@gmail.com');
 });
 
 test("Check invalid email", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="email"]`);
 	await act(() => {
-		fireEvent.change(input, { target: { value: "test" } });
-		fireEvent.change(input, { target: { value: "test@" } });
-		fireEvent.change(input, { target: { value: "test@gmail" } });
-		fireEvent.change(input, { target: { value: "123" } });
-		fireEvent.change(input, { target: { value: "@test" } });
+	fireEvent.change(input, { target: { value: "test" } });
+	fireEvent.change(input, { target: { value: "test@" } });
+	fireEvent.change(input, { target: { value: "test@gmail" } });
+	fireEvent.change(input, { target: { value: "123" } });
+	fireEvent.change(input, { target: { value: "@test" } });
 	});
-		expect(input.value).not.toBe(true);
+	expect(input.value).not.toBe(true);
 });
 
 
@@ -68,8 +67,8 @@ test("Render password", async () => {
 	expect(element.hasAttribute("name")).toBe(true);
 	await act(() => {
 		fireEvent.change(element, { target: { value: "Test@123" } });
-		expect(element.value).toBe("Test@123");
 	});
+	expect(element.value).toBe("Test@123");
 });
 
 
@@ -84,8 +83,8 @@ test('Password Prevent Cut Test', async () => {
 	const input = container.querySelector(`input[name="password"]`);
 	await act(() => {
 		fireEvent.cut(input);
-		expect(input.value).toBe('');
-	});
+	})
+	expect(input.value).toBe('');
 })
 
 test('Password Prevent Copy Test', async () => {
@@ -93,21 +92,21 @@ test('Password Prevent Copy Test', async () => {
 	const input = container.querySelector(`input[name="password"]`);
 	await act(() => {
 		fireEvent.copy(input);
-		expect(input.value).toBe('');
 	});
+	expect(input.value).toBe('');
 })
 
-test('Password Prevent Paste Test', async() => {
+test('Password Prevent Paste Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="password"]`);
 	await act(() => {
 		fireEvent.paste(input);
-		expect(input.value).toBe('');
 	});
+	expect(input.value).toBe('');
 })
 
 
-test("Render confirmPassword", async() => {
+test("Render confirmPassword", async () => {
 	const { container } = render(component());
 	const element = container.querySelector(`input[name="confirmPassword"]`);
 	expect(element.hasAttribute("name")).toBe(true);
@@ -123,31 +122,31 @@ test('confirmPassword Length Test', () => {
 	expect(input.maxLength).toBe(30);
 })
 
-test('confirmPassword Prevent Cut Test', async() => {
+test('confirmPassword Prevent Cut Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="confirmPassword"]`);
 	await act(() => {
 		fireEvent.cut(input);
-		expect(input.value).toBe('');
 	});
+	expect(input.value).toBe('');
 })
 
-test('confirmPassword Prevent Copy Test', async() => {
+test('confirmPassword Prevent Copy Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="confirmPassword"]`);
 	await act(() => {
 		fireEvent.copy(input);
-		expect(input.value).toBe('');
 	});
+	expect(input.value).toBe('');
 })
 
-test('confirmPassword Prevent Paste Test', async() => {
+test('confirmPassword Prevent Paste Test', async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="confirmPassword"]`);
 	await act(() => {
 		fireEvent.paste(input);
-		expect(input.value).toBe('');
 	});
+	expect(input.value).toBe('');
 })
 
 test("Check Password Match", async () => {
@@ -166,10 +165,12 @@ test("Check Password Match", async () => {
 });
 
 
-test("Button Onclick", () => {
+test("Button Onclick", async () => {
 	render(component());
 	const button = screen.getByTestId("submit");
-	fireEvent.click(button);
+	await act(() => {
+		fireEvent.click(button);
+	});
 });
 
 test('Should match the snapshot', () => {

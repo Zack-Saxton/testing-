@@ -2,7 +2,7 @@ import { createTheme, StyledEngineProvider } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import '@testing-library/jest-dom';
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
@@ -94,7 +94,9 @@ test("Availability test: Bank Routing number test on change", async () => {
   render(component());
   const bankRouting = screen.getByTestId("bankRoutingNumber");
   const bankInfo = screen.getByTestId("bankInformation");
-  fireEvent.change(bankRouting, { target: { value: "052001633" } });
+  await act(() => {
+    fireEvent.change(bankRouting, { target: { value: "052001633" } });
+  });  
   expect(bankRouting).toBeTruthy();
   jest.useFakeTimers();
   setTimeout(() => {

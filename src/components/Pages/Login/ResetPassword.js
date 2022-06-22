@@ -64,12 +64,7 @@ export default function ResetPassword(props) {
         let retVal = await ResetPasswordController(values.password);
         if (retVal.status === 200) {
           toast.success(globalValidation.PasswordChangedSuccessfully);
-          const tokenString = Cookies.get("token") ? Cookies.get("token") : '{ }';
-          let userToken = JSON.parse(tokenString);
-          userToken.isMFACompleted = true;
-          Cookies.set("token",JSON.stringify(userToken));//Setting MFA Flag to complete Login
-          Cookies.set("forceResetPassword", false);
-          navigate("/customers/accountoverview");
+          navigate("/login");
         }else if (retVal?.data?.statusCode === 400) {
           toast.error(retVal?.data?.errorMessage);
           setLoading(false);

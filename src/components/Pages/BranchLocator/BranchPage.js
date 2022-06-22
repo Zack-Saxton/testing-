@@ -183,7 +183,7 @@ export default function StatePage(props) {
         >
           <Link
             className="breadcrumbLink"
-            onClick={() => window.open(`/`, "_self")}
+            href="https://www.marinerfinance.com/"
           >
             Home
           </Link>
