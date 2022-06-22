@@ -147,15 +147,19 @@ export default function Login(props) {
         Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
         Cookies.set("temp_opted_phone_texting", "");
         Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email }) : JSON.stringify({ selected: false, email: '' }));
+        let mfaData = {mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }
+        Cookies.set("mfaDetails", JSON.stringify(mfaData));
+
         queryClient.removeQueries();
         setLoading(false);
         if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter === 1 && retVal?.data?.user?.extensionattributes?.MFA){
           Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
-          navigate("/MFA-phoneNumber", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }});
+          navigate("/MFA-phoneNumber", {state:mfaData});
         }
         else if(retVal?.data?.user?.extensionattributes?.MFA){
           Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
-          navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }});
+          Cookies.set("mfaDetails", mfaData);
+          navigate("/MFA", { state: mfaData });
         } else {
           retVal?.data?.user?.attributes?.password_reset
           ? navigate("/resetpassword", { state: { Email: values?.email } })
