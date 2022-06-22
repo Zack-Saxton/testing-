@@ -12,7 +12,7 @@ import './MultiFactorAuthentication.css';
 import LoadQuestions from "../ApplyLoan/Stepper/LoadQuestions";
 import MultipleQuestion from './MultipleQuestion';
 import KbaQuestionsPopup from './KbaQuestionsPopup';
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTopOnMount from "../CheckMyOffers/ScrollToTop";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
