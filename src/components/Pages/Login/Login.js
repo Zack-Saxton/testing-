@@ -181,13 +181,13 @@ export default function Login(props) {
         setCounter(counter + 1);
         setLoading(false);
         setLoginFailed(retVal?.data?.errorMessage);
+        if(counter >= 1) {
+          navigate("/register?email=" + values?.email);
+        }
       } else {
         setLoading(false);
         alert(globalMessages.Network_Error_Please_Try_Again);
       }
-    // } else {
-    //   navigate("/MFA", {state:{mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType:'Chrome HP' }});
-    // }
     },
   });
 
