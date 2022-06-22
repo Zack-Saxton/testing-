@@ -13,7 +13,8 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-
+import ScrollToTopOnMount from "../CheckMyOffers/ScrollToTop";
+ 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
   answer: yup
@@ -96,6 +97,7 @@ const MFASecurityQuestions = () => {
 
   return (
     <div data-testid="mfa-security-questions-component">
+      	<ScrollToTopOnMount />
       <Grid >
         <Grid
           spacing={1}
