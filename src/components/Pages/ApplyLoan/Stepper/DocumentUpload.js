@@ -76,7 +76,7 @@ export default function DocumentUpload(props) {
 
 	//JSX part
 	return (
-		<Grid container direction="row" data-testid="documentUpload">
+		<Grid data-testid="documentUpload">
 			<Grid style={{ paddingTop: "20px" }}>
 				<ButtonPrimary
 					variant="contained"
@@ -90,7 +90,7 @@ export default function DocumentUpload(props) {
 					}
 					}
 					id="button_stepper_prev"
-					stylebutton='{"padding":"0px 30px","margin":"0px 0px 20px 0px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+					stylebutton='{"padding":"0px 30px","fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 				>
 					Upload
 				</ButtonPrimary>

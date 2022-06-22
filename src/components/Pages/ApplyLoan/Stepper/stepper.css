@@ -169,6 +169,11 @@
 	padding: 10px 40px !important;
 	text-transform: capitalize;
 }
+@media only screen and (max-width: 530px) {
+	#file{
+		margin-top: 15px;
+	}
+}
 @media only screen and (max-width: 599px) {
 	.confirmationButtons {
 		margin: 0 !important;
