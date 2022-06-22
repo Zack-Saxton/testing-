@@ -11,7 +11,6 @@ test('Checks Auto complete based on entered value', async () => {
     <Formik
       className="form"
     >
-      <Form className="form">
         <AutoCompleteMultipleWrapper
           name="autoCompleteMultiple"
           label="AutoComplete"
@@ -19,9 +18,8 @@ test('Checks Auto complete based on entered value', async () => {
           jsonInput='[{"value":"India"}, {"value":"USA"}, {"value":"Indonesia"}, {"value":"Italy"}]'
           placeholder="Choose Country"
           stylecheckbox='{ "color":""}'
-          data-test-id="autoComplete"
+          data-testid="autoComplete"
         />
-      </Form>
     </Formik>);
   const autocomplete = container.getByRole('combobox');
   expect(autocomplete).toBeTruthy();
@@ -37,7 +35,6 @@ test('Checks Auto complete based on entered value', async () => {
 
 test('should match the snapshot', () => {
   const { asFragment } = render(<Formik className="form" >
-    <Form className="form">
       <AutoCompleteMultipleWrapper
         name="autoCompleteMultiple"
         label="AutoComplete"
@@ -45,9 +42,8 @@ test('should match the snapshot', () => {
         jsonInput='[{"value":"India"}, {"value":"USA"}, {"value":"Indonesia"}, {"value":"Italy"}]'
         placeholder="Choose Country"
         stylecheckbox='{ "color":""}'
-        data-test-id="autoComplete"
+        data-testid="autoComplete"
       />
-    </Form>
   </Formik>);
   expect(asFragment).toMatchSnapshot();
 });

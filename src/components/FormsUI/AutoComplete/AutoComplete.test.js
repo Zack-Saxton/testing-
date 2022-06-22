@@ -1,11 +1,11 @@
 import '@testing-library/jest-dom';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, act } from '@testing-library/react';
 import React from 'react';
 import AutoComplete from './index.js';
 
 afterEach(cleanup);
 
-test('Checks Auto complete based on entered value', () => {
+test('Checks Auto complete based on entered value', async() => {
   const container = render(
     <AutoComplete
       textfieldlabel="AutoComplete"
@@ -13,14 +13,16 @@ test('Checks Auto complete based on entered value', () => {
       jsonInput='[{"value":"India"}, {"value":"USA"}]'
       placeholder="Choose Country"
       styleAutocomplete='{"width":"300px"}'
-      data-test-id="autoComplete"
+      data-testid="autoComplete"
     />);
   const autocomplete = container.getByRole('combobox');
   expect(autocomplete).toBeTruthy();
-  autocomplete.focus();
-  fireEvent.change(document.activeElement, { target: { value: 'I' } });
-  fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' });
-  fireEvent.keyDown(document.activeElement, { key: 'Enter' });
+  await act(() => {
+    autocomplete.focus();
+    fireEvent.change(document.activeElement, { target: { value: 'I' } });
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' });
+    fireEvent.keyDown(document.activeElement, { key: 'Enter' });
+  });
   expect(autocomplete.value).toEqual('India');
 });
 
@@ -31,7 +33,7 @@ test('should match the snapshot', () => {
     jsonInput='[{"value":"India"}, {"value":"USA"}]'
     placeholder="Choose Country"
     styleAutocomplete='{"width":"300px"}'
-    data-test-id="autoComplete"
+    data-testid="autoComplete"
   />);
   expect(asFragment).toMatchSnapshot();
 });

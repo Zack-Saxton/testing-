@@ -1,4 +1,3 @@
-import { AnalyticsSharp } from '@mui/icons-material';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
@@ -177,4 +176,4 @@ test("Button Onclick", async () => {
 test('Should match the snapshot', () => {
 	const { asFragment } = render(component());
 	expect(asFragment).toMatchSnapshot();
-});
+})

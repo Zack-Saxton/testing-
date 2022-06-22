@@ -50,7 +50,6 @@ const MultiSelectWrapper = ({
       vertical: "top",
       horizontal: "left"
     },
-    getContentAnchorEl: null
   };
 
   //Configuring Field with Properties
