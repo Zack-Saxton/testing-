@@ -1,7 +1,7 @@
 import { createTheme, StyledEngineProvider } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, act, render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
@@ -55,15 +55,17 @@ test("Render email", () => {
 	expect(inputEl.hasAttribute("name")).toBe(true);
 });
 
-test("pass valid email to test email input field", () => {
+test("pass valid email to test email input field", async() => {
 
 	render(component());
 
 	const inputEl = screen.getByLabelText("Email Address *");
-	fireEvent.change(inputEl, { target: { value: "test@mail.com" } });
-	expect(inputEl.value).toBe("test@mail.com");
-	expect(screen.getByLabelText("Email Address *")).toHaveValue("test@mail.com");
-	expect(screen.queryByLabelText("error-msg")).not.toBeInTheDocument();
+	await act(() => {
+		fireEvent.change(inputEl, { target: { value: "test@mail.com" } });
+		expect(inputEl.value).toBe("test@mail.com");
+		expect(screen.getByLabelText("Email Address *")).toHaveValue("test@mail.com");
+		expect(screen.queryByLabelText("error-msg")).not.toBeInTheDocument();
+	});
 });
 
 test("Render password", () => {

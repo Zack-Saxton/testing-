@@ -3,13 +3,15 @@ import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import DatePicker from './index.js';
 
+const SampleDate = "Tue Jan 01 2000 00:03:00 GMT+0530 (India Standard Time)"
+
 const component = () => {
   return (
     <DatePicker
       name="date"
-      inputFormat={'MM/dd/yyyy'}
-      value="01/01/2000"
-      minDate="01/01/2000"
+      inputformat={'MM/dd/yyyy'}
+      value={SampleDate}
+      
     />
   );
 };

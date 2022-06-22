@@ -28,6 +28,8 @@ const AutoCompleteWrapper = ({
   return (
     <Autocomplete
       id={id}
+      name = {name}
+      value = {value}
       options={jsonData}
       getOptionLabel={(option) => option.value}
       style={styleAutocompleteMF}

@@ -1,17 +1,16 @@
 import '@testing-library/jest-dom';
-import { cleanup, fireEvent, render } from '@testing-library/react';
-import { Form, Formik } from "formik";
+import { cleanup, fireEvent, render,act } from '@testing-library/react';
+import { Formik } from "formik";
 import React from 'react';
 import AutoCompleteMultipleWrapper from './index.js';
 
 afterEach(cleanup);
 
-test('Checks Auto complete based on entered value', () => {
+test('Checks Auto complete based on entered value', async() => {
   const container = render(
     <Formik
       className="form"
     >
-      <Form className="form">
         <AutoCompleteMultipleWrapper
           name="autoCompleteMultiple"
           label="AutoComplete"
@@ -19,23 +18,23 @@ test('Checks Auto complete based on entered value', () => {
           jsonInput='[{"value":"India"}, {"value":"USA"}, {"value":"Indonesia"}, {"value":"Italy"}]'
           placeholder="Choose Country"
           stylecheckbox='{ "color":""}'
-          data-test-id="autoComplete"
+          data-testid="autoComplete"
         />
-      </Form>
     </Formik>);
   const autocomplete = container.getByRole('combobox');
   expect(autocomplete).toBeTruthy();
   autocomplete.focus();
-  fireEvent.change(document.activeElement, { target: { value: 'I' } });
-  fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' });
-  fireEvent.keyDown(document.activeElement, { key: 'Enter' });
-  // expect(autocomplete.value).toEqual('India');
+  await act(() => {
+    autocomplete.focus();
+    fireEvent.change(document.activeElement, { target: { value: 'I' } });
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' });
+    fireEvent.keyDown(document.activeElement, { key: 'Enter' });
+  });
   expect(container.getAllByText('India')[ 0 ]).toBeInTheDocument();
 });
 
 test('should match the snapshot', () => {
   const { asFragment } = render(<Formik className="form" >
-    <Form className="form">
       <AutoCompleteMultipleWrapper
         name="autoCompleteMultiple"
         label="AutoComplete"
@@ -43,9 +42,8 @@ test('should match the snapshot', () => {
         jsonInput='[{"value":"India"}, {"value":"USA"}, {"value":"Indonesia"}, {"value":"Italy"}]'
         placeholder="Choose Country"
         stylecheckbox='{ "color":""}'
-        data-test-id="autoComplete"
+        data-testid="autoComplete"
       />
-    </Form>
   </Formik>);
   expect(asFragment).toMatchSnapshot();
 });

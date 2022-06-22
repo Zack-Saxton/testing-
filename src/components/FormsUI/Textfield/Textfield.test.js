@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, act } from '@testing-library/react';
 import React from 'react';
 import TextField from './index.js';
 
@@ -34,7 +34,7 @@ test('Initially empty', () => {
   expect(input.value).toBe('');
 });
 
-test('Changing value', () => {
+test('Changing value', async() => {
   const container = render(
     <TextField
       name="firstName"
@@ -47,7 +47,9 @@ test('Changing value', () => {
   const input = container.getByTestId('test');
   expect(input.value).toBe('');
   expect(input.hasAttribute('name')).toBe(true);
-  fireEvent.change(input, { target: { value: "123" } });
+  await act(() => {
+    fireEvent.change(input, { target: { value: "123" } });
+  });
   expect(input.value).toBe('123');
 });
 
