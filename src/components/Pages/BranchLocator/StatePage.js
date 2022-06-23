@@ -278,16 +278,16 @@ export default function StatePage() {
                 Get one on one support for a personal loan near you
               </h4>
               <Typography className="branchLocatorHeading">
-                <b className="boldText">470+</b>Branches in 25 states
+                <span className="branchSmallText"><b>Operating coast-to-coast</b> with physical locations in over half the states</span>
               </Typography>
               <Typography className="branchLocatorHeading">
-                <b>$1k - $25k</b>
+                <b className="numberText">$1k - $25k</b>
                 <span className="branchSmallText">Available loan amount</span>
               </Typography>
               <Typography className="branchLocatorHeading">
-                <b>4.8</b>
+                <b className="numberText">4.8</b>
                 <span className="branchSmallText">
-                  Star Rating based on over 13,000 verified reviews
+                  Star Rating based on over 10,000 verified reviews
                 </span>
               </Typography>
             </Grid>

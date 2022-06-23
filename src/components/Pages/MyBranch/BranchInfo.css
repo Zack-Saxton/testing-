@@ -261,18 +261,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 .feefowidget-read-all-reviews {
   color: #ffffff8a !important;
 }
-
-.branchSmallText {
-  font-size: 0.938rem;
-  color: white;
-  margin: 0;
-  display: inline-block;
-}
-
-/* .navigateNextIcon {
-  font-size: 14px !important;
-  color: #171717 !important;
-} */
 .breadcrumbWrap {
   line-height: 30px !important;
   height: 30px !important;
