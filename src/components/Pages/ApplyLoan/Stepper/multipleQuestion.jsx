@@ -39,7 +39,7 @@ export default function MultipleQuestion(props) {
 		setQuestionArray(qarr);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
+ 
 	const handleMultipleNextClick = async () => {
 		props.setLoadingFlag(true);
 		let allset = true;
@@ -88,10 +88,11 @@ export default function MultipleQuestion(props) {
 			{props.responseData.map((question, index) => {
 				return (
 					<Grid key={index} item xs={12}>
-						<Typography id="IdQuestionsTxt">{question?.question} *</Typography>
+						<Typography id="IdQuestionsTxt" data-testid={question.questionId} >{question?.question} *</Typography>
 						<Radio
 							id="radioSelectTxt"
 							name="question"
+							data-testid={question.choice}
 							radiolabel={buildOptions(question.choice)}
 							checked={questionArray[ question.questionId ]}
 							onClick={(event) => {
