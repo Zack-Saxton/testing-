@@ -17,21 +17,17 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
-import { useQuery } from "react-query";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { formatDate } from "../../Controllers/BranchDayTiming";
-import HolidayCalender from "../../Controllers/HolidayCalenderController";
 import {
   deleteScheduledPayment,
   disableAutoPay,
   enableAutoPay,
-  makePayment,
-  usrPaymentMethods
+  makePayment
 } from "../../Controllers/PaymentsController";
 import {
   ButtonPrimary,
@@ -95,7 +91,7 @@ export default function MakePayment(props) {
   // const { isFetching, data: User, refetch } = useQuery("loan-data", usrAccountDetails, { refetchOnMount: false, });
   // const { data: payments } = useQuery("payment-method", usrPaymentMethods, { refetchOnMount: false, });
 
-  const { isFetching, accountDetails: User, refetch } = useAccountOverview();
+  const { isFetching, isLoading, accountDetails: User, refetch } = useAccountOverview();
   const { isLoadingPayment, paymentsData } = usePaymentMethod();
   const { isLoadingHoliday, holidayCalenderData } = useHolidayCalender();
   // const { data: holidayCalenderData } = useQuery("holiday-calendar", HolidayCalender, { refetchOnMount: false, });
@@ -617,7 +613,7 @@ export default function MakePayment(props) {
         ) : (
           <Grid item xs={12} className={classes.tableStyle}>
             <TableContainer component={Paper}>
-              <PaymentOverview overview={latestLoanData} status={status} />
+              <PaymentOverview overview={latestLoanData} status={isLoading} />
             </TableContainer>
           </Grid>
         )}
