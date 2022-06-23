@@ -132,6 +132,7 @@ const KbaQuestions = () => {
               {responseData && !setOneFinished ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : isProd ? <> </> : setOneFinished ? <> </> : <CircularProgress />}
               <div>
                 {setOneFinished ? <MultipleQuestion 
+                mfaDetails={location?.state?.mfaSecurityQuestions}
                 setLoadingFlag={setLoadingFlag} 
                 customerEmail={customerEmail} 
                 transactionIdMultiple={transactionIdMultiple} 
@@ -187,7 +188,7 @@ const KbaQuestions = () => {
                           } else {
                             setLoadingFlag(false);
                             toast.error("Internal Server Error");
-                            navigate("/login");
+                            navigate("/MFA", {state: location?.state?.mfaSecurityQuestions});
                           }
                         }
                         else {

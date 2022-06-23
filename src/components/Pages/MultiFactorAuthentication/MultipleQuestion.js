@@ -69,14 +69,14 @@ export default function MultipleQuestion(props) {
 				props.setLoadingFlag(false);
 				toast.error(response?.data?.Message);
 				if(response?.data?.Message !== "Your account has been locked.  Please contact your branch for further assistance."){
-					//Have to check and change the path depends on update, so I made it as duplicate code.
-					props.navigate("/login");
+					props.navigate("/MFA", {state: props?.mfaDetails});
 				}
 				else{
 					props.navigate("/login");
 				}
 			} else {
 				toast.error("Internal Server Error")
+				props.navigate("/login");
 			}
 			props.setLoadingFlag(false);
 		} else {
@@ -138,4 +138,5 @@ MultipleQuestion.propTypes = {
 	questionSetIdMultiple: PropTypes.string,
 	customerEmail: PropTypes.string,
 	navigate: PropTypes.func,
+	mfaDetails: PropTypes.object
 };
