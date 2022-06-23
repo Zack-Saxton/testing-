@@ -57,7 +57,7 @@ const MultiFactorAuthenticationOTP = () => {
     }
     else if (event.key !== "Tab"){
       const next = event.target.tabIndex;
-      if (next < 6) {
+      if (next < 6 && (event.target.value)) {
         event.target.form.elements[next+1].focus()
       }
     }
