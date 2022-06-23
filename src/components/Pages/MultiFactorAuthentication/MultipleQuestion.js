@@ -68,9 +68,9 @@ export default function MultipleQuestion(props) {
 			} else if(response?.data?.result === 'error') {
 				props.setLoadingFlag(false);
 				toast.error(response?.data?.Message);
-				if(response?.data?.Message === "Your account has been locked.  Please contact your branch for further assistance."){
-					const mfaData = JSON.parse(Cookies.get("mfaDetails"));
-					props.navigate("/MFA", {state: mfaData});
+				if(response?.data?.Message !== "Your account has been locked.  Please contact your branch for further assistance."){
+					//Have to check and change the path depends on update, so I made it as duplicate code.
+					props.navigate("/login");
 				}
 				else{
 					props.navigate("/login");
@@ -96,7 +96,7 @@ export default function MultipleQuestion(props) {
 			{props.responseData.map((question, index) => {
 				return (
 					<Grid key={index} item xs={12}>
-						<Typography id="IdQuestionsTxt">{question?.question} *</Typography>
+						<Typography id="IdQuestionsTxt" data-testid={question.questionId} >{question?.question} *</Typography>
 						<Radio
 							id="radioSelectTxt"
 							name="question"

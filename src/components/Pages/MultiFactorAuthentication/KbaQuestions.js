@@ -187,8 +187,7 @@ const KbaQuestions = () => {
                           } else {
                             setLoadingFlag(false);
                             toast.error("Internal Server Error");
-                            const mfaData = JSON.parse(Cookies.get("mfaDetails"));
-                            navigate("/MFA", {state: mfaData});
+                            navigate("/login");
                           }
                         }
                         else {
