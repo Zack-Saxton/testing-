@@ -16,8 +16,6 @@ import { useStylesMakePayment } from "./Style";
 export default function PaymentOverview(props) {
     //Material UI css class
     const classes = useStylesMakePayment();
-    //Payment details
-    let paymentDetails = props.paymentData;
     return (
         <Table data-testid="paymentOverviewTable" id="paymentTableWrap" className={classes.table} aria-label="simple table">
             <TableHead>
@@ -49,7 +47,7 @@ export default function PaymentOverview(props) {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {(!props.status)
+                {(props.status)
                     ?
                     <TableRow>
                         <TableCell
@@ -63,9 +61,9 @@ export default function PaymentOverview(props) {
                         </TableCell>
                     </TableRow>
                     :
-                    (paymentDetails.overview && paymentDetails.overview.length && !paymentDetails.overview[ 0 ].loanPaymentInformation?.errorMessage)
+                    (props?.overview && props?.overview.length && !props?.overview[ 0 ].loanPaymentInformation?.errorMessage)
                         ?
-                        paymentDetails.overview.map((row) => (
+                        props.overview.map((row) => (
                             <TableRow key={(Math.random() * 1000)}>
                                 <TableCell
                                     component="th"
@@ -114,5 +112,6 @@ export default function PaymentOverview(props) {
 
 PaymentOverview.propTypes = {
     paymentData: PropTypes.object,
-    status: PropTypes.object
+    status: PropTypes.object,
+    overview: PropTypes.array
   };
