@@ -231,7 +231,7 @@ let selectedQuestionStructured =
               </Typography>
               
               <Typography className={classes.securityCubText} variant="h6" data-testid="title1">
-                Select five different questions from the list below and enter your answers.
+                Select five different questions from the list below and enter your answers.<br/>These questions will be used to verify your identity.
               </Typography>
               
             </Grid>
