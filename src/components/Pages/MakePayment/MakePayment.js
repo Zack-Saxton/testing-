@@ -87,14 +87,10 @@ export default function MakePayment(props) {
   const [ activeLoansData, setActiveLoansData ] = useState([]);
   const [ checkCard, setCheckCard ] = useState(false);
   const [ defaultPaymentCard, setDefaultPaymentCard ] = useState(false);
-  // const [  ] = 
-  // const { isFetching, data: User, refetch } = useQuery("loan-data", usrAccountDetails, { refetchOnMount: false, });
-  // const { data: payments } = useQuery("payment-method", usrPaymentMethods, { refetchOnMount: false, });
-
+ 
   const { isFetching, isLoading, accountDetails: User, refetch } = useAccountOverview();
   const { isLoadingPayment, paymentsData } = usePaymentMethod();
   const { isLoadingHoliday, holidayCalenderData } = useHolidayCalender();
-  // const { data: holidayCalenderData } = useQuery("holiday-calendar", HolidayCalender, { refetchOnMount: false, });
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
   const [stateName,setStatename] = useState("");
 
