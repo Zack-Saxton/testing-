@@ -91,6 +91,9 @@
 /* ID Verification Questions */
 #IdQuestionsTxt {
 	font-size: 0.938rem !important;
+	font-weight: bolder;
+	font-weight: 700;
+	color: #000000;
 }
 
 #radioSelectTxt label .MuiFormControlLabel-label {
