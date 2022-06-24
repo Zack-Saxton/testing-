@@ -626,7 +626,6 @@ const transactionIdMultiple = "31001101295239";
 
 test("Question Rendered Correctly", () => {
   render(component());
-screen.debug(undefined, 4000000000000)
 });
 
 test("First question renders correctly", () => {

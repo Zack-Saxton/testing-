@@ -17,6 +17,8 @@ import { NavLink } from "react-router-dom";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import { useAccountOverview } from "./../AccountOverview/AccountOverviewHook/useAccountOverview";
+
 import getTextNotify from "../../Controllers/MyProfileController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import { ButtonWithIcon } from "../../FormsUI";
@@ -69,7 +71,7 @@ export default function MyProfile() {
   //Api call Profile Picture
   const { data: profileImage } = useQuery('my-profile-picture', ProfileImageController);
 
-  const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
+  const { accountDetails } = useAccountOverview();
   if (!Cookies.get("temp_opted_phone_texting")) {
     Cookies.set("opted_phone_texting", accountDetails?.data?.customer?.latest_contact?.opted_phone_texting);
   } else {
@@ -103,7 +105,7 @@ export default function MyProfile() {
 
 
   return (
-    <div>
+    <div data-testid="profile-component-test">
       <CheckLoginStatus />
       <ScrollToTopOnMount />
       <Grid
