@@ -343,7 +343,7 @@ export default function PartnerSignUp() {
                       />
                     </Grid>
 
-                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12}>
+                    <Grid id="socialSecurityNumber" className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12}>
                       <SocialSecurityNumber
                         name="ssn"
                         label="Enter your last 4 digits of SSN"
@@ -417,7 +417,7 @@ export default function PartnerSignUp() {
                       />
                       </Grid>
 
-                      <Grid container>
+                      <Grid container className="errorvalidationWrap">
                       <Grid className="errorvalidationOne">
                       <ul className="error-validation">
                 <span>

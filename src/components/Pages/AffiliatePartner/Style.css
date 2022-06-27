@@ -227,6 +227,7 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #phoneTypeWrap div label {
     font-size: 0.968rem !important;
     margin-left: -14px;
+    margin-top: 8px;
 }
 #phoneTypeWrap div p {
     margin: 3px 0px;
@@ -246,6 +247,18 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 
 #employementStatus .subOption {
     color: #171717 !important;
+}
+
+#socialSecurityNumber div div label{
+    font-size: 0.938rem !important;
+    padding-bottom: 10px !important;
+}
+.errorvalidationWrap{
+    padding-bottom: 10px;
+}
+#socialSecurityNumber div div div input{
+    /* font-size: 0.938rem !important; */
+    padding-bottom: 10px !important;
 }
 @media only screen and (max-width: 599px){
     #spouseZipWrap, #spouseCityWrap{
