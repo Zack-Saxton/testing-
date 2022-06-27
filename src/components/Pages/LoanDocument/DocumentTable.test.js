@@ -4,7 +4,7 @@ import React from "react";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
-import LoanDocument from "./LoanDocument";
+import LoanDocumentTable from "./DocumentTable";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 afterEach(cleanup);
@@ -18,6 +18,9 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+const loantestData = [{displayname:"Note",date_uploaded:"05/04/2022"},{displayname:"Note",date_uploaded:"05/04/2022"}];
+
 const theme = createTheme();
 const component = () => {
   return (
@@ -25,15 +28,26 @@ const component = () => {
       
         <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <LoanDocument />
+          <LoanDocumentTable userLoanDocumentData={loantestData}/>
           </BrowserRouter>
         </QueryClientProvider>
  
     </ThemeProvider>
   );
 };
-it("Document Table Grid is Rendered in Loan Document Component", () => {
-    render(component());
+it("Document Table is Loaded", () => {
+render(component());
 const documentName = screen.getByTestId("loandocs");
 expect(documentName).toBeInTheDocument();
+})
+
+it("Table Header is Loaded", () => {
+  render(component());
+  const documentName = screen.getByTestId("table-head");
+  expect(documentName).toBeInTheDocument();
+  })
+  it("Table Body is Loaded", () => {
+    render(component());
+    const documentName = screen.getByTestId("table-body");
+    expect(documentName).toBeInTheDocument();
 })
