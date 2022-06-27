@@ -119,6 +119,7 @@ export default function Login(props) {
         window.navigator.userAgent, //It is static for now. Will add the dynamic code later
         props?.setToken
       );
+      console.log(retVal);
       //  if(!retVal?.data?.user?.extensionattributes?.MFA){
       if (retVal?.data?.user && retVal?.data?.userFound) {
         let login_date = retVal?.data?.user?.extensionattributes?.login
@@ -160,7 +161,11 @@ export default function Login(props) {
           Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
           Cookies.set("mfaDetails", mfaData);
           navigate("/MFA", { state: mfaData });
-        } else {
+        } 
+        else if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter > 0 && !retVal?.data?.user?.extensionattributes?.securityQuestionsSaved && !retVal?.data?.user?.extensionattributes?.MFA){
+          navigate('/MFA-SelectSecurityQuestions', {state: mfaData});
+        } 
+        else {
           retVal?.data?.user?.attributes?.password_reset
           ? navigate("/resetpassword", { state: { Email: values?.email } })
           : navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
