@@ -7,6 +7,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from "react-router-dom";
 import ProfilePicture from '../../../contexts/ProfilePicture';
 import BranchDetail from './BranchDetail';
+import { myBranchData } from "../../../__mock__/data/BranchDetails.data";
+import { myBranchDataCA } from "../../../__mock__/data/BranchDetails.data";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -20,8 +22,7 @@ const queryClient = new QueryClient({
 
 const theme = createTheme();
 window.scrollTo = jest.fn();
-let myBranchData = {"contenttypes":[],"entitytype":"branchinfo","branchNumber":3729,"branchName":"Kokomo","Address":"1818 E. Hoffer St.","branchaddress2":"","branchstate":"IN","branchcity":"Kokomo","branchzipcode":"46902","PhoneNumber":"765-452-3023","dripsPhoneNumber":null,"branchmanager":"Bethany Seger","branchmanageremail":"bseger@pfcloan.com","timezone":"Eastern","brand":"Mariner","employees":3,"date_closed":null,"google_id":"NULL","virtualbranchflag":"0","hq_flag":null,"latitude":null,"longitutde":null,"onlinemilemaximum":null,"_id":"5d69cdb7f89eb52452da08c2","time_zone":"Eastern","date_opened":"2017-04-01T00:00:00.000Z","dateclosed":"NULL","hqflag":0,"createdat":"2019-08-31T01:30:31.643Z","updatedat":"2019-08-31T01:30:31.643Z","__v":0,"branchHours":{"monday":"9:00 a.m. – 5:00 p.m.","tuesday":"9:00 a.m. – 7:00 p.m.","wednesday":"9:00 a.m. – 5:00 p.m.","thursday":"9:00 a.m. – 5:00 p.m.","friday":"9:00 a.m. – 5:30 p.m."},"branchIsOpen":false};
-let myBranchDataCA = {"contenttypes":[],"entitytype":"branchinfo","branchNumber":3729,"branchName":"Kokomo","Address":"1818 E, CA.","branchaddress2":"","branchstate":"CA","branchcity":"Kokomo","branchzipcode":"46902","PhoneNumber":"765-452-3023","dripsPhoneNumber":null,"branchmanager":"Bethany Seger","branchmanageremail":"bseger@pfcloan.com","timezone":"Eastern","brand":"Mariner","employees":3,"date_closed":null,"google_id":"NULL","virtualbranchflag":"0","hq_flag":null,"latitude":null,"longitutde":null,"onlinemilemaximum":null,"_id":"5d69cdb7f89eb52452da08c2","time_zone":"Eastern","date_opened":"2017-04-01T00:00:00.000Z","dateclosed":"NULL","hqflag":0,"createdat":"2019-08-31T01:30:31.643Z","updatedat":"2019-08-31T01:30:31.643Z","__v":0,"branchHours":{"monday":"9:00 a.m. – 5:00 p.m.","tuesday":"9:00 a.m. – 7:00 p.m.","wednesday":"9:00 a.m. – 5:00 p.m.","thursday":"9:00 a.m. – 5:00 p.m.","friday":"9:00 a.m. – 5:30 p.m."},"branchIsOpen":false};
+
 const component = (myBranchData) => {
 	return (
 		<ThemeProvider theme={theme}>
