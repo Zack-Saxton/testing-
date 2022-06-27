@@ -42,11 +42,11 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
     if (selectionValue !== 'security questions'){ 
       const passCodeResponse = await sendPassCode(selectionValue);
       console.log(passCodeResponse); //Left this console log intentionally for QA
-      passCodeResponse?.data?.passcodeInTextMessage ? navigate('/MFA-OTP', {state: {phoneNumber : selectionValue, mfaQueries:mfaDetails}}) : toast.error(passCodeResponse.data?.Message); //Navigate to OTP page or else show error.  
+      passCodeResponse?.data?.passcodeInTextMessage ? navigate('/MFA-OTP', {state: {phoneNumber : selectionValue, mfaQueries:mfaDetails, currentFlow : true}}) : toast.error(passCodeResponse.data?.Message); //Navigate to OTP page or else show error.  
     } else if (selectionValue === 'security questions' && securityQuestionsSaved) {
-      navigate('/MFA-SecurityQuestions', {state: {mfaSecurityQuestions: mfaDetails}});
+      navigate('/MFA-SecurityQuestions', {state: {mfaSecurityQuestions: mfaDetails, currentFlow : true}});
     } else {
-      selectionValue === 'security questions' && !securityQuestionsSaved && navigate('/mfa-kbaQuestions', {state: {mfaSecurityQuestions: mfaDetails}})
+      selectionValue === 'security questions' && !securityQuestionsSaved && navigate('/mfa-kbaQuestions', {state: {mfaSecurityQuestions: mfaDetails, currentFlow : true}})
     }
   }
 

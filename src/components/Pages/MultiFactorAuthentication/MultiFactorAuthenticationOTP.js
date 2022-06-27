@@ -11,11 +11,14 @@ import { toast } from "react-toastify";
 import {VerifyLoginPassCode, SendLoginPassCode} from "./../../Controllers/MFAController"
 import { useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
+import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
+import CheckLoginStatus from '../../App/CheckLoginStatus';
 
 const MultiFactorAuthenticationOTP = () => {
   const otpLocation = useLocation();
   const navigate = useNavigate();
   const classes = useStylesMFA();
+  const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
   const [ currentCount, setCount ] = useState(10); 
   const customerPhoneNumber = otpLocation?.state?.phoneNumber;
   const customerEmail = otpLocation?.state?.mfaQueries?.customerEmail;
@@ -23,6 +26,14 @@ const MultiFactorAuthenticationOTP = () => {
   const [ disabledButton, setDisabledButton ] = useState(false);  
   const [ otpValue, setOtpValue ] = useState({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""});
   const isSecurityQuestionSaved = otpLocation?.state?.mfaQueries?.mfaDetails?.securityQuestionsSaved ?? false;
+  
+  useEffect(() => {
+		if (!otpLocation?.state?.mfaQueries) {
+			navigate("/customers/accountOverview");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
   useEffect(
     () => {
         const timer = () => setCount(currentCount - 1);
@@ -92,7 +103,7 @@ const MultiFactorAuthenticationOTP = () => {
         }
 
       }else{// redirect to select security question page
-        navigate('/MFA-SelectSecurityQuestions', {state: otpLocation});
+        navigate('/MFA-SelectSecurityQuestions', {state: otpLocation, currentFlow : true});
       }
     }else {
       if(response.data?.Message === "Your account has been locked.  Please contact your branch for further assistance." || response.data?.errorMessage === "Your account has been locked.  Please contact your branch for further assistance."){
@@ -145,72 +156,98 @@ const MultiFactorAuthenticationOTP = () => {
     );
   }
   return (
-    <div data-testid="passcode-verification-container">
-      <Grid>
-        <Grid
-          spacing={1}
-          container
-          item
-          md={6}
-          lg={6}
-          xl={6}
-          className={classes.twoStepWrap}
-        >
-          <form>
-          <Paper className={classes.otpPaper}>
-            <Grid className={classes.headingTextWrap}>
-              <Typography className={classes.twoStepHeading} variant="h5">
-                Security Code
-              </Typography>
-              <IconButton className={classes.backArrow} onClick={ backToVerificationStep }>
-                <ArrowBackIcon className={classes.yellowBackArrow}/>
-              </IconButton>
-            </Grid>
-            <Typography className={classes.twoStepParagraph}>
-              Enter the 6 digit passcode received on your mobile{" "}
-              <span>{`(***) *** ${customerPhoneNumber.substr(-4)}`}</span>. Code is valid for 15 minutes.
-            </Typography>
-              {/* {${customerPhoneNumber.substr(-4)} */}
-            <Grid container>
-              <Typography className={classes.twoStepParagraph}>
-                Enter 6 digit security code
-              </Typography>
+    <div>
+      <CheckLoginTimeout />
+      {loginToken.isLoggedIn && otpLocation?.state?.mfaQueries ? (
+        <>
+          <div data-testid="passcode-verification-container">
+            <Grid>
+              <Grid
+                spacing={1}
+                container
+                item
+                md={6}
+                lg={6}
+                xl={6}
+                className={classes.twoStepWrap}
+              >
+                <form>
+                  <Paper className={classes.otpPaper}>
+                    <Grid className={classes.headingTextWrap}>
+                      <Typography
+                        className={classes.twoStepHeading}
+                        variant="h5"
+                      >
+                        Security Code
+                      </Typography>
+                      <IconButton
+                        className={classes.backArrow}
+                        onClick={backToVerificationStep}
+                      >
+                        <ArrowBackIcon className={classes.yellowBackArrow} />
+                      </IconButton>
+                    </Grid>
+                    <Typography className={classes.twoStepParagraph}>
+                      Enter the 6 digit passcode received on your mobile{" "}
+                      <span>{`(***) *** ${customerPhoneNumber.substr(
+                        -4
+                      )}`}</span>
+                      . Code is valid for 15 minutes.
+                    </Typography>
+                    {/* {${customerPhoneNumber.substr(-4)} */}
+                    <Grid container>
+                      <Typography className={classes.twoStepParagraph}>
+                        Enter 6 digit security code
+                      </Typography>
 
-              <Grid className={classes.otpWrap} container>                
-                { getOTPTextField("otpNumberOne", "otp1", 1) }
-                { getOTPTextField("otpNumberTwo", "otp2", 2) }
-                { getOTPTextField("otpNumberThree", "otp3", 3) }
-                { getOTPTextField("otpNumberFour", "otp4", 4) }
-                { getOTPTextField("otpNumberFive", "otp5", 5) }
-                { getOTPTextField("otpNumberSix", "otp6", 6) }
+                      <Grid className={classes.otpWrap} container>
+                        {getOTPTextField("otpNumberOne", "otp1", 1)}
+                        {getOTPTextField("otpNumberTwo", "otp2", 2)}
+                        {getOTPTextField("otpNumberThree", "otp3", 3)}
+                        {getOTPTextField("otpNumberFour", "otp4", 4)}
+                        {getOTPTextField("otpNumberFive", "otp5", 5)}
+                        {getOTPTextField("otpNumberSix", "otp6", 6)}
+                      </Grid>
+                    </Grid>
+
+                    <Grid className={classes.nextButtonGrid} container>
+                      <ButtonPrimary
+                        stylebutton='{"color":""}'
+                        disabled={checkEnteredOTP(otpValue) || disabledButton}
+                        onClick={handleClickSubmit}
+                      >
+                        Verify Now
+                      </ButtonPrimary>
+                    </Grid>
+                    <Typography className={classes.resetText}>
+                      Didnt receive code?{" "}
+                      {currentCount > 0 ? (
+                        <span
+                          className="blueColorLink"
+                          style={{ cursor: "pointer" }}
+                        >
+                          Resend
+                        </span>
+                      ) : (
+                        <span
+                          onClick={resendOTP}
+                          style={{ cursor: "pointer" }}
+                          className="blueColorLink"
+                        >
+                          Resend
+                        </span>
+                      )}
+                      {currentCount > 0 ? ` (in 0:${currentCount} secs)` : ""}
+                    </Typography>
+                  </Paper>
+                </form>
               </Grid>
             </Grid>
-
-            <Grid className={classes.nextButtonGrid} container>
-              <ButtonPrimary stylebutton='{"color":""}'
-                disabled={ checkEnteredOTP(otpValue) || disabledButton } 
-                onClick={ handleClickSubmit }
-                >
-                Verify Now
-              </ButtonPrimary>
-            </Grid>
-            <Typography className={classes.resetText}>
-              Didnt receive code?{" "}
-              { currentCount > 0 ? 
-              <span className="blueColorLink" style={{cursor: "pointer"}} >
-                Resend 
-              </span>  : 
-              <span onClick={ resendOTP } style={{cursor: "pointer"}} className="blueColorLink" >
-                Resend 
-              </span> 
-            }
-                           
-              { currentCount>0 ? ` (in 0:${currentCount} secs)` : "" }
-            </Typography>
-          </Paper>
-          </form>
-        </Grid>
-      </Grid>
+          </div>
+        </>
+      ) : (
+        <CheckLoginStatus />
+      )}
     </div>
   );
 };
