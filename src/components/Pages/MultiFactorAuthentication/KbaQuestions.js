@@ -128,7 +128,7 @@ const KbaQuestions = () => {
             <Typography className={classes.twoStepParagraph}>
               Please answer the questions below to help verify your identity. Please provide your responses within five minutes.
             </Typography>
-            <div data-testid="question_component" className={classes.button_div} >
+            <div id="questionDiv" data-testid="question_component" className={classes.button_div} >
               {responseData && !setOneFinished ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : isProd ? <> </> : setOneFinished ? <> </> : <CircularProgress />}
               <div>
                 {setOneFinished ? <MultipleQuestion 

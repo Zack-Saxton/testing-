@@ -233,7 +233,7 @@ export default function VerticalLinearStepper() {
 
 	// view part
 	return (
-		<div className={classes.root}>
+		<div data-testid="stepperComponent" className={classes.root}>
 			<Stepper activeStep={activeStep} orientation="vertical">
 				{steps.map((label, index) => (
 					<Step key={label}>
