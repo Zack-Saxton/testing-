@@ -8,6 +8,7 @@ import { MemoryRouter } from "react-router-dom";
 import ProfilePicture from '../../../contexts/ProfilePicture';
 import YearHolidays from './YearHolidays';
 import { useUSHolidayList } from "./useYearHolidays";
+import { YearHolidaysMock } from "../../../__mock__/YearHolidays.mock";
 
 beforeEach(cleanup);
 const queryClient = new QueryClient({
@@ -36,20 +37,16 @@ const component = () => {
 jest.mock("./useYearHolidays", ()=>({
   useUSHolidayList: jest.fn(),
 }))
-const holidays = {"data":{"MFYearHolidays":[{"Date":"January 3, 2022","Day":"Monday","Holiday_Name":"New Year’s Day (observed)"},{"Date":"January 17, 2022","Day":"Monday","Holiday_Name":"Martin Luther King Jr. Day"},{"Date":"February 21, 2022","Day":"Monday","Holiday_Name":"President’s Day"},{"Date":"May 30, 2022","Day":"Monday","Holiday_Name":"Memorial Day"},{"Date":"June 20, 2022","Day":"Monday","Holiday_Name":"Juneteenth Independence Day (observed)"},{"Date":"July 4, 2022","Day":"Monday","Holiday_Name":"\tLabor Day"},{"Date":"October 10, 2022","Day":"Monday","Holiday_Name":"Columbus Day"},{"Date":"November 24, 2022","Day":"Thursday","Holiday_Name":"Thanksgiving Day"},{"Date":"December 26, 2022","Day":"Monday","Holiday_Name":"Christmas Day (observed)"}]}};
+
 test('Checks the component is rendered', async () => {
-  useUSHolidayList.mockImplementation(() => ({
-		result: holidays,
-	}));
+  YearHolidaysMock();
   render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('year-holidays-component');
 	expect(element).toBeTruthy();
 });
 
 test('Checks the table header is render', async () => {
-  useUSHolidayList.mockImplementation(() => ({
-		result: holidays,
-	}));
+  YearHolidaysMock();
   render(component(), { wrapper: MemoryRouter });
 	expect(screen.getByTestId("holiday-date-header").toBeTruthy);
   expect(screen.getAllByTestId("holiday-day-header").toBeTruthy);
@@ -57,9 +54,7 @@ test('Checks the table header is render', async () => {
 });
 
 test('Checks the table header is render', async () => {
-  useUSHolidayList.mockImplementation(() => ({
-		result: holidays,
-	}));
+  YearHolidaysMock();
   render(component(), { wrapper: MemoryRouter });
 	//check index 0 data
   expect(screen.getAllByTestId("holiday-date-body")[0].innerHTML).toBe('January 3, 2022');
@@ -73,9 +68,7 @@ test('Checks the table header is render', async () => {
 });
 
 test('Should match the snapshot', () => {
-  useUSHolidayList.mockImplementation(() => ({
-		result: holidays,
-	}));
+  YearHolidaysMock();
 	const { asFragment } = render(component(), { wrapper: MemoryRouter });
 	expect(asFragment).toMatchSnapshot();
 });
