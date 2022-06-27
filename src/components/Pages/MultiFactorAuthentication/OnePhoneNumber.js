@@ -37,13 +37,17 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
 
   const securityCode = (
     <div className={classes.securityCodeText} >
-      Security code via SMS :<br />
+      <b className='boldText'> 
+      Security code via SMS :
+      </b><br />
       <span>{`Get a code on (***) *** ${phoneNumber?.substr(-4)}`}</span>
     </div>
   );
   const securityQuestions = (
     <div className={classes.securityQuestions}>
-      Security Questions : <br />
+      <b className='boldText'>
+        Security Questions :
+      </b> <br />
       Answer security questions{" "}
     </div>
   );
