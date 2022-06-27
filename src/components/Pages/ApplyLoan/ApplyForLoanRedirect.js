@@ -82,7 +82,7 @@ const ApplyForLoanRedirect = (props) => {
 
 	//View part
 	return (
-		<Grid className="circleprog loadingCircle">
+		<Grid className="circleprog loadingCircle" data-testid="apply_for_loan">
 			<CircularProgress />
 		</Grid>
 	);

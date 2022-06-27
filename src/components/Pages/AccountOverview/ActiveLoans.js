@@ -77,7 +77,7 @@ export default function ActiveLoans() {
               </Grid>
               <Grid container>
                 {accountDetails.data.activeLoans.map(
-                  (appData) => (
+                  (appData, index) => (
                     <Grid className={classes.activeLoancardwrap}
                       container
                       key={Math.random() * 1000}
@@ -110,7 +110,7 @@ export default function ActiveLoans() {
                               >
                                 <ButtonPrimary
                                   id="makeAPaymentButtonStyle"
-                                  data-testid="make_A_Payment"
+                                  data-testid={`make_A_Payment_Button_${index}`}
                                   stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
                                   className={
                                     today.isBefore(appData.loanDetails.NextDueDate)
@@ -131,7 +131,7 @@ export default function ActiveLoans() {
                               <AutoPayStatus
                                 isAutoPay={appData?.loanPaymentInformation?.appRecurringACHPayment ? true : false}
                                 accountNumber={appData?.loanDetails?.AccountNumber}
-                                dataTestid={appData?.loanPaymentInformation?.appRecurringACHPayment ? "autoPayEnabled" : "enableAutoPay"}
+                                dataTestid={appData?.loanPaymentInformation?.appRecurringACHPayment ? `autoPayEnabled_${index}` : `enableAutoPay_${index}`}
                               />
                             </Grid>
 
