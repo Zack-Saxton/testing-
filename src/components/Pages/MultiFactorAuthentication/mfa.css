@@ -13,8 +13,11 @@
 #questionTwo,
 #questionThree,
 #questionFour,
-#questionFive {
-  padding-bottom: 14px;
+#questionFive{
+	padding-bottom: 14px;
+}
+.boldText{
+	color: #4d4d4d;
 }
 #questionDiv div p {
   font-weight: 700;
