@@ -29,6 +29,8 @@ const MFASecurityQuestions = () => {
   let location = useLocation();
   const navigate = useNavigate();
   const [selectedQuestions, setSelectedQuestions] = useState();
+  const [ counter, setCounter ] = useState(0);
+
 
   //Form Submission
   const formik = useFormik({
@@ -73,7 +75,11 @@ const MFASecurityQuestions = () => {
         verify?.data?.hasError === true &&
         verify?.data?.result === "error"
       ) {
+        setCounter(counter + 1);
         toast.error(verify?.data?.Message);
+        if(counter >= 1) {
+          navigate("/login");
+        }
       } else {
         toast.error("Network error");
       }
