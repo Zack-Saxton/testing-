@@ -6,12 +6,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import LoanHistoryCard from "./CardContent";
-import { useAccountOverview } from '../AccountOverview/AccountOverviewHook/useAccountOverview';
 import { LoanDataMock, LoanDataMockWithIsLoading } from "./../../../__mock__/LoanData.mock";
-
-import { mockData } from './CardContentMockData';
-
-
 
 const queryClient = new QueryClient({
 	defaultOptions: {
