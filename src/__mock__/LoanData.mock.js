@@ -9,3 +9,9 @@ export const LoanDataMock = () => {
     accountDetails: accountOverviewData,
   }));
 }
+
+export const LoanDataMockWithIsLoading = () => {
+  useAccountOverview.mockImplementation(() => ({
+    isLoading: true,
+  }));
+}

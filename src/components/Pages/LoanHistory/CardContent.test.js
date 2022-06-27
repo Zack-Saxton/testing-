@@ -7,6 +7,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import LoanHistoryCard from "./CardContent";
 import { useAccountOverview } from '../AccountOverview/AccountOverviewHook/useAccountOverview';
+import { LoanDataMock, LoanDataMockWithIsLoading } from "./../../../__mock__/LoanData.mock";
+
 import { mockData } from './CardContentMockData';
 
 
@@ -40,19 +42,14 @@ const component = () => {
 	);
 }
 test("Checks the component is rendered", () => {
-  useAccountOverview.mockImplementation(() => ({
-   isLoading: true,
-  }));
+    LoanDataMockWithIsLoading();
     render(component());
     const element = screen.getByTestId("cardContent_component");
     expect(element).toBeTruthy();
   });
 
   test('Check Loan Heading is Displayed',async () => {
-    useAccountOverview.mockImplementation(() => ({
-       isLoading: true,
-      accountDetails: mockData(),
-    }));
+    LoanDataMock();
     const { getByText } = render(component());
     await waitFor(() => {    
       expect(getByText("Total Number of Loans")).toBeTruthy();
@@ -60,39 +57,29 @@ test("Checks the component is rendered", () => {
   })
 
   it("Check history of loans is render", async () => {
-    useAccountOverview.mockImplementation(() => ({
-     isLoading: false,
-      accountDetails: mockData(),
-    }));
-     render(component());
+    LoanDataMock();
+    render(component());
     const headingElement = screen.getByTestId("numberOfLoans");
     expect(headingElement).toBeTruthy();
   });
 
   test('Check  Total no of Loans',async () => {
-    useAccountOverview.mockImplementation(() => ({
-      isLoading: false,
-      accountDetails: mockData(),
-    }));
+    LoanDataMock();
     const { getByText } = render(component());
     await waitFor(() => {    
-      expect(getByText("02")).toBeTruthy();
+      expect(getByText("01")).toBeTruthy();
     }); 
   })
 
   test("Check Make payment Card is rendered", () => {
-    useAccountOverview.mockImplementation(() => ({
-     isLoading: true,
-    }));
+      LoanDataMockWithIsLoading();
       render(component());
       const element = screen.getByTestId("makePayment_card");
       expect(element).toBeTruthy();
     });
 
     test("Check Make payment Card is rendered", () => {
-      useAccountOverview.mockImplementation(() => ({
-       isLoading: true,
-      }));
+        LoanDataMockWithIsLoading();
         render(component());
         const element = screen.getByTestId("applyforLoan_card");
         expect(element).toBeTruthy();
