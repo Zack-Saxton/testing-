@@ -159,7 +159,7 @@ export default function LoanDocument() {
           </Grid>
         </Grid>
 
-        <Grid className="loanDocumentWrap" item xs={12}>
+        <Grid className="loanDocumentWrap" item xs={12} data-testid="loandocs">
           <Paper className={classes.paper}>
             {!loanDocumentData ? (
               <TableContainer>

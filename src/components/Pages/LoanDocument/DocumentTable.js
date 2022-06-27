@@ -30,15 +30,15 @@ export default function LoanDocumentTable(userLoanDocumentData) {
   //View Part
   return (
     <TableContainer>
-      <Table aria-label="simple table">
-        <TableHead>
+      <Table aria-label="simple table"  data-testid="loandocs">
+        <TableHead data-testid="table-head">
           <TableRow>
             <TableCell className={classes.tableHead}>Document Name</TableCell>
             <TableCell className={classes.tableHead}>Date Uploaded</TableCell>
             <TableCell className={classes.tableHead}>Actions</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody data-testid="table-body">
           {userLoanDocument?.userLoanDocumentData?.length ? (
             userLoanDocument.userLoanDocumentData.map((row) => (
               <TableRow key={(Math.random() * 1000)}>
@@ -57,7 +57,7 @@ export default function LoanDocumentTable(userLoanDocumentData) {
                     onClick={() =>
                       printDoc(row.downloadProp.file_id, row.downloadProp.name, row.downloadProp.fileURL)
                     }
-                  />{" "}
+                    />{" "}
                   <GetAppIcon className={classes.appIcon}
                     onClick={() =>
                       downloadDoc(row.downloadProp.file_id, row.downloadProp.name, row.downloadProp.fileURL)
