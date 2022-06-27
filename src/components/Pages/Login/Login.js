@@ -155,7 +155,7 @@ export default function Login(props) {
         setLoading(false);
         if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter === 1 && retVal?.data?.user?.extensionattributes?.MFA){
           Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
-          navigate("/MFA-phoneNumber", {state:mfaData});
+          navigate("/MFA-phoneNumber", {state:mfaData });
         }
         else if(retVal?.data?.user?.extensionattributes?.MFA){
           Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
@@ -163,7 +163,7 @@ export default function Login(props) {
           navigate("/MFA", { state: mfaData });
         } 
         else if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter > 0 && !retVal?.data?.user?.extensionattributes?.securityQuestionsSaved && !retVal?.data?.user?.extensionattributes?.MFA){
-          navigate('/MFA-SelectSecurityQuestions', {state: mfaData});
+          navigate('/MFA-SelectSecurityQuestions', {state: mfaData, currentFlow : true});
         } 
         else {
           retVal?.data?.user?.attributes?.password_reset

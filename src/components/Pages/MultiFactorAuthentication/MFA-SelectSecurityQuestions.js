@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ButtonPrimary, Select } from "../../FormsUI";
 import "./MultiFactorAuthentication.css";
 import Cookies from "js-cookie";
@@ -16,6 +16,8 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import "./mfa.css";
+import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
+import CheckLoginStatus from '../../App/CheckLoginStatus';
 
 
 //Yup validations for all the input fields
@@ -72,14 +74,23 @@ const validationSchema = yup.object({
 const MFASelectSecurityQuestions = () => {
   const classes = useStylesMFA();
   const navigate = useNavigate();
+  const location = useLocation();
   const userEmail = Cookies.get("email");
   let questionArray = [];
   // const { questions, setQuestions } = useState([]); 
+  const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
   const [ questions, setQuestions ] = useState([]);
   const [ loading, setLoading ] = useState(false);
   const [ questionOption, setQuestionOption ] = useState([]);
   const [ selectQuestionArray, setSelectQuestionArry ] = useState([null, null, null, null, null])
 const [ selectOptionArray, setSelectOptionArray ] = useState([[], [], [], [], []])
+
+useEffect(() => {
+  if (!location?.currentFlow) {
+    navigate("/customers/accountOverview");
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
     //Form Submission
     const formik = useFormik({
@@ -208,6 +219,10 @@ let selectedQuestionStructured =
 
 
   return (
+    <div>
+      <CheckLoginTimeout />
+      {loginToken.isLoggedIn ? (
+        <>
     <div data-testid="selectSecurityQuestions">
       <ScrollToTopOnMount />
       <Grid>
@@ -430,6 +445,11 @@ let selectedQuestionStructured =
           </Paper>
         </Grid>
       </Grid>
+    </div>
+    </>
+      ) : (
+        <CheckLoginStatus />
+      )}
     </div>
   );
 };
