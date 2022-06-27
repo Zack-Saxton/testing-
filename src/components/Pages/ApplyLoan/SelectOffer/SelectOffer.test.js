@@ -6,7 +6,6 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import NavContext from "../../../../contexts/NavContext";
-import { useFetchOffer } from "../ApplyForLoanHook/useFetchOffer";
 import ApplyLoan from "./SelectOffer";
 import { FetchOfferWithLoading, FetchOfferWithoutLoading } from "./../../../../__mock__/SelectOffer.mock";
 
