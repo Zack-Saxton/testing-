@@ -70,13 +70,19 @@ const MFAGetPhoneNumber = ({
 			setDisabledButton(true);
 		}
 	}
+  const maskPhoneNumberWithAsterisk = (phoneNumber) => {
+    let firstNumber = phoneNumber.slice(0, 10);
+    return firstNumber.replace(/[0-9]/g, '*') + phoneNumber.slice(10);
+  }
 	const handleToSaveContinue = async () => {
 		if (location?.state) {
+    let maskedNumber = maskPhoneNumberWithAsterisk(phoneNumber);
+    let numberToSend = phoneNumber.replace(/[()-\s]/g, '');
 		setDisabledButton(true);
 		const email = Cookies.get("email");
-		let response = await SavePhoneNumber(email, phoneNumber.replace(/[()-\s]/g, ''));
+		let response = await SavePhoneNumber(email, numberToSend);
 		if (response?.data?.statusCode === 200) {
-			toast.success(response.data?.Message);
+			toast.success((response.data?.Message).replace(numberToSend, maskedNumber));
 			 let mfaResponse = await fetchQuestionMFA(location?.state?.customerEmail);
 			 if (mfaResponse?.data?.statusCode === 200) {
 				navigate("/MFA", { state: { mfaDetails: mfaResponse?.data?.MFAInformation, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
