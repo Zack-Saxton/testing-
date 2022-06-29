@@ -241,7 +241,7 @@ function PersonalInfo() {
 								setError(false);
 								setLoading(false);
 							}
-						} else if (!customerStatus.data.customerFound) {
+						} else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== "More than 1 customer record retrieved ") {
 							setError(false);
 							setLoading(false);
 							navigate("/new-user");
