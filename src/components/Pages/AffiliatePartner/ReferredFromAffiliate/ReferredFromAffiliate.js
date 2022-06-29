@@ -8,14 +8,13 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useState } from "react";
-import { useQuery } from 'react-query';
 import { useNavigate, useLocation } from "react-router-dom";
-import  { PopulatePartnerReferred } from "../../../Controllers/PartnerSignupController";
 import CongratulationsImage from "../../../../assets/images/Referred-to-Branch.png";
 import CustomerRatings from "../../../Pages/MyBranch/CustomerRatings"
 import "../../../Pages/MyBranch/BranchInfo.css"
 import { ButtonPrimary } from "../../../FormsUI";
 import { ReferredUsestyle } from "./style";
+import {usePopulatePartnerReferred} from "./ReferredFromAffiliateMockData"
 import "./ReferredFromAffiliate.css";
 
 //Referred From Affiliate functional component initialization
@@ -28,8 +27,10 @@ function ReferredFromAffiliate() {
   const applicantId = query.get("REF");
 
   const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
+  const { isLoading, PopulatePartnerSignupData } = usePopulatePartnerReferred(applicantId);
+
   //API Call
-  const { data: PopulatePartnerSignupData } = useQuery([ 'populate-data-referred',  applicantId], () => PopulatePartnerReferred( applicantId ));
+  // const { data: PopulatePartnerSignupData } = useQuery([ 'populate-data-referred',  applicantId], () => PopulatePartnerReferred( applicantId ));
 
   useEffect(() => {
     SetPopulatePartnerSignupState(PopulatePartnerSignupData);
@@ -48,30 +49,30 @@ function ReferredFromAffiliate() {
 
 	//JSX part
 	return (
-		<div>
+		<div data-testid="ReferredFromAffiliate_component">
       {!firstName ?
       <Grid className={classes.circularGrid}>
       <CircularProgress /> 
       </Grid>:
       <Grid>
         <Grid className={classes.congratulationsGrid}>
-			  <img className="congratulationsImage" alt="Congratulations Image" src={CongratulationsImage}/>
+			  <img data-testid="congratulationsImage" className="congratulationsImage" alt="Congratulations Image" src={CongratulationsImage}/>
         <Grid className="congratulationsTextWrap">
-        <Typography className={classes.congratsHeading} variant="h4">
+        <Typography data-testid="congratulationsText" className={classes.congratsHeading} variant="h4">
           Congratulations! {firstName}
         </Typography>
 
         <Typography className={classes.congratsPara}>
           We believe we have a solution for you.
         </Typography>
-        <Typography className={classes.congratsPara}>
+        <Typography data-testid="completionApplicationText" className={classes.congratsPara}>
           Upon completion of your application and verification of your information,<br/>
           we may be able to extend your final offer as soon as today!* Let{"'"}s get on a call!**
         </Typography>
         </Grid>
         <Grid>
         <ButtonPrimary id="telephoneNmber" stylebutton='{"background": "", "color":"" }'>
-          <a className={classes.telNumber} href="tel:+8152779090">
+          <a data-testid="phoneNumber" className={classes.telNumber} href="tel:+6152779090">
           Call : (615) 277-9090
           </a>
         </ButtonPrimary>
@@ -81,9 +82,9 @@ function ReferredFromAffiliate() {
             Questions?
           </Typography>
          
-          <Typography className={classes.questions}>
+          <Typography data-testid="callBranchText" className={classes.questions}>
             Feel free to call the branch at
-            <a className={classes.branchNumber} href="tel:+8152779090"> (615) 277-9090</a>.
+            <a data-testid="callBranchTextPhoneNumber" className={classes.branchNumber} href="tel:+6152779090"> (615) 277-9090</a>.
             Due to the health risks surrounding <br/>COVID-19, 
             Mariner will not be accepting unscheduled walk-ins 
             at this time. <br/>Instead, please call to schedule an 
@@ -97,7 +98,7 @@ function ReferredFromAffiliate() {
           </Typography>
 
          <Grid className={classes.TableGrid} container  item xs={12} sm={12}>
-          <TableContainer>
+          <TableContainer data-testid="tableContainer">
             <Table>
               <TableHead className="businessHoursHead">
                 <TableRow>
@@ -130,7 +131,7 @@ function ReferredFromAffiliate() {
           <CustomerRatings />
         </Grid>
         <Grid className="preFooter">
-          <Typography className={classes.preFooterText}>
+          <Typography data-testid="preFooterText" className={classes.preFooterText}>
           California branch hours differ and are as follows: Monday 9AM–5:30PM Tuesday 10AM–7PM Wednesday 9AM–5:30PM Thursday 9AM–5:30PM Friday 9AM–5:30PM
           <br/><br/>
 
