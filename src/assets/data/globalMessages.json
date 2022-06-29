@@ -141,7 +141,7 @@
   "DateOfBirthMinAge": "You must be at least 18 years old",
   "DateOfBirthRequired": "Your date of birth is required",
   "DateOfBirthValid": "Please enter a valid date",
-  "Failed_Payment_mode": "Failed Payment method",
+  "Failed_Payment_mode": "Your account has restricted payment(s), please contact your branch.",
   "FileUploadError": "Error uploading file",
   "FileUploadMax": "Please upload file size below 800kb",
   "FileUploadTypeImage": "Please select an image type to upload",
