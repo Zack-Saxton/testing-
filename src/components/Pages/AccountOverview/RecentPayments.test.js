@@ -10,7 +10,7 @@ import LoanAccount from '../../../contexts/LoanAccount';
 import PaymentHistory from '../PaymentHistory/PaymentHistory';
 import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
 import RecentPayments from './RecentPayments';
-import { mockData, mockDataOne } from '../../../__mock__/RecentPaymentsMockData';
+import { mockData, mockDataOne } from '../../../__mock__/data/RecentPaymentsMockData';
 
 const queryClient = new QueryClient({
   defaultOptions: {
