@@ -17,17 +17,21 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
+import { useQuery } from "react-query";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { formatDate } from "../../Controllers/BranchDayTiming";
+import HolidayCalender from "../../Controllers/HolidayCalenderController";
 import {
   deleteScheduledPayment,
   disableAutoPay,
   enableAutoPay,
-  makePayment
+  makePayment,
+  usrPaymentMethods
 } from "../../Controllers/PaymentsController";
 import {
   ButtonPrimary,
@@ -42,9 +46,6 @@ import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
 import { useStylesMakePayment } from "./Style";
 import setAccountDetails from "../../Controllers/AccountOverviewController";
-import { useAccountOverview } from "../AccountOverview/AccountOverviewHook/useAccountOverview";
-import { usePaymentMethod } from "./usePaymentMethod"
-import { useHolidayCalender } from "./useHolidayCalender"
 
 const paymentMaxDate = new Date();
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
@@ -87,21 +88,24 @@ export default function MakePayment(props) {
   const [ activeLoansData, setActiveLoansData ] = useState([]);
   const [ checkCard, setCheckCard ] = useState(false);
   const [ defaultPaymentCard, setDefaultPaymentCard ] = useState(false);
- 
-  const { isFetching, isLoading, accountDetails: User, refetch } = useAccountOverview();
-  const { isLoadingPayment, paymentsData } = usePaymentMethod();
-  const { isLoadingHoliday, holidayCalenderData } = useHolidayCalender();
+  const {
+    isFetching,
+    data: User,
+    refetch,
+  } = useQuery("loan-data", usrAccountDetails, { refetchOnMount: false, });
+  const { data: payments } = useQuery("payment-method", usrPaymentMethods, { refetchOnMount: false, });
+  const { data: holidayCalenderData } = useQuery("holiday-calendar", HolidayCalender, { refetchOnMount: false, });
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
   const [stateName,setStatename] = useState("");
 
   let nextDueDateCheck = new Date();
 
   useEffect(() => {
-    if (paymentsData?.data?.paymentOptions) {
-      setCheckCard(paymentsData.data.paymentOptions.length && paymentsData.data.paymentOptions[ 0 ].CardType);
+    if (payments?.data?.paymentOptions) {
+      setCheckCard(payments.data.paymentOptions.length && payments.data.paymentOptions[ 0 ].CardType);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ paymentsData, User ]);
+  }, [ payments, User ]);
 
   useEffect(()=>{
     setAccountDetails().then((res)=>{
@@ -117,8 +121,8 @@ export default function MakePayment(props) {
 
   //API Request for Payment methods
   async function getPaymentMethods() {
-    setPaymentMethod(paymentsData);
-    if (paymentsData?.data?.error) {
+    setPaymentMethod(payments);
+    if (payments?.data?.error) {
       if (!toast.isActive("closedApplication")) {
         toast.error(globalMessages.Error_retieving_loan_info, { toastId: "closedApplication" });
         setLoading(false);
@@ -126,14 +130,14 @@ export default function MakePayment(props) {
       }
     } else {
       //get default card
-      let defaultBank = paymentsData?.data?.defaultBank;
-      let isACH = await defaultCardCheck(paymentsData?.data?.ACHMethods, "ACH", defaultBank);
+      let defaultBank = payments?.data?.defaultBank;
+      let isACH = await defaultCardCheck(payments?.data?.ACHMethods, "ACH", defaultBank);
       if (isACH) {
         setDefaultPaymentCard(false);
         setAutopaySwitchDisabled(false);
       } else {
         //set default card
-        const cardFound = await defaultCardCheck(paymentsData?.data?.CardMethods, "card", defaultBank);
+        const cardFound = await defaultCardCheck(payments?.data?.CardMethods, "card", defaultBank);
         if (cardFound) {
           setDefaultPaymentCard(true);
           setAutopaySwitchDisabled(true);
@@ -296,7 +300,7 @@ export default function MakePayment(props) {
     getData();
     getPaymentMethods();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ User, activeLoansData, isFetching, paymentsData ]);
+  }, [ User, activeLoansData, isFetching, payments ]);
 
   //Account select payment options
   let paymentData = paymentMethods?.data;
@@ -609,7 +613,7 @@ export default function MakePayment(props) {
         ) : (
           <Grid item xs={12} className={classes.tableStyle}>
             <TableContainer component={Paper}>
-              <PaymentOverview overview={latestLoanData} status={isLoading} />
+              <PaymentOverview overview={latestLoanData} status={status} />
             </TableContainer>
           </Grid>
         )}

@@ -119,8 +119,6 @@ export default function Login(props) {
         window.navigator.userAgent, //It is static for now. Will add the dynamic code later
         props?.setToken
       );
-      console.log(retVal);
-      //  if(!retVal?.data?.user?.extensionattributes?.MFA){
       if (retVal?.data?.user && retVal?.data?.userFound) {
         let login_date = retVal?.data?.user?.extensionattributes?.login
           ?.last_timestamp_date
@@ -163,7 +161,7 @@ export default function Login(props) {
           navigate("/MFA", { state: mfaData });
         } 
         else if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter > 0 && !retVal?.data?.user?.extensionattributes?.securityQuestionsSaved && !retVal?.data?.user?.extensionattributes?.MFA){
-          navigate('/mfa-kbaQuestions', {state: mfaData, currentFlow : true});
+          navigate('/mfa-kbaQuestions', {state: mfaData});
         } 
         else {
           retVal?.data?.user?.attributes?.password_reset
