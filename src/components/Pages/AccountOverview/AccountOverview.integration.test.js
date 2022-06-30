@@ -12,7 +12,7 @@ import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
 import RecentPayments from './RecentPayments';
 import { mockData } from './RecentPaymentsMockData';
 import RecentApplications from './RecentApplications';
-import { mockData as recentApplicationsMockData } from './RecentApplicationsMockData';
+import { mockData as recentApplicationsMockData } from '../../../__mock__/RecentApplicationsMockData';
 import ViewAccountDetails from './ViewAccountDetails';
 import NavContext from '../../../contexts/NavContext';
 import ActiveLoans from './ActiveLoans';
