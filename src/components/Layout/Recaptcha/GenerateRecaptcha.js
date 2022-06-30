@@ -19,7 +19,7 @@ const Recaptcha = () => {
 
   return (
     <div>
-      {!isLoading && recaptchaData.status === 200 ? (
+      {!isLoading && recaptchaData?.status === 200 ? (
         <div
           className={recaptchaData?.data?.recaptcha?.class}
           data-expired-callback="OnExpireCallback"

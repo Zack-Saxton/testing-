@@ -10,7 +10,7 @@ import LoanAccount from '../../../contexts/LoanAccount';
 import MakePayment from '../MakePayment/MakePayment';
 import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
 import ActiveLoans from './ActiveLoans';
-import { mockDataOne, mockDataTwo } from '../../../__mock__/data/ActiveLoansMockData';
+import { mockDataOne, mockDataTwo } from './ActiveLoansMockData';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,6 +35,7 @@ const MockActiveloans = () => {
         <BrowserRouter>
           <LoanAccount>
             <ActiveLoans />
+            <MakePayment />
           </LoanAccount>
         </BrowserRouter>
       </QueryClientProvider>
@@ -384,7 +385,7 @@ it("Fetching data and rendering the content Test", async () => {
     accountDetails: mockDataActiveLoans,
   }));
   const container = render(MockActiveloans());
-  const headingElement = container.getByTestId("loanGridWithData");
+  const headingElement = container.getByTestId("loanGridWithData_0");
   expect(headingElement).toBeTruthy();
 });
 
@@ -394,20 +395,21 @@ it("Make a Payment Button is navigating to Make a payment page", async () => {
     accountDetails: mockDataActiveLoans,
   }));
   const container = render(MockActiveloans());
-  const input = container.getByTestId('make_A_Payment');
+  const input = container.getByTestId('make_A_Payment_Button_1');
   expect(input).toBeTruthy();
-  fireEvent.click(input);
+  fireEvent.click(input);  
   const page = container.getByTestId("heading")
   await waitFor(() => expect(page).toBeInTheDocument());
 });
 
+
 it("Make a Payment Button - Past Due Date", () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockDataOne(-2),
+    accountDetails: mockDataActiveLoans,
   }));
   const container = render(MockActiveloans());
-  const dueDateElement = container.getByTestId("make_A_Payment");
+  const dueDateElement = container.getByTestId("make_A_Payment_Button_0");
   expect(dueDateElement).toHaveStyle(`background: #f15d48`);
   expect(dueDateElement).toHaveClass('pulse');
 });
@@ -415,10 +417,10 @@ it("Make a Payment Button - Past Due Date", () => {
 it("Make a Payment Button - Due Date greater than 10 days", () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockDataOne(11),
+    accountDetails: mockDataActiveLoans,
   }));
   const container = render(MockActiveloans());
-  const dueDateElement = container.getByTestId("make_A_Payment");
+  const dueDateElement = container.getByTestId("make_A_Payment_Button_1");
   expect(dueDateElement).toHaveStyle(`background: #ffbc23`);
   expect(dueDateElement).not.toHaveClass('pulse');
 });
@@ -426,21 +428,20 @@ it("Make a Payment Button - Due Date greater than 10 days", () => {
 it("Make a Payment Button - Due Date less than or equal to 10 days", () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockDataOne(10),
+    accountDetails: mockDataActiveLoans,
   }));
   const container = render(MockActiveloans());
-  const dueDateElement = container.getByTestId("make_A_Payment");
-  expect(dueDateElement).toHaveStyle(`background: #ffbc23`);
+  const dueDateElement = container.getByTestId("make_A_Payment_Button_0");
   expect(dueDateElement).toHaveClass('pulse');
 });
 
 it("To Enable AutoPay Test", () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockDataOne(10, null),
+    accountDetails: mockDataActiveLoans,
   }));
   const container = render(MockActiveloans());
-  const autoPayElement = container.getByTestId("enableAutoPay")
+  const autoPayElement = container.getByTestId("enableAutoPay_1")
   expect(autoPayElement).toBeTruthy();
 });
 
@@ -448,29 +449,29 @@ it("To Enable AutoPay Test", () => {
 it("Enable AutoPay should navigate to Make a Payment Page Test", () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockDataOne(10, null),
+    accountDetails: mockDataActiveLoans,
   }));
   const container = render(MockActiveloans());
-  const autoPayElement = container.getByTestId("enableAutoPayLink")
+  const autoPayElement = container.getByTestId("enableAutoPay_1")
   expect(autoPayElement).toBeTruthy();
 });
 
 it("Check number of Loan Accounts", () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockDataTwo(),
+    accountDetails: mockDataActiveLoans,
   }));
   render(MockActiveloans());
-  expect(screen.getAllByTestId('loanGridWithData')).toHaveLength(2);
+  expect(screen.getAllByTestId('loanGridWithData_0')).toHaveLength(1);
 });
 
 it("AutoPay Enabled Test", async () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockDataOne(10, true),
+    accountDetails:mockDataActiveLoans,
   }));
   const container = render(MockActiveloans());
-  const autoPayElement = container.getByTestId("autoPayEnabled")
+  const autoPayElement = container.getByTestId("enableAutoPay_1")
   expect(autoPayElement).toBeTruthy();
   fireEvent.click(autoPayElement);
   const page = container.getByTestId("heading")
@@ -480,19 +481,10 @@ it("AutoPay Enabled Test", async () => {
 it("Has Scheduled Payment Test", () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockDataOne(15, true, true),
+    accountDetails: mockDataActiveLoans,
   }));
   const container = render(MockActiveloans());
   const scheduledPayElement = container.getByTestId("hasScheduledPayment")
   expect(scheduledPayElement).toBeTruthy();
 });
 
-it("Has No Scheduled Payment Test", () => {
-  useAccountOverview.mockImplementation(() => ({
-    isLoading: false,
-    accountDetails: mockDataOne(15, true, false),
-  }));
-  const container = render(MockActiveloans());
-  const scheduledPayElement = container.getByTestId("noScheduledPayment")
-  expect(scheduledPayElement).toBeTruthy();
-});
