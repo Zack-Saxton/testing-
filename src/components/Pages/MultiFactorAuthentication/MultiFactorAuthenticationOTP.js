@@ -103,7 +103,7 @@ const MultiFactorAuthenticationOTP = () => {
         }
 
       }else{// redirect to select security question page
-        navigate('/MFA-SelectSecurityQuestions', {state: otpLocation, currentFlow : true});
+        navigate('/MFA-SelectSecurityQuestions', { state: { currentFlow: true } });
       }
     }else {
       if(response.data?.Message === "Your account has been locked.  Please contact your branch for further assistance." || response.data?.errorMessage === "Your account has been locked.  Please contact your branch for further assistance."){

@@ -4,7 +4,7 @@ export const mockData = {
          {
             "accountNumber": "3506-005079-19",
             "AppAccountHistory": [
-               {
+               { 
                   "TransactionDate": "2022-03-29T00:00:00",
                   "TransactionDescription": "Regular Payment",
                   "PrincipalAmount": -10,

@@ -24,8 +24,8 @@ const MultiFactorAuthentication = () => {
 
   const [selection, setSelection] = useState();
   const {mutateAsync, isLoading} = useMutation(SendLoginPassCode);
-  if (location?.state) {
-  let phoneType = (location?.state?.mfaDetails?.phone_type).toLowerCase();  
+  if (location?.state && location?.state?.mfaDetails) {
+  let phoneType = location?.state?.mfaDetails?.phone_type.toLowerCase();  
   let securityQuestionsSaved = location?.state?.mfaDetails?.securityQuestionsSaved;  
   let primaryPhoneNumber = location?.state?.mfaDetails?.phone_number_primary;
   let optedPhoneNo = location?.state?.mfaDetails?.opted_phone_texting;

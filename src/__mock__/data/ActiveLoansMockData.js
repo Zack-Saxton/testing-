@@ -10,7 +10,7 @@ export const mockDataOne = (dueDate, enabledOrNot, hasScheduledPayment) => {
       data: {
          activeLoans:
             [
-               {
+               { 
                   "loanDetails": {
                      "PaymentOptions": {
                         "NumberOfDaysAllowedForPayoff": 0,

@@ -86,7 +86,7 @@ const MFASelectSecurityQuestions = () => {
 const [ selectOptionArray, setSelectOptionArray ] = useState([[], [], [], [], []])
 
 useEffect(() => {
-  if (!location?.currentFlow) {
+  if (!location?.state?.currentFlow) {
     navigate("/customers/accountOverview");
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
