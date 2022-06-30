@@ -110,9 +110,7 @@ export default function StatePage(props) {
   const apiGetBranchList = async (value, branchName) => {
     try {
       let result = await getBranchLists(value);
-      console.log(' BEFORE ::', result)
       if (result?.length > 2) result = result.slice(0, 4);
-      console.log(' AFTER ::', result)
       for (let ele in result) {
         let BranchTime = await findBranchTimings(result[ ele ]);
         result[ ele ] = Object.assign(result[ ele ], { BranchTime: BranchTime });

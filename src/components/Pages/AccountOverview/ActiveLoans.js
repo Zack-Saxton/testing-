@@ -91,7 +91,7 @@ export default function ActiveLoans() {
                         <Paper
                           className={classes.paper}
                           id="activeLoanGrid"
-                          data-testid="loanGridWithData"
+                          data-testid={`loanGridWithData_${index}`}
                         >
                           <Grid container className={classes.activeLoanHeadingWrap}>
                             <Grid item xs={12} sm={6}>

@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { cleanup, render, act, screen, fireEvent } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import React from "react";
 import { ThemeProvider } from '@mui/styles';
 import { createTheme } from '@mui/material/styles';
@@ -31,7 +31,6 @@ const component = () =>{
 
 it("Logo and Link Availability tests", () => {
   render(component());
-  screen.debug(undefined, 200000)
   const element = screen.getByTestId("mf-logo");
   expect(element).toBeTruthy();
 });

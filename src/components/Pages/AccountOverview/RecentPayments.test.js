@@ -109,7 +109,7 @@ it("Check number of rows for Recent Payments - Without Payment History", () => {
     accountDetails: mockDataOne,
   }));
   render(MockRecentPayments());
-  expect(screen.getAllByRole('row')).toHaveLength(4);
+  expect(screen.getAllByRole('row')).toHaveLength(6);
 });
 
 it("Default Account Number with Payment History", () => {
