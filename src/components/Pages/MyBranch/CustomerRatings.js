@@ -12,7 +12,7 @@ export default function CustomerRatings() {
   }, []);
 
   return (
-    <Grid className="blueBGColor">
+    <Grid data-testid="feefoRatingComponent" className="blueBGColor">
       <h4>Customer Ratings</h4>
       <div id="feefo-service-review-carousel-widgetId" className="feefo-review-carousel-widget-service" >
       </div>
