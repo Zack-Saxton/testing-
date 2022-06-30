@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import LoanAccount from '../../../contexts/LoanAccount';
 import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
 import RecentApplications from './RecentApplications';
-import { mockData } from './RecentApplicationsMockData';
+import { mockData } from '../../../__mock__/data/RecentApplicationsMockData';
 import ViewAccountDetails from './ViewAccountDetails';
 import  NavContext  from "../../../contexts/NavContext";
 

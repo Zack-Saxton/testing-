@@ -10,7 +10,7 @@ import LoanAccount from '../../../contexts/LoanAccount';
 import MakePayment from '../MakePayment/MakePayment';
 import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
 import ActiveLoans from './ActiveLoans';
-import { mockDataOne, mockDataTwo } from './ActiveLoansMockData';
+import { mockDataOne, mockDataTwo } from '../../../__mock__/data/ActiveLoansMockData';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,9 +21,9 @@ const queryClient = new QueryClient({
     },
   },
 });
-
+ 
 jest.mock("./AccountOverviewHook/useAccountOverview", () => ({
-  useAccountOverview: jest.fn(),
+  useAccountOverview: jest.fn(), 
 }))
 
 const theme = createTheme();

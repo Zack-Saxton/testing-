@@ -48,7 +48,7 @@ export const mockData = {
             "amountRequested": 10000,
             "loanPurpose": "Auto Expense/Repair"
          },
-         {
+         { 
             "applicationGuid": "AP-JE1646333025574",
             "isActive": false,
             "applicantGuid": "AT-JE1646333025636",
