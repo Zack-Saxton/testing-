@@ -1,7 +1,6 @@
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import PropTypes from "prop-types";
-import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { idVerificationAnswer } from '../../Controllers/MFAController';

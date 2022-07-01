@@ -10,7 +10,6 @@ import LoanAccount from '../../../contexts/LoanAccount';
 import PaymentHistory from '../PaymentHistory/PaymentHistory';
 import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
 import RecentPayments from './RecentPayments';
-import { mockData } from './RecentPaymentsMockData';
 import RecentApplications from './RecentApplications';
 import { mockData as recentApplicationsMockData } from '../../../__mock__/data/RecentApplicationsMockData';
 import ViewAccountDetails from './ViewAccountDetails';
@@ -866,7 +865,7 @@ const MockAccountOverview = () => {
 it("Payment history Button is navigating to Payment History page", async () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockData,
+    accountDetails: recentApplicationsMockData,
   }));
   const container = render(MockAccountOverview());
   const input = container.getByTestId('payment_history_button');
