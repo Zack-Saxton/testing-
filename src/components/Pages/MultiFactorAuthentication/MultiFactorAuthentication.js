@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
 import "./MultiFactorAuthentication.css";
 import Cookies from 'js-cookie';
+import { useQuery } from 'react-query';
 import { useNavigate, useLocation } from "react-router-dom";
 import OnePhoneNumber from "./OnePhoneNumber";
 import TwoPhoneNumbers from "./TwoPhoneNumbers";
-import {SendLoginPassCode} from "../../Controllers/MFAController"
+import {SendLoginPassCode, fetchQuestionMFA, fetchMFADetials} from "../../Controllers/MFAController"
 import {useMutation} from "react-query";
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
 import CheckLoginStatus from '../../App/CheckLoginStatus';
@@ -14,22 +15,30 @@ const MultiFactorAuthentication = () => {
   const navigate = useNavigate();
   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
 
+  const [mfaData, setMFAData] = useState();
+
+  const getDet = async() => {
+    const emailNew = Cookies.get("email");
+    let val = await fetchQuestionMFA(emailNew);
+    let structureMFAdata = {
+      mfaDetails: val?.data?.MFAInformation
+    }
+    setMFAData(structureMFAdata);
+  }
   useEffect(() => {
-		if (!location?.state) {
-			navigate("/customers/accountOverview");
-		}
+    getDet();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 
   const [selection, setSelection] = useState();
   const {mutateAsync, isLoading} = useMutation(SendLoginPassCode);
-  if (location?.state && location?.state?.mfaDetails) {
-  let phoneType = location?.state?.mfaDetails?.phone_type.toLowerCase();  
-  let securityQuestionsSaved = location?.state?.mfaDetails?.securityQuestionsSaved;  
-  let primaryPhoneNumber = location?.state?.mfaDetails?.phone_number_primary;
-  let optedPhoneNo = location?.state?.mfaDetails?.opted_phone_texting;
-  let mfaPhoneNumber = location?.state?.mfaDetails?.mfa_phone_texting;
+  if (mfaData && mfaData?.mfaDetails) {
+  let phoneType = mfaData?.mfaDetails?.phone_type ? mfaData?.mfaDetails?.phone_type.toLowerCase() : "cell";  
+  let securityQuestionsSaved = mfaData?.mfaDetails?.securityQuestionsSaved;  
+  let primaryPhoneNumber = mfaData?.mfaDetails?.phone_number_primary;
+  let optedPhoneNo = mfaData?.mfaDetails?.opted_phone_texting;
+  let mfaPhoneNumber = mfaData?.mfaDetails?.mfa_phone_texting;
   let situationOne = phoneType === 'cell' && !optedPhoneNo && !securityQuestionsSaved && !mfaPhoneNumber;
   let situationTwo = phoneType !== 'cell' && optedPhoneNo && !securityQuestionsSaved && !mfaPhoneNumber;
   let situationThree = phoneType === 'cell' && !optedPhoneNo && securityQuestionsSaved;
@@ -52,14 +61,13 @@ const MultiFactorAuthentication = () => {
   if(mfaPhoneNumber){
     phoneNumerList.push(mfaPhoneNumber);
   }
-
   
 /** One Phone number with No security questions **/
 if((situationOne || situationTwo || situationThree || situationFour) && phoneNumerList.length <= 1) {
   return (
     <div>
       <CheckLoginTimeout />
-      {loginToken.isLoggedIn && location?.state ? (
+      {loginToken.isLoggedIn && mfaData ? (
         <>
           <OnePhoneNumber
             phoneNumber={
@@ -70,7 +78,7 @@ if((situationOne || situationTwo || situationThree || situationFour) && phoneNum
             selectionValue={selection}
             sendPassCode={mutateAsync}
             isLoading={isLoading}
-            mfaDetails={location?.state}
+            mfaDetails={mfaData}
             securityQuestionsSaved={securityQuestionsSaved}
             phoneNumberSaved={true}
           />
@@ -87,7 +95,7 @@ if(situationFive || situationSix) {
   return (
     <div>
       <CheckLoginTimeout />
-      {loginToken.isLoggedIn && location?.state ? (
+      {loginToken.isLoggedIn && mfaData ? (
         <>
           <TwoPhoneNumbers
             cellPhoneNumber={primaryPhoneNumber}
@@ -98,7 +106,7 @@ if(situationFive || situationSix) {
             selectionValue={selection}
             sendPassCode={mutateAsync}
             isLoading={isLoading}
-            mfaDetails={location?.state}
+            mfaDetails={mfaData}
             securityQuestionsSaved={securityQuestionsSaved}
           />
         </>
@@ -114,7 +122,7 @@ if(situationSeven || situationEight) {
   return (
     <div>
       <CheckLoginTimeout />
-      {loginToken.isLoggedIn && location?.state ? (
+      {loginToken.isLoggedIn && mfaData ? (
         <>
           <OnePhoneNumber
             setSelection={setSelection}
@@ -122,7 +130,7 @@ if(situationSeven || situationEight) {
             selectionValue={selection}
             sendPassCode={mutateAsync}
             isLoading={isLoading}
-            mfaDetails={location?.state}
+            mfaDetails={mfaData}
             securityQuestionsSaved={securityQuestionsSaved}
             phoneNumberSaved={false}
           />
@@ -138,7 +146,7 @@ if(situationNine || situationTen){
   return (
     <div>
       <CheckLoginTimeout />
-      {loginToken.isLoggedIn && location?.state ? (
+      {loginToken.isLoggedIn && mfaData ? (
         <>
           <TwoPhoneNumbers
             cellPhoneNumber={primaryPhoneNumber}
@@ -149,7 +157,7 @@ if(situationNine || situationTen){
             selectionValue={selection}
             sendPassCode={mutateAsync}
             isLoading={isLoading}
-            mfaDetails={location?.state}
+            mfaDetails={mfaData}
             securityQuestionsSaved={securityQuestionsSaved}
           />
         </>
@@ -164,7 +172,7 @@ if(situationEleven || situationTwelve) {
   return (
     <div>
       <CheckLoginTimeout />
-      {loginToken.isLoggedIn && location?.state ? (
+      {loginToken.isLoggedIn && mfaData ? (
         <>
           <OnePhoneNumber
             phoneNumber={phoneType === "cell" ? mfaPhoneNumber : ""}
@@ -173,7 +181,7 @@ if(situationEleven || situationTwelve) {
             selectionValue={selection}
             sendPassCode={mutateAsync}
             isLoading={isLoading}
-            mfaDetails={location?.state}
+            mfaDetails={mfaData}
             securityQuestionsSaved={securityQuestionsSaved}
             phoneNumberSaved={true}
           />

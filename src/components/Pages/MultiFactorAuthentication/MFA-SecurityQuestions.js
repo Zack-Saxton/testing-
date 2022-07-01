@@ -16,6 +16,7 @@ import * as yup from "yup";
 import ScrollToTopOnMount from "../CheckMyOffers/ScrollToTop";
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
 import CheckLoginStatus from '../../App/CheckLoginStatus';
+import Messages from "../../../assets/data/globalMessages.json"
  
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -86,9 +87,13 @@ const MFASecurityQuestions = () => {
         verify?.data?.result === "error"
       ) {
         setCounter(counter + 1);
-        toast.error(verify?.data?.Message);
-        if(counter >= 1) {
-          navigate("/login");
+        
+        if(counter >= 3) {
+          toast.error(Messages?.Account_Locked);
+          navigate("/login"); 
+        }
+        else{
+          toast.error(verify?.data?.Message);
         }
       } else {
         toast.error("Network error");

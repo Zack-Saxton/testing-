@@ -264,5 +264,6 @@
   "Zipcode_Required": "Zipcode is required",
   "ConsentStatusUpdateError": "Error executing save consent API",
   "INVALIDENTRY":"Invalid Entry Please Try Another Email Address",
-  "Error_executing_SavePhoneNumber_API": "Error executing save phonenumber API"
+  "Error_executing_SavePhoneNumber_API": "Error executing save phonenumber API",
+  "Account_Locked": "Your account has been locked.  Please contact your branch for further assistance."
 }
