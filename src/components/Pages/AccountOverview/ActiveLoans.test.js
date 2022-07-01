@@ -10,7 +10,6 @@ import LoanAccount from '../../../contexts/LoanAccount';
 import MakePayment from '../MakePayment/MakePayment';
 import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
 import ActiveLoans from './ActiveLoans';
-import { mockDataOne, mockDataTwo } from './ActiveLoansMockData';
 
 const queryClient = new QueryClient({
   defaultOptions: {

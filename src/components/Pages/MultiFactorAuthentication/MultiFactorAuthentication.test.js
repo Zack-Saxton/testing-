@@ -1,12 +1,12 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import ProfilePicture from '../../../contexts/ProfilePicture';
 import MultiFactorAuthentication from './MultiFactorAuthentication';
-import { BrowserRouter, MemoryRouter, useLocation } from "react-router-dom";
+import {  MemoryRouter } from "react-router-dom";
+import Cookies from 'js-cookie'
 
 
 const queryClient = new QueryClient({
@@ -18,6 +18,18 @@ const queryClient = new QueryClient({
         },
     },
 });
+
+let now = new Date().getTime();
+Cookies.set(
+	"token",
+	JSON.stringify({
+		isLoggedIn: true,
+		setupTime: now,
+		applicantGuid: "AT-LA1656515305385",
+		isMFA: true,
+		isMFACompleted: true
+	})
+);
 
 const theme = createTheme();
 window.scrollTo = jest.fn();

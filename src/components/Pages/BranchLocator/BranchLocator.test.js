@@ -75,26 +75,26 @@ test('State search input box rendered', async () => {
   expect(autocomplete.value).toEqual('los');
 });
 
-test('Mariner Mariner Finance States section ', async () => {
-  render( 
-    <MemoryRouter  initialEntries={[{ pathname: '/', state: {value : "indiana", flag:true}} ]}>
-      {component()}
-    </MemoryRouter>
-  );
-  await act(() => {		
-    const element = screen.getByText('Mariner Finance States');
-	  expect(element).toBeTruthy();
-	});	  
-});
+// test('Mariner Mariner Finance States section ', async () => {
+//   render( 
+//     <MemoryRouter  initialEntries={[{ pathname: '/', state: {value : "indiana", flag:true}} ]}>
+//       {component()}
+//     </MemoryRouter>
+//   );
+//   await act(() => {		
+//     const element = screen.getByText('Mariner Finance States');
+// 	  expect(element).toBeTruthy();
+// 	});	  
+// });
 
-test('Mariner Mariner Finance States section ', async () => {
-  render( 
-    <MemoryRouter  initialEntries={[{ pathname: '/', state: {value : "indiana", flag:true}} ]}>
-      {component()}
-    </MemoryRouter>
-  );
-  await act(() => {		
-    const element = screen.getByText('Branch Near You!');
-	  expect(element).toBeTruthy();
-	});	  
-});
+// test('Mariner Mariner Finance States section ', async () => {
+//   render( 
+//     <MemoryRouter  initialEntries={[{ pathname: '/', state: {value : "indiana", flag:true}} ]}>
+//       {component()}
+//     </MemoryRouter>
+//   );
+//   await act(() => {		
+//     const element = screen.getByText('Branch Near You!');
+// 	  expect(element).toBeTruthy();
+// 	});	  
+// });

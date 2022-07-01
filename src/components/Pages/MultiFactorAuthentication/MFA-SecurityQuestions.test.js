@@ -1,13 +1,13 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
-import NavContext from "../../../contexts/NavContext";
 import MFASecurityQuestions from "../MultiFactorAuthentication/MFA-SecurityQuestions";
 import { createBrowserHistory } from 'history';
+import Cookies from 'js-cookie'
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -20,6 +20,19 @@ const queryClient = new QueryClient({
 });
 const theme = createTheme();
 window.scrollTo = jest.fn();
+let now = new Date().getTime();
+
+Cookies.set(
+	"token",
+	JSON.stringify({
+		isLoggedIn: true,
+		setupTime: now,
+		applicantGuid: "AT-LA1656515305385",
+		isMFA: true,
+		isMFACompleted: true
+	})
+);
+
 const component = () => {
     const history = createBrowserHistory();
     const state = {

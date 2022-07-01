@@ -6,6 +6,8 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import KbaQuestions from "../KbaQuestions";
+import Cookies from 'js-cookie'
+import { createBrowserHistory } from 'history';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -18,8 +20,51 @@ const queryClient = new QueryClient({
 });
 const theme = createTheme();
 window.scrollTo = jest.fn();
+let now = new Date().getTime();
+
+Cookies.set(
+	"token",
+	JSON.stringify({
+		isLoggedIn: true,
+		setupTime: now,
+		applicantGuid: "AT-LA1656515305385",
+		isMFA: true,
+		isMFACompleted: true
+	})
+);
 
 const component = () => {
+	const history = createBrowserHistory();
+	const state = {
+		mfaSecurityQuestions: {
+				mfaDetails: {
+						securityQuestions:
+								[
+										{
+												"question_id": "1",
+												"question": "What was the name of your favorite pet?"
+										},
+										{
+												"question_id": "2",
+												"question": "What was the name of your favorite teacher?"
+										},
+										{
+												"question_id": "3",
+												"question": "What city did you meet your current spouse?"
+										},
+										{
+												"question_id": "4",
+												"question": "What is your favorite vacation destination?"
+										},
+										{
+												"question_id": "5",
+												"question": "Where did you and your spouse marry?"
+										}
+								]
+				}
+		}
+}
+history.push("/", state);
 	return (
 		<ThemeProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
