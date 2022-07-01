@@ -8,7 +8,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import PropTypes from "prop-types";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -164,7 +164,12 @@ export default function ConfirmationInfo() {
   const handleOnClickwebTOUClose = () => setWebTOUPopup(false);
   const handleOnClickPrivacy = () => setPrivacyPopup(true);
   const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
-
+  useEffect(() => {
+		if (!location?.state?.first_name || !location?.state?.last_name) {
+			navigate("/login");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
   const validate = (personal, household) => {
     let returnValue = false;
     if (!isNaN(personal) && !isNaN(household)) {
