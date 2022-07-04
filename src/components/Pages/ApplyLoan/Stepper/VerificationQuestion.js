@@ -63,7 +63,7 @@ export default function VerificationQuestion(props) {
       </p>
       <div className={props.classes.actionsContainer}>
         <div className={props.classes.button_div} >
-          {responseData ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : <CircularProgress />}
+          {responseData && !setOneFinished ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : !setOneFinished ? <CircularProgress /> : <> </>}
           <div>
             {setOneFinished ? <MultipleQuestion setLoadingFlag={props.setLoadingFlag} next={props.next} transactionIdMultiple={transactionIdMultiple} questionSetIdMultiple={questionSetIdMultiple} responseData={responseDataMultipleQ} setResponseData={setResponseDataMultipleQ} classes={classes} check={check} setCheck={setCheck} /> : null}
           </div>
