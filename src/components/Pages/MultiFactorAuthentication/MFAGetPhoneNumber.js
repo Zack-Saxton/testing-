@@ -49,9 +49,13 @@ const MFAGetPhoneNumber = ({
 	const location = useLocation();
 
 	useEffect(() => {
+    let mfaPhoneCookie = Cookies.get("mfaPhone")
 		if (!location?.state) {
 			navigate("/customers/accountOverview");
 		}
+    else if (mfaPhoneCookie){
+      navigate("/login");
+    }
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
