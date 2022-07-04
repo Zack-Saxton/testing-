@@ -84,7 +84,9 @@ const MFAGetPhoneNumber = ({
 		if (response?.data?.statusCode === 200) {
 			toast.success((response.data?.Message).replace(numberToSend, maskedNumber));
 			 let mfaResponse = await fetchQuestionMFA(location?.state?.customerEmail);
+       
 			 if (mfaResponse?.data?.statusCode === 200) {
+        Cookies.set("mfaPhone", numberToSend)
 				navigate("/MFA", { state: { mfaDetails: mfaResponse?.data?.MFAInformation, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
 			 }
 			 else{
