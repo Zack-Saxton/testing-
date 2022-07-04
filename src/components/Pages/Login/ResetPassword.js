@@ -3,7 +3,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
@@ -47,6 +47,12 @@ export default function ResetPassword(props) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   let location = useLocation();
+  useEffect(() => {
+		if (!location?.state?.Email) {
+			navigate("/login");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
   //Form Submission
   const formik = useFormik({
     initialValues: {

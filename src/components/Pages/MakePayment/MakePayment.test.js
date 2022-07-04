@@ -36,12 +36,6 @@ test("Checks the component is rendered", () => {
   expect(element).toBeTruthy();
 });
 
-test("Payment Overview rendered ", () => {
-  render(component());
-  const element = screen.getByTestId("paymentOverviewTable");
-  expect(element).toBeTruthy();
-});
-
 test("Please Contact Text Availability test", () => {
   render(component());
   const element = screen.getByTestId("pleaseContact");

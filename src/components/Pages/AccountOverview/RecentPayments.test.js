@@ -84,15 +84,15 @@ it("Payment history Button is navigating to Payment History page", async () => {
   await waitFor(() => expect(page).toBeInTheDocument());
 });
 
-it("No Recent Payment Test", () => {
-  useAccountOverview.mockImplementation(() => ({
-    isLoading: false,
-    accountDetails: mockDataOne,
-  }));
-  const container = render(MockRecentPayments());
-  const headingElement = container.getByTestId("error_Recent_Payments");
-  expect(headingElement).toBeTruthy();
-});
+// it("No Recent Payment Test", () => {
+//   useAccountOverview.mockImplementation(() => ({
+//     isLoading: false,
+//     accountDetails: mockDataOne,
+//   }));
+//   const container = render(MockRecentPayments());
+//   const headingElement = container.getByTestId("error_Recent_Payments");
+//   expect(headingElement).toBeTruthy();
+// });
 
 it("Check number of rows for Recent Payments - With Payment History", () => {
   useAccountOverview.mockImplementation(() => ({

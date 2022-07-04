@@ -5,7 +5,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import MultipleQuestion from "./MultipleQuestion";
-import { ThemeProvider, makeStyles } from "@mui/styles";
+import { ThemeProvider } from "@mui/styles";
 import { createTheme, StyledEngineProvider } from "@mui/material/styles";
 
 const checkSet = jest.fn();
@@ -579,7 +579,6 @@ return (
 
 test("Question Rendered Correctly", () => {
     render(component());
-  screen.debug(undefined, 4000000000000)
   });
 
   test("First question renders correctly", () => {

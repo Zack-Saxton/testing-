@@ -166,9 +166,9 @@ let selectedQuestionStructured =
 
   const getMFAQuestion = async () => {
     let mfaQuestion = await fetchAllMFAQuestion();
-    setQuestions(mfaQuestion.data.questionsList);
+    setQuestions(mfaQuestion?.data?.questionsList);
     let mfaQuestionsArray = [];
-    mfaQuestion.data.questionsList?.forEach((question) => {
+    mfaQuestion?.data?.questionsList?.forEach((question) => {
       mfaQuestionsArray.push({
         label: question.question,
         value: question.question_id

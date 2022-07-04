@@ -1,12 +1,12 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render, screen, act, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, act } from "@testing-library/react";
 import React from "react";
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { createBrowserHistory } from "history";
 import MFASelectSecurityQuestions from "./MFA-SelectSecurityQuestions";
+import Cookies from 'js-cookie'
 
 
 const queryClient = new QueryClient({
@@ -20,54 +20,25 @@ const queryClient = new QueryClient({
 });
 const theme = createTheme();
 window.scrollTo = jest.fn();
-// const test = () => {
-//     return (
-//     <MFASelectSecurityQuestions
-//       name="select"
-//       labelform="Language Known"
-//       required={true}
-//       select='[
-//           {"label": "What was the name of your favorite pet?", "value": "New"},
-//           {"label": "What was the name of your favorite teacher?", "value": "New"},
-//           {"label": "What city did you meet your current spouse?", "value": "New"},
-//           {"label": "What is your favorite vacation destination?", "value": "New"},
-//           {"label": "Where did you and your spouse marry?", "value": "New"},
-//           {"label": "What was your favorite restaurant in college?", "value": "New"},
-//           {"label": "What city is your vacation home located?", "value": "New"},
-//           {"label": "What is your favorite car brand?", "value": "New"},
-//           {"label": "What is the name of your best friend?", "value": "New"},
-//           {"label": "What is your mother’s middle name?", "value": "New"},
-//           {"label": "What is your father’s middle name?", "value": "New"},
-//           {"label": "What is your favorite color?", "value": "New"},
-//           {"label": "What city were you born in?", "value": "New"},
-//         ]'
-//       value="New"
-//     />
-//   );
-// };
+let now = new Date().getTime();
+
+Cookies.set(
+	"token",
+	JSON.stringify({
+		isLoggedIn: true,
+		setupTime: now,
+		applicantGuid: "AT-LA1656515305385",
+		isMFA: true,
+		isMFACompleted: true
+	})
+);
+
 const component = () => {
-    // const history = createBrowserHistory();
-    // const state = {
-    //     mfaSecurityQuestions: {
-    //         mfaDetails: {
-    //             securityQuestions:
-    //                 [
-    //                     {
-    //                         "question_id": "2",
-    //                         "question": "What was the name of your favorite teacher?"
-    //                     }
-    //                 ]
-    //         }
-    //     }
-    // }
-    //history.push("/", state);
     return (
         <ThemeProvider theme={theme}>
             <QueryClientProvider client={queryClient}>
                 <BrowserRouter >
-                    <MFASelectSecurityQuestions
-                    
-                    />
+                    <MFASelectSecurityQuestions />
                 </BrowserRouter>
             </QueryClientProvider>
         </ThemeProvider>
