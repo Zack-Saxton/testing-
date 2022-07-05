@@ -6,6 +6,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import DocumentIdAndPhotoId from "../DocumentIdAndPhotoId";
+import { steps } from '../../../../__mock__/data/BranchPortalData';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -18,13 +19,6 @@ const queryClient = new QueryClient({
 });
 const theme = createTheme();
 window.scrollTo = jest.fn();
-
-const steps = [
-	"ID Document & Photo",
-	"Income Verification",
-	"Bank Account Verification",
-	"Vehicle Photos"
-]
 
 const component = () => {
 	return (
