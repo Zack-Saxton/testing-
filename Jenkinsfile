@@ -18,6 +18,15 @@ pipeline {
             steps {
                 sh './scripts/test.sh'
             }
+            post {
+                def summary = junit testResults: '/output/coverage/jest/clover.xml'
+                success {
+                    slackSend channel: "#deployments", message: "Unit test passed: Summary"
+                }
+                failure {
+                    slackSend channel: "#deployments", message: "Unit test failed: Summary"
+                }
+            }
         }
     }
     
