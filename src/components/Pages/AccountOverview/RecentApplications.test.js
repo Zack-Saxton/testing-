@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import LoanAccount from '../../../contexts/LoanAccount';
 import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
 import RecentApplications from './RecentApplications';
-import { mockData } from '../../../__mock__/data/RecentApplicationsMockData';
+import { RecentApplicationsDataMock } from '../../../__mock__/AccountOverview.mock'
 import ViewAccountDetails from './ViewAccountDetails';
 import  NavContext  from "../../../contexts/NavContext";
 
@@ -65,29 +65,20 @@ it("While Error", () => {
 });
 
 it("Fetching data and rendering the content Test", () => {
-  useAccountOverview.mockImplementation(() => ({
-    isLoading: false,
-    accountDetails: mockData,
-  }));
+  RecentApplicationsDataMock()
   const container = render(MockRecentApplications());
   const headingElement = container.getAllByTestId("with_Data");
   expect(headingElement).toBeTruthy();
 });
 
 it("Check number of Recent Applications", () => {
-  useAccountOverview.mockImplementation(() => ({
-    isLoading: false,
-    accountDetails: mockData,
-  }));
+  RecentApplicationsDataMock()
   render(MockRecentApplications());
   expect(screen.getAllByTestId('with_Data')).toHaveLength(15);
 });
 
 it("Navigate to View Account Page", async () => {
-  useAccountOverview.mockImplementation(() => ({
-    isLoading: false,
-    accountDetails: mockData,
-  }));
+  RecentApplicationsDataMock()
   const container = render(MockRecentApplications());
   const input = container.getByTestId("navigate_View_Account_1");
   expect(input).toBeTruthy();
