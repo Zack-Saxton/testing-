@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor, act } from '@testing-library/react';
 import React from 'react';
 import DatePicker from './index.js';
 
@@ -28,8 +28,10 @@ test('Render DatePicker', () => {
 test('Select Date', async () => {
   const { container } = render(component());
   const input = container.querySelector('input[name=date]');
-  fireEvent.click(input);
-  await waitFor(() => expect(input.getAttribute("value")).toBe("01/01/2000"))
+  await act(() => {
+		fireEvent.click(input);
+	});  
+  expect(input.getAttribute("value")).toBe("01/01/2000");
 });
 
 
