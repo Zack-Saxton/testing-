@@ -343,7 +343,8 @@ function DocumentIdAndPhotoId(props) {
             <Typography className={classes.dropdownMenu} onClick={openFileWindow}>
               Select from Existing Files
               <input
-                id="selectFile"
+                id="selectFile" 
+                name= "selectExistingFile"             
                 data-testid="selectFile"
                 accept="image/png, image/jpeg, application/pdf, image/jpg "
                 style={{ display: "none" }}

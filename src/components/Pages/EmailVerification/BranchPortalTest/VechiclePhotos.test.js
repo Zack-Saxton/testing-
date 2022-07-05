@@ -18,13 +18,23 @@ const queryClient = new QueryClient({
 });
 const theme = createTheme();
 window.scrollTo = jest.fn();
+const steps = [
+	"ID Document & Photo",
+	"Income Verification",
+	"Bank Account Verification",
+	"Vehicle Photos"
+]
 
 const component = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
 				<BrowserRouter>
-					<VehiclePhotos />
+					<VehiclePhotos
+          applicationNumber={"7001-0000016058"}
+          customerEmail={"mariner@mariner.com"}
+          steps={steps}
+          activeStep={3} />
 				</BrowserRouter>
 			</QueryClientProvider>
 		</ThemeProvider>
