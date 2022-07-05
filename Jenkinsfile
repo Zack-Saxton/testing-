@@ -19,7 +19,9 @@ pipeline {
                 sh './scripts/test.sh'
             }
             post {
-                def summary = junit testResults: '/output/coverage/jest/clover.xml'
+                always {
+                    junit 'output/coverage/jest/clover.xml'
+                }
                 success {
                     slackSend channel: "#deployments", message: "Unit test passed: Summary"
                 }
