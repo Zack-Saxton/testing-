@@ -34,11 +34,12 @@ const MultiFactorAuthentication = () => {
   const [selection, setSelection] = useState();
   const {mutateAsync, isLoading} = useMutation(SendLoginPassCode);
   if (mfaData && mfaData?.mfaDetails) {
+  let phoneFromCookie = Cookies.get("mfaPhone");
   let phoneType = mfaData?.mfaDetails?.phone_type ? mfaData?.mfaDetails?.phone_type.toLowerCase() : "cell";  
   let securityQuestionsSaved = mfaData?.mfaDetails?.securityQuestionsSaved;  
   let primaryPhoneNumber = mfaData?.mfaDetails?.phone_number_primary;
   let optedPhoneNo = mfaData?.mfaDetails?.opted_phone_texting;
-  let mfaPhoneNumber = mfaData?.mfaDetails?.mfa_phone_texting;
+  let mfaPhoneNumber = phoneFromCookie ?? mfaData?.mfaDetails?.mfa_phone_texting;
   let situationOne = phoneType === 'cell' && !optedPhoneNo && !securityQuestionsSaved && !mfaPhoneNumber;
   let situationTwo = phoneType !== 'cell' && optedPhoneNo && !securityQuestionsSaved && !mfaPhoneNumber;
   let situationThree = phoneType === 'cell' && !optedPhoneNo && securityQuestionsSaved;

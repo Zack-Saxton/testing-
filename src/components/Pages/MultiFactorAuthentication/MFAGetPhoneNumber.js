@@ -49,9 +49,13 @@ const MFAGetPhoneNumber = ({
 	const location = useLocation();
 
 	useEffect(() => {
+    let mfaPhoneCookie = Cookies.get("mfaPhone")
 		if (!location?.state) {
 			navigate("/customers/accountOverview");
 		}
+    else if (mfaPhoneCookie){
+      navigate("/login");
+    }
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -84,7 +88,9 @@ const MFAGetPhoneNumber = ({
 		if (response?.data?.statusCode === 200) {
 			toast.success((response.data?.Message).replace(numberToSend, maskedNumber));
 			 let mfaResponse = await fetchQuestionMFA(location?.state?.customerEmail);
+       
 			 if (mfaResponse?.data?.statusCode === 200) {
+        Cookies.set("mfaPhone", numberToSend)
 				navigate("/MFA", { state: { mfaDetails: mfaResponse?.data?.MFAInformation, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
 			 }
 			 else{
