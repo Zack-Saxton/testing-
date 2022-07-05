@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     GIT_COMMIT_EMAIL = sh (
-                            script: './scripts/test.sh',
+                            script: 'npm test',
                             returnStdout: true
                         ).trim()
                         echo "Git committer email: ${GIT_COMMIT_EMAIL}"
