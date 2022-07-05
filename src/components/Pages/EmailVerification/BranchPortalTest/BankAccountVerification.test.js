@@ -6,6 +6,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import BankAccountVerification from "../BankAccountVerification";
+import { steps } from '../../../../__mock__/data/BranchPortalData';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -19,12 +20,17 @@ const queryClient = new QueryClient({
 const theme = createTheme();
 window.scrollTo = jest.fn();
 
+
 const component = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
 				<BrowserRouter>
-					<BankAccountVerification />
+					<BankAccountVerification
+          applicationNumber={"7001-0000016058"}
+          customerEmail={"mariner@mariner.com"}
+          steps={steps}
+          activeStep={2} />
 				</BrowserRouter>
 			</QueryClientProvider>
 		</ThemeProvider>

@@ -284,6 +284,7 @@ function UploadDocument(props) {
               <Grid container>
                 <ButtonPrimary
                   onClick={enableCameraOption}
+                  data-testid= "takeAnotherPicture"
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
                 >
                   Take another picture
