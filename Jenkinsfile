@@ -20,7 +20,7 @@ pipeline {
             }
             post {
                 always {
-                    junit 'output/coverage/jest/clover.xml'
+                    junit '/output/coverage/jest/clover.xml'
                 }
                 success {
                     slackSend channel: "#deployments", message: "Unit test passed: Summary"
