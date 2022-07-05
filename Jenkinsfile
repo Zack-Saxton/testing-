@@ -16,23 +16,21 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh './scripts/test.sh'
+                script {
+                    GIT_COMMIT_EMAIL = sh (
+                            script: './scripts/test.sh',
+                            returnStdout: true
+                        ).trim()
+                        echo "Git committer email: ${GIT_COMMIT_EMAIL}"
+                }
             }
             post {
-                always {
-                    junit 'output/coverage/jest/clover.xml'
-                }
                 success {
                     slackSend channel: "#deployments", message: "Unit test passed: Summary"
                 }
                 failure {
                     slackSend channel: "#deployments", message: "Unit test failed: Summary"
                 }
-            }
-        }
-        stage('Deliver') {
-            steps {
-                sh 'deploy.sh'
             }
         }
     }
