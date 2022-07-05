@@ -30,6 +30,11 @@ pipeline {
                 }
             }
         }
+        stage('Deliver') {
+            steps {
+                sh 'deploy.sh'
+            }
+        }
     }
     
 }
