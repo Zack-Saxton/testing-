@@ -4,7 +4,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import PaymentRecords from './PaymentRecords';
+import PaymentHistoryTable from './PaymentHistoryTable';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -218,7 +218,7 @@ const component = () => {
       <ThemeProvider theme={theme}>
         <StyledEngineProvider injectFirst>
           <QueryClientProvider client={queryClient}>
-              <PaymentRecords userRecentPaymentData={spoofedDataPR} />
+              <PaymentHistoryTable userRecentPaymentData={spoofedDataPR} />
           </QueryClientProvider>
         </StyledEngineProvider>
       </ThemeProvider>
