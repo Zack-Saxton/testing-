@@ -68,10 +68,10 @@ export default function ResetPassword(props) {
         setLoading(true);
         //Sending value to  ResetPassword controller
         let retVal = await ResetPasswordController(values.password);
-        if (retVal.status == 200) {
+        if (retVal.status === 200) {
           toast.success(globalValidation.PasswordChangedSuccessfully);
           navigate("/login");
-        }else if (retVal?.data?.statusCode == 400) {
+        }else if (retVal?.data?.statusCode === 400) {
           toast.error(retVal?.data?.errorMessage);
           setLoading(false);
         }else {

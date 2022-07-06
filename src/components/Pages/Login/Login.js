@@ -79,7 +79,7 @@ export default function Login(props) {
       let grecaptchaResponse = grecaptcha.getResponse();
       let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ClientIP);
 
-      if (recaptchaVerifyResponse.status == 200) {
+      if (recaptchaVerifyResponse.status === 200) {
         toast.success(globalMessages.Recaptcha_Verify);
         setDisableRecaptcha(false);
       }
