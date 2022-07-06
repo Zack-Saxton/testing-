@@ -16,21 +16,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                script {
-                    GIT_COMMIT_EMAIL = sh (
-                            script: 'npm test',
-                            returnStdout: true
-                        ).trim()
-                        echo "Git committer email: ${GIT_COMMIT_EMAIL}"
-                }
-            }
-            post {
-                success {
-                    slackSend channel: "#deployments", message: "Unit test passed: Summary"
-                }
-                failure {
-                    slackSend channel: "#deployments", message: "Unit test failed: Summary"
-                }
+                sh './scripts/test.sh'
             }
         }
     }
