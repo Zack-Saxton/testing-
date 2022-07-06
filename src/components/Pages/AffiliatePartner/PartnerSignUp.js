@@ -71,7 +71,7 @@ const validationSchema = yup.object({
     .required(globalMessages.PhoneTypeRequired),
 });
 
-//Begin: Login page
+
 export default function PartnerSignUp() {
   //Decoding URL for partner signup
   const useQueryURL = () => new URLSearchParams(useLocation().search);
