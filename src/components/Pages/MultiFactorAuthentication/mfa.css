@@ -22,3 +22,11 @@
 #questionDiv div p {
   font-weight: 700;
 }
+.mfa_loadingSpinnerDiv{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+.mfa_loadingSpinner{
+padding: 10%;
+}
