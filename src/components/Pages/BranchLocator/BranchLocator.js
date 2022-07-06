@@ -189,20 +189,6 @@ export default function BranchLocator() {
       container
       item xs={12} md={10}
     >
-      {/* <Grid container item xs={ 12 } justifyContent="center">
-        <Typography
-          className="mainHeading"
-          variant="h4"
-        >
-          Mariner Finance Branch Near You!
-        </Typography>
-        <p className="mainParagraph">
-          Mariner Finance, serving communities since 1927, operates
-          over 470 branches in twenty-seven states.
-          Find a branch in your neighborhood and explore personal loans near you.
-          Our experienced team members are ready to assist with your financial needs.
-        </p>
-      </Grid> */}
       <Grid container item xs={12} justifyContent="center">
         <Typography
           className="mainParagraph findBranchNear"
