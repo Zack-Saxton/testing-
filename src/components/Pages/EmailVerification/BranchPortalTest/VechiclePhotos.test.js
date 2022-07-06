@@ -6,6 +6,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import VehiclePhotos from "../VehiclePhotos";
+import { steps } from '../../../../__mock__/data/BranchPortalData';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -24,7 +25,11 @@ const component = () => {
 		<ThemeProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
 				<BrowserRouter>
-					<VehiclePhotos />
+					<VehiclePhotos
+          applicationNumber={"7001-0000016058"}
+          customerEmail={"mariner@mariner.com"}
+          steps={steps}
+          activeStep={3} />
 				</BrowserRouter>
 			</QueryClientProvider>
 		</ThemeProvider>

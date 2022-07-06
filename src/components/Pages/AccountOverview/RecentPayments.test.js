@@ -10,7 +10,7 @@ import LoanAccount from '../../../contexts/LoanAccount';
 import PaymentHistory from '../PaymentHistory/PaymentHistory';
 import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
 import RecentPayments from './RecentPayments';
-import { mockData, mockDataOne } from '../../../__mock__/data/RecentPaymentsMockData';
+import { RecentPaymentsDataMock, RecentPaymentsDataMockTwo } from '../../../__mock__/AccountOverview.mock'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -62,20 +62,14 @@ it("While Error", () => {
 });
 
 it("Fetching data and rendering the content Test", () => {
-  useAccountOverview.mockImplementation(() => ({
-    isLoading: false,
-    accountDetails: mockData,
-  }));
+  RecentPaymentsDataMockTwo();
   const container = render(MockRecentPayments());
   const headingElement = container.getByTestId("test-table-body");
   expect(headingElement).toBeTruthy();
 });
 
 it("Payment history Button is navigating to Payment History page", async () => {
-  useAccountOverview.mockImplementation(() => ({
-    isLoading: false,
-    accountDetails: mockData,
-  }));
+  RecentPaymentsDataMockTwo();
   const container = render(MockRecentPayments());
   const input = container.getByTestId('payment_history_button');
   expect(input).toBeTruthy();
@@ -84,39 +78,20 @@ it("Payment history Button is navigating to Payment History page", async () => {
   await waitFor(() => expect(page).toBeInTheDocument());
 });
 
-// it("No Recent Payment Test", () => {
-//   useAccountOverview.mockImplementation(() => ({
-//     isLoading: false,
-//     accountDetails: mockDataOne,
-//   }));
-//   const container = render(MockRecentPayments());
-//   const headingElement = container.getByTestId("error_Recent_Payments");
-//   expect(headingElement).toBeTruthy();
-// });
-
 it("Check number of rows for Recent Payments - With Payment History", () => {
-  useAccountOverview.mockImplementation(() => ({
-    isLoading: false,
-    accountDetails: mockData,
-  }));
+  RecentPaymentsDataMockTwo();
   render(MockRecentPayments());
   expect(screen.getAllByRole('row')).toHaveLength(6);
 });
 
 it("Check number of rows for Recent Payments - Without Payment History", () => {
-  useAccountOverview.mockImplementation(() => ({
-    isLoading: false,
-    accountDetails: mockDataOne,
-  }));
+  RecentPaymentsDataMock()
   render(MockRecentPayments());
   expect(screen.getAllByRole('row')).toHaveLength(6);
 });
 
 it("Default Account Number with Payment History", () => {
-  useAccountOverview.mockImplementation(() => ({
-    isLoading: false,
-    accountDetails: mockData,
-  }));
+  RecentPaymentsDataMockTwo();
   const container = render(MockRecentPayments());
   const headingElement = container.getByTestId('selectInput');
   expect(headingElement.value).toBe("3506-005079-19");

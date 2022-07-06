@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
-import * as imageConversion from 'image-conversion';
 import Webcam from "react-webcam";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import {
@@ -24,13 +23,7 @@ const FACING_MODE_ENVIRONMENT = "environment";
 const videoConstraints = {
   facingMode: FACING_MODE_ENVIRONMENT
 };
-async function filetoImage(file) {
-  try {
-    return await imageConversion.filetoDataURL(file);
-  } catch (error) {
-    ErrorLogger("Error executing image conversion", error);
-  }
-}
+
 function UploadDocument(props) {
   const classes = useStylesEmailVerification();
   const [ showCamera, setShowCamera ] = useState(false);
@@ -80,24 +73,16 @@ function UploadDocument(props) {
     let reader = new FileReader();
     try {
       if (selectedFile.files && selectedFile.files[ 0 ]) {
+        reader.readAsDataURL(selectedFile.files[ 0 ]);
         reader.onload = async () => {
-          const compressFile = await imageConversion.compressAccurately(selectedFile.files[ 0 ], {
-            size: 80,
-            accuracy: '',
-            type: "image/jpeg",
-            width: '',
-            height: "200",
-            scale: 0.5,
-            orientation: 2
-          });
-          const compressImage = await filetoImage(compressFile);
-          const buffer2 = Buffer.from(compressImage, "base64");
+          let compressFileData = reader.result;
+          const buffer2 = Buffer.from(compressFileData, "base64");
           let encodedFile = Buffer.from(buffer2).toString("base64");
           let imageData = encodedFile
             .toString()
             .replace(/^dataimage\/[a-z]+base64/, "");          
           let fileName = selectedFile.files[ 0 ].name;
-          let fileType = compressFile.type;
+          let fileType = selectedFile.files[ 0 ].type;
           let documentType = typeOfDocument;
           setLoading(true);
           let compressedFile = [ {
@@ -118,7 +103,6 @@ function UploadDocument(props) {
             setLoading(false);
           }
         };
-        reader.readAsDataURL(selectedFile.files[ 0 ]);
       }
     } catch (error) {
       ErrorLogger(" Error in emailVerificationDocument", error);
@@ -300,6 +284,7 @@ function UploadDocument(props) {
               <Grid container>
                 <ButtonPrimary
                   onClick={enableCameraOption}
+                  data-testid= "takeAnotherPicture"
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
                 >
                   Take another picture

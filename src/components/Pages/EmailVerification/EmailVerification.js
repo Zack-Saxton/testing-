@@ -23,6 +23,8 @@ import "./EmailVerification.css";
 import IncomeVerification from "./IncomeVerification";
 import { useStylesEmailVerification } from "./Style";
 import VehiclePhotos from "./VehiclePhotos";
+import { useBranchPortalHook } from './BranchPortalTest/useBranchPortalHook';
+
 
 function getSteps() {
   return [
@@ -35,13 +37,10 @@ function getSteps() {
 
 export default function EmailVerification() {
   const classes = useStylesEmailVerification();
-  const useQueryURL = () => new URLSearchParams(useLocation().search);
-  const queryString = useQueryURL();
   const [ customerEmail, setCustomerEmail ] = useState("");
   const [ applicationNumber, setApplicationNumber ] = useState("");
   const [ autoVerification, setAutoVerification ] = useState("off");
   const [ collaborateOption, setCollaborateOption ] = useState("off");
-  const verify = queryString.get("verify");
   const [ activeStep, setActiveStep ] = useState(0);
   const [ agreeTerms, setAgreeTerms ] = useState(false);
   const [ consentLoading, setConsentLoading ] = useState(false);
@@ -50,7 +49,10 @@ export default function EmailVerification() {
   const [ cacTerms, setCacTerms ] = useState(false);
   const [ websiteTerms, setWebsiteTerms ] = useState(false);
   let steps = getSteps();
-  const { isLoading, data: verificationData } = useQuery([ 'branch-mail-verification-data', verify ], () => validateActivationToken(verify));
+  
+  //API Call
+  const { isLoading, verificationData } = useBranchPortalHook();
+  
   useEffect(() => {
     let applicationNo = verificationData?.data?.emailVerificationRecord?.attributes?.applicationNumber ?? "";
     let autoVerification = verificationData?.data?.emailVerificationRecord?.attributes?.autoVerification ?? "off";
@@ -192,9 +194,9 @@ export default function EmailVerification() {
     return (
       <>
         <a>{' '}<span data-testid = "esignClick" className={classes.linkDesign} onClick={() => { handleOnClickeSign(); }}>E-Signature Disclosure and Consent,</span></a>
-        <a>{' '}<span className={classes.linkDesign} onClick={() => { handleOnClickCreditTerms(); }}>Credit and Contact Authorization,</span></a>
-        <a>{' '}<span className={classes.linkDesign} onClick={() => { handleOnClickCacTerms(); }}>Website Terms of Use,</span></a>
-        <a>{' '}<span className={classes.linkDesign} onClick={() => { handleOnClickWebsiteTerms(); }}>Website Privacy Statement</span></a>
+        <a>{' '}<span data-testid = "creditContact" className={classes.linkDesign} onClick={() => { handleOnClickCreditTerms(); }}>Credit and Contact Authorization,</span></a>
+        <a>{' '}<span data-testid = "websiteTerms"className={classes.linkDesign} onClick={() => { handleOnClickCacTerms(); }}>Website Terms of Use,</span></a>
+        <a>{' '}<span data-testid = "websitePrivacy" className={classes.linkDesign} onClick={() => { handleOnClickWebsiteTerms(); }}>Website Privacy Statement</span></a>
       </>
     );
   }
@@ -208,7 +210,7 @@ export default function EmailVerification() {
         :
         <Grid className="emailVirificationWrap">
           <Grid>
-            <h2 className="documetVirificationHeading">
+            <h2  data-testid = "emailVerification_heading" className="documetVirificationHeading">
               Document and Email Verification
             </h2>
             <Typography className="documetVirificationParagraph">
@@ -251,6 +253,7 @@ export default function EmailVerification() {
                       <Grid>
                         <Checkbox
                           checked={agreeTerms}
+                          data-testid = "checkboxTerms"
                           onChange={handleChange}
                           color="primary"
                           inputProps={{ "aria-label": "primary checkbox" }}

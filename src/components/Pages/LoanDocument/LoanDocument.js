@@ -13,7 +13,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import * as imageConversion from 'image-conversion';
 import globalMessages from "../../../assets/data/globalMessages.json";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import {
@@ -72,29 +71,13 @@ export default function LoanDocument() {
     }
   };
 
-  async function filetoImage(file) {
-    try {
-      return await imageConversion.filetoDataURL(file);
-    } catch (error) {
-      ErrorLogger("Error executing image conversion", error);
-    }
-  }
-
   const handleElseTwo = () => {
     let reader = new FileReader();
     if (selectedFile.files && selectedFile.files[ 0 ]) {
+      reader.readAsDataURL(selectedFile.files[ 0 ]);
       reader.onload = async () => {
-        const compressFile = await imageConversion.compressAccurately(selectedFile.files[ 0 ], {
-          size: 80,
-          accuracy: '',
-          type: "image/jpeg",
-          width: '',
-          height: "200",
-          scale: 0.5,
-          orientation: 2
-        });
-        const compressImage = await filetoImage(compressFile);
-        const buffer2 = Buffer.from(compressImage, "base64");
+        let compressFileData = reader.result;
+        const buffer2 = Buffer.from(compressFileData, "base64");
         let fileData = Buffer.from(buffer2).toString("base64");
         let fileName = selectedFile.files[ 0 ].name;
         let fileType = selectedFile.files[ 0 ].type;
@@ -108,7 +91,6 @@ export default function LoanDocument() {
         }
         //Passing data to API
       };
-      reader.readAsDataURL(selectedFile.files[ 0 ]);
     }
   };
 
