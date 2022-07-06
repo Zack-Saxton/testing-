@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import React from 'react';
 
-const useStyles = makeStyles((Theme) => ({
+const useStyles = makeStyles(() => ({
 	listTitle: {
 		marginTop: "1.56rem !important",
 		marginBottom: "2rem !important",

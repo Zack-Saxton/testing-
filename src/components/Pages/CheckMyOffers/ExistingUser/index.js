@@ -29,7 +29,7 @@ const validationSchema = yup.object({
 		.required(globalMessages.PasswordRequired),
 });
 
-const useStyles = makeStyles((Theme) => ({
+const useStyles = makeStyles(() => ({
 
 	typoStyle: {
 		align: "center",

@@ -57,7 +57,7 @@ test("Checks House hold Income filed in the UI", () => {
 });
 
 test("Check the Continue button in  UI", () => {
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	expect(getByText("Continue")).toBeTruthy();
 });
 

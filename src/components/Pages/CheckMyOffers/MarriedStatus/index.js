@@ -69,7 +69,7 @@ const validationSchema = yup.object({
 		}),
 });
 
-const useStyles = makeStyles((Theme) => ({
+const useStyles = makeStyles(() => ({
 
 	typoStyle: {
 		align: "center",
@@ -168,6 +168,14 @@ function MarriedStatus() {
 		}
 	};
 
+	const shortANDoperation = (pramOne, pramtwo) => {
+		return pramOne && pramtwo
+	};
+
+	const shortORoperation = (pramOne, pramtwo) => {
+		return pramOne || pramtwo
+	};
+
 	//JSX part
 	return (
 		<div data-testid="married-status-component">
@@ -254,14 +262,12 @@ function MarriedStatus() {
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
 												inputTestID="marital-status-list"
-												error={
-													formik.touched.maritalStatus &&
-													Boolean(formik.errors.maritalStatus)
-												}
-												helperText={
-													formik.touched.maritalStatus &&
-													formik.errors.maritalStatus
-												}
+												error = {
+													shortANDoperation(formik.touched.maritalStatus ,Boolean(formik.errors.maritalStatus))
+												} 
+												helperText = {
+													shortANDoperation(formik.touched.maritalStatus ,formik.errors.maritalStatus)
+												} 
 											/>
 										</Grid>
 										<Grid
@@ -274,11 +280,8 @@ function MarriedStatus() {
 											md={8}
 											xs={12}
 											className={
-												formik.values.maritalStatus === maritalStatusData.married ||
-													formik.values.maritalStatus ===
-													maritalStatusData.seperated
-													? "showMsg space"
-													: "hideMsg space"
+												shortORoperation(formik.values.maritalStatus === maritalStatusData.married, formik.values.maritalStatus === maritalStatusData.seperated)
+												? "showMsg space" : "hideMsg space"
 											}
 										>
 											<TextField
@@ -289,8 +292,8 @@ function MarriedStatus() {
 												onKeyDown={preventSpace}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
-												error={formik.touched.add && Boolean(formik.errors.add)}
-												helperText={formik.touched.add && formik.errors.add}
+												error = {shortANDoperation(formik.touched.add, Boolean(formik.errors.add))} 
+												helperText = {shortANDoperation(formik.touched.add , formik.errors.add)} 
 											/>
 										</Grid>
 										<Grid
@@ -302,9 +305,7 @@ function MarriedStatus() {
 											md={8}
 											xs={12}
 											className={
-												formik.values.maritalStatus === maritalStatusData.married ||
-													formik.values.maritalStatus ===
-													maritalStatusData.seperated
+												shortORoperation(formik.values.maritalStatus === maritalStatusData.married,formik.values.maritalStatus === maritalStatusData.seperated)
 													? "showMsg "
 													: "hideMsg "
 											}
@@ -322,9 +323,7 @@ function MarriedStatus() {
 											md={8}
 											xs={12}
 											className={
-												formik.values.maritalStatus === maritalStatusData.married ||
-													formik.values.maritalStatus ===
-													maritalStatusData.seperated
+												shortORoperation(formik.values.maritalStatus === maritalStatusData.married,formik.values.maritalStatus === maritalStatusData.seperated)
 													? "showMsg space"
 													: "hideMsg space"
 											}
@@ -337,17 +336,8 @@ function MarriedStatus() {
 												value={formik.values.spouseZipcode}
 												onChange={fetchAddress}
 												onBlur={formik.handleBlur}
-												error={
-													(formik.touched.spouseZipcode &&
-														Boolean(formik.errors.spouseZipcode)) ||
-													!validZip
-												}
-												helperText={
-													validZip
-														? formik.touched.spouseZipcode &&
-														formik.errors.spouseZipcode
-														: globalMessages.ZipCodeValid
-												}
+												error = { shortORoperation(shortANDoperation(formik.touched.spouseZipcode, Boolean(formik.errors.spouseZipcode)), !validZip)} 												
+												helperText={validZip? formik.touched.spouseZipcode && formik.errors.spouseZipcode: globalMessages.ZipCodeValid}
 											/>
 										</Grid>
 										<Grid
@@ -359,11 +349,8 @@ function MarriedStatus() {
 											md={8}
 											xs={12}
 											className={
-												formik.values.maritalStatus === maritalStatusData.married ||
-													formik.values.maritalStatus ===
-													maritalStatusData.seperated
-													? "showMsg space"
-													: "hideMsg space"
+												shortORoperation(formik.values.maritalStatus === maritalStatusData.married, formik.values.maritalStatus === maritalStatusData.seperated)
+													? "showMsg space" : "hideMsg space"
 											}
 										>
 											<TextField
@@ -374,14 +361,8 @@ function MarriedStatus() {
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
 												disabled={true}
-												error={
-													formik.touched.spousecity &&
-													Boolean(formik.errors.spousecity)
-												}
-												helperText={
-													formik.touched.spousecity &&
-													formik.errors.spousecity
-												}
+												error = {shortANDoperation(formik.touched.spousecity, Boolean(formik.errors.spousecity))} 
+												helperText = {shortANDoperation(formik.touched.spousecity, formik.errors.spousecity)} 
 											/>
 										</Grid>
 										<Grid
@@ -393,11 +374,8 @@ function MarriedStatus() {
 											md={8}
 											xs={12}
 											className={
-												formik.values.maritalStatus === maritalStatusData.married ||
-													formik.values.maritalStatus ===
-													maritalStatusData.seperated
-													? "showMsg space"
-													: "hideMsg space"
+												shortORoperation(formik.values.maritalStatus === maritalStatusData.married, formik.values.maritalStatus === maritalStatusData.seperated)
+													? "showMsg space" : "hideMsg space"
 											}
 										>
 											<TextField
@@ -408,14 +386,12 @@ function MarriedStatus() {
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
 												disabled={true}
-												error={
-													formik.touched.spouseSelectState &&
-													Boolean(formik.errors.spouseSelectState)
-												}
-												helperText={
-													formik.touched.spouseSelectState &&
-													formik.errors.spouseSelectState
-												}
+												error = {
+                            shortANDoperation(formik.touched.spouseSelectState ,Boolean(formik.errors.spouseSelectState))
+                          }
+                          helperText = {
+                            shortANDoperation(formik.touched.spouseSelectState ,formik.errors.spouseSelectState)
+                          }
 											/>
 										</Grid>
 

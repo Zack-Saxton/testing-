@@ -18,7 +18,7 @@ import {
 	ButtonPrimary,
 	DatePicker,
 	EmailTextField,
-	PhoneNumber,
+	// PhoneNumber,
 	SocialSecurityNumber,
 	TextField
 } from "../../../FormsUI";
@@ -92,7 +92,7 @@ const validationSchema = yup.object({
 		.typeError(globalMessages.DateOfBirthValid),
 });
 
-const useStyles = makeStyles((Theme) => ({
+const useStyles = makeStyles(() => ({
 	gridPadding: {
 		justifyContent: "center",
 		padding: "4% 0%"
@@ -166,6 +166,25 @@ function PersonalInfo() {
 		}, [ data.phone ]);
 
 	
+	const ifReducer = (customerStatus, values) => {
+		if (customerStatus.data.user.email === values.email) {
+			if (customerStatus.data?.ssnLookupFails) {
+				setSsnEmailMatch(false);
+				setError(false);
+				setLoading(false);
+			} else {
+				setSsnEmailMatch(true);
+				setError(false);
+				setLoading(false);
+				navigate("/existing-user");
+			}
+		} else {
+			setSsnEmailMatch(false);
+			setError(false);
+			setLoading(false);
+		}
+	} 
+
 	//configuring formik
 	const formik = useFormik({
 		initialValues: {
@@ -225,22 +244,8 @@ function PersonalInfo() {
 						});
 
 						if (customerStatus.data.customerFound) {
-							if (customerStatus.data.user.email === values.email) {
-								if (customerStatus.data?.ssnLookupFails) {
-									setSsnEmailMatch(false);
-									setError(false);
-									setLoading(false);
-								} else {
-									setSsnEmailMatch(true);
-									setError(false);
-									setLoading(false);
-									navigate("/existing-user");
-								}
-							} else {
-								setSsnEmailMatch(false);
-								setError(false);
-								setLoading(false);
-							}
+							ifReducer(customerStatus, values)
+						
 						} else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== "More than 1 customer record retrieved ") {
 							setError(false);
 							setLoading(false);
@@ -316,7 +321,6 @@ function PersonalInfo() {
 		if (data.completedPage < data.page.homeAddress || data.formStatus === "completed") {
 			navigate("/select-amount");
 		}
-		// return null;
 		return () => { // This code runs when component is unmounted
 			componentMounted.current = false; // set it to false when we leave the page
 		}
@@ -333,6 +337,9 @@ function PersonalInfo() {
 	  setPhoneNumberValue(event.target.value);
     setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
   }
+	const shortANDoperation = (pramOne, pramtwo) => {
+		return pramOne && pramtwo
+	};
 
 	//JSX [part]
 	return (
@@ -417,13 +424,8 @@ function PersonalInfo() {
 												value={formik.values.firstName}
 												onChange={onNameChange}
 												onBlur={formik.handleBlur}
-												error={
-													formik.touched.firstName &&
-													Boolean(formik.errors.firstName)
-												}
-												helperText={
-													formik.touched.firstName && formik.errors.firstName
-												}
+												error={shortANDoperation(formik.touched.firstName, Boolean(formik.errors.firstName))}
+                        helperText = {shortANDoperation(formik.touched.firstName , formik.errors.firstName)}
 												disabled={data.disabled}
 											/>
 										</Grid>
@@ -446,13 +448,8 @@ function PersonalInfo() {
 												value={formik.values.lastName}
 												onChange={onNameChange}
 												onBlur={formik.handleBlur}
-												error={
-													formik.touched.lastName &&
-													Boolean(formik.errors.lastName)
-												}
-												helperText={
-													formik.touched.lastName && formik.errors.lastName
-												}
+												error={shortANDoperation(formik.touched.lastName, Boolean(formik.errors.lastName))}
+                        helperText = {shortANDoperation(formik.touched.lastName, formik.errors.lastName)}
 												disabled={data.disabled}
 											/>
 											<div className="MuiTypography-alignLeft">
@@ -484,8 +481,8 @@ function PersonalInfo() {
 													formik.setFieldValue("dob", values);
 												}}
 												onBlur={formik.handleBlur}
-												error={formik.touched.dob && Boolean(formik.errors.dob)}
-												helperText={formik.touched.dob && formik.errors.dob}
+												error={shortANDoperation(formik.touched.dob, Boolean(formik.errors.dob))}
+                        helperText = {shortANDoperation(formik.touched.dob, formik.errors.dob)}
 											/>
 
 											<div className="MuiTypography-alignLeft">
@@ -516,13 +513,8 @@ function PersonalInfo() {
 													materialProps={{ maxLength: "30" }}
 													value={formik.values.lastSSN}
 													onBlur={formik.handleBlur}
-													error={
-														formik.touched.lastSSN &&
-														Boolean(formik.errors.lastSSN)
-													}
-													helperText={
-														formik.touched.lastSSN && formik.errors.lastSSN
-													}
+													error={shortANDoperation(formik.touched.lastSSN, Boolean(formik.errors.lastSSN))}
+													helperText = {shortANDoperation(formik.touched.lastSSN, formik.errors.lastSSN)}
 													disabled={data.disabled}
 												/>
 											) : (
@@ -535,10 +527,8 @@ function PersonalInfo() {
 													value={formik.values.ssn}
 													onChange={emailOnChange}
 													onBlur={formik.handleBlur}
-													error={
-														formik.touched.ssn && Boolean(formik.errors.ssn)
-													}
-													helperText={formik.touched.ssn && formik.errors.ssn}
+													error={shortANDoperation(formik.touched.ssn, Boolean(formik.errors.ssn))}
+													helperText = {shortANDoperation(formik.touched.ssn, formik.errors.ssn)}
 												/>
 											)}
 
@@ -568,10 +558,8 @@ function PersonalInfo() {
 												onLoad={checkApplicationStatus}
 												onChange={emailOnChange}
 												onBlur={checkApplicationStatus}
-												error={
-													formik.touched.email && Boolean(formik.errors.email)
-												}
-												helperText={formik.touched.email && formik.errors.email}
+												error={shortANDoperation(formik.touched.email, Boolean(formik.errors.email))}
+												helperText = {shortANDoperation(formik.touched.email, formik.errors.email)}
 												disabled={data.disabled}
 											/>
 											<p
@@ -612,11 +600,8 @@ function PersonalInfo() {
 																updateEnterPhoneNo(event);
 																formik.handleChange(event);
 															}}
-															error={
-																formik.touched.phone && Boolean(formik.errors.phone)
-															}
-															helperText={formik.touched.phone && formik.errors.phone}
-															
+															error={shortANDoperation(formik.touched.phone, Boolean(formik.errors.phone))}
+															helperText = {shortANDoperation(formik.touched.phone, formik.errors.phone)}
 															onFocus={ updateActualValue }
 															disabled={ data.phone }
 														/>

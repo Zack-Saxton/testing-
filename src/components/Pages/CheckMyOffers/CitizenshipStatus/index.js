@@ -14,7 +14,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import "./CitizenshipStatus.css";
 
 //styling
-const useStyles = makeStyles((Theme) =>
+const useStyles = makeStyles(() =>
 	createStyles({
 		paperStyle: {
 			justify: "center",
