@@ -5,7 +5,6 @@ import CheckIcon from "@mui/icons-material/Check";
 import LockIcon from "@mui/icons-material/Lock";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import amOneLogo from "../../../../assets/icon/amOneWhite.png";
-// import React from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect } from "react";

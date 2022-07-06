@@ -16,7 +16,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
 
 //Styling part
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   alignSmallText: {
     paddingTop: "25px",
     paddingBottom: "70px",

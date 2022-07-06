@@ -152,6 +152,3 @@ test('should match the snapshot Test', () => {
   const { asFragment } = render(component());
   expect(asFragment).toMatchSnapshot();
 })
-
-
-

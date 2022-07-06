@@ -15,7 +15,7 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import "./AnnualIncome.css";
 import Income from "./Income";
 
-const useStyles = makeStyles((Theme) => ({
+const useStyles = makeStyles(() => ({
 	boxGrid: {
 		padding: "4% 0px 4% 0px"
 	},

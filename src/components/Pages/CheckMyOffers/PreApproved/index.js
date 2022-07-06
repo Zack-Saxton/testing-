@@ -9,7 +9,7 @@ import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     offerAmountStyle: {
         color: "#0F4EB3",
         lineHeight: "110%",
