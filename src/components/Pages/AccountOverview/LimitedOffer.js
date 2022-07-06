@@ -131,7 +131,7 @@ export default function LimitedOffer(userOfferData) {
                       to="/customers/applyForLoan"
                       state={{ from: "user" }}
                       onClick={(event) => {
-                        currentLoan ? event.preventDefault() : "";
+                        currentLoan && event.preventDefault();
                       }}
                     >
                       <ButtonPrimary
