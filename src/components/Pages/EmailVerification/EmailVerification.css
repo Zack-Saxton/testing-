@@ -11,6 +11,7 @@
   font-size: 0.875rem;
   line-height: 25px;
   color: #0f4eb3 !important;
+  cursor: pointer;
 }
 
 .acknowledgeText p a span {
@@ -98,6 +99,7 @@
 #selectInputGrid div label {
   font-size: 0.938rem;
   color: #595959;
+  margin-left: -14px;
 }
 
 #selectInputGrid .MuiFormControl-root .MuiInput-underline .MuiSelect-select {
