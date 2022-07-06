@@ -139,12 +139,6 @@ test("Componenct rendered successfully", () => {
   expect(element).toBeTruthy();
 });
 
-test("Table rendered", () => {
-  render(component());
-  const element = screen.getByTestId("paymentOverviewTable");
-  expect(element).toBeTruthy();
-});
-
 test("Headers rendered correctly", () => {
   render(component());
   const AccNo = screen.getByText("Account Number");
@@ -170,30 +164,6 @@ test("Rows rendered correctly", () => {
   expect(screen.getAllByRole('row')).toHaveLength(2);
 });
 
-// test("Cells rendered correctly", () => {
-//   render(component());
-//   expect(screen.getAllByRole('cell')).toHaveLength(7);
-// });
-
-// test("Cell values rendered correct;y", () => {
-//   render(component());
-//   const AccNo = screen.getByText("4103-001995-21");
-//   expect(AccNo).toBeTruthy();  
-//   const todayPayoff = screen.getByText("$8,320.94");
-//   expect(todayPayoff).toBeTruthy();  
-//   const regAmount = screen.getByText("$315.97");
-//   expect(regAmount).toBeTruthy();
-//   const intrest = screen.getByText("$35.99");
-//   expect(intrest).toBeTruthy();
-//   const loadFees = screen.getByText("$14.70");
-//   expect(loadFees).toBeTruthy();
-//   const dueDate = screen.getByText("06/07/2022");
-//   expect(dueDate).toBeTruthy();
-//   const autoPay = screen.getByText("NONE");
-//   expect(autoPay).toBeTruthy();
-//   const shedulePayment = screen.getByText("Disabled");
-//   expect(shedulePayment).toBeTruthy();
-// });
 
 test('should match the snapshot', () => {
   const { asFragment } = render(component());

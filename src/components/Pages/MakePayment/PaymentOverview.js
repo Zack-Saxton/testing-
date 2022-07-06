@@ -11,8 +11,6 @@ import NumberFormat from 'react-number-format';
 import "./MakePayment.css";
 import { useStylesMakePayment } from "./Style";
 
-
-// export default function PaymentOverview(paymentData, status) {
 export default function PaymentOverview(props) {
     //Material UI css class
     const classes = useStylesMakePayment();

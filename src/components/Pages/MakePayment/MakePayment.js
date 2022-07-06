@@ -46,11 +46,10 @@ import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
 import { useStylesMakePayment } from "./Style";
 import setAccountDetails from "../../Controllers/AccountOverviewController";
-
 const paymentMaxDate = new Date();
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
 
-export default function MakePayment(props) {
+export default function MakePayment() {
   //Material UI css class
   const classes = useStylesMakePayment();
   const navigate = useNavigate();
