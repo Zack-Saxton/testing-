@@ -151,13 +151,6 @@ expect(element).toBeTruthy();
 });
 
 
-test("check the Mortgage Apply for loan button is clickable", () => {
-	render(component());
-	const button = screen.getByTestId("applyForLoanButton");
-	fireEvent.click(button);
-});
-
-
 test("Checks the offerText is rendered", () => {
 	render(componentWithData());
 	const element = screen.getByTestId("offerText");

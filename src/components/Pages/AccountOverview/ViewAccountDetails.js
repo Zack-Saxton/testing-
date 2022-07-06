@@ -48,7 +48,7 @@ function tabVerticalProps(verticalIndex) {
 export default function ViewAccountDetails() {
   const classes = useStylesAccountOverview();
   const [ values, setValues ] = useState(0);
-  const handleTabChange = (event, newValues) => setValues(newValues);
+  const handleTabChange = (_event, newValues) => setValues(newValues);
   let viewAppContact = Cookies.get("viewAppContact") ?? '{}';
   let viewApplicationContact = JSON.parse(viewAppContact);
   let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{}';
