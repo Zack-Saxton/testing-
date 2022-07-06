@@ -109,7 +109,7 @@ export default function PaymentHistoryTable({ userRecentPaymentData }) {
   const [ page, setPage ] = useState(0);
   const [ rowsPerPage, setRowsPerPage ] = useState(10);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (_event, newPage) => {
     setPage(newPage);
   };
 

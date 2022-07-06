@@ -24,7 +24,7 @@ import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { ButtonPrimary, ButtonWithIcon } from "../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
-import PaymentHistoryTable from "./PaymentRecords";
+import PaymentHistoryTable from "./PaymentHistoryTable.js";
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
 
