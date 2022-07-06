@@ -27,10 +27,10 @@ function ReferredFromAffiliate() {
   const applicantId = query.get("REF");
 
   const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
-  const { isLoading, PopulatePartnerSignupData } = usePopulatePartnerReferred(applicantId);
+
 
   //API Call
-  // const { data: PopulatePartnerSignupData } = useQuery([ 'populate-data-referred',  applicantId], () => PopulatePartnerReferred( applicantId ));
+  const { PopulatePartnerSignupData } = usePopulatePartnerReferred(applicantId);
 
   useEffect(() => {
     SetPopulatePartnerSignupState(PopulatePartnerSignupData);
