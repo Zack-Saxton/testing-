@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 //initializing check my offers functonal component
 function SelectAmount(props) {
   const { data, setData, resetData } = useContext(Check);
-  const [ hasOfferCode, setHasOfferCode ] = useState(props?.enableOffer ? true : false);
+  const [ hasOfferCode, setHasOfferCode ] = useState(props?.enableOffer ?? false);
   const classes = preLoginStyle();
   const innerClasses = useStyles();
   const navigate = useNavigate();
