@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
 import { makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -30,9 +31,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //initializing check my offers functonal component
-function SelectAmount() {
+function SelectAmount(props) {
   const { data, setData, resetData } = useContext(Check);
-  const [ hasOfferCode, setHasOfferCode ] = useState("");
+  const [ hasOfferCode, setHasOfferCode ] = useState(props?.enableOffer ? true : false);
   const classes = preLoginStyle();
   const innerClasses = useStyles();
   const navigate = useNavigate();
@@ -302,5 +303,9 @@ function SelectAmount() {
     </div>
   );
 }
+
+SelectAmount.propTypes = {
+  enableOffer: PropTypes.bool
+};
 
 export default SelectAmount;
