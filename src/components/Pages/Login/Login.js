@@ -57,7 +57,6 @@ export default function Login(props) {
   let location = useLocation();
   const [latitude,setLatitude] = useState();
   const [longitude,setLongitude] = useState();
-
   const remMeDataRaw = Cookies.get("rememberMe") ?? '{}';
   let remMeData = JSON.parse(remMeDataRaw);
   const [ remMe, setRemMe ] = useState(remMeData?.selected);
@@ -100,6 +99,64 @@ export default function Login(props) {
     setDisableRecaptcha(true);
   };
 
+  const setCookiesPostLogin = (retVal, now, values, login_date, mfaData) => {
+    Cookies.set(
+      "token",
+      JSON.stringify({
+        isLoggedIn: true,
+        apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
+        setupTime: now,
+        applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
+        isMFA:retVal?.data?.user?.extensionattributes?.MFA ?? false,
+        isMFACompleted: false
+      })
+    );
+    Cookies.set("cred", encryptAES(JSON.stringify({ email: values?.email, password: values?.password })));
+    Cookies.set("email", values?.email);
+    Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
+    Cookies.set("login_date", login_date);
+    Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
+    Cookies.set("temp_opted_phone_texting", "");
+    Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email }) : JSON.stringify({ selected: false, email: '' }));
+    
+    Cookies.set("mfaDetails", JSON.stringify(mfaData));
+  }
+
+  const handleSuccessLogin = (retVal, values, mfaData) => {
+    let login_date = retVal?.data?.user?.extensionattributes?.login
+    ?.last_timestamp_date
+    ? moment(retVal.data.user.extensionattributes.login.last_timestamp_date)
+      .subtract(addVal, "hours")
+      .format("MM/DD/YYYY")
+    : "";
+  let now = new Date().getTime();
+  // On login success storing the needed data in the local storage
+  setCookiesPostLogin(retVal, now, values, login_date, mfaData);
+
+  queryClient.removeQueries();
+  setLoading(false);
+  if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter === 1 && retVal?.data?.user?.extensionattributes?.MFA){
+    Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
+    navigate("/MFA-phoneNumber", {state:mfaData });
+  }
+  else if(retVal?.data?.user?.extensionattributes?.MFA){
+    Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
+    Cookies.set("mfaDetails", mfaData);
+    navigate("/MFA", { state: mfaData });
+  } 
+  else if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter > 0 && !retVal?.data?.user?.extensionattributes?.securityQuestionsSaved && !retVal?.data?.user?.extensionattributes?.MFA){
+    navigate('/mfa-kbaQuestions', {state: mfaData});
+  } 
+  else {
+    retVal?.data?.user?.attributes?.password_reset
+    ? navigate("/resetpassword", { state: { Email: values?.email } })
+    : navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
+  }
+  if (location.state?.activationToken) {
+    navigate(0);
+  }
+  }
+
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -121,57 +178,8 @@ export default function Login(props) {
         props?.setToken
       );
       if (retVal?.data?.user && retVal?.data?.userFound) {
-        let login_date = retVal?.data?.user?.extensionattributes?.login
-          ?.last_timestamp_date
-          ? moment(retVal.data.user.extensionattributes.login.last_timestamp_date)
-            .subtract(addVal, "hours")
-            .format("MM/DD/YYYY")
-          : "";
-        let now = new Date().getTime();
-        // On login success storing the needed data in the local storage
-        Cookies.set(
-          "token",
-          JSON.stringify({
-            isLoggedIn: true,
-            apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
-            setupTime: now,
-            applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
-            isMFA:retVal?.data?.user?.extensionattributes?.MFA ?? false,
-            isMFACompleted: false
-          })
-        );
-        Cookies.set("cred", encryptAES(JSON.stringify({ email: values?.email, password: values?.password })));
-        Cookies.set("email", values?.email);
-        Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
-        Cookies.set("login_date", login_date);
-        Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
-        Cookies.set("temp_opted_phone_texting", "");
-        Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email }) : JSON.stringify({ selected: false, email: '' }));
         let mfaData = {mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }
-        Cookies.set("mfaDetails", JSON.stringify(mfaData));
-
-        queryClient.removeQueries();
-        setLoading(false);
-        if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter === 1 && retVal?.data?.user?.extensionattributes?.MFA){
-          Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
-          navigate("/MFA-phoneNumber", {state:mfaData });
-        }
-        else if(retVal?.data?.user?.extensionattributes?.MFA){
-          Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
-          Cookies.set("mfaDetails", mfaData);
-          navigate("/MFA", { state: mfaData });
-        } 
-        else if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter > 0 && !retVal?.data?.user?.extensionattributes?.securityQuestionsSaved && !retVal?.data?.user?.extensionattributes?.MFA){
-          navigate('/mfa-kbaQuestions', {state: mfaData});
-        } 
-        else {
-          retVal?.data?.user?.attributes?.password_reset
-          ? navigate("/resetpassword", { state: { Email: values?.email } })
-          : navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
-        }
-        if (location.state?.activationToken) {
-          navigate(0);
-        }
+        handleSuccessLogin(retVal, values, mfaData);
       } else if (
         retVal?.data?.result === "error" ||
         retVal?.data?.hasError

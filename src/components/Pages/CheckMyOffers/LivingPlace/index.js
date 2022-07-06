@@ -15,7 +15,7 @@ import "../CheckMyOffer.css";
 import "../LivingPlace/LivingPlace.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 
-const useStyles = makeStyles((Theme) => ({
+const useStyles = makeStyles(() => ({
 	boxGrid: {
 		padding: "4% 0px 4% 0px"
 	},

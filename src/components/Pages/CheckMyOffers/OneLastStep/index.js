@@ -36,7 +36,7 @@ function SSN() {
 	const [ privacyPopup, setPrivacyPopup ] = useState(false);
 	const { refetch } = useQuery('loan-data', usrAccountDetails);
 	const navigate = useNavigate();
-	const useStyles = makeStyles((theme) => ({
+	const useStyles = makeStyles(() => ({
 		linkDesign: {
 			marginTop: "3px !important",
 			marginBottom: "3px !important",

@@ -1,5 +1,8 @@
+.contentWrap table p{
+  text-align: left !important;
+}
 #customeDialogBox p {
-  text-align: left;
+  text-align: justify;
 }
 
 .contentWrap div p a {

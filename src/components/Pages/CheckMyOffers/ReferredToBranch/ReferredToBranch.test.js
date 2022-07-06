@@ -8,7 +8,6 @@ import "@testing-library/jest-dom/extend-expect";
 import { waitFor, render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -34,7 +33,6 @@ const component = () => {
 		</ThemeProvider>
 	);
 }
-
 
 test("Check component is rendered", () => {
 	render(component());
@@ -66,7 +64,6 @@ test("Check receive Money is rendered", () => {
 	const element = screen.getByTestId('receiveMoneyGrid');
 	expect(element).toBeTruthy();
 });
-
 
 test('Check Representative message is displayed',async () => {
 	const { getByText } = render(component());

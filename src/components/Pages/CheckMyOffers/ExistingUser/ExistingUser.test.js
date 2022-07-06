@@ -33,7 +33,6 @@ const component = () =>{
 	);
 }
 
-
  // Testing to Making sure all fields exist for user
 
 	test("Field Availability test", () => {
@@ -90,21 +89,3 @@ const component = () =>{
 			const { asFragment } = render(component(), {wrapper: MemoryRouter}); 
 			expect(asFragment).toMatchSnapshot();
 		})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	

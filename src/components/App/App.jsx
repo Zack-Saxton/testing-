@@ -187,6 +187,7 @@ function App() {
                                                 <Route path='select-amount' element={loadGeneralUserComponent(<SelectAmount />)} >
                                                     <Route path=':amount' element={loadGeneralUserComponent(<SelectAmount />)} />
                                                 </Route>
+                                                <Route path='/offer-code' element={loadGeneralUserComponent(<SelectAmount enableOffer= {true} />)} />
                                                 <Route path='customers' >
 
                                                     <Route path='accountOverview' element={LoadPostComponent(<AccountOverview />)} />

@@ -45,7 +45,7 @@ const validationSchema = yup.object({
     .required(globalMessages.ZipCodeRequired),
 });
 
-const useStyles = makeStyles((Theme) => ({
+const useStyles = makeStyles(() => ({
   gridStyle: {
     padding: "4% 0",
     margin: "auto"
@@ -147,6 +147,26 @@ function HomeAddress() {
     }
   };
 
+  const helperIf = (result) => { 
+    formik.setFieldValue("city", result?.data.cityName);
+    formik.setFieldValue("state", result?.data.stateCode);
+    setStateShort(result?.data?.stateCode);
+    setValidZip(true);
+    if (validStates.indexOf(result?.data?.stateCode.toUpperCase()) === -1) {
+      setValidZip(false);
+      setErrorMsg(globalMessages.WeDoNotServeArea);
+      setNotAvailInCity(true);
+    } else {
+      setNotAvailInCity(false);
+    }
+    if (result?.data?.stateCode === "CA") {
+      handleClickOpen();
+    }
+    if (result?.data?.stateCode === "OH") {
+      handleClickOpenOhio();
+    }
+};
+
   const fetchAddress = async (event) => {
     try {
       let eventValue = event.target.value.trim();
@@ -154,23 +174,7 @@ function HomeAddress() {
       if (eventValue?.length === 5) {
         let result = await ZipCodeLookup(eventValue);
         if (result.status === 200) {
-          formik.setFieldValue("city", result?.data.cityName);
-          formik.setFieldValue("state", result?.data.stateCode);
-          setStateShort(result?.data?.stateCode);
-          setValidZip(true);
-          if (validStates.indexOf(result?.data?.stateCode.toUpperCase()) === -1) {
-            setValidZip(false);
-            setErrorMsg(globalMessages.WeDoNotServeArea);
-            setNotAvailInCity(true);
-          } else {
-            setNotAvailInCity(false);
-          }
-          if (result?.data?.stateCode === "CA") {
-            handleClickOpen();
-          }
-          if (result?.data?.stateCode === "OH") {
-            handleClickOpenOhio();
-          }
+          helperIf(result) 
         } else {
           formik.setFieldValue("city", "");
           formik.setFieldValue("state", "");
@@ -192,6 +196,9 @@ function HomeAddress() {
   const onBlurAddress = (event) => {
     formik.setFieldValue("streetAddress", event.target.value.trim());
   };
+  const shortANDoperation = (pramOne, pramtwo) => {
+		return pramOne && pramtwo
+	};
   return (
     <div data-testid = "homeAddress_Component">
       <ScrollToTopOnMount />
@@ -276,14 +283,12 @@ function HomeAddress() {
 												value={formik.values.streetAddress}
 												onChange={formik.handleChange}
 												onBlur={onBlurAddress}
-												error={
-													formik.touched.streetAddress &&
-													Boolean(formik.errors.streetAddress)
-												}
-												helperText={
-													formik.touched.streetAddress &&
-													formik.errors.streetAddress
-												}
+                        error={
+                          shortANDoperation(formik.touched.streetAddress ,Boolean(formik.errors.streetAddress))
+                        }
+                        helperText = {
+                          shortANDoperation(formik.touched.streetAddress ,formik.errors.streetAddress)
+                        }
 											/>
 										</Grid>
 										<Grid
@@ -342,10 +347,12 @@ function HomeAddress() {
 													value={formik.values.city}
 													onChange={formik.handleChange}
 													onBlur={formik.handleBlur}
-													error={
-														formik.touched.city && Boolean(formik.errors.city)
-													}
-													helperText={formik.touched.city && formik.errors.city}
+                          error ={
+                            shortANDoperation(formik.touched.city ,Boolean(formik.errors.city))
+                          }
+                          helperText = {
+                            shortANDoperation(formik.touched.city ,formik.errors.city)
+                          }       
 												/>
 											</Grid>
 											<Grid

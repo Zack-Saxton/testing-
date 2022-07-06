@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from "react";
 import "./MultiFactorAuthentication.css";
 import Cookies from 'js-cookie';
-import { useQuery } from 'react-query';
+import { useQuery,useMutation } from 'react-query';
 import { useNavigate, useLocation } from "react-router-dom";
 import OnePhoneNumber from "./OnePhoneNumber";
 import TwoPhoneNumbers from "./TwoPhoneNumbers";
-import {SendLoginPassCode, fetchQuestionMFA, fetchMFADetials} from "../../Controllers/MFAController"
-import {useMutation} from "react-query";
+import {SendLoginPassCode, fetchQuestionMFA} from "../../Controllers/MFAController"
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
 import CheckLoginStatus from '../../App/CheckLoginStatus';
+import CircularProgress from "@mui/material/CircularProgress";
+import "./mfa.css"
 
 const MultiFactorAuthentication = () => {
   const location = useLocation();
@@ -16,24 +17,28 @@ const MultiFactorAuthentication = () => {
   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
 
   const [mfaData, setMFAData] = useState();
+  const getEmail = Cookies.get("email");
+  const {isLoading : loading_mfaData, data : mfaInfo} = useQuery(['getMFADetails', getEmail ], ()=>fetchQuestionMFA(getEmail))
 
-  const getDet = async() => {
-    const emailNew = Cookies.get("email");
-    let val = await fetchQuestionMFA(emailNew);
-    let structureMFAdata = {
-      mfaDetails: val?.data?.MFAInformation
-    }
-    setMFAData(structureMFAdata);
-  }
   useEffect(() => {
-    getDet();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
+    if(mfaInfo?.data?.MFAInformation){
+        let structureMFAdata = {
+        mfaDetails: mfaInfo.data.MFAInformation
+    }
+        setMFAData(structureMFAdata);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mfaInfo]);
 
   const [selection, setSelection] = useState();
   const {mutateAsync, isLoading} = useMutation(SendLoginPassCode);
-  if (mfaData && mfaData?.mfaDetails) {
+
+
+  if(loading_mfaData){
+    return(
+    <div className="mfa_loadingSpinnerDiv"><CircularProgress className="mfa_loadingSpinner"  /></div>)
+    } 
+   if (mfaData && mfaData?.mfaDetails && !loading_mfaData) {
   let phoneFromCookie = Cookies.get("mfaPhone");
   let phoneType = mfaData?.mfaDetails?.phone_type ? mfaData?.mfaDetails?.phone_type.toLowerCase() : "cell";  
   let securityQuestionsSaved = mfaData?.mfaDetails?.securityQuestionsSaved;  
@@ -64,7 +69,7 @@ const MultiFactorAuthentication = () => {
   }
   
 /** One Phone number with No security questions **/
-if((situationOne || situationTwo || situationThree || situationFour) && phoneNumerList.length <= 1) {
+ if((situationOne || situationTwo || situationThree || situationFour) && phoneNumerList.length <= 1) {
   return (
     <div>
       <CheckLoginTimeout />
@@ -92,12 +97,14 @@ if((situationOne || situationTwo || situationThree || situationFour) && phoneNum
 }
 
 /*** Two Phone Numbers with no security questions ***/
-if(situationFive || situationSix) {
+
+ if(situationFive || situationSix) {
   return (
     <div>
       <CheckLoginTimeout />
       {loginToken.isLoggedIn && mfaData ? (
         <>
+         
           <TwoPhoneNumbers
             cellPhoneNumber={primaryPhoneNumber}
             optionalPhoneNumber={optedPhoneNo}
@@ -110,6 +117,7 @@ if(situationFive || situationSix) {
             mfaDetails={mfaData}
             securityQuestionsSaved={securityQuestionsSaved}
           />
+      
         </>
       ) : (
         <CheckLoginStatus />
@@ -119,7 +127,7 @@ if(situationFive || situationSix) {
 }
 
 /*** No Phone Number without Security Questions ***/
-if(situationSeven || situationEight) {
+ if(situationSeven || situationEight) {
   return (
     <div>
       <CheckLoginTimeout />
@@ -143,7 +151,7 @@ if(situationSeven || situationEight) {
   );
 }
 
-if(situationNine || situationTen){
+ if(situationNine || situationTen){
   return (
     <div>
       <CheckLoginTimeout />

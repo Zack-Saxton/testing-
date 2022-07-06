@@ -33,6 +33,21 @@ const component = () => {
 		</ThemeProvider>
 	);
 }
+
+const componentWithOfferEnableFlag = () => {
+	return (
+		<ThemeProvider theme={theme}>
+			<QueryClientProvider client={queryClient}>
+				<CheckMyOffers>
+					<ProfilePicture>
+						<SelectAmount enableOffer= {true} />
+					</ProfilePicture>
+				</CheckMyOffers>
+			</QueryClientProvider>
+		</ThemeProvider>
+	);
+}
+
 const component1 = () => {
 	return (
 		<SelectAmount />
@@ -103,6 +118,13 @@ test("Check can able to submit form", async () => {
 	const element = screen.getByTestId('offerCodeTriggerText');
 	fireEvent.click(element);
 	expect(element).toBeTruthy();
+});
+
+test("By default the offer code text box will be visible if the enable offer flag is true", async () => {
+	render(componentWithOfferEnableFlag(), { wrapper: MemoryRouter });
+	const offerInput = screen.getByTestId('offer-code-input-box');
+	expect(offerInput).toBeTruthy();
+	expect(offerInput).toHaveClass("open");
 });
 
 test('Should match the snapshot', () => {

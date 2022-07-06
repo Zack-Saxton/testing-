@@ -102,20 +102,7 @@ it("To Enable AutoPay Test", () => {
 });
 
 
-it("Enable AutoPay should navigate to Make a Payment Page Test", () => {
-  AccountOverviewDataMock();
-  const container = render(MockActiveloans());
-  const autoPayElement = container.getByTestId("enableAutoPay_1")
-  expect(autoPayElement).toBeTruthy();
-});
-
-it("Check number of Loan Accounts", () => {
-  AccountOverviewDataMock();
-  render(MockActiveloans());
-  expect(screen.getAllByTestId('loanGridWithData_0')).toHaveLength(1);
-});
-
-it("AutoPay Enabled Test", async () => {
+it("Enable AutoPay should navigate to Make a Payment Page Test", async() => {
   AccountOverviewDataMock();
   const container = render(MockActiveloans());
   const autoPayElement = container.getByTestId("enableAutoPay_1")
@@ -123,6 +110,12 @@ it("AutoPay Enabled Test", async () => {
   fireEvent.click(autoPayElement);
   const page = container.getByTestId("heading")
   await waitFor(() => expect(page).toBeInTheDocument());
+});
+
+it("Check number of Loan Accounts", () => {
+  AccountOverviewDataMock();
+  render(MockActiveloans());
+  expect(screen.getAllByTestId('loanGridWithData_0')).toHaveLength(1);
 });
 
 it("Has Scheduled Payment Test", () => {

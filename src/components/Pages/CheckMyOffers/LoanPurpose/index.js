@@ -62,7 +62,7 @@ const useStyles = makeStyles((Theme) =>
 	})
 );
 //Loan purpose component initialization
-function LoanPurpose(props) {
+function LoanPurpose() {
 	const { data } = useContext(CheckMyOffers);
 	const [ purpose, setPurpose ] = useState(data.loanPurpose ?? "");
 	const navigate = useNavigate();
