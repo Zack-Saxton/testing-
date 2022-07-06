@@ -32,7 +32,7 @@ import Map from "./BranchLocatorMap";
 import { useStylesMyBranch } from "./Style";
 const YearHolidays = React.lazy(() => import("./YearHolidays"));
 
-export default function StatePage(props) {
+export default function StatePage() {
   const classes = useStylesMyBranch();
   const location = useLocation();
   const navigate = useNavigate();
