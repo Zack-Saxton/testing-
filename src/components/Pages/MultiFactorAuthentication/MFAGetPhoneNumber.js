@@ -87,7 +87,7 @@ const MFAGetPhoneNumber = ({
 		let response = await SavePhoneNumber(email, numberToSend);
 		if (response?.data?.statusCode === 200) {
 			toast.success((response.data?.Message).replace(numberToSend, maskedNumber));
-			 let mfaResponse = await fetchQuestionMFA(location?.state?.customerEmail);
+			 let mfaResponse = await fetchQuestionMFA(email);
        
 			 if (mfaResponse?.data?.statusCode === 200) {
         Cookies.set("mfaPhone", numberToSend)
@@ -108,7 +108,7 @@ const MFAGetPhoneNumber = ({
 		let mobile = "";
 		let response = await SavePhoneNumber(email, mobile);
 		if (response?.data?.statusCode === 200) {
-			let mfaResponse = await fetchQuestionMFA(location?.state?.customerEmail);
+			let mfaResponse = await fetchQuestionMFA(email);
 			 if (mfaResponse?.data?.statusCode === 200) {
 				navigate("/MFA", { state: { mfaDetails: mfaResponse?.data?.MFAInformation, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
 			 }

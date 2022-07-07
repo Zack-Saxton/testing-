@@ -24,7 +24,7 @@ const KbaQuestions = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
-  const customerEmail = location?.state?.mfaSecurityQuestions?.customerEmail;
+  const customerEmail = Cookies.get("email");
   const [responseData, setResponseData] = useState();
   const [loadingFlag, setLoadingFlag] = useState(false);
   const [responseDataMultipleQ, setResponseDataMultipleQ] = useState([]);

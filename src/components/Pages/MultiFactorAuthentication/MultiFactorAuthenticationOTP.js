@@ -21,8 +21,8 @@ const MultiFactorAuthenticationOTP = () => {
   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
   const [ currentCount, setCount ] = useState(10); 
   const customerPhoneNumber = otpLocation?.state?.phoneNumber;
-  const customerEmail = otpLocation?.state?.mfaQueries?.customerEmail;
-  const customerDevice = otpLocation?.state?.mfaQueries?.deviceType; 
+  const customerEmail = Cookies.get("email");
+  const customerDevice = window.navigator.userAgent; 
   const [ disabledButton, setDisabledButton ] = useState(false);  
   const [ otpValue, setOtpValue ] = useState({ otp1: "", otp2: "", otp3: "", otp4: "", otp5: "", otp6: ""});
   const isSecurityQuestionSaved = otpLocation?.state?.mfaQueries?.mfaDetails?.securityQuestionsSaved ?? false;

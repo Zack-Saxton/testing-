@@ -800,7 +800,7 @@ export default function SideNav() {
 
                 {checkPresenceOfLoan ? (
                   pageNavResumeApplication ? (
-                    <NavLink to={dataNavmessage.status === true ? "/customers/selectOffer" : NavUrlResumeApplication} className="nav_link">
+                    <NavLink to={dataNavmessage.status === true ? "/customers/selectOffer" : (NavUrlResumeApplication ?? "/customers/resumeApplication") } className="nav_link">
                       <ListItem className="titleSidenav">
                         <ListItemIcon>
                           {" "}
@@ -812,7 +812,8 @@ export default function SideNav() {
                   ) : (
                     <Link
                       to={
-                        applicationStatusRedirectPage[ checkPresenceOfLoanStatus ]
+                         checkPresenceOfLoanStatus ? applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] : "/customers/resumeApplication"
+                        
                       }
                       className="nav_link"
                     >

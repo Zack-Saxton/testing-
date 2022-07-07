@@ -17,7 +17,7 @@ const CheckLoginStatus = () => {
     if (!userToken?.isLoggedIn || ((nowTime - actualSetupTime) > min * 60 * 1000) || 
       (userToken?.isMFA && !userToken?.isMFACompleted)) {
       LogoutController();
-      navigate("/login", { state: { redirect: window.location.pathname !== "/login" ? window.location.pathname : null } });
+      navigate("/login", { state: { redirect: window?.location?.pathname !== "/login" ? window.location.pathname : null } });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
