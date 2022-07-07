@@ -84,8 +84,6 @@
 }
 
 .activeCard {
-	/* border: 1px solid #134ba2 !important;
-    box-shadow: 1px 0px 2px #144ba1 !important; */
 	background-color: #134ca5 !important;
 	color: white !important;
 }
@@ -99,7 +97,6 @@
 	border-radius: 2px;
 	background-color: #fff;
 	cursor: pointer;
-	/* box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%) */
 }
 
 .insideBlock {

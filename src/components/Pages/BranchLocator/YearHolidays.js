@@ -8,10 +8,9 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import { useUSHolidayList } from "./useYearHolidays";
-import ErrorLogger from "../../lib/ErrorLogger";
 import "./YearHolidays.css";
 
-export default function YearHolidays(props) {
+export default function YearHolidays() {
 
   const [ MFYearHolidays, SetMFYearHolidays ] = useState([]);
   const { result } = useUSHolidayList();

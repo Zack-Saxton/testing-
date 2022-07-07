@@ -9,8 +9,6 @@ import { ThemeProvider } from '@mui/styles';
 
 afterEach(cleanup);
 
-
-
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {

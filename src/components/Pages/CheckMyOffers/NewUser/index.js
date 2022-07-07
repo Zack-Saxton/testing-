@@ -41,7 +41,7 @@ const validationSchema = yup.object({
 		}),
 });
 
-const useStyles = makeStyles((Theme) => ({
+const useStyles = makeStyles(() => ({
 	boxGrid: {
 		width: "100%",
 		paddingTop: "70px",

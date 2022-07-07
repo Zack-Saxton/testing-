@@ -39,8 +39,7 @@ beforeAll(() => {
   setupGoogleMock();
 });
 
-jest.mock("./BranchLocatorMap", () => () => {
-});
+jest.mock("./BranchLocatorMap", () => () => { });
 
 test('Checks the component is rendered', async () => {
   render( 
@@ -55,7 +54,7 @@ test('Checks the component is rendered', async () => {
 });
 
 test("Check the state name is displaying correctly", ()=>{
-  const { container, getByText } = render( 
+  const { getByText } = render( 
     <MemoryRouter  initialEntries={[{ pathname: '/', state: {value : "indiana", flag:true}} ]}>
       {component()}
     </MemoryRouter>
@@ -83,7 +82,7 @@ test("Check the state name search option is available after the map", ()=>{
 	expect(element).toBeTruthy();	
 });
 test("Check the 'Get Driving Directions To Nearest Location' button exist in the UI", ()=>{
-  const { container, getByText } = render( 
+  const { getByText } = render( 
     <MemoryRouter  initialEntries={[{ pathname: '/', state: {value : "indiana", flag:true}} ]}>
       {component()}
     </MemoryRouter>
@@ -106,7 +105,7 @@ test("Check can able to enter value in second search input box", async ()=>{
 });
 
 test("Check customer rating exist in the UI", ()=>{
-  const { container, getByText } = render( 
+  const { getByText } = render( 
     <MemoryRouter  initialEntries={[{ pathname: '/', state: {value : "indiana", flag:true}} ]}>
       {component()}
     </MemoryRouter>

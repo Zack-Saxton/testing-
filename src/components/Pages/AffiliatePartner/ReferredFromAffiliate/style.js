@@ -1,7 +1,7 @@
 import { makeStyles } from "@mui/styles";
 
 //Styling
-const ReferredUsestyle = makeStyles((theme) => ({
+const ReferredUsestyle = makeStyles(() => ({
   circularGrid: {    
       display: "flex",
       justifyContent: "center",

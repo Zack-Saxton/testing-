@@ -50,7 +50,7 @@ test("Checks the marital status is visible in UI", () => {
 });
 
 test("Check the Continue button in  UI", () => {
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	expect(getByText("Continue")).toBeTruthy();
 });
 

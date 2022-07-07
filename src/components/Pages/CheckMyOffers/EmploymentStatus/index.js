@@ -16,7 +16,7 @@ import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./EmploymentStatus.css";
 
-const useStyles = makeStyles((Theme) => ({
+const useStyles = makeStyles(() => ({
 	boxGrid: {
 		padding: "4% 0px 4% 0px"
 	},
@@ -118,6 +118,9 @@ function EmploymentStatus() {
 		if (event.keyCode === 32) {
 			event.preventDefault();
 		}
+	};
+	const shortANDOperation = (pramOne, pramtwo) => {
+		return pramOne && pramtwo
 	};
 
 	// JSX part
@@ -316,13 +319,11 @@ function EmploymentStatus() {
 													value={formik.values.yearsAtEmployers}
 													onChange={formik.handleChange}
 													onBlur={formik.handleBlur}
-													error={
-														formik.touched.yearsAtEmployers &&
-														Boolean(formik.errors.yearsAtEmployers)
+													error = {
+														shortANDOperation(formik.touched.yearsAtEmployers,Boolean(formik.errors.yearsAtEmployers))
 													}
-													helperText={
-														formik.touched.yearsAtEmployers &&
-														formik.errors.yearsAtEmployers
+													helperText = {
+														shortANDOperation(formik.touched.yearsAtEmployers,formik.errors.yearsAtEmployers)
 													}
 													select='[{"value":"0", "label": "<1 year"},
 													{"value":"1", "label": "1 year"},
@@ -383,10 +384,13 @@ function EmploymentStatus() {
 												onLoad={formik.handleChange}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
-												error={
-													formik.touched.phone && Boolean(formik.errors.phone)
+												error = {
+													shortANDOperation(formik.touched.phone,Boolean(formik.errors.phone))
 												}
-												helperText={formik.touched.phone && formik.errors.phone}
+												
+												helperText = {
+													shortANDOperation(formik.touched.phone,formik.errors.phone)
+												}
 											/>
 										</Grid>
 

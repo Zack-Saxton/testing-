@@ -27,7 +27,7 @@ const validationSchema = yup.object({
 });
 
 //Styling part
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	paddingGrid: {
 		padding: "4% 0px"
 	},
