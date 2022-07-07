@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import PhoneNumberPopUp from './PhoneNumberPopUp';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { compose } from '@mui/system';
+import ScrollToTopOnMount from "../ScrollToTop";
 
 const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, setSelection, selection, selectionValue, sendPassCode, isLoading, mfaDetails, securityQuestionsSaved}) => {
   const classes = useStylesMFA();
@@ -67,6 +67,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
 
   return (
     <div className={isLoading ? classes.loadingOn : classes.loadingOff} >
+      <ScrollToTopOnMount />
       <Grid data-testid="twophoneNumber">
         <Grid
           spacing={1}

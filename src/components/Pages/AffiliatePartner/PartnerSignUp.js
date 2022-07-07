@@ -70,7 +70,18 @@ const validationSchema = yup.object({
     .max(30, globalMessages.PhoneTypeMax)
     .required(globalMessages.PhoneTypeRequired),
 });
-
+const phoneNumberMask = (values) => {
+	if(values){
+		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+  	values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+  	return (values);
+	}
+  return '';
+}
+const maskPhoneNumberWithAsterisk = (phoneNumber) => {
+  let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
+  return firstNumber.replace(/[0-9]/g, '*') + phoneNumber.slice(10);
+}
 
 export default function PartnerSignUp() {
   //Decoding URL for partner signup
@@ -92,14 +103,19 @@ export default function PartnerSignUp() {
   //API call
   const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
   const [ populatePartnerPhone, SetPopulatePartnerPhone ] = useState("");
+  const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
+  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
 
   //API Call
   const { data: PopulatePartnerSignupData } = useQuery([ 'populate-data', partnerToken, applicantId, requestAmt, requestApr, requestTerm ], () => PopulatePartnerSignup(partnerToken, applicantId, requestAmt, requestApr, requestTerm));
 
   useEffect(() => {
+    let phoneNum = PopulatePartnerSignupData?.data?.applicant?.phoneNumber;
+    formik.setFieldValue("callPhNo", phoneNum);
     SetPopulatePartnerSignupState(PopulatePartnerSignupData);
-    SetPopulatePartnerPhone(PopulatePartnerSignupData?.data?.applicant?.phoneNumber);
-    formik.setFieldValue("phone", populatePartnerPhone);
+    setPhoneNumberValue(phoneNum);
+    SetPopulatePartnerPhone(phoneNum);
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNum)));    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ PopulatePartnerSignupData, populatePartnerPhone ]);
 
@@ -124,12 +140,6 @@ export default function PartnerSignUp() {
 
   const handlePopupCA = populateSignupData?.state === "CA" ? true : false;
   const handlePopupOhio = populateSignupData?.state === "OH" ? true : false;
-
-  function phoneNumberMask(values) {
-    let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-    values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-    return (values);
-  }
 
   useEffect(() => {
     if (handlePopupCA) {
@@ -170,11 +180,11 @@ export default function PartnerSignUp() {
       setFailed("");
       let partnerSignupData = {
         ssn: values.ssn,
-        phone: values.callPhNo,
+        phone: phoneNumberValue.replace(/\)|\(|\s+|\-/g, "") || "",
         phoneType: values.phoneType,
         password: values.password,
         confirm_password: values.confirmPassword
-      };
+      };      
       let partnerRes = await partnerSignup(
         navigate,
         partnerToken,
@@ -201,6 +211,16 @@ export default function PartnerSignUp() {
       event.preventDefault();
     }
   };
+  const updateActualValue = (_event) => {
+    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
+  }
+  const updateMaskValue = (_event) => {
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
+  }
+  const updateEnterPhoneNo = (event) =>{
+    setPhoneNumberValue(event.target.value);
+    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
+  }
   //View Part
   return (
     <div data-testid="partnerSignup_component">
@@ -367,11 +387,18 @@ export default function PartnerSignUp() {
                         type="text"
                         materialProps={{ maxLength: "14" }}
                         onKeyDown={preventSpace}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.callPhNo ? phoneNumberMask(formik.values.callPhNo) : ""}
-                        onChange={formik.handleChange}
+                        onBlur={(event)=>{
+                          updateMaskValue(event);
+                          formik.handleBlur(event);
+                        }}
+                        value = { phoneNumberCurrentValue }
+                        onChange={(event)=>{
+                          updateEnterPhoneNo(event);
+                          formik.handleChange(event);
+                        }}
                         error={formik.touched.callPhNo && Boolean(formik.errors.callPhNo)}
                         helperText={formik.touched.callPhNo && formik.errors.callPhNo}
+                        onFocus={ updateActualValue }
                       />
                     </Grid>
 
