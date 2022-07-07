@@ -21,26 +21,14 @@ TOTAL_TEST_SUITES=$(cat unit_test_result.txt | grep 'Test Suites:')
 PASSED_TESTS=$(cat unit_test_result.txt | grep 'Tests:') 
 SNAPSHORT_TESTS=$(cat unit_test_result.txt | grep 'Snapshots:') 
 TIME_TAKEN=$(cat unit_test_result.txt | grep 'Time:')
-echo "BUILD_NUMBER" :: $BUILD_NUMBER
-echo "BUILD_ID" :: $BUILD_ID
-echo "BUILD_DISPLAY_NAME" :: $BUILD_DISPLAY_NAME
-echo "JOB_NAME" :: $JOB_NAME
-echo "JOB_BASE_NAME" :: $JOB_BASE_NAME
-echo "BUILD_TAG" :: $BUILD_TAG
-echo "EXECUTOR_NUMBER" :: $EXECUTOR_NUMBER
-echo "NODE_NAME" :: $NODE_NAME
-echo "NODE_LABELS" :: $NODE_LABELS
-echo "WORKSPACE" :: $WORKSPACE
-echo "JENKINS_HOME" :: $JENKINS_HOME
-echo "JENKINS_URL" :: $JENKINS_URL
-echo "BUILD_URL" ::$BUILD_URL
-echo "JOB_URL" :: $JOB_URL
+
 message="
 *Unit Test Result Summary -: CAC Application*
   * ${TOTAL_TEST_SUITES}
   * ${PASSED_TESTS}
   * ${SNAPSHORT_TESTS}
   * ${TIME_TAKEN} 
+  * To know more check log: $BUILD_URL/console
 "
 url="https://hooks.slack.com/services/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"
 curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
