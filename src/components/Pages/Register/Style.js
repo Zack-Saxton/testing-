@@ -56,6 +56,16 @@ const useStylesRegister = makeStyles((theme) => ({
     paddingTop: "30px",
     paddingBottom: "40px"
   },
+  firstNameStyle: {
+    paddingRight: "32px",
+    paddingBottom: "15px",
+    "@media (max-width: 599px)": {
+      paddingRight: "0px",
+    },
+  },
+  lastNameStyle: {
+    paddingBottom: "15px",
+  },
   paddingRight: {
     paddingRight: "32px",
     paddingBottom: "32px",
@@ -63,11 +73,8 @@ const useStylesRegister = makeStyles((theme) => ({
       paddingRight: "0px",
     },
   },
-  paddingBottom: {
-    paddingBottom: "32px"
-  },
-  inputWrap: {
-    paddingBottom: "32px"
+  emailNameStyle: {
+    paddingBottom: "15px"
   },
   paddingLeft: {
     paddingLeft: "25px",

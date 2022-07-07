@@ -96,6 +96,15 @@ label + .MuiInput-formControl {
   min-height: 80vh !important;
 }
 
+#socialNum > div{
+  padding-bottom: 15px;
+}
+#ZipcodeWrap > div{
+  padding-bottom: 20px;
+}
+#dateWrap > div{
+  padding-bottom: 15px;
+}
 #socialNum div div label {
   font-size: 0.968rem !important;
 }

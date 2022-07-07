@@ -344,7 +344,7 @@ export default function Register() {
                         direction="row"
                       >
                         <TextField
-                          className={classes.paddingRight}
+                          className={classes.firstNameStyle}
                           name="firstName"
                           id="firstName"
                           label="First Name *"
@@ -373,7 +373,7 @@ export default function Register() {
                         direction="row"
                       >
                         <TextField
-                          className={classes.paddingBottom}
+                          className={classes.lastNameStyle}
                           name="lastName"
                           id="lastName"
                           label="Last Name *"
@@ -402,7 +402,7 @@ export default function Register() {
                       direction="row"
                     >
                       <EmailTextField
-                        className={classes.paddingBottom}
+                        className={classes.emailNameStyle}
                         id="email"
                         name="email"
                         label="Email *"
@@ -423,7 +423,7 @@ export default function Register() {
                       />
                     </Grid>
 
-                    <Grid className={classes.inputWrap} container>
+                    <Grid container>
                       <Grid
                         id="socialNum"
                         item
