@@ -22,6 +22,9 @@ PASSED_TESTS=$(cat unit_test_result.txt | grep 'Tests:')
 SNAPSHORT_TESTS=$(cat unit_test_result.txt | grep 'Snapshots:') 
 TIME_TAKEN=$(cat unit_test_result.txt | grep 'Time:')
 
+curl --version
+which curl
+
 message="
 *Unit Test Result Summary -: CAC Application*
   * ${TOTAL_TEST_SUITES}
