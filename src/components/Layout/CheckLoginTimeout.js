@@ -34,7 +34,7 @@ const CheckLoginTimeout = () => {
     let now = new Date().getTime();
     actualSetupTime = now;
     if (!cred) {
-      navigate("/login", { state: { redirect: window.location.pathname } });
+      navigate("/login", { state: { redirect: window?.location?.pathname } });
     } else {
       let retVal = await LoginController(cred.email, cred.password, "");
       if (retVal?.data?.user && retVal?.data?.userFound) {
@@ -71,10 +71,10 @@ const CheckLoginTimeout = () => {
           "cred",
           encryptAES(JSON.stringify({ email: "", password: "" }))
         );
-        navigate("/login", { state: { redirect: window.location.pathname } });
+        navigate("/login", { state: { redirect: window?.location?.pathname } });
       } else {
         alert(globalMessages.Network_Error_Please_Try_Again);
-        navigate("/login", { state: { redirect: window.location.pathname } });
+        navigate("/login", { state: { redirect: window?.location?.pathname } });
       }
     }
     return true;

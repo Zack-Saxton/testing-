@@ -10,7 +10,7 @@ const ResumeApplication = (props) => {
 	const redirect = async () => {
 		let res = await APICall("account_overview", '', {}, "GET", true);
 		let activeApplication = res?.data?.applicants?.find((applicant) => applicant?.isActive);
-		navigate(activeApplication ? applicationStatusRedirectPage[ activeApplication.status ] : res?.data?.customer?.user_account?.status === "closed" ? "/customers/accountOverview" : "/select-amount");
+		navigate(activeApplication && activeApplication?.status ? applicationStatusRedirectPage[ activeApplication.status ] : res?.data?.customer?.user_account?.status === "closed" ? "/customers/accountOverview" : "/select-amount");
 	};
 	useEffect(() => {
 		redirect();
