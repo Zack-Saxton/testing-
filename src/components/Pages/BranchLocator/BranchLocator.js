@@ -259,7 +259,7 @@ export default function BranchLocator() {
       <Grid className={classes.gridPadding} item xs={12} s={12} md={6}>
         <ButtonPrimary
           href={branchAddress}
-          id="Continue"
+          id="getDrivingButton"
           onClick={() => {
             if (refSearch2.current.value) {
               openGetDirectionModal();
@@ -273,7 +273,7 @@ export default function BranchLocator() {
               toast.error(`Please enter address in search.`);
             }
           }}
-          stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'
+          stylebutton='{"width": "" }'
           target="_blank"
         >
           Get Driving Directions To Nearest Location
