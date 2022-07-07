@@ -85,14 +85,14 @@ const CheckLoginTimeout = () => {
     setOpenPopUp(false);
   };
 
-  const handleOnIdleLogout = (event) => {
+  const handleOnIdleLogout = (_event) => {
     LogoutController();
     toast.success(globalMessages.LoggedOut);
     Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
     navigate("/login");
   };
 
-  const handleOnAction = (event) => {
+  const handleOnAction = (_event) => {
     nowTime = new Date().getTime();
     if (userToken?.isLoggedIn && nowTime - actualSetupTime > min * 60 * 1000) {
       backgroundLogin();

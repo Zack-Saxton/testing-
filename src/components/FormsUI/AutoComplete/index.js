@@ -19,7 +19,7 @@ const AutoCompleteWrapper = ({
   textfieldlabel: textFieldLabel,
   variant,
   styleAutocomplete,
-  ...otherProps
+  ..._otherProps
 }) => {
   //parsing data using json
   const jsonData = JSON.parse(jsonInput);

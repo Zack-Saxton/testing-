@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import RecaptchaController from "../../Controllers/RecaptchaController";
 
-const Recaptcha = () => {
+const GenerateRecaptcha = () => {
   //API call
   const { isLoading, data: recaptchaData } = useQuery("recaptcha-generate", RecaptchaController);
 
@@ -34,4 +34,4 @@ const Recaptcha = () => {
   );
 };
 
-export default Recaptcha;
+export default GenerateRecaptcha;

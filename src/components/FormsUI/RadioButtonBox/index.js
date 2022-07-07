@@ -20,7 +20,7 @@ const RadioButtonBoxWrapper = ({
 }) => {
 
   //Styling Part
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles(() => ({
     buttonColor: {
       fontFamily: "sans-serif",
       textTransform: "capitalize",

@@ -9,7 +9,7 @@ import { decryptAES } from '../components/lib/Crypto';
 
 export const CheckMyOffers = createContext();
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles(() => ({
   loadingOn: {
     pointerEvents: "none"
   },

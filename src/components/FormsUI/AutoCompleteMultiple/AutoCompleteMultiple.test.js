@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { cleanup, fireEvent, render, act } from '@testing-library/react';
-import { Form, Formik } from "formik";
+import { Formik } from "formik";
 import React from 'react';
 import AutoCompleteMultipleWrapper from './index.js';
 
@@ -29,7 +29,6 @@ test('Checks Auto complete based on entered value', async () => {
     fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' });
     fireEvent.keyDown(document.activeElement, { key: 'Enter' });
   });
-  // expect(autocomplete.value).toEqual('India');
   expect(container.getAllByText('India')[ 0 ]).toBeInTheDocument();
 });
 

@@ -13,11 +13,9 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 const ButtonSwitchWrapper = ({
-  name,
-  id,
   label,
   labelplacement,
-  ...otherProps
+  ..._otherProps
 }) => {
   //Validation
   const [ state, setState ] = useState(true);

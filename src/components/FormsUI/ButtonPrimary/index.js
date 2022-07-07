@@ -18,7 +18,7 @@ const ButtonPrimary = ({
   ...otherProps
 }) => {
   //Styling Part
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles(() => ({
     buttonColor: {
       color: "black",
       background: "#FFBC23",
