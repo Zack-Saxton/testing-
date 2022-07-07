@@ -19,7 +19,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-HTMLCanvasElement.prototype.getContext = () => {};
 
 const component = () => {
 	return (

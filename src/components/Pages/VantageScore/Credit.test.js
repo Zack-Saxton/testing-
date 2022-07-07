@@ -7,8 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from "react-router-dom";
 import Credit from "./Credit";
 import ProfilePicture from '../../../contexts/ProfilePicture';
-import { creditDataScore1 } from "../../../__mock__/data/CreditScore.data";
-import { creditDataScore2 } from "../../../__mock__/data/CreditScore.data";
+import { creditDataScore1, creditDataScore2 } from "../../../__mock__/data/CreditScore.data";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -48,12 +47,12 @@ test("Check the chart content is render", () => {
 });
 
 test("Check in the chart content that the score value is 818", () => {
-  const { container } = render(component(creditDataScore1), { wrapper: MemoryRouter });
+  render(component(creditDataScore1), { wrapper: MemoryRouter });
   expect(screen.getByText(/818/)).toBeVisible();
 });
 
 test("If the credit score is 750, then show the message ' Congratulations, you have an Excellent credit score!'", () => {
-  const { container } = render(component(creditDataScore1), { wrapper: MemoryRouter });
+  render(component(creditDataScore1), { wrapper: MemoryRouter });
   expect(screen.getByText(/Congratulations, you have an Excellent credit score!/)).toBeVisible();
 });
 
@@ -63,12 +62,12 @@ test("If the credit score is greater than last month, then show the message ' Yo
 });
 
 test("Check in the chart content that the score value is 570", () => {
-  const { container } = render(component(creditDataScore2), { wrapper: MemoryRouter });
+  render(component(creditDataScore2), { wrapper: MemoryRouter });
   expect(screen.getByText(/570/)).toBeVisible();
 });
 
 test("If the credit score is 570, then show the message 'Sorry, you have a Poor credit score!'", () => {
-  const { container } = render(component(creditDataScore2), { wrapper: MemoryRouter });
+  render(component(creditDataScore2), { wrapper: MemoryRouter });
   expect(screen.getByText(/Sorry, you have a Poor credit score!/)).toBeVisible();
 });
 

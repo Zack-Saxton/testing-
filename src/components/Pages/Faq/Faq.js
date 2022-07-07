@@ -61,13 +61,13 @@ export default function Faq() {
   //Accordian implementation
   const [ expanded, setExpanded ] = useState(false);
 
-  const handleChange = (panel) => (event, isExpanded) => {
+  const handleChange = (panel) => (_event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
   //Tab implementation
   const [ values, setValues ] = useState(0);
-  const handleTabChange = (event, value) => {
+  const handleTabChange = (_event, value) => {
     setValues(value);
   };
 
