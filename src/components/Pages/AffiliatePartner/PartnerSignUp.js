@@ -80,7 +80,7 @@ const phoneNumberMask = (values) => {
 }
 const maskPhoneNumberWithAsterisk = (phoneNumber) => {
   let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
-  return firstNumber.replace(/[0-9]/g, '*') + phoneNumber.slice(10);
+  return firstNumber.replace(/\d/g, '*') + phoneNumber.slice(10);
 }
 
 export default function PartnerSignUp() {

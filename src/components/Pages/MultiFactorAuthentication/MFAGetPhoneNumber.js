@@ -74,9 +74,9 @@ const MFAGetPhoneNumber = ({
 			setDisabledButton(true);
 		}
 	}
-  const maskPhoneNumberWithAsterisk = (phoneNumber) => {
-    let firstNumber = phoneNumber.slice(0, 10);
-    return firstNumber.replace(/[0-9]/g, '*') + phoneNumber.slice(10);
+  const maskPhoneNumberWithAsterisk = (phoneNumberToMask) => {
+    let firstNumber = phoneNumberToMask.slice(0, 10);
+    return firstNumber.replace(/\d/g, '*') + phoneNumberToMask.slice(10);
   }
 	const handleToSaveContinue = async () => {
 		if (location?.state) {
