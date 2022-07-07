@@ -8,14 +8,12 @@ import StepLabel from "@mui/material/StepLabel";
 import Stepper from "@mui/material/Stepper";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
-import { useQuery } from 'react-query';
-import { useLocation } from "react-router-dom";
 import {
   ButtonPrimary,
   Popup,
   RenderContent
 } from "../../../components/FormsUI";
-import { saveAcquireClick, saveConsentStatus, validateActivationToken } from "../../Controllers/EmailVerificationController";
+import { saveAcquireClick, saveConsentStatus } from "../../Controllers/EmailVerificationController";
 import ErrorLogger from "../../lib/ErrorLogger";
 import BankAccountVerification from "./BankAccountVerification";
 import DocumentIdAndPhotoId from "./DocumentIdAndPhotoId";
@@ -55,14 +53,14 @@ export default function EmailVerification() {
   
   useEffect(() => {
     let applicationNo = verificationData?.data?.emailVerificationRecord?.attributes?.applicationNumber ?? "";
-    let autoVerification = verificationData?.data?.emailVerificationRecord?.attributes?.autoVerification ?? "off";
-    let collaborateOption = verificationData?.data?.emailVerificationRecord?.attributes?.collaborateOption ?? "off";
+    let autoVerificationFromAPI = verificationData?.data?.emailVerificationRecord?.attributes?.autoVerification ?? "off";
+    let collaborateOptionFromAPI = verificationData?.data?.emailVerificationRecord?.attributes?.collaborateOption ?? "off";
     let emailVerifiedStatus = verificationData?.data?.emailVerificationRecord?.attributes?.consents_verified ?? false;
-    let customerEmail = verificationData?.data?.emailVerificationRecord?.customer_email ?? "";
-    setCustomerEmail(customerEmail);
+    let customerEmailFromAPI = verificationData?.data?.emailVerificationRecord?.customer_email ?? "";
+    setCustomerEmail(customerEmailFromAPI);
     setApplicationNumber(applicationNo);
-    setAutoVerification(autoVerification);
-    setCollaborateOption(collaborateOption);
+    setAutoVerification(autoVerificationFromAPI);
+    setCollaborateOption(collaborateOptionFromAPI);
     if (applicationNo !== '') {
       setAgreeTerms(emailVerifiedStatus);
     }
@@ -95,7 +93,7 @@ export default function EmailVerification() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleChange = async (event) => {
+  const handleChange = async (_event) => {
     try {
       setConsentLoading(true);
       let response = await saveConsentStatus(customerEmail, applicationNumber);

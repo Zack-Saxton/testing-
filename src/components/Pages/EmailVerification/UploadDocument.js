@@ -38,7 +38,7 @@ function UploadDocument(props) {
   const refWebCam = useRef(null);
   const docType = props.docType ? props.docType : "";
   const typeOfDocument = props.documentType ? props.documentType : "";
-  const [ facingMode, setFacingMode ] = useState(docType === 'Selfie' ? FACING_MODE_USER : FACING_MODE_ENVIRONMENT);
+  const [ facingMode ] = useState(docType === 'Selfie' ? FACING_MODE_USER : FACING_MODE_ENVIRONMENT);
 
   const handleMenuOpen = (event) => {
     setSelectDocument(event.currentTarget);
@@ -49,7 +49,7 @@ function UploadDocument(props) {
     setDisableNext(false);
   }, [ refWebCam, setImgSrc ]);
 
-  const handleChange = (event) => {
+  const handleChange = (_event) => {
     let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
     if (selectedFile?.files[ 0 ]?.name) {
       let fileName = selectedFile.files[ 0 ].name
@@ -179,7 +179,7 @@ function UploadDocument(props) {
     }
     return false;
   }
-  const UploadDocument = () => {
+  const UploadDocumentFile = () => {
     if (imgSrc) {
       uploadCameraPhoto();
     } else if (selectedFile.files && selectedFile.files[ 0 ]) {
@@ -190,6 +190,18 @@ function UploadDocument(props) {
     setSelectedFile(null);
     setLabel("");
     setDisableNext(true);
+  }
+
+  const showLabel = (labelText) => {
+    return (labelText ?
+      <Chip
+        className={classes.chipButton}
+        label={labelText}
+        onDelete={() => deleteSelectedFile()}
+        deleteIcon={<CloseIcon />}
+      />
+      :
+      "");
   }
   return (
     <>{loading ?
@@ -205,17 +217,7 @@ function UploadDocument(props) {
         >
           {props.title ?? 'Select Your Document'}
         </ButtonPrimary>
-        {
-          label ?
-            <Chip
-              className={classes.chipButton}
-              label={label}
-              onDelete={() => deleteSelectedFile()}
-              deleteIcon={<CloseIcon />}
-            />
-            :
-            ""
-        }
+        { showLabel(label) }
         <Menu
           anchorEl={selectDocument}
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -308,7 +310,7 @@ function UploadDocument(props) {
           <ButtonPrimary
             stylebutton='{"color": ""}'
             disabled={disableNext}
-            onClick={UploadDocument}
+            onClick={UploadDocumentFile}
             data-testid = "render_nextButton"
           >
             Next

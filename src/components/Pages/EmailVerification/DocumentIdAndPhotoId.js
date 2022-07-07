@@ -82,8 +82,8 @@ function DocumentIdAndPhotoId(props) {
   };
 
   const captureSelfie = () => {
-    const selfieImageSrc = refWebCamPhoto.current.getScreenshot();
-    setSelfieImageSrc(selfieImageSrc);
+    const screenSnapshot = refWebCamPhoto.current.getScreenshot();
+    setSelfieImageSrc(screenSnapshot);
   };
 
   const validateUploadedFile = (fileSource) => {
@@ -107,7 +107,7 @@ function DocumentIdAndPhotoId(props) {
     }
 
   }
-  const handleChange = (event) => {
+  const handleChange = (_event) => {
     if (validateUploadedFile(selectedFile)) {
       setLabel(selectedFile.files[ 0 ].name);
       checkSelectedAllDocument();
@@ -116,7 +116,7 @@ function DocumentIdAndPhotoId(props) {
     }
   };
 
-  const handleSelfieChange = (event) => {
+  const handleSelfieChange = (_event) => {
     if (validateUploadedFile(selectedSelfieFile)) {
       setSelfieLabel(selectedSelfieFile.files[ 0 ].name);
       checkSelectedAllDocument();
@@ -199,17 +199,17 @@ function DocumentIdAndPhotoId(props) {
     setImgSrc(null);
     handleMenuClose();
   };
-  const handleSelfieInputChange = (event) => {
+  const handleSelfieInputChange = (_event) => {
     setSelectedSelfieFile(refSelfieChangeEvent.current)
     SetShowSelfieCamera(false);
     setSelfieImageSrc(null);
     handleSelfieMenuClose();
   };
-  const handleMenuClose = (event) => {
+  const handleMenuClose = (_event) => {
     setSelectDocument(null);
   };
 
-  const handleSelfieMenuClose = (event) => {
+  const handleSelfieMenuClose = (_event) => {
     setSelectSelfieDocument(null);
   }
 
@@ -240,11 +240,11 @@ function DocumentIdAndPhotoId(props) {
     setDisableNext(true);
   }
 
-  const uploadCameraPhoto = async (imageSource, docType, callSecondFunction) => {
+  const uploadCameraPhoto = async (imageSource, docTypeName, callSecondFunction) => {
     try {
       setLoading(true);
       let imageData = imageSource;
-      let fileName = `${ docType }.jpeg`;
+      let fileName = `${ docTypeName }.jpeg`;
       let fileData = imageData
         .toString()
         .replace(/^dataimage\/[a-z]+base64/, "");
@@ -293,7 +293,7 @@ function DocumentIdAndPhotoId(props) {
       handleElseTwo(selectedSelfieFile, false);
     }
   }
-  const fileOptionDesign = (refChangeEvent, facingMode) => {
+  const fileOptionDesign = (refChangeEventObj, facingMode) => {
     return (
       <>
         <ButtonPrimary
@@ -333,7 +333,7 @@ function DocumentIdAndPhotoId(props) {
                 accept="image/png, image/jpeg, application/pdf, image/jpg "
                 style={{ display: "none" }}
                 type="file"
-                ref={refChangeEvent}
+                ref={refChangeEventObj}
                 onClick={() => handleInputChange()}
                 onChange={(event) => handleChange(event)}
               ></input>
@@ -399,7 +399,7 @@ function DocumentIdAndPhotoId(props) {
     );
   }
 
-  const fileOptionDesignSelfie = (refSelfieChangeEvent, facingMode) => {
+  const fileOptionDesignSelfie = (refSelfieChangeEventObj, facingMode) => {
     return (
       <>
         <ButtonPrimary
@@ -435,7 +435,7 @@ function DocumentIdAndPhotoId(props) {
                 accept="image/png, image/jpeg, application/pdf, image/jpg "
                 style={{ display: "none" }}
                 type="file"
-                ref={refSelfieChangeEvent}
+                ref={refSelfieChangeEventObj}
                 onClick={handleSelfieInputChange}
                 onChange={(event) => handleSelfieChange(event)}
               ></input>
