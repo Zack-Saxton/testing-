@@ -30,7 +30,7 @@ const AutoCompleteMultipleWrapper = ({
   required,
   stylecheckbox,
   //styleAutocomplete,
-  ...otherProps
+  ..._otherProps
 }) => {
   //To return all formik state
   const { setFieldValue } = useFormikContext();
@@ -41,7 +41,7 @@ const AutoCompleteMultipleWrapper = ({
     setFieldValue(value, checked);
   };
 
-  const useStyles = makeStyles((theme) => ({}));
+  const useStyles = makeStyles(() => ({}));
   const classes = useStyles();
 
   //Configuring the field with properties

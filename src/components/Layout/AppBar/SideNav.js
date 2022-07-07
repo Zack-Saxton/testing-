@@ -486,7 +486,7 @@ export default function SideNav() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={(menuType) => handleMenuProfile('top')} id="settingsMenuList">
+      <MenuItem onClick={(_menuType) => handleMenuProfile('top')} id="settingsMenuList">
         My Profile</MenuItem>
       <MenuItem
         disabled={disableField}
@@ -505,7 +505,7 @@ export default function SideNav() {
 
 
   const handleToggle = () => {
-    setOpenOption((prevOpen) => !prevOpen);
+    setOpenOption((prevOpen_toggle) => !prevOpen_toggle);
   };
 
   const handleClose = (event) => {
@@ -615,7 +615,7 @@ export default function SideNav() {
                             // onKeyDown={handleListKeyDown}
                             >
                               <MenuItem
-                                onClick={(menuType) => handleMenuProfile("top")}
+                                onClick={(_menuType) => handleMenuProfile("top")}
                                 id="settingsMenuList"
                               >
                                 My Profile
@@ -719,7 +719,7 @@ export default function SideNav() {
                               : getProfileImage
                           }
                           alt="Profile Pic"
-                          onClick={(navType) => handleMenuProfile("top")}
+                          onClick={(_navType) => handleMenuProfile("top")}
                         />
                       </div>
                     </ListItem>
@@ -833,7 +833,7 @@ export default function SideNav() {
                     to="/customers/applyForLoan"
                     state={{ from: "user" }}
                     onClick={(event) => {
-                      currentLoan ? event.preventDefault() : "";
+                      currentLoan && event.preventDefault()
                     }}
                     className={currentLoan ? "nav_link_disabled" : "nav_link"}
                   >
@@ -901,7 +901,7 @@ export default function SideNav() {
                 <NavLink
                   data-testid="sideNavMyProfileNavigation"
                   to="/customers/myProfile"
-                  onClick={(menuType) => handleMenuProfile("side")}
+                  onClick={(_menuType) => handleMenuProfile("side")}
                   className="nav_link"
                 >
                   <ListItem className="titleSidenav">

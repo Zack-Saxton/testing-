@@ -19,7 +19,7 @@ const ButtonWrapper = ({
   ...otherProps
 }) => {
   //Styling Part
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles(() => ({
     buttonColor: {
       color: "#fff",
       background: "blue",

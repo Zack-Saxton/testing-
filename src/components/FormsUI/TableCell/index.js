@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 //Initializing tablecellwrapper
-const TableCellWrapper = ({ parseData, className, align, ...otherProps }) => {
+const TableCellWrapper = ({ parseData, ..._otherProps }) => {
 	const BuildCell = (data) => {
 		let dom_content = [];
 		for (let key in data.data) {

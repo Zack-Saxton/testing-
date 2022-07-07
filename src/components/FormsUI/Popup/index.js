@@ -11,7 +11,7 @@ import React from "react";
 import { ButtonPrimary } from "../../FormsUI";
 import './Popup.css';
 
-const usePopUp = makeStyles((theme) => ({
+const usePopUp = makeStyles(() => ({
     paragraph: {
         fontSize: '1.56rem',
         fontWeight: 'bolder',

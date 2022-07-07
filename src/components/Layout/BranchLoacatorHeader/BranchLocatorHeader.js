@@ -273,7 +273,7 @@ const BranchLocatorHeader = () => {
           </div>
           <button
             data-testid="menuHamburgerButton"
-            onClick={(event) => {
+            onClick={(_event) => {
               setdisplay(display ? false : true);
             }}
             className="menuHamburger"

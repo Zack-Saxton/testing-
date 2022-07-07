@@ -14,7 +14,7 @@ import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
-const useRadio = makeStyles((theme) => ({
+const useRadio = makeStyles(() => ({
   formLabelStyle: {
     fontFamily: "system-ui",
     fontWeight: "normal",

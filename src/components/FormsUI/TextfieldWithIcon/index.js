@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import TextField from "../Textfield";
 
-const useTextFieldWithIcon = makeStyles((theme) => ({
+const useTextFieldWithIcon = makeStyles(() => ({
   outerGrid: {
     display: "inline-flex",
     width: "100%"
@@ -30,8 +30,7 @@ const useTextFieldWithIcon = makeStyles((theme) => ({
 
 const TextFieldWithIconWrapper = ({
   icon,
-  iconPosition,
-  iconColor,
+  iconPosition,  
   //get dynamic icon name
   ...otherProps
 }) => {

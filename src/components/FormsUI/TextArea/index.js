@@ -14,9 +14,7 @@ import React, { useState } from "react";
 
 const TextAreaWrapper = ({
   name,
-  value,
   required,
-  inputprops,
   placeholder,
   label,
   variant,
@@ -34,7 +32,7 @@ const TextAreaWrapper = ({
   };
 
   //Styling Part
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles(() => ({
     textarea: {},
   }));
 

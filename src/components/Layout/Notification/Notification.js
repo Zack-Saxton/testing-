@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
 
 export default function Notification() {
   const classes = useStyles();
-  const [ anchorEl, setAnchorEl ] = useState(null);
+  const [ anchorEl ] = useState(null);
   const [ messages, setMessages ] = useState([]);
   const [ badgeCount, setbadgeCount ] = useState(0);
   const [ openDialog, setOpenDialog ] = useState(false);
@@ -107,13 +107,13 @@ export default function Notification() {
   };
 
   // return focus to the button when we transitioned from !open -> open
-  const prevOpen = useRef(option);
+  const prevOpen_focus = useRef(option);
   useEffect(() => {
-    if (prevOpen.current === true && option === false) {
+    if (prevOpen_focus.current === true && option === false) {
       anchorRef.current.focus();
     }
 
-    prevOpen.current = option;
+    prevOpen_focus.current = option;
   }, [ option ]);
 
 

@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import Email from "../Email";
 
-const useEmailWithIcon = makeStyles((theme) => ({
+const useEmailWithIcon = makeStyles(() => ({
   outerGrid: {
     display: "inline-flex",
     width: "100%"
@@ -30,9 +30,7 @@ const useEmailWithIcon = makeStyles((theme) => ({
 const EmailWithIconWrapper = ({
   name,
   icon,
-  iconPosition,
-  iconColor,
-  customClass, //get dynamic icon name
+  iconPosition, //get dynamic icon name
   ...otherProps
 }) => {
   //Configuring the field properties

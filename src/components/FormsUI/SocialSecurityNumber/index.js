@@ -15,12 +15,9 @@ const SSNWrapper = ({
 	name,
 	label,
 	error,
-	required,
 	value,
 	onChange,
 	helperText,
-	setError,
-	setHelperText,
 	placeholder,
 	mask,
 	...otherProps
