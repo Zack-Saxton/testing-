@@ -13,6 +13,8 @@ import { useStylesMFA } from "./Style";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import ScrollToTopOnMount from "../ScrollToTop";
+
 
 const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, sendPassCode, isLoading, mfaDetails, securityQuestionsSaved, phoneNumberSaved}) => {
 
@@ -54,6 +56,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
 
   return (
     <div data-testid = "OnePhoneNumber_component" className={isLoading ? classes.loadingOn : classes.loadingOff}>
+      <ScrollToTopOnMount />
       <Grid>
         <Grid
           spacing={1}
