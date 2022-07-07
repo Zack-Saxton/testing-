@@ -78,7 +78,7 @@ export default function Credit(creditData) {
           textColor={"#212121"}
           className={classes.guageChart}
           percent={percent}
-          formatTextValue={(value) => score}
+          formatTextValue={(_value) => score}
           colors={[ "#a50100", "#e05534", "#f2d82b", "#BCEA78", "#85c900" ]}
         />
         <p id="date">{creditDate}</p>

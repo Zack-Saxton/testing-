@@ -29,7 +29,7 @@ export default function ControlledAccordions(keyFactors) {
  
  
 
-  const handleChange = (panel) => (event, isExpanded) => {
+  const handleChange = (panel) => (_event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
   

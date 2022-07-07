@@ -65,7 +65,7 @@ it("about mariner clicked", () => {
 
 //==========================================!! TEST 6 !!==========================================
 test("proper sub-items populated after selecting option 2) application questions", async () => {
-  const { container } = render(component(), { wrapper: MemoryRouter });
+  render(component(), { wrapper: MemoryRouter });
 
   //select and click 'application questions' component
   const button = screen.getByTestId("application-questions");
