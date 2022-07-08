@@ -194,10 +194,13 @@ export default function Login(props) {
           }),
           toast.error(retVal?.data?.Message)
         );
-        setCounter(counter + 1);
+        if( retVal?.data?.Message !== "Your account has been locked.  Please contact your branch for further assistance.")
+        {
+          setCounter(counter + 1);
+        }
         setLoading(false);
         setLoginFailed(retVal?.data?.errorMessage);
-        if(counter >= 1) {
+        if(counter >= 2) {
           navigate("/register?email=" + values?.email);
         }
       } else {
