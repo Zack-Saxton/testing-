@@ -23,7 +23,7 @@ const ButtonWithIcon = ({
 }) => {
 
   //Styling Part
-  const useStyles = makeStyles(() => ({
+  const useStyles = makeStyles((theme) => ({
     buttonColor: {
       color: "black",
       background: "#ffbc23",

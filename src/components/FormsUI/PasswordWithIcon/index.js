@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import Password from "../Password";
 
-const usePasswordWithIcon = makeStyles(() => ({
+const usePasswordWithIcon = makeStyles((theme) => ({
   outerGrid: {
     display: "inline-flex",
     width: "100%"
@@ -32,7 +32,9 @@ const PasswordWithIconWrapper = ({
   name,
   icon,
   id,
-  iconPosition, //get dynamic icon name
+  iconPosition,
+  iconColor,
+  customClass, //get dynamic icon name
   ...otherProps
 }) => {
 
