@@ -134,7 +134,7 @@ const KbaQuestions = () => {
                 <Paper className={classes.twoStepPaper}>
                   <Grid className={classes.headingTextWrap}>
                     <Typography className={classes.twoStepHeading} variant="h5">
-                      2-Step Verification
+                      ID Verification Questions
                     </Typography>
                     <IconButton
                       className={classes.backArrow}
