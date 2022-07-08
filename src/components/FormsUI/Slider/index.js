@@ -46,7 +46,7 @@ const TextfieldWrapper = ({
   //Set Formik field
 
   // Styling part
-  const useStyles = makeStyles(() => ({
+  const useStyles = makeStyles((theme) => ({
     cssLabel: {
       backgroundColor: "red",
       fontSize: "20px",
@@ -80,7 +80,7 @@ const TextfieldWrapper = ({
 
   const classes = useStyles();
   const [ value, setValue ] = useState(defaultValue ?? 12500);
-  const handleSliderChange = (_event, newValue) => {
+  const handleSliderChange = (event, newValue) => {
 
     if (newValue > 5000) {
       if (!(newValue % 500)) {

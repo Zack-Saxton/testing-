@@ -9,7 +9,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const DataGridWrapper = ({ rows, columns, height, width, ...otherProps }) => {
+const DataGridWrapper = ({ name, rows, columns, height, width, ...otherProps }) => {
   return (
     <div style={{ height: height ?? "300", width: width ?? "100%" }}>
       <DataGrid rows={rows} columns={columns} pageSize={15} {...otherProps} />

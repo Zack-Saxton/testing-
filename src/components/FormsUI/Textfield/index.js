@@ -19,6 +19,7 @@ const TextFieldWrapper = ({
   lableSize,
   margin,
   padding,
+  type,
   materialProps,
   setError,
   setHelperText,
@@ -35,7 +36,7 @@ const TextFieldWrapper = ({
   const [ errorTF, setErrorTF ] = useState(false);
   const [ helperTextTF, setHelperTextTF ] = useState("");
 
-  const useStyles = makeStyles(() => ({
+  const useStyles = makeStyles((theme) => ({
     cssLabel: {
       backgroundColor: color,
       fontSize: lableSize,

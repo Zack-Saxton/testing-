@@ -14,6 +14,7 @@ import React from "react";
 
 const CheckboxWrapper = ({
   name,
+  value,
   label,
   id,
   labelid,
@@ -27,7 +28,7 @@ const CheckboxWrapper = ({
 }) => {
 
   //Styling Part
-  const useStyles = makeStyles(() => ({
+  const useStyles = makeStyles((theme) => ({
     checkboxStyle: {
       color: "#0F4EB3 !important"
 

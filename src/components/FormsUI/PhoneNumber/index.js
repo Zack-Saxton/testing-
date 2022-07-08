@@ -19,12 +19,12 @@ const phoneNumberMask = (values) => {
 }
 const maskPhoneNumberWithAsterisk = (phoneNumber) => {
   let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
-  return firstNumber.replace(/[\d]/g, '*') + phoneNumber.slice(10);
+  return firstNumber.replace(/[0-9]/g, '*') + phoneNumber.slice(10);
 } 
-const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, helperText, ..._otherProps }) => {
+const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, helperText, ...otherProps }) => {
   //Set Formik field
   // const [field, mata] = useField(name);
-  const [  setUnMaskedVal ] = useState(value);
+  const [ unmaskedval, setUnMaskedVal ] = useState(value);
   const [ phoneNumberValue, setPhoneNumberValue ] = useState(value);
   const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState(value);
   const handleChange = (event) => {
@@ -42,10 +42,10 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
     setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(value)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ ]);
-  const updateActualValue = (_event) => {
+  const updateActualValue = (event) => {
     setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
   }
-  const updateMaskValue = (_event) => {
+  const updateMaskValue = (event) => {
     setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
   }
 
