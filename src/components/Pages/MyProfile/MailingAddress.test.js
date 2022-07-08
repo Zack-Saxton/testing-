@@ -71,12 +71,12 @@ test("Check the zipcode field in UI", () => {
 });
 
 test("Check the cancel button in  UI", () => {
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	expect(getByText("Cancel")).toBeTruthy();
 });
 
 test("Check the Save button in  UI", () => {
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	expect(getByText("Save Changes")).toBeTruthy();
 });
 
@@ -122,7 +122,7 @@ test("Check can able to enter Zipcode in UI", async () => {
 });
 
 test("Check can able to click Save button", async () => {
-	const { container } = render(component(), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	await act(() => {
 		fireEvent.click(screen.getByText('Save Changes'));
 	});	
