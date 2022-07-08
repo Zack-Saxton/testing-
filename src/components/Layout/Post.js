@@ -7,6 +7,7 @@ import Footer from "../Layout/Footer/Footer";
 import AppBar from "./AppBar/SideNav";
 import CheckLoginTimeout from "./CheckLoginTimeout";
 
+
 const Post = ({ children }) => {
 
     const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
@@ -15,7 +16,19 @@ const Post = ({ children }) => {
         <div>
             <CheckLoginTimeout />
             {
-                loginToken.isLoggedIn ?
+                
+                loginToken.isLoggedIn && loginToken?.isMFA && loginToken?.isMFACompleted ?
+                <>
+                        <div id="body">
+                            <div className='topBar'></div>
+                            <AppBar />
+                            {children}
+                            <Footer />
+                        </div>
+                    </>
+                :
+                loginToken.isLoggedIn && !loginToken?.isMFA 
+                 ?
                     <>
                         <div id="body">
                             <div className='topBar'></div>
@@ -24,8 +37,7 @@ const Post = ({ children }) => {
                             <Footer />
                         </div>
                     </>
-                    :
-                    <CheckLoginStatus />
+                     : <CheckLoginStatus />
             }
         </div>
     );
