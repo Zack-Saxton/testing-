@@ -14,6 +14,7 @@ import { useFormik } from "formik";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 import * as yup from "yup";
 import { ButtonPrimary, ButtonSecondary, Radio, TextField } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
@@ -80,6 +81,7 @@ export default function BankAccountVerification(props) {
 	const [ invalidRN, setInvalidRN ] = useState(false);
 	const [ resetUpload, setResetUpload ] = useState(false);
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
+	const holderName = Cookies.get("firstName")+" "+Cookies.get("lastName");
 	function getValueByLable(text, ctx) {
 		return document.evaluate("//*[.='" + text + "']",
 			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
@@ -98,7 +100,7 @@ export default function BankAccountVerification(props) {
 	//Configuring the formik variable usign useFormik hook
 	const formik = useFormik({
 		initialValues: {
-			accountHolder: "",
+			accountHolder: holderName,
 			bankRoutingNumber: "",
 			bankInformation: "",
 			bankAccountNumber: "",
@@ -202,6 +204,7 @@ export default function BankAccountVerification(props) {
 							value={formik.values.accountHolder}
 							onChange={restrictAccountHolderOnChange}
 							onBlur={formik.handleBlur}
+							materialProps={{ maxLength: "30" }}
 							error={
 								formik.touched.accountHolder &&
 								Boolean(formik.errors.accountHolder)
