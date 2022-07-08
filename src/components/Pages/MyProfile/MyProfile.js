@@ -16,7 +16,6 @@ import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { useAccountOverview } from "./../AccountOverview/AccountOverviewHook/useAccountOverview";
 
 import getTextNotify from "../../Controllers/MyProfileController";

@@ -50,20 +50,20 @@ test("Check the component is rendered", async () => {
 
 test("Check Add Bank Account button exist in the UI", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(),{wrapper: MemoryRouter});	
+	const { getByText } = render(component(),{wrapper: MemoryRouter});	
 	expect(getByText("Add Bank Account")).toBeTruthy();
 });
 
 test("Check can able to click Add Bank Account button and showing popup", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(),{wrapper: MemoryRouter});	
+	render(component(),{wrapper: MemoryRouter});	
 	fireEvent.click(screen.getByTestId('add-new-account-number'));	
 	const element = screen.getByTestId('add-new-bank-account-container');
 	expect(element).toHaveClass("showContent");
 });
 test("Check all input filed exist in the UI. account Nick Name, Account Holder Name, Account Type, Rounting Number, Bank Name, Bank Account Number and set default checkbox", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(),{wrapper: MemoryRouter});	
+	const { container} = render(component(),{wrapper: MemoryRouter});	
 	const accountNickname = container.querySelector(`input[name="accountNickname"]`);
 	expect(accountNickname).toBeTruthy();
 	expect(accountNickname.value).toBe('');
@@ -142,13 +142,13 @@ test("---------------------------------------Add Debit Card Test Cases----------
 
 test("Check Add Debit Card button exist in the UI", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(),{wrapper: MemoryRouter});	
+	const { getByText } = render(component(),{wrapper: MemoryRouter});	
 	expect(getByText("Add Debit Card")).toBeTruthy();
 });
 
 test("Check can able to click Add Bank Account button and showing popup", async () => {
   LoanDataMock();
-	const { container } = render(component(),{wrapper: MemoryRouter});	
+	render(component(),{wrapper: MemoryRouter});	
 	fireEvent.click(screen.getByTestId('add-new-debit-card'));	
 	const element = screen.getByTestId('add-new-debit-card-container');
 	expect(element).toHaveClass("showContent");
@@ -156,7 +156,7 @@ test("Check can able to click Add Bank Account button and showing popup", async 
 
 test("Check all input filed exist in the UI. Card number, Name on Card, Expiration Date, CVV, ", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(),{wrapper: MemoryRouter});	
+	const { container } = render(component(),{wrapper: MemoryRouter});	
 	const cardNumber = container.querySelector(`input[name="cardNumber"]`);
 	expect(cardNumber).toBeTruthy();
 	expect(cardNumber.value).toBe('');

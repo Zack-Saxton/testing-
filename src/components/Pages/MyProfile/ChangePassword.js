@@ -21,7 +21,6 @@ export default function ChangePassword(basicInformationData) {
   const navigate = useNavigate();
   const [ loading, setLoading ] = useState(false);
   const [ , setProfileTabNumber ] = useGlobalState();
-  const numberValidation = /\d/;
 
   let basicInfo = basicInformationData?.basicInformationData?.latest_contact;
   const passwordValidationSchema = yup.object().shape({
@@ -73,6 +72,16 @@ export default function ChangePassword(basicInformationData) {
     newPassword: '',
     confirmPassword: ''
   };
+  const helperIf = (response) => {
+    toast.success(response?.data?.change_password?.message ?? globalMessages.PasswordChangedSuccessfully, {
+      toastId: "closeToast",
+      onClose: () => {
+        setLoading(false);
+        onClickCancelChange();
+        logoutUser();
+      }
+    });
+  }
   const formikPassword = useFormik({
     initialValues: initialValues,
     enableReinitialize: true,
@@ -96,14 +105,7 @@ export default function ChangePassword(basicInformationData) {
           );
           if (response?.data?.change_password?.passwordReset) {
             if (!toast.isActive("closeToast")) {
-              toast.success(response?.data?.change_password?.message ?? globalMessages.PasswordChangedSuccessfully, {
-                toastId: "closeToast",
-                onClose: () => {
-                  setLoading(false);
-                  onClickCancelChange();
-                  logoutUser();
-                }
-              });
+              helperIf(response)
             }
           } else if (!response?.data?.change_password?.passwordReset) {
             if (!toast.isActive("closeToast")) {

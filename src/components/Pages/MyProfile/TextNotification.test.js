@@ -43,7 +43,7 @@ test("Check the component is rendered", () => {
 });
 
 test("Check the the notification switch option in UI", () => {
-	const { container } = render(component(), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('notification-switch');
 	expect(element).toBeTruthy();
 });
@@ -55,36 +55,36 @@ test("Check the the phone number field in UI", () => {
 });
 
 test("Check the the notification switch option in UI", () => {
-	const { container } = render(component(), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('notification-terms');
 	expect(element).toBeTruthy();
 });
 
 test("Check the cancel button in  UI", () => {
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	expect(getByText("Cancel")).toBeTruthy();
 });
 
 test("Check the Save button in  UI", () => {
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	expect(getByText("Update")).toBeTruthy();
 });
 
 test("By default the switch to be Off", () => {
-	const { container } = render(component(), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('notification-switch');
 	expect(element).not.toBeChecked();
 });
 
 test("The switch to be On in click event", () => {
-	const { container } = render(component(), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('notification-switch');
 	fireEvent.click(element);
 	expect(element).toBeChecked();
 });
 
 test("The switch to be On and Off when click two time", () => {
-	const { container } = render(component(), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('notification-switch');
 	fireEvent.click(element);
 	fireEvent.click(element);
@@ -139,7 +139,7 @@ test("Check can able to select and deselect terms check box UI", () => {
 });
 
 test("Check can able to click Cancel button", async () => {
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	const element = getByText("Cancel");
 	await act(() => {
 		fireEvent.click(element);
@@ -147,7 +147,7 @@ test("Check can able to click Cancel button", async () => {
 });
 
 test("Check can able to click Update button", async () => {
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	const element = getByText("Update");
 	await act(() => {
 		fireEvent.click(element);
@@ -155,13 +155,13 @@ test("Check can able to click Update button", async () => {
 });
 
 test("Check the disclosure link is showing in UI", () => {
-	const { container } = render(component(), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('disclosure-link');
 	expect(element).toBeTruthy();
 });
 
 test("Check the disclosure popup is opening when click the link", async () => {
-	const { container } = render(component(), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('disclosure-link');
 	await act(() => {
 		fireEvent.click(element);

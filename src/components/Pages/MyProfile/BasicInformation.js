@@ -60,6 +60,9 @@ const maskDOB = (dob) => {
   let monthDay = (dob.slice(0, 6)).replace(/\d/g, '*'); 
   return monthDay + dob.slice(6);
 }
+const shortANDoperation = (pramOne, pramtwo) => {
+  return pramOne && pramtwo
+};
 export default function BasicInformation(props) {
   const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
@@ -396,9 +399,13 @@ export default function BasicInformation(props) {
               materialProps={{ maxLength: "100" }}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            />
+              error={
+                shortANDoperation(formik.touched.email, Boolean(formik.errors.email))
+              }
+              helperText = {
+                shortANDoperation(formik.touched.email, formik.errors.email)
+              }
+              />
           </Grid>
           <Grid
             item
@@ -425,8 +432,8 @@ export default function BasicInformation(props) {
                 updateEnterPhoneNo(event);
                 formik.handleChange(event);
               }}
-              error={formik.touched.phone && Boolean(formik.errors.phone)}
-              helperText={formik.touched.phone && formik.errors.phone}
+              error={shortANDoperation(formik.touched.phone, Boolean(formik.errors.phone))}
+              helperText = {shortANDoperation(formik.touched.phone, formik.errors.phone)}
               disabled={!disableField}
               onFocus={ updateActualValue }
 

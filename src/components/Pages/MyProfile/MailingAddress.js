@@ -157,6 +157,9 @@ export default function MailingAddress(props) {
   const onBlurAddress = (event) => {
     formik.setFieldValue("streetAddress", event.target.value.trim());
   };
+  const shortANDoperation = (pramOne, pramtwo) => {
+		return pramOne && pramtwo
+	};
 
   return (
     <div style={{ padding: 20 }} data-testid="basic-information-mailing-address">
@@ -189,13 +192,8 @@ export default function MailingAddress(props) {
               value={formik.values.streetAddress}
               onChange={formik.handleChange}
               onBlur={onBlurAddress}
-              error={
-                formik.touched.streetAddress &&
-                Boolean(formik.errors.streetAddress)
-              }
-              helperText={
-                formik.touched.streetAddress && formik.errors.streetAddress
-              }
+              error={shortANDoperation(formik.touched.streetAddress, Boolean(formik.errors.streetAddress))}
+              helperText = {shortANDoperation(formik.touched.streetAddress, formik.errors.streetAddress)}
             />
           </Grid>
           <Grid
@@ -215,8 +213,8 @@ export default function MailingAddress(props) {
               value={formik.values.city}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.city && Boolean(formik.errors.city)}
-              helperText={formik.touched.city && formik.errors.city}
+              error={shortANDoperation(formik.touched.city, Boolean(formik.errors.city))}
+              helperText = {shortANDoperation(formik.touched.city, formik.errors.city)}
             />
           </Grid>
           <Grid
@@ -236,8 +234,8 @@ export default function MailingAddress(props) {
               value={formik.values.state}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.state && Boolean(formik.errors.state)}
-              helperText={formik.touched.state && formik.errors.state}
+              error={shortANDoperation(formik.touched.state, Boolean(formik.errors.state))}
+              helperText = {shortANDoperation(formik.touched.state, formik.errors.state)}
             />
           </Grid>
           <Grid

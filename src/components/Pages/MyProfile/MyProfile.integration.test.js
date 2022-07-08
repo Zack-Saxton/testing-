@@ -93,7 +93,7 @@ test("Checks the component is rendered", () => {
 });
 test("Check the five tabs are available in UI", () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { container } = render(component(), { wrapper: MemoryRouter });
   const basicInfoBtn = container.querySelector(`button[id="scrollable-auto-tab-vertical-0"]`); 
 	expect(basicInfoBtn).toBeTruthy();
 	const mailingAddress = container.querySelector(`button[id="scrollable-auto-tab-vertical-1"]`); 
@@ -113,7 +113,7 @@ test("--------------------Basic information component use cases-----------------
 
 test("Check the first name field in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="firstname"]`);
 	expect(input).toBeTruthy();
@@ -122,7 +122,7 @@ test("Check the first name field in UI", () => {
 
 test("Check the last name field in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="lastname"]`);
 	expect(input).toBeTruthy();
@@ -131,7 +131,7 @@ test("Check the last name field in UI", () => {
 
 test("Check the Date of Birth field in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="dob"]`);
 	expect(input).toBeTruthy();
@@ -140,7 +140,7 @@ test("Check the Date of Birth field in UI", () => {
 
 test("Check the Email Address field in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="email"]`);
 	expect(input).toBeTruthy();
@@ -149,7 +149,7 @@ test("Check the Email Address field in UI", () => {
 
 test("Check the Primary phone number field in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
@@ -158,7 +158,7 @@ test("Check the Primary phone number field in UI", () => {
 
 test("Check the upload image field in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[id="selectImage"]`);
 	expect(input).toBeTruthy();
@@ -166,7 +166,7 @@ test("Check the upload image field in UI", () => {
 
 test("First name field to be disabled in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="firstname"]`);
 	expect(input).toBeTruthy();
@@ -175,7 +175,7 @@ test("First name field to be disabled in UI", () => {
 
 test("Last name field to be disabled in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="lastname"]`);
 	expect(input).toBeTruthy();
@@ -184,7 +184,7 @@ test("Last name field to be disabled in UI", () => {
 
 test("Date of Birth field to be disabled in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="dob"]`);
 	expect(input).toBeTruthy();
@@ -193,7 +193,7 @@ test("Date of Birth field to be disabled in UI", () => {
 
 test("Check can able to enter email id in Email Address filed in UI", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="email"]`);
 	expect(input).toBeTruthy();
@@ -205,7 +205,7 @@ test("Check can able to enter email id in Email Address filed in UI", async () =
 
 test("Show error message if entered invalid email id", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="email"]`);
 	expect(input).toBeTruthy();
@@ -220,7 +220,7 @@ test("Show error message if entered invalid email id", async () => {
 
 test("Check can able to enter phone number in Phone Number filed in UI", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
@@ -232,7 +232,7 @@ test("Check can able to enter phone number in Phone Number filed in UI", async (
 
 test("Check number masking after entering phone number", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
@@ -245,7 +245,7 @@ test("Check number masking after entering phone number", async () => {
 
 test("Check number masking after entering phone number", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
@@ -258,7 +258,7 @@ test("Check number masking after entering phone number", async () => {
 
 test("Verify can able to click file upload", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = basicComponentUtil(getByText);
 	const input = element.querySelector(`input[id="selectImage"]`);
 	fireEvent.click(input);
@@ -271,15 +271,15 @@ test("------------------------------Mailing address component use cases---------
 
 test("When click Mailing Address menu, the mailing address component to be render", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = mailingAddressUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	mailingAddressUtil(getByText);
 	
 });
 
 
 test("Check the Street address field in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = mailingAddressUtil(getByText);
 	const input = element.querySelector(`input[name="streetAddress"]`);
 	expect(input).toBeTruthy();
@@ -288,7 +288,7 @@ test("Check the Street address field in UI", () => {
 
 test("Check the City field in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = mailingAddressUtil(getByText);	
 	const input = element.querySelector(`input[name="city"]`);
 	expect(input).toBeTruthy();
@@ -297,7 +297,7 @@ test("Check the City field in UI", () => {
 
 test("Check the state field in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = mailingAddressUtil(getByText);
 	const input = element.querySelector(`input[name="state"]`);
 	expect(input).toBeTruthy();
@@ -306,7 +306,7 @@ test("Check the state field in UI", () => {
 
 test("Check the zipcode field in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = mailingAddressUtil(getByText);
 	const input = element.querySelector(`input[name="zip"]`);
 	expect(input).toBeTruthy();
@@ -315,21 +315,21 @@ test("Check the zipcode field in UI", () => {
 
 test("Check the cancel button in  UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = mailingAddressUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	mailingAddressUtil(getByText);
 	expect(getByText("Cancel")).toBeTruthy();
 });
 
 test("Check the Save button in  UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = mailingAddressUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	mailingAddressUtil(getByText);
 	expect(getByText("Save Changes")).toBeTruthy();
 });
 
 test("City field to be disabled in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = mailingAddressUtil(getByText);
 	const input = element.querySelector(`input[name="city"]`);
 	expect(input).toBeTruthy();
@@ -338,7 +338,7 @@ test("City field to be disabled in UI", () => {
 
 test("State field to be disabled in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = mailingAddressUtil(getByText);
 	const input = element.querySelector(`input[name="state"]`);
 	expect(input).toBeTruthy();
@@ -347,7 +347,7 @@ test("State field to be disabled in UI", () => {
 
 test("Check the zipcode max length to be 5", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = mailingAddressUtil(getByText);
 	const input = element.querySelector(`input[name="zip"]`);
 	expect(input).toBeTruthy();
@@ -356,7 +356,7 @@ test("Check the zipcode max length to be 5", () => {
 
 test("Check can able to enter Street address in UI", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = mailingAddressUtil(getByText);
 	const input = element.querySelector(`input[name="streetAddress"]`);
 	expect(input).toBeTruthy();
@@ -368,7 +368,7 @@ test("Check can able to enter Street address in UI", async () => {
 
 test("Check can able to enter Zipcode in UI", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = mailingAddressUtil(getByText);
 	const input = element.querySelector(`input[name="zip"]`);
 	expect(input).toBeTruthy();
@@ -380,8 +380,8 @@ test("Check can able to enter Zipcode in UI", async () => {
 
 test("Check can able to click Save button", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = mailingAddressUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	mailingAddressUtil(getByText);
 	await act(() => {
 		fireEvent.click(screen.getByText('Save Changes'));
 	});	
@@ -393,22 +393,22 @@ test("------------------------------Text Notification component use cases-------
 
 test("When click Text Notification menu, the text notification component to be render", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = textNotificationUtil(getByText);	
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);	
 });
 
 
 test("Check the the notification switch option in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = textNotificationUtil(getByText);
-	const input = screen.getByTestId('notification-switch');
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);
+	screen.getByTestId('notification-switch');
 	expect(InputEvent).toBeTruthy();
 });
 
 test("Check the the phone number field in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = textNotificationUtil(getByText);
 	const input = element.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
@@ -416,38 +416,38 @@ test("Check the the phone number field in UI", () => {
 
 test("Check the the notification switch option in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = textNotificationUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);
 	const input = screen.getByTestId('notification-terms');
 	expect(input).toBeTruthy();
 });
 
 test("Check the cancel button in  UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = textNotificationUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);
 	expect(getByText("Cancel")).toBeTruthy();
 });
 
 test("Check the Save button in  UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = textNotificationUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);
 	expect(getByText("Update")).toBeTruthy();
 });
 
 test("By default the switch to be Off", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = textNotificationUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);
 	const input = screen.getByTestId('notification-switch');
 	expect(input).not.toBeChecked();
 });
 
 test("The switch to be On in click event", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = textNotificationUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);
 	const input = screen.getByTestId('notification-switch');
 	fireEvent.click(input);
 	expect(input).toBeChecked();
@@ -455,8 +455,8 @@ test("The switch to be On in click event", () => {
 
 test("The switch to be On and Off when click two time", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = textNotificationUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);
 	const input = screen.getByTestId('notification-switch');
 	fireEvent.click(input);
 	fireEvent.click(input);
@@ -465,7 +465,7 @@ test("The switch to be On and Off when click two time", () => {
 
 test("Check can able to enter phone number in Phone Number filed in UI", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = textNotificationUtil(getByText);
 	const input = element.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
@@ -477,7 +477,7 @@ test("Check can able to enter phone number in Phone Number filed in UI", async (
 
 test("Check number masking after entering phone number", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = textNotificationUtil(getByText);
 	const input = element.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
@@ -490,7 +490,7 @@ test("Check number masking after entering phone number", async () => {
 
 test("Check number masking after entering phone number", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let notification = textNotificationUtil(getByText);
 	const element = notification.querySelector(`input[name="phone"]`);
 	expect(element).toBeTruthy();
@@ -503,7 +503,7 @@ test("Check number masking after entering phone number", async () => {
 
 test("Check can able to select terms check box UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let notification = textNotificationUtil(getByText);
 	const element = notification.querySelector(`input[id="textingterms"]`);
 	fireEvent.click(element);
@@ -512,7 +512,7 @@ test("Check can able to select terms check box UI", () => {
 
 test("Check can able to select and deselect terms check box UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let notification = textNotificationUtil(getByText);
 	const element = notification.querySelector(`input[id="textingterms"]`);
 	fireEvent.click(element);
@@ -522,8 +522,8 @@ test("Check can able to select and deselect terms check box UI", () => {
 
 test("Check can able to click Cancel button", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let notification = textNotificationUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);
 	const element = getByText("Cancel");
 	await act(() => {
 		fireEvent.click(element);
@@ -532,8 +532,8 @@ test("Check can able to click Cancel button", async () => {
 
 test("Check can able to click Update button", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let notification = textNotificationUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);
 	const element = getByText("Update");
 	await act(() => {
 		fireEvent.click(element);
@@ -542,16 +542,16 @@ test("Check can able to click Update button", async () => {
 
 test("Check the disclosure link is showing in UI", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let notification = textNotificationUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);
 	const element = screen.getByTestId('disclosure-link');
 	expect(element).toBeTruthy();
 });
 
 test("Check the disclosure popup is opening when click the link", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let notification = textNotificationUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	textNotificationUtil(getByText);
 	const element = screen.getByTestId('disclosure-link');
 	await act(() => {
 		fireEvent.click(element);
@@ -571,21 +571,21 @@ test("------------------------------Payment Methods component use cases---------
 
 test("When click Payment methods menu, the payment method component to be render", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = paymentMethodsUtil(getByText);	
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	paymentMethodsUtil(getByText);	
 });
 
 test("Check Add Bank Account button exist in the UI", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = paymentMethodsUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	paymentMethodsUtil(getByText);
 	expect(getByText("Add Bank Account")).toBeTruthy();
 });
 
 test("Check can able to click Add Bank Account button and showing popup", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = paymentMethodsUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	paymentMethodsUtil(getByText);
 	fireEvent.click(screen.getByTestId('add-new-account-number'));	
 	const input = screen.getByTestId('add-new-bank-account-container');
 	expect(input).toHaveClass("showContent");
@@ -593,7 +593,7 @@ test("Check can able to click Add Bank Account button and showing popup", async 
 
 test("Check all input filed exist in the UI. account Nick Name, Account Holder Name, Account Type, Rounting Number, Bank Name, Bank Account Number and set default checkbox", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);
 	const accountNickname = element.querySelector(`input[name="accountNickname"]`);
 	expect(accountNickname).toBeTruthy();
@@ -627,7 +627,7 @@ test("Check all input filed exist in the UI. account Nick Name, Account Holder N
 
 test("Check Nick name validation is working", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);	
 	const accountNickname = element.querySelector(`input[name="accountNickname"]`);
 	expect(accountNickname).toBeTruthy();	
@@ -643,7 +643,7 @@ test("Check Nick name validation is working", async () => {
 
 test("Check Account holder name validation is working", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);		
 	const accountNickname = element.querySelector(`input[name="accountHolder"]`);
 	expect(accountNickname).toBeTruthy();	
@@ -659,7 +659,7 @@ test("Check Account holder name validation is working", async () => {
 
 test("Check Bank Account number validation is working", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);	
 	const accountNickname = element.querySelector(`input[name="bankAccountNumber"]`);
 	expect(accountNickname).toBeTruthy();	
@@ -678,15 +678,15 @@ test("*********************************Add Debit Card Test Cases****************
 
 test("Check Add Debit Card button exist in the UI", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = paymentMethodsUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	paymentMethodsUtil(getByText);
 	expect(getByText("Add Debit Card")).toBeTruthy();
 });
 
 test("Check can able to click Add Bank Account button and showing popup", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = paymentMethodsUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	paymentMethodsUtil(getByText);
 	fireEvent.click(screen.getByTestId('add-new-debit-card'));	
 	const input = screen.getByTestId('add-new-debit-card-container');
 	expect(input).toHaveClass("showContent");
@@ -694,7 +694,7 @@ test("Check can able to click Add Bank Account button and showing popup", async 
 
 test("Check all input filed exist in the UI. Card number, Name on Card, Expiration Date, CVV, ", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);
 	const cardNumber = element.querySelector(`input[name="cardNumber"]`);
 	expect(cardNumber).toBeTruthy();
@@ -739,7 +739,7 @@ test("Check all input filed exist in the UI. Card number, Name on Card, Expirati
 
 test("Check Card Number validation is working when value is empty", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);
 	const cardNumber = element.querySelector(`input[name="cardNumber"]`);
 	expect(cardNumber).toBeTruthy();	
@@ -755,7 +755,7 @@ test("Check Card Number validation is working when value is empty", async () => 
 
 test("Check Card Number validation is working when entered number less than 16 digit", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);	
 	const cardNumber = element.querySelector(`input[name="cardNumber"]`);
 	expect(cardNumber).toBeTruthy();	
@@ -771,7 +771,7 @@ test("Check Card Number validation is working when entered number less than 16 d
 
 test("Check Card Number validation that accept only Visa or Master card	", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);	
 	const cardNumber = element.querySelector(`input[name="cardNumber"]`);
 	expect(cardNumber).toBeTruthy();	
@@ -787,7 +787,7 @@ test("Check Card Number validation that accept only Visa or Master card	", async
 
 test("Check Card Number validation that error message should not be shown when entered valid card	", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);	
 	const cardNumber = element.querySelector(`input[name="cardNumber"]`);
 	expect(cardNumber).toBeTruthy();	
@@ -802,7 +802,7 @@ test("Check Card Number validation that error message should not be shown when e
 
 test("Master card image to be shown when entering valid card number", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);	
 	const cardNumber = element.querySelector(`input[name="cardNumber"]`);
 	expect(cardNumber).toBeTruthy();	
@@ -817,7 +817,7 @@ test("Master card image to be shown when entering valid card number", async () =
 
 test("Unknown image to be shown when entering invalid card number", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);
 	const cardNumber = element.querySelector(`input[name="cardNumber"]`);
 	expect(cardNumber).toBeTruthy();	
@@ -832,7 +832,7 @@ test("Unknown image to be shown when entering invalid card number", async () => 
 
 test("Check Name on card validation is working", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);	
 	const cardName = element.querySelector(`input[name="cardName"]`);
 	expect(cardName).toBeTruthy();	
@@ -848,7 +848,7 @@ test("Check Name on card validation is working", async () => {
 
 test("Check card expired date validation is working", async () => {
   LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = paymentMethodsUtil(getByText);	
 	const expiryDate = element.querySelector(`input[name="expiryDate"]`);
 	expect(expiryDate).toBeTruthy();	
@@ -872,13 +872,13 @@ test("------------------------------Change Password component use cases---------
 
 test("When click Change Password menu, the change password component to be render", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
-	let element = changePasswordUtil(getByText);
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
+	changePasswordUtil(getByText);
 });
 
 test("Check the Old password field in UI with value empty", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="oldPassword"]`);
 	expect(input).toBeTruthy();
@@ -887,7 +887,7 @@ test("Check the Old password field in UI with value empty", () => {
 
 test("Check the New password field in UI with value empty", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="newPassword"]`);
 	expect(input).toBeTruthy();
@@ -896,7 +896,7 @@ test("Check the New password field in UI with value empty", () => {
 
 test("Check the Confirm new password field in UI with value empty", () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="confirmPassword"]`);
 	expect(input).toBeTruthy();
@@ -905,7 +905,7 @@ test("Check the Confirm new password field in UI with value empty", () => {
 
 test("Show error message if not entered Old passord", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="oldPassword"]`);
 	expect(input).toBeTruthy();
@@ -920,7 +920,7 @@ test("Show error message if not entered Old passord", async () => {
 
 test("Show error message if not entered New passord", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="newPassword"]`);
 	expect(input).toBeTruthy();
@@ -935,7 +935,7 @@ test("Show error message if not entered New passord", async () => {
 
 test("Show error message if not entered confirm passord", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="confirmPassword"]`);
 	expect(input).toBeTruthy();
@@ -950,7 +950,7 @@ test("Show error message if not entered confirm passord", async () => {
 
 test("Check can able to  enter Old passord", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="oldPassword"]`);
 	expect(input).toBeTruthy();
@@ -962,7 +962,7 @@ test("Check can able to  enter Old passord", async () => {
 
 test("Show error message if entered new password is below 10 characters", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="newPassword"]`);
 	expect(input).toBeTruthy();
@@ -978,7 +978,7 @@ test("Show error message if entered new password is below 10 characters", async 
 
 test("Show error message when entered password is not meet the criteria", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="newPassword"]`);
 	expect(input).toBeTruthy();
@@ -994,7 +994,7 @@ test("Show error message when entered password is not meet the criteria", async 
 
 test("The error message should not be shown if entered password meet the criteria", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="newPassword"]`);
 	expect(input).toBeTruthy();
@@ -1009,7 +1009,7 @@ test("The error message should not be shown if entered password meet the criteri
 
 test("Show error message if entered confirm password is below 10 characters", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="confirmPassword"]`);
 	expect(input).toBeTruthy();
@@ -1025,7 +1025,7 @@ test("Show error message if entered confirm password is below 10 characters", as
 
 test("Show error message when entered confirm password is not meet the criteria", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const input = element.querySelector(`input[name="confirmPassword"]`);
 	expect(input).toBeTruthy();
@@ -1041,7 +1041,7 @@ test("Show error message when entered confirm password is not meet the criteria"
 
 test("The error message should not be shown if entered confirm password meet the criteria", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const newPassword = element.querySelector(`input[name="newPassword"]`);
 	const input = element.querySelector(`input[name="confirmPassword"]`);
@@ -1058,7 +1058,7 @@ test("The error message should not be shown if entered confirm password meet the
 
 test("Show error message if entered confirm password not matched with new password", async () => {
 	LoanDataMock();
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter }); 
+	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
 	let element = changePasswordUtil(getByText);
 	const newPassword = element.querySelector(`input[name="newPassword"]`);
 	const input = element.querySelector(`input[name="confirmPassword"]`);
