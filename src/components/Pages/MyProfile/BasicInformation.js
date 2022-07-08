@@ -54,10 +54,10 @@ const phoneNumberMask = (values) => {
 }
 const maskPhoneNumberWithAsterisk = (phoneNumber) => {
   let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
-  return firstNumber.replace(/[0-9]/g, '*') + phoneNumber.slice(10);
+  return firstNumber.replace(/\d/g, '*') + phoneNumber.slice(10);
 }
 const maskDOB = (dob) => {
-  let monthDay = (dob.slice(0, 6)).replace(/[0-9]/g, '*'); 
+  let monthDay = (dob.slice(0, 6)).replace(/\d/g, '*'); 
   return monthDay + dob.slice(6);
 }
 export default function BasicInformation(props) {

@@ -10,12 +10,12 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useRef, useState } from "react";
 import { useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import getClientIp from "../../Controllers/CommonController";
 import LoginController, {
-  RegisterController,
+  RegisterController, handleSuccessLogin
 } from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
 import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
@@ -31,7 +31,6 @@ import {
   Zipcode,
 } from "../../FormsUI";
 import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
-import { encryptAES } from "../../lib/Crypto";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import "./Register.css";
@@ -55,6 +54,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [disableRecaptcha, setDisableRecaptcha] = useState(true);
   const navigate = useNavigate();
+  let location = useLocation();
   const queryClient = useQueryClient();
   let refFirstName = useRef();
   let refLastName = useRef();
@@ -97,48 +97,13 @@ export default function Register() {
         values.password,
         ""
       );
-      if (retrivedValue?.data?.user && retrivedValue?.data?.userFound) {
-        let rememberMe = false;
-        let now = new Date().getTime();
+      if (retrivedValue?.data?.user && retrivedValue?.data?.userFound) {        
         LogoutController();
         Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
-        Cookies.set(
-          "token",
-          JSON.stringify({
-            isLoggedIn: true,
-            apiKey:
-              retrivedValue?.data?.user?.extensionattributes?.login?.jwt_token,
-            setupTime: now,
-          })
-        );
-        Cookies.set(
-          "cred",
-          encryptAES(
-            JSON.stringify({
-              email: values.email,
-              password: values.password,
-            })
-          )
-        );
-        queryClient.removeQueries();
-        rememberMe
-          ? Cookies.set(
-              "rememberMe",
-              JSON.stringify({
-                isLoggedIn: true,
-                apiKey:
-                  retrivedValue?.data?.user?.extensionattributes?.login
-                    ?.jwt_token,
-                setupTime: now,
-              })
-            )
-          : Cookies.set(
-              "rememberMe",
-              JSON.stringify({ selected: false, email: "", password: "" })
-            );
-
+        let mfaData = {mfaDetails : retrivedValue?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }
         setLoading(false);
-        navigate("/customers/accountoverview");
+        handleSuccessLogin(retrivedValue, values, mfaData, false, queryClient, navigate, location);
+        setLoading(false);
       } else if (
         retrivedValue?.data?.result === "error" ||
         retrivedValue?.data?.hasError
