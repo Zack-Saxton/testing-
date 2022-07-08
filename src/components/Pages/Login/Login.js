@@ -18,7 +18,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import getClientIp from "../../Controllers/CommonController";
-import LoginController from "../../Controllers/LoginController";
+import LoginController, { handleSuccessLogin } from "../../Controllers/LoginController";
 import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import {
   ButtonPrimary,
@@ -28,7 +28,6 @@ import {
   RenderContent
 } from "../../FormsUI";
 import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
-import { encryptAES } from "../../lib/Crypto";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
@@ -98,65 +97,6 @@ export default function Login(props) {
     grecaptcha.reset();
     setDisableRecaptcha(true);
   };
-
-  const setCookiesPostLogin = (retVal, now, values, login_date, mfaData) => {
-    Cookies.set(
-      "token",
-      JSON.stringify({
-        isLoggedIn: true,
-        apiKey: retVal?.data?.user?.extensionattributes?.login?.jwt_token,
-        setupTime: now,
-        applicantGuid: retVal?.data?.user?.attributes?.sor_data?.applicant_guid,
-        isMFA:retVal?.data?.user?.extensionattributes?.MFA ?? false,
-        isMFACompleted: false
-      })
-    );
-    Cookies.set("cred", encryptAES(JSON.stringify({ email: values?.email, password: values?.password })));
-    Cookies.set("email", values?.email);
-    Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
-    Cookies.set("login_date", login_date);
-    Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
-    Cookies.set("temp_opted_phone_texting", "");
-    Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email }) : JSON.stringify({ selected: false, email: '' }));
-    
-    Cookies.set("mfaDetails", JSON.stringify(mfaData));
-  }
-
-  const handleSuccessLogin = (retVal, values, mfaData) => {
-    let login_date = retVal?.data?.user?.extensionattributes?.login
-    ?.last_timestamp_date
-    ? moment(retVal.data.user.extensionattributes.login.last_timestamp_date)
-      .subtract(addVal, "hours")
-      .format("MM/DD/YYYY")
-    : "";
-  let now = new Date().getTime();
-  // On login success storing the needed data in the local storage
-  setCookiesPostLogin(retVal, now, values, login_date, mfaData);
-
-  queryClient.removeQueries();
-  setLoading(false);
-  if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter === 1 && retVal?.data?.user?.extensionattributes?.MFA){
-    Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
-    navigate("/MFA-phoneNumber", {state:mfaData });
-  }
-  else if(retVal?.data?.user?.extensionattributes?.MFA){
-    Cookies.set("forceResetPassword", retVal?.data?.user?.attributes?.password_reset);
-    Cookies.set("mfaDetails", mfaData);
-    navigate("/MFA", { state: mfaData });
-  } 
-  else if(retVal?.data?.user?.extensionattributes?.LockUserByMFACounter > 0 && !retVal?.data?.user?.extensionattributes?.securityQuestionsSaved && !retVal?.data?.user?.extensionattributes?.MFA){
-    navigate('/mfa-kbaQuestions', {state: mfaData});
-  } 
-  else {
-    retVal?.data?.user?.attributes?.password_reset
-    ? navigate("/resetpassword", { state: { Email: values?.email } })
-    : navigate(location.state?.redirect ? location.state?.redirect : "/customers/accountoverview");
-  }
-  if (location.state?.activationToken) {
-    navigate(0);
-  }
-  }
-
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -179,7 +119,8 @@ export default function Login(props) {
       );
       if (retVal?.data?.user && retVal?.data?.userFound) {
         let mfaData = {mfaDetails : retVal?.data?.user?.extensionattributes, customerEmail: values?.email, deviceType: window.navigator.userAgent }
-        handleSuccessLogin(retVal, values, mfaData);
+        setLoading(false);
+        handleSuccessLogin(retVal, values, mfaData, remMe, queryClient, navigate, location);
       } else if (
         retVal?.data?.result === "error" ||
         retVal?.data?.hasError
