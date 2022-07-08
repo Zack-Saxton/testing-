@@ -135,9 +135,11 @@ export default function Login(props) {
           }),
           toast.error(retVal?.data?.Message)
         );
-        if( retVal?.data?.Message !== "Your account has been locked.  Please contact your branch for further assistance.")
-        {
+        if( retVal?.data?.Message !== "Your account has been locked.  Please contact your branch for further assistance."){
           setCounter(counter + 1);
+        }
+        else {
+          formik.resetForm();
         }
         setLoading(false);
         setLoginFailed(retVal?.data?.errorMessage);
