@@ -52,7 +52,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
 
   const securityCode = (
     <div className={classes.securityCodeText}>
-      Security code via SMS :<br />
+      Select a phone number to receive an authentication PIN via text :<br />
       {
         selection || selectionValue?.substr(-4) == "ions" ? <span>Get a code on your preferred phone number</span> : <span>To phone number : {`(***) *** ${selectionValue?.substr(-4)}`}</span>
       }
@@ -61,7 +61,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
   const securityQuestions = (
     <div className={classes.securityQuestions}>
       Security Questions : <br />
-      Answer security questions{" "}
+      Answer Identity Verification Questions.{" "}
     </div>
   );
 
@@ -82,7 +82,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
         >
           <Paper className={classes.twoStepPaper}>
             <Typography className={classes.twoStepHeading} variant="h5" data-testid="title">
-              2-Step Verification
+              Please complete Multi Factor Authentication
             </Typography>
             <Typography className={classes.twoStepParagraph} data-testid="title1">
               For your security we are asking you to verify your identity.
@@ -118,7 +118,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
               </RadioGroup>
             </FormControl>
             <Grid className={classes.nextButtonGrid} container>
-              <ButtonPrimary stylebutton='{"color":""}' disabled={selection} onClick={handleClick}>Next</ButtonPrimary>
+              <ButtonPrimary stylebutton='{"color":""}' disabled={selection} onClick={handleClick}> {value ? (value === "phone" ? "Send PIN Code" : "Proceed to Questions") : "Next"}</ButtonPrimary>
             </Grid>
           </Paper>
         </Grid>
