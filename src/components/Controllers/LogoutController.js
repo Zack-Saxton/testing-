@@ -16,4 +16,6 @@ export default function LogoutController() {
   Cookies.set("skip", emptyString);
   Cookies.set("getProfileImage", '');
   Cookies.set("profilePictureURL", '');
+  Cookies.set("firstName", '');
+  Cookies.set("lastName", '');
 }
