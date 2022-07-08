@@ -26,7 +26,6 @@ const queryClient = new QueryClient({
 jest.mock("./AccountOverviewHook/useAccountOverview", () => ({
   useAccountOverview: jest.fn(),
 }))
-
 const theme = createTheme();
 window.scrollTo = jest.fn();
 const MockRecentApplications = () => {
@@ -74,7 +73,7 @@ it("Fetching data and rendering the content Test", () => {
 it("Check number of Recent Applications", () => {
   RecentApplicationsDataMock()
   render(MockRecentApplications());
-  expect(screen.getAllByTestId('with_Data')).toHaveLength(15);
+  expect(screen.getAllByTestId('with_Data')).toHaveLength(2);
 });
 
 it("Navigate to View Account Page", async () => {

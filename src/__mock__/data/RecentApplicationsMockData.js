@@ -1,5 +1,8 @@
+import Moment from "moment";
 
-
+let today = new Date();
+const last30days = new Date(today.setDate(today.getDate() - 10))
+let mockDate = (Moment(last30days).format('MM/DD/YYYY'))
 
 export const mockData = {
    data: {
@@ -9,7 +12,7 @@ export const mockData = {
             "isActive": false,
             "applicantGuid": "AT-JE1647874278389",
             "status": "contact_branch",
-            "submissionDate": "03/21/2022",
+            "submissionDate": mockDate,
             "applicantType": "primary",
             "product": "Personal Loan",
             "amountRequested": 5000,
@@ -20,7 +23,7 @@ export const mockData = {
             "isActive": false,
             "applicantGuid": "AT-JE1647871356037",
             "status": "contact_branch",
-            "submissionDate": "03/21/2022",
+            "submissionDate":mockDate,
             "applicantType": "primary",
             "product": "Personal Loan",
             "amountRequested": 10000,
