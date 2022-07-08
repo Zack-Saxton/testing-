@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { idVerificationAnswer } from '../../Controllers/MFAController';
 import { AutoCompleteMultiple, ButtonPrimary, Radio } from "../../FormsUI"
 import ScrollToTopOnMount from "../CheckMyOffers/ScrollToTop";
+import Messages from "../../../assets/data/globalMessages.json"
 
 //Component to load the questions
 //To build the structure for load
@@ -63,6 +64,7 @@ export default function MultipleQuestion(props) {
 			let response = await idVerificationAnswer(passData);
 			if (response?.data?.result === 'success') {
 				props.setLoadingFlag(false);
+				toast.success(Messages.Your_Identity_Verified_Successfully);
 				props.navigate('/MFA-SelectSecurityQuestions', { state: { currentFlow: true } })
 			} else if(response?.data?.result === 'error') {
 				props.setLoadingFlag(false);
