@@ -40,7 +40,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
   const securityCode = (
     <div className={classes.securityCodeText} >
       <b className='boldText'> 
-      Security code via SMS :
+      Select a phone number to receive an authentication PIN via text :
       </b><br />
       <span>{`Get a code on (***) *** ${phoneNumber?.substr(-4)}`}</span>
     </div>
@@ -50,7 +50,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
       <b className='boldText'>
         Security Questions :
       </b> <br />
-      Answer security questions{" "}
+      Answer security questionsAnswer Identity Verification Questions.{" "}
     </div>
   );
 
@@ -76,11 +76,9 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
             <Typography className={classes.twoStepParagraph}>
               {phoneNumberSaved 
               ? 
-              `For your security we are asking you to verify your identity.
-              Select one of the following methods to complete your login.`
+              `For your security, please select a method to verify your identity.`
               :
-              `For your security we are asking you to verify your identity.
-              Select Security Question Verification to complete your login.`
+              `For your security, please select security question verification to complete your login.`
               }
             </Typography>
           <FormControl
@@ -118,7 +116,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
               </RadioGroup>
             </FormControl>
             <Grid className={classes.nextButtonGrid} container>
-              <ButtonPrimary  data-testid = "next_button" stylebutton='{"color":""}' disabled={selection} onClick={handleClick}>Next</ButtonPrimary>
+              <ButtonPrimary  data-testid = "next_button" stylebutton='{"color":""}' disabled={selection} onClick={handleClick}> {value ? (value === "phone" ? "Send PIN Code" : "Proceed to Questions") : "Next"}</ButtonPrimary>
             </Grid>
           </Paper>
         </Grid>
