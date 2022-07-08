@@ -17,7 +17,6 @@ import { ButtonPrimary } from "../../FormsUI";
 import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
 import { useStylesAccountOverview } from "./Style";
 import { NavContext } from "../../../contexts/NavContext";
-
 import "./Style.css";
 
 export default function RecentApplications() {
@@ -85,6 +84,21 @@ export default function RecentApplications() {
     navigate('/customers/viewaccount');
   };
 
+  let today = new Date();
+  const last30days = new Date(today.setDate(today.getDate() - 30))
+  const checkRecentApplication = accountDetails?.data?.applicants;
+  
+  const getAvailableApplication = (availableApplication) => {
+  return availableApplication?.filter((availableRecentApplication) => {
+      if( new Date(availableRecentApplication.submissionDate) >= last30days)
+      {
+        return availableRecentApplication
+      }
+      return null
+  });
+};
+
+
   //View
   return (
     <>
@@ -131,9 +145,9 @@ export default function RecentApplications() {
                   </TableCell>
                 </TableRow>
               ) :
-                accountDetails?.data?.applicants?.length
-                  ?
-                  accountDetails.data.applicants.map((appData, index) => (
+              getAvailableApplication(checkRecentApplication)?.length
+                  ?                  
+                  getAvailableApplication(checkRecentApplication)?.map((appData, index) => (
                     <TableRow key={index} data-testid="with_Data">
                       <TableCell className={classes.tableheadrow} >
                         {appData.submissionDate}
@@ -179,7 +193,7 @@ export default function RecentApplications() {
                       colSpan="7"
                       align="center"
                     >
-                      You do not have any recent applications
+                      You do not have any recent applications in last 30 days
                     </TableCell>
                   </TableRow>
               }
@@ -191,7 +205,5 @@ export default function RecentApplications() {
   );
 }
 RecentApplications.propTypes = {
-  isLoading: PropTypes.bool,
-  // userApplicationsData: PropTypes.array,
-  // userApplicantData: PropTypes.object,
+  isLoading: PropTypes.bool
 };
