@@ -8,8 +8,8 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useRef, useState } from "react";
-import { useQueryClient } from "react-query";
+import React, { useRef, useState, useEffect } from "react";
+import { useQueryClient, useQuery } from "react-query";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -53,19 +53,28 @@ export default function Register() {
   const [failed, setFailed] = useState("");
   const [loading, setLoading] = useState(false);
   const [disableRecaptcha, setDisableRecaptcha] = useState(true);
+  const [latitude,setLatitude] = useState();
+  const [longitude,setLongitude] = useState();
   const navigate = useNavigate();
   let location = useLocation();
   const queryClient = useQueryClient();
   let refFirstName = useRef();
   let refLastName = useRef();
+  const {data:ClientIP} = useQuery('ipaddress', getClientIp);
+  useEffect(()=>{
+    navigator.geolocation.getCurrentPosition(function(position){
+       setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+    })
+ },[])
+
 
   window.onReCaptchaSuccess = async function () {
     try {
       let grecaptchaResponse = grecaptcha.getResponse();
-      let ipAddress = await getClientIp();
       let recaptchaVerifyResponse = await RecaptchaValidationController(
         grecaptchaResponse,
-        ipAddress
+        ClientIP
       );
 
       if (recaptchaVerifyResponse.status === 200) {
@@ -95,7 +104,10 @@ export default function Register() {
       let retrivedValue = await LoginController(
         values.email,
         values.password,
-        ""
+        ClientIP,
+        longitude,
+        latitude,
+        window.navigator.userAgent,
       );
       if (retrivedValue?.data?.user && retrivedValue?.data?.userFound) {        
         LogoutController();
