@@ -50,7 +50,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
       <b className='boldText'>
         Security Questions :
       </b> <br />
-      Answer security questionsAnswer Identity Verification Questions.{" "}
+      Answer Identity Verification Questions.{" "}
     </div>
   );
 
@@ -71,7 +71,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
         >
           <Paper className={classes.twoStepPaper}>
             <Typography className={classes.twoStepHeading} variant="h5">
-              2-Step Verification
+            Please complete Multi Factor Authentication
             </Typography>
             <Typography className={classes.twoStepParagraph}>
               {phoneNumberSaved 
@@ -93,7 +93,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
                 name="method"
                 row={true}
                 value={value}
-                onChange={handleChange}
+                onChange={handleChange} 
               >
                 {phoneNumberSaved &&
                     <FormControlLabel style={{ display: phoneNumber ? 'flex' : 'none'}}
