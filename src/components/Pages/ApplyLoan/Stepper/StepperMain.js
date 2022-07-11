@@ -75,7 +75,7 @@ function getSteps() {
 }
 
 //Vertial stepper configuration
-export default function VerticalLinearStepper() {
+export default function StepperMain() {
 	const navigate = useNavigate();
 	const classes = useStyles();
 	const [ activeStep, setActiveStep ] = useState();

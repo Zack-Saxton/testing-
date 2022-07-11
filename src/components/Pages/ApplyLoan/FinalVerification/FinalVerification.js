@@ -6,7 +6,7 @@ import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../../FormsUI";
 import ScrollToTopOnMount from "../../ScrollToTop";
 import "../SelectOffer/SelectOffer.css";
-import Stepper from "../Stepper/Stepper";
+import Stepper from "../Stepper/StepperMain";
 import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
@@ -16,7 +16,7 @@ import TabSection from "../TabSection";
 export default function FinalVerification() {
   const classes = useStylesApplyForLoan();
   const [ value, setValue ] = useState(2);
-  const handleChange = (event, newValue) => setValue(newValue);
+  const handleChange = (_event, newValue) => setValue(newValue);
   useEffect(() => {
     return () => zE('webWidget', 'hide');
   }, []);

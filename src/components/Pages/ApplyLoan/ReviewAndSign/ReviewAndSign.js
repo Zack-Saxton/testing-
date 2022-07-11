@@ -22,7 +22,7 @@ import "./ReviewAndSign.css";
 
 
 //Initializing the Review and sign functional component
-export default function ReviewAndSign(props) {
+export default function ReviewAndSign() {
   const classes = useStylesApplyForLoan();
   //Initializing state variable
   const [ value, setValue ] = useState(1);
@@ -32,13 +32,13 @@ export default function ReviewAndSign(props) {
   const [ selectedOffer, setSelectOffer ] = useState();
   const [ loading, setLoading ] = useState(false);
   const { refetch, isLoading, data: accountDetials } = useQuery('loan-data', usrAccountDetails);
-  const handleChange = (event, newValue) => setValue(newValue);
+  const handleChange = (_event, newValue) => setValue(newValue);
   const { data, setData } = useContext(NavContext);
 
   // To get the iframe url from the API
   async function getIframeURL() {
-    let data = {};
-    let iframeURL = await APICall("esignature_iframe", '', data, "POST", true);
+    let dataIframe = {};
+    let iframeURL = await APICall("esignature_iframe", '', dataIframe, "POST", true);
     setUrl(iframeURL?.data?.iframe);
   }
 
@@ -65,10 +65,10 @@ export default function ReviewAndSign(props) {
     }
   };
 
-  const submitOnClick = async (event) => {
+  const submitOnClick = async (_event) => {
     setLoading(true);
-    let data = {};
-    let authenticateStatus = await APICall("esignature_complete", '', data, "POST", true);
+    let dataStatus = {};
+    let authenticateStatus = await APICall("esignature_complete", '', dataStatus, "POST", true);
     if (authenticateStatus?.data?.message === "Applicant successfully updated") {
       let hardPull = await hardPullCheck();
       if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {

@@ -5,7 +5,7 @@ import { render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
-import Stepper from "./Stepper";
+import Stepper from "./StepperMain";
 
 const queryClient = new QueryClient({
   defaultOptions: {

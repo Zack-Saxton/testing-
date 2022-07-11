@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
 import APICall from "../../lib/AxiosLib";
 //To redirect the user to apply for loan sections depends on the status of the loan application
-const ResumeApplication = (props) => {
+const ResumeApplication = () => {
 	const navigate = useNavigate();
 	const redirect = async () => {
 		let res = await APICall("account_overview", '', {}, "GET", true);

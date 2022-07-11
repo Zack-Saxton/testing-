@@ -6,5 +6,5 @@ export const useBankVerify = (data) => {
     let res = await APICall("bank_information_cac", '', data, "POST", true);
     return res;
   });
-  return { bankInfo }
+  return { bankInfo,isLoading,isError }
 }

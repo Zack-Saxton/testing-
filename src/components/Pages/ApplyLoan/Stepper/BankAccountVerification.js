@@ -23,7 +23,7 @@ import DocumentUpload from "./DocumentUpload";
 import "./stepper.css";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 //Styling part
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	content_grid: {
 		marginTop: "15px",
 	},
@@ -481,7 +481,7 @@ export default function BankAccountVerification(props) {
 					<div className={props.classes.button_div}>
 						<ButtonSecondary
 							stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-							onClick={(event) => {
+							onClick={(_event) => {
 								formik.resetForm();
 								setVerifyRequired(false);
 								setResetUpload(!resetUpload)

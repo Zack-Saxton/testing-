@@ -13,7 +13,7 @@ import {
 import messages from "../../../lib/Lang/applyForLoan.json";
 
 //styling part
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   content_grid: {
     marginTop: "15px",
   },
@@ -180,7 +180,7 @@ export default function FinancialInformation(props) {
 
             <ButtonSecondary
               stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-              onClick={(event) => {
+              onClick={(_event) => {
                 formik.resetForm();
               }
               }

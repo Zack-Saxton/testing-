@@ -61,7 +61,7 @@ export default function LoadChart(props) {
 					</TableHead>
 
 					<TableBody>
-						{finArray.map((compareOffer, ind) => (
+						{finArray.map((compareOffer, _ind) => (
 							<TableRow hover key={compareOffer.term + compareOffer.loanAmount.toString()}>
 								<TableCell className={props.classes.tableHead}>
 									{compareOffer.term} Mo
