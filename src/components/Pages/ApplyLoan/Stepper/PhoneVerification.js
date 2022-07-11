@@ -15,10 +15,10 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
-import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField, PhoneNumber } from "../../../FormsUI";
+import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 
-const useStyles = makeStyles((Theme) => ({
+const useStyles = makeStyles(() => ({
 	pTagTextStyle: {
 		textAlign: "justify",
 		fontSize: "0.938rem",
@@ -64,7 +64,7 @@ const phoneNumberMask = (values) => {
 }
 const maskPhoneNumberWithAsterisk = (phoneNumber) => {
   let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
-  return firstNumber.replace(/[0-9]/g, '*') + phoneNumber.slice(10);
+  return firstNumber.replace(/[\d]/g, '*') + phoneNumber.slice(10);
 }
 //View Part
 export default function PhoneVerification(props) {
@@ -101,7 +101,7 @@ export default function PhoneVerification(props) {
 		},
 		validationSchema: validationSchema,
 		//On submit - calls he otp initial submission API to send code
-		onSubmit: async (values) => {
+		onSubmit: async (_values) => {
 			setOfferCode(true);
 			setOfferCode(hasPasscode ? hasPasscode : !hasPasscode);
 			await OTPInitialSubmission(phoneNumberValue, value);
@@ -150,7 +150,7 @@ export default function PhoneVerification(props) {
 		}
 	};
 
-	const skipPhoneVerification = (event) => {
+	const skipPhoneVerification = (_event) => {
 		Cookies.set("skip", JSON.stringify({ phone: true }));
 		handleClose();
 	};
@@ -158,10 +158,10 @@ export default function PhoneVerification(props) {
 	const handleClose = () => {
 		setOpen(false);
 	};
-	const updateActualValue = (event) => {
+	const updateActualValue = (_event) => {
     setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
   }
-  const updateMaskValue = (event) => {
+  const updateMaskValue = (_event) => {
     setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
   }
   const updateEnterPhoneNo = (event) =>{

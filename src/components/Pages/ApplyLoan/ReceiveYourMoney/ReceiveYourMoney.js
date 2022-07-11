@@ -16,7 +16,7 @@ export default function ReceiveYourMoney() {
 	const classes = useStylesApplyForLoan();
 	//Initializing state variables
 	const [ value, setValue ] = useState(3);
-	const handleChange = (event, newValue) => setValue(newValue);
+	const handleChange = (_event, newValue) => setValue(newValue);
 
 	//JSX part
 	return (

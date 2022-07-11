@@ -7,7 +7,7 @@ import APICall from "../../lib/AxiosLib";
 import messages from "../../lib/Lang/applyForLoan.json";
 
 //To redirect the user to apply for loan sections depends on the status of the loan application
-const ApplyForLoanRedirect = (props) => {
+const ApplyForLoanRedirect = () => {
 	let location = useLocation();
 	const navigate = useNavigate();
 
@@ -55,7 +55,7 @@ const ApplyForLoanRedirect = (props) => {
 				navigate(statusStrLink[ res.data.applicants[ 0 ].status ]);
 			} else {
 				let isActiveApplicationAvailable = false;
-				res?.data?.applicants.map((item, index) => {
+				res?.data?.applicants.map((item, _index) => {
 					if (item.isActive) {
 						isActiveApplicationAvailable = true;
 						navigate(statusStrLink[ item.status ]);

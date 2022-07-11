@@ -9,7 +9,7 @@ import messages from "../../../lib/Lang/applyForLoan.json";
 import LoadQuestions from "./LoadQuestions";
 import MultipleQuestion from "./multipleQuestion";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   content_grid: {
     marginTop: "15px",
   },

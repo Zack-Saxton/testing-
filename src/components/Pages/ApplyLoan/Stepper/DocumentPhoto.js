@@ -10,7 +10,7 @@ import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 
 //Styling
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	content_grid: {
 		marginTop: "15px",
 	},

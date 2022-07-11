@@ -55,7 +55,7 @@ const MockActiveloans = () => {
 describe("while loading", () => {
   it("Compare Add FUnctionality works", () => {
     FetchOfferWithLoading();
-    const container = render(MockActiveloans());
+   render(MockActiveloans());
   });
 
   it("renders a loader", () => {

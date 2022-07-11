@@ -2,7 +2,6 @@ import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React from "react";
-import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { verificationSteps } from "../../../Controllers/ApplyForLoanController";
@@ -22,7 +21,6 @@ const useStyles = makeStyles(() => ({
 export default function IncomeVerification(props) {
 	const navigate = useNavigate();
 	const classes = useStyles();
-	const { data: verificationStepsApplyforLoan, refetch } = useQuery('verification-data', verificationSteps);
 
 	const handleUpload = (res) => {
 		if (res?.data?.income_verification) {

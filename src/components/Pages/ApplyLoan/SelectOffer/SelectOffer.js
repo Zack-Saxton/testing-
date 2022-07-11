@@ -19,11 +19,11 @@ import { useFetchOffer } from "../ApplyForLoanHook/useFetchOffer";
 import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
-import OfferTable from "./offersTable";
+import OfferTable from "./OfferTable";
 import "./SelectOffer.css";
 
 //Initializing functional component Apply for loan
-export default function ApplyLoan() {
+export default function SelectOffer() {
 	//Initializing state variables
 	const [ rowData, setRowData ] = useState();
 	const [ value, setValue ] = useState(0);
@@ -40,9 +40,8 @@ export default function ApplyLoan() {
 	const navigate = useNavigate();
 	let term;
 
-	const { isLoading, offers } = useFetchOffer();
+	const { offers } = useFetchOffer();
 
-	// const { data: offers } = useQuery('available-offers', fetchAvailableOffers);
 
 	const { refetch } = useQuery('loan-data', usrAccountDetails);
 
@@ -132,7 +131,7 @@ export default function ApplyLoan() {
 		setOffersToCompareChart([]);
 		setOfferFlag(true);
 		let rowsterm = [];
-		accountDetails?.data?.Offers[ termNum ].map((item, index) => {
+		accountDetails?.data?.Offers[ termNum ].map((item, _index) => {
 			return structureBuildData(item, termNum, tabIndex, rowsterm);
 		});
 		setRowData(rowsterm);
@@ -167,19 +166,19 @@ export default function ApplyLoan() {
 	// Call function to load the tab initially
 	function initialTabLoad(termNum, tabIndex, accountDetailsData) {
 		let rowsterm = [];
-		accountDetailsData?.data?.Offers[ termNum ].map((item, index) => {
+		accountDetailsData?.data?.Offers[ termNum ].map((item, _index) => {
 
 			return structureBuildData(item, termNum, tabIndex, rowsterm);
 		});
 		setRowData(rowsterm);
 	}
 
-	const handleChange = (event, newValue) => {
+	const handleChange = (_event, newValue) => {
 		setValue(newValue);
 	};
 
 	const [ values, setValues ] = useState(0);
-	const handleTabChange = (event, newValues) => {
+	const handleTabChange = (_event, newValues) => {
 		setValues(newValues);
 	};
 
