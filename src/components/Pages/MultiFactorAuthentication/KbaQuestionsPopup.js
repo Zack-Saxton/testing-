@@ -1,7 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -11,7 +10,7 @@ import React from "react";
 import { ButtonPrimary} from "../../FormsUI";
 import '../../FormsUI/Popup/Popup.css';
 
-const usePopUp = makeStyles((theme) => ({
+const usePopUp = makeStyles(() => ({
     paragraph: {
         fontSize: '0.9rem !important',
         fontWeight: 'bolder',

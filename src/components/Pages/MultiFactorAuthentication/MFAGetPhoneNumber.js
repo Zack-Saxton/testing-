@@ -39,8 +39,7 @@ const validationSchema = yup.object({
 		.min(10, globalMessages.PhoneMin)
 });
 
-const MFAGetPhoneNumber = ({
-}) => {
+const MFAGetPhoneNumber = () => {
 	const classes = useStylesMFA();
 	const navigate = useNavigate();
 	const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');

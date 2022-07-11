@@ -44,7 +44,7 @@ export default function MultipleQuestion(props) {
 		props.responseData.forEach(myFunction);
 		if (allset) {
 			let questionsArrayData = [];
-			props.responseData.forEach((val, ind) => {
+			props.responseData.forEach((val) => {
 				let tempArr = {};
 				tempArr = {
 					id: val.questionId,
@@ -84,7 +84,7 @@ export default function MultipleQuestion(props) {
 			toast.error("Please answer every question before continuing");
 			props.setLoadingFlag(false);
 		}
-		function myFunction(value, index, array) {
+		function myFunction(value) {
 			if (!questionArray[ value.questionId ]) {
 				allset = false;
 			}
