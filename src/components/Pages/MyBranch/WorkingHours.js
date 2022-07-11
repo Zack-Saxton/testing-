@@ -75,6 +75,7 @@ export const other_M_W_Thu = [
   { value: "15:00", label: "03:00 PM" },
   { value: "15:30", label: "03:30 PM" },
   { value: "16:00", label: "04:00 PM" },
+  { value: "16:30", label: "04:30 PM" },
 ];
 
 export const upt_other_M_W_Thu = skipPastTime(other_M_W_Thu);
