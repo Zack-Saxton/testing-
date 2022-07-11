@@ -54,10 +54,6 @@ const validationSchema = yup.object({
 			.required(globalMessages.SSNRequired)
 			.transform((value) => value.replace(/[^\d]/g, ""))
 			//eslint-disable-next-line
-			.matches(
-				/^(?!000)[0-8]\d{2}(?!00)\d{2}(?!0000)\d{4}$/,
-				globalMessages.SSNValid
-			)
 			.matches(/^(\d)(?!\1+$)\d{8}$/, globalMessages.SSNValid)
 			.min(9, globalMessages.SSNMin),
 	}),
