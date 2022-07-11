@@ -85,8 +85,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
               Please complete Multi Factor Authentication
             </Typography>
             <Typography className={classes.twoStepParagraph} data-testid="title1">
-              For your security we are asking you to verify your identity.
-              Select one of the following methods to complete your login.
+            For your security, please select a method to verify your identity.
             </Typography>
           <FormControl
               className={classes.radioButtonwrap}
