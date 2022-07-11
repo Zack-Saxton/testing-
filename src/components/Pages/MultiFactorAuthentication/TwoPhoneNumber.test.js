@@ -1,18 +1,11 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import TwoPhoneNumbers from "./TwoPhoneNumbers";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
-import {
-    FormControl,
-    FormControlLabel,
-    Radio,
-    RadioGroup,
-    Typography
-  } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
 
 
 const queryClient = new QueryClient({

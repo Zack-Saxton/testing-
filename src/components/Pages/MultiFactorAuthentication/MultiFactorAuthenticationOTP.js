@@ -1,5 +1,5 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Link, TextField, Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
@@ -74,10 +74,10 @@ const MultiFactorAuthenticationOTP = () => {
     }
   }
 
-  const getPasscode = (otpValue) => {
+  const getPasscode = (otp) => {
     let passCode = "";
-    for (var key in otpValue) {
-      passCode += otpValue[key];
+    for (var key in otp) {
+      passCode += otp[key];
     }
     return passCode;
   }
