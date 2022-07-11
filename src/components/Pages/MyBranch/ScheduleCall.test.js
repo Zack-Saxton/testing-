@@ -52,7 +52,7 @@ test("Button Onclick", () => {
 });
 
 test("Check the date and time slot is showing in the UI", async () => {
-	const { container } = render(component(), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const button = screen.getByTestId("schedule-call-component");
 	fireEvent.click(button);	
 	const dialog = screen.getByTestId("dialog");
@@ -63,17 +63,17 @@ test("Check the date and time slot is showing in the UI", async () => {
 });
 
 test("Check the submit button exist in the UI", async () => {
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	const button = screen.getByTestId("schedule-call-component");
 	fireEvent.click(button);	
-	const dialog = screen.getByTestId("dialog");
+	screen.getByTestId("dialog");
 	expect(getByText("Schedule a call")).toBeTruthy();	
 });
 
 test("Check can able to select calendar in UI", async () => {
 	const today = new Date();
   const currentMonth = (Moment(today).format("MMMM"));
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	const button = screen.getByTestId("schedule-call-component");
 	fireEvent.click(button);	
 	const dialog = screen.getByTestId("dialog");
@@ -85,7 +85,7 @@ test("Check can able to select calendar in UI", async () => {
 });
 
 test("Check the the past date is disabled and saturday and sunday also disabled", async () => {
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	const today = new Date();
   const todayDate = (Moment(today).format("D"));
 	let dateToCheck = 0;
@@ -110,9 +110,9 @@ test("Check the the past date is disabled and saturday and sunday also disabled"
 });
 
 test("When select on the saturday and sunday, the time slot should not be shown", async () => {
-	const { container, getByText } = render(component(), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	const today = new Date();
-  const todayDate = (Moment(today).format("D"));
+  (Moment(today).format("D"));
 	let dateToCheck = (Moment(getFirstWeekDay(today, 0)).format("D"));
 	const button = screen.getByTestId("schedule-call-component");
 	fireEvent.click(button);	

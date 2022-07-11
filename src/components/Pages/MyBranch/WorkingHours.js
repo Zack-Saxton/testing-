@@ -2,11 +2,10 @@
 // For all california states:
 // Mon, Wed, Thu, Fri = 9:00am – 5.30pm
 // Tuesday = 10am – 7pm
-import { minutesToHours } from "date-fns";
 import Moment from "moment";
 let nowMinutes = Moment(new Date()).format("mm");
 const skipPastTime = (timeList) => {
-  return timeList.filter((time, index) => {
+  return timeList.filter((time) => {
     if (time.value >  Moment(new Date()).add(15,'minutes').format('HH:mm')) {
       return time
     }
