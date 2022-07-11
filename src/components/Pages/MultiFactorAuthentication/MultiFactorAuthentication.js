@@ -36,12 +36,13 @@ const MultiFactorAuthentication = () => {
     <div className="mfa_loadingSpinnerDiv"><CircularProgress className="mfa_loadingSpinner"  /></div>)
     } 
    if (mfaData && mfaData?.mfaDetails && !loading_mfaData) {
-  let phoneFromCookie = Cookies.get("mfaPhone");
+  let mfaPhoneCookie = Cookies.get("mfaPhone")
+  let phoneFromCookie = mfaPhoneCookie ? mfaPhoneCookie.trim() : null ;
   let phoneType = mfaData?.mfaDetails?.phone_type ? mfaData?.mfaDetails?.phone_type.toLowerCase() : "cell";  
-  let securityQuestionsSaved = mfaData?.mfaDetails?.securityQuestionsSaved;  
-  let primaryPhoneNumber = mfaData?.mfaDetails?.phone_number_primary;
-  let optedPhoneNo = mfaData?.mfaDetails?.opted_phone_texting;
-  let mfaPhoneNumber = phoneFromCookie ?? mfaData?.mfaDetails?.mfa_phone_texting;
+  let securityQuestionsSaved = mfaData?.mfaDetails?.securityQuestionsSaved; 
+  let primaryPhoneNumber = mfaData?.mfaDetails?.phone_number_primary ? mfaData?.mfaDetails?.phone_number_primary.trim() : null;
+  let optedPhoneNo = mfaData?.mfaDetails?.opted_phone_texting ? mfaData?.mfaDetails?.opted_phone_texting.trim() : null;
+  let mfaPhoneNumber = phoneFromCookie ?? (mfaData?.mfaDetails?.mfa_phone_texting ? mfaData?.mfaDetails?.mfa_phone_texting.trim() : null);
   let situationOne = phoneType === 'cell' && !optedPhoneNo && !securityQuestionsSaved && !mfaPhoneNumber;
   let situationTwo = phoneType !== 'cell' && optedPhoneNo && !securityQuestionsSaved && !mfaPhoneNumber;
   let situationThree = phoneType === 'cell' && !optedPhoneNo && securityQuestionsSaved;
