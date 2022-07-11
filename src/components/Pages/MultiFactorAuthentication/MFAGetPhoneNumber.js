@@ -49,10 +49,13 @@ const MFAGetPhoneNumber = () => {
 
 	useEffect(() => {
     let mfaPhoneCookie = Cookies.get("mfaPhone")
+    let mfaSkipPhoneCookie = Cookies.get("mfaPhoneSkip")
 		if (!location?.state) {
 			navigate("/customers/accountOverview");
 		}
     else if (mfaPhoneCookie){
+      navigate("/login");
+    } else if (mfaSkipPhoneCookie){
       navigate("/login");
     }
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -109,6 +112,7 @@ const MFAGetPhoneNumber = () => {
 		if (response?.data?.statusCode === 200) {
 			let mfaResponse = await fetchQuestionMFA(email);
 			 if (mfaResponse?.data?.statusCode === 200) {
+        Cookies.set("mfaPhoneSkip", 'skippedNumber');
 				navigate("/MFA", { state: { mfaDetails: mfaResponse?.data?.MFAInformation, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
 			 }
 			 else{

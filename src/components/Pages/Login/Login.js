@@ -61,6 +61,7 @@ export default function Login(props) {
   const [ remMe, setRemMe ] = useState(remMeData?.selected);
   Cookies.set("forceResetPassword", false);
   Cookies.remove("mfaPhone");
+  Cookies.remove("mfaPhoneSkip");
 
 
   useEffect(()=>{
