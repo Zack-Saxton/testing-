@@ -88,15 +88,15 @@ test("Check input filed available for entering 6 digit passcode", () => {
 });
 
 test("Check the verify button in  UI", () => {
-	const { container, getByText } = render(
+	const { getByText } = render(
     <MemoryRouter initialEntries={[{ pathname: '/', state: {phoneNumber : "96532545588", mfaQueries:{}}} ]}>
       {component()}
     </MemoryRouter>
   );
 	expect(getByText("Verify Now")).toBeTruthy();
 });
--test("Check the resend option in the UI", () => {
-	const { container, getByText } = render(
+test("Check the resend option in the UI", () => {
+	const { getByText } = render(
     <MemoryRouter initialEntries={[{ pathname: '/', state: {phoneNumber : "96532545588", mfaQueries:{}}} ]}>
       {component()}
     </MemoryRouter>

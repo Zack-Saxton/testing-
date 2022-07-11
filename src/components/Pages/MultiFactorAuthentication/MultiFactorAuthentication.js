@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import "./MultiFactorAuthentication.css";
 import Cookies from 'js-cookie';
 import { useQuery,useMutation } from 'react-query';
-import { useNavigate, useLocation } from "react-router-dom";
 import OnePhoneNumber from "./OnePhoneNumber";
 import TwoPhoneNumbers from "./TwoPhoneNumbers";
 import {SendLoginPassCode, fetchQuestionMFA} from "../../Controllers/MFAController"
@@ -12,8 +11,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import "./mfa.css"
 
 const MultiFactorAuthentication = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
 
   const [mfaData, setMFAData] = useState();
@@ -73,7 +70,7 @@ const MultiFactorAuthentication = () => {
   return (
     <div>
       <CheckLoginTimeout />
-      {loginToken.isLoggedIn && mfaData ? (
+      {loginToken.isLoggedIn ? (
         <>
           <OnePhoneNumber
             phoneNumber={
@@ -102,7 +99,7 @@ const MultiFactorAuthentication = () => {
   return (
     <div>
       <CheckLoginTimeout />
-      {loginToken.isLoggedIn && mfaData ? (
+      {loginToken.isLoggedIn ? (
         <>
          
           <TwoPhoneNumbers
@@ -131,7 +128,7 @@ const MultiFactorAuthentication = () => {
   return (
     <div>
       <CheckLoginTimeout />
-      {loginToken.isLoggedIn && mfaData ? (
+      {loginToken.isLoggedIn ? (
         <>
           <OnePhoneNumber
             setSelection={setSelection}
@@ -155,7 +152,7 @@ const MultiFactorAuthentication = () => {
   return (
     <div>
       <CheckLoginTimeout />
-      {loginToken.isLoggedIn && mfaData ? (
+      {loginToken.isLoggedIn ? (
         <>
           <TwoPhoneNumbers
             cellPhoneNumber={primaryPhoneNumber}
@@ -181,7 +178,7 @@ if(situationEleven || situationTwelve) {
   return (
     <div>
       <CheckLoginTimeout />
-      {loginToken.isLoggedIn && mfaData ? (
+      {loginToken.isLoggedIn ? (
         <>
           <OnePhoneNumber
             phoneNumber={phoneType === "cell" ? mfaPhoneNumber : ""}

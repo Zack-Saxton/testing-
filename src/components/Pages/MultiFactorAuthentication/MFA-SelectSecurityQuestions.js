@@ -76,8 +76,6 @@ const MFASelectSecurityQuestions = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userEmail = Cookies.get("email");
-  let questionArray = [];
-  // const { questions, setQuestions } = useState([]); 
   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
   const [ questions, setQuestions ] = useState([]);
   const [ loading, setLoading ] = useState(false);
@@ -213,7 +211,7 @@ let selectedQuestionStructured =
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const goBack = (event) => {
+  const goBack = (_event) => {
     history.back();
   }
 
