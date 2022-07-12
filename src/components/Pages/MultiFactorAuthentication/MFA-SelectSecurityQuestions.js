@@ -141,7 +141,7 @@ let selectedQuestionStructured =
           "securityQuestions": selectedQuestionStructured
         }
         let verify = await saveSecurityAnswer(answerData);
-        if(!verify?.data?.hasError && verify?.data?.result === "Ok" && verify?.data?.statusCode === 200)
+        if(!verify?.data?.hasError && verify?.data?.result === "Ok" && verify?.data?.statusCode === 200 && verify?.data?.user?.attributes?.password_reset)
         {
           setLoading(false)
           toast.success(verify?.data?.Message);
