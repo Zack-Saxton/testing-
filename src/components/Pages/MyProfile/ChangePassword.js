@@ -8,6 +8,7 @@ import globalMessages from "../../../assets/data/globalMessages.json";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import LogoutController from "../../Controllers/LogoutController";
 import { changePassword } from "../../Controllers/MyProfileController";
+import passwordValidation from "../../Pages/Login/PasswordValidation";
 import {
   ButtonPrimary,
   ButtonSecondary,
@@ -195,25 +196,8 @@ export default function ChangePassword(basicInformationData) {
               disabled={false}
             />
               <ul className="error-validation">
-                <span>
-              <li className={((formikPassword?.values?.newPassword).length >= 10 && (formikPassword?.values?.newPassword).length < 30) ? "validation-success" : "validation-failed"}>
-                Between 10 and 30 characters in length
-                </li>
-              <li className={/[A-Z]/.test(formikPassword?.values?.newPassword) ? "validation-success" : "validation-failed"}>
-                At least 1 uppercase letter
-              </li>
-              <li className={/[a-z]/.test(formikPassword?.values?.newPassword) ? "validation-success" : "validation-failed"}>
-                At least 1 lowercase letter
-                </li>
-                </span>
-                <span>
-              <li className={/\d/.test(formikPassword?.values?.newPassword) ? "validation-success" : "validation-failed" }>
-                At least 1 number
-              </li>
-              <li className={/[*@!#$%()^~{}]+/.test(formikPassword?.values?.newPassword) ? "validation-success" : "validation-failed"}>
-                At least 1 special character.
-              </li>
-              </span>
+                {passwordValidation(formikPassword.values.newPassword, 1)}
+                {passwordValidation(formikPassword.values.newPassword, 0)}
               </ul>
            </Grid>
           <Grid

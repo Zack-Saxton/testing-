@@ -20,6 +20,8 @@ import LoginController, {
 import LogoutController from "../../Controllers/LogoutController";
 import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import passwordValidation from "../../Pages/Login/PasswordValidation";
+
 import {
   Button,
   ButtonPrimary,
@@ -532,36 +534,7 @@ export default function Register() {
                           xs={12}
                         >
                           <ul>
-                            <span>
-                              <li
-                                className={
-                                  (formik?.values?.password).length >= 10 &&
-                                  (formik?.values?.password).length < 30
-                                    ? "validation-success"
-                                    : "validation-failed"
-                                }
-                              >
-                                Between 10 and 30 characters in length
-                              </li>
-                              <li
-                                className={
-                                  /[A-Z]/.test(formik?.values?.password)
-                                    ? "validation-success"
-                                    : "validation-failed"
-                                }
-                              >
-                                At least 1 uppercase letter
-                              </li>
-                              <li
-                                className={
-                                  /[a-z]/.test(formik?.values?.password)
-                                    ? "validation-success"
-                                    : "validation-failed"
-                                }
-                              >
-                                At least 1 lowercase letter
-                              </li>
-                            </span>
+                            {passwordValidation(formik.values.password, 1)}
                           </ul>
                         </Grid>
 
@@ -573,28 +546,7 @@ export default function Register() {
                           xs={12}
                         >
                           <ul>
-                            <span>
-                              <li
-                                className={
-                                  /\d/.test(formik?.values?.password)
-                                    ? "validation-success"
-                                    : "validation-failed"
-                                }
-                              >
-                                At least 1 number
-                              </li>
-                              <li
-                                className={
-                                  /[*@!#$%()^~{}]+/.test(
-                                    formik?.values?.password
-                                  )
-                                    ? "validation-success"
-                                    : "validation-failed"
-                                }
-                              >
-                                At least 1 special character.
-                              </li>
-                            </span>
+                          {passwordValidation(formik.values.password, 0)}
                           </ul>
                         </Grid>
                       </Grid>

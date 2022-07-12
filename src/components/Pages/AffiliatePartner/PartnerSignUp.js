@@ -20,6 +20,7 @@ import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
+import passwordValidation from "../../Pages/Login/PasswordValidation";
 import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
 import { useStylesPartner } from "./style";
 import "./Style.css";
@@ -447,30 +448,13 @@ export default function PartnerSignUp() {
                       <Grid container className="errorvalidationWrap">
                       <Grid className="errorvalidationOne">
                       <ul className="error-validation">
-                <span>
-              <li className={((formik?.values?.password).length >= 10 && (formik?.values?.password).length < 30) ? "validation-success" : "validation-failed"}>
-                Between 10 and 30 characters in length
-                </li>
-              <li className={/[A-Z]/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
-                At least 1 uppercase letter
-              </li>
-              <li className={/[a-z]/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
-                At least 1 lowercase letter
-                </li>
-                </span>
-              </ul>
+                        {passwordValidation(formik.values.password, 1)}
+                      </ul>
                       </Grid>
                       <Grid>
                        <ul className="error-validation">
-                <span>
-              <li className={/\d/.test(formik?.values?.password) ? "validation-success" : "validation-failed" }>
-                At least 1 number
-              </li>
-              <li className={/[*@!#$%()^~{}]+/.test(formik?.values?.password) ? "validation-success" : "validation-failed"}>
-                At least 1 special character.
-              </li>
-              </span>
-              </ul>
+                       {passwordValidation(formik.values.password, 0)}
+                       </ul>
                       
                     </Grid>
                     </Grid>

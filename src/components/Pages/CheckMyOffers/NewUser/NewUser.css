@@ -217,3 +217,11 @@
 #securePasswordWrap div {
 	border-radius: 4px !important;
 }
+.error-validation li{
+	list-style: none;
+	text-align: left;
+}
+.error-validation{
+	padding: 0;
+	margin: 10px 0px !important;
+}
