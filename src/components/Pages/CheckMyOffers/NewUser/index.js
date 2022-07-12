@@ -16,6 +16,7 @@ import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import LoginController, { RegisterController } from "../../../Controllers/LoginController";
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
+import passwordValidation from "../../Login/PasswordValidation";
 import { encryptAES } from "../../../lib/Crypto";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import ScrollToTopOnMount from "../ScrollToTop";
@@ -242,7 +243,6 @@ function NewUser() {
 									>
 										<Grid
 											container
-											justifyContent="center"
 											item
 											lg={8}
 											md={8}
@@ -269,6 +269,10 @@ function NewUser() {
 													formik.errors.newPassword
 												}
 											/>
+											<ul className="error-validation">
+												{ passwordValidation(formik.values.newPassword, 1)}
+												{ passwordValidation(formik.values.newPassword, 0)}
+											</ul>
 											<p className="subText passwordMeetTxt">
 												Please ensure your password meets the following criteria: between 10 and 30 characters in length,
 												at least 1 uppercase letter, at least 1 lowercase letter, at least 1 symbol, and at least 1 number.
