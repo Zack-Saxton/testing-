@@ -37,12 +37,13 @@ const MultiFactorAuthentication = () => {
     } 
    if (mfaData && mfaData?.mfaDetails && !loading_mfaData) {
   let mfaPhoneCookie = Cookies.get("mfaPhone")
-  let phoneFromCookie = mfaPhoneCookie ? mfaPhoneCookie.trim() : null ;
-  let phoneType = mfaData?.mfaDetails?.phone_type ? mfaData?.mfaDetails?.phone_type.toLowerCase() : "cell";  
+  let phoneFromCookie = mfaPhoneCookie ? mfaPhoneCookie.trim() : null ; 
+  let phoneType = mfaData?.mfaDetails?.phone_type ? mfaData?.mfaDetails?.phone_type.toLowerCase() : null;  
   let securityQuestionsSaved = mfaData?.mfaDetails?.securityQuestionsSaved; 
   let primaryPhoneNumber = mfaData?.mfaDetails?.phone_number_primary ? mfaData?.mfaDetails?.phone_number_primary.trim() : null;
   let optedPhoneNo = mfaData?.mfaDetails?.opted_phone_texting ? mfaData?.mfaDetails?.opted_phone_texting.trim() : null;
   let mfaPhoneNumber = phoneFromCookie ?? (mfaData?.mfaDetails?.mfa_phone_texting ? mfaData?.mfaDetails?.mfa_phone_texting.trim() : null);
+
   let situationOne = phoneType === 'cell' && !optedPhoneNo && !securityQuestionsSaved && !mfaPhoneNumber;
   let situationTwo = phoneType !== 'cell' && optedPhoneNo && !securityQuestionsSaved && !mfaPhoneNumber;
   let situationThree = phoneType === 'cell' && !optedPhoneNo && securityQuestionsSaved;
@@ -55,6 +56,9 @@ const MultiFactorAuthentication = () => {
   let situationTen = phoneType === 'cell' && !optedPhoneNo && primaryPhoneNumber && mfaPhoneNumber && !securityQuestionsSaved;
   let situationEleven = phoneType === 'cell' && !optedPhoneNo && !primaryPhoneNumber && mfaPhoneNumber && securityQuestionsSaved;
   let situationTwelve = phoneType === 'cell' && !optedPhoneNo && !primaryPhoneNumber && mfaPhoneNumber && !securityQuestionsSaved;
+  let situationThirteen = phoneType === 'cell' && optedPhoneNo && !primaryPhoneNumber && !mfaPhoneNumber && !securityQuestionsSaved;
+  let situationFourteen = phoneType === 'cell' && optedPhoneNo && !primaryPhoneNumber && !mfaPhoneNumber && securityQuestionsSaved;
+
   let phoneNumerList = [];
   if(phoneType === 'cell' && (primaryPhoneNumber)){
     phoneNumerList.push(primaryPhoneNumber);
@@ -67,7 +71,7 @@ const MultiFactorAuthentication = () => {
   }
   
 /** One Phone number with No security questions **/
- if((situationOne || situationTwo || situationThree || situationFour) && phoneNumerList.length <= 1) {
+ if((situationOne || situationTwo || situationThree || situationFour ) && phoneNumerList.length <= 1) {
   return (
     <div>
       <CheckLoginTimeout />
@@ -76,6 +80,33 @@ const MultiFactorAuthentication = () => {
           <OnePhoneNumber
             phoneNumber={
               phoneType === "cell" ? primaryPhoneNumber : optedPhoneNo
+            }
+            setSelection={setSelection}
+            selection={selection ? false : true}
+            selectionValue={selection}
+            sendPassCode={mutateAsync}
+            isLoading={isLoading}
+            mfaDetails={mfaData}
+            securityQuestionsSaved={securityQuestionsSaved}
+            phoneNumberSaved={true}
+          />
+        </>
+      ) : (
+        <CheckLoginStatus />
+      )}
+    </div>
+  );
+}
+
+if((situationThirteen || situationFourteen ) && phoneNumerList.length <= 1) {
+  return (
+    <div>
+      <CheckLoginTimeout />
+      {loginToken.isLoggedIn ? (
+        <>
+          <OnePhoneNumber
+            phoneNumber={
+               optedPhoneNo
             }
             setSelection={setSelection}
             selection={selection ? false : true}
