@@ -6,7 +6,7 @@ import {  fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
-import { userOffers } from "../AccountOverview/Marketing_offer/UserOffersMockData"
+import { userOffers } from "../../../__mock__/data/UserOffersMockData"
 
 const queryClient = new QueryClient({
 	defaultOptions: {

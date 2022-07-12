@@ -6,7 +6,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import Disclaimer from "./Disclaimer";
-import { userOffers } from "./UserOffersMockData"
+import { userOffers } from "../../../../__mock__/data/UserOffersMockData"
 
 const queryClient = new QueryClient({
 	defaultOptions: {
