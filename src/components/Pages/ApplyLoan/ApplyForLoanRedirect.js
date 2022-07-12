@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import APICall from "../../lib/AxiosLib";
 import messages from "../../lib/Lang/applyForLoan.json";
+import { statusStrLinks } from "../../lib/StatusStrLinks" 
 
 //To redirect the user to apply for loan sections depends on the status of the loan application
 const ApplyForLoanRedirect = () => {
@@ -20,25 +21,7 @@ const ApplyForLoanRedirect = () => {
 		let data = {};
 
 		//Links to be called depends on the status
-		let statusStrLink = {
-			approved: "/customers/finalVerification",
-			completing_application: "/customers/finalVerification",
-			contact_branch: "/customers/myBranch",
-			confirming_info: "/partner/confirm-signup",
-			expired: "/select-amount",
-			invalid: "/select-amount",
-			offer_selected: "/customers/reviewAndSign",
-			offers_available: "/customers/selectOffer",
-			pre_qual_referred: "/select-amount",
-			pre_qual_rejected: "/select-amount",
-			pre_qualified: "/credit-karma",
-			referred: "/referred-to-branch",
-			rejected: "/no-offers-available",
-			signature_complete: "/customers/finalVerification",
-			under_review: "/customers/loanDocument",
-			closing_process: "/customers/finalVerification",
-			final_review: "/customers/loanDocument",
-		};
+		let statusStrLink = statusStrLinks;
 
 		let res = await APICall("account_overview", '', data, "GET", true);
 		let checkStatus = location?.state?.statusCheck ?? true;
