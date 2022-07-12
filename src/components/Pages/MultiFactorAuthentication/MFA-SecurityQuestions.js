@@ -68,8 +68,7 @@ const MFASecurityQuestions = () => {
       let verify = await saveSecurityAnswer(answerData);
       if (verify?.data?.hasError === false && verify?.data?.result === "Ok") {
         toast.success(verify?.data?.Message);
-       
-        const resetPassword = Cookies.get("forceResetPassword");
+        const resetPassword = verify?.data?.user?.attributes?.password_reset
         if(resetPassword){
           const email = Cookies.get("email");
           navigate("/resetpassword", { state: { Email: email } })
