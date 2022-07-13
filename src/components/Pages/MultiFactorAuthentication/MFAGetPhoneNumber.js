@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import {
 	ButtonPrimary,
-	PhoneNumber
+	TextField
 } from "../../FormsUI";
 import { useStylesMFA } from "./Style";
 import Cookies from "js-cookie";
@@ -25,7 +25,7 @@ import CheckLoginStatus from '../../App/CheckLoginStatus';
 
 
 //Yup validation schema
-const validationSchema = yup.object({
+const validationSchema = yup.object().shape({
 	phone: yup
 		.string(globalMessages.PhoneEnter)
 		.required(globalMessages.PhoneRequired)
@@ -45,6 +45,8 @@ const MFAGetPhoneNumber = () => {
 	const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
 	const [disabledButton, setDisabledButton] = useState(true);
 	const [phoneNumber, SetPhoneNumber] = useState("");
+  const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
+  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
 	const location = useLocation();
 
 	useEffect(() => {
@@ -61,36 +63,61 @@ const MFAGetPhoneNumber = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+  	//configuring formik
+	const formik = useFormik({
+		initialValues: {
+			phone: "",
+		},
+		validationSchema: validationSchema,
+	});
+
+  useEffect(() => {
+    if(phoneNumberValue?.length === 14){
+        if(Boolean(formik.errors?.phone)){
+          setDisabledButton(false);
+        }
+    } else {
+      setDisabledButton(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phoneNumberValue])
+  
+
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 			event.preventDefault();
 		}
 	};
-	const checkMobileNumber = (event) => {
-		let mobileNUmber = event.target.value;
-		SetPhoneNumber(event.target.value);
-		let phone = mobileNUmber.replace(/[()-\s]/g, '');
-		if (phone.length >= 10) {
-			setDisabledButton(false);
-		} else {
-			setDisabledButton(true);
-		}
-	}
+
   const maskPhoneNumberWithAsterisk = (phoneNumberToMask) => {
     let firstNumber = phoneNumberToMask.slice(0, 10);
     return firstNumber.replace(/\d/g, '*') + phoneNumberToMask.slice(10);
   }
+
+  const phoneNumberMask = (values) => {
+		let phoneNum = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+		values = !phoneNum[ 2 ] ? phoneNum[ 1 ] : '(' + phoneNum[ 1 ] + ') ' + phoneNum[ 2 ] + (phoneNum[ 3 ] ? '-' + phoneNum[ 3 ] : '');
+		return (values);
+	}
+
+  const updateMaskValue = (_event) => {	
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
+  }
+  const updateEnterPhoneNo = (event) =>{
+	  setPhoneNumberValue(event.target.value);
+    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
+  }
+
 	const handleToSaveContinue = async () => {
 		if (location?.state) {
-    let maskedNumber = maskPhoneNumberWithAsterisk(phoneNumber);
-    let numberToSend = phoneNumber.replace(/[()-\s]/g, '');
+    let maskedNumber = maskPhoneNumberWithAsterisk(phoneNumberValue);
+    let numberToSend = phoneNumberValue.replace(/[()-\s]/g, '');
 		setDisabledButton(true);
 		const email = Cookies.get("email");
 		let response = await SavePhoneNumber(email, numberToSend);
 		if (response?.data?.statusCode === 200) {
 			toast.success((response.data?.Message).replace(numberToSend, maskedNumber));
-			 let mfaResponse = await fetchQuestionMFA(email);
-       
+			 let mfaResponse = await fetchQuestionMFA(email);    
 			 if (mfaResponse?.data?.statusCode === 200) {
         Cookies.set("mfaPhone", numberToSend)
 				navigate("/MFA", { state: { mfaDetails: mfaResponse?.data?.MFAInformation, customerEmail: location?.state?.customerEmail, deviceType: window.navigator.userAgent } });
@@ -123,13 +150,7 @@ const MFAGetPhoneNumber = () => {
 		}
 	}
 	}
-	//configuring formik
-	const formik = useFormik({
-		initialValues: {
-			phone: "",
-		},
-		validationSchema: validationSchema,
-	});
+
 	const backToVerificationStep = () => {
 		navigate(-1);
 	}
@@ -184,16 +205,22 @@ const MFAGetPhoneNumber = () => {
                       className="textBlock"
                       id="phoneInput"
                     >
-                      <PhoneNumber
+                      <TextField
                         name="phone"
-                        label="Phone number"
-                        placeholder="Enter your phone number"
+                        label="Phone number *"
                         id="phone"
                         type="text"
+                        materialProps={{ maxLength: "14" }}
                         onKeyDown={preventSpace}
-                        value={formik.values.phone}
-                        onChange={checkMobileNumber}
-                        onBlur={formik.handleBlur}
+                        onBlur={(event) => {
+                          updateMaskValue(event);
+                          formik.handleBlur(event);
+                        }}
+                        value={phoneNumberCurrentValue}
+                        onChange={(event) => {
+                          updateEnterPhoneNo(event);
+                          formik.handleChange(event);
+                        }}
                         error={
                           formik.touched.phone && Boolean(formik.errors.phone)
                         }
