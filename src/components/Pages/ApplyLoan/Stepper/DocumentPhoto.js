@@ -1,10 +1,9 @@
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
-import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { getIframe } from "../../../Controllers/ApplyForLoanController";
+import { getIframe, saveIDScan, saveIDScanBeforeCAC } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
@@ -49,35 +48,13 @@ export default function DocumentPhoto(props) {
 	const onMessageHandler = async (event) => {
 		try {
 			if (event.data.trace_id || event.data.request_id) {
-				const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
-
-				const options = {
-					method: "POST",
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-						"x-access-token": loginToken.apiKey,
-					},
-					body: JSON.stringify({ requestID: event.data.request_id }),
-				};
-				await fetch("/idscan/save_response_cac", options);
+				saveIDScan(event.data.request_id );
 				event.source.window.postMessage({ isVerified: true, }, "*");
 			} else if (event.data.idscanPayload) {
-				const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
-
-				const options = {
-					method: "POST",
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-						"x-access-token": loginToken.apiKey,
-					},
-					body: JSON.stringify(event.data),
-				};
-				await fetch("/idscan/save_response_before_cac", options);
+				saveIDScanBeforeCAC(event.data);
 			}
 		} catch (errorAPI) {
-			toast.error("Error uploading document");
+			toast.error("Error uploading document "+errorAPI);
 		}
 	};
 

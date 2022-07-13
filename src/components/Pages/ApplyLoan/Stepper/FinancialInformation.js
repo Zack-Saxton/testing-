@@ -81,7 +81,11 @@ export default function FinancialInformation(props) {
       formik.handleChange(event);
     }
   };
-
+  let yearsAtCurrentAddressOption = [];
+  for(let start=0; start <= 20; start++){
+    let labelString = start === 0 ? "<1 year" : (start === 1 ? "1 year" : (start === 20 ? "20+ years": `${start}`))
+    yearsAtCurrentAddressOption.push({value: start === 20 ? 21 : start, label: labelString});
+  }
   //View part
   return (
     <div>
@@ -121,27 +125,7 @@ export default function FinancialInformation(props) {
             id="currentAddressSelect"
             name="yearsAtCurrentAddress"
             labelform="Years at current address *"
-            select='[{"value":"0", "label": "<1 year"},
-                     {"value":"1", "label": "1 year"},
-                     {"value":"2", "label": "2"},
-                     {"value":"3", "label": "3"},
-                     {"value":"4", "label": "4"},
-                     {"value":"5", "label": "5"},
-                     {"value":"6", "label": "6"},
-                     {"value":"7", "label": "7"},
-                     {"value":"8", "label": "8"},
-                     {"value":"9", "label": "9"},
-                     {"value":"10", "label": "10"},
-                     {"value":"11", "label": "11"},
-                     {"value":"12", "label": "12"},
-                     {"value":"13", "label": "13"},
-                     {"value":"14", "label": "14"},
-                     {"value":"15", "label": "15"},
-                     {"value":"16", "label": "16"},
-                     {"value":"17", "label": "17"},
-                     {"value":"18", "label": "18"},
-                     {"value":"19", "label": "19"},
-                     {"value":"21", "label": "20+ years"}]'
+            select={JSON.stringify(yearsAtCurrentAddressOption)}
             value={formik.values.yearsAtCurrentAddress}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}

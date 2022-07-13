@@ -24,9 +24,9 @@ export default function IncomeVerification(props) {
 
 	const handleUpload = (res) => {
 		if (res?.data?.income_verification) {
-			toast.success("Document uploaded successfully!");
+			toast.success(messages.document.uploadSuccess);
 		} else {
-			toast.error("Document submission failed. Please try again");
+			toast.error(messages.document.upoloadFailed);
 		}
 	};
 

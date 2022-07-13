@@ -283,3 +283,36 @@ export async function verificationSteps() {
     ErrorLogger(globalMessages.Error_executing_AccountDetails_API, error);
   }
 }
+
+/**** To verify uploaded document ********************/
+export async function saveIDScan(requestID){
+  try {
+    let url = "save_id_scane";
+    let param = "";
+    let data = {requestID: requestID};
+    let method = "POST";
+    let addAccessToken = true;
+
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger("Error uploading document", error);
+  }
+}
+
+/**** To upload the scaned document ********************/
+export async function saveIDScanBeforeCAC(bodyContent){
+  try {
+    let url = "save_id_scane_before_cac";
+    let param = "";
+    let data = bodyContent;
+    let method = "POST";
+    let addAccessToken = true;
+
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger("Error uploading document ", error);
+  }
+
+}
