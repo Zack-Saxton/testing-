@@ -94,6 +94,15 @@
 .compareChartButtons {
 	display: flex;
 }
+#arrowBackward{
+	background-color: #fff;
+	min-width: 0px;
+	color: #214476;
+	width: 36px;
+	padding: 0px;
+	margin-right: 5px;
+	margin-top: unset;
+}
 
 @media (max-width: 600px) {
 	#apply-loan-comparison-button {

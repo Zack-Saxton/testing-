@@ -198,7 +198,25 @@ const useStylesApplyForLoan = makeStyles((theme) => ({
   },
   receiveMoneyGrid: {
     height: "80vh"
-  }
+  },
+  content_grid: {
+  	marginTop: "15px",
+  },
+  InfoOutlinedIcon: {
+  	fontSize: "small",
+  	color: "#004e9c",
+  	cursor: "pointer"
+  },
+  BankAccountText:{
+    textAlign: "justify", 
+    fontSize: "0.938rem"
+  },
+    BankAccountBoldText:{
+      fontSize: "1.063rem", 
+      paddingBottom: "6px", 
+      fontWeight: "500", 
+      display: "block"
+    },   
 }));
 
 export { useStylesApplyForLoan };

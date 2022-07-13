@@ -22,19 +22,8 @@ import messages from "../../../lib/Lang/applyForLoan.json";
 import DocumentUpload from "./DocumentUpload";
 import BankNameLookup from "../../../Controllers/BankNameLookup";
 import "./stepper.css";
+import { useStylesApplyForLoan } from "../Style"
 import globalMessages from "../../../../assets/data/globalMessages.json";
-//Styling part
-const useStyles = makeStyles(() => ({
-	content_grid: {
-		marginTop: "15px",
-	},
-	InfoOutlinedIcon: {
-		fontSize: "small",
-		color: "#004e9c",
-		cursor: "pointer"
-	},
-	open: {},
-}));
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -72,7 +61,7 @@ const validationSchema = yup.object({
 //View Part
 //Initializing functional component -  BankAccountVerification
 export default function BankAccountVerification(props) {
-	const classes = useStyles();
+	const classes = useStylesApplyForLoan();
 	//Initializing state variables
 	const [ accountType, setAccountType ] = useState("saving");
 	const [ paymnetMode, setPaymentMode ] = useState("autopayment");
@@ -189,8 +178,8 @@ export default function BankAccountVerification(props) {
 		<div>
 			<form onSubmit={formik.handleSubmit}>
 				<div>
-					<p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
-						<span style={{ fontSize: "1.063rem", paddingBottom: "6px", fontWeight: "400", display: "block" }}>Funding</span>
+					<p className={classes.BankAccountText}>
+						<span className={classes.BankAccountBoldText}>Funding</span>
 						Please provide your bank account information. This is the bank
 						account where you will receive your Funds Please note that this bank
 						account must be in the applicant&apos;s name
@@ -236,7 +225,7 @@ export default function BankAccountVerification(props) {
 					</FormHelperText>
 				</Grid>
 				<Grid container spacing={4} direction="row">
-					<Grid item xs={12} sm={6} style={{ width: "100%" }}>
+					<Grid className={classes.fullWidth} item xs={12} sm={6}>
 						<TextFieldWithToolTip
 							id="bankRoutingNumberInput"
 							variant="standard"
@@ -288,7 +277,7 @@ export default function BankAccountVerification(props) {
 						/>
 					</Grid>
 
-					<Grid item xs={12} sm={6} style={{ width: "100%" }}>
+					<Grid className={classes.fullWidth} item xs={12} sm={6}>
 						<TextFieldWithToolTip
 							id="bankInformationInput"
 							variant="standard"
@@ -374,8 +363,8 @@ export default function BankAccountVerification(props) {
 					/>
 				</Grid>
 				<div>
-					<p style={{ fontSize: "0.938rem" }}>
-						<span style={{ fontSize: "1.063rem", paddingBottom: "6px", marginTop: "30px", fontWeight: "500", display: "block" }}>Repayment</span>
+					<p className={classes.BankAccountText}>
+						<span className={classes.BankAccountBoldText}>Repayment</span>
 						Please choose your preferred repayment method.
 					</p>
 				</div>

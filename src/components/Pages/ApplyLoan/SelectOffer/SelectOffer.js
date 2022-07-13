@@ -205,14 +205,10 @@ export default function SelectOffer() {
 							to="/customers/accountOverview"
 						>
 							<ButtonWithIcon
+								id="arrowBackward"
 								icon="arrow_backwardIcon"
 								iconposition="left"
-								stylebutton='{"background": "#fff", "color":"#214476",
-								"minWidth": "0px",
-								"width": "36px",
-								"padding": "0px",
-								"marginRight": "5px",
-								"marginTop":"unset" }'
+								stylebutton='{"color":""}'
 								styleicon='{ "color":"" }'
 							/>
 						</NavLink>{" "}
