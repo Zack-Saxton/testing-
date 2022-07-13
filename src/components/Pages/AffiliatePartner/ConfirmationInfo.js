@@ -90,7 +90,7 @@ const validationSchema = yup.object({
         .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
     })
     .when("martialStatus", {
-      is: "Separated, under decree of legal separation",
+      is: globalMessages.MaritalStatusLegal,
       then: yup
         .string()
         .trim()
@@ -104,7 +104,7 @@ const validationSchema = yup.object({
       then: yup.string().required(globalMessages?.ZipCodeRequired),
     })
     .when("martialStatus", {
-      is: "Separated, under decree of legal separation",
+      is: globalMessages.MaritalStatusLegal,
       then: yup.string().required(globalMessages?.ZipCodeRequired),
     }),
   spousecity: yup
@@ -116,7 +116,7 @@ const validationSchema = yup.object({
         .required(globalMessages?.Address_Home_City),
     })
     .when("martialStatus", {
-      is: "Separated, under decree of legal separation",
+      is: globalMessages.MaritalStatusLegal,
       then: yup
         .string()
         .required(globalMessages?.Address_Home_City),
@@ -128,7 +128,7 @@ const validationSchema = yup.object({
       then: yup.string().required(globalMessages?.Address_State_Required),
     })
     .when("martialStatus", {
-      is: "Separated, under decree of legal separation",
+      is: globalMessages.MaritalStatusLegal,
       then: yup.string().required(globalMessages?.Address_State_Required),
     }),
 });
@@ -219,6 +219,18 @@ export default function ConfirmationInfo() {
       return false;
     }
   };
+
+  const selectCitizenship = [{"label": "USA Citizen", "value": "USA Citizen"},
+                            {"label": "Permanent Resident", "value": "Permanent Resident"},
+                            {"label": "Foreign Resident", "value": "Foreign Resident"}];
+
+  const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed - Hourly"},
+                                {"label": "Employed Salaried", "value": "Employed Salaried"},
+                                {"label": "Self Employed / 1099", "value": "Self Employed / 1099"},
+                                {"label": "Unemployed", "value": "Unemployed"},
+                                {"label": "Retired", "value": "Retired"}];
+  
+  const legalMaritalStatus =  "Separated, under decree of legal separation"
   //Form Submission
   const formik = useFormik({
     enableReinitialize: true,
@@ -257,11 +269,9 @@ export default function ConfirmationInfo() {
 
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-      const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
-      if (!errorPersonal && !errorAnnual && validate(modPersonalIncome, modHouseholdIncome)) {
-        values.personalIncome = modPersonalIncome;
-        values.householdIncome = modHouseholdIncome;
+      const modPersonalIncome = parseInt(values.personalIncome.replace(/[^\d]/g, ""));
+      const modHouseholdIncome = parseInt(values.householdIncome.replace(/[^\d]/g, ""));
+      if (!errorPersonal && !errorAnnual && validate(modPersonalIncome, modHouseholdIncome)) {        
         setLoading(true);
         let confirmInfoData = {
           firstName: values.firstname,
@@ -271,8 +281,8 @@ export default function ConfirmationInfo() {
           state: Object.keys(states).find(key => states[ key ] === values.state),
           zip: values.zip,
           citizenship: values.citizenship,
-          personalIncome: values.personalIncome,
-          householdIncome: values.householdIncome,
+          personalIncome: modPersonalIncome,
+          householdIncome: modHouseholdIncome,
           employementStatus: values.employementStatus,
           activeDuty: values.activeDuty,
           activeDutyRank: values.activeDutyRank,
@@ -369,6 +379,8 @@ export default function ConfirmationInfo() {
       ErrorLogger("Error from fetchSpouseAddress.",);
     }
   };
+
+  //Popup open & close
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleClickOpenOhio = () => setOpenOhio(true);
@@ -376,44 +388,39 @@ export default function ConfirmationInfo() {
   const handleClickDelawareOpen = () => setOpenDelaware(true);
   const handleDelawareClose = () => setOpenDelaware(false);
 
-  //Restrict alphabets
 
-  const onHandleChangePersonal = (event) => {
+  const onHandleChangeIncome = (event,inputType) => {
+    //if inputType is 1 check Personal income for 2 check Annual Income
     const reg = /^[0-9.,$\b]+$/;
     let income = event.target.value.trim();
     if (!income || reg.test(income)) {
+      if(inputType === 1){
       setErrorPersonal("");
+      }
+      else{
+        setErrorAnnual("");
+      }
       formik.handleChange(event);
     }
   };
-  const onHandleChangeHouse = (event) => {
-    const reg = /^[0-9.,$\b]+$/;
-    let income = event.target.value.trim();
-    if (!income || reg.test(income)) {
-      setErrorAnnual("");
-      formik.handleChange(event);
-    }
-  };
-
+  
   const preventUnwanted = (event) => {
     if (event.keyCode === 190 || event.keyCode === 188) {
       event.preventDefault();
     }
   };
 
-  // To change text to currency format and check for validations
+  // To change text to currency format and its validation
   const currencyFormat = (event) => {
     const inputName = event.target.name;
     if (inputName === "personalIncome") {
-      const income = event.target.value.trim()
-        .replace(/\$/g, "")
-        .replace(/,/g, "")
-        .substr(0, 7);
+      const income = event.target.value.trim().replace(/[^\d]/g, "").substr(0, 7);
+
       const formated = parseFloat(income);
       const forCur = "$" + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
       formik.setFieldValue(event.target.name, forCur.slice(0, -3));
-      const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-      const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
+      const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/[^\d]/g, ""));
+      const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/[^\d]/g, ""));
       if (isNaN(modPersonalIncome)) {
         setErrorPersonal(globalMessages.Annual_Personal_Income_Required);
       } else {
@@ -433,15 +440,13 @@ export default function ConfirmationInfo() {
         }
       }
     } else if (inputName === "householdIncome") {
-      const income = event.target.value.trim()
-        .replace(/\$/g, "")
-        .replace(/,/g, "")
-        .substr(0, 7);
+      const income = event.target.value.trim().replace(/[^\d]/g, "").substr(0, 7);
+
       const formated = parseFloat(income);
       const forCur = "$" + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
       formik.setFieldValue(event.target.name, forCur.slice(0, -3));
-      const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-      const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
+      const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/[^\d]/g, ""));
+      const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/[^\d]/g, ""));
       if (isNaN(modHouseholdIncome)) {
         setErrorAnnual(globalMessages.Annual_Household_Income_Required);
       } else {
@@ -451,9 +456,7 @@ export default function ConfirmationInfo() {
         }
         const perval = document
           .getElementById("personalIncome")
-          .value.replace(/\$/g, "")
-          .replace(/,/g, "")
-          .substr(0, 7);
+          .value.replace(/[^\d]/g, "").substr(0, 7);
         if (perval.length < 4) {
           setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
           return false;
@@ -478,7 +481,8 @@ export default function ConfirmationInfo() {
   };
   const changeCitizenship = (event) => {
     let citizenshipValue = event.target.value;
-    if (citizenshipValue === "Foreign Resident") setCitizenship(true);
+    if (citizenshipValue === "Foreign Resident")
+     {setCitizenship(true)}
     else setCitizenship(false);
     formik.handleChange(event);
   };
@@ -654,9 +658,7 @@ export default function ConfirmationInfo() {
                           onBlur={formik.handleBlur}
                           error={(formik.touched.citizenship && Boolean(formik.errors.citizenship)) || citizenship}
                           helperText={!citizenship ? formik.touched.citizenship && formik.errors.citizenship : "We are sorry. We do not offer loans to foreign residents."}
-                          select='[{"label": "USA Citizen", "value": "USA Citizen"},
-                                  {"label": "Permanent Resident", "value": "Permanent Resident"},
-                                  {"label": "Foreign Resident", "value": "Foreign Resident"}]'
+                          select={JSON.stringify(selectCitizenship)}
                         />
                       </Grid>
                     </Grid>
@@ -667,7 +669,7 @@ export default function ConfirmationInfo() {
                         label="Annual Personal Income"
                         id="personalIncome"
                         value={formik.values.personalIncome}
-                        onChange={onHandleChangePersonal}
+                        onChange={(event) => {onHandleChangeIncome(event,1)}}
                         materialProps={{
                           "data-testid": "personalIncome",
                           maxLength: "10",
@@ -692,7 +694,7 @@ export default function ConfirmationInfo() {
                           ref: refAnnualHousehold
                         }}
                         autoComplete="off"
-                        onChange={onHandleChangeHouse}
+                        onChange={(event) => {onHandleChangeIncome(event,2)}}  
                         onBlur={currencyFormat}
                         onKeyDown={preventUnwanted}
                         error={errorAnnual !== ""}
@@ -718,11 +720,7 @@ export default function ConfirmationInfo() {
                         onBlur={formik.handleBlur}
                         error={formik.touched.employementStatus && Boolean(formik.errors.employementStatus)}
                         helperText={formik.touched.employementStatus && formik.errors.employementStatus}
-                        select='[{"label": "Employed - Hourly", "value": "Employed - Hourly"},
-                                {"label": "Employed Salaried", "value": "Employed Salaried"},
-                                {"label": "Self Employed / 1099", "value": "Self Employed / 1099"},
-                                {"label": "Unemployed", "value": "Unemployed"},
-                                {"label": "Retired", "value": "Retired"}]'
+                        select={JSON.stringify(selectEmploymentStatus)}
                       />
                     </Grid>
                     {/* **************************************************active duty***************************************************** */}
@@ -825,7 +823,7 @@ export default function ConfirmationInfo() {
                         className={
                           formik.values.martialStatus === "Married" ||
                             formik.values.martialStatus ===
-                            "Separated, under decree of legal separation"
+                            legalMaritalStatus
                             ? "showCheckbox"
                             : "hideCheckbox"
                         }
@@ -844,7 +842,7 @@ export default function ConfirmationInfo() {
                         className={
                           formik.values.martialStatus === "Married" ||
                             formik.values.martialStatus ===
-                            "Separated, under decree of legal separation"
+                            legalMaritalStatus
                             ? "showCheckbox"
                             : "hideCheckbox"
                         }
@@ -862,7 +860,7 @@ export default function ConfirmationInfo() {
                             className={
                               formik.values.martialStatus === "Married" ||
                                 formik.values.martialStatus ===
-                                "Separated, under decree of legal separation"
+                                legalMaritalStatus
                                 ? "showCheckbox"
                                 : "hideCheckbox"
                             }
@@ -886,7 +884,7 @@ export default function ConfirmationInfo() {
                             className={
                               formik.values.martialStatus === "Married" ||
                                 formik.values.martialStatus ===
-                                "Separated, under decree of legal separation"
+                                legalMaritalStatus
                                 ? "showCheckbox"
                                 : "hideCheckbox"
                             }
@@ -919,7 +917,7 @@ export default function ConfirmationInfo() {
                             className={
                               formik.values.martialStatus === "Married" ||
                                 formik.values.martialStatus ===
-                                "Separated, under decree of legal separation"
+                                legalMaritalStatus
                                 ? "showCheckbox"
                                 : "hideCheckbox"
                             }
@@ -1001,7 +999,7 @@ export default function ConfirmationInfo() {
                               </span>
                             </p>
                           }
-                          required={formik.values.state === "Delaware" || formik.values.state === "DE" ? true : false}
+                          required={formik.values.state === "Delaware" || formik.values.state === "DE" }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -1039,7 +1037,7 @@ export default function ConfirmationInfo() {
                               </a>
                             </p>
                           }
-                          required={formik.values.state === "California" || formik.values.state === "CA" ? true : false}
+                          required={formik.values.state === "California" || formik.values.state === "CA" }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -1076,7 +1074,7 @@ export default function ConfirmationInfo() {
                               </a>
                             </p>
                           }
-                          required={formik.values.state === "New Mexico" || formik.values.state === "NM" ? true : false}
+                          required={formik.values.state === "New Mexico" || formik.values.state === "NM"}
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -1128,7 +1126,7 @@ export default function ConfirmationInfo() {
         </DialogContent>
         <DialogActions className="modalAction">
           <ButtonPrimary
-            stylebutton='{"background": "#FFBC23", "color": "black", "border-radius": "50px"}'
+            stylebutton='{"background": "#FFBC23", "color": "black", "borderadius": "50px"}'
             onClick={handleClose}
             className="modalButton"
           >

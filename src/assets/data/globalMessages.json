@@ -167,6 +167,7 @@
   "Marital_Status_Required": "Your marital status is required",
   "Marital_Status_Select": "Please select your marital status",
   "Marital_Status_Max": "Marital status should be less than 100 characters",
+  "MaritalStatusLegal": "Separated, under decree of legal separation",
   "NameEnter": "Enter a name",
   "Network_Error_Please_Try_Again": "We are experiencing issues in processing your request. Please try again later",
   "Next_Due_Date": "Due Date",

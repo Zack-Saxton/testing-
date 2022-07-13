@@ -221,6 +221,11 @@ export default function PartnerSignUp() {
     setPhoneNumberValue(event.target.value);
     setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
   }
+
+  const selectPhoneType = [
+  { "label": "Cell", "value": "cell"},
+  {"label": "Home","value": "home"}
+]
   //View Part
   return (
     <div data-testid="partnerSignup_component">
@@ -417,8 +422,7 @@ export default function PartnerSignUp() {
                         helperText={
                           formik.touched.phoneType && formik.errors.phoneType
                         }
-                        select='[{ "label": "Cell", "value": "cell"},
-                                        {"label": "Home","value": "home"}]'
+                        select= {JSON.stringify(selectPhoneType)}
                       />
                     </Grid>
 
@@ -539,7 +543,7 @@ export default function PartnerSignUp() {
                             {""} <span className="formatHref" onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
                           </p>
                         }
-                        required={utm_source !== "CreditKarma" ? true : false}
+                        required={utm_source !== "CreditKarma" }
                         stylelabelform='{ "color":"" }'
                         stylecheckbox='{ "color":"blue"}'
                         stylecheckboxlabel='{ "color":"" }'
@@ -572,7 +576,7 @@ export default function PartnerSignUp() {
                             </p>
                           }
                           required={utm_source !== "CreditKarma" && (populateSignupData?.state === "Delaware" ||
-                            populateSignupData?.state === "DE") ? true : false}
+                            populateSignupData?.state === "DE") }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -611,7 +615,7 @@ export default function PartnerSignUp() {
                             </p>
                           }
                           required={utm_source !== "CreditKarma" && (populateSignupData?.state === "California" ||
-                            populateSignupData?.state === "CA") ? true : false}
+                            populateSignupData?.state === "CA") }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
@@ -651,7 +655,7 @@ export default function PartnerSignUp() {
                           }
                           required={utm_source !== "CreditKarma" &&
                             (populateSignupData?.state === "New Mexico" ||
-                              populateSignupData?.state === "NM") ? true : false}
+                              populateSignupData?.state === "NM") }
                           stylelabelform='{ "color":"" }'
                           stylecheckbox='{ "color":"blue" }'
                           stylecheckboxlabel='{ "color":"" }'
