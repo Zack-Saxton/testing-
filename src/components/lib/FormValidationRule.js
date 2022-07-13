@@ -76,7 +76,7 @@ export class FormValidationRules {
                 ),
                 globalMessages.DateOfBirthMinAge
             )
-            .min(new Date(1919, 1, 1), globalMessages.DateOfBirthMaxAge)
+            .min(new Date(1920, 1, 1), globalMessages.DateOfBirthMaxAge)
             .typeError(globalMessages.DateOfBirthValid);
     }
 
