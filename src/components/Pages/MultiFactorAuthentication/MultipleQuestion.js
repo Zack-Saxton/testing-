@@ -122,9 +122,9 @@ export default function MultipleQuestion(props) {
 				<ButtonPrimary
 					variant="contained"
 					color="primary"
-					id="button_stepper_next"
+					id="continue_button"
 					onClick={handleMultipleNextClick}
-					stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+					stylebutton='{"fontFamily":"" }'
 				>
 					Continue
 				</ButtonPrimary>

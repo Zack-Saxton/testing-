@@ -30,3 +30,6 @@
 .mfa_loadingSpinner{
 padding: 10%;
 }
+#continue_button{
+	margin: auto;
+}
