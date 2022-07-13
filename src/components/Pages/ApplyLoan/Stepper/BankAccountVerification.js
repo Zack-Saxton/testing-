@@ -20,6 +20,7 @@ import { ButtonPrimary, ButtonSecondary, Radio, TextField } from "../../../Forms
 import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import DocumentUpload from "./DocumentUpload";
+import BankNameLookup from "../../../Controllers/BankNameLookup";
 import "./stepper.css";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 //Styling part
@@ -252,18 +253,9 @@ export default function BankAccountVerification(props) {
 									event.target.value !== "" &&
 									event.target.value.length === 9
 								) {
-									fetch(
-										"https://www.routingnumbers.info/api/data.json?rn=" +
-										event.target.value.trim()
-									)
-										.then((res) => res.json())
-										.then((result) => {
-											formik.setFieldValue(
-												"bankInformation",
-												result?.customer_name ?? ""
-											);
-											setInvalidRN(result?.customer_name ? false : true);
-										});
+									let bankName = await BankNameLookup(event.target.value.trim());
+      						formik.setFieldValue("bankInformation", bankName);
+									setInvalidRN(bankName ? false : true);									
 									formik.handleBlur(event);
 								}
 							}}
