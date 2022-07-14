@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import NavContext from "../../../contexts/NavContext";
 import SelectOffer from "../ApplyLoan/SelectOffer/SelectOffer";
 import ConfirmationInfo from "./ConfirmationInfo";
-import { mockData } from './PartnerMockData';
+import { mockData } from './../../../__mock__/data/PartnerMockData';
 
 
 const queryClient = new QueryClient({

@@ -125,7 +125,7 @@ function DocumentIdAndPhotoId(props) {
     }
   };
 
-  const handleElseTwo = async (fileObject, callSecondFunction) => {
+  const uploadSelectedDocument = async (fileObject, callSecondFunction) => {
     let reader = new FileReader();
     try {
       if (fileObject.files && fileObject.files[ 0 ]) {
@@ -281,7 +281,7 @@ function DocumentIdAndPhotoId(props) {
     if (imgSrc) {
       uploadCameraPhoto(imgSrc, docType, true);
     } else if (selectedFile?.files) {
-      handleElseTwo(selectedFile, true);
+      uploadSelectedDocument(selectedFile, true);
     }
   }
 
@@ -290,7 +290,7 @@ function DocumentIdAndPhotoId(props) {
     if (selfieImageSrc) {
       uploadCameraPhoto(selfieImageSrc, "selfie_photo", false);
     } else if (selectedSelfieFile?.files) {
-      handleElseTwo(selectedSelfieFile, false);
+      uploadSelectedDocument(selectedSelfieFile, false);
     }
   }
   const fileOptionDesign = (refChangeEventObj, facingMode) => {
