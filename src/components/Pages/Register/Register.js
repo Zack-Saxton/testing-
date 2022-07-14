@@ -168,7 +168,6 @@ export default function Register() {
         address_city: city,
         address_state: state,
       };
-      console.log("i2345");
       //API call
       try {
         let customerStatus = await RegisterController(body);
