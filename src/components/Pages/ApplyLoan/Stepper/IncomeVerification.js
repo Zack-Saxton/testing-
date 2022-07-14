@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { verificationSteps } from "../../../Controllers/ApplyForLoanController";
@@ -21,6 +21,7 @@ const useStyles = makeStyles(() => ({
 export default function IncomeVerification(props) {
 	const navigate = useNavigate();
 	const classes = useStyles();
+	const [ internalLoading, setInternalLoading ] = useState(false);
 
 	const handleUpload = (res) => {
 		if (res?.data?.income_verification) {
@@ -32,7 +33,7 @@ export default function IncomeVerification(props) {
 
 	const handleFinishOnClick = async () => {
 		props.setLoadingFlag(true);
-		await refetch()
+		setInternalLoading(true);
 		let verifySteps = await verificationSteps();
 		//To check all the steps are completed or not
 		if (
@@ -46,9 +47,11 @@ export default function IncomeVerification(props) {
 			verifySteps?.data?.income_verification
 		) {
 			props.setLoadingFlag(false);
+			setInternalLoading(false)
 			navigate("/customers/receiveYourMoney");
 		} else {
 			props.setLoadingFlag(false);
+			setInternalLoading(false)
 			toast.error(messages.incomeVerification.finishAllSteps);
 		}
 	}
@@ -104,6 +107,12 @@ export default function IncomeVerification(props) {
 						}}
 					>
 						{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
+						<i
+							className="fa fa-refresh fa-spin customSpinner"
+							style={{
+								display: internalLoading ? "block" : "none",
+							}}
+						/>
 					</ButtonPrimary>
 				</div>
 			</div>

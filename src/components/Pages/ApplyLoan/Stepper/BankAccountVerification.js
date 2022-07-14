@@ -71,6 +71,7 @@ export default function BankAccountVerification(props) {
 	const [ invalidRN, setInvalidRN ] = useState(false);
 	const [ resetUpload, setResetUpload ] = useState(false);
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
+	const [ internalLoading, setInternalLoading ] = useState(false);
 	const holderName = Cookies.get("firstName")+" "+Cookies.get("lastName");
 	function getValueByLable(text, ctx) {
 		return document.evaluate("//*[.='" + text + "']",
@@ -83,6 +84,7 @@ export default function BankAccountVerification(props) {
 			getValueByLable("Bank Account Verification").scrollIntoView();
 		} else {
 			props.setLoadingFlag(false);
+			setInternalLoading(false)
 			toast.error(messages?.document?.upoloadFailed);
 		}
 	};
@@ -101,6 +103,7 @@ export default function BankAccountVerification(props) {
 		//On submit - submit the user entered details
 		onSubmit: async (values) => {
 			props.setLoadingFlag(true);
+			setInternalLoading(true);
 			let data = {
 				account_number: values.bankAccountNumber,
 				account_type: accountType,
@@ -111,6 +114,7 @@ export default function BankAccountVerification(props) {
 			if (verifyRequired && !fileUploadSuccess) {
 				toast.error(messages?.bankAccountVerification?.notValid);
 				props.setLoadingFlag(false);
+				setInternalLoading(false);
 			}
 			else if (verifyRequired && fileUploadSuccess) {
 				getValueByLable("Bank Account Verification").scrollIntoView();
@@ -120,6 +124,7 @@ export default function BankAccountVerification(props) {
 				let res = await APICall("bank_information_cac", '', data, "POST", true);
 				if (res?.data?.bank_account_information && res?.data?.bank_account_verification) {
 					props.setLoadingFlag(false);
+					setInternalLoading(false);
 					getValueByLable("Bank Account Verification").scrollIntoView();
 					props.next();
 				} else if (res?.data?.bank_account_information || res?.data?.bank_account_verification) {
@@ -130,11 +135,14 @@ export default function BankAccountVerification(props) {
 					);
 					setVerifyRequired(true);
 					props.setLoadingFlag(false);
+					setInternalLoading(false);
 				} else if (!res?.data?.bank_account_information || !res?.data?.bank_account_verification) {
 					props.setLoadingFlag(false);
+					setInternalLoading(false);
 					alert(messages?.bankAccountVerification?.notValid);
 				} else {
 					props.setLoadingFlag(false);
+					setInternalLoading(false);
 					alert(globalMessages.Network_Error_Please_Try_Again);
 				}
 			}
@@ -480,6 +488,12 @@ export default function BankAccountVerification(props) {
 							disabled={invalidRN}
 						>
 							{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
+							<i
+							className="fa fa-refresh fa-spin customSpinner"
+							style={{
+								display: internalLoading ? "block" : "none",
+							}}
+						/>
 						</ButtonPrimary>
 					</div>
 				</div>
