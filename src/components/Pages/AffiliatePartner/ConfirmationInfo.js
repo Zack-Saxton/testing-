@@ -165,7 +165,7 @@ export default function ConfirmationInfo() {
   const handleOnClickPrivacy = () => setPrivacyPopup(true);
   const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
   useEffect(() => {
-		if (!location?.state?.first_name || !location?.state?.last_name) {
+		if (!location?.state?.partnerSignupData?.applicant?.contact?.first_name || !location?.state?.partnerSignupData?.applicant?.contact?.last_name) {
 			navigate("/login");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -231,40 +231,41 @@ export default function ConfirmationInfo() {
                                 {"label": "Retired", "value": "Retired"}];
   
   const legalMaritalStatus =  "Separated, under decree of legal separation"
+
   //Form Submission
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      firstName: location?.state?.first_name ?? "",
-      lastName: location?.state?.last_name ?? "",
-      streetAddress: location?.state?.address_street ?? "",
-      city: location?.state?.address_city ?? "",
-      state: location?.state?.address_state ? states[ location.state.address_state ] : "",
-      zip: location?.state?.address_postal_code ?? "",
-      citizenship: location?.state?.citizenship ?? "",
-      personalIncome: location?.state?.annual_income
+      firstName: location?.state?.partnerSignupData?.applicant?.contact.first_name ?? "",
+      lastName: location?.state?.partnerSignupData?.applicant?.contact.last_name ?? "",
+      streetAddress: location?.state?.partnerSignupData?.applicant?.contact.address_street ?? "",
+      city: location?.state?.partnerSignupData?.applicant?.contact.address_city ?? "",
+      state: location?.state?.partnerSignupData?.applicant?.contact.address_state ? states[ location.state.partnerSignupData?.applicant?.contact.address_state ] : "",
+      zip: location?.state?.partnerSignupData?.applicant?.contact.address_postal_code ?? "",
+      citizenship: location?.state?.partnerSignupData?.applicant.self_reported?.citizenship ?? "",
+      personalIncome: location?.state?.partnerSignupData?.applicant.self_reported?.annual_income
         ? "$" +
-        parseFloat(location.state.annual_income)
+        parseFloat(location.state.partnerSignupData?.applicant.self_reported?.annual_income)
           .toFixed(2)
           .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
           .slice(0, -3)
         : "",
-      householdIncome: location?.state?.household_annual_income
+      householdIncome: location?.state?.partnerSignupData?.applicant.self_reported?.household_annual_income
         ? "$" +
-        parseFloat(location.state.household_annual_income)
+        parseFloat(location.state.partnerSignupData?.applicant.self_reported?.household_annual_income)
           .toFixed(2)
           .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
           .slice(0, -3)
         : "",
-      employementStatus: location?.state?.employment_status ?? "",
-      activeDuty: location?.state?.active_duty ?? "",
-      activeDutyRank: location?.state?.active_duty_rank ?? "",
-      militaryStatus: location?.state?.military_status ?? "",
-      martialStatus: location?.state?.marital_status ?? "",
-      spouseadd: location?.state?.spouse_address_street ?? "",
-      spouseZipcode: location?.state?.spouse_address_postal_code ?? "",
-      spousecity: location?.state?.spouse_address_city ?? "",
-      spouseSelectState: location?.state?.spouse_address_state ? states[ location.state.spouse_address_state ] : "",
+      employementStatus: location?.state?.partnerSignupData?.applicant.self_reported?.employment_status ?? "",
+      activeDuty: location?.state?.partnerSignupData?.applicant.self_reported?.active_duty ?? "",
+      activeDutyRank: location?.state?.partnerSignupData?.applicant.self_reported?.active_duty_rank ?? "",
+      militaryStatus: location?.state?.partnerSignupData?.applicant.self_reported?.military_status ?? "",
+      martialStatus: location?.state?.partnerSignupData?.applicant.self_reported?.marital_status ?? "",
+      spouseadd: location?.state?.partnerSignupData?.applicant.self_reported?.spouse_address_street ?? "",
+      spouseZipcode: location?.state?.partnerSignupData?.applicant.self_reported?.spouse_address_postal_code ?? "",
+      spousecity: location?.state?.partnerSignupData?.applicant.self_reported?.spouse_address_city ?? "",
+      spouseSelectState: location?.state?.partnerSignupData?.applicant.self_reported?.spouse_address_state ? states[ location.state.partnerSignupData?.applicant.self_reported?.spouse_address_state ] : "",
     },
 
     validationSchema: validationSchema,
@@ -291,8 +292,8 @@ export default function ConfirmationInfo() {
           spouseZipcode: values.spouseZipcode,
           spousecity: values.spousecity,
           spouseSelectState: Object.keys(states).find(key => states[ key ] === values.spouseSelectState),
-          partner_token: location?.state?.partner_token ?? "",
-          email: location?.state?.email ?? "",
+          partner_token: location?.state?.partnerSignupData?.partner_token?.partner_token ?? "",
+          email: location?.state?.partnerSignupData?.applicant?.contact?.email ?? "",
         };
 
         let partnerConfirmRes = await partnerConfirmInfo(confirmInfoData, navigate);

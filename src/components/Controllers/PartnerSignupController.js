@@ -66,24 +66,7 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
           navigate(statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
             {
               state: {
-                jwt_token: partnerSignupMethod?.data?.user.extensionattributes.login.jwt_token,
-                partner_token: partnerSignupMethod?.data?.user.attributes.partner_token,
-                first_name: partnerSignupMethod?.data?.applicant.contact.first_name,
-                last_name: partnerSignupMethod?.data?.applicant.contact.last_name,
-                email: partnerSignupMethod?.data?.applicant.contact.email,
-                address_postal_code: partnerSignupMethod?.data?.applicant.contact.address_postal_code,
-                address_city: partnerSignupMethod?.data?.applicant.contact.address_city,
-                address_state: partnerSignupMethod?.data?.applicant.contact.address_state,
-                address_street: partnerSignupMethod?.data?.applicant.contact.address_street,
-                citizenship: partnerSignupMethod?.data?.applicant.self_reported.citizenship,
-                annual_income: partnerSignupMethod?.data?.applicant.self_reported.annual_income,
-                household_annual_income: partnerSignupMethod?.data?.applicant.self_reported.household_annual_income,
-                employment_status: partnerSignupMethod?.data?.applicant.self_reported.employment_status,
-                military_status: partnerSignupMethod?.data?.applicant.self_reported.military_status,
-                spouse_address_street: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_street,
-                spouse_address_postal_code: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_postal_code,
-                spouse_address_state: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_state,
-                spouse_address_city: partnerSignupMethod?.data?.applicant.self_reported.spouse_address_city,
+                partnerSignupData: partnerSignupMethod?.data             
               }
             });
         },
