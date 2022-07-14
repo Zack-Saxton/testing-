@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import NavContext from "../../../contexts/NavContext";
 import SelectOffer from "../ApplyLoan/SelectOffer/SelectOffer";
-import { mockData2 } from './PartnerMockData';
+import { mockData2 } from './../../../__mock__/data/PartnerMockData';
 import PartnerSignUp from "./PartnerSignUp";
 
 const queryClient = new QueryClient({
