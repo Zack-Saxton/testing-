@@ -171,24 +171,17 @@ export default function Register() {
       //API call
       try {
         let customerStatus = await RegisterController(body);
-        if (
-          !customerStatus?.data?.hasError &&
-          customerStatus?.data?.successMessage === "Password reset successful"
-        ) {
-          toast.success(customerStatus?.data?.successMessage);
+        let register = customerStatus?.data?.message
+        let passwordReset = customerStatus?.data?.successMessage
+        if(customerStatus?.data?.statusCode !== 400){
+          toast.success(register ? register : passwordReset);
           loginUser(values);
-        } else if (
-          !customerStatus?.data?.customerFound &&
-          !customerStatus?.data?.userFound &&
-          !customerStatus?.data?.is_registration_failed
-        ) {
-          loginUser(values);
-          toast.success(customerStatus?.data?.message);
-        } else if (
+        }
+        else if (
           customerStatus?.data?.result === "error" &&
           customerStatus?.data?.hasError
         ) {
-          setFailed(customerStatus.data?.errorMessage);
+          toast.error(customerStatus.data?.errorMessage);
           setSuccessPopup(false);
           setLoading(false);
         } else {
