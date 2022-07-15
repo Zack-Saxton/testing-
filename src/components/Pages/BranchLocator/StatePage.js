@@ -95,7 +95,7 @@ export default function StatePage() {
       for (let ele in result) {
         let BranchTime = await findBranchTimings(result[ ele ]);
         result[ ele ] = Object.assign(result[ ele ], { BranchTime: BranchTime });
-        if (result[ele].BranchName.toLowerCase() === 'lees summit') result[ele] = Object.assign(result[ele], { BranchName: `Lee's Summit` }); 
+        if (result[ele].BranchName.toLowerCase() === 'lees summit') result[ele] = Object.assign(result[ele], { BranchName: `Lee's Summit` }, { Address: `1171 NE Rice Road, Lee's Summit, MO 64086` }); 
       }
       setBranchList(result);
       setLoading(false);
@@ -145,7 +145,7 @@ export default function StatePage() {
       <>
         {branchList &&
           <NavLink
-            to={`/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ val.BranchInformation.BranchName.replace(/[.]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }`}
+            to={`/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ val.BranchInformation.BranchName.replace(/[.']/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }`}
             state={{ branch_Details: val.BranchInformation, stateLongNm: stateLongName, stateShortNm: stateShortName }}
             className="blueColorLink"
           >
@@ -472,7 +472,7 @@ export default function StatePage() {
                           return (
                             <Grid key={index} className="locationInfo" item lg={4} md={4} sm={6} xs={12}>
                               <NavLink
-                                to={`/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[.]/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }`}
+                                to={`/branch-locator/${ stateLongName.replace(/\s+/, '-').toLocaleLowerCase() }/personal-loans-in-${ item?.BranchName.replace(/[.']/g, "").replace(/\s+/g, '-').toLocaleLowerCase() }-${ stateShortName.toLocaleLowerCase() }`}
                                 state={{ branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
                                 className="nav_link"
                               >
