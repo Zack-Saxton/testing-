@@ -239,9 +239,7 @@ export default function BranchLocator() {
         <b>Apply Online</b> For a Personal Loan
       </Typography>
       <p className="mainParagraph">
-        Do you live in one of the 24 states in which we operate and need a
-        personal loans? Can’t reach a branch or prefer to apply online? If so,
-        you’re in luck! You can apply online today*. It’s quick, easy, and secure.
+        Do you live in one of the states in which we operate and need a personal loans? Can’t reach a branch or prefer to apply online? If so, you’re in luck! You can apply online today*. It’s quick, easy, and secure.
       </p>
       <Typography className="mainHeading">
         <b>Need money</b> but don’t know much about personal loans?

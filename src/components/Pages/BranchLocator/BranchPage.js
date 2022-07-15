@@ -114,6 +114,7 @@ export default function StatePage() {
       for (let ele in result) {
         let BranchTime = await findBranchTimings(result[ ele ]);
         result[ ele ] = Object.assign(result[ ele ], { BranchTime: BranchTime });
+        if (result[ele].BranchName.toLowerCase() === 'lees summit') result[ele] = Object.assign(result[ele], { BranchName: `Lee's Summit` }); 
         if((branchName) && (result[ ele ].BranchName.trim()).toLowerCase() === (branchName.trim()).toLocaleLowerCase()){
           branch_Details.current = { BranchName: result[ ele ].BranchName };
         }
@@ -507,12 +508,7 @@ export default function StatePage() {
                     <strong>Find nearby {stateLongNm?.current} branches</strong>
                   </h4>
                   <p className="PesonalLoanMapParagraph">
-                    Mariner Finance, serving communities since 1927, operates over 470 branch locations in twenty-seven
-                    states, working and living as close to our customers as we can.
-                    Chances are we’re in your neighborhood, or we will be soon as we
-                    continue to grow. Our experienced team members are ready to assist
-                    with your financial needs. See other branches with personal loans
-                    near you below:
+                    Mariner Finance, serving communities since 1927, operates coast-to-coast with physical locations in over half the states. Chances are we’re in your neighborhood, or we will be soon as we continue to grow. Our experienced team members are ready to assist with your financial needs. See other branches with personal loans near you below:
                   </p>
                 </Grid>
                 {Display3moreClosestBranchList}
