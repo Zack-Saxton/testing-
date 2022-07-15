@@ -62,7 +62,7 @@ export default function Login(props) {
   Cookies.set("forceResetPassword", false);
   Cookies.remove("mfaPhone");
   Cookies.remove("mfaPhoneSkip");
-
+  Cookies.remove("selectTerm")
 
   useEffect(()=>{
      navigator.geolocation.getCurrentPosition(function(position){
@@ -70,9 +70,6 @@ export default function Login(props) {
          setLongitude(position.coords.longitude);
      })
   },[])
-
-
-
 
   //reCaptcha validation
   window.onReCaptchaSuccess = async function () {

@@ -33,7 +33,6 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
       {
         onClose: () => {
           let now = new Date().getTime();
-          LogoutController();
           Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
           Cookies.set(
             "token",
