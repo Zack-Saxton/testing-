@@ -24,7 +24,7 @@ export default async function LoginController(email, password, clientIp,longitud
 
     //API call
     let loginMethod = await APICall(url, param, data, method, addAccessToken);
-    Cookies.set("user", JSON.stringify({ user: loginMethod?.data?.user }));
+    localStorage.setItem("user", JSON.stringify({ user: loginMethod?.data?.user }));
     return loginMethod;
   } catch (error) {
     ErrorLogger(globalMessages.Error_executing_LoginController_API, error);
@@ -69,7 +69,6 @@ const setCookiesPostLogin = (retVal, now, values, login_date, mfaData, remMe) =>
   Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
   Cookies.set("temp_opted_phone_texting", "");
   Cookies.set("rememberMe", remMe ? JSON.stringify({ selected: true, email: values?.email }) : JSON.stringify({ selected: false, email: '' }));
-  
   Cookies.set("mfaDetails", JSON.stringify(mfaData));
 }
 
