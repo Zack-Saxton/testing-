@@ -44,7 +44,6 @@ const MFAGetPhoneNumber = () => {
 	const navigate = useNavigate();
 	const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
 	const [disabledButton, setDisabledButton] = useState(true);
-	const [phoneNumber, SetPhoneNumber] = useState("");
   const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
   const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
 	const location = useLocation();
@@ -73,9 +72,7 @@ const MFAGetPhoneNumber = () => {
 
   useEffect(() => {
     if(phoneNumberValue?.length === 14){
-        if(Boolean(formik.errors?.phone)){
           setDisabledButton(false);
-        }
     } else {
       setDisabledButton(true);
     }
@@ -114,6 +111,7 @@ const MFAGetPhoneNumber = () => {
     let numberToSend = phoneNumberValue.replace(/[()-\s]/g, '');
 		setDisabledButton(true);
 		const email = Cookies.get("email");
+    if(Boolean(!formik.errors?.phone)){
 		let response = await SavePhoneNumber(email, numberToSend);
 		if (response?.data?.statusCode === 200) {
 			toast.success((response.data?.Message).replace(numberToSend, maskedNumber));
@@ -128,6 +126,7 @@ const MFAGetPhoneNumber = () => {
 		} else {
 			toast.error(response.data?.Message ?? response.data?.errorMessage);
 		}
+  }
 		setDisabledButton(false);
 	}
 	}
