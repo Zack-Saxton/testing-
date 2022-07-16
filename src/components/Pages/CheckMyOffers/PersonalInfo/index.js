@@ -25,6 +25,7 @@ import {
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./PersonalInfo.css";
+import {checkCustomeruser,checkApplicationStatus} from "../../../Controllers/PersonalInfoController";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -207,7 +208,7 @@ function PersonalInfo() {
 				data.phone = values.phone;
 				data.ssn = data.last4SSN
 					? data.ssn
-					: values.ssn.replace(/-/g, "").replace(/ /g, "") || "";			
+					: replacement(values?.ssn);
 				data.phone = phoneNumberValue;
 				data.dob = values.dob;
 				data.completedPage = data.page.personalInfo;
@@ -220,7 +221,7 @@ function PersonalInfo() {
 						email: values.email,
 						ssn: data.last4SSN
 							? data.ssn
-							: values.ssn.replace(/-/g, "").replace(/ /g, "") || "",
+							: values.ssn,
 						isAuthenticated: true,
 					};
 
@@ -230,16 +231,8 @@ function PersonalInfo() {
 						setLoading(false);
 						navigate("/employment-status");
 					} else {
-						let customerStatus = await axios({
-							method: "POST",
-							url: "/customer/check_customer_user",
-							data: JSON.stringify(body),
-							headers: {
-								"Content-Type": "application/json",
-							},
-						});
-
-						if (customerStatus.data.customerFound) {
+						let customerStatus = await checkCustomeruser(body);
+                         if (customerStatus.data.customerFound) {
 							ifReducer(customerStatus, values)
 						
 						} else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== "More than 1 customer record retrieved ") {
@@ -260,6 +253,10 @@ function PersonalInfo() {
 		},
 	});
 
+	const replacement = (ssn) =>{
+	return ssn.replace(/-/g, "").replace(/ /g, "") || ""
+	}
+
 	const checkApplicationStatus = async (event) => {
 		formik.handleBlur(event);
 		if (event.target.value) {
@@ -267,14 +264,7 @@ function PersonalInfo() {
 				email: event.target.value.trim(),
 			};
 			if (event.target.value !== "") {
-				let result = await axios({
-					method: "POST",
-					url: "/customer/get_customer_by_email",
-					data: JSON.stringify(body),
-					headers: {
-						"Content-Type": "application/json",
-					},
-				});
+				let result = await checkApplicationStatus(body)
 				if (result?.data?.AppSubmittedInLast30Days) {
 					setAppliedInLast30Days(true);
 				} else {
@@ -565,8 +555,7 @@ function PersonalInfo() {
 														: "hideError "
 												}
 											>
-												It looks like you have already submitted an application
-												within the last 30 days.
+												{globalMessages.Application_already_Submitted}
 											</p>
 										</Grid>
 
