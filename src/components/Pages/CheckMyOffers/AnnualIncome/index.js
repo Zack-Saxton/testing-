@@ -101,8 +101,8 @@ function NewUser() {
 
 		//On submit functionality
 		onSubmit: (values) => {
-			const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
+			const modPersonalIncome = replacement(values.personalIncome);
+			const modHouseholdIncome = replacement(values.householdIncome);
 			if (!errorPersonal && !errorAnnual) {
 				if (validate(modPersonalIncome, modHouseholdIncome)) {
 					data.annualIncome = modPersonalIncome ? modPersonalIncome : "0";
@@ -113,6 +113,11 @@ function NewUser() {
 			}
 		},
 	});
+
+    const replacement = (value) =>{
+		return parseInt(value.replace(/\$/g, "").replace(/,/g, ""));
+	}
+
 
 	//Restrict alphabets
 	const onHandleChangePersonal = (event) => {
