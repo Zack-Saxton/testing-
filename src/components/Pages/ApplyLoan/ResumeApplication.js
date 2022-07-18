@@ -1,5 +1,6 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
+import Cookies from "js-cookie";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
@@ -10,7 +11,19 @@ const ResumeApplication = () => {
 	const redirect = async () => {
 		let res = await APICall("account_overview", '', {}, "GET", true);
 		let activeApplication = res?.data?.applicants?.find((applicant) => applicant?.isActive);
-		navigate(activeApplication && activeApplication?.status ? applicationStatusRedirectPage[ activeApplication.status ] : res?.data?.customer?.user_account?.status === "closed" ? "/customers/accountOverview" : "/select-amount");
+
+
+		let stateDataToPass  = {
+			partnerSignupData: {
+				applicant: {
+					contact: {
+						last_name: Cookies.get("lastName"),
+						first_name: Cookies.get("firstName")
+					}
+				}
+			}
+		}
+		navigate(activeApplication && activeApplication?.status ? applicationStatusRedirectPage[ activeApplication.status ] : res?.data?.customer?.user_account?.status === "closed" ? "/customers/accountOverview" : "/select-amount" , { state: stateDataToPass });
 	};
 	useEffect(() => {
 		redirect();
