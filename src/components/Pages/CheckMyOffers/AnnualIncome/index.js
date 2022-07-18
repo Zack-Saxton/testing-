@@ -101,8 +101,8 @@ function NewUser() {
 
 		//On submit functionality
 		onSubmit: (values) => {
-			const modPersonalIncome = parseInt(values.personalIncome).replace(/[$\s]/g,"");
-			const modHouseholdIncome = parseInt(values.householdIncome).replace(/[$\s]/g,"");
+			const modPersonalIncome = parseInt(values.personalIncome).replace(/\$|\,/g, "");
+			const modHouseholdIncome = parseInt(values.householdIncome).replace(/\$|\,/g, "");
 			if (!errorPersonal && !errorAnnual) {
 				if (validate(modPersonalIncome, modHouseholdIncome)) {
 					data.annualIncome = modPersonalIncome ? modPersonalIncome : "0";
@@ -134,18 +134,18 @@ function NewUser() {
 	};
 
 	const handleHouseHoldIncomeValue = (event) => {
-		const num = event.target.value.trim().replace(/[$\s]/g,"").substr(0, 7);
+		const num = event.target.value.trim().replace(/\$|\,/g, "").substr(0, 7);
 		const formated = parseFloat(num);
 		const currency = "$";
 		const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		formik.setFieldValue(event.target.name, forCur.slice(0, -3));
-		const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/[$\s]/g,""));
-		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/[$\s]/g,""));
+		const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$|\,/g, ""));
+		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$|\,/g, ""));
 		if (isNaN(modHouseholdIncome)) {
 			setErrorAnnual(globalMessages?.Annual_Household_Income_Required);
 		} else {
 			const numNxt = event.target.value.trim()
-			    .replace(/[$\s]/g,"")
+			    .replace(/\$|\,/g, "")
 			    .substr(0, 7);
 			if (numNxt.length < 4) {
 				setErrorAnnual(globalMessages?.Annual_Household_Income_4_digits);
@@ -153,7 +153,7 @@ function NewUser() {
 			}
 			const perval = document
 				.getElementById("personalIncome")
-				.value.replace(/[$\s]/g,"").substr(0, 7);
+				.value.replace(/\$|\,/g, "").substr(0, 7);
 			if (perval.length < 4) {
 				setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 				return false;
@@ -173,7 +173,7 @@ function NewUser() {
 
 	const handlePeronalIncomeValue = (event) => {
 		const personalIncomeValue = event.target.value.trim()
-			.replace(/[$\s]/g,"")
+			.replace(/\$|\,/g, "")
 			.substr(0, 7);
 		const formated = parseFloat(personalIncomeValue);
 		const currency = "$";
@@ -181,16 +181,16 @@ function NewUser() {
 			currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		formik.setFieldValue(event.target.name, forCur.slice(0, -3));
 		const modPersonalIncome = parseInt(
-			formik.values.personalIncome.replace(/[$\s]/g,"")
+			formik.values.personalIncome.replace(/\$|\,/g, "")
 		);
 		const modHouseholdIncome = parseInt(
-			formik.values.householdIncome.replace(/[$\s]/g,"")
+			formik.values.householdIncome.replace(/\$|\,/g, "")
 		);
 		if (isNaN(modPersonalIncome)) {
 			setErrorPersonal(globalMessages?.Annual_Personal_Income_Required);
 		} else {
 			const num = event.target.value.trim()
-				.replace(/[$\s]/g,"")
+				.replace(/\$|\,/g, "")
 				.substr(0, 7);
 			if (num.length < 4) {
 				setErrorPersonal(globalMessages?.Annual_Personal_Income_4_digits);

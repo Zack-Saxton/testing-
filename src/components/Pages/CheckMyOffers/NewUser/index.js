@@ -96,7 +96,7 @@ function NewUser() {
 				fname: data.firstName,
 				lname: data.lastName,
 				email: data.email,
-				ssn: data.ssn.replace(/[-\s]/g, "") || "",
+				ssn: data.ssn.replace(/\-|\s+/g, "") || "",
 				zip_code: data.zip,
 				password: values.newPassword,
 				birth_year: data.dob.getFullYear().toString(),
