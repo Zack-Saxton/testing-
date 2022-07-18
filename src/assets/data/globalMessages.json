@@ -267,5 +267,7 @@
   "INVALIDENTRY":"Invalid Entry Please Try Another Email Address",
   "Error_executing_SavePhoneNumber_API": "Error executing save phonenumber API",
   "Account_Locked": "Your account has been locked.  Please contact your branch for further assistance.",
-  "Your_Identity_Verified_Successfully": "Your identity is verified successfully"
+  "Your_Identity_Verified_Successfully": "Your identity is verified successfully",
+  "No_Branch_in_Area": "No branches within that area. Please enter a valid city and state.",
+  "LeaveMFWebsite": "You are about to leave marinerfinance.com"
 }

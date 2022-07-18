@@ -16,7 +16,7 @@ import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { branch_hours, ca_branch_hours, howManyBranchesforBranchLocatorPages } from "../../../assets/data/marinerBusinesStates";
+import { branch_hours, ca_branch_hours, howManyBranchesforBranchLocatorPages, BrnachLocatorURLs } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
@@ -182,7 +182,7 @@ export default function StatePage() {
         >
           <Link
             className="breadcrumbLink"
-            href="https://www.marinerfinance.com/"
+            href="/"
           >
             Home
           </Link>
@@ -288,7 +288,7 @@ export default function StatePage() {
             data-testid = "directionButton"
               onClick={() => {
                 setBranchAddress(
-                  `https://www.google.com/maps/search/${ branch_Details?.current?.Address ? branch_Details?.current?.Address : branchList && branchList[ 0 ]?.Address }`
+                  `${BrnachLocatorURLs.GoogleMapURL}${ branch_Details?.current?.Address ? branch_Details?.current?.Address : branchList && branchList[ 0 ]?.Address }`
                 );
                 openGetDirectionModal();
               }}
@@ -347,7 +347,7 @@ export default function StatePage() {
                 <ButtonSecondary
                   onClick={() => {
                     setBranchAddress(
-                      "https://www.google.com/maps/search/" + item.Address
+                      `${BrnachLocatorURLs.GoogleMapURL}${item.Address}`
                     );
                     openGetDirectionModal();
                   }}
@@ -408,7 +408,7 @@ export default function StatePage() {
         id="consumerDialogHeading"
         className={directionsClass.consumerDialogHeading}
       >
-        You are about to leave marinerfinance.com
+        {globalMessages.LeaveMFWebsite}
       </h2>
       <div>
         <p className={directionsClass.consumerParagaraph}>
@@ -515,24 +515,24 @@ export default function StatePage() {
                 <Grid>
                   <Typography className="learnMoreLinks">
                     Learn more about our{" "}
-                    <a href="https://www.marinerfinance.com/personal-loans/">
+                    <a href={BrnachLocatorURLs.MarinerURL + 'personal-loans/'}>
                       personal loans
                     </a>
                     ,{" "}
-                    <a href="https://www.marinerfinance.com/car-loans/">car loans</a>,{" "}
-                    <a href="https://www.marinerfinance.com/personal-loans/debt-consolidation-loans/">
+                    <a href={BrnachLocatorURLs.MarinerURL + 'car-loans/'}>car loans</a>,{" "}
+                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/debt-consolidation-loans/'}>
                       debt consolidation loans
                     </a>
                     ,{" "}
-                    <a href="https://www.marinerfinance.com/personal-loans/home-improvement-loans/">
+                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/home-improvement-loans/'}>
                       home improvement loans
                     </a>
                     ,{" "}
-                    <a href="https://www.marinerfinance.com/personal-loans/vacation-loans/">
+                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/vacation-loans/'}>
                       vacation loans
                     </a>
                     , and{" "}
-                    <a href="https://www.marinerfinance.com/personal-loans/wedding-loans/">
+                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/wedding-loans/'}>
                       wedding loans
                     </a>
                     .
