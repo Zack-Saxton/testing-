@@ -1,11 +1,18 @@
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/styles";
 import "@testing-library/jest-dom/extend-expect";
-import { render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import MakePayment from "./MakePayment";
+import { useAccountOverview } from './useAccountOverview';
+import { useHolidayCalender } from './useHolidayCalender';
+import { usePaymentMethod } from './usePaymentMethod';
+import LoanAccount from '../../../contexts/LoanAccount';
+import { makePaymentMockData, holidayCalendarMockData, paymentMethodsMockData } from "./MockData";
+import AccountOverview from '../AccountOverview/AccountOverview'
+import NavContext from '../../../contexts/NavContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,6 +23,19 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+jest.mock("./useAccountOverview", ()=>({
+  useAccountOverview: jest.fn(),
+}))
+
+jest.mock("./useHolidayCalender", ()=>({
+  useHolidayCalender: jest.fn(),
+}))
+
+jest.mock("./usePaymentMethod", ()=>({
+  usePaymentMethod: jest.fn(),
+}))
+
 const theme = createTheme();
 window.scrollTo = jest.fn();
 const component = () => {
@@ -23,26 +43,199 @@ const component = () => {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <MakePayment />
+          <LoanAccount>
+          <NavContext>
+            <MakePayment />
+          </NavContext>
+          </LoanAccount>
         </BrowserRouter>
       </QueryClientProvider>
     </ThemeProvider>
   );
 };
 
+const MockComponent = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <LoanAccount>
+          <NavContext>
+            <AccountOverview />
+            <MakePayment />
+          </NavContext>
+          </LoanAccount>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+}
+
 test("Checks the component is rendered", () => {
-  render(component());
-  const element = screen.getByTestId("makePaymentComponent");
+  useAccountOverview.mockImplementation(() => ({
+    isFetching: false,
+    User: makePaymentMockData,
+  }));
+  useHolidayCalender.mockImplementation(() => ({
+    isLoadingHoliday: false,
+    holidayCalenderData: holidayCalendarMockData,
+  }))
+  usePaymentMethod.mockImplementation(() => ({
+    isLoadingPayment: false,
+    payments: paymentMethodsMockData,
+  }))
+  const container = render(component());
+  const element = container.getByTestId("makePaymentComponent");
+  container.debug(undefined, 4000000);
   expect(element).toBeTruthy();
 });
 
 test("Please Contact Text Availability test", () => {
-  render(component());
-  const element = screen.getByTestId("pleaseContact");
+  useAccountOverview.mockImplementation(() => ({
+    isFetching: false,
+    User: makePaymentMockData,
+  }));
+  useHolidayCalender.mockImplementation(() => ({
+    isLoadingHoliday: false,
+    holidayCalenderData: holidayCalendarMockData,
+  }))
+  usePaymentMethod.mockImplementation(() => ({
+    isLoadingPayment: false,
+    payments: paymentMethodsMockData,
+  }))
+  const container = render(component());
+  const element = container.getByTestId("pleaseContact");
   expect(element).toBeTruthy();
 });
 
-test('should match the snapshot', () => {
-  const { asFragment } = render(component());
-  expect(asFragment).toMatchSnapshot();
-});
+test("Cell values rendered correct;y", () => {
+  useAccountOverview.mockImplementation(() => ({
+    isFetching: false,
+    User: makePaymentMockData,
+  }));
+  useHolidayCalender.mockImplementation(() => ({
+    isLoadingHoliday: false,
+    holidayCalenderData: holidayCalendarMockData,
+  }))
+  usePaymentMethod.mockImplementation(() => ({
+    isLoadingPayment: false,
+    payments: paymentMethodsMockData,
+  }))
+    render(component());
+    screen.debug(undefined, 4000000);
+    const AccNo = screen.getByText("3508-006936-16");
+    expect(AccNo).toBeTruthy();  
+    const todayPayoff = screen.getByText("$4,167.52");
+    expect(todayPayoff).toBeTruthy();  
+    const regAmount = screen.getByText("$174.17");
+    expect(regAmount).toBeTruthy();
+    const intrest = screen.getByText("$22.99");
+    expect(intrest).toBeTruthy();
+    const loadFees = screen.getByText("$0.00");
+    expect(loadFees).toBeTruthy();
+    const dueDate = screen.getByText("09/07/2022");
+    expect(dueDate).toBeTruthy();
+    const autoPay = screen.getByText("NONE");
+    expect(autoPay).toBeTruthy();
+    const shedulePayment = screen.getByText("Disabled");
+    expect(shedulePayment).toBeTruthy();
+  });
+
+  it("Check whether Payment section is Rendering", () => {
+    useAccountOverview.mockImplementation(() => ({
+      isFetching: false,
+      User: makePaymentMockData,
+    }));
+    useHolidayCalender.mockImplementation(() => ({
+      isLoadingHoliday: false,
+      holidayCalenderData: holidayCalendarMockData,
+    }))
+    usePaymentMethod.mockImplementation(() => ({
+      isLoadingPayment: false,
+      payments: paymentMethodsMockData,
+    }))
+    const container = render(component());
+    const headingElement = container.getByTestId("payment_Mode");
+    expect(headingElement).toBeTruthy();
+  });
+
+  it("Check whether Payment Methods Dropdown is Rendering", () => {
+    useAccountOverview.mockImplementation(() => ({
+      isFetching: false,
+      User: makePaymentMockData,
+    }));
+    useHolidayCalender.mockImplementation(() => ({
+      isLoadingHoliday: false,
+      holidayCalenderData: holidayCalendarMockData,
+    }))
+    usePaymentMethod.mockImplementation(() => ({
+      isLoadingPayment: false,
+      payments: paymentMethodsMockData,
+    }))
+    const container = render(component());
+    const headingElement = container.getByTestId("payment_Methods");
+    expect(headingElement).toBeTruthy();
+  });
+
+  it("Back button navigates to Account Overview page", async() => {
+    useAccountOverview.mockImplementation(() => ({
+      isFetching: false,
+      User: makePaymentMockData,
+    }));
+    useHolidayCalender.mockImplementation(() => ({
+      isLoadingHoliday: false,
+      holidayCalenderData: holidayCalendarMockData,
+    }))
+    usePaymentMethod.mockImplementation(() => ({
+      isLoadingPayment: false,
+      payments: paymentMethodsMockData,
+    }))
+    const container = render(MockComponent());
+    const backButton = container.getByTestId("back_Button")
+    expect(backButton).toBeTruthy();
+    fireEvent.click(backButton); 
+    const headingElement = container.getByTestId("subtitle_Title");
+    await waitFor(() => expect(headingElement).toBeInTheDocument());
+  });
+
+  it("Default Account Number in the Payment Section", () => {
+    useAccountOverview.mockImplementation(() => ({
+      isFetching: false,
+      User: makePaymentMockData,
+    }));
+    useHolidayCalender.mockImplementation(() => ({
+      isLoadingHoliday: false,
+      holidayCalenderData: holidayCalendarMockData,
+    }))
+    usePaymentMethod.mockImplementation(() => ({
+      isLoadingPayment: false,
+      payments: paymentMethodsMockData,
+    }))
+    const container = render(component());
+    container.debug(undefined, 10000000)
+    const headingElement = container.getByTestId('selectInput');
+    expect(headingElement.value).toBe("");
+  });
+
+  it("changing payment method from select dropdown test", async() => {
+    useAccountOverview.mockImplementation(() => ({
+      isFetching: false,
+      User: makePaymentMockData,
+    }));
+    useHolidayCalender.mockImplementation(() => ({
+      isLoadingHoliday: false,
+      holidayCalenderData: holidayCalendarMockData,
+    }))
+    usePaymentMethod.mockImplementation(() => ({
+      isLoadingPayment: false,
+      payments: paymentMethodsMockData,
+    }))
+    const { container } = render(component());
+    const headingElement = container.querySelector(`input[name="select"]`);
+  await act(() => {
+		fireEvent.change(headingElement, { target: { value: "Savings (Acct-4455) (****4455)" } });
+	});
+	expect(headingElement).toBeTruthy();
+  expect(headingElement.value).toBe("3751");
+  });
+
