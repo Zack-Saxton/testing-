@@ -87,15 +87,8 @@ export default function MakePayment() {
   const [ activeLoansData, setActiveLoansData ] = useState([]);
   const [ checkCard, setCheckCard ] = useState(false);
   const [ defaultPaymentCard, setDefaultPaymentCard ] = useState(false);
-  // const {
-  //   isFetching,
-  //   data: User,
-  //   refetch,
-  // } = useQuery("loan-data", usrAccountDetails, { refetchOnMount: false, });
   const { isFetching, User, refetch } = useAccountOverview();
-  // const { data: payments } = useQuery("payment-method", usrPaymentMethods, { refetchOnMount: false, });
   const { payments } = usePaymentMethod();
-  // const { data: holidayCalenderData } = useQuery("holiday-calendar", HolidayCalender, { refetchOnMount: false, });
   const { holidayCalenderData } = useHolidayCalender();
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
   const [stateName,setStatename] = useState("");
@@ -104,23 +97,11 @@ export default function MakePayment() {
 
   useEffect(() => {
     setStatename(User?.data?.applicant?.contact?.address_state);
-    // console.log(User?.data?.applicant?.contact?.address_state);
     if (payments?.data?.paymentOptions) {
       setCheckCard(payments.data.paymentOptions.length && payments.data.paymentOptions[ 0 ].CardType);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ payments, User ]);
-
-  // useEffect(()=>{
-  //   setAccountDetails().then((res)=>{
-  //     const {data} = res;
-  //     console.log(data);
-  //     setStatename(data?.applicant?.contact?.address_state);
-  //   })
-  // },[])
-
-  
-
 
   useEffect(() => {
     setPaymentDatepicker(scheduleDate ? scheduleDate : new Date());
