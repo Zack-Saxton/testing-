@@ -212,7 +212,6 @@ test("Cell values rendered correct;y", () => {
       payments: paymentMethodsMockData,
     }))
     const container = render(component());
-    container.debug(undefined, 10000000)
     const headingElement = container.getByTestId('selectInput');
     expect(headingElement.value).toBe("");
   });
