@@ -825,8 +825,6 @@ export default function MakePayment() {
                                 stylebutton='{"marginRight": "" }'
                                 id="make-payment-schedule-button"
                                 onClick={handleSchedulePaymentClick}
-                                disabled={hasSchedulePayment && disabledContent}
-                                //When autopayment is enabled and the payment is scheduled
                               >
                                 Schedule Payment
                               </ButtonPrimary>
