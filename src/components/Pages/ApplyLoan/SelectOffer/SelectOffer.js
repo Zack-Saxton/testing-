@@ -182,15 +182,20 @@ export default function SelectOffer() {
 		setValues(newValues);
 	};
 
-	useEffect(() => {
-		if(selectTerm && terms )
-		{
-			let event = {}
-			tabOnChange(selectTerm,terms?.indexOf(selectTerm))
-			handleTabChange(event,terms?.indexOf(selectTerm))
-		}
+function selectTermFocus(){
+
+	if(selectTerm && terms )
+	{
+		let event = {}
+		tabOnChange(selectTerm,terms?.indexOf(selectTerm))
+		handleTabChange(event,terms?.indexOf(selectTerm))
+	}
+}
+
+useEffect(() => {
+		selectTermFocus()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [terms]);
+}, [terms]);
 
 	//JSX part
 	return (
