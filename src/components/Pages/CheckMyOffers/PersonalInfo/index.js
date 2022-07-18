@@ -208,7 +208,7 @@ function PersonalInfo() {
 				data.phone = values.phone;
 				data.ssn = data.last4SSN
 					? data.ssn
-					: replacement(values?.ssn);
+					: values?.ssn.replace(/[$\s]/g,"")
 				data.phone = phoneNumberValue;
 				data.dob = values.dob;
 				data.completedPage = data.page.personalInfo;
@@ -253,9 +253,7 @@ function PersonalInfo() {
 		},
 	});
 
-	const replacement = (ssn) =>{
-	return ssn.replace(/-/g, "").replace(/ /g, "") || ""
-	}
+	
 
 	const checkApplicationStatus = async (event) => {
 		formik.handleBlur(event);

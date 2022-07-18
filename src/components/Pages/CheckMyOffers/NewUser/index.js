@@ -20,6 +20,10 @@ import { encryptAES } from "../../../lib/Crypto";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./NewUser.css";
+
+
+
+
 //YUP validation schema
 const validationSchema = yup.object({
 	newPassword: yup
@@ -92,7 +96,7 @@ function NewUser() {
 				fname: data.firstName,
 				lname: data.lastName,
 				email: data.email,
-				ssn: data.ssn.replace(/-/g, "").replace(/ /g, "") || "",
+				ssn: data.ssn.replace(/[-\s]/g, "") || "",
 				zip_code: data.zip,
 				password: values.newPassword,
 				birth_year: data.dob.getFullYear().toString(),
@@ -298,8 +302,7 @@ function NewUser() {
 												data-testid="subtitle"
 											>
 												{" "}
-												Account not created. For help please contact us at (844)
-												306-7300
+												 {globalMessages.Account_not_Created}
 											</p>
 										</Grid>
 										<Grid

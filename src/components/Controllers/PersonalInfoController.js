@@ -1,5 +1,6 @@
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import globalMessages from "../../assets/data/globalMessages.json";
 
 
 export async function checkCustomeruser(body) {
@@ -11,7 +12,7 @@ export async function checkCustomeruser(body) {
       let addAccessToken = true;
       return await APICall(url, param, data, method, addAccessToken);
     } catch (error) {
-      ErrorLogger(globalMessages.Error_executing_usrPaymentMethods_API, error);
+      ErrorLogger(globalMessages.Error_executing_checkcustomer_API, error);
     }
   }
 
@@ -26,6 +27,6 @@ export async function checkApplicationStatus(body) {
       let addAccessToken = true;
       return await APICall(url, param, data, method, addAccessToken)
     } catch (error) {
-      ErrorLogger(globalMessages.Error_executing_usrPaymentMethods_API, error);
+      ErrorLogger(globalMessages.Error_executing_checkapplication_API, error);
     }
   }
