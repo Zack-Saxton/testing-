@@ -221,7 +221,7 @@ function PersonalInfo() {
 						email: values.email,
 						ssn: data.last4SSN
 							? data.ssn
-							: values.ssn,
+							: values.ssn.replace(/-/g, "").replace(/ /g, "") || "",
 						isAuthenticated: true,
 					};
 
