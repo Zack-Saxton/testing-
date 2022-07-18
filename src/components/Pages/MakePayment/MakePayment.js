@@ -17,21 +17,17 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
-import { useQuery } from "react-query";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { formatDate } from "../../Controllers/BranchDayTiming";
-import HolidayCalender from "../../Controllers/HolidayCalenderController";
 import {
   deleteScheduledPayment,
   disableAutoPay,
   enableAutoPay,
-  makePayment,
-  usrPaymentMethods
+  makePayment
 } from "../../Controllers/PaymentsController";
 import {
   ButtonPrimary,
@@ -45,7 +41,11 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
 import { useStylesMakePayment } from "./Style";
-import setAccountDetails from "../../Controllers/AccountOverviewController";
+import { useAccountOverview } from "./useAccountOverview";
+import { usePaymentMethod } from "./usePaymentMethod";
+import { useHolidayCalender } from "./useHolidayCalender"
+
+
 const paymentMaxDate = new Date();
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
 
@@ -87,32 +87,21 @@ export default function MakePayment() {
   const [ activeLoansData, setActiveLoansData ] = useState([]);
   const [ checkCard, setCheckCard ] = useState(false);
   const [ defaultPaymentCard, setDefaultPaymentCard ] = useState(false);
-  const {
-    isFetching,
-    data: User,
-    refetch,
-  } = useQuery("loan-data", usrAccountDetails, { refetchOnMount: false, });
-  const { data: payments } = useQuery("payment-method", usrPaymentMethods, { refetchOnMount: false, });
-  const { data: holidayCalenderData } = useQuery("holiday-calendar", HolidayCalender, { refetchOnMount: false, });
+  const { isFetching, User, refetch } = useAccountOverview();
+  const { payments } = usePaymentMethod();
+  const { holidayCalenderData } = useHolidayCalender();
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
   const [stateName,setStatename] = useState("");
 
   let nextDueDateCheck = new Date();
 
   useEffect(() => {
+    setStatename(User?.data?.applicant?.contact?.address_state);
     if (payments?.data?.paymentOptions) {
       setCheckCard(payments.data.paymentOptions.length && payments.data.paymentOptions[ 0 ].CardType);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ payments, User ]);
-
-  useEffect(()=>{
-    setAccountDetails().then((res)=>{
-      const {data} = res;
-      setStatename(data?.applicant?.contact?.address_state);
-    })
-  },[])
-
 
   useEffect(() => {
     setPaymentDatepicker(scheduleDate ? scheduleDate : new Date());
@@ -554,6 +543,7 @@ export default function MakePayment() {
               <NavLink to="/customers/accountOverview">
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
+                  data-testid="back_Button"
                   iconposition="left"
                   stylebutton='{"background": "#fff", "color":"#214476",
                         "minWidth": "0px",
@@ -612,7 +602,7 @@ export default function MakePayment() {
         ) : (
           <Grid item xs={12} className={classes.tableStyle}>
             <TableContainer component={Paper}>
-              <PaymentOverview overview={latestLoanData} status={status} />
+              <PaymentOverview overview={latestLoanData} status={isFetching} />
             </TableContainer>
           </Grid>
         )}
@@ -622,7 +612,7 @@ export default function MakePayment() {
               <>
                 <Grid id="payFromWrap" item xs={12} sm={5} className={classes.payFromStyle}>
                   <Paper id="payFromPaper" className={classes.paper}>
-                    <Typography className={classes.cardHeading}>
+                    <Typography className={classes.cardHeading} data-testid="payment_Methods">
                       Pay From
                     </Typography>
                     {paymentOptions ? (
@@ -654,6 +644,7 @@ export default function MakePayment() {
 
                     <Grid item xs={12} className={classes.paymentMethodStyle}>
                       <ButtonSecondary
+                        data-testid='payment_Method_Button'
                         stylebutton='{"background": "", "color":"" }'
                         onClick={handleMenuPaymentProfile}
                       >
@@ -668,7 +659,7 @@ export default function MakePayment() {
                     {paymentOptions && !showCircularProgress ? (
                       <div>
                         <Grid item xs={12}>
-                          <Typography className={classes.cardHeading}>
+                          <Typography className={classes.cardHeading} data-testid="payment_Mode">
                             Payment Mode
                           </Typography>
                           <p className={classes.autoPayStyle}>
@@ -826,7 +817,7 @@ export default function MakePayment() {
                         </Grid>
                       </div>
                     ) : (
-                      <div className={classes.circularProgressStyle}>
+                      <div className={classes.circularProgressStyle} data-testid='spinner_Payment'>
                         <CircularProgress />
                       </div>
                     )}
