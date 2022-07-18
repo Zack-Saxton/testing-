@@ -44,6 +44,20 @@
   }
 }
 
+
+@media (max-width: 920px) {
+  .schedulePopup {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+  .schedulePopupButtons{
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .alert-dialog-title-auto-pay {
   width: 50% !important;
 }
