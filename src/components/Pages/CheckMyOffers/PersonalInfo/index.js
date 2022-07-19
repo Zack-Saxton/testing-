@@ -26,7 +26,7 @@ import {
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./PersonalInfo.css";
-import {checkCustomeruser,checkApplicationStatus} from "../../../Controllers/PersonalInfoController";
+import {checkCustomeruser,CheckApplicationStatus} from "../../../Controllers/PersonalInfoController";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -232,14 +232,7 @@ function PersonalInfo() {
 						setLoading(false);
 						navigate("/employment-status");
 					} else {
-						let customerStatus = await axios({
-							method: "POST",
-							url: "/customer/check_customer_user",
-							data: JSON.stringify(body),
-							headers: {
-								"Content-Type": "application/json",
-							},
-						});
+						let customerStatus = await checkCustomeruser(body);
 						if (customerStatus.data.customerFound) {
 							ifReducer(customerStatus, values)	
 						} else if(customerStatus?.data?.errorMessage === "Your account has been locked.Please contact your branch for further assistance."){
@@ -272,7 +265,7 @@ function PersonalInfo() {
 				email: event.target.value.trim(),
 			};
 			if (event.target.value !== "") {
-				let result = await checkApplicationStatus(body)
+				let result = await CheckApplicationStatus(body)
 				if (result?.data?.AppSubmittedInLast30Days) {
 					setAppliedInLast30Days(true);
 				} else {
