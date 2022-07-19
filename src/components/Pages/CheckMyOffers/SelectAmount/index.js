@@ -106,6 +106,7 @@ function SelectAmount(props) {
           tempCounter++;
           if (tempCounter === 2) {
             setPageStatus();
+            setData({ ...data, offerCode: "" });
             navigate("/loan-purpose");
           }
         } else {
