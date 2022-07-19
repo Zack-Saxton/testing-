@@ -101,6 +101,7 @@
   "Error_executing_HolidayCalender_API": "Error executing HolidayCalender API",
   "Error_executing_idVerificationAnswer_API": "Error executing idVerificationAnswer API",
   "Error_executing_loanDocumentController_API": "Error executing loanDocumentController API",
+  "Error_executing_EmailVerificationController_API": "Error executing EmailVerificationController API",
   "Error_executing_LoanHistoryController_API": "Error executing LoanHistoryController API",
   "Error_executing_LoginController_API": "Error executing LoginController API",
   "Error_executing_OTPInitialSubmission_API": "Error executing OTPInitialSubmission API",
