@@ -26,7 +26,7 @@ import {
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./PersonalInfo.css";
-import {checkCustomeruser,CheckApplicationStatus} from "../../../Controllers/PersonalInfoController";
+import {checkCustomeruser,ApplicationStatusByEmail} from "../../../Controllers/PersonalInfoController";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -265,7 +265,7 @@ function PersonalInfo() {
 				email: event.target.value.trim(),
 			};
 			if (event.target.value !== "") {
-				let result = await CheckApplicationStatus(body)
+				let result = await ApplicationStatusByEmail(body)
 				if (result?.data?.AppSubmittedInLast30Days) {
 					setAppliedInLast30Days(true);
 				} else {

@@ -18,7 +18,7 @@ export async function checkCustomeruser(body) {
 
 
 
-export async function CheckApplicationStatus(body) {
+export async function ApplicationStatusByEmail(body) {
     try {
       let url = "get_customer_by_email";
       let param = "";
