@@ -104,6 +104,9 @@
 	margin-top: unset;
 }
 
+.desktopGrid svg{
+	margin-right: 6px;
+}
 @media (max-width: 600px) {
 	#apply-loan-comparison-button {
 		float: unset !important;
