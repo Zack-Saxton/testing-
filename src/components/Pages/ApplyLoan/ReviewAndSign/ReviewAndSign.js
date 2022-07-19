@@ -74,6 +74,7 @@ export default function ReviewAndSign() {
       if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
         setLoading(false);
         refetch();
+        toast.success(authenticateStatus?.data?.message);
         navigate("/customers/finalVerification");
       } else {
         setLoading(false);

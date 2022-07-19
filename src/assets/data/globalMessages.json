@@ -124,6 +124,8 @@
   "Error_executing_offercodeValidation_API": "Error executing offercodeValidation API",
   "Error_executing_PopulatePartnerSignup_API": "Error executing PopulatePartnerSignup API",
   "Error_executing_usrPaymentMethods_API": "Error executing userPaymentMethods API",
+  "Error_executing_checkcustomer_API": "Error executing check Customer User API",
+  "Error_executing_checkapplication_API": "Error executing check Application Status API",
   "Error_executing_enableAutoPay_API": "Error executing enableAutoPay API",
   "Error_executing_disableAutoPay_API": "Error executing disableAutoPay API",
   "Error_executing_makePayment_API": "Error executing makePayment API",
@@ -193,6 +195,7 @@
   "PasswordRequired": "Your password is required",
   "PasswordResetSuccess": "Password reset successfully",
   "Payment_has_Scheduled": "Payment has been Scheduled",
+  "Application_already_Submitted":"It looks like you have already submitted an application within the last 30 days.",
   "PayoffCannotBeInFuture": "Pay off cannot be set for future date",
   "PhoneEnter": "Please enter a phone number",
   "PhoneMin": "Your phone number should be 10 digits",
@@ -268,5 +271,8 @@
   "INVALIDENTRY":"Invalid Entry Please Try Another Email Address",
   "Error_executing_SavePhoneNumber_API": "Error executing save phonenumber API",
   "Account_Locked": "Your account has been locked.  Please contact your branch for further assistance.",
-  "Your_Identity_Verified_Successfully": "Your identity is verified successfully"
+  "Your_Identity_Verified_Successfully": "Your identity is verified successfully",
+  "Account_not_Created"  :"Account not created. For help please contact us at (844)306-7300",
+  "Loan_Funding":"Loan funding and disbursement is conditioned upon our satisfactory review of any documents and other information that we require from you to verity your loan application and/or youridentity. This loan may not be consummated if you obtain anotherloan from us to our disbursing funds for this loan. It you have any questions. please contact us.",
+   "Approval_Loan":"*Approval of a loan and the loan disbursement process may take longer if additional documentation is required. Loan terms may vary based on credit determination and state law. Completion of a loan application will result in a hard credit pull."
 }

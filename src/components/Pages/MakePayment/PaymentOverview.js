@@ -47,7 +47,7 @@ export default function PaymentOverview(props) {
             <TableBody>
                 {(props.status)
                     ?
-                    <TableRow>
+                    <TableRow data-testid='spinner_Table'>
                         <TableCell
                             colSpan="7"
                             component="th"
@@ -110,6 +110,6 @@ export default function PaymentOverview(props) {
 
 PaymentOverview.propTypes = {
     paymentData: PropTypes.object,
-    status: PropTypes.object,
+    status: PropTypes.bool,
     overview: PropTypes.array
   };

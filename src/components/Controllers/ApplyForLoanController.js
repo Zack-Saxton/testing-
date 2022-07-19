@@ -128,7 +128,7 @@ export async function hardPullCheck() {
   try {
     let url = "cis_hardpull";
     let param = "";
-    let data = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }');
+    let data = JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : '{ }');
     let method = "POST";
     let addAccessToken = true;
 
