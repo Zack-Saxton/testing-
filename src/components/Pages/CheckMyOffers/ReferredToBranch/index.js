@@ -10,6 +10,7 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 
 //reffered to branch functional component initialization
 function ReferredToBranch(props) {
@@ -225,11 +226,8 @@ function ReferredToBranch(props) {
 									variant="h6"
 									className="minText"
 								>
-									*Approval of a loan and the loan disbursement process may take
-									longer if additional documentation is required. Loan terms may
-									vary based on credit determination and state law. Completion
-									of a loan application will result in a hard credit pull.
-								</Typography>
+							    {globalMessages.Approval_Loan}
+							    </Typography>
 							</Grid>
 						</Grid>
 					</Grid>

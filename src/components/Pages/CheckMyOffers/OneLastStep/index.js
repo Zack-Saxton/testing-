@@ -403,8 +403,7 @@ function SSN() {
 										<Typography
 											className={`typegraphAlignment ${ submit ? "showMsg" : "hideMsg" }`}
 										>
-											It looks like you have already submitted an application
-											within the last 30 days.
+											{globalMessages.Application_already_Submitted}
 										</Typography>
 									</Grid>
 									<Grid
