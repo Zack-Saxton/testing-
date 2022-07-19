@@ -43,6 +43,46 @@
     margin-top: 20px;
   }
 }
+.buttonsWrap{
+  align-items: center;
+  justify-content: center;
+}
+
+.schedulePopup{
+  width: auto;
+}
+.autoPayButtons {
+  width: auto;
+}
+@media (max-width: 920px) {
+  .schedulePopup {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+  .schedulePopup button {
+    margin: 0px 0px 0px 0px !important;
+  }
+  .schedulePopupButtons{
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+  .autoPayButtons{
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  }
+  .autoPayButtons button{
+    margin: 15px 0px 0px 0px !important;
+  }
+  .buttonsWrap{
+   flex-direction: column-reverse;
+  }
+  .scheduleTxtWrap{
+   padding-bottom: 0;
+  }
+}
 
 .alert-dialog-title-auto-pay {
   width: 50% !important;
@@ -214,17 +254,10 @@
 }
 
 @media only screen and (max-width: 960px) {
-  .actionButtons {
-    flex-direction: column-reverse !important;
-    align-items: center;
-  }
 
   #autoPayButton {
     margin-top: 15px;
     white-space: normal !important;
   }
 
-  #cancelButton {
-    margin-top: 15px !important;
-  }
 }
