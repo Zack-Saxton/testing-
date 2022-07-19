@@ -46,7 +46,7 @@ const MultiFactorAuthenticationOTP = () => {
         [currentCount]
     );  
   const checkEnteredOTP = (OTPObject) => {
-      for (var key in OTPObject) {
+      for (let key in OTPObject) {
           if (OTPObject[key] === "")
             return true;
       }
@@ -76,7 +76,7 @@ const MultiFactorAuthenticationOTP = () => {
 
   const getPasscode = (otp) => {
     let passCode = "";
-    for (var key in otp) {
+    for (let key in otp) {
       passCode += otp[key];
     }
     return passCode;
