@@ -472,6 +472,13 @@ export default function MakePayment() {
     makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount, RemoveScheduledPayment);
   };
 
+  const disableAutoPayAndSchedulePayment =  async () =>{
+    setLoading(true);
+    setShowCircularProgress(true);    
+    setOpenPayment(false);
+    await disableAutoPay(accntNo);
+    makeuserPayment(accntNo, card, paymentDatepicker, isDebit, paymentAmount, true);
+  }
   const handlePaymentClose = () => {
     setOpenPayment(false);
   };
@@ -1012,7 +1019,7 @@ export default function MakePayment() {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent className="scheduleTxtWrap">
           <Typography id="scheduleTxt" className={classes.dialogHeading}>
             Your Payment of: {numberFormat(paymentAmount)} will be applied to
             your account.
@@ -1115,19 +1122,23 @@ export default function MakePayment() {
         </DialogContent>
 
         <DialogActions className={` ${ classes.dialogActionStyle }`}>
+          <Grid container className="buttonsWrap">
+          <Grid container className="schedulePopup">
           <ButtonSecondary
-            stylebutton='{"background": "", "color":"" }'
+            stylebutton='{"background": "", "color":"","margin": "0px 10px 0px 0px" }'
             onClick={handlePaymentClose}
           >
             Cancel
           </ButtonSecondary>
+          </Grid>
           {paymentIsScheduled === "no" ? (
+            <Grid container className="autoPayButtons">            
             <ButtonPrimary
-              stylebutton='{"background": "", "color":"","marginRight": "10px" }'
+              stylebutton='{"background": "", "color":"","margin": "0px 10px 0px 0px" }'
               onClick={handleSchedulePaymentSubmit}
               disabled={loading}
             >
-              OK
+              { disabledContent ? globalMessages.Keep_Autopay_On_Schedule : "OK"  }
               <i
                 className="fa fa-refresh fa-spin customSpinner"
                 style={{
@@ -1136,6 +1147,24 @@ export default function MakePayment() {
                 }}
               />
             </ButtonPrimary>
+            { disabledContent ? 
+            (<ButtonPrimary
+              stylebutton='{"background": "", "color":"","margin": "0px 10px 0px 0px" }'
+              onClick={disableAutoPayAndSchedulePayment}
+              disabled={loading}
+            >
+            Turn off auto pay and Schedule a payment
+              <i
+                className="fa fa-refresh fa-spin customSpinner"
+                style={{
+                  marginRight: "10px",
+                  display: loading ? "block" : "none",
+                }}
+              />
+            </ButtonPrimary>)
+            : null
+            }
+            </Grid>
           ) : (
             null
           )}
@@ -1143,7 +1172,7 @@ export default function MakePayment() {
           {paymentIsScheduled === "yes" ? (
             <ButtonPrimary
               id="replaceCurrentButton"
-              stylebutton='{"background": "", "color":"","marginRight": "10px" }'
+              stylebutton='{"background": "", "color":"","margin": "0px 10px 0px 0px" }'
               onClick={handleSchedulePaymentSubmit}
               disabled={loading}
             >
@@ -1177,7 +1206,8 @@ export default function MakePayment() {
             </ButtonSecondary>
           ) : (
             null
-          )}
+          )}          
+          </Grid>
         </DialogActions>
       </Dialog>
 

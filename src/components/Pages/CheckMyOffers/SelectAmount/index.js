@@ -106,6 +106,7 @@ function SelectAmount(props) {
           tempCounter++;
           if (tempCounter === 2) {
             setPageStatus();
+            setData({ ...data, offerCode: "" });
             navigate("/loan-purpose");
           }
         } else {
@@ -164,7 +165,7 @@ function SelectAmount(props) {
                       name="slider"
                       defaultValue={select ? select : 10000}
                       setSelect={setSelect}
-                      label="Select Loan Amount"
+                      label="Select Loan Amount†"
                     />
                   </Grid>
                 </Grid>
@@ -288,7 +289,7 @@ function SelectAmount(props) {
               </Typography>
               <br />
               <Typography className={classes.smallText} align="center">
-                *The process uses a soft&quos; credit inquiry to determine
+                *The process uses a soft credit inquiry to determine
                 whether a loan offer is available, which does not impact your
                 credit score. If you continue with the application process
                 online and accept a loan offer, or are referred to a branch and
