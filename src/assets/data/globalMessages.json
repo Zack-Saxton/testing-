@@ -10,6 +10,8 @@
   "Account_Nick_Name_Min": "Account Nickname should be a minimum of 2 letters.",
   "Account_Number": "AccountNumber",
   "Accoun_No_Required": "Bank Account Number is required.",
+  "Account_Already_Exists": "Account already exists. Please use the login page to login or Please contact us at (844) 306-7300",
+  "Account_Locked_Personal_Info": "Your account has been locked.Please contact your branch for further assistance.",
   "Active_DutyRequired": "Active duty required",
   "Active_Duty_Rank_Required": "Active duty rank is required",
   "Ach_Add_Achpayment": "ACH Payment Added",
@@ -277,5 +279,6 @@
   "LeaveMFWebsite": "You are about to leave marinerfinance.com",
   "Account_not_Created"  :"Account not created. For help please contact us at (844)306-7300",
   "Loan_Funding":"Loan funding and disbursement is conditioned upon our satisfactory review of any documents and other information that we require from you to verity your loan application and/or youridentity. This loan may not be consummated if you obtain anotherloan from us to our disbursing funds for this loan. It you have any questions. please contact us.",
-   "Approval_Loan":"*Approval of a loan and the loan disbursement process may take longer if additional documentation is required. Loan terms may vary based on credit determination and state law. Completion of a loan application will result in a hard credit pull."
+   "Approval_Loan":"*Approval of a loan and the loan disbursement process may take longer if additional documentation is required. Loan terms may vary based on credit determination and state law. Completion of a loan application will result in a hard credit pull.",
+   "Multiple_Records": "More than 1 customer record retrieved "
 }

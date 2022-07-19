@@ -235,16 +235,16 @@ function PersonalInfo() {
 						let customerStatus = await checkCustomeruser(body);
 						if (customerStatus.data.customerFound) {
 							ifReducer(customerStatus, values)	
-						} else if(customerStatus?.data?.errorMessage === "Your account has been locked.Please contact your branch for further assistance."){
+						} else if(customerStatus?.data?.errorMessage === globalMessages.Account_Locked_Personal_Info){
 							toast.error(customerStatus?.data?.errorMessage);
 							navigate("/login");
-					  } else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== "More than 1 customer record retrieved " && customerStatus.data.errorMessage !== "Your account has been locked.Please contact your branch for further assistance.") {
+					  } else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== globalMessages.Multiple_Records && customerStatus.data.errorMessage !== globalMessages.Account_Locked_Personal_Info) {
 							setError(false);
 							setLoading(false);
 							navigate("/new-user");
 						} else if (
 							customerStatus.data.errorMessage ===
-							"More than 1 customer record retrieved "
+							globalMessages.Multiple_Records
 						) {
 							setSsnEmailMatch(true);
 							setError(true);
