@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalMessages from '../../../../assets/data/globalMessages.json';
 import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
@@ -231,11 +232,20 @@ function PersonalInfo() {
 						setLoading(false);
 						navigate("/employment-status");
 					} else {
-						let customerStatus = await checkCustomeruser(body);
-                         if (customerStatus.data.customerFound) {
-							ifReducer(customerStatus, values)
-						
-						} else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== "More than 1 customer record retrieved ") {
+						let customerStatus = await axios({
+							method: "POST",
+							url: "/customer/check_customer_user",
+							data: JSON.stringify(body),
+							headers: {
+								"Content-Type": "application/json",
+							},
+						});
+						if (customerStatus.data.customerFound) {
+							ifReducer(customerStatus, values)	
+						} else if(customerStatus?.data?.errorMessage === "Your account has been locked.Please contact your branch for further assistance."){
+							toast.error(customerStatus?.data?.errorMessage);
+							navigate("/login");
+					  } else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== "More than 1 customer record retrieved " && customerStatus.data.errorMessage !== "Your account has been locked.Please contact your branch for further assistance.") {
 							setError(false);
 							setLoading(false);
 							navigate("/new-user");
