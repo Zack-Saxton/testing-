@@ -131,16 +131,16 @@ latestCommit=$(git rev-parse --short HEAD)
 imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"
 #docker build -f Dockerfile -t ${imageName} .
 case $env in
-  "qa")
-    docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
+  "dev")
+    cat ~/.
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_dev`; do out+="--build-arg $i " ; done; echo $out;out="") .
     if [ $? != 0 ]; then
       echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
       exit 1;
     fi
     ;;
-  "dev")
-    cat ~/.
-    docker build -t $imageName  $(for i in `cat ~/.env_cac_dev`; do out+="--build-arg $i " ; done; echo $out;out="") .
+  "qa")
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
     if [ $? != 0 ]; then
       echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
       exit 1;
@@ -161,12 +161,12 @@ case $env in
     fi
     ;;
   *)
-    docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
-    if [ $? != 0 ]; then
-      echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
-      exit 1;
-    fi
-    ;;
+    # docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    # if [ $? != 0 ]; then
+    #   echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
+    #   exit 1;
+    # fi
+    # ;;
 esac
 
 echo  "****** Created New Image ****"
@@ -253,3 +253,7 @@ ENDHERE
 message="$hostname Deployment END from $branch to $env By $deployUser"
 url="https://hooks.slack.com/services/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"
 curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
+
+echo -e "\033[1;36m ********************************************** \033[0m"
+echo -e "\033[1;36m * Deployment ($app)  Completed Successfully    \033[0m"
+echo -e "\033[1;36m ********************************************** \033[0m"
