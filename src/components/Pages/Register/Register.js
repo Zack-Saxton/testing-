@@ -158,7 +158,7 @@ export default function Register() {
         fname: values.firstName,
         lname: values.lastName,
         email: values.email,
-        ssn: values,
+        ssn: values.ssn,
         zip_code: values.zip,
         password: values.password,
         birth_year: values.dob.getFullYear().toString(),
@@ -262,10 +262,6 @@ export default function Register() {
   const andLogic = (valueOne, valueTwo) => {
     return valueOne && valueTwo;
   };
-
-  const removeSpace = (event) => {
-    return event.target.value.trim();
-  }
 
   //View Part
   return (
