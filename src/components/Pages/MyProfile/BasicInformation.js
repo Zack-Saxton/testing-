@@ -473,7 +473,7 @@ export default function BasicInformation(props) {
               />
               <br></br>
               <small className={classes.fileAllowedText}>
-                Allowed jpg, gif or png. Max size of 800kb
+                Allowed jpg, jpeg or png. Max size of 800kb
               </small>
             </Grid>
           </Grid>
