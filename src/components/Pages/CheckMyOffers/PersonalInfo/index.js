@@ -26,7 +26,7 @@ import {
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./PersonalInfo.css";
-import {checkCustomeruser,checkApplicationStatus} from "../../../Controllers/PersonalInfoController";
+import {checkCustomeruser,ApplicationStatusByEmail} from "../../../Controllers/PersonalInfoController";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -232,26 +232,19 @@ function PersonalInfo() {
 						setLoading(false);
 						navigate("/employment-status");
 					} else {
-						let customerStatus = await axios({
-							method: "POST",
-							url: "/customer/check_customer_user",
-							data: JSON.stringify(body),
-							headers: {
-								"Content-Type": "application/json",
-							},
-						});
+						let customerStatus = await checkCustomeruser(body);
 						if (customerStatus.data.customerFound) {
 							ifReducer(customerStatus, values)	
-						} else if(customerStatus?.data?.errorMessage === "Your account has been locked.Please contact your branch for further assistance."){
+						} else if(customerStatus?.data?.errorMessage === globalMessages.Account_Locked_Personal_Info){
 							toast.error(customerStatus?.data?.errorMessage);
 							navigate("/login");
-					  } else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== "More than 1 customer record retrieved " && customerStatus.data.errorMessage !== "Your account has been locked.Please contact your branch for further assistance.") {
+					  } else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== globalMessages.Multiple_Records && customerStatus.data.errorMessage !== globalMessages.Account_Locked_Personal_Info) {
 							setError(false);
 							setLoading(false);
 							navigate("/new-user");
 						} else if (
 							customerStatus.data.errorMessage ===
-							"More than 1 customer record retrieved "
+							globalMessages.Multiple_Records
 						) {
 							setSsnEmailMatch(true);
 							setError(true);
@@ -272,7 +265,7 @@ function PersonalInfo() {
 				email: event.target.value.trim(),
 			};
 			if (event.target.value !== "") {
-				let result = await checkApplicationStatus(body)
+				let result = await ApplicationStatusByEmail(body)
 				if (result?.data?.AppSubmittedInLast30Days) {
 					setAppliedInLast30Days(true);
 				} else {

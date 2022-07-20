@@ -10,6 +10,8 @@
   "Account_Nick_Name_Min": "Account Nickname should be a minimum of 2 letters.",
   "Account_Number": "AccountNumber",
   "Accoun_No_Required": "Bank Account Number is required.",
+  "Account_Already_Exists": "Account already exists. Please use the login page to login or Please contact us at (844) 306-7300",
+  "Account_Locked_Personal_Info": "Your account has been locked.Please contact your branch for further assistance.",
   "Active_DutyRequired": "Active duty required",
   "Active_Duty_Rank_Required": "Active duty rank is required",
   "Ach_Add_Achpayment": "ACH Payment Added",
@@ -279,5 +281,6 @@
   "Loan_Funding":"Loan funding and disbursement is conditioned upon our satisfactory review of any documents and other information that we require from you to verity your loan application and/or youridentity. This loan may not be consummated if you obtain anotherloan from us to our disbursing funds for this loan. It you have any questions. please contact us.",
    "Approval_Loan":"*Approval of a loan and the loan disbursement process may take longer if additional documentation is required. Loan terms may vary based on credit determination and state law. Completion of a loan application will result in a hard credit pull.",
    "New_Mexico_Consumer_Text":"NM Residents: By clicking this box you acknowledge that you have reviewed the Important Consumer Information in Mariner’s New Mexico Consumer Brochure located at",
-   "Could_Not_Provide_An_Offer":"Unfortunately, we could not provide an offer for you at this time. However, you may reapply in 30 days if you feel that your circumstances have changed. Feel free to read our blog articles to understand how you can increase your credit score."
-  }
+   "Could_Not_Provide_An_Offer":"Unfortunately, we could not provide an offer for you at this time. However, you may reapply in 30 days if you feel that your circumstances have changed. Feel free to read our blog articles to understand how you can increase your credit score.",
+   "Multiple_Records": "More than 1 customer record retrieved "
+}
