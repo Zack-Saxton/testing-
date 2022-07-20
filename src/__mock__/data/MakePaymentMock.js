@@ -182,7 +182,7 @@ export const makePaymentMockData = {
         },
         "gen_1_score":193,
         "adverse_reason_codes":[
-           
+
         ],
         "referral_reason_codes":[
            "B1"
@@ -274,7 +274,7 @@ export const makePaymentMockData = {
            "requested_product":"58b44ccc924ecefde2ce328d"
         },
         "files":[
-           
+
         ],
         "applicants":[
            {
@@ -283,11 +283,11 @@ export const makePaymentMockData = {
               },
               "third_party_data":{
                  "geoips":[
-                    
+
                  ],
                  "soft_credit_pull":{
                     "contenttypes":[
-                       
+
                     ],
                     "entitytype":"thirdparty",
                     "type":"Credit Bureau",
@@ -2166,7 +2166,8 @@ export const makePaymentMockData = {
                              "3415":0,
                              "3422":null,
                              "3473":0,
-                             "3479":null,
+                             "3479": null,
+                             "3579": null,
                              "3726":0,
                              "3728":null,
                              "3743":null,
@@ -2307,7 +2308,7 @@ export const makePaymentMockData = {
                        "62b1a57571eaee046b403fab"
                     ],
                     "issuedproducts":[
-                       
+
                     ],
                     "applications":[
                        "61d46b9dbcb5ba04f74172df",
@@ -2399,7 +2400,7 @@ export const makePaymentMockData = {
                     "status_check_time":null
                  },
                  "contenttypes":[
-                    
+
                  ],
                  "entitytype":"customer",
                  "_id":"61d46b1abcb5ba04f741728f",
@@ -2569,7 +2570,7 @@ export const makePaymentMockData = {
                  "sorad":{
                     "third_party_data":{
                        "geoips":[
-                          
+
                        ],
                        "soft_credit_pull":"62b1a58871eaee046b403fce"
                     },
@@ -2671,7 +2672,7 @@ export const makePaymentMockData = {
                     }
                  },
                  "contenttypes":[
-                    
+
                  ],
                  "entitytype":"applicant",
                  "applicant_type":"primary",
@@ -2690,11 +2691,11 @@ export const makePaymentMockData = {
            }
         ],
         "collateral":[
-           
+
         ],
         "branch_referral":{
            "contenttypes":[
-              
+
            ],
            "entitytype":"branchinfo",
            "branchNumber":8034,
@@ -2726,7 +2727,7 @@ export const makePaymentMockData = {
         }
      },
      "contenttypes":[
-        
+
      ],
      "entitytype":"application",
      "gclid":null,
@@ -2863,7 +2864,7 @@ export const makePaymentMockData = {
      "sorad":{
         "third_party_data":{
            "geoips":[
-              
+
            ],
            "soft_credit_pull":"62b1a58871eaee046b403fce"
         },
@@ -2965,7 +2966,7 @@ export const makePaymentMockData = {
         }
      },
      "contenttypes":[
-        
+
      ],
      "entitytype":"applicant",
      "applicant_type":"primary",
@@ -3053,7 +3054,7 @@ export const makePaymentMockData = {
            "LoanIsDelinquent":false,
            "NextDueDate":"2022-09-07T00:00:00",
            "Errors":[
-              
+
            ],
            "SuccessMessage":"",
            "HasNoErrors":true
@@ -3077,7 +3078,7 @@ export const makePaymentMockData = {
            },
            "hasScheduledPayment":false,
            "scheduledPayments":[
-              
+
            ],
            "paymentOptions":{
               "NumberOfDaysAllowedForPayoff":0,
@@ -3148,7 +3149,7 @@ export const makePaymentMockData = {
            "LoanIsDelinquent":false,
            "NextDueDate":"2022-09-07T00:00:00",
            "Errors":[
-              
+
            ],
            "SuccessMessage":"",
            "HasNoErrors":true
@@ -3172,7 +3173,7 @@ export const makePaymentMockData = {
            },
            "hasScheduledPayment":false,
            "scheduledPayments":[
-              
+
            ],
            "paymentOptions":{
               "NumberOfDaysAllowedForPayoff":0,
@@ -3256,7 +3257,7 @@ export const makePaymentMockData = {
            "LoanIsDelinquent":false,
            "NextDueDate":"2022-09-07T00:00:00",
            "Errors":[
-              
+
            ],
            "SuccessMessage":"",
            "HasNoErrors":true
@@ -3280,7 +3281,7 @@ export const makePaymentMockData = {
            },
            "hasScheduledPayment":false,
            "scheduledPayments":[
-              
+
            ],
            "paymentOptions":{
               "NumberOfDaysAllowedForPayoff":0,
@@ -3450,7 +3451,7 @@ export const makePaymentMockData = {
            }
         ],
         "Errors":[
-           
+
         ],
         "SuccessMessage":"",
         "HasNoErrors":true
@@ -3532,7 +3533,7 @@ export const makePaymentMockData = {
            }
         ],
         "Errors":[
-           
+
         ],
         "SuccessMessage":"",
         "HasNoErrors":true
@@ -3598,7 +3599,7 @@ export const makePaymentMockData = {
            }
         ],
         "Errors":[
-           
+
         ],
         "SuccessMessage":"",
         "HasNoErrors":true
