@@ -41,7 +41,8 @@ const validationSchema = yup.object({
 		})
 		.when("maritalStatus", {
 			is: maritalStatusData.seperated,
-			then: yup.string().required(globalMessages.ZipCodeRequired),
+			then: yup.string().required(globalMessages.ZipCodeRequired).
+			matches(/00000$/,globalMessages.ZipCodeValid),
 		}),
 	spousecity: yup
 		.string()
