@@ -158,7 +158,7 @@ export default function Register() {
         fname: values.firstName,
         lname: values.lastName,
         email: values.email,
-        ssn: values.ssn,
+        ssn: values,
         zip_code: values.zip,
         password: values.password,
         birth_year: values.dob.getFullYear().toString(),
@@ -173,9 +173,11 @@ export default function Register() {
         let customerStatus = await RegisterController(body);
         let register = customerStatus?.data?.message
         let passwordReset = customerStatus?.data?.successMessage
-        if(customerStatus?.data?.statusCode !== 400){
+        if(customerStatus?.data?.statusCode !== 400 && !customerStatus?.data?.errorMessage){
           toast.success(register ? register : passwordReset);
           loginUser(values);
+        } else if (customerStatus?.data?.errorMessage === globalMessages.Multiple_Records){
+          setFailed(globalMessages.Account_Already_Exists);
         }
         else if (
           customerStatus?.data?.result === "error" &&
@@ -260,6 +262,10 @@ export default function Register() {
   const andLogic = (valueOne, valueTwo) => {
     return valueOne && valueTwo;
   };
+
+  const removeSpace = (event) => {
+    return event.target.value.trim();
+  }
 
   //View Part
   return (
