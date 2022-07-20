@@ -34,6 +34,8 @@ then
 else
     serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
 fi
+pemFile=marinerfinance-us-east-1.pem
+otherPemFile=~/Code/cac/otherdocs/marinerfinance-us-east-1.pem
 deployUser=$(whoami)
 hostname="cac-app1-${env}.marinerfinance.io"
 message="$hostname Deployment START from $branch to $env By $deployUser"
@@ -63,18 +65,21 @@ esac
 
 #GIT and PEM Details
 #gitRepo="git@github.com:marinerfinance/cac.git"
-#PEM_FILE="$home/Code/$app/otherdocs/marinerfinance-us-east-1.pem"
-
-appDir="cac"
-
-case $whoAmI in
-  "apcruz")
-    _PEM_FILE_=$MARINERFINANCE_EC2_PEMFILE
-    ;;
-  *)
-   _PEM_FILE_="~/marinerfinance-us-east-1.pem"
-    ;;
-esac
+if [ -f "$pemFile" ];
+then
+    echo -e "\033[1;34m pemfile was found. \033[0m"
+    _PEM_FILE_=$pemFile
+else
+    echo -e "\033[1;33m  unable to find pemfile locally \033[0m"
+    if [ -f "$otherPemFile" ];
+    then
+        echo -e "\033[1;34m pemfile was found in other directory @=> (CIS). \033[0m"
+        _PEM_FILE_=$otherPemFile
+    else
+        echo -e "\033[1;31m Failed => \033[0m (reason): unable to find pemFile in other directory @=> (CIS)"
+        exit
+    fi
+fi
 
 echo "***************************************************************************"
 echo "*************************** Dockerise *************************************"
