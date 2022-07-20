@@ -464,7 +464,7 @@ export default function BasicInformation(props) {
               </ButtonSecondary>
 
               <input
-                accept="image/png, image/jpeg, image/jpg "
+                accept=".png, .jpeg, .jpg "
                 multiple
                 hidden
                 id="selectImage"
