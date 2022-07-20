@@ -589,7 +589,7 @@ function PersonalInfo() {
 															error={shortANDoperation(formik.touched.phone, Boolean(formik.errors.phone))}
 															helperText = {shortANDoperation(formik.touched.phone, formik.errors.phone)}
 															onFocus={ updateActualValue }
-															disabled={ data.phone }
+															disabled={ data.phone ? true : false }
 														/>
 											<div className="alignErrorLeft">
 												<Typography

@@ -87,8 +87,7 @@ DatePickerWrapper.propTypes = {
 	format: PropTypes.string,
 	mask: PropTypes.string,
 	label: PropTypes.string,
-	placeholder: PropTypes.string,
-	value: PropTypes.instanceOf(Date),
+	placeholder: PropTypes.string, 
 	maxdate: PropTypes.instanceOf(Date),
 	minyear: PropTypes.number,
 	helperText: PropTypes.string,
@@ -100,6 +99,10 @@ DatePickerWrapper.propTypes = {
 	disableDate: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.func
+	]),
+	value: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.instanceOf(Date),
 	]),
 };
 
