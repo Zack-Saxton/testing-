@@ -73,10 +73,10 @@ else
     echo -e "\033[1;33m  unable to find pemfile locally \033[0m"
     if [ -f "$otherPemFile" ];
     then
-        echo -e "\033[1;34m pemfile was found in other directory @=> (CIS). \033[0m"
+        echo -e "\033[1;34m pemfile was found in other directory @=> ($app). \033[0m"
         _PEM_FILE_=$otherPemFile
     else
-        echo -e "\033[1;31m Failed => \033[0m (reason): unable to find pemFile in other directory @=> (CIS)"
+        echo -e "\033[1;31m Failed => \033[0m (reason): unable to find pemFile in other directory @=> ($app)"
         exit
     fi
 fi
