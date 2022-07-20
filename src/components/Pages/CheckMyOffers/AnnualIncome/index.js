@@ -158,6 +158,10 @@ function NewUser() {
 				setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 				return false;
 			}
+			setcommonError(modPersonalIncome,modHouseholdIncome);
+		}
+	};
+		const setcommonError = (modPersonalIncome,modHouseholdIncome) => {
 			if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
 				if (modPersonalIncome <= modHouseholdIncome) {
 					setErrorAnnual("");
@@ -169,7 +173,6 @@ function NewUser() {
 				}
 			}
 		}
-	};
 
 	const handlePeronalIncomeValue = (event) => {
 		const personalIncomeValue = event.target.value.trim()
@@ -196,17 +199,7 @@ function NewUser() {
 				setErrorPersonal(globalMessages?.Annual_Personal_Income_4_digits);
 				return false;
 			}
-
-			if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
-				if (modPersonalIncome <= modHouseholdIncome) {
-					setErrorAnnual("");
-					setErrorPersonal("");
-					return true;
-				} else {
-					setErrorAnnual(globalMessages?.Annual_Income_Greater_Equal);
-					return false;
-				}
-			}
+			setcommonError(modPersonalIncome,modHouseholdIncome);
 		}
 	};
 

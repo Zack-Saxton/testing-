@@ -152,14 +152,12 @@ function MarriedStatus() {
 					setStateShort(result?.data?.stateCode);
 					setValidZip(true);
 				} else {
-					formik.setFieldValue("spouseSelectState", "");
-					formik.setFieldValue("spousecity", "");
+				  	resetfieldValue()
 					setStateShort("");
 					setValidZip(false);
 				}
 			} else {
-				formik.setFieldValue("spouseSelectState", "");
-				formik.setFieldValue("spousecity", "");
+				resetfieldValue();
 				setStateShort("");
 			}
 			formik.handleChange(event);
@@ -167,6 +165,11 @@ function MarriedStatus() {
 			ErrorLogger(' Error from fetchAddress.', error);
 		}
 	};
+
+	const resetfieldValue = () =>{
+		formik.setFieldValue("SpouseSelectState", "");
+		formik.setFieldValue("sposecity","");
+	}
 
 	const shortANDoperation = (pramOne, pramtwo) => {
 		return pramOne && pramtwo
