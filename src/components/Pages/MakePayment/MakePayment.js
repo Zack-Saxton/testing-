@@ -153,7 +153,8 @@ export default function MakePayment() {
     });
     return checkNickName;
   }
-  let extraCharges = stateName == "VA"  ? 0 : stateName == "SC" ? 0 : stateName == "WI" ? 0 : stateName == "MD" ? 0 : "2.50";
+  const noExtraChargesStates = ['VA','SC','WI','MD'];
+  let extraCharges = noExtraChargesStates.includes(stateName) ? 0 : "2.50";
   let paymentAmountWithFees = parseFloat(paymentAmount) + parseFloat(extraCharges);
   //Enable auto payment
   async function enableAutoPayment(enableAutoPayAccountNo, enableAutoPayCard, enableAutoPayDate, enableAutoPayIsDebit, removeScheduledPayment) {
@@ -1045,7 +1046,7 @@ export default function MakePayment() {
                   ></TableCell>
                 </TableRow>
 
-                {isDebit ? (
+                {isDebit && extraCharges ? (
                   <TableRow>
                     <TableCell
                       className={classes.tableheadrow}
