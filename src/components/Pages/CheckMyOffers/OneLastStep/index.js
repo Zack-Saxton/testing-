@@ -381,10 +381,7 @@ function SSN() {
 												}}
 												label={
 													<p className="agreeText MT5">
-														NM Residents: By clicking this box you acknowledge
-														that you have reviewed the Important Consumer
-														Information in Mariner’s New Mexico Consumer
-														Brochure located at{" "}
+														{ globalMessages.New_Mexico_Consumer_Text }
 														<a
 															className="formatURL"
 															href={"http://marfi.me/NMBrochure."}

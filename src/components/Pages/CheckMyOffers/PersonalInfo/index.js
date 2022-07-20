@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalMessages from '../../../../assets/data/globalMessages.json';
 import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
@@ -25,7 +26,7 @@ import {
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./PersonalInfo.css";
-import {checkCustomeruser,checkApplicationStatus} from "../../../Controllers/PersonalInfoController";
+import {checkCustomeruser,ApplicationStatusByEmail} from "../../../Controllers/PersonalInfoController";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -232,16 +233,18 @@ function PersonalInfo() {
 						navigate("/employment-status");
 					} else {
 						let customerStatus = await checkCustomeruser(body);
-                         if (customerStatus.data.customerFound) {
-							ifReducer(customerStatus, values)
-						
-						} else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== "More than 1 customer record retrieved ") {
+						if (customerStatus.data.customerFound) {
+							ifReducer(customerStatus, values)	
+						} else if(customerStatus?.data?.errorMessage === globalMessages.Account_Locked_Personal_Info){
+							toast.error(customerStatus?.data?.errorMessage);
+							navigate("/login");
+					  } else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== globalMessages.Multiple_Records && customerStatus.data.errorMessage !== globalMessages.Account_Locked_Personal_Info) {
 							setError(false);
 							setLoading(false);
 							navigate("/new-user");
 						} else if (
 							customerStatus.data.errorMessage ===
-							"More than 1 customer record retrieved "
+							globalMessages.Multiple_Records
 						) {
 							setSsnEmailMatch(true);
 							setError(true);
@@ -262,7 +265,7 @@ function PersonalInfo() {
 				email: event.target.value.trim(),
 			};
 			if (event.target.value !== "") {
-				let result = await checkApplicationStatus(body)
+				let result = await ApplicationStatusByEmail(body)
 				if (result?.data?.AppSubmittedInLast30Days) {
 					setAppliedInLast30Days(true);
 				} else {
