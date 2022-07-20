@@ -1061,18 +1061,13 @@ export default function ConfirmationInfo() {
                           }}
                           label={
                             <p className="agreeCheckbox">
-                              NM Residents: By clicking this box you acknowledge
-                              that you have reviewed the Important Consumer
-                              Information in Mariner’s New Mexico Consumer
-                              Brochure located at{" "}
+                              { globalMessages.New_Mexico_Consumer_Text }
                               <a
                                 className="formatHref"
                                 href={"http://marfi.me/NMBrochure."}
                                 target="_blank"
                                 rel="noreferrer noopener"
-                              >
-                                http://marfi.me/NMBrochure
-                              </a>
+                              > http://marfi.me/NMBrochure</a>
                             </p>
                           }
                           required={formik.values.state === "New Mexico" || formik.values.state === "NM"}
