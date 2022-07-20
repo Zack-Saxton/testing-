@@ -330,7 +330,7 @@ function DocumentIdAndPhotoId(props) {
                 id="selectFile" 
                 name= "selectExistingFile"             
                 data-testid="selectFile"
-                accept="image/png, image/jpeg, application/pdf, image/jpg "
+                accept=".png, .jpeg, .pdf, .jpg"
                 style={{ display: "none" }}
                 type="file"
                 ref={refChangeEventObj}
@@ -432,7 +432,7 @@ function DocumentIdAndPhotoId(props) {
               Select from Existing Files
               <input
                 id="selectSelfieFile"
-                accept="image/png, image/jpeg, application/pdf, image/jpg "
+                accept=".png, .jpeg, .pdf, .jpg"
                 style={{ display: "none" }}
                 type="file"
                 ref={refSelfieChangeEventObj}

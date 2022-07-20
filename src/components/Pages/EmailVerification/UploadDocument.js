@@ -233,7 +233,7 @@ function UploadDocument(props) {
               <input
                 id="selectFile"
                 data-testid="selectFile"
-                accept="image/png, image/jpeg, application/pdf, image/jpg "
+                accept=".png, .jpeg, .pdf, .jpg "
                 style={{ display: "none" }}
                 type="file"
                 ref={refChangeEvent}
