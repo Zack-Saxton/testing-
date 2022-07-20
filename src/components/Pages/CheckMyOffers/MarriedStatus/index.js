@@ -134,9 +134,13 @@ function MarriedStatus() {
 		},
 	});
 
+	const onBlurAddress = (event) => {
+    formik.setFieldValue("add", event.target.value.trim());
+  };
+
 	//prevent the space in key down
 	const preventSpace = (event) => {
-		if (event.keyCode === 32 && !formik.values.streetAddress) {
+		if (event.keyCode === 32 && !formik.values.add) {
 			event.preventDefault();
 		}
 	};
@@ -291,7 +295,7 @@ function MarriedStatus() {
 												value={formik.values.add}
 												onKeyDown={preventSpace}
 												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
+												onBlur={onBlurAddress}
 												error = {shortANDoperation(formik.touched.add, Boolean(formik.errors.add))} 
 												helperText = {shortANDoperation(formik.touched.add , formik.errors.add)} 
 											/>
