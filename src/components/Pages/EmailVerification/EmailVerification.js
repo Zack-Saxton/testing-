@@ -232,7 +232,9 @@ export default function EmailVerification() {
               {agreeTerms || verificationData?.data?.messageType === 'error' ?
                 <Grid className="acknowledgeText">
                   <Typography>
-                    Consent documents that were acknowledged
+                    <span className="acknowledgeTextSpan">
+                      Consent documents that were acknowledged
+                    </span>
                     <br />
                     {showConsentsLinks()}
                   </Typography>
