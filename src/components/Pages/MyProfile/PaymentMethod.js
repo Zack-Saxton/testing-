@@ -551,6 +551,10 @@ export default function PaymentMethod() {
     }
   };
 
+  const removeSpace = (event, name, type) => {
+    type === 1 ? formikAddBankAccount.setFieldValue(name, event.target.value.trim()) : formikAddDebitCard.setFieldValue(name, event.target.value.trim());
+  }
+
   //Preventing space key
   const preventSpace = (event) => {
     if (event.keyCode === 32) {
@@ -859,8 +863,9 @@ export default function PaymentMethod() {
                 placeholder="Enter your Account Nickname "
                 materialProps={{ maxLength: "30" }}
                 onChange={(event) => addBankOnChange(event, 1)}
-                value={formikAddBankAccount.values.accountNickname}
-                onBlur={formikAddBankAccount.handleBlur}
+                value={formikAddBankAccount.values.accountNickname} 
+                onBlur={(event) => {formikAddBankAccount.handleBlur(event);
+                removeSpace(event, "accountNickname", 1)}}
                 error={
                   formikAddBankAccount.touched.accountNickname &&
                   Boolean(formikAddBankAccount.errors.accountNickname)
@@ -887,7 +892,8 @@ export default function PaymentMethod() {
                 materialProps={{ maxLength: "30" }}
                 value={formikAddBankAccount.values.accountHolder}
                 onChange={(event) => addBankOnChange(event, 1)}
-                onBlur={formikAddBankAccount.handleBlur}
+                onBlur={(event) => {formikAddBankAccount.handleBlur(event);
+                removeSpace(event, "accountHolder", 1)}}
                 error={
                   formikAddBankAccount.touched.accountHolder &&
                   Boolean(formikAddBankAccount.errors.accountHolder)
@@ -945,6 +951,7 @@ export default function PaymentMethod() {
                 placeholder="Enter your Bank Routing Number"
                 value={formikAddBankAccount.values.bankRoutingNumber}
                 onBlur={async (event) => {
+                  formikAddBankAccount.handleBlur(event);
                   if (
                     event.target.value !== "" &&
                     event.target.value.length === 9
@@ -952,9 +959,9 @@ export default function PaymentMethod() {
                     let bankName = await BankNameLookup(event.target.value);
                     formikAddBankAccount.setFieldValue("bankName", bankName);
                     setRoutingError(bankName ? "" : globalMessages.Enter_Valid_Routing_No);
-                    formikAddBankAccount.handleBlur(event);
                   }
                 }}
+                onKeyDown={preventSpace}
                 onChange={(event) => validateCardAndAccountNumber(event, 1)}
                 error={
                   (formikAddBankAccount.touched.bankRoutingNumber &&
@@ -1233,7 +1240,8 @@ export default function PaymentMethod() {
                 disabled={editMode}
                 value={formikAddDebitCard.values.cardName}
                 onChange={(event) => addBankOnChange(event, 2)}
-                onBlur={formikAddDebitCard.handleBlur}
+                onBlur={(event) => {formikAddDebitCard.handleBlur(event);
+                  removeSpace(event, "cardName", 2)}}
                 error={
                   formikAddDebitCard.touched.cardName &&
                   Boolean(formikAddDebitCard.errors.cardName)
