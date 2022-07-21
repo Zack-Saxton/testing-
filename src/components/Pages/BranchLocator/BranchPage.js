@@ -31,6 +31,7 @@ import "./BranchLocator.css";
 import Map from "./BranchLocatorMap";
 import { useStylesMyBranch } from "./Style";
 const YearHolidays = React.lazy(() => import("./YearHolidays"));
+import globalMessages from "../../../assets/data/globalMessages.json";
 
 export default function StatePage() {
   const classes = useStylesMyBranch();
