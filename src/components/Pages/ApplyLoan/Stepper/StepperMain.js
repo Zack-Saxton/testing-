@@ -78,7 +78,7 @@ function getSteps() {
 export default function StepperMain() {
 	const navigate = useNavigate();
 	const classes = useStyles();
-	const [ activeStep, setActiveStep ] = useState();
+	const [ activeStep, setActiveStep ] = useState(5);
 	const [ loadingFlag, setLoadingFlag ] = useState(false);
 	const steps = getSteps();
 	const elementsRef = useRef(steps.map(() => createRef()));
@@ -119,7 +119,8 @@ export default function StepperMain() {
 		} else if (!res?.data?.income_verification && !tabPosition) {
 			tabPosition = 6;
 		}
-		setActiveStep(tabPosition ?? 0);
+		// setActiveStep(tabPosition ?? 0);
+		setActiveStep(5);
 		setLoadingFlag(false);
 	};
 
