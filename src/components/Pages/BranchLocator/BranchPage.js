@@ -490,11 +490,11 @@ export default function StatePage() {
                     of the neighborhoods they live and work in. Ready to speak to a {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName} lending professional in person? The better we know
                     you, the more we can help. You have your own unique goals to
                     meet, and it all starts with a conversation at your local
-                    branch. <br /><br />A personal loans can meet a variety of needs, including
+                    branch. <br /><br />Personal loans can meet a variety of needs, including
                     medical emergencies, home improvement projects, vacations,
                     weddings, tuitions costs, and debt consolidation. Mariner
-                    Finance has a personal loans that fits every one of those
-                    situations, and more. Ready to apply for a personal loans at the{" "}
+                    Finance has a personal loan that fits every one of those
+                    situations, and more. Ready to apply for a personal loan at the{" "}
                     {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName}, {stateShortName ?? stateShortNm?.current} branch? Our {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName} branch is totally focused on solving your personal
                     financial challenges.
                   </p>
