@@ -56,9 +56,9 @@ it("While Error", () => {
   useAccountOverview.mockImplementation(() => ({
     isError: true,
   }));
-  const container = render(MockRecentPayments());
-  const headingElement = container.getByTestId("error_Recent_Payments");
-  expect(headingElement).toBeTruthy();
+  render(MockRecentPayments());
+  const headingElement = screen.queryByText("Recent Payments")
+  expect(headingElement).not.toBeInTheDocument();
 });
 
 it("Fetching data and rendering the content Test", () => {
