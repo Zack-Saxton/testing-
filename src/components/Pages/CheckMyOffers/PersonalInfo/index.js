@@ -209,7 +209,7 @@ function PersonalInfo() {
 				data.phone = values.phone;
 				data.ssn = data.last4SSN
 					? data.ssn
-					: values?.ssn.replace(/\$|\,/g, "")
+					: values?.ssn.replace(/\-/g, "")
 				data.phone = phoneNumberValue;
 				data.dob = values.dob;
 				data.completedPage = data.page.personalInfo;
