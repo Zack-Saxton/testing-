@@ -121,7 +121,7 @@ function NewUser() {
 		let annualPersonalIncome = event.target.value.trim();
 		if (!annualPersonalIncome || pattern.test(annualPersonalIncome)) {
 			setErrorPersonal("");
-			formik.handleChange(event);
+			formik.setFieldValue(event.target.name, annualPersonalIncome.replace(/^0+/, ''));
 		}
 	};
 	const onHandleChange = (event) => {
@@ -129,7 +129,7 @@ function NewUser() {
 		let annualHouseholdIncome = event.target.value.trim();
 		if (!annualHouseholdIncome || pattern.test(annualHouseholdIncome)) {
 			setErrorAnnual("");
-			formik.handleChange(event);
+			formik.setFieldValue(event.target.name, annualHouseholdIncome.replace(/^0+/, ''));
 		}
 	};
 
