@@ -200,13 +200,14 @@ export default function Register() {
     },
   });
 
-  const NameChange = (event) => {
-    const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let name = event.target.value.trim();
-    if (!name || pattern.test(name)) {
-      formik.handleChange(event);
-    }
-  };
+  // onchange validation
+	const onNameChange = (event) => {
+		const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+		let name = event.target.value.trim();
+		if (!name || pattern.test(name)) {
+			formik.handleChange(event);
+		}
+	};
 
   const handleCloseFailed = () => {
     setFailed("");
@@ -216,6 +217,10 @@ export default function Register() {
     setSuccessPopup(false);
     navigate("/customers/accountOverview");
   };
+
+  const removeSpace = (event, name) => {
+    formik.setFieldValue(name, event.target.value.trim());
+  }
 
   //Preventing space key
   const preventSpace = (event) => {
@@ -322,8 +327,9 @@ export default function Register() {
                           placeholder={globalMessages.FirstNameEnter}
                           materialProps={{ maxLength: "30", ref: refFirstName }}
                           value={formik.values.firstName}
-                          onChange={(event) => NameChange(event)}
-                          onBlur={formik.handleBlur}
+                          onChange={onNameChange}
+                          onBlur={(event) => {formik.handleBlur(event);
+                          removeSpace(event, "firstName")}}
                           error={andLogic(
                             formik.touched.firstName,
                             Boolean(formik.errors.firstName)
@@ -351,8 +357,9 @@ export default function Register() {
                           placeholder={globalMessages.LastNameEnter}
                           materialProps={{ maxLength: "30", ref: refLastName }}
                           value={formik.values.lastName}
-                          onChange={NameChange}
-                          onBlur={formik.handleBlur}
+                          onChange={onNameChange}
+                          onBlur={(event) => {formik.handleBlur(event);
+                          removeSpace(event, "lastName")}}
                           error={andLogic(
                             formik.touched.lastName,
                             Boolean(formik.errors.lastName)

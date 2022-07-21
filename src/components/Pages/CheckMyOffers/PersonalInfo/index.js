@@ -283,6 +283,7 @@ function PersonalInfo() {
 			formik.handleChange(event);
 		}
 	};
+
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 			event.preventDefault();
@@ -327,7 +328,9 @@ function PersonalInfo() {
 	const shortANDoperation = (pramOne, pramtwo) => {
 		return pramOne && pramtwo
 	};
-
+	const removeSpace = (event, name) => {
+    formik.setFieldValue(name, event.target.value.trim());
+  }
 	//JSX [part]
 	return (
 		<div data-testid="personal_Info_component">
@@ -410,7 +413,8 @@ function PersonalInfo() {
 												materialProps={{ maxLength: "30", ref: refFirstName, }}
 												value={formik.values.firstName}
 												onChange={onNameChange}
-												onBlur={formik.handleBlur}
+												onBlur={(event) => {formik.handleBlur(event);
+                        removeSpace(event, "firstName")}}
 												error={shortANDoperation(formik.touched.firstName, Boolean(formik.errors.firstName))}
                         helperText = {shortANDoperation(formik.touched.firstName , formik.errors.firstName)}
 												disabled={data.disabled}
@@ -434,7 +438,8 @@ function PersonalInfo() {
 												materialProps={{ maxLength: "30", ref: refLastName, }}
 												value={formik.values.lastName}
 												onChange={onNameChange}
-												onBlur={formik.handleBlur}
+												onBlur={(event) => {formik.handleBlur(event);
+                        removeSpace(event, "lastName")}}
 												error={shortANDoperation(formik.touched.lastName, Boolean(formik.errors.lastName))}
                         helperText = {shortANDoperation(formik.touched.lastName, formik.errors.lastName)}
 												disabled={data.disabled}
