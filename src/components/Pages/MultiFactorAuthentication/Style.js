@@ -61,23 +61,23 @@ const useStylesMFA = makeStyles((theme) =>
     },
     twoStepHeading: {
       textAlign: "center",
-      fontSize: "1.538rem",
-      margin: "0.82rem 12% 0px 12%",
+      fontSize: "2rem",
+      margin: "0.82rem 11% 0px 11%",
       color: "#171717",
     },
     twoStepParagraph: {
       width: "100%",
       textAlign: "justify",
       margin: "15px 0px",
-      fontSize: "0.938rem",
+      fontSize: "1.5rem",
       color: "#595959",
     },
     securityCodeText: {
-      fontSize: "0.938rem",
+      fontSize: "1.1rem",
       color: "#595959",
     },
     securityQuestions: {
-      fontSize: "0.938rem",
+      fontSize: "1.1rem",
       color: "#595959",
     },
     radioButtonwrap: {
