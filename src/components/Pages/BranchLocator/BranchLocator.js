@@ -240,15 +240,15 @@ export default function BranchLocator() {
         <b>Apply Online</b> For a Personal Loan
       </Typography>
       <p className="mainParagraph">
-        Do you live in one of the states in which we operate and need a personal loans? Can’t reach a branch or prefer to apply online? If so, you’re in luck! You can apply online today*. It’s quick, easy, and secure.
+        Do you live in one of the states in which we operate and need a personal loan? Can’t reach a branch or prefer to apply online? If so, you’re in luck! You can apply online today*. It’s quick, easy, and secure.
       </p>
       <Typography className="mainHeading">
         <b>Need money</b> but don’t know much about personal loans?
       </Typography>
       <p className="mainParagraph">
-        You’re not alone. We understand taking out a personal loans may be a big decision
+        You’re not alone. We understand taking out a personal loan may be a big decision
         so we want you to be as informed as possible. To help you become a more informed
-        customer we put together a whole section to <a href={BrnachLocatorURLs.MarinerURL + '/blog/?s=personal+loans+'} className="stateLinks">educate you on making a personal loans decision.</a>
+        customer we put together a whole section to <a href={BrnachLocatorURLs.MarinerURL + '/blog/?s=personal+loans+'} className="stateLinks">educate you on making a personal loan decision.</a>
       </p>
     </Grid>
   );
