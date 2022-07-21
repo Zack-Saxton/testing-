@@ -6,6 +6,7 @@ import CheckLoginStatus from "../App/CheckLoginStatus";
 import Footer from "../Layout/Footer/Footer";
 import AppBar from "./AppBar/SideNav";
 import CheckLoginTimeout from "./CheckLoginTimeout";
+import GA4 from "../Layout/ga4/GA4";
 
 
 const Post = ({ children }) => {
@@ -14,6 +15,7 @@ const Post = ({ children }) => {
 
     return (
         <div>
+            <GA4 />
             <CheckLoginTimeout />
             {
                 

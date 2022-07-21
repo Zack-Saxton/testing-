@@ -5,10 +5,12 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import BranchLocatorHeader from "../BranchLoacatorHeader/BranchLocatorHeader";
 import BranchLocatorFooter from "../BranchLocatorFooter/BranchLocatorFooter";
+import GA4 from "../../Layout/ga4/GA4";
 
 const BranchLocatorLayout = ({ children }) => {
   return (
     <div id="BG">
+      <GA4 />
       <div className="topBar">
         <div className="topBarlinks" >
           <Typography className="topBarLinkOne" >
