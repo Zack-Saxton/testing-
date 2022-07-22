@@ -1064,10 +1064,10 @@ export default function ConfirmationInfo() {
                               { globalMessages.New_Mexico_Consumer_Text }
                               <a
                                 className="formatHref"
-                                href={"http://marfi.me/NMBrochure."}
+                                href={"https://www.marinerfinance.com/wp-content/uploads/2021/03/NM-Consumer-Brochure-1.pdf"}
                                 target="_blank"
                                 rel="noreferrer noopener"
-                              > http://marfi.me/NMBrochure</a>
+                              > New Mexico Consumer Brochure.</a>
                             </p>
                           }
                           required={formik.values.state === "New Mexico" || formik.values.state === "NM"}

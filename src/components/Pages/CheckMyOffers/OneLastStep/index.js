@@ -384,11 +384,11 @@ function SSN() {
 														{ globalMessages.New_Mexico_Consumer_Text }
 														<a
 															className="formatURL"
-															href={"http://marfi.me/NMBrochure."}
+															href={"https://www.marinerfinance.com/wp-content/uploads/2021/03/NM-Consumer-Brochure-1.pdf"}
 															target="_blank"
 															rel="noreferrer noopener"
 														>
-															http://marfi.me/NMBrochure.
+															New Mexico Consumer Brochure.
 														</a>
 													</p>
 												}
