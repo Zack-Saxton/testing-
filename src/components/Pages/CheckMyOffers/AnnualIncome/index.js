@@ -62,7 +62,7 @@ function NewUser() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const validate = (personal, household) => {
-		if(!personal){
+		if(!personal || personal.toString().length < 4){
 			setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 		}else if (!isNaN(personal) && !isNaN(household)) {
 			if (personal <= household) {
