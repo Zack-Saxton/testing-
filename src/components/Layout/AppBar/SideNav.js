@@ -852,17 +852,16 @@ export default function SideNav() {
                   data-testid="sideNavLoanDocumentsNavigation"
                   to="/customers/loanDocument"
                   onClick={(event) => {
-                    activeLoanData && event.preventDefault();
+                    if((activeLoanData && !loanStatus.includes(checkPresenceOfLoanStatus))){
+                      event.preventDefault();
+                    }
                   }}
                   className={activeLoanData ? "nav_link_disabled" : "nav_link"}
                 >
                   <ListItem
                     className="titleSidenav"
                     disabled={
-                      activeLoanData &&
-                        !loanStatus.includes(checkPresenceOfLoanStatus)
-                        ? true
-                        : false
+                      activeLoanData && !loanStatus.includes(checkPresenceOfLoanStatus)
                     }
                   >
                     <ListItemIcon>
