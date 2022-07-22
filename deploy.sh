@@ -214,15 +214,15 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
      echo -e "\033[1;36m ********************************************** \033[0m"
      echo -e "\033[1;36m * removed all running container from : ($app)  \033[0m"
      echo -e "\033[1;36m ********************************************** \033[0m"
-     echo -e "\033[1;36m ********************************************** \033[0m"
-     echo -e "\033[1;36m * START removing all old images : ($app)       \033[0m"
-     echo -e "\033[1;36m ********************************************** \033[0m"
-     removeAllImages=\$(docker images -aq)
-     echo ${removeAllImages}
-     docker rmi \$removeAllImages
-     echo -e "\033[1;36m ********************************************** \033[0m"
-     echo -e "\033[1;36m * removed all images from : ($app)             \033[0m"
-     echo -e "\033[1;36m ********************************************** \033[0m"
+    #  echo -e "\033[1;36m ********************************************** \033[0m"
+    #  echo -e "\033[1;36m * START removing all old images : ($app)       \033[0m"
+    #  echo -e "\033[1;36m ********************************************** \033[0m"
+    #  removeAllImages=\$(docker images -aq)
+    #  echo ${removeAllImages}
+    #  docker rmi \$removeAllImages
+    #  echo -e "\033[1;36m ********************************************** \033[0m"
+    #  echo -e "\033[1;36m * removed all images from : ($app)             \033[0m"
+    #  echo -e "\033[1;36m ********************************************** \033[0m"
      echo -e "\033[1;36m ********************************************** \033[0m"
      echo -e "\033[1;36m * START Updating server    : ($app)            \033[0m"
      echo -e "\033[1;36m ********************************************** \033[0m"
