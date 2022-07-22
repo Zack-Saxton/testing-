@@ -201,13 +201,27 @@ export default function ReviewAndSign() {
                       id="rightBorder"
                     >
                       <p className={classes.columnHeading} id="columnHeading">
-                        Fee at Origination
+                        Prepaid Finance Charge
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {selectedOffer.origination_fee_rate}%
+                        {currencyFormat(selectedOffer.fees['Credit Investigation'])}
                       </h2>
                     </Grid>
                     <Grid
+                      item
+                      xs={12}
+                      sm={2}
+                      className={classes.rightBorder}
+                      id="rightBorder"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Interest Rate
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {selectedOffer.annual_interest_rate && (selectedOffer.annual_interest_rate * 100).toFixed(2)}%
+                      </h2>
+                    </Grid>
+                  <Grid
                       item
                       xs={12}
                       sm={2}
