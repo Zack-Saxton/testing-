@@ -16,7 +16,7 @@ import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { branch_hours, ca_branch_hours, howManyBranchesforBranchLocatorPages } from "../../../assets/data/marinerBusinesStates";
+import { branch_hours, ca_branch_hours, howManyBranchesforBranchLocatorPages, BrnachLocatorURLs } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
@@ -31,6 +31,7 @@ import "./BranchLocator.css";
 import Map from "./BranchLocatorMap";
 import { useStylesMyBranch } from "./Style";
 const YearHolidays = React.lazy(() => import("./YearHolidays"));
+import globalMessages from "../../../assets/data/globalMessages.json";
 
 export default function StatePage() {
   const classes = useStylesMyBranch();
@@ -182,7 +183,7 @@ export default function StatePage() {
         >
           <Link
             className="breadcrumbLink"
-            href="https://www.marinerfinance.com/"
+            href="/"
           >
             Home
           </Link>
@@ -288,7 +289,7 @@ export default function StatePage() {
             data-testid = "directionButton"
               onClick={() => {
                 setBranchAddress(
-                  `https://www.google.com/maps/search/${ branch_Details?.current?.Address ? branch_Details?.current?.Address : branchList && branchList[ 0 ]?.Address }`
+                  `${BrnachLocatorURLs.GoogleMapURL}${ branch_Details?.current?.Address ? branch_Details?.current?.Address : branchList && branchList[ 0 ]?.Address }`
                 );
                 openGetDirectionModal();
               }}
@@ -347,7 +348,7 @@ export default function StatePage() {
                 <ButtonSecondary
                   onClick={() => {
                     setBranchAddress(
-                      "https://www.google.com/maps/search/" + item.Address
+                      `${BrnachLocatorURLs.GoogleMapURL}${item.Address}`
                     );
                     openGetDirectionModal();
                   }}
@@ -408,7 +409,7 @@ export default function StatePage() {
         id="consumerDialogHeading"
         className={directionsClass.consumerDialogHeading}
       >
-        You are about to leave marinerfinance.com
+        {globalMessages.LeaveMFWebsite}
       </h2>
       <div>
         <p className={directionsClass.consumerParagaraph}>
@@ -489,11 +490,11 @@ export default function StatePage() {
                     of the neighborhoods they live and work in. Ready to speak to a {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName} lending professional in person? The better we know
                     you, the more we can help. You have your own unique goals to
                     meet, and it all starts with a conversation at your local
-                    branch. <br /><br />A personal loans can meet a variety of needs, including
+                    branch. <br /><br />Personal loans can meet a variety of needs, including
                     medical emergencies, home improvement projects, vacations,
                     weddings, tuitions costs, and debt consolidation. Mariner
-                    Finance has a personal loans that fits every one of those
-                    situations, and more. Ready to apply for a personal loans at the{" "}
+                    Finance has a personal loan that fits every one of those
+                    situations, and more. Ready to apply for a personal loan at the{" "}
                     {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName}, {stateShortName ?? stateShortNm?.current} branch? Our {branch_Details?.current?.BranchName ? branch_Details?.current?.BranchName : branchList && branchList[ 0 ]?.BranchName} branch is totally focused on solving your personal
                     financial challenges.
                   </p>
@@ -515,24 +516,24 @@ export default function StatePage() {
                 <Grid>
                   <Typography className="learnMoreLinks">
                     Learn more about our{" "}
-                    <a href="https://www.marinerfinance.com/personal-loans/">
+                    <a href={BrnachLocatorURLs.MarinerURL + 'personal-loans/'}>
                       personal loans
                     </a>
                     ,{" "}
-                    <a href="https://www.marinerfinance.com/car-loans/">car loans</a>,{" "}
-                    <a href="https://www.marinerfinance.com/personal-loans/debt-consolidation-loans/">
+                    <a href={BrnachLocatorURLs.MarinerURL + 'car-loans/'}>car loans</a>,{" "}
+                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/debt-consolidation-loans/'}>
                       debt consolidation loans
                     </a>
                     ,{" "}
-                    <a href="https://www.marinerfinance.com/personal-loans/home-improvement-loans/">
+                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/home-improvement-loans/'}>
                       home improvement loans
                     </a>
                     ,{" "}
-                    <a href="https://www.marinerfinance.com/personal-loans/vacation-loans/">
+                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/vacation-loans/'}>
                       vacation loans
                     </a>
                     , and{" "}
-                    <a href="https://www.marinerfinance.com/personal-loans/wedding-loans/">
+                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/wedding-loans/'}>
                       wedding loans
                     </a>
                     .

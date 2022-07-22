@@ -134,9 +134,13 @@ function MarriedStatus() {
 		},
 	});
 
+	const onBlurAddress = (event) => {
+    formik.setFieldValue("add", event.target.value.trim());
+  };
+
 	//prevent the space in key down
 	const preventSpace = (event) => {
-		if (event.keyCode === 32 && !formik.values.streetAddress) {
+		if (event.keyCode === 32 && !formik.values.add) {
 			event.preventDefault();
 		}
 	};
@@ -152,14 +156,12 @@ function MarriedStatus() {
 					setStateShort(result?.data?.stateCode);
 					setValidZip(true);
 				} else {
-					formik.setFieldValue("spouseSelectState", "");
-					formik.setFieldValue("spousecity", "");
+				  	resetfieldValue()
 					setStateShort("");
 					setValidZip(false);
 				}
 			} else {
-				formik.setFieldValue("spouseSelectState", "");
-				formik.setFieldValue("spousecity", "");
+				resetfieldValue();
 				setStateShort("");
 			}
 			formik.handleChange(event);
@@ -167,6 +169,11 @@ function MarriedStatus() {
 			ErrorLogger(' Error from fetchAddress.', error);
 		}
 	};
+
+	const resetfieldValue = () =>{
+		formik.setFieldValue("SpouseSelectState", "");
+		formik.setFieldValue("sposecity","");
+	}
 
 	const shortANDoperation = (pramOne, pramtwo) => {
 		return pramOne && pramtwo
@@ -291,7 +298,7 @@ function MarriedStatus() {
 												value={formik.values.add}
 												onKeyDown={preventSpace}
 												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
+												onBlur={onBlurAddress}
 												error = {shortANDoperation(formik.touched.add, Boolean(formik.errors.add))} 
 												helperText = {shortANDoperation(formik.touched.add , formik.errors.add)} 
 											/>

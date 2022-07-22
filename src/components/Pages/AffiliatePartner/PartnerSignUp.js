@@ -24,6 +24,8 @@ import passwordValidation from "../../Pages/Login/PasswordValidation";
 import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
 import { useStylesPartner } from "./style";
 import "./Style.css";
+import Cookies from "js-cookie";
+
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -100,6 +102,7 @@ export default function PartnerSignUp() {
   const requestAmt = queryOffer.get("AMOUNT");
   const requestApr = queryOffer.get("APR");
   const requestTerm = queryOffer.get("TERM");
+  Cookies.set("selectTerm" ,requestTerm);
 
   //API call
   const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
@@ -191,7 +194,6 @@ export default function PartnerSignUp() {
         partnerToken,
         applicantId,
         partnerSignupData,
-
       );
       if (partnerRes.status === 404 && partnerRes.statusText === "Last four SSN do not match") {
         setLoading(false);
@@ -623,10 +625,7 @@ export default function PartnerSignUp() {
                           }}
                           label={
                             <p className="agreeCheckbox">
-                              NM Residents: By clicking this box you acknowledge
-                              that you have reviewed the Important Consumer
-                              Information in Mariner’s New Mexico Consumer
-                              Brochure located at{" "}
+                              { globalMessages.New_Mexico_Consumer_Text }
                               <a
                                 className="formatHref"
                                 href={"http://marfi.me/NMBrochure."}

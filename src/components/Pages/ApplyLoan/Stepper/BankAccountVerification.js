@@ -379,7 +379,7 @@ export default function BankAccountVerification(props) {
 				<Grid item xs={12} className={classes.content_grid}>
 					<Radio
 						name="paymnetMode"
-						radiolabel='[{"label":"Automatic Payment", "value":"autopayment"}]'
+						radiolabel='[{"label":"Automatic Payment:", "value":"autopayment"}]'
 						row={true}
 						checked={paymnetMode}
 						value={"autopayment"}
@@ -415,7 +415,7 @@ export default function BankAccountVerification(props) {
 					<Radio
 						id="paymentbyCheckTxt"
 						name="question"
-						radiolabel='[{"label":"Payment by Check", "value":"checkpayment"}]'
+						radiolabel='[{"label":"Payment by Check:", "value":"checkpayment"}]'
 						row={true}
 						checked={paymnetMode}
 						value={"checkpayment"}

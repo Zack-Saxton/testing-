@@ -18,4 +18,6 @@ export default function LogoutController() {
   Cookies.set("profilePictureURL", '');
   Cookies.set("firstName", '');
   Cookies.set("lastName", '');
+  Cookies.remove("selectTerm")
+
 }

@@ -90,7 +90,10 @@ const useStylesEmailVerification = makeStyles((theme) => ({
     color: "#595959",
     fontSize: "0.938rem",
     lineHeight: "1.5",
-    textAlign: "justify"
+    textAlign: "justify",
+    "@media (max-width: 425px)": {
+      fontSize: "0.875rem",
+    },
   },
   ulText: {
     color: "#595959",

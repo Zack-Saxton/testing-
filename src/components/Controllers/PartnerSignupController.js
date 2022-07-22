@@ -1,12 +1,11 @@
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import globalMessages from "../../assets/data/globalMessages.json";
-import LogoutController from "../Controllers/LogoutController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import { statusStrLinks } from "../lib/StatusStrLinks" 
+import { statusStrLinks_PartnerSignUp } from "../lib/StatusStrLinks" 
 
-let statusStrLink = statusStrLinks;
+let statusStrLink = statusStrLinks_PartnerSignUp;
 
 export default async function PartnerSignup(navigate, partnerToken, applicantId, partnerSignupData) {
   let url = "partner_signup";
@@ -33,7 +32,6 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
       {
         onClose: () => {
           let now = new Date().getTime();
-          LogoutController();
           Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
           Cookies.set(
             "token",
@@ -50,7 +48,8 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
           navigate(statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
             {
               state: {
-                partnerSignupData: partnerSignupMethod?.data             
+                partnerSignupData: partnerSignupMethod?.data,
+                firstname: partnerSignupMethod?.data?.applicant?.contact?.first_name              
               }
             });
         },
@@ -106,8 +105,8 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
   let param = "";
   let data = {
     lead_id: "",
-    fname: dataConfirmInfo.firstname,
-    lname: dataConfirmInfo.lastname,
+    fname: dataConfirmInfo.firstName,
+    lname: dataConfirmInfo.lastName,
     home_phone: "",
     email: dataConfirmInfo.email,
     address_street: dataConfirmInfo.streetAddress,
@@ -140,7 +139,12 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {
         onClose: () => {
-          navigate(statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ]);
+          navigate(statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ],
+            {
+              state: {               
+                firstname: dataConfirmInfo.firstName             
+              }
+            });
         },
       }
     )

@@ -274,8 +274,13 @@ function DocumentIdAndPhotoId(props) {
       ErrorLogger(" Error in emailVerificationDocument", error);
     }
   }
+  function getValueByLable(text, ctx) {
+    return document.evaluate("//*[.='" + text + "']",
+      ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
+  }
 
   const uploadDocument = () => {
+    getValueByLable("ID Document & Photo").scrollIntoView();
     //Upload ID document
     setLoading(true);
     if (imgSrc) {
@@ -330,7 +335,7 @@ function DocumentIdAndPhotoId(props) {
                 id="selectFile" 
                 name= "selectExistingFile"             
                 data-testid="selectFile"
-                accept="image/png, image/jpeg, application/pdf, image/jpg "
+                accept=".png, .jpeg, .pdf, .jpg"
                 style={{ display: "none" }}
                 type="file"
                 ref={refChangeEventObj}
@@ -432,7 +437,7 @@ function DocumentIdAndPhotoId(props) {
               Select from Existing Files
               <input
                 id="selectSelfieFile"
-                accept="image/png, image/jpeg, application/pdf, image/jpg "
+                accept=".png, .jpeg, .pdf, .jpg"
                 style={{ display: "none" }}
                 type="file"
                 ref={refSelfieChangeEventObj}

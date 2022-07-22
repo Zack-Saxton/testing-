@@ -34,6 +34,8 @@ then
 else
     serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
 fi
+pemFile=marinerfinance-us-east-1.pem
+otherPemFile=~/Code/cac/otherdocs/marinerfinance-us-east-1.pem
 deployUser=$(whoami)
 hostname="cac-app1-${env}.marinerfinance.io"
 message="$hostname Deployment START from $branch to $env By $deployUser"
@@ -63,18 +65,21 @@ esac
 
 #GIT and PEM Details
 #gitRepo="git@github.com:marinerfinance/cac.git"
-#PEM_FILE="$home/Code/$app/otherdocs/marinerfinance-us-east-1.pem"
-
-appDir="cac"
-
-case $whoAmI in
-  "apcruz")
-    _PEM_FILE_=$MARINERFINANCE_EC2_PEMFILE
-    ;;
-  *)
-   _PEM_FILE_="~/marinerfinance-us-east-1.pem"
-    ;;
-esac
+if [ -f "$pemFile" ];
+then
+    echo -e "\033[1;34m pemfile was found. \033[0m"
+    _PEM_FILE_=$pemFile
+else
+    echo -e "\033[1;33m  unable to find pemfile locally \033[0m"
+    if [ -f "$otherPemFile" ];
+    then
+        echo -e "\033[1;34m pemfile was found in other directory @=> ($app). \033[0m"
+        _PEM_FILE_=$otherPemFile
+    else
+        echo -e "\033[1;31m Failed => \033[0m (reason): unable to find pemFile in other directory @=> ($app)"
+        exit
+    fi
+fi
 
 echo "***************************************************************************"
 echo "*************************** Dockerise *************************************"
@@ -131,16 +136,16 @@ latestCommit=$(git rev-parse --short HEAD)
 imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"
 #docker build -f Dockerfile -t ${imageName} .
 case $env in
-  "qa")
-    docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
+  "dev")
+    cat ~/.
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_dev`; do out+="--build-arg $i " ; done; echo $out;out="") .
     if [ $? != 0 ]; then
       echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
       exit 1;
     fi
     ;;
-  "dev")
-    cat ~/.
-    docker build -t $imageName  $(for i in `cat ~/.env_cac_dev`; do out+="--build-arg $i " ; done; echo $out;out="") .
+  "qa")
+    docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
     if [ $? != 0 ]; then
       echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
       exit 1;
@@ -161,12 +166,12 @@ case $env in
     fi
     ;;
   *)
-    docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
-    if [ $? != 0 ]; then
-      echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
-      exit 1;
-    fi
-    ;;
+    # docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
+    # if [ $? != 0 ]; then
+    #   echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
+    #   exit 1;
+    # fi
+    # ;;
 esac
 
 echo  "****** Created New Image ****"
@@ -209,15 +214,15 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
      echo -e "\033[1;36m ********************************************** \033[0m"
      echo -e "\033[1;36m * removed all running container from : ($app)  \033[0m"
      echo -e "\033[1;36m ********************************************** \033[0m"
-     echo -e "\033[1;36m ********************************************** \033[0m"
-     echo -e "\033[1;36m * START removing all old images : ($app)       \033[0m"
-     echo -e "\033[1;36m ********************************************** \033[0m"
-     removeAllImages=\$(docker images -aq)
-     echo ${removeAllImages}
-     docker rmi \$removeAllImages
-     echo -e "\033[1;36m ********************************************** \033[0m"
-     echo -e "\033[1;36m * removed all images from : ($app)             \033[0m"
-     echo -e "\033[1;36m ********************************************** \033[0m"
+    #  echo -e "\033[1;36m ********************************************** \033[0m"
+    #  echo -e "\033[1;36m * START removing all old images : ($app)       \033[0m"
+    #  echo -e "\033[1;36m ********************************************** \033[0m"
+    #  removeAllImages=\$(docker images -aq)
+    #  echo ${removeAllImages}
+    #  docker rmi \$removeAllImages
+    #  echo -e "\033[1;36m ********************************************** \033[0m"
+    #  echo -e "\033[1;36m * removed all images from : ($app)             \033[0m"
+    #  echo -e "\033[1;36m ********************************************** \033[0m"
      echo -e "\033[1;36m ********************************************** \033[0m"
      echo -e "\033[1;36m * START Updating server    : ($app)            \033[0m"
      echo -e "\033[1;36m ********************************************** \033[0m"
@@ -238,8 +243,15 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
      docker run -dit --restart=always --name "${app}"\$count"-${env}-${latestCommit}" --network $dockerNetwork $imageName
      sleep 5
    done
+   sudo reboot
    exit
 ENDHERE
+
+
+
+#-------------------------------------------------------------------------#
+#@ END OF REBOOT
+#-------------------------------------------------------------------------#
 
  # docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}"\$count"-${env}-${latestCommit} | python -m json.tool
  # curl_cmd=$(curl -w "\n" --insecure -X GET https://${app}-${env}.marinerfinance.io)
@@ -253,3 +265,7 @@ ENDHERE
 message="$hostname Deployment END from $branch to $env By $deployUser"
 url="https://hooks.slack.com/services/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"
 curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
+
+echo -e "\033[1;36m ********************************************** \033[0m"
+echo -e "\033[1;36m * Deployment ($app)  Completed Successfully    \033[0m"
+echo -e "\033[1;36m ********************************************** \033[0m"

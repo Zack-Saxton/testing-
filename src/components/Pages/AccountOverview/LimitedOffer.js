@@ -183,7 +183,7 @@ export default function LimitedOffer(userOfferData) {
                 </Grid>
                 <Typography className="adText">
                   <small>
-                    <i className="disclosureLink">No payments until Aug 2022* </i>
+                    <i className="disclosureLink">No payments until Sep 2022*</i>
                   </small>
 
                 </Typography>

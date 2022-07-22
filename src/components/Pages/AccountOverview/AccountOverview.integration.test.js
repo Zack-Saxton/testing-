@@ -71,7 +71,7 @@ it("Clicking Apply for Loan button in Limited offers component should redirect t
 
 
 it("Payment history Button is navigating to Payment History page", async () => {
-   RecentApplicationsDataMock()
+  RecentPaymentsDataMock()
   const container = render(MockAccountOverview());
   const input = container.getByTestId('payment_history_button');
   expect(input).toBeTruthy();

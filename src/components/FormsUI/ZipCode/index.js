@@ -9,6 +9,8 @@ Functionality       :    To use this component to validate and get the zipcode i
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import TextBox from "../Textfield";
+import globalMessages from "../../../assets/data/globalMessages.json";
+
 
 const ZipCodeWrapper = ({ name, error, helperText, value, onChange, refId, ...otherProps }) => {
   //Set Formik field
@@ -25,8 +27,10 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, refId, ...ot
       setZipCode(zipcode);
     }
     const isValid = /(^\d{5}$)/.test(zipcode);
-    (!isValid && zipcode) ? setIsError(true) : setIsError(false);
-    (!isValid && zipcode) ? setHelperText2("Zipcode should 5 digits") : setHelperText2("");
+    const isNonZeroValue = zipcode=='00000';
+    const validationMessage = isNonZeroValue ? globalMessages.ZipCodeValid : globalMessages.ZipCodeMax;
+    ((!isValid || isNonZeroValue) && zipcode) ? setIsError(true) : setIsError(false);
+    ((!isValid || isNonZeroValue) && zipcode) ? setHelperText2(validationMessage) : setHelperText2("");
     if (onChange) { onChange(event); }
   };
 

@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalMessages from '../../../../assets/data/globalMessages.json';
 import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
@@ -25,7 +26,7 @@ import {
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./PersonalInfo.css";
-import {checkCustomeruser,checkApplicationStatus} from "../../../Controllers/PersonalInfoController";
+import {checkCustomeruser,ApplicationStatusByEmail} from "../../../Controllers/PersonalInfoController";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -209,7 +210,7 @@ function PersonalInfo() {
 				data.ssn = data.last4SSN
 					? data.ssn
 					: values?.ssn.replace(/\-/g, "")
-					data.phone = phoneNumberValue;
+				data.phone = phoneNumberValue;
 				data.dob = values.dob;
 				data.completedPage = data.page.personalInfo;
 
@@ -232,16 +233,18 @@ function PersonalInfo() {
 						navigate("/employment-status");
 					} else {
 						let customerStatus = await checkCustomeruser(body);
-                         if (customerStatus.data.customerFound) {
-							ifReducer(customerStatus, values)
-						
-						} else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== "More than 1 customer record retrieved ") {
+						if (customerStatus.data.customerFound) {
+							ifReducer(customerStatus, values)	
+						} else if(customerStatus?.data?.errorMessage === globalMessages.Account_Locked_Personal_Info){
+							toast.error(customerStatus?.data?.errorMessage);
+							navigate("/login");
+					  } else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== globalMessages.Multiple_Records && customerStatus.data.errorMessage !== globalMessages.Account_Locked_Personal_Info) {
 							setError(false);
 							setLoading(false);
 							navigate("/new-user");
 						} else if (
 							customerStatus.data.errorMessage ===
-							"More than 1 customer record retrieved "
+							globalMessages.Multiple_Records
 						) {
 							setSsnEmailMatch(true);
 							setError(true);
@@ -262,7 +265,7 @@ function PersonalInfo() {
 				email: event.target.value.trim(),
 			};
 			if (event.target.value !== "") {
-				let result = await checkApplicationStatus(body)
+				let result = await ApplicationStatusByEmail(body)
 				if (result?.data?.AppSubmittedInLast30Days) {
 					setAppliedInLast30Days(true);
 				} else {
@@ -280,6 +283,7 @@ function PersonalInfo() {
 			formik.handleChange(event);
 		}
 	};
+
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 			event.preventDefault();
@@ -324,7 +328,9 @@ function PersonalInfo() {
 	const shortANDoperation = (pramOne, pramtwo) => {
 		return pramOne && pramtwo
 	};
-
+	const removeSpace = (event, name) => {
+    formik.setFieldValue(name, event.target.value.trim());
+  }
 	//JSX [part]
 	return (
 		<div data-testid="personal_Info_component">
@@ -407,7 +413,8 @@ function PersonalInfo() {
 												materialProps={{ maxLength: "30", ref: refFirstName, }}
 												value={formik.values.firstName}
 												onChange={onNameChange}
-												onBlur={formik.handleBlur}
+												onBlur={(event) => {formik.handleBlur(event);
+                        removeSpace(event, "firstName")}}
 												error={shortANDoperation(formik.touched.firstName, Boolean(formik.errors.firstName))}
                         helperText = {shortANDoperation(formik.touched.firstName , formik.errors.firstName)}
 												disabled={data.disabled}
@@ -431,7 +438,8 @@ function PersonalInfo() {
 												materialProps={{ maxLength: "30", ref: refLastName, }}
 												value={formik.values.lastName}
 												onChange={onNameChange}
-												onBlur={formik.handleBlur}
+												onBlur={(event) => {formik.handleBlur(event);
+                        removeSpace(event, "lastName")}}
 												error={shortANDoperation(formik.touched.lastName, Boolean(formik.errors.lastName))}
                         helperText = {shortANDoperation(formik.touched.lastName, formik.errors.lastName)}
 												disabled={data.disabled}
@@ -586,7 +594,7 @@ function PersonalInfo() {
 															error={shortANDoperation(formik.touched.phone, Boolean(formik.errors.phone))}
 															helperText = {shortANDoperation(formik.touched.phone, formik.errors.phone)}
 															onFocus={ updateActualValue }
-															disabled={ data.phone }
+															disabled={ data.phone ? true : false }
 														/>
 											<div className="alignErrorLeft">
 												<Typography

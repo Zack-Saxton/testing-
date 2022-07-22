@@ -17,7 +17,7 @@ import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { businesStates, howManyBranchesforBranchLocatorPages } from "../../../assets/data/marinerBusinesStates";
+import { businesStates, howManyBranchesforBranchLocatorPages, BrnachLocatorURLs, VirtualBranch } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
@@ -29,6 +29,7 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesMyBranch } from "../BranchLocator/Style";
 import CustomerRatings from "../MyBranch/CustomerRatings";
 import "./BranchLocator.css";
+import globalMessages from "../../../assets/data/globalMessages.json";
 const Map = React.lazy(() => import("../BranchLocator/BranchLocatorMap"));
 
 export default function BranchLocator() {
@@ -59,9 +60,9 @@ export default function BranchLocator() {
     try {
       setLoading(true);
       let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.BranchLocator, false);
-      if ((result.status === 400) || (result.data.branchData[ 0 ].BranchNumber === "0001") || (result.data.branchData[ 0 ].BranchNumber === "1022")) {
+      if ((result?.status === 400) || VirtualBranch.includes(result?.data?.branchData[ 0 ]?.BranchNumber) ) {
         if (!toast.isActive("closeToast")) {
-          toast.error(" No branches within that area. Please enter a valid city and state.", { toastId: "closeToast" });
+          toast.error(globalMessages.No_Branch_in_Area, { toastId: "closeToast" });
         }
       } else {
         setCurrentLocation(result?.data?.searchLocation);
@@ -151,7 +152,7 @@ export default function BranchLocator() {
         id="consumerDialogHeading"
         className={directionsClass.consumerDialogHeading}
       >
-        You are about to leave marinerfinance.com
+        {globalMessages.LeaveMFWebsite}
       </h2>
       <div>
         <p className={directionsClass.consumerParagaraph}>
@@ -239,19 +240,18 @@ export default function BranchLocator() {
         <b>Apply Online</b> For a Personal Loan
       </Typography>
       <p className="mainParagraph">
-        Do you live in one of the states in which we operate and need a personal loans? Can’t reach a branch or prefer to apply online? If so, you’re in luck! You can apply online today*. It’s quick, easy, and secure.
+        Do you live in one of the states in which we operate and need a personal loan? Can’t reach a branch or prefer to apply online? If so, you’re in luck! You can apply online today*. It’s quick, easy, and secure.
       </p>
       <Typography className="mainHeading">
         <b>Need money</b> but don’t know much about personal loans?
       </Typography>
       <p className="mainParagraph">
-        You’re not alone. We understand taking out a personal loans may be a big decision
+        You’re not alone. We understand taking out a personal loan may be a big decision
         so we want you to be as informed as possible. To help you become a more informed
-        customer we put together a whole section to <a href="https://www.marinerfinance.com/blog/?s=personal+loans+" className="stateLinks">educate you on making a personal loans decision.</a>
+        customer we put together a whole section to <a href={BrnachLocatorURLs.MarinerURL + '/blog/?s=personal+loans+'} className="stateLinks">educate you on making a personal loan decision.</a>
       </p>
     </Grid>
   );
-
   const search2andDirectionfromSearch2 = (
     <Grid id="getDirectionWrap" className={classes.gridMargin} container>
       <Grid className={classes.gridPadding} item xs={12} s={12} md={6}>
@@ -261,11 +261,11 @@ export default function BranchLocator() {
           onClick={() => {
             if (refSearch2.current.value) {
               openGetDirectionModal();
-              setBranchAddress(`https://www.google.com/maps/search/${ refSearch2.current.value }`);
+              setBranchAddress(`${BrnachLocatorURLs.GoogleMapURL}${ refSearch2.current.value }`);
               setAddress2("");
             } else if (branchList && branchList.length && branchList[ 0 ]?.Address) {
               openGetDirectionModal();
-              setBranchAddress(`https://www.google.com/maps/search/${ branchList[ 0 ]?.Address }`);
+              setBranchAddress(`${BrnachLocatorURLs.GoogleMapURL}${ branchList[ 0 ]?.Address }`);
             }
             else {
               toast.error(`Please enter address in search.`);
@@ -339,7 +339,7 @@ export default function BranchLocator() {
           >
             {branchList ? (
               branchList.map((item, index) => {
-                if (Number(item?.distance.replace(' mi', '')) <= 60) {
+                if (Number(item?.distance.replace(' mi', '')) <= howManyBranchesforBranchLocatorPages.ShowBranchListWithinMiles) {
                   return (
                     <Grid key={index} className="locationInfo">
                       <NavLink
@@ -376,10 +376,7 @@ export default function BranchLocator() {
                       </p>
                       <ButtonSecondary
                         onClick={() => {
-                          setBranchAddress(
-                            "https://www.google.com/maps/search/" +
-                            item?.Address
-                          );
+                          setBranchAddress(`${BrnachLocatorURLs.GoogleMapURL}${item.Address}`);
                           openGetDirectionModal();
                         }}
                         stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
@@ -451,7 +448,7 @@ export default function BranchLocator() {
     >
       <Link
         className="breadcrumbLink"
-        href="https://www.marinerfinance.com/"
+        href="/"
       >
         Home
       </Link>
