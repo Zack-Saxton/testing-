@@ -77,10 +77,10 @@ test('Navigate to cac terms', () => {
     expect(element).toHaveAttribute("href",`/cac-termsofuse`);
     expect(element).toBeTruthy();
 });
-test('Navigate to californiaResident', () => {
+test('Navigate to privacyStatement', () => {
     render(component());
     const element = screen.getByTestId("californiaResident");
-    expect(element).toHaveAttribute("href",`/californiaResident`);
+    expect(element).toHaveAttribute("href",`/privacyStatement`);
     expect(element).toBeTruthy();
 });
 test('Should match the snapshot', () => {
