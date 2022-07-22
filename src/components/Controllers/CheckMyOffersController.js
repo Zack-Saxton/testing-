@@ -5,18 +5,6 @@ import ErrorLogger from "../lib/ErrorLogger";
 
 export async function checkMyOfferSubmit(customer) {
 
-	//age
-	function getAge(dateString) {
-    const today = new Date();
-    let birthDate = new Date(dateString);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    let m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    return age;
-}
-
 	//result - to store the result from api call, token - auth token, loggedIn
 	let result, token, loggedIn;
 	//response - get the required data from result
@@ -121,7 +109,7 @@ export async function checkMyOfferSubmit(customer) {
 					"identification": {
 						"citizenship": customer.citizenship,
 						"date_of_birth": customer.dob,
-						"age": getAge(customer.dob),
+						"age": Math.abs(new Date(Date.now() - customer.dob.getTime()).getUTCFullYear() - 1970),
 						"social_security_number_backup": customer.ssn,
 						"social_security_number": customer.ssn,
 						"first_name": customer.firstName,
