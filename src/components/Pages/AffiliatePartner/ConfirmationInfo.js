@@ -275,8 +275,8 @@ export default function ConfirmationInfo() {
       if (!errorPersonal && !errorAnnual && validate(modPersonalIncome, modHouseholdIncome)) {        
         setLoading(true);
         let confirmInfoData = {
-          firstName: values.firstname,
-          lastName: values.lastname,
+          firstName: values.firstName,
+          lastName: values.lastName,
           streetAddress: values.streetAddress,
           city: values.city,
           state: Object.keys(states).find(key => states[ key ] === values.state),
