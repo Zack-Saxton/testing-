@@ -146,7 +146,6 @@ function NewUser() {
 		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$|\,/g, ""));
 		if (isNaN(modHouseholdIncome)) {
 			setErrorAnnual(globalMessages?.Annual_Household_Income_Required);
-			// setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 		} else {
 			const numNxt = event.target.value.trim()
 			    .replace(/\$|\,/g, "")
