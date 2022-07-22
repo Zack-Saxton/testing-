@@ -101,6 +101,9 @@ function NewUser() {
 
 		//On submit functionality
 		onSubmit: (values) => {
+			if(Boolean(!values.householdIncome.length)){
+				setErrorAnnual(globalMessages?.Annual_Household_Income_4_digits);
+			}
 			const modPersonalIncome = parseInt(values.personalIncome.replace(/\$|\,/g, ""));
 			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$|\,/g, ""));
 			if (!errorPersonal && !errorAnnual) {
@@ -143,6 +146,7 @@ function NewUser() {
 		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$|\,/g, ""));
 		if (isNaN(modHouseholdIncome)) {
 			setErrorAnnual(globalMessages?.Annual_Household_Income_Required);
+			// setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 		} else {
 			const numNxt = event.target.value.trim()
 			    .replace(/\$|\,/g, "")
