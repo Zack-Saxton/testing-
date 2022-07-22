@@ -99,7 +99,7 @@ export default function Footer() {
               </div>
               <div className="footer-content">
                 <NavLink data-testid="californiaResident"
-                  to="/californiaResident"
+                  to="/privacyStatement"
                   target="_blank"
                   className="hrefTag"
                 >
