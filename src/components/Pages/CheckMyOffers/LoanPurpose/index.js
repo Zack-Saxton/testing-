@@ -28,6 +28,7 @@ import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import Cookies from "js-cookie";
 import "./LoanPurpose.css";
 
 //styling
@@ -63,13 +64,32 @@ const useStyles = makeStyles((Theme) =>
 );
 //Loan purpose component initialization
 function LoanPurpose() {
-	const { data } = useContext(CheckMyOffers);
+  const { data, setData} = useContext(CheckMyOffers);
 	const [ purpose, setPurpose ] = useState(data.loanPurpose ?? "");
 	const navigate = useNavigate();
 	const preLoginStyles = preLoginStyle();
+
+	const CKLightbox_Source = Cookies.get("CKLightbox_Source")
+	const CKLightbox_Web = Cookies.get("CKLightbox_Web")
+	const CKLightbox_trkcid = Cookies.get("CKLightbox_trkcid")
+	const CKLightbox_campaign = Cookies.get("CKLightbox_campaign")
+	const CKLightbox_term = Cookies.get("CKLightbox_term")
+	const CKLightbox_amount = Cookies.get("CKLightbox_amount")
+ 
+
 	useEffect(() => {
-		//redirect to select offers if directly called
-		if (data?.completedPage < data?.page?.selectAmount || data?.formStatus?.toLowerCase() === "completed") {
+		if(CKLightbox_Source === "CKLightbox"){      
+			setData({
+				...data, trkcid: CKLightbox_trkcid ?? "",
+				utm_source : CKLightbox_Source ?? "",   
+				utm_medium : CKLightbox_Web ?? "",
+				utm_campaign : CKLightbox_campaign ?? "",
+				term : CKLightbox_term ?? "",
+				loanAmount : CKLightbox_amount ?? ""
+			})
+			navigate("/loan-purpose");	
+		}
+		else if( (data?.completedPage < data?.page?.selectAmount || data?.formStatus?.toLowerCase() === "completed"))  {
 			navigate("/select-amount");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
