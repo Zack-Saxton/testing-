@@ -62,7 +62,7 @@ function NewUser() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const validate = (personal, household) => {
-		if(!personal){
+		if(!personal || personal.toString().length < 4){
 			setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 		}else if (!isNaN(personal) && !isNaN(household)) {
 			if (personal <= household) {
@@ -101,6 +101,9 @@ function NewUser() {
 
 		//On submit functionality
 		onSubmit: (values) => {
+			if(Boolean(!values.householdIncome.length)){
+				setErrorAnnual(globalMessages?.Annual_Household_Income_4_digits);
+			}
 			const modPersonalIncome = parseInt(values.personalIncome.replace(/\$|\,/g, ""));
 			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$|\,/g, ""));
 			if (!errorPersonal && !errorAnnual) {
