@@ -182,7 +182,7 @@ export default function ReviewAndSign() {
                     <Grid
                       item
                       xs={12}
-                      sm={2}
+                      sm={1}
                       className={classes.rightBorder}
                       id="right-border-loan-term"
                     >
@@ -204,13 +204,13 @@ export default function ReviewAndSign() {
                         Prepaid Finance Charge
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {currencyFormat(selectedOffer.fees['Credit Investigation'])}
+                        {selectedOffer?.fees ? currencyFormat(selectedOffer?.fees['Credit Investigation']): 0}
                       </h2>
                     </Grid>
                     <Grid
                       item
                       xs={12}
-                      sm={2}
+                      sm={1.5}
                       className={classes.rightBorder}
                       id="rightBorder"
                     >
@@ -223,8 +223,8 @@ export default function ReviewAndSign() {
                     </Grid>
                   <Grid
                       item
-                      xs={12}
-                      sm={2}
+                      xs={10}
+                      sm={1.5}
                       className={classes.rightBorder}
                       id="rightBorder"
                     >
@@ -237,10 +237,10 @@ export default function ReviewAndSign() {
                     </Grid>
                     <Grid
                       item
-                      xs={12}
-                      sm={2}
+                      xs={10}
+                      sm={1.5}
                       className={classes.rightBorder}
-                      id="rightBorder-apr"
+                      id="rightBorder"
                     >
                       <p className={classes.columnHeading} id="columnHeading">
                         APR
