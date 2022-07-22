@@ -15,6 +15,7 @@ import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
+import Cookies from "js-cookie";
 
 //Styling part
 const useStyles = makeStyles(() => ({
@@ -61,6 +62,11 @@ function SelectAmount(props) {
   );
   let location = useLocation();
   useEffect(() => {
+    const CKLightbox_Source = Cookies.get("CKLightbox_Source")   
+    if(CKLightbox_Source === "CKLightbox"){  
+       navigate("/loan-purpose");
+    }
+    else{
     if (data?.isActiveUser === "closed") {
       toast.error(globalMessages.Account_Closed_New_Apps);
       navigate("/customers/accountOverview");
@@ -80,6 +86,7 @@ function SelectAmount(props) {
       resetData();
       setSelect(data.loanAmount ? data.loanAmount : 10000);
     }
+  }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

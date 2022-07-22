@@ -18,6 +18,8 @@ import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI"
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import globalMessages from "../../../../assets/data/globalMessages.json";
+import Cookies from "js-cookie";
+
 //oneLastStep component initialization
 function SSN() {
 	let response = [];
@@ -69,6 +71,7 @@ function SSN() {
 		setSubmit(true);
 		setLoading(false);
 		setApplicationLoading(false);
+		removeCKLightboxCookie();
 	};
 	const handleOnClickEsign = () => {
 		setEsignPopup(true);
@@ -95,6 +98,15 @@ function SSN() {
 	const handleOnClickPrivacyClose = () => {
 		setPrivacyPopup(false);
 	};
+
+	const removeCKLightboxCookie = () => {
+		Cookies.remove("CKLightbox_Source")
+		Cookies.remove("CKLightbox_Web")
+		Cookies.remove("CKLightbox_trkcid")
+		Cookies.remove("CKLightbox_campaign")
+		Cookies.remove("CKLightbox_term")
+		Cookies.remove("CKLightbox_amount")
+	}
 	const handleValidResponse = () => {
 		setData({
 			...data,
@@ -116,13 +128,14 @@ function SSN() {
 			navigate("/referred-to-branch", { formcomplete: "yes" });
 		}
 	};
+
 	const handleOnClick = async (event) => {
 		data.completedPage = data.page.ssn;
 		setLoading(true);
 		setApplicationLoading(true);
 		let result = await getCustomerByEmail(data.email);
 		if (result?.data?.AppSubmittedInLast30Days) {
-			stopLoading();
+			stopLoading();		
 		} else if (!result?.data?.AppSubmittedInLast30Days) {
 			response = await submitApplication(data);
 			setSubmit(false);
@@ -135,16 +148,19 @@ function SSN() {
 			});
 			if (response.appSubmissionResult.status === 200) {
 				handleValidResponse();
+				removeCKLightboxCookie();
 				refetch();
 			} else if (response.appSubmissionResult.status === 403) {
 				setData({ ...data, applicationStatus: "rejected" });
 				setApplicationLoading(false);
+				removeCKLightboxCookie();
 				refetch();
 				navigate("/no-offers-available", { formcomplete: "yes" });
 			} else {
 				alert(globalMessages.Network_Error_Please_Try_Again);
 				setLoading(false);
 				setApplicationLoading(false);
+				removeCKLightboxCookie();
 			}
 		} else {
 			stopLoading();

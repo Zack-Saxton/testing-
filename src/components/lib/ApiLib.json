@@ -54,6 +54,7 @@
     "delete_debit_card_payment_method": "/gps/delete_card_payment_method_cac",
     "get_payment_options": "/gps/get_payment_method_options",
     "get_profile_picture": "/customer/get_profile_picture",
+    "get_CK_Light_box":"/partners/ck_lightbox",
     "upload_profile_picture": "/customer/upload_profile_picture",
     "set_read": "/customer/countunread_and_markread_or_delete_notification_cac",
     "create_prospect": "/prospect/create_prospect",

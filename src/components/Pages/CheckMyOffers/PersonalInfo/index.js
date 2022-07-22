@@ -208,8 +208,8 @@ function PersonalInfo() {
 				data.phone = values.phone;
 				data.ssn = data.last4SSN
 					? data.ssn
-					: values?.ssn.replace(/\$|\,/g, "")
-				data.phone = phoneNumberValue;
+					: values?.ssn.replace(/\-/g, "")
+					data.phone = phoneNumberValue;
 				data.dob = values.dob;
 				data.completedPage = data.page.personalInfo;
 
@@ -255,7 +255,7 @@ function PersonalInfo() {
 
 	
 
-	const checkApplicationStatus = async (event) => {
+	const checkApplicationStatusEmail= async (event) => {
 		formik.handleBlur(event);
 		if (event.target.value) {
 			let body = {
@@ -539,9 +539,9 @@ function PersonalInfo() {
 												onKeyDown={preventSpace}
 												value={formik.values.email}
 												materialProps={{ maxLength: "100" }}
-												onLoad={checkApplicationStatus}
+												onLoad={checkApplicationStatusEmail}
 												onChange={emailOnChange}
-												onBlur={checkApplicationStatus}
+												onBlur={checkApplicationStatusEmail}
 												error={shortANDoperation(formik.touched.email, Boolean(formik.errors.email))}
 												helperText = {shortANDoperation(formik.touched.email, formik.errors.email)}
 												disabled={data.disabled}

@@ -72,6 +72,7 @@ import MFAGetPhoneNumber from "../Pages/MultiFactorAuthentication/MFAGetPhoneNum
 import NoOfferAvailable from "../Layout/offers/NoOfferAvailable"
 import AmOneNoOffersAvailable from "../Pages/CheckMyOffers/AmOneNoOffersAvailable/AmOneNoOffersAvailable"
 import ReferredFromAffiliate from "../Pages/AffiliatePartner/ReferredFromAffiliate/ReferredFromAffiliate";
+import LightBox from "../Pages/CheckMyOffers/LightBox/LightBox"
 import "./App.css";
 
 const queryClient = new QueryClient({
@@ -230,6 +231,9 @@ function App() {
                                                     <Route path='none-available' element={loadGeneralUserComponent(<NoOfferAvailable />)} />
                                                     <Route path='referral' element={loadGeneralUserComponent(<ReferredFromAffiliate />)} />                                                    
                                                     <Route path='no-offers' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />
+                                                </Route>
+                                                <Route path='partners' >
+                                                        <Route path='*' element={<LightBox />} />
                                                 </Route>
                                             </Routes>
                                         </NavContext>

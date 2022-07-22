@@ -101,8 +101,8 @@ function NewUser() {
 
 		//On submit functionality
 		onSubmit: (values) => {
-			const modPersonalIncome = parseInt(values.personalIncome).replace(/\$|\,/g, "");
-			const modHouseholdIncome = parseInt(values.householdIncome).replace(/\$|\,/g, "");
+			const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/[^\d]/g, ""));
+      const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/[^\d]/g, ""));
 			if (!errorPersonal && !errorAnnual) {
 				if (validate(modPersonalIncome, modHouseholdIncome)) {
 					data.annualIncome = modPersonalIncome ? modPersonalIncome : "0";
