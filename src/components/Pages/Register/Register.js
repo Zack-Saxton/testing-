@@ -20,7 +20,7 @@ import LoginController, {
 import LogoutController from "../../Controllers/LogoutController";
 import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import passwordValidation from "../../Pages/Login/PasswordValidation";
+import validateUserEnteredInput from "../../Pages/Login/ValidateUserEnteredInput";
 
 import {
   Button,
@@ -533,7 +533,7 @@ export default function Register() {
                           xs={12}
                         >
                           <ul>
-                            {passwordValidation(formik.values.password, 1)}
+                            {validateUserEnteredInput(formik.values.password, 1)}
                           </ul>
                         </Grid>
 
@@ -545,7 +545,7 @@ export default function Register() {
                           xs={12}
                         >
                           <ul>
-                          {passwordValidation(formik.values.password, 0)}
+                          {validateUserEnteredInput(formik.values.password, 0)}
                           </ul>
                         </Grid>
                       </Grid>

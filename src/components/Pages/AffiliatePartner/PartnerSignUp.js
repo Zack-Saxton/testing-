@@ -20,7 +20,7 @@ import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
-import passwordValidation from "../../Pages/Login/PasswordValidation";
+import validateUserEnteredInput from "../../Pages/Login/ValidateUserEnteredInput";
 import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
 import { useStylesPartner } from "./style";
 import "./Style.css";
@@ -454,12 +454,12 @@ export default function PartnerSignUp() {
                       <Grid container className="errorvalidationWrap">
                       <Grid className="errorvalidationOne">
                       <ul className="error-validation">
-                        {passwordValidation(formik.values.password, 1)}
+                        {validateUserEnteredInput(formik.values.password, 1)}
                       </ul>
                       </Grid>
                       <Grid>
                        <ul className="error-validation">
-                       {passwordValidation(formik.values.password, 0)}
+                       {validateUserEnteredInput(formik.values.password, 0)}
                        </ul>
                       
                     </Grid>

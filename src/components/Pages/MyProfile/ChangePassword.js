@@ -8,7 +8,7 @@ import globalMessages from "../../../assets/data/globalMessages.json";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import LogoutController from "../../Controllers/LogoutController";
 import { changePassword } from "../../Controllers/MyProfileController";
-import passwordValidation from "../../Pages/Login/PasswordValidation";
+import validateUserEnteredInput from "../../Pages/Login/ValidateUserEnteredInput";
 import {
   ButtonPrimary,
   ButtonSecondary,
@@ -196,8 +196,8 @@ export default function ChangePassword(basicInformationData) {
               disabled={false}
             />
               <ul className="error-validation">
-                {passwordValidation(formikPassword.values.newPassword, 1)}
-                {passwordValidation(formikPassword.values.newPassword, 0)}
+                {validateUserEnteredInput(formikPassword.values.newPassword, 1)}
+                {validateUserEnteredInput(formikPassword.values.newPassword, 0)}
               </ul>
            </Grid>
           <Grid
