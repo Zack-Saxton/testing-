@@ -16,7 +16,7 @@ import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import LoginController, { RegisterController } from "../../../Controllers/LoginController";
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
-import passwordValidation from "../../Login/PasswordValidation";
+import validateUserEnteredInput from "../../Login/ValidateUserEnteredInput";
 import { encryptAES } from "../../../lib/Crypto";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import ScrollToTopOnMount from "../ScrollToTop";
@@ -274,8 +274,8 @@ function NewUser() {
 												}
 											/>
 											<ul className="error-validation">
-												{ passwordValidation(formik.values.newPassword, 1)}
-												{ passwordValidation(formik.values.newPassword, 0)}
+												{ validateUserEnteredInput(formik.values.newPassword, 1)}
+												{ validateUserEnteredInput(formik.values.newPassword, 0)}
 											</ul>
 											<PasswordField
 												id="confirmPasswordWrap"
