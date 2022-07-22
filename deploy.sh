@@ -243,8 +243,15 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
      docker run -dit --restart=always --name "${app}"\$count"-${env}-${latestCommit}" --network $dockerNetwork $imageName
      sleep 5
    done
+   sudo reboot
    exit
 ENDHERE
+
+
+
+#-------------------------------------------------------------------------#
+#@ END OF REBOOT
+#-------------------------------------------------------------------------#
 
  # docker inspect -f '{{json .NetworkSettings.Networks}}' ${app}"\$count"-${env}-${latestCommit} | python -m json.tool
  # curl_cmd=$(curl -w "\n" --insecure -X GET https://${app}-${env}.marinerfinance.io)
