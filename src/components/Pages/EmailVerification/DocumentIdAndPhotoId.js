@@ -274,8 +274,13 @@ function DocumentIdAndPhotoId(props) {
       ErrorLogger(" Error in emailVerificationDocument", error);
     }
   }
+  function getValueByLable(text, ctx) {
+    return document.evaluate("//*[.='" + text + "']",
+      ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
+  }
 
   const uploadDocument = () => {
+    getValueByLable("ID Document & Photo").scrollIntoView();
     //Upload ID document
     setLoading(true);
     if (imgSrc) {
