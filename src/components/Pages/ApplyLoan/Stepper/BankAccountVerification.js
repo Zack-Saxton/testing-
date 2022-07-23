@@ -181,6 +181,18 @@ export default function BankAccountVerification(props) {
 		setOpenAutoPayAuth(false);
 	};
 
+	//Preventing space key
+	const preventSpace = (event) => {
+		if (event.keyCode === 32) {
+			event.preventDefault();
+		}
+	};
+
+	const onBlurAccountHolderName = (event) => {
+    formik.setFieldValue("accountHolder", event.target.value.trim());
+		formik.handleBlur(event);
+  };
+
 	//View part - JSX part
 	return (
 		<div>
@@ -201,7 +213,7 @@ export default function BankAccountVerification(props) {
 							label="Account Holder *"
 							value={formik.values.accountHolder}
 							onChange={restrictAccountHolderOnChange}
-							onBlur={formik.handleBlur}
+							onBlur={onBlurAccountHolderName}
 							materialProps={{ maxLength: "30" }}
 							error={
 								formik.touched.accountHolder &&
@@ -241,6 +253,7 @@ export default function BankAccountVerification(props) {
 							style={{ width: "100%" }}
 							value={formik.values.bankRoutingNumber}
 							inputProps={{ maxLength: "9", "data-testid": "bankRoutingNumber" }}
+							onKeyDown={preventSpace}
 							onChange={(event) => {
 								setInvalidRN(false);
 								restrictTextOnChange(event);
@@ -331,6 +344,7 @@ export default function BankAccountVerification(props) {
 						materialProps={{ maxLength: "16", "data-test-id": "BRN" }}
 						onChange={restrictTextOnChange}
 						onBlur={formik.handleBlur}
+						onKeyDown={preventSpace}
 						inputProps={{ maxLength: "16", "data-test-id": "BankAccnum" }}
 						error={
 							formik.touched.bankAccountNumber &&
@@ -352,6 +366,7 @@ export default function BankAccountVerification(props) {
 						onCut={handleEdit}
 						onCopy={handleEdit}
 						onPaste={handleEdit}
+						onKeyDown={preventSpace}
 						materialProps={{
 							maxLength: "16",
 							"data-test-id": "BRN",
