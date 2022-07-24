@@ -18,7 +18,6 @@ import LoginController, {
   RegisterController, handleSuccessLogin
 } from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
-import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import validateUserEnteredInput from "../../Pages/Login/ValidateUserEnteredInput";
 
@@ -69,33 +68,6 @@ export default function Register() {
         setLongitude(position.coords.longitude);
     })
  },[])
-
-
-  window.onReCaptchaSuccess = async function () {
-    try {
-      let grecaptchaResponse = grecaptcha.getResponse();
-      let recaptchaVerifyResponse = await RecaptchaValidationController(
-        grecaptchaResponse,
-        ClientIP
-      );
-
-      if (recaptchaVerifyResponse.status === 200) {
-        toast.success(globalMessages.Recaptcha_Verify);
-        setDisableRecaptcha(false);
-      } else {
-        toast.error(globalMessages.Recaptcha_Error);
-        grecaptcha.reset();
-        setDisableRecaptcha(true);
-      }
-    } catch (error) {
-      ErrorLogger("Error executing reCaptcha", error);
-    }
-  };
-
-  window.OnExpireCallback = function () {
-    grecaptcha.reset();
-    setDisableRecaptcha(true);
-  };
 
   //Date implementation for verifying 18 years
   const myDate = new Date();
@@ -592,7 +564,7 @@ export default function Register() {
                     </Grid>
 
                     <Grid>
-                      <Recaptcha />
+                      <Recaptcha setDisableRecaptcha={setDisableRecaptcha}/>
                     </Grid>
 
                     <Grid item xs={12} className={classes.signInButtonGrid}>
