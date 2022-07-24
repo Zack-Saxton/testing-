@@ -64,6 +64,7 @@ const setCookiesPostLogin = (retVal, now, values, login_date, mfaData, remMe) =>
   Cookies.set("email", values?.email);
   Cookies.set("firstName", retVal?.data?.user?.firstname);
   Cookies.set("lastName", retVal?.data?.user?.lastname);
+  Cookies.set("userId", retVal?.data?.user?._id);
   Cookies.set("profile_picture", retVal?.data?.user?.mobile?.profile_picture ? retVal?.data?.user?.mobile?.profile_picture : "");
   Cookies.set("login_date", login_date);
   Cookies.set("userToken", retVal?.data?.user?.attributes?.UserToken);
