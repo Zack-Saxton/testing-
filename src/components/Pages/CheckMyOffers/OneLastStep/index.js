@@ -130,6 +130,7 @@ function SSN() {
 	};
 
 	const handleOnClick = async (event) => {
+		data.dob = new Date(data.dob);
 		data.completedPage = data.page.ssn;
 		setLoading(true);
 		setApplicationLoading(true);
