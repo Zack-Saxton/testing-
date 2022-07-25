@@ -192,9 +192,10 @@ export default function EmailVerification() {
     return (
       <>
         <a>{' '}<span data-testid = "esignClick" className={classes.linkDesign} onClick={() => { handleOnClickeSign(); }}>E-Signature Disclosure and Consent,</span></a>
-        <a>{' '}<span data-testid = "creditContact" className={classes.linkDesign} onClick={() => { handleOnClickCreditTerms(); }}>Credit and Contact Authorization,</span></a>
-        <a>{' '}<span data-testid = "websiteTerms"className={classes.linkDesign} onClick={() => { handleOnClickCacTerms(); }}>Website Terms of Use,</span></a>
-        <a>{' '}<span data-testid = "websitePrivacy" className={classes.linkDesign} onClick={() => { handleOnClickWebsiteTerms(); }}>Website Privacy Statement</span></a>
+        <span className="acknowledgeTextSpan"> the </span>
+        <a>{' '}<span data-testid = "creditContact" className={classes.linkDesign} onClick={() => { handleOnClickCreditTerms(); }}>Credit Contact and Authorization,</span></a>
+        <span className="acknowledgeTextSpan"> and the </span>
+        <a>{' '}<span data-testid = "websitePrivacy" className={classes.linkDesign} onClick={() => { handleOnClickWebsiteTerms(); }}> Privacy Statement.</span></a>
       </>
     );
   }
@@ -233,7 +234,8 @@ export default function EmailVerification() {
                 <Grid className="acknowledgeText">
                   <Typography>
                     <span className="acknowledgeTextSpan">
-                      Consent documents that were acknowledged
+                    By clicking this box, you acknowledge that you have received, reviewed,
+                    and agree to the
                     </span>
                     <br />
                     {showConsentsLinks()}
@@ -262,7 +264,7 @@ export default function EmailVerification() {
                       <Grid className="acknowledgeText">
                         <Typography>
                           By clicking this box you acknowledge that you have received,
-                          reviewed and agree to the following terms and conditions:
+                          reviewed, and agree to the following terms and conditions:
                           <br />
                           {showConsentsLinks()}
                         </Typography>
@@ -306,13 +308,13 @@ export default function EmailVerification() {
               </Grid>
             </Grid>
           </Grid>
-          <Popup data-testid = "eSign" popupFlag={eSign} title='E-Signature Disclosure and Consent' closePopup={handleOnClickeSignClose}>
+          <Popup popupFlag={eSign} title='E-Signature Disclosure and Consent' closePopup={handleOnClickeSignClose}>
             <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-            <RenderContent disclosureLink="/eSign" />
+            <RenderContent disclosureLink="/eSignBranchPortal" />
           </Popup>
-          <Popup data-testid = "creditTerms" popupFlag={creditTerms} title='Credit and Contact Authorization' closePopup={handleOnClickCreditTermsClose}>
+          <Popup popupFlag={creditTerms} title='Credit and Contact Authorization' closePopup={handleOnClickCreditTermsClose}>
             <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-            <RenderContent disclosureLink="/credit" findContent="<h2>Credit and Contact Authorization</h2>" replaceContent='' />
+            <RenderContent disclosureLink="/creditBranchPortal" findContent="<h2>Credit and Contact Authorization</h2>" replaceContent='' />
           </Popup>
           <Popup data-testid = "cacTerms" popupFlag={cacTerms} title='Website Terms of Use' closePopup={handleOnClickCacTermsClose}>
             <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
