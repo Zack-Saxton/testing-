@@ -19,7 +19,6 @@ import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import getClientIp from "../../Controllers/CommonController";
 import LoginController, { handleSuccessLogin } from "../../Controllers/LoginController";
-import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import {
   ButtonPrimary,
   EmailTextField,
@@ -28,7 +27,6 @@ import {
   RenderContent
 } from "../../FormsUI";
 import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
-import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
 import "./Login.css";
@@ -71,30 +69,6 @@ export default function Login(props) {
      })
   },[])
 
-  //reCaptcha validation
-  window.onReCaptchaSuccess = async function () {
-    try {
-      let grecaptchaResponse = grecaptcha.getResponse();
-      let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, ClientIP);
-
-      if (recaptchaVerifyResponse.status === 200) {
-        toast.success(globalMessages.Recaptcha_Verify);
-        setDisableRecaptcha(false);
-      }
-      else {
-        toast.error(globalMessages.Recaptcha_Error);
-        grecaptcha.reset();
-        setDisableRecaptcha(true);
-      }
-    } catch (error) {
-      ErrorLogger("Error executing reCaptcha", error);
-    }
-  };
-
-  window.OnExpireCallback = function () {
-    grecaptcha.reset();
-    setDisableRecaptcha(true);
-  };
   //Form Submission
   const formik = useFormik({
     initialValues: {
@@ -307,7 +281,7 @@ export default function Login(props) {
                     </Grid>
 
                     <Grid className={classes.loginRecaptcha} >
-                      <Recaptcha />
+                      <Recaptcha setDisableRecaptcha={setDisableRecaptcha}/>
                     </Grid>
 
                     <Grid item xs={12} className={classes.loginButton}>

@@ -1,9 +1,14 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
-import RecaptchaController from "../../Controllers/RecaptchaController";
+import { toast } from "react-toastify";
+import PropTypes from "prop-types";
+import RecaptchaController, { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
+import ErrorLogger from "../../lib/ErrorLogger";
+import getClientIp from "../../Controllers/CommonController";
+import globalMessages from "../../../assets/data/globalMessages.json";
 
-const GenerateRecaptcha = () => {
+const GenerateRecaptcha = (props) => {
   //API call
   const { isLoading, data: recaptchaData } = useQuery("recaptcha-generate", RecaptchaController);
 
@@ -16,6 +21,31 @@ const GenerateRecaptcha = () => {
       document.body.removeChild(script);
     };
   }, [ recaptchaData ]);
+
+
+  //reCaptcha validation
+  window.onReCaptchaSuccess = async function () {
+    try {
+      let grecaptchaResponse = grecaptcha.getResponse();
+      let recaptchaVerifyResponse = await RecaptchaValidationController(grecaptchaResponse, getClientIp);
+      if (recaptchaVerifyResponse.status === 200) {
+        toast.success(globalMessages.Recaptcha_Verify);
+        props.setDisableRecaptcha(false);
+      }
+      else {
+        toast.error(globalMessages.Recaptcha_Error);
+        grecaptcha.reset();
+        props.setDisableRecaptcha(true);
+      }
+    } catch (error) {
+      ErrorLogger("Error executing reCaptcha", error);
+    }
+  };
+
+  window.OnExpireCallback = function () {
+    grecaptcha.reset();
+    props.setDisableRecaptcha(true);
+  };
 
   return (
     <div>
@@ -35,3 +65,6 @@ const GenerateRecaptcha = () => {
 };
 
 export default GenerateRecaptcha;
+GenerateRecaptcha.propTypes = {
+  setDisableRecaptcha: PropTypes.func,
+};
