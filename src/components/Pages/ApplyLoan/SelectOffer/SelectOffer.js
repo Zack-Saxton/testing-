@@ -370,7 +370,7 @@ useEffect(() => {
 							<Typography
 								className={classes.bottomText}
 							>
-								*The process uses a “soft” credit inquiry to determine whether a
+								*This process uses a soft credit inquiry to determine whether a
 								loan offer is available, which does not impact your credit
 								score. If you continue with the application process online and
 								accept a loan offer, or are referred to a branch and continue
