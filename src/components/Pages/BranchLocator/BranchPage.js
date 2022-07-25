@@ -16,6 +16,7 @@ import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import DOMPurify from 'dompurify';
 import { branch_hours, ca_branch_hours, howManyBranchesforBranchLocatorPages, BrnachLocatorURLs } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
@@ -53,9 +54,9 @@ export default function StatePage() {
   let stateShortNm = useRef();
 
   if (location?.state) {
-    branch_Details.current = location?.state ? location?.state?.branch_Details : "";
-    stateLongNm.current = location?.state ? location?.state?.stateLongNm : "";
-    stateShortNm.current = location?.state ? location?.state?.stateShortNm : "";
+    branch_Details.current = DOMPurify.sanitize(location?.state ? location?.state?.branch_Details : "");
+    stateLongNm.current = DOMPurify.sanitize(location?.state ? location?.state?.stateLongNm : "");
+    stateShortNm.current = DOMPurify.sanitize(location?.state ? location?.state?.stateShortNm : "");
   }
 
   const directions = ["-n-", "-s-", "-e-", "-w-", "-nw-", "-ne-", "-sw-", "-se-"];
