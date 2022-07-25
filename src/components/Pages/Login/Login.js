@@ -46,6 +46,7 @@ export default function Login(props) {
   const [ loginFailed, setLoginFailed ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ cacTerms, setCacTerms ] = useState(false);
+  const [ disableEmailPaste, setDisableEmailPaste] = useState(true);
   const [ counter, setCounter ] = useState(0);
   const [ openDeleteSchedule, setopenDeleteSchedule ] = useState(false);
   const [ disableRecaptcha, setDisableRecaptcha ] = useState(true);
@@ -66,7 +67,11 @@ export default function Login(props) {
      navigator.geolocation.getCurrentPosition(function(position){
         setLatitude(position.coords.latitude);
          setLongitude(position.coords.longitude);
-     })
+     });
+    let currentUrl = window.location.href;
+    let currentHost = currentUrl.replaceAll(':', '.').substring(currentUrl.indexOf('//') + 2).split('.')[0];
+    if (['localhost', 'cac-dev', 'cac-qa', 'cac-staging'].includes(currentHost)) setDisableEmailPaste(false);
+    
   },[])
 
   //Form Submission
@@ -224,7 +229,7 @@ export default function Login(props) {
                         value={formik.values?.email}
                         onChange={emailOnChange}
                         onBlur={formik.handleBlur}
-                        disablePaste={true}
+                        disablePaste={disableEmailPaste}
                         error={
                           formik.touched?.email && Boolean(formik.errors?.email)
                         }
