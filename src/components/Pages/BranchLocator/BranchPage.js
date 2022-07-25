@@ -54,7 +54,7 @@ export default function StatePage() {
   let stateShortNm = useRef();
 
   if (location?.state) {
-    branch_Details.current = DOMPurify.sanitize(location?.state ? location?.state?.branch_Details : "");
+    branch_Details.current = location?.state ? location?.state?.branch_Details : "";
     stateLongNm.current = DOMPurify.sanitize(location?.state ? location?.state?.stateLongNm : "");
     stateShortNm.current = DOMPurify.sanitize(location?.state ? location?.state?.stateShortNm : "");
   }
