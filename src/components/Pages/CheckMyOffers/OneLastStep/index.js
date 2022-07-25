@@ -130,6 +130,7 @@ function SSN() {
 	};
 
 	const handleOnClick = async (event) => {
+		data.dob = new Date(data.dob);
 		data.completedPage = data.page.ssn;
 		setLoading(true);
 		setApplicationLoading(true);
@@ -146,11 +147,11 @@ function SSN() {
 					: null,
 				completedPage: data.page.ssn,
 			});
-			if (response.appSubmissionResult.status === 200) {
+			if (response?.appSubmissionResult?.status === 200) {
 				handleValidResponse();
 				removeCKLightboxCookie();
 				refetch();
-			} else if (response.appSubmissionResult.status === 403) {
+			} else if (response?.appSubmissionResult?.status === 403) {
 				setData({ ...data, applicationStatus: "rejected" });
 				setApplicationLoading(false);
 				removeCKLightboxCookie();
