@@ -65,7 +65,7 @@ export default function MultipleQuestion(props) {
 			if (response?.data?.result === 'success') {
 				props.setLoadingFlag(false);
 				toast.success(Messages.Your_Identity_Verified_Successfully);
-				props.navigate('/MFA-SelectSecurityQuestions', { state: { currentFlow: true } })
+				props.navigate('/MFA-SelectSecurityQuestions', { state: { currentFlow: true, preVerification: true } })
 			} else if(response?.data?.result === 'error') {
 				props.setLoadingFlag(false);
 				toast.error(response?.data?.Message);
