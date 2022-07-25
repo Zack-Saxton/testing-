@@ -248,7 +248,7 @@ export default function BranchLocator() {
       <p className="mainParagraph">
         You’re not alone. We understand taking out a personal loan may be a big decision
         so we want you to be as informed as possible. To help you become a more informed
-        customer we put together a whole section to <a href={BrnachLocatorURLs.MarinerURL + '/blog/?s=personal+loans+'} className="stateLinks">educate you on making a personal loan decision.</a>
+        customer we put together a whole section to <a href={`${ process.env.REACT_APP_WEBSITE }/category/blogs/personal-loan/`} className="stateLinks">educate you on making a personal loan decision.</a>
       </p>
     </Grid>
   );
