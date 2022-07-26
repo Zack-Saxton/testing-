@@ -94,10 +94,7 @@ function EmploymentStatus() {
 			data.yearsAtEmployers = values.yearsAtEmployers;
 			data.EmployerPhone =
 				values.phone
-					.replace(/-/g, "")
-					.replace(/\)/g, "")
-					.replace(/\(/g, "")
-					.replace(/ /g, "") || "";
+				.replace(/[-\(\)\s]/g, "") || ""
 
 			data.completedPage = data.page.employmentStatus;
 
@@ -122,7 +119,12 @@ function EmploymentStatus() {
 	const shortANDOperation = (pramOne, pramtwo) => {
 		return pramOne && pramtwo
 	};
-
+let yearsatEmployer = [];
+  for(let start=0; start <= 20; start++){
+    let labelString = start === 0 ? "<1 year" : (start === 1 ? "1 year" : (start === 20 ? "20+ years": `${start}`))
+    yearsatEmployer.push({value: start, label: labelString});
+  }
+yearsatEmployer = JSON.stringify(yearsatEmployer);
 	// JSX part
 	return (
 		<div>
@@ -325,27 +327,7 @@ function EmploymentStatus() {
 													helperText = {
 														shortANDOperation(formik.touched.yearsAtEmployers,formik.errors.yearsAtEmployers)
 													}
-													select='[{"value":"0", "label": "<1 year"},
-													{"value":"1", "label": "1 year"},
-													{"value":"2", "label": "2 years"},
-													{"value":"3", "label": "3 years"},
-													{"value":"4", "label": "4 years"},
-													{"value":"5", "label": "5 years"},
-													{"value":"6", "label": "6 years"},
-													{"value":"7", "label": "7 years"},
-													{"value":"8", "label": "8 years"},
-													{"value":"9", "label": "9 years"},
-													{"value":"10", "label": "10 years"},
-													{"value":"11", "label": "11 years"},
-													{"value":"12", "label": "12 years"},
-													{"value":"13", "label": "13 years"},
-													{"value":"14", "label": "14 years"},
-													{"value":"15", "label": "15 years"},
-													{"value":"16", "label": "16 years"},
-													{"value":"17", "label": "17 years"},
-													{"value":"18", "label": "18 years"},
-													{"value":"19", "label": "19 years"},
-													 {"value":"20", "label": "20+ years"}]'
+													select={yearsatEmployer}
 													inputTestID="AD-input"
 													selectTestID="AD-select"
 												/>

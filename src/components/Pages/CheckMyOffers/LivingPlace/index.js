@@ -123,7 +123,7 @@ function LivingPlace() {
 
 	const onHandleChange = (event) => {
 		const reg = /^[0-9\b]+$/;
-		let inputValue = event.target.value.trim().replace(/\$/g, "").replace(",", "");
+		let inputValue = event.target.value.trim().replace(/[$,]/g, "")
 		if (!inputValue || reg.test(inputValue)) {
 			inputValue =
 				inputValue.indexOf(".") >= 0
