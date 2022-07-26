@@ -581,7 +581,7 @@ export default function MakePayment() {
                       {globalMessages.Regular_Amount}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
-                      {globalMessages.Interest}
+                      {globalMessages.InterestRate}
                     </TableCell>
                     <TableCell className={classes.tableHead} align="left">
                       {globalMessages.Loan_Fees}
