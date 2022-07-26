@@ -56,21 +56,21 @@ export async function checkMyOfferSubmit(customer) {
 					},
 					"processing": {
 						"tokens": {
-					"utm_source": null,
-					"utm_medium": null,
-					"utm_campaign": null,
+							"utm_source": null,
+							"utm_medium": null,
+							"utm_campaign": null,
 						},
 					},
-									
+
 				},
-				"lightbox" : {
-					"amount" : customer.loanAmount,
-					"term" : customer.term,
-					 "tracking_id" : customer.trkcid ,						
-							 "utm_source": customer.utm_source,
-							 "utm_medium": customer.utm_medium,
-							 "utm_campaign": customer.utm_campaign,
-					},				
+				"lightbox": {
+					"amount": customer.loanAmount,
+					"term": customer.term,
+					"tracking_id": customer.trkcid,
+					"utm_source": customer.utm_source,
+					"utm_medium": customer.utm_medium,
+					"utm_campaign": customer.utm_campaign,
+				},
 				"applicant": {
 					"contact": {
 						"address_city": customer.city,
@@ -207,7 +207,7 @@ export async function checkMyOfferSubmit(customer) {
 					"Content-Type": "application/json",
 				},
 				transformRequest: (data, headers) => {
-					delete headers.common[ "Content-Type" ];
+					delete headers.common["Content-Type"];
 					return data;
 				},
 			});
@@ -302,7 +302,7 @@ export async function getCKLightBox(query) {
 				"hp": query.hp,
 				"own": query.own,
 				"lp": query.lp
-			 }
+			}
 		};
 		let method = "POST";
 		let addAccessToken = false;
