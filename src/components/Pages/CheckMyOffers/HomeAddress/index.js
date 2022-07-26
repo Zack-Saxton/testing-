@@ -94,8 +94,8 @@ function HomeAddress() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handlePopupCA = data.state === "CA" ? true : false;
-  const handlePopupOhio = data.state === "OH" ? true : false;
+  const handlePopupCA = data.state === "CA";
+  const handlePopupOhio = data.state === "OH";
 
   useEffect(() => {
     if (handlePopupCA) {
