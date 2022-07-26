@@ -157,6 +157,7 @@
   "FirstNameRequired": "Your first name is required ",
   "ImageExtentions": "Valid File types are .jpeg .jpg .png only.",
   "Interest": "Interest",
+   "InterestRate":"Interest Rate",
   "Invalid_Account_Number": "Invalid Account Number",
   "Invalid_Login_Message": "Invalid email or password. Please try again or click on Sign In help/Register for help signing in.",
   "Keep_Future_Add_Autopay": "Keep the future payment and turn on Auto Pay",
