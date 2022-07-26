@@ -16,6 +16,8 @@ const MultiFactorAuthentication = () => {
   const [mfaData, setMFAData] = useState();
   const getEmail = Cookies.get("email");
   const {isLoading : loading_mfaData, data : mfaInfo} = useQuery(['getMFADetails', getEmail ], ()=>fetchQuestionMFA(getEmail))
+  Cookies.remove("otpSkip");
+  Cookies.remove("kbaSkip")
 
   useEffect(() => {
     if(mfaInfo?.data?.MFAInformation){

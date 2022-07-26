@@ -28,9 +28,12 @@ const MultiFactorAuthenticationOTP = () => {
   const isSecurityQuestionSaved = otpLocation?.state?.mfaQueries?.mfaDetails?.securityQuestionsSaved ?? false;
   
   useEffect(() => {
+    let otpSkipCookie = Cookies.get("otpSkip");
 		if (!otpLocation?.state?.mfaQueries) {
 			navigate("/customers/accountOverview");
-		}
+		} else if(otpSkipCookie) {
+      navigate("/MFA");
+    }
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -103,6 +106,7 @@ const MultiFactorAuthenticationOTP = () => {
         }
 
       }else{// redirect to select security question page
+        Cookies.set("otpSkip", 'skipOtpPage')
         navigate('/MFA-SelectSecurityQuestions', { state: { currentFlow: true, preVerification: true } });
       }
     }else {
