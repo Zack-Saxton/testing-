@@ -66,7 +66,7 @@ const MFASecurityQuestions = () => {
       };
 
       let verify = await saveSecurityAnswer(answerData);
-      if (verify?.data?.hasError === false && verify?.data?.result === "Ok") {
+      if (verify?.data?.hasError === false && verify?.data?.statusCode === 200) {
         toast.success(verify?.data?.Message);
         const resetPassword = verify?.data?.user?.attributes?.password_reset
         if(resetPassword){
