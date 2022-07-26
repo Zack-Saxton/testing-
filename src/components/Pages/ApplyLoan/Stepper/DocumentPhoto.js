@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import DOMPurify from 'dompurify';
 import { getIframe, saveIDScan, saveIDScanBeforeCAC } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
@@ -39,7 +40,7 @@ export default function DocumentPhoto(props) {
 	//Load the IFrame
 	async function loadIframe() {
 		let iframe = await getIframe();
-		setIframeSrc(iframe?.data?.iframeSrc);
+		setIframeSrc(DOMPurify.sanitize(iframe?.data?.iframeSrc));
 	}
 	function getValueByLable(text, ctx) {
 		return document.evaluate("//*[.='" + text + "']",
