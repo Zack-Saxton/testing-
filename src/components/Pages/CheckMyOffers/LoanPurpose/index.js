@@ -113,6 +113,90 @@ function LoanPurpose() {
 
 	const classes = useStyles();
 
+	const loanPurposeDataArray = [
+		{
+			
+				data_testid : "home",
+				title : loanPurposeData.homeImprovement,
+				whiteIcon : HomeImprovementIconWhite,
+				normalIcon : HomeImprovementIcon,
+				typography_id : "purposeTxt01"
+				
+		},
+		{
+			
+			data_testid : "autoExpense",
+			title : loanPurposeData.autoExpence,
+			whiteIcon : AutoExpenseIconWhite,
+			normalIcon : AutoExpenseIcon,
+			typography_id : "purposeTxt02"
+			
+	},
+	{
+			
+		data_testid : "vacation",
+		title : loanPurposeData.vacation,
+		whiteIcon : VacationIconWhite,
+		normalIcon : VacationIcon,
+		typography_id : "purposeTxt03"
+		
+	},
+	{
+			
+		data_testid : "holiday",
+		title : loanPurposeData.holidaySpending,
+		whiteIcon : HolidayIconWhite,
+		normalIcon : HolidayIcon,
+		typography_id : "purposeTxt04"	
+
+},
+{
+			
+		data_testid : "medical",
+		title : loanPurposeData.medicalDental,
+		whiteIcon : MedicalIconWhite,
+		normalIcon : MedicalIcon,
+		typography_id : "purposeTxt05"	
+
+},
+{
+			
+		data_testid : "deptConsolidation",
+		title : loanPurposeData.debtConsolidation,
+		whiteIcon : DeptIconWhite,
+		normalIcon : DeptIcon,
+		typography_id : "purposeTxt06"	
+
+},
+{
+			
+		data_testid : "lifeEvent",
+		title : loanPurposeData.lifeEvents,
+		whiteIcon : LifeEventIconWhite,
+		normalIcon : LifeEventIcon,
+		typography_id : "purposeTxt07"	
+
+},
+{
+			
+		data_testid : "unexpectedBills",
+		title : loanPurposeData.unexpectedExpence,
+		whiteIcon : UnexpectedExpenseIconWhite,
+		normalIcon : UnexpectedExpenseIcon,
+		typography_id : "purposeTxt08"	
+
+},
+{
+			
+		data_testid : "majorPurchase",
+		title : loanPurposeData.majorPurchase,
+		whiteIcon : MajorPurchaseIconWhite,
+		normalIcon : MajorPurchaseIcon,
+		typography_id : "purposeTxt09"	
+
+},
+	]
+
 	//view part
 	return (
 		<div>
@@ -169,375 +253,51 @@ function LoanPurpose() {
 									justifyContent="center"
 									alignItems="stretch"
 								>
-									<Grid
+
+{loanPurposeDataArray.map((element) => (
+	<Grid
 										item
 										lg={4}
 										md={4}
 										xs={6}
+										key={element.title}
 										className={`${ classes.masonryItemFirst }`}
 									>
-										<Paper
-											data-testid="home"
+										<Paper 
+											data-testid={element.data_testid}
 											elevation={3}
 											className={
-												purpose === loanPurposeData.homeImprovement
+												purpose === element.title
 													? "activeCard block " + classes.paper
 													: "block " + classes.paper
 											}
 											onClick={() => {
-												goNext(loanPurposeData.homeImprovement);
+												goNext(element.title);
 											}}
 										>
 											<img
+												alt={element.title}
 												src={
-													purpose === loanPurposeData.homeImprovement
-														? HomeImprovementIconWhite
-														: HomeImprovementIcon
-												}
-												className="icon"
-												alt={loanPurposeData.homeImprovement}
-											/>
-											<Typography
-												id="purposeTxt01"
-												align="center"
-												className={
-													purpose === loanPurposeData.homeImprovement
-														? "borrowCSS textCSS whiteText"
-														: "borrowCSS textCSS"
-												}
-											>
-												Home Improvement
-											</Typography>
-										</Paper>
-									</Grid>
-									<Grid
-										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
-									>
-										<Paper
-											data-testid="autoExpense"
-											elevation={3}
-											className={
-												purpose === loanPurposeData.autoExpence
-													? "activeCard block " + classes.paper
-													: "block " + classes.paper
-											}
-											onClick={() => {
-												goNext(loanPurposeData.autoExpence);
-											}}
-										>
-											<img
-												alt={loanPurposeData.autoExpence}
-												src={
-													purpose === loanPurposeData.autoExpence
-														? AutoExpenseIconWhite
-														: AutoExpenseIcon
+													purpose === element.title
+														? element.whiteIcon
+														: element.normalIcon
 												}
 												className="icon"
 											/>
 											<Typography
-												id="purposeTxt02"
+												id={element.typography_id}
 												align="center"
 												className={
-													purpose === loanPurposeData.autoExpence
+													purpose === element.title
 														? "borrowCSS textCSS whiteText"
 														: "borrowCSS textCSS"
 												}
 											>
-												Auto Expense / Repair
+												{element.title}
 											</Typography>
 										</Paper>
-									</Grid>
-									<Grid
-										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
-									>
-										<Paper
-											data-testid="vacation"
-											elevation={3}
-											className={
-												purpose === loanPurposeData.vacation
-													? "activeCard block " + classes.paper
-													: "block " + classes.paper
-											}
-											onClick={() => {
-												goNext(loanPurposeData.vacation);
-											}}
-										>
-											<img
-												alt={loanPurposeData.vacation}
-												src={
-													purpose === loanPurposeData.vacation
-														? VacationIconWhite
-														: VacationIcon
-												}
-												className="icon"
-											/>
-											<Typography
-												id="purposeTxt03"
-												align="center"
-												className={
-													purpose === loanPurposeData.vacation
-														? "borrowCSS textCSS whiteText"
-														: "borrowCSS textCSS"
-												}
-											>
-												Vacation
-											</Typography>
-										</Paper>
-									</Grid>
-									<Grid
-										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
-									>
-										<Paper
-											data-testid="holiday"
-											elevation={3}
-											className={
-												purpose === loanPurposeData.holidaySpending
-													? "activeCard block " + classes.paper
-													: "block " + classes.paper
-											}
-											onClick={() => {
-												goNext(loanPurposeData.holidaySpending);
-											}}
-										>
-											<img
-												alt={loanPurposeData.holidaySpending}
-												src={
-													purpose === loanPurposeData.holidaySpending
-														? HolidayIconWhite
-														: HolidayIcon
-												}
-												className="icon"
-											/>
-											<Typography
-												id="purposeTxt04"
-												align="center"
-												className={
-													purpose === loanPurposeData.holidaySpending
-														? "borrowCSS textCSS whiteText"
-														: "borrowCSS textCSS"
-												}
-											>
-												Holiday Spending
-											</Typography>
-										</Paper>
-									</Grid>
-									<Grid
-										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
-									>
-										<Paper
-											data-testid="medical"
-											elevation={3}
-											className={
-												purpose === loanPurposeData.medicalDental
-													? "activeCard block " + classes.paper
-													: "block " + classes.paper
-											}
-											onClick={() => {
-												goNext(loanPurposeData.medicalDental);
-											}}
-										>
-											<img
-												alt={loanPurposeData.medicalDental}
-												src={
-													purpose === loanPurposeData.medicalDental
-														? MedicalIconWhite
-														: MedicalIcon
-												}
-												className="icon"
-											/>
-											<Typography
-												id="purposeTxt05"
-												align="center"
-												className={
-													purpose === loanPurposeData.medicalDental
-														? "borrowCSS textCSS whiteText"
-														: "borrowCSS textCSS"
-												}
-											>
-												Medical / Dental
-											</Typography>
-										</Paper>
-									</Grid>
-									<Grid
-										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
-									>
-										<Paper
-											data-testid="deptConsolidation"
-											elevation={3}
-											className={
-												purpose === loanPurposeData.debtConsolidation
-													? "activeCard block " + classes.paper
-													: "block " + classes.paper
-											}
-											onClick={() => {
-												goNext(loanPurposeData.debtConsolidation);
-											}}
-										>
-											<img
-												alt={loanPurposeData.debtConsolidation}
-												src={
-													purpose === loanPurposeData.debtConsolidation
-														? DeptIconWhite
-														: DeptIcon
-												}
-												className="icon"
-											/>
-											<Typography
-												id="purposeTxt06"
-												align="center"
-												className={
-													purpose === loanPurposeData.debtConsolidation
-														? "borrowCSS textCSS whiteText"
-														: "borrowCSS textCSS"
-												}
-											>
-												Debt Consolidation
-											</Typography>
-										</Paper>
-									</Grid>
-									<Grid
-										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
-									>
-										<Paper
-											data-testid="lifeEvent"
-											elevation={3}
-											className={
-												purpose === loanPurposeData.lifeEvents
-													? "activeCard block " + classes.paper
-													: "block " + classes.paper
-											}
-											onClick={() => {
-												goNext(loanPurposeData.lifeEvents);
-											}}
-										>
-											<img
-												alt={loanPurposeData.lifeEvents}
-												src={
-													purpose === loanPurposeData.lifeEvents
-														? LifeEventIconWhite
-														: LifeEventIcon
-												}
-												className="icon"
-											/>
-											<Typography
-												id="purposeTxt07"
-												align="center"
-												className={
-													purpose === loanPurposeData.lifeEvents
-														? "borrowCSS textCSS whiteText"
-														: "borrowCSS textCSS"
-												}
-											>
-												Life Event <span>(wedding, graduation, etc)</span>
-											</Typography>
-										</Paper>
-									</Grid>
-									<Grid
-										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
-									>
-										<Paper
-											data-testid="unexpectedBills"
-											elevation={3}
-											className={
-												purpose === loanPurposeData.unexpectedExpence
-													? "activeCard block " + classes.paper
-													: "block " + classes.paper
-											}
-											onClick={() => {
-												goNext(loanPurposeData.unexpectedExpence);
-											}}
-										>
-											<img
-												alt={loanPurposeData.unexpectedExpence}
-												src={
-													purpose === loanPurposeData.unexpectedExpence
-														? UnexpectedExpenseIconWhite
-														: UnexpectedExpenseIcon
-												}
-												className="icon"
-											/>
-											<Typography
-												id="purposeTxt08"
-												align="center"
-												className={
-													purpose === loanPurposeData.unexpectedExpence
-														? "borrowCSS textCSS whiteText"
-														: "borrowCSS textCSS"
-												}
-											>
-												Unexpected Bills / Expenses
-											</Typography>
-										</Paper>
-									</Grid>
-									<Grid
-										item
-										lg={4}
-										md={4}
-										xs={6}
-										className={`${ classes.masonryItemFirst }`}
-									>
-										<Paper
-											data-testid="majorPurchase"
-											elevation={3}
-											className={
-												purpose === loanPurposeData.majorPruchase
-													? "activeCard block " + classes.paper
-													: "block " + classes.paper
-											}
-											onClick={() => {
-												goNext(loanPurposeData.majorPruchase);
-											}}
-										>
-											<img
-												alt={loanPurposeData.majorPruchase}
-												src={
-													purpose === loanPurposeData.majorPruchase
-														? MajorPurchaseIconWhite
-														: MajorPurchaseIcon
-												}
-												className="icon"
-											/>
-											<Typography
-												id="purposeTxt10"
-												align="center"
-												className={
-													purpose === loanPurposeData.majorPruchase
-														? "borrowCSS textCSS whiteText"
-														: "borrowCSS textCSS"
-												}
-											>
-												Major Purchase
-											</Typography>
-										</Paper>
-									</Grid>
+									</Grid> ))} 
+
 									<Grid
 										item
 										lg={12}

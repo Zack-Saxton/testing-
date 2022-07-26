@@ -6,16 +6,17 @@ export const citizenshipData = {
 
 export const loanPurposeData = {
         "homeImprovement": 'Home Improvement',
-        "autoExpence": 'Auto Expense/Repair',
+        "autoExpence": 'Auto Expense / Repair',
         "vacation": 'Vacation',
         "holidaySpending": 'Holiday Spending',
-        "medicalDental": 'Medical/Dental',
+        "medicalDental": 'Medical / Dental',
         "debtConsolidation": 'Debt Consolidation',
         "lifeEvents": 'Life Event (Wedding, Graduation, etc)',
-        "unexpectedExpence": 'Unexpected Expenses/Bills',
+        "unexpectedExpence": 'Unexpected Bills / Expenses',
         "other": 'Other',
-        "majorPruchase": 'Major Purchase'
+        "majorPurchase": 'Major Purchase'
 };
+
 
 export const employmentStatusData = {
         'employedHourly': 'Employed Hourly',
