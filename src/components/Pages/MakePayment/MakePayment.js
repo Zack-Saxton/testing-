@@ -745,7 +745,7 @@ export default function MakePayment() {
                           <TextField
                             id="payment"
                             name="payment"
-                            label="Payment Amount"
+                            label="Payment Amount (may include fees)"
                             type="text"
                             materialProps={{ ref: refPaymentAmount }}
                             autoComplete="off"
@@ -768,7 +768,7 @@ export default function MakePayment() {
                           <Grid item xs={12} container direction="row" className={classes.datePickerStyle}>
                             <DatePicker
                               name="date"
-                              label="Payment Date"
+                              label="Payment Date (No Sundays or Holidays)"
                               placeholder="MM/DD/YYYY"
                               id="date"
                               disablePastDate="true"
