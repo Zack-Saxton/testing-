@@ -841,7 +841,7 @@ export default function MakePayment() {
             {" "}
             <small>
               If you have questions or would like to obtain a payoff balance on
-              your loan, please contact your local branch listed on your my
+              your loan, please contact your local branch listed on your My
               Branch Page.
             </small>
             <br />

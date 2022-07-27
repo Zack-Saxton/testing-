@@ -40,7 +40,7 @@ const OnePhoneNumber = ({phoneNumber, setSelection, selection, selectionValue, s
   const securityCode = (
     <div className={classes.securityCodeText} >
       <b className='boldText'> 
-      Select a phone number to receive an authentication PIN via text :
+      Select a preferred phone number to receive your passcode :
       </b><br />
       <span>{`Get a code on (***) *** ${phoneNumber?.substr(-4)}`}</span>
     </div>

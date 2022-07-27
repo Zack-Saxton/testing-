@@ -77,7 +77,7 @@ export default function NormalFooter() {
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink to="/privacyStatement" target="_blank" className="hrefTag" data-testid="californiaResident">
+                <NavLink to="/californiaResident" target="_blank" className="hrefTag" data-testid="californiaResident">
                   <Typography className="normalFooterFont">
                     For California Residents Do Not Sell My
                     personal Information

@@ -34,7 +34,7 @@ let setSelection = props.setSelection;
     <Grid data-testid = "PhoneNumberPopUp_component">
             
             <Typography className={classes.twoStepParagraph}>
-              Select one of your preferred phone number to receive your passcode.
+              Select one of your preferred phone number(s) to receive your passcode.
             </Typography>
           <FormControl
               className={classes.radioButtonwrap}

@@ -52,7 +52,7 @@ const TwoPhoneNumbers = ({cellPhoneNumber, optionalPhoneNumber, mfaPhoneNumber, 
 
   const securityCode = (
     <div className={classes.securityCodeText}>
-      <b>Select a phone number to receive an authentication PIN via text :</b><br />
+      <b>Select a preferred phone number to receive your passcode :</b><br />
       {
         selection || selectionValue?.substr(-4) == "ions" ? <span>Get a code on your preferred phone number</span> : <span>To phone number : {`(***) *** ${selectionValue?.substr(-4)}`}</span>
       }

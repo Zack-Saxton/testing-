@@ -144,7 +144,7 @@ export default function LimitedOffer(userOfferData) {
                       </ButtonPrimary>
                     </NavLink>
                     <small>
-                      <i className="disclosureLink">*Important disclosure information </i>
+                      <i className="disclosureLink">Important disclosure information </i>
                     </small>
                   </div>
                 )}
@@ -183,7 +183,7 @@ export default function LimitedOffer(userOfferData) {
                 </Grid>
                 <Typography className="adText">
                   <small>
-                    <i className="disclosureLink">No payments until Sep 2022*</i>
+                    <i className="disclosureLink">No payments until Sep 2022</i>
                   </small>
 
                 </Typography>
