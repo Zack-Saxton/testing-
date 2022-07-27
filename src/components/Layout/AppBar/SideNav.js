@@ -526,6 +526,17 @@ export default function SideNav() {
     prevOpen.current = option;
   }, [ option ]);
 
+  let stateDataToPass  = {
+    partnerSignupData: {
+      applicant: {
+        contact: {
+          last_name: Cookies.get("lastName"),
+          first_name: Cookies.get("firstName")
+        }
+      }
+    }
+  }
+
   //View part
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
@@ -800,7 +811,10 @@ export default function SideNav() {
 
                 {checkPresenceOfLoan ? (
                   pageNavResumeApplication ? (
-                    <NavLink to={dataNavmessage.status === true ? "/customers/selectOffer" : (NavUrlResumeApplication ?? "/customers/resumeApplication") } className="nav_link">
+                    <NavLink 
+                    to={dataNavmessage.status === true ? "/customers/selectOffer" : (NavUrlResumeApplication ?? "/customers/resumeApplication") } 
+                    state={stateDataToPass}
+                    className="nav_link">
                       <ListItem className="titleSidenav">
                         <ListItemIcon>
                           {" "}
@@ -811,10 +825,8 @@ export default function SideNav() {
                     </NavLink>
                   ) : (
                     <Link
-                      to={
-                         checkPresenceOfLoanStatus ? applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] : "/customers/resumeApplication"
-                        
-                      }
+                      to={checkPresenceOfLoanStatus ? applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] : "/customers/resumeApplication"}
+                      state = {stateDataToPass}
                       className="nav_link"
                     >
                       <ListItem className="titleSidenav">
