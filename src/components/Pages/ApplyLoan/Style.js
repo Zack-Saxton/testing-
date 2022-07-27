@@ -138,6 +138,9 @@ const useStylesApplyForLoan = makeStyles((theme) => ({
   rightBorder: {
     borderRight: "1px solid",
     lineHeight: 1,
+    "@media (max-width: 599px)": {
+      borderRight: "none",
+    },
   },
   columnHeading: {
     fontSize: "14px",
