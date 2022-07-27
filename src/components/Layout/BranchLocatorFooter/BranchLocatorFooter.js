@@ -171,7 +171,7 @@ export default function BranchLocatorFooter() {
         },
         {
           name: "California Residents – Do Not Sell My Personal Information",
-          link: "#",
+          link: "/privacyStatement",
         },
       ],
     },
