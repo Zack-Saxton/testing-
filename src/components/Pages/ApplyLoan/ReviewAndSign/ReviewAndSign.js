@@ -223,7 +223,7 @@ export default function ReviewAndSign() {
                     </Grid>
                   <Grid
                       item
-                      xs={10}
+                      xs={12}
                       sm={1.5}
                       className={classes.rightBorder}
                       id="rightBorder"
@@ -237,7 +237,7 @@ export default function ReviewAndSign() {
                     </Grid>
                     <Grid
                       item
-                      xs={10}
+                      xs={12}
                       sm={1.5}
                       className={classes.rightBorder}
                       id="rightBorder"
