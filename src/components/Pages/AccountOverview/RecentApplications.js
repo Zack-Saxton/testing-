@@ -53,8 +53,18 @@ export default function RecentApplications() {
   const navigate = useNavigate();
 
   //resumebtn click
-  const resumeNavigate = (appData) => navigate(statusStrLink[ appData ]);
-
+  let stateDataToPass  = {
+    partnerSignupData: {
+      applicant: {
+        contact: {
+          last_name: Cookies.get("lastName"),
+          first_name: Cookies.get("firstName")
+        }
+      }
+    }
+  }
+  const resumeNavigate = (appData) => navigate(statusStrLink[ appData ], { state: stateDataToPass } );
+ 
   const resumeNavigaeSelectOffer  = () => {
     setData({ ...data, status: true });
     navigate('/customers/selectOffer');

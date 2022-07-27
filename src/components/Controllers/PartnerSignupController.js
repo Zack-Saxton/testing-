@@ -139,12 +139,18 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {
         onClose: () => {
-          navigate(statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ],
-            {
-              state: {               
-                firstname: dataConfirmInfo.firstName             
+          let stateDataToPass  = {
+            firstname: dataConfirmInfo.firstName,
+            partnerSignupData: {
+              applicant: {
+                contact: {
+                  last_name: Cookies.get("lastName"),
+                  first_name: Cookies.get("firstName")
+                }
               }
-            });
+            }
+          }
+          navigate(statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ], { state: stateDataToPass });
         },
       }
     )
