@@ -240,7 +240,7 @@ export default function ConfirmationInfo() {
       lastName: location?.state?.partnerSignupData?.applicant?.contact.last_name ?? "",
       streetAddress: location?.state?.partnerSignupData?.applicant?.contact.address_street ?? "",
       city: location?.state?.partnerSignupData?.applicant?.contact.address_city ?? "",
-      state: location?.state?.partnerSignupData?.applicant?.contact.address_state ? states[ location.state.partnerSignupData?.applicant?.contact.address_state ] : "",
+      state: location?.state?.partnerSignupData?.applicant?.contact.address_state ?? "",
       zip: location?.state?.partnerSignupData?.applicant?.contact.address_postal_code ?? "",
       citizenship: location?.state?.partnerSignupData?.applicant.self_reported?.citizenship ?? "",
       personalIncome: location?.state?.partnerSignupData?.applicant.self_reported?.annual_income
@@ -265,7 +265,7 @@ export default function ConfirmationInfo() {
       spouseadd: location?.state?.partnerSignupData?.applicant.self_reported?.spouse_address_street ?? "",
       spouseZipcode: location?.state?.partnerSignupData?.applicant.self_reported?.spouse_address_postal_code ?? "",
       spousecity: location?.state?.partnerSignupData?.applicant.self_reported?.spouse_address_city ?? "",
-      spouseSelectState: location?.state?.partnerSignupData?.applicant.self_reported?.spouse_address_state ? states[ location.state.partnerSignupData?.applicant.self_reported?.spouse_address_state ] : "",
+      spouseSelectState: location?.state?.partnerSignupData?.applicant.self_reported?.spouse_address_state ?? "",
     },
 
     validationSchema: validationSchema,
@@ -279,7 +279,7 @@ export default function ConfirmationInfo() {
           lastName: values.lastName,
           streetAddress: values.streetAddress,
           city: values.city,
-          state: Object.keys(states).find(key => states[ key ] === values.state),
+          state: values.state.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.state) : values.state,
           zip: values.zip,
           citizenship: values.citizenship,
           personalIncome: modPersonalIncome,
@@ -291,7 +291,7 @@ export default function ConfirmationInfo() {
           spouseadd: values.spouseadd,
           spouseZipcode: values.spouseZipcode,
           spousecity: values.spousecity,
-          spouseSelectState: Object.keys(states).find(key => states[ key ] === values.spouseSelectState),
+          spouseSelectState: values.spouseSelectState.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.spouseSelectState) : values.spouseSelectState,
           partner_token: location?.state?.partnerSignupData?.partner_token?.partner_token ?? "",
           email: location?.state?.partnerSignupData?.applicant?.contact?.email ?? "",
         };
