@@ -21,46 +21,7 @@ const MultiFactorAuthentication = () => {
     if(mfaInfo?.data?.MFAInformation){
       let eligibleNumber = [];
       let structureMFAdata = {
-      // mfaDetails: mfaInfo.data.MFAInformation
-      mfaDetails : {
-        "email":"zdunkerton@marinerfinance.com",
-        "firstname":"JEAN",
-        "lastname":"LLMTWXY",
-        "MFA":true,
-        "MFAttributes":{
-           "deviceType":"Chrome Mozilla 233 Apple Safari",
-           "deviceTimeStamp":"2022-07-27T17:56:06.488Z",
-           "deviceFlag":true
-        },
-        "LockUserByMFA":false,
-        "phone_number_primary":"7023456789",
-        "phone_type":"Cell",
-        "opted_phone_texting":"3374565555",
-        "mfa_phone_texting":null,
-        "securityQuestionsSaved":true,
-        "securityQuestions":[
-           {
-              "question_id":"1",
-              "question":"What was the name of your favorite pet?"
-           },
-           {
-              "question_id":"2",
-              "question":"What was the name of your favorite teacher?"
-           },
-           {
-              "question_id":"4",
-              "question":"What is your favorite vacation destination?"
-           },
-           {
-              "question_id":"6",
-              "question":"What was your favorite restaurant in college?"
-           },
-           {
-              "question_id":"8",
-              "question":"What is your favorite car brand?"
-           }
-        ]
-     }
+       mfaDetails: mfaInfo.data.MFAInformation
   }
   if(structureMFAdata?.mfaDetails?.phone_type === "Cell" && structureMFAdata?.mfaDetails?.phone_number_primary){
     eligibleNumber.push({number : structureMFAdata.mfaDetails.phone_number_primary.trim(),
