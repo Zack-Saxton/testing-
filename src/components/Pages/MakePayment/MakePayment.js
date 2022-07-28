@@ -92,6 +92,7 @@ export default function MakePayment() {
   const { holidayCalenderData } = useHolidayCalender();
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
   const [stateName,setStatename] = useState("");
+  const [ payOffAmount, setPayOffAmount] = useState();
 
   let nextDueDateCheck = new Date();
 
@@ -226,6 +227,7 @@ export default function MakePayment() {
         loan.push(data);
         setLatestLoanData(loan);
         let totalAmount = data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2);
+        setPayOffAmount(data?.loanPaymentInformation?.accountDetails?.CurrentPayOffAmount);
         setPaymentAmount(totalAmount);
         setTotalPaymentAmount(totalAmount);
         setAccntNo(data.loanData?.accountNumber);
@@ -254,6 +256,7 @@ export default function MakePayment() {
       ? activeLoansData[ 0 ]?.loanPaymentInformation?.hasScheduledPayment
       : false;
     setPaymentTitle(hasSchedulePaymentActive ? globalMessages.Scheduled_Future_Payment : globalMessages.Single_Payment);
+    setPayOffAmount(User?.data?.activeLoans[ 0 ]?.loanPaymentInformation?.accountDetails?.CurrentPayOffAmount);
     if (accNo && activeLoansData) {
       let res = checkaccNo(activeLoansData, window.atob(accNo));
       // if accno is not Valid
@@ -510,7 +513,7 @@ export default function MakePayment() {
     if (!price || reg.test(price)) {
       setPaymentAmount(price);
       setRequiredAmount("");
-      if (User?.data?.activeLoans?.length && User.data.activeLoans[ 0 ].loanPaymentInformation?.accountDetails?.CurrentPayOffAmount <= parseFloat(price)) {
+      if (payOffAmount <= parseFloat(price)) {
         if (!toast.isActive("payoffNotSetFutureDate")) {
           toast.success(globalMessages.PayoffCannotBeInFuture, { toastId: "payoffNotSetFutureDate" });
         }
@@ -772,6 +775,7 @@ export default function MakePayment() {
                               placeholder="MM/DD/YYYY"
                               id="date"
                               disablePastDate="true"
+                              disableFuture={payoff}
                               disabled={calendarDisabled}
                               autoComplete="off"
                               maxdate={paymentMaxDate}
