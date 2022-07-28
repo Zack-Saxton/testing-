@@ -122,7 +122,7 @@ function EmploymentStatus() {
 let yearsatEmployer = [];
   for(let start=0; start <= 20; start++){
     let labelString = start === 0 ? "<1 year" : (start === 1 ? "1 year" : (start === 20 ? "20+ years": `${start}`))
-    yearsatEmployer.push({value: start, label: labelString});
+    yearsatEmployer.push({value: start.toString(), label: labelString});
   }
 yearsatEmployer = JSON.stringify(yearsatEmployer);
 	// JSX part
