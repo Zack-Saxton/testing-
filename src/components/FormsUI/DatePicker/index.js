@@ -19,7 +19,7 @@ import "./DatePicker.css";
 
 const DatePickerWrapper = ({ format, label, views,
 	placeholder, required, onChange, disableDate, disablePastDate,
-	maxdate, minyear, error, helperText, value, mask, ...otherProps }) => {
+	maxdate, minyear, error, helperText, value, mask, disableFuture, ...otherProps }) => {
 
 	const [ selectedDate, setSelectedDate ] = useState(value ?? null);
 	const [ errorTF, setErrorTF ] = useState(false);
@@ -63,6 +63,7 @@ const DatePickerWrapper = ({ format, label, views,
 					minDate={minDate}
 					maxDate={new Date(maxdate)}
 					shouldDisableDate={disableCustomDate}
+					disableFuture={disableFuture}
 					disablePast={disablePastDate === "true" ? true : false}
 					views={views ?? [ 'year', 'month', 'day' ]}
 					InputProps={{ "data-testid": "datePicker" }}
@@ -96,6 +97,7 @@ DatePickerWrapper.propTypes = {
 	onChange: PropTypes.func,
 	views: PropTypes.array,
 	disablePastDate: PropTypes.string,
+	disableFuture: PropTypes.bool,
 	disableDate: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.func
