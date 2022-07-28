@@ -204,7 +204,7 @@ export default function ReviewAndSign() {
                         Prepaid Finance Charge
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {selectedOffer?.fees ? currencyFormat(selectedOffer?.fees['Credit Investigation']): 0}
+                        {selectedOffer?.fees ? currencyFormat(selectedOffer?.fees?.Administration): 0}
                       </h2>
                     </Grid>
                     <Grid
