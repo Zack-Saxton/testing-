@@ -27,7 +27,7 @@ const PhoneNumberPopUp = ({phoneNumberList, setSelection}) => {
   return (
     <Grid data-testid = "PhoneNumberPopUp_component">           
             <Typography className={classes.twoStepParagraph}>
-              Select one of your preferred phone number(s) to receive your passcode.
+              Select from one of your preferred phone number(s) to receive your passcode.
             </Typography>
           <FormControl
               className={classes.radioButtonwrap}
