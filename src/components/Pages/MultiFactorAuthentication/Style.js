@@ -69,7 +69,7 @@ const useStylesMFA = makeStyles((theme) =>
       width: "100%",
       textAlign: "justify",
       margin: "15px 0px",
-      fontSize: "1.5rem",
+      fontSize: "1.4rem",
       color: "#595959",
     },
     securityCodeText: {

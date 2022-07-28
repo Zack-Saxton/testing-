@@ -219,7 +219,7 @@ const useStylesApplyForLoan = makeStyles((theme) => ({
       paddingBottom: "6px", 
       fontWeight: "500", 
       display: "block"
-    },   
+    },  
 }));
 
 export { useStylesApplyForLoan };

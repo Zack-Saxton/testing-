@@ -73,7 +73,7 @@ export default function OfferTable(props) {
   const classes = useStylesApplyForLoan();
   // Shows the Brnach icon
   const branch = (
-    <Grid container direction="row" alignItems="center">
+    <Grid container  className="inBranchGrid"  direction="row">
       <AccountBalanceIcon /> In Branch
     </Grid>
   );
