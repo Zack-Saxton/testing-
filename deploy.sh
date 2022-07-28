@@ -35,7 +35,7 @@ else
     serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
 fi
 pemFile=marinerfinance-us-east-1.pem
-otherPemFile=~/Code/cac/otherdocs/marinerfinance-us-east-1.pem
+otherPemFile=~/Code/psa/otherdocs/marinerfinance-us-east-1.pem
 deployUser=$(whoami)
 hostname="cac-app1-${env}.marinerfinance.io"
 message="$hostname Deployment START from $branch to $env By $deployUser"
