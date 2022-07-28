@@ -77,12 +77,16 @@ export default function NormalFooter() {
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink to="/californiaResident" target="_blank" className="hrefTag" data-testid="californiaResident">
+              <a data-testid="californiaResident"
+                  href={`${ process.env.REACT_APP_WEBSITE }/california-consumer-privacy-act-ccpa-request/`}
+                  rel="noreferrer"
+                  target="_blank"
+                  className="hrefTag"
+                >
                   <Typography className="normalFooterFont">
-                    For California Residents Do Not Sell My
-                    personal Information
+                    For California Residents Do Not Sell My personal Information
                   </Typography>
-                </NavLink>
+                </a>
               </div>
             </Grid>
 

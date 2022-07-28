@@ -171,7 +171,7 @@ export default function BranchLocatorFooter() {
         },
         {
           name: "California Residents – Do Not Sell My Personal Information",
-          link: "/privacyStatement",
+          link: `${ process.env.REACT_APP_WEBSITE }/california-consumer-privacy-act-ccpa-request/`,
         },
       ],
     },

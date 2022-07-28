@@ -98,15 +98,16 @@ export default function Footer() {
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink data-testid="californiaResident"
-                  to="/californiaResident"
+                <a data-testid="californiaResident"
+                  href={`${ process.env.REACT_APP_WEBSITE }/california-consumer-privacy-act-ccpa-request/`}
+                  rel="noreferrer"
                   target="_blank"
                   className="hrefTag"
                 >
                   <Typography className="normalFooterFont">
                     For California Residents Do Not Sell My personal Information
                   </Typography>
-                </NavLink>
+                </a>
               </div>
             </Grid>
 
