@@ -47,6 +47,7 @@ const MFAGetPhoneNumber = () => {
   const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
   const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
 	const location = useLocation();
+  const PHONE_NUMBER_LENGTH = 14;
 
 	useEffect(() => {
     let mfaPhoneCookie = Cookies.get("mfaPhone")
@@ -71,7 +72,7 @@ const MFAGetPhoneNumber = () => {
 	});
 
   useEffect(() => {
-    if(phoneNumberValue?.length === 14){
+    if(phoneNumberValue?.length === PHONE_NUMBER_LENGTH){
           setDisabledButton(false);
     } else {
       setDisabledButton(true);
@@ -85,6 +86,10 @@ const MFAGetPhoneNumber = () => {
 			event.preventDefault();
 		}
 	};
+
+  const updateActualValue = (_event) => {
+    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
+  }
 
   const maskPhoneNumberWithAsterisk = (phoneNumberToMask) => {
     let firstNumber = phoneNumberToMask.slice(0, 10);
@@ -224,6 +229,7 @@ const MFAGetPhoneNumber = () => {
                           formik.touched.phone && Boolean(formik.errors.phone)
                         }
                         helperText={formik.touched.phone && formik.errors.phone}
+                        onFocus={ updateActualValue }
                       />
                     </Grid>
                   </FormControl>
