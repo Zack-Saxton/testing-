@@ -45,6 +45,7 @@ const PhoneNumberPopUp = ({phoneNumberList, setSelection}) => {
                 {phoneNumberList?.map((phoneNumber, index) => 
                    <FormControlLabel style={{ display: 'flex'}}
                       key={index}
+                      data-testid="phone_List"
                       className={classes.smallRadioButton}
                       value={phoneNumber.number}
                       control={<Radio data-testid ={`radio_primary_phone_${index}`} color="primary" onClick={()=>setSelection(`${phoneNumber.number}`)} />}

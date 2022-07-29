@@ -145,13 +145,13 @@ const MFASelection = ({ securityQuestionsSaved, phoneNumberList, mfaDetails }) =
                   id="FormControlLabel"
                   className={classes.smallRadioButton}
                   value={SECURITY_QUESTIONS}
-                  control={<Radio color="primary" onClick={()=>setSelection(SECURITY_QUESTIONS)} />}
+                  control={<Radio color="primary" data-testid="questionSelection" onClick={()=>setSelection(SECURITY_QUESTIONS)} />}
                   label={securityQuestions}
                 />
               </RadioGroup>
             </FormControl>
             <Grid className={classes.nextButtonGrid} container>
-              <ButtonPrimary stylebutton='{"color":""}' disabled={buttonDisable()} onClick={handleClick}> {value ? (value === PHONE ? "Send PIN Code" : "Proceed to Questions") : "Next"}</ButtonPrimary>
+              <ButtonPrimary data-testid= "next_Step" stylebutton='{"color":""}' disabled={buttonDisable()} onClick={handleClick}> {value ? (value === PHONE ? "Send PIN Code" : "Proceed to Questions") : "Next"}</ButtonPrimary>
             </Grid>
           </Paper>
         </Grid>

@@ -85,6 +85,5 @@ const MultiFactorAuthentication = () => {
     </div>
   );
   }
-
-
+  
 export default MultiFactorAuthentication;
