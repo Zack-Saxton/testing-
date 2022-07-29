@@ -61,7 +61,6 @@ export async function checkMyOfferSubmit(customer) {
 							"utm_campaign": null,
 						},
 					},
-
 				},
 				"lightbox": {
 					"amount": customer.loanAmount,
