@@ -154,17 +154,8 @@ export default function PaymentMethod() {
   const [ validZip, setValidZip ] = useState(true);
   const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
   const [ mailingZipcode, setMailingZipcode ] = useState("");
-  const { data: accountDetails } = useQuery(
-    "loan-data",
-    usrAccountDetails
-  );
-  const { data: allPaymentMethod, refetch } = useQuery(
-    "payment-method",
-    getPaymentMethods,
-    {
-      refetchOnMount: false,
-    }
-  );
+  const { data: accountDetails } = useQuery("loan-data", usrAccountDetails);
+  const { data: allPaymentMethod, refetch } = useQuery("payment-method", getPaymentMethods, { refetchOnMount: false,});
   useEffect(() => {
     let schedulePayment = accountDetails?.data?.activeLoans?.length
       ? accountDetails.data.activeLoans[ 0 ].loanPaymentInformation?.scheduledPayments
@@ -450,13 +441,13 @@ export default function PaymentMethod() {
       defaultBank: 1,
     };
     let res = await setDefaultPayment(passData);
-    if (res?.data?.Success === "Default Payment Method Set to " + nickname) {
+    if (res?.data?.Success === globalMessages.Default_Payment_Method_Set + nickname) {
       refetch();
       setLoading(false);
       toast.success(res?.data?.Success);
     } else {
       setLoading(false);
-      toast.error("Default payment update failed ");
+      toast.error(globalMessages.Default_Payment_Update_Failed);
     }
   };
   const closeDeleteConfirmBox = () => {
@@ -475,13 +466,13 @@ export default function PaymentMethod() {
           let res = await deleteCreditCard(passData);
           if (res?.data?.deletePaymentMethod?.HasNoErrors) {
             if (!toast.isActive("closeToast")) {
-              toast.success("Card deleted successfully.");
+              toast.success(globalMessages.Card_Deleted_Successfully);
               refetch();
             }
             closeDeleteConfirmBox();
           } else {
             if (!toast.isActive("closeToast")) {
-              toast.error("Error deleting your card, please try again");
+              toast.error(globalMessages.Error_Deleting_Card);
             }
             closeDeleteConfirmBox();
           }
@@ -495,13 +486,13 @@ export default function PaymentMethod() {
           let res = await deleteBankAccount(passData);
           if (res?.data?.deletePaymentMethod?.HasNoErrors) {
             if (!toast.isActive("closeToast")) {
-              toast.success("Bank account deleted successfully.");
+              toast.success(globalMessages.Bank_Account_Deleted_Success);
             }
             refetch();
             closeDeleteConfirmBox();
           } else {
             if (!toast.isActive("closeToast")) {
-              toast.error("Error deleting your bank account, please try again");
+              toast.error(globalMessages.Error_Deleting_Bank_Account);
             }
             closeDeleteConfirmBox();
           }
@@ -512,7 +503,7 @@ export default function PaymentMethod() {
         // code block
       }
     } catch (error) {
-      ErrorLogger(" Error Deleting Payment Method ::", error);
+      ErrorLogger(globalMessages.Error_Deleting_Payment_Method , error);
     }
   };
 
@@ -537,7 +528,7 @@ export default function PaymentMethod() {
     }
     else if (creditCardResponse?.data?.addPaymentResult?.HasNoErrors) {
       setLoading(false);
-      toast.success("Payment method added successfully ");
+      toast.success(globalMessages.Payment_Method_Added_Success);
       refetch();
       setCardType("");
       closeDebitCardModal();
@@ -574,7 +565,7 @@ export default function PaymentMethod() {
       );
 
       if (resBankData?.data?.Success) {
-        toast.success("Payment method added successfully");
+        toast.success(globalMessages.Payment_Method_Added_Success);
         refetch();
         closeBankAccountButton();
       } else if (
@@ -589,13 +580,13 @@ export default function PaymentMethod() {
         toast.error(errorText);
       } else {
         if (!toast.isActive("closeToast")) {
-          toast.error("Adding bank account failed, please try again.");
+          toast.error(globalMessages.Adding_Bank_Failed);
         }
       }
       closeAddBankModal();
       setLoading(false);
     } catch (error) {
-      ErrorLogger(" Error in adding payment method ::", error);
+      ErrorLogger(globalMessages.Error_Adding_Payment_Method, error);
     }
   };
   //  view part
