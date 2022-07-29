@@ -4,10 +4,10 @@ import "@testing-library/jest-dom/extend-expect";
 import { render } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter } from "react-router-dom";
 import MultiFactorAuthentication from './MultiFactorAuthentication';
-import {  MemoryRouter } from "react-router-dom";
+import { MfaDataMockLoading, MfaDataMock } from '../../../__mock__/MultiFactorAuthentication.mock';
 import Cookies from 'js-cookie'
-
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -31,266 +31,34 @@ Cookies.set(
 	})
 );
 
+jest.mock("./useMultiFactorAuthentication", ()=>({
+  useMultiFactorAuthentication: jest.fn(),
+}))
+
 const theme = createTheme();
 window.scrollTo = jest.fn();
-const component = () => {
+const MFAComponent = () => {
     return (
         <ThemeProvider theme={theme}>
+          <BrowserRouter>
             <QueryClientProvider client={queryClient}>
                 <MultiFactorAuthentication />
             </QueryClientProvider>
+          </BrowserRouter>
         </ThemeProvider>
     );
 }
 
-test("Checks the Two Phonenumber component is rendered", () => {
-    const mfaDetails = {
-        "MFA": true,
-        "phone_number_primary": "9297320400",
-        "phone_type": "Cell",
-        "opted_phone_texting": null,
-        "attempts": 0,
-        "LockUserByMFA": false,
-        "mfa_phone_texting": "5713438877",
-        "securityQuestionsSaved": false,
-        "LockUserByMFACounter": 2,
-        "securityQuestions": [
-            {
-                "question_id": "8",
-                "question": "What is your favorite car brand?"
-            }
-        ]
+it("Loading Spinner MFA content Test", () => {
+    MfaDataMockLoading();
+    const container = render(MFAComponent());
+    const headingElement = container.getByTestId("mfa_loadingSpinnerDiv");
+    expect(headingElement).toBeTruthy();
+  });
 
-    }
-
-    jest.mock("react-router-dom", () => ({
-        ...jest.requireActual("react-router-dom"),
-        useLocation: () => { return mfaDetails }
-    }));
-    render(
-        <MemoryRouter initialEntries={[{ pathname: '/', state: { mfaDetails, mfaQueries: {} } }]}>
-            {component()}
-        </MemoryRouter>
-    );
-});
-test("Checks the One Phonenumber component is rendered", () => {
-    const mfaDetails = {
-        "MFA": true,
-        "phone_number_primary": "9297320400",
-        "phone_type": "Cell",
-        "opted_phone_texting": null,
-        "attempts": 0,
-        "LockUserByMFA": false,
-        "mfa_phone_texting": null,
-        "securityQuestionsSaved": false,
-        "LockUserByMFACounter": 2,
-        "securityQuestions": [
-            {
-                "question_id": "8",
-                "question": "What is your favorite car brand?"
-            }
-        ]
-
-    }
-
-    jest.mock("react-router-dom", () => ({
-        ...jest.requireActual("react-router-dom"),
-        useLocation: () => { return mfaDetails }
-    }));
-    render(
-        <MemoryRouter initialEntries={[{ pathname: '/', state: { mfaDetails, mfaQueries: {} } }]}>
-            {component()}
-        </MemoryRouter>
-    );
-});
-test("Checks the Two Phonenumber component with phone number and option phonenumber is rendered", () => {
-    const mfaDetails = {
-        "MFA": true,
-        "phone_number_primary": "9297320400",
-        "phone_type": "Cell",
-        "opted_phone_texting": "9297320400",
-        "attempts": 0,
-        "LockUserByMFA": false,
-        "mfa_phone_texting": null,
-        "securityQuestionsSaved": false,
-        "LockUserByMFACounter": 2,
-        "securityQuestions": [
-            {
-                "question_id": "8",
-                "question": "What is your favorite car brand?"
-            }
-        ]
-
-    }
-
-    jest.mock("react-router-dom", () => ({
-        ...jest.requireActual("react-router-dom"),
-        useLocation: () => { return mfaDetails }
-    }));
-    render(
-        <MemoryRouter initialEntries={[{ pathname: '/', state: { mfaDetails, mfaQueries: {} } }]}>
-            {component()}
-        </MemoryRouter>
-    );
-});
-
-test("Checks the One Phonenumber component without phone number and option phonenumber is rendered", () => {
-    const mfaDetails = {
-        "MFA": true,
-        "phone_number_primary": null,
-        "phone_type": "Cell",
-        "opted_phone_texting": null,
-        "attempts": 0,
-        "LockUserByMFA": false,
-        "mfa_phone_texting": null,
-        "securityQuestionsSaved": false,
-        "LockUserByMFACounter": 2
-
-    }
-
-    jest.mock("react-router-dom", () => ({
-        ...jest.requireActual("react-router-dom"),
-        useLocation: () => { return mfaDetails }
-    }));
-    render(
-        <MemoryRouter initialEntries={[{ pathname: '/', state: { mfaDetails, mfaQueries: {} } }]}>
-            {component()}
-        </MemoryRouter>
-    );
-});
-
-test("Checks the One Phonenumber component without cell number and security questions is rendered", () => {
-    const mfaDetails = {
-        "MFA": true,
-        "phone_number_primary": null,
-        "phone_type": "",
-        "opted_phone_texting": null,
-        "attempts": 0,
-        "LockUserByMFA": false,
-        "mfa_phone_texting": null,
-        "securityQuestionsSaved": false,
-        "LockUserByMFACounter": 2
-
-    }
-
-    jest.mock("react-router-dom", () => ({
-        ...jest.requireActual("react-router-dom"),
-        useLocation: () => { return mfaDetails }
-    }));
-    render(
-        <MemoryRouter initialEntries={[{ pathname: '/', state: { mfaDetails, mfaQueries: {} } }]}>
-            {component()}
-        </MemoryRouter>
-    );
-});
-test("Checks the Two Phonenumber component without security questions is rendered", () => {
-    const mfaDetails = {
-        "MFA": true,
-        "phone_number_primary": "234567890f2",
-        "phone_type": "Cell",
-        "opted_phone_texting": "234567890f2",
-        "attempts": 0,
-        "LockUserByMFA": false,
-        "mfa_phone_texting": null,
-        "securityQuestionsSaved": false,
-        "LockUserByMFACounter": 2
-
-    }
-
-    jest.mock("react-router-dom", () => ({
-        ...jest.requireActual("react-router-dom"),
-        useLocation: () => { return mfaDetails }
-    }));
-    render(
-        <MemoryRouter initialEntries={[{ pathname: '/', state: { mfaDetails, mfaQueries: {} } }]}>
-            {component()}
-        </MemoryRouter>
-    );
-});
-test("Checks the Two Phonenumber component without security questions is rendered", () => {
-    const mfaDetails = {
-        "MFA": true,
-        "phone_number_primary": "234567890f2",
-        "phone_type": "Cell",
-        "opted_phone_texting": "234567890f2",
-        "attempts": 0,
-        "LockUserByMFA": false,
-        "mfa_phone_texting": null,
-        "securityQuestionsSaved": false,
-        "LockUserByMFACounter": 2,
-        "securityQuestions": [
-            {
-                "question_id": "8",
-                "question": "What is your favorite car brand?"
-            }
-        ]
-    }
-    jest.mock("react-router-dom", () => ({
-        ...jest.requireActual("react-router-dom"),
-        useLocation: () => { return mfaDetails }
-    }));
-    render(
-        <MemoryRouter initialEntries={[{ pathname: '/', state: { mfaDetails, mfaQueries: {} } }]}>
-            {component()}
-        </MemoryRouter>
-    );
-});
-
-test("Checks the Two Phonenumber component without optional phone number is rendered", () => {
-    const mfaDetails = {
-        "MFA": true,
-        "phone_number_primary": "234567890f2",
-        "phone_type": "Cell",
-        "opted_phone_texting": null,
-        "attempts": 0,
-        "LockUserByMFA": false,
-        "mfa_phone_texting": "5235325326",
-        "securityQuestionsSaved": false,
-        "LockUserByMFACounter": 2,
-        "securityQuestions": [
-            {
-                "question_id": "8",
-                "question": "What is your favorite car brand?"
-            }
-        ]
-    }
-
-    jest.mock("react-router-dom", () => ({
-        ...jest.requireActual("react-router-dom"),
-        useLocation: () => { return mfaDetails }
-    }));
-    render(
-        <MemoryRouter initialEntries={[{ pathname: '/', state: { mfaDetails, mfaQueries: {} } }]}>
-            {component()}
-        </MemoryRouter>
-    );
-});
-test("Checks the One Phonenumber component without optional phone number and phone number is rendered", () => {
-    const mfaDetails = {
-        "MFA": true,
-        "phone_number_primary": null,
-        "phone_type": "Cell",
-        "opted_phone_texting": null,
-        "attempts": 0,
-        "LockUserByMFA": false,
-        "mfa_phone_texting": "5235325326",
-        "securityQuestionsSaved": false,
-        "LockUserByMFACounter": 2,
-        "securityQuestions": [
-            {
-                "question_id": "8",
-                "question": "What is your favorite car brand?"
-            }
-        ]
-    }
-
-    jest.mock("react-router-dom", () => ({
-        ...jest.requireActual("react-router-dom"),
-        useLocation: () => { return mfaDetails }
-    }));
-    render(
-        <MemoryRouter initialEntries={[{ pathname: '/', state: { mfaDetails, mfaQueries: {} } }]}>
-            {component()}
-        </MemoryRouter>
-    );
-});
+it ("Fetch MFA_user API and renders content test", () => {
+    MfaDataMock();
+    const container = render(MFAComponent());
+    const headingElement = container.getByTestId("mfa_Selection");
+    expect(headingElement).toBeTruthy();
+})
