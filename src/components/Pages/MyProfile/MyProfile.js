@@ -231,7 +231,7 @@ export default function MyProfile() {
               <Paper id="mainContentTab" className={classes.paper}>
                 {/* Basic Information */}
                 <TabVerticalPanel value={tabNumber.profileTabNumber} verticalIndex={0}>
-                  <BasicInformationCard basicInformationData={basicInfoData} getUserAccountDetails={accountDetails} getProfileImage={getProfImage} />
+                  <BasicInformationCard getProfileImage={getProfImage} />
                 </TabVerticalPanel>
                 {/* //END Basic Information */}
 
