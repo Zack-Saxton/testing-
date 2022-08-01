@@ -30,6 +30,7 @@ export default function ReviewAndSign() {
   const [ url, setUrl ] = useState();
   const [ confirm, setConfirm ] = useState(false);
   const [ selectedOffer, setSelectOffer ] = useState();
+  const [prepaidCharge,setprepaid] = useState(); 
   const [ loading, setLoading ] = useState(false);
   const { refetch, isLoading, data: accountDetials } = useQuery('loan-data', usrAccountDetails);
   const handleChange = (_event, newValue) => setValue(newValue);
@@ -53,6 +54,16 @@ export default function ReviewAndSign() {
     setSelectOffer(!isLoading ? accountDetials?.data?.application?.selected_offer : null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ accountDetials ]);
+
+useEffect(()=>{
+  if(selectedOffer && selectedOffer.fees){
+    let totalValue = Object.values(selectedOffer.fees).reduce((a,b)=>{
+      return a + b
+    })
+    setprepaid(totalValue);
+  }
+},[selectedOffer])
+
 
   //Conver the value into currency format
   const currencyFormat = (val) => {
@@ -90,6 +101,7 @@ export default function ReviewAndSign() {
     setData({ ...data, status: true });
     navigate('/customers/selectOffer');
   }
+
 
   //Check weather the offers is passed or not
   return (
@@ -204,7 +216,8 @@ export default function ReviewAndSign() {
                         Prepaid Finance Charge
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {selectedOffer?.fees ? currencyFormat(selectedOffer?.fees?.Administration): 0}
+                        {prepaidCharge ? currencyFormat(prepaidCharge) : 0}
+
                       </h2>
                     </Grid>
                     <Grid
