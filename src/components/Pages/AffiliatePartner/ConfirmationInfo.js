@@ -224,9 +224,9 @@ export default function ConfirmationInfo() {
                             {"label": "Permanent Resident", "value": "Permanent Resident"},
                             {"label": "Foreign Resident", "value": "Foreign Resident"}];
 
-  const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed - Hourly"},
+const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed Hourly"},
                                 {"label": "Employed Salaried", "value": "Employed Salaried"},
-                                {"label": "Self Employed / 1099", "value": "Self Employed / 1099"},
+                                {"label": "Self Employed / 1099", "value": "Self-Employed"},
                                 {"label": "Unemployed", "value": "Unemployed"},
                                 {"label": "Retired", "value": "Retired"}];
   
