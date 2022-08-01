@@ -1,0 +1,42 @@
+.SpringFourImgWrap{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.SpringFourImgWrap img{
+  width: 180px;
+}
+.whiteBorderWrap{
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.SpringFourText{
+  padding: 2% 0 4% 0;
+  margin: 0.82rem 0 2% 0;
+}
+.SpringFourText h5{
+  font-size: 1.563rem;
+  color: #fff;
+  text-align: center;
+}
+.imageTextWrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2% 0%;
+}
+.imageTextWrap img{
+  width: 40px;
+}
+.imageTextWrap p{
+  font-size: 0.938rem;
+  color: #fff;
+  text-align: center;
+  margin: 15px 0px;
+}
+.hrGrid hr{
+  margin: 5% 0%;
+}
