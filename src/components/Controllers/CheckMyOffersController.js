@@ -135,7 +135,7 @@ export async function checkMyOfferSubmit(customer) {
 			"geoip": ipAddress,
 			"sourceTracking": [
 				{
-					"referer": "https://cis-development.marinerfinance.io/application/form",
+					"referer": process.env.REACT_APP_APPLICATION_REFERER_URL,
 					"date": Date.now(),
 					"utm_source": null,
 					"utm_medium": null,
@@ -194,9 +194,9 @@ export async function checkMyOfferSubmit(customer) {
 					"california_credit_education_program": null,
 				},
 			},
-			"headersHost": "cis-development.marinerfinance.io",
+			"headersHost": process.env.REACT_APP_HOST_NAME,
 		};
-
+		
 		if (!loggedIn && !token) {
 			result = await axios({
 				method: "POST",
