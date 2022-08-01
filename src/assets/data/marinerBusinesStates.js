@@ -65,8 +65,8 @@ const howManyBranchesforBranchLocatorPages = {
 };
 
 const VirtualBranch = [
- "0001", 
- "1022"
+    "0001",
+    "1022"
 ];
 const BrnachLocatorURLs = {
     GoogleMapURL: "https://www.google.com/maps/search/",
