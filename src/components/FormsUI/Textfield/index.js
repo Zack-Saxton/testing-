@@ -105,6 +105,7 @@ TextFieldWrapper.propTypes = {
   helperText: PropTypes.string,
   onChange: PropTypes.func,
   InputProps: PropTypes.object,
+  disabled: PropTypes.bool,
 };
 
 export default TextFieldWrapper;

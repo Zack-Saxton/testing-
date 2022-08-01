@@ -30,6 +30,7 @@ export default function ReviewAndSign() {
   const [ url, setUrl ] = useState();
   const [ confirm, setConfirm ] = useState(false);
   const [ selectedOffer, setSelectOffer ] = useState();
+  const [prepaidCharge,setprepaid] = useState(); 
   const [ loading, setLoading ] = useState(false);
   const { refetch, isLoading, data: accountDetials } = useQuery('loan-data', usrAccountDetails);
   const handleChange = (_event, newValue) => setValue(newValue);
@@ -54,6 +55,16 @@ export default function ReviewAndSign() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ accountDetials ]);
 
+useEffect(()=>{
+  if(selectedOffer && selectedOffer.fees){
+    let totalValue = Object.values(selectedOffer.fees).reduce((a,b)=>{
+      return a + b
+    })
+    setprepaid(totalValue);
+  }
+},[selectedOffer])
+
+
   //Conver the value into currency format
   const currencyFormat = (val) => {
     if (val) {
@@ -74,6 +85,7 @@ export default function ReviewAndSign() {
       if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
         setLoading(false);
         refetch();
+        toast.success(authenticateStatus?.data?.message);
         navigate("/customers/finalVerification");
       } else {
         setLoading(false);
@@ -89,6 +101,7 @@ export default function ReviewAndSign() {
     setData({ ...data, status: true });
     navigate('/customers/selectOffer');
   }
+
 
   //Check weather the offers is passed or not
   return (
@@ -181,7 +194,7 @@ export default function ReviewAndSign() {
                     <Grid
                       item
                       xs={12}
-                      sm={2}
+                      sm={1}
                       className={classes.rightBorder}
                       id="right-border-loan-term"
                     >
@@ -200,16 +213,31 @@ export default function ReviewAndSign() {
                       id="rightBorder"
                     >
                       <p className={classes.columnHeading} id="columnHeading">
-                        Fee at Origination
+                        Prepaid Finance Charge
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {selectedOffer.origination_fee_rate}%
+                        {prepaidCharge ? currencyFormat(prepaidCharge) : 0}
+
                       </h2>
                     </Grid>
                     <Grid
                       item
                       xs={12}
-                      sm={2}
+                      sm={1.5}
+                      className={classes.rightBorder}
+                      id="rightBorder"
+                    >
+                      <p className={classes.columnHeading} id="columnHeading">
+                        Interest Rate
+                      </p>
+                      <h2 className={classes.columnColor} id="column-content">
+                        {selectedOffer.annual_interest_rate && (selectedOffer.annual_interest_rate * 100).toFixed(2)}%
+                      </h2>
+                    </Grid>
+                  <Grid
+                      item
+                      xs={12}
+                      sm={1.5}
                       className={classes.rightBorder}
                       id="rightBorder"
                     >
@@ -223,9 +251,9 @@ export default function ReviewAndSign() {
                     <Grid
                       item
                       xs={12}
-                      sm={2}
+                      sm={1.5}
                       className={classes.rightBorder}
-                      id="rightBorder-apr"
+                      id="rightBorder"
                     >
                       <p className={classes.columnHeading} id="columnHeading">
                         APR

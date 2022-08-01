@@ -28,9 +28,12 @@ const MultiFactorAuthenticationOTP = () => {
   const isSecurityQuestionSaved = otpLocation?.state?.mfaQueries?.mfaDetails?.securityQuestionsSaved ?? false;
   
   useEffect(() => {
+    let otpSkipCookie = Cookies.get("otpSkip");
 		if (!otpLocation?.state?.mfaQueries) {
 			navigate("/customers/accountOverview");
-		}
+		} else if(otpSkipCookie) {
+      navigate("/MFA");
+    }
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -46,7 +49,7 @@ const MultiFactorAuthenticationOTP = () => {
         [currentCount]
     );  
   const checkEnteredOTP = (OTPObject) => {
-      for (var key in OTPObject) {
+      for (let key in OTPObject) {
           if (OTPObject[key] === "")
             return true;
       }
@@ -76,7 +79,7 @@ const MultiFactorAuthenticationOTP = () => {
 
   const getPasscode = (otp) => {
     let passCode = "";
-    for (var key in otp) {
+    for (let key in otp) {
       passCode += otp[key];
     }
     return passCode;
@@ -103,7 +106,8 @@ const MultiFactorAuthenticationOTP = () => {
         }
 
       }else{// redirect to select security question page
-        navigate('/MFA-SelectSecurityQuestions', { state: { currentFlow: true } });
+        Cookies.set("otpSkip", 'skipOtpPage')
+        navigate('/MFA-SelectSecurityQuestions', { state: { currentFlow: true, preVerification: true } });
       }
     }else {
       if(response.data?.Message === "Your account has been locked.  Please contact your branch for further assistance." || response.data?.errorMessage === "Your account has been locked.  Please contact your branch for further assistance."){

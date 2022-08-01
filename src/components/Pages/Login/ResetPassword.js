@@ -14,7 +14,7 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import ScrollToTopOnMount from "../../Pages/ScrollToTop";
 import "./Login.css";
 import { useStylesLogin } from "./style";
-import passwordValidation from "../../Pages/Login/PasswordValidation";
+import validateUserEnteredInput from "./ValidateUserEnteredInput";
 
 
 //Yup validations for all the input fields
@@ -170,7 +170,7 @@ export default function ResetPassword(props) {
                     className="errorValidationOne"
                   >
                     <ul>
-                      {passwordValidation(formik.values.password,1)}
+                      {validateUserEnteredInput(formik.values.password,1)}
                     </ul>
                   </Grid>
                   <Grid
@@ -181,7 +181,7 @@ export default function ResetPassword(props) {
                     className="errorValidationTwo"
                   >
                     <ul>
-                    {passwordValidation(formik.values.password,0)}
+                    {validateUserEnteredInput(formik.values.password,0)}
                     </ul>
                   </Grid>
                 </Grid>

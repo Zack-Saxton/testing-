@@ -93,7 +93,7 @@ function LivingPlace() {
 
 	//validating user input and proceeds
 	const handleRoute = () => {
-		if (livingPlace === homeData.renting || livingPlace === homeData.withMortage) {
+		if (livingPlace === homeData.renting || livingPlace === homeData.withMortage || livingPlace === homeData.mobile || livingPlace === homeData.withRelative  ) {
 			if (data.rentMortgageAmount !== "" && data.rentMortgageAmount !== 0 && data.rentMortgageAmount >= 100) {
 				validateUserInput();
 			} else {
@@ -123,7 +123,7 @@ function LivingPlace() {
 
 	const onHandleChange = (event) => {
 		const reg = /^[0-9\b]+$/;
-		let inputValue = event.target.value.trim().replace(/\$/g, "").replace(",", "");
+		let inputValue = event.target.value.trim().replace(/[$,]/g, "")
 		if (!inputValue || reg.test(inputValue)) {
 			inputValue =
 				inputValue.indexOf(".") >= 0
@@ -326,7 +326,7 @@ function LivingPlace() {
 											id="rentOrMortage"
 											className={
 												livingPlace === homeData.renting ||
-													livingPlace === homeData.withMortage
+													livingPlace === homeData.withMortage || livingPlace === homeData.mobile || livingPlace === homeData.withRelative
 													? "showMsg"
 													: "hideMsg"
 											}

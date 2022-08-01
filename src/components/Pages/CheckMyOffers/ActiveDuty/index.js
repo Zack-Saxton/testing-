@@ -70,7 +70,7 @@ function ActiveDuty() {
 		},
 	});
 
-	let disableLoan = formik.values.activeDutyRank === "E4 and below" && formik.values.activeDuty === "Active Military" ? true : false;
+	let disableLoan = (formik.values.activeDutyRank === "E4 and below" && formik.values.activeDuty === "Active Military") &&  true;
 	//JSX part
 	return (
 		<div data-testid="ActiveDuty_Component">

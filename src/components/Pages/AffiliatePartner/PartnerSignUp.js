@@ -20,10 +20,12 @@ import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
-import passwordValidation from "../../Pages/Login/PasswordValidation";
+import validateUserEnteredInput from "../../Pages/Login/ValidateUserEnteredInput";
 import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
 import { useStylesPartner } from "./style";
 import "./Style.css";
+import Cookies from "js-cookie";
+
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -100,6 +102,7 @@ export default function PartnerSignUp() {
   const requestAmt = queryOffer.get("AMOUNT");
   const requestApr = queryOffer.get("APR");
   const requestTerm = queryOffer.get("TERM");
+  Cookies.set("selectTerm" ,requestTerm);
 
   //API call
   const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
@@ -191,7 +194,6 @@ export default function PartnerSignUp() {
         partnerToken,
         applicantId,
         partnerSignupData,
-
       );
       if (partnerRes.status === 404 && partnerRes.statusText === "Last four SSN do not match") {
         setLoading(false);
@@ -452,12 +454,12 @@ export default function PartnerSignUp() {
                       <Grid container className="errorvalidationWrap">
                       <Grid className="errorvalidationOne">
                       <ul className="error-validation">
-                        {passwordValidation(formik.values.password, 1)}
+                        {validateUserEnteredInput(formik.values.password, 1)}
                       </ul>
                       </Grid>
                       <Grid>
                        <ul className="error-validation">
-                       {passwordValidation(formik.values.password, 0)}
+                       {validateUserEnteredInput(formik.values.password, 0)}
                        </ul>
                       
                     </Grid>
@@ -623,17 +625,14 @@ export default function PartnerSignUp() {
                           }}
                           label={
                             <p className="agreeCheckbox">
-                              NM Residents: By clicking this box you acknowledge
-                              that you have reviewed the Important Consumer
-                              Information in Mariner’s New Mexico Consumer
-                              Brochure located at{" "}
+                              { globalMessages.New_Mexico_Consumer_Text }
                               <a
                                 className="formatHref"
-                                href={"http://marfi.me/NMBrochure."}
+                                href={"https://www.marinerfinance.com/wp-content/uploads/2021/03/NM-Consumer-Brochure-1.pdf"}
                                 target="_blank"
                                 rel="noreferrer noopener"
                               >
-                                http://marfi.me/NMBrochure
+                                New Mexico Consumer Brochure.
                               </a>
                             </p>
                           }

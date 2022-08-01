@@ -8,6 +8,7 @@ import NoOffersAvailableLogo from "../../../../assets/gallery/No_Offers_Availabl
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
+import globalMessages from "../../../../assets/data/globalMessages.json"
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
@@ -122,10 +123,7 @@ function NoOffersAvailable(props) {
 									variant="h6"
 									className="mobileFontParagraph lessBorrowCSS "
 								>
-									Unfortunately, we could not provide an offer for you at this
-									time. However, you may reapply in 30 days if you feel that
-									your circumstances have changed. Feel free to read our blog
-									articles to understand how you can increase your credit score.
+									{ globalMessages.Could_Not_Provide_An_Offer }
 								</Typography>
 							</Grid>
 						</Grid>

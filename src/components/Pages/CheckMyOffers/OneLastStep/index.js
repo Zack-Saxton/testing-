@@ -18,6 +18,8 @@ import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI"
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import globalMessages from "../../../../assets/data/globalMessages.json";
+import Cookies from "js-cookie";
+
 //oneLastStep component initialization
 function SSN() {
 	let response = [];
@@ -69,6 +71,7 @@ function SSN() {
 		setSubmit(true);
 		setLoading(false);
 		setApplicationLoading(false);
+		removeCKLightboxCookie();
 	};
 	const handleOnClickEsign = () => {
 		setEsignPopup(true);
@@ -95,6 +98,15 @@ function SSN() {
 	const handleOnClickPrivacyClose = () => {
 		setPrivacyPopup(false);
 	};
+
+	const removeCKLightboxCookie = () => {
+		Cookies.remove("CKLightbox_Source")
+		Cookies.remove("CKLightbox_Web")
+		Cookies.remove("CKLightbox_trkcid")
+		Cookies.remove("CKLightbox_campaign")
+		Cookies.remove("CKLightbox_term")
+		Cookies.remove("CKLightbox_amount")
+	}
 	const handleValidResponse = () => {
 		setData({
 			...data,
@@ -116,13 +128,15 @@ function SSN() {
 			navigate("/referred-to-branch", { formcomplete: "yes" });
 		}
 	};
+
 	const handleOnClick = async (event) => {
+		data.dob = new Date(data.dob);
 		data.completedPage = data.page.ssn;
 		setLoading(true);
 		setApplicationLoading(true);
 		let result = await getCustomerByEmail(data.email);
 		if (result?.data?.AppSubmittedInLast30Days) {
-			stopLoading();
+			stopLoading();		
 		} else if (!result?.data?.AppSubmittedInLast30Days) {
 			response = await submitApplication(data);
 			setSubmit(false);
@@ -133,18 +147,21 @@ function SSN() {
 					: null,
 				completedPage: data.page.ssn,
 			});
-			if (response.appSubmissionResult.status === 200) {
+			if (response?.appSubmissionResult?.status === 200) {
 				handleValidResponse();
+				removeCKLightboxCookie();
 				refetch();
-			} else if (response.appSubmissionResult.status === 403) {
+			} else if (response?.appSubmissionResult?.status === 403) {
 				setData({ ...data, applicationStatus: "rejected" });
 				setApplicationLoading(false);
+				removeCKLightboxCookie();
 				refetch();
 				navigate("/no-offers-available", { formcomplete: "yes" });
 			} else {
 				alert(globalMessages.Network_Error_Please_Try_Again);
 				setLoading(false);
 				setApplicationLoading(false);
+				removeCKLightboxCookie();
 			}
 		} else {
 			stopLoading();
@@ -381,17 +398,14 @@ function SSN() {
 												}}
 												label={
 													<p className="agreeText MT5">
-														NM Residents: By clicking this box you acknowledge
-														that you have reviewed the Important Consumer
-														Information in Mariner’s New Mexico Consumer
-														Brochure located at{" "}
+														{ globalMessages.New_Mexico_Consumer_Text }
 														<a
 															className="formatURL"
-															href={"http://marfi.me/NMBrochure."}
+															href={"https://www.marinerfinance.com/wp-content/uploads/2021/03/NM-Consumer-Brochure-1.pdf"}
 															target="_blank"
 															rel="noreferrer noopener"
 														>
-															http://marfi.me/NMBrochure.
+															New Mexico Consumer Brochure.
 														</a>
 													</p>
 												}
@@ -403,8 +417,7 @@ function SSN() {
 										<Typography
 											className={`typegraphAlignment ${ submit ? "showMsg" : "hideMsg" }`}
 										>
-											It looks like you have already submitted an application
-											within the last 30 days.
+											{globalMessages.Application_already_Submitted}
 										</Typography>
 									</Grid>
 									<Grid

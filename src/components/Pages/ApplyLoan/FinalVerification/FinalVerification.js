@@ -10,6 +10,7 @@ import Stepper from "../Stepper/StepperMain";
 import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
+import globalMessages from "../../../../assets/data/globalMessages.json";
 
 
 //Initializing Final verification functional component
@@ -71,12 +72,7 @@ export default function FinalVerification() {
               <p
                 className={classes.paraTagStyle}
               >
-                Loan funding and disbursement is conditioned upon our
-                satisfactory review of any documents and other information that
-                we require from you to verity your loan application and/or your
-                identity. This loan may not be consummated if you obtain another
-                loan from us to our disbursing funds for this loan. It you have
-                any questions. please contact us.
+                {globalMessages.Loan_Funding}
               </p>
             </Grid>
           </TabPanel>

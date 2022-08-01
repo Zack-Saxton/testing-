@@ -28,7 +28,7 @@ export default function PaymentOverview(props) {
                         Regular Amount
                     </TableCell>
                     <TableCell className={classes.tableHead} align="right">
-                        Interest
+                        Interest Rate
                     </TableCell>
                     <TableCell className={classes.tableHead} align="right">
                         Loan Fees
@@ -47,7 +47,7 @@ export default function PaymentOverview(props) {
             <TableBody>
                 {(props.status)
                     ?
-                    <TableRow>
+                    <TableRow data-testid='spinner_Table'>
                         <TableCell
                             colSpan="7"
                             component="th"
@@ -77,7 +77,7 @@ export default function PaymentOverview(props) {
                                     <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                                 </TableCell>
                                 <TableCell className={`${ classes.tableHeadRow } ${ classes.tableHead }`} align="right">
-                                    <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.InterestRate)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                                    <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.InterestRate)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} suffix={'%'} />
                                 </TableCell>
                                 <TableCell className={`${ classes.tableHeadRow } ${ classes.tableHead }`} align="right">
                                     <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
@@ -110,6 +110,6 @@ export default function PaymentOverview(props) {
 
 PaymentOverview.propTypes = {
     paymentData: PropTypes.object,
-    status: PropTypes.object,
+    status: PropTypes.bool,
     overview: PropTypes.array
   };

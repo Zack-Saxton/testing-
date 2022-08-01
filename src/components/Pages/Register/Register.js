@@ -18,9 +18,8 @@ import LoginController, {
   RegisterController, handleSuccessLogin
 } from "../../Controllers/LoginController";
 import LogoutController from "../../Controllers/LogoutController";
-import { RecaptchaValidationController } from "../../Controllers/RecaptchaController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import passwordValidation from "../../Pages/Login/PasswordValidation";
+import validateUserEnteredInput from "../../Pages/Login/ValidateUserEnteredInput";
 
 import {
   Button,
@@ -69,33 +68,6 @@ export default function Register() {
         setLongitude(position.coords.longitude);
     })
  },[])
-
-
-  window.onReCaptchaSuccess = async function () {
-    try {
-      let grecaptchaResponse = grecaptcha.getResponse();
-      let recaptchaVerifyResponse = await RecaptchaValidationController(
-        grecaptchaResponse,
-        ClientIP
-      );
-
-      if (recaptchaVerifyResponse.status === 200) {
-        toast.success(globalMessages.Recaptcha_Verify);
-        setDisableRecaptcha(false);
-      } else {
-        toast.error(globalMessages.Recaptcha_Error);
-        grecaptcha.reset();
-        setDisableRecaptcha(true);
-      }
-    } catch (error) {
-      ErrorLogger("Error executing reCaptcha", error);
-    }
-  };
-
-  window.OnExpireCallback = function () {
-    grecaptcha.reset();
-    setDisableRecaptcha(true);
-  };
 
   //Date implementation for verifying 18 years
   const myDate = new Date();
@@ -173,9 +145,11 @@ export default function Register() {
         let customerStatus = await RegisterController(body);
         let register = customerStatus?.data?.message
         let passwordReset = customerStatus?.data?.successMessage
-        if(customerStatus?.data?.statusCode !== 400){
+        if(customerStatus?.data?.statusCode !== 400 && !customerStatus?.data?.errorMessage){
           toast.success(register ? register : passwordReset);
           loginUser(values);
+        } else if (customerStatus?.data?.errorMessage === globalMessages.Multiple_Records){
+          setFailed(globalMessages.Account_Already_Exists);
         }
         else if (
           customerStatus?.data?.result === "error" &&
@@ -198,13 +172,14 @@ export default function Register() {
     },
   });
 
-  const NameChange = (event) => {
-    const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
-    let name = event.target.value.trim();
-    if (!name || pattern.test(name)) {
-      formik.handleChange(event);
-    }
-  };
+  // onchange validation
+	const onNameChange = (event) => {
+		const pattern = /^([a-zA-Z]+[.]?[ ]?|[a-z]+['-]?)+$/;
+		let name = event.target.value.trim();
+		if (!name || pattern.test(name)) {
+			formik.handleChange(event);
+		}
+	};
 
   const handleCloseFailed = () => {
     setFailed("");
@@ -214,6 +189,10 @@ export default function Register() {
     setSuccessPopup(false);
     navigate("/customers/accountOverview");
   };
+
+  const removeSpace = (event, name) => {
+    formik.setFieldValue(name, event.target.value.trim());
+  }
 
   //Preventing space key
   const preventSpace = (event) => {
@@ -320,8 +299,9 @@ export default function Register() {
                           placeholder={globalMessages.FirstNameEnter}
                           materialProps={{ maxLength: "30", ref: refFirstName }}
                           value={formik.values.firstName}
-                          onChange={(event) => NameChange(event)}
-                          onBlur={formik.handleBlur}
+                          onChange={onNameChange}
+                          onBlur={(event) => {formik.handleBlur(event);
+                          removeSpace(event, "firstName")}}
                           error={andLogic(
                             formik.touched.firstName,
                             Boolean(formik.errors.firstName)
@@ -349,8 +329,9 @@ export default function Register() {
                           placeholder={globalMessages.LastNameEnter}
                           materialProps={{ maxLength: "30", ref: refLastName }}
                           value={formik.values.lastName}
-                          onChange={NameChange}
-                          onBlur={formik.handleBlur}
+                          onChange={onNameChange}
+                          onBlur={(event) => {formik.handleBlur(event);
+                          removeSpace(event, "lastName")}}
                           error={andLogic(
                             formik.touched.lastName,
                             Boolean(formik.errors.lastName)
@@ -524,7 +505,7 @@ export default function Register() {
                           xs={12}
                         >
                           <ul>
-                            {passwordValidation(formik.values.password, 1)}
+                            {validateUserEnteredInput(formik.values.password, 1)}
                           </ul>
                         </Grid>
 
@@ -536,7 +517,7 @@ export default function Register() {
                           xs={12}
                         >
                           <ul>
-                          {passwordValidation(formik.values.password, 0)}
+                          {validateUserEnteredInput(formik.values.password, 0)}
                           </ul>
                         </Grid>
                       </Grid>
@@ -583,7 +564,7 @@ export default function Register() {
                     </Grid>
 
                     <Grid>
-                      <Recaptcha />
+                      <Recaptcha setDisableRecaptcha={setDisableRecaptcha}/>
                     </Grid>
 
                     <Grid item xs={12} className={classes.signInButtonGrid}>

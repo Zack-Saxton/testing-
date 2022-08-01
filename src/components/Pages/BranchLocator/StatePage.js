@@ -16,7 +16,7 @@ import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import { howManyBranchesforBranchLocatorPages } from "../../../assets/data/marinerBusinesStates";
+import { howManyBranchesforBranchLocatorPages, BrnachLocatorURLs, VirtualBranch } from "../../../assets/data/marinerBusinesStates";
 import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
 import TitleImage from "../../../assets/images/Favicon.png";
@@ -28,6 +28,7 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesMyBranch } from "../BranchLocator/Style";
 import CustomerRatings from "../MyBranch/CustomerRatings";
 import Map from "./BranchLocatorMap";
+import globalMessages from "../../../assets/data/globalMessages.json";
 
 export default function StatePage() {
   const classes = useStylesMyBranch();
@@ -52,20 +53,15 @@ export default function StatePage() {
   const [ stateLongName, setStateLongName ] = useState();
   const [ stateShortName, setStateShortName ] = useState();
   const [ stateSearchFlag, setStateSearchFlag ] = useState(() => location?.state?.flag ?? false);
-  const showBranchesWithin60Miles = 60;
 
   //API call
   const getBranchLists = async (search_text) => {
     try {
       setLoading(true);
       let result = await BranchLocatorController(search_text, howManyBranchesforBranchLocatorPages.StatePage, stateSearchFlag);
-      if (
-        result.status == 400 ||
-        result.data.branchData[ 0 ].BranchNumber === "0001" ||
-        result.data.branchData[ 0 ].BranchNumber === "1022"
-      ) {
+      if ( result.status == 400 || VirtualBranch.includes(result?.data?.branchData[0]?.BranchNumber)) {
         if (!toast.isActive("closeToast")) {
-          toast.error(" No branches within that area. Please enter a valid city and state.", { toastId: "closeToast" });
+          toast.error(globalMessages.No_Branch_in_Area, { toastId: "closeToast" });
         }
       } else {
         setCurrentLocation(result?.data?.searchLocation);
@@ -111,7 +107,7 @@ export default function StatePage() {
   const getActivePlaces = () => {
     let searchText = refSearch1?.current?.value.trim().length ? refSearch1?.current?.value.trim() : refSearch2?.current?.value.trim();
 
-    setBranchDistance(showBranchesWithin60Miles);
+    setBranchDistance(howManyBranchesforBranchLocatorPages.stateBranchDistanceinMiles);
     apiGetBranchList(searchText);
     refMapSection.current.scrollIntoView({ behavior: 'smooth' });
     clearSearchText();
@@ -200,7 +196,7 @@ export default function StatePage() {
             >
               <Link
                 className="breadcrumbLink"
-                href="https://www.marinerfinance.com/"
+                href="/"
               >
                 Home
               </Link>
@@ -350,7 +346,7 @@ export default function StatePage() {
                       target="_blank"
                       rel="link"
                       className="Links"
-                      href="https://www.marinerfinance.com/why-mariner-finance/"
+                      href={BrnachLocatorURLs.MarinerURL +'why-mariner-finance/'}
                     >
                       Why Us{" "}
                     </Link>
@@ -376,11 +372,11 @@ export default function StatePage() {
                   onClick={() => {
                     if (refSearch2.current.value) {
                       openGetDirectionModal();
-                      setBranchAddress(`https://www.google.com/maps/search/${ refSearch2.current.value }`);
+                      setBranchAddress(`${BrnachLocatorURLs.GoogleMapURL}${ refSearch2.current.value }`);
                       setAddress2("");
                     } else if (branchList && branchList[ 0 ]?.Address) {
                       openGetDirectionModal();
-                      setBranchAddress(`https://www.google.com/maps/search/${ branchList[ 0 ]?.Address }`);
+                      setBranchAddress(`${BrnachLocatorURLs.GoogleMapURL}${ branchList[ 0 ]?.Address }`);
                     }
                     else {
                       toast.error(`Please enter address in search.`);
@@ -468,7 +464,7 @@ export default function StatePage() {
                   <Grid container className="addressList">
                     {branchList ? (
                       branchList.map((item, index) => {
-                        if (Number(item?.distance.replace(' mi', '')) <= branchDistance) {
+                        if (Number(item?.distance.replace(' mi', '')) <= howManyBranchesforBranchLocatorPages.stateBranchDistanceinMiles) {
                           return (
                             <Grid key={index} className="locationInfo" item lg={4} md={4} sm={6} xs={12}>
                               <NavLink
@@ -506,10 +502,7 @@ export default function StatePage() {
                               </p>
                               <ButtonSecondary
                                 onClick={() => {
-                                  setBranchAddress(
-                                    "https://www.google.com/maps/search/" +
-                                    item.Address
-                                  );
+                                  setBranchAddress(`${BrnachLocatorURLs.GoogleMapURL}${item.Address}`);
                                   openGetDirectionModal();
                                 }}
                                 stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
@@ -546,7 +539,7 @@ export default function StatePage() {
                         id="consumerDialogHeading"
                         className={directionsClass.consumerDialogHeading}
                       >
-                        You are about to leave marinerfinance.com
+                          {globalMessages.LeaveMFWebsite}
                       </h2>
                       <div>
                         <p className={directionsClass.consumerParagaraph}>

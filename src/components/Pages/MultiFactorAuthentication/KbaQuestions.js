@@ -36,9 +36,12 @@ const KbaQuestions = () => {
   const [isProd, setIsProd] = useState(false);
 
   useEffect(() => {
+    let kbaSkipCookie = Cookies.get("kbaSkip");
 		if (!location?.state?.mfaSecurityQuestions) {
 			navigate("/customers/accountOverview");
-		}
+		} else if(kbaSkipCookie) {
+      navigate("/MFA");
+    }
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

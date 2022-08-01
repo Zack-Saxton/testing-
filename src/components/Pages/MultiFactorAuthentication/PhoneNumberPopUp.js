@@ -10,13 +10,7 @@ import {
 import { useStylesMFA } from "./Style";
 import PropTypes from "prop-types";
 
-const PhoneNumberPopUp = (props) => {
-
-let cellPhoneNumber = props.cellPhoneNumber;
-let optionalPhoneNumber = props.optionalPhoneNumber;
-let mfaPhoneNumber = props.mfaPhoneNumber;
-let setSelection = props.setSelection;
-
+const PhoneNumberPopUp = ({phoneNumberList, setSelection}) => {
   const classes = useStylesMFA();
   const [value, setValue] = useState('');
   const handleChange = (event) => {
@@ -31,10 +25,9 @@ let setSelection = props.setSelection;
   }
 
   return (
-    <Grid data-testid = "PhoneNumberPopUp_component">
-            
+    <Grid data-testid = "PhoneNumberPopUp_component">           
             <Typography className={classes.twoStepParagraph}>
-              Select one of your preferred phone number to receive your passcode.
+              Select from one of your preferred phone number(s) to receive your passcode.
             </Typography>
           <FormControl
               className={classes.radioButtonwrap}
@@ -49,24 +42,16 @@ let setSelection = props.setSelection;
                 value={value}
                 onChange={handleChange}
               >
-                <FormControlLabel
-                  className={classes.smallRadioButton}
-                  value={cellPhoneNumber}
-                  control={<Radio data-testid = "radio_primary_phone" color="primary" onClick={()=>setSelection(`${cellPhoneNumber}`)} />}
-                  label={securityCode(cellPhoneNumber)}
-                />
-                <FormControlLabel style={{ display: optionalPhoneNumber ? 'flex' : 'none'}}
-                  className={classes.smallRadioButton}
-                  value={optionalPhoneNumber}
-                  control={<Radio color="primary" onClick={()=>setSelection(`${optionalPhoneNumber}`)} />}
-                  label={securityCode(optionalPhoneNumber)}
-                />
-                <FormControlLabel style={{ display: mfaPhoneNumber ? 'flex' : 'none'}}
-                  className={classes.smallRadioButton}
-                  value={mfaPhoneNumber}
-                  control={<Radio color="primary" onClick={()=>setSelection(`${mfaPhoneNumber}`)} />}
-                  label={securityCode(mfaPhoneNumber)}
-                />
+                {phoneNumberList?.map((phoneNumber, index) => 
+                   <FormControlLabel style={{ display: 'flex'}}
+                      key={index}
+                      data-testid="phone_List"
+                      className={classes.smallRadioButton}
+                      value={phoneNumber.number}
+                      control={<Radio data-testid ={`radio_primary_phone_${index}`} color="primary" onClick={()=>setSelection(`${phoneNumber.number}`)} />}
+                      label={securityCode(phoneNumber.number)}
+                 />
+                )}
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -74,10 +59,8 @@ let setSelection = props.setSelection;
 }
 
 PhoneNumberPopUp.propTypes = {
-  cellPhoneNumber: PropTypes.string,
-  optionalPhoneNumber: PropTypes.string,
-  mfaPhoneNumber : PropTypes.string,
   setSelection: PropTypes.func,
+  phoneNumberList : PropTypes.array
 };
 
 export default PhoneNumberPopUp

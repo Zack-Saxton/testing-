@@ -9,7 +9,8 @@ import React, { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate } from "react-router-dom";
-import adBanner from "../../../assets/gallery/adBanner3.jpg";
+import NonPromoOfferAdBanner from "../../../assets/gallery/Non-PromoOfferAdBanner.png";
+import PromoOfferAdBanner from "../../../assets/gallery/PromoOfferAdBanner.png";
 import MortgageBanner from "../../../assets/gallery/Mortgage-Loan-Banner-Small-b.png";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import MyBranchAPI from "../../Controllers/MyBranchController";
@@ -28,7 +29,7 @@ export default function LimitedOffer(userOfferData) {
   // Get offers details
   const [ userOfferAmount, setUserOfferAmount ] = useState(null);
   const [ initModal, setInitModal ] = useState(false);
-  const [ offerCode, setOfferCode ] = useState(" ");
+  const [ offerCode, setOfferCode ] = useState("");
   const [ campaignType, setCampaignType ] = useState("");
   const [ amount, setAmount ] = useState("");
   const [ expiryDate, setExpiryDate ] = useState(" ");
@@ -80,7 +81,7 @@ export default function LimitedOffer(userOfferData) {
 
                 <img
                   className="bannerImage"
-                  src={adBanner}
+                  src={offerCode ? PromoOfferAdBanner:NonPromoOfferAdBanner}
                   data-testid="background"
                   alt="ad_banner"
                 />
@@ -144,7 +145,7 @@ export default function LimitedOffer(userOfferData) {
                       </ButtonPrimary>
                     </NavLink>
                     <small>
-                      <i className="disclosureLink">*Important disclosure information </i>
+                      <i className="disclosureLink">Important disclosure information </i>
                     </small>
                   </div>
                 )}
@@ -182,10 +183,6 @@ export default function LimitedOffer(userOfferData) {
                   </a>
                 </Grid>
                 <Typography className="adText">
-                  <small>
-                    <i className="disclosureLink">No payments until Aug 2022* </i>
-                  </small>
-
                 </Typography>
               </Grid>
             </Grid>

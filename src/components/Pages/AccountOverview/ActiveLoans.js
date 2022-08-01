@@ -28,6 +28,9 @@ export default function ActiveLoans() {
     let numberOfDays = (appData?.loanDetails?.NextPaymentDate ? Math.ceil(Moment.duration(Moment(appData.loanDetails.NextPaymentDate).diff(today)).asDays()) : 11);
     return (numberOfDays <= 10);
   };
+  const getAPRWithTwoDecimal = (number) => {
+    return number.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+  }
   //View
   return (
     <>
@@ -271,7 +274,7 @@ export default function ActiveLoans() {
                                 </b>
                               </p>
                               <p className={classes.activeLoanSubHeading_content}>APR</p>
-                              <b>{`${ (appData.loanDetails.OriginalAPR)?.toFixed(2) }%`}</b>
+                              <b>{`${ getAPRWithTwoDecimal(appData.loanDetails.OriginalAPR) }%`}</b>
                             </div>
                           </Grid>
                         </Paper>

@@ -21,6 +21,8 @@ import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
 import OfferTable from "./OfferTable";
 import "./SelectOffer.css";
+import Cookies from "js-cookie";
+
 
 //Initializing functional component Apply for loan
 export default function SelectOffer() {
@@ -39,11 +41,9 @@ export default function SelectOffer() {
 	const [ selectedIndex, setSelectedIndex ] = useState("");
 	const navigate = useNavigate();
 	let term;
-
+	let selectTerm = Cookies.get("selectTerm")
 	const { offers } = useFetchOffer();
-
-
-	const { refetch } = useQuery('loan-data', usrAccountDetails);
+		const { refetch } = useQuery('loan-data', usrAccountDetails);
 
 	//To change the value to currency formate
 	const currencyFormat = (currencyValue) => {
@@ -131,7 +131,7 @@ export default function SelectOffer() {
 		setOffersToCompareChart([]);
 		setOfferFlag(true);
 		let rowsterm = [];
-		accountDetails?.data?.Offers[ termNum ].map((item, _index) => {
+		accountDetails?.data?.Offers[ termNum ]?.map((item, _index) => {
 			return structureBuildData(item, termNum, tabIndex, rowsterm);
 		});
 		setRowData(rowsterm);
@@ -181,6 +181,21 @@ export default function SelectOffer() {
 	const handleTabChange = (_event, newValues) => {
 		setValues(newValues);
 	};
+
+function selectTermFocus(){
+
+	if(selectTerm && terms )
+	{
+		let event = {}
+		tabOnChange(selectTerm,terms?.indexOf(selectTerm))
+		handleTabChange(event,terms?.indexOf(selectTerm))
+	}
+}
+
+useEffect(() => {
+		selectTermFocus()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [terms]);
 
 	//JSX part
 	return (
@@ -355,7 +370,7 @@ export default function SelectOffer() {
 							<Typography
 								className={classes.bottomText}
 							>
-								*The process uses a “soft” credit inquiry to determine whether a
+								*This process uses a soft credit inquiry to determine whether a
 								loan offer is available, which does not impact your credit
 								score. If you continue with the application process online and
 								accept a loan offer, or are referred to a branch and continue

@@ -64,24 +64,6 @@ export async function fetchQuestionMFA(emailData) {
   }
 }
 
-export async function fetchMFADetials() {
-  try {
-    let url = "mfa_user_detials";
-    let param = "";
-    let emailData = Cookies.get("email");
-    let data = {
-      email: emailData
-    };
-    let method = "POST";
-    let addAccessToken = true;
-
-    //API call
-    return await APICall(url, param, data, method, addAccessToken);
-  } catch (error) {
-    ErrorLogger(globalMessages.Error_executing_AccountDetails_API, error);
-  }
-}
-
 export async function fetchAllMFAQuestion() {
   try {
     let url = "get_all_mfa_question";

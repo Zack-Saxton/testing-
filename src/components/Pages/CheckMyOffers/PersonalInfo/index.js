@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import globalMessages from '../../../../assets/data/globalMessages.json';
 import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
@@ -25,6 +26,7 @@ import {
 import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./PersonalInfo.css";
+import {checkCustomeruser,ApplicationStatusByEmail} from "../../../Controllers/PersonalInfoController";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -207,7 +209,7 @@ function PersonalInfo() {
 				data.phone = values.phone;
 				data.ssn = data.last4SSN
 					? data.ssn
-					: values.ssn.replace(/-/g, "").replace(/ /g, "") || "";			
+					: values?.ssn.replace(/\-/g, "")
 				data.phone = phoneNumberValue;
 				data.dob = values.dob;
 				data.completedPage = data.page.personalInfo;
@@ -230,25 +232,19 @@ function PersonalInfo() {
 						setLoading(false);
 						navigate("/employment-status");
 					} else {
-						let customerStatus = await axios({
-							method: "POST",
-							url: "/customer/check_customer_user",
-							data: JSON.stringify(body),
-							headers: {
-								"Content-Type": "application/json",
-							},
-						});
-
+						let customerStatus = await checkCustomeruser(body);
 						if (customerStatus.data.customerFound) {
-							ifReducer(customerStatus, values)
-						
-						} else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== "More than 1 customer record retrieved ") {
+							ifReducer(customerStatus, values)	
+						} else if(customerStatus?.data?.errorMessage === globalMessages.Account_Locked_Personal_Info){
+							toast.error(customerStatus?.data?.errorMessage);
+							navigate("/login");
+					  } else if (!customerStatus.data.customerFound && customerStatus.data.errorMessage !== globalMessages.Multiple_Records && customerStatus.data.errorMessage !== globalMessages.Account_Locked_Personal_Info) {
 							setError(false);
 							setLoading(false);
 							navigate("/new-user");
 						} else if (
 							customerStatus.data.errorMessage ===
-							"More than 1 customer record retrieved "
+							globalMessages.Multiple_Records
 						) {
 							setSsnEmailMatch(true);
 							setError(true);
@@ -260,21 +256,16 @@ function PersonalInfo() {
 		},
 	});
 
-	const checkApplicationStatus = async (event) => {
+	
+
+	const checkApplicationStatusEmail= async (event) => {
 		formik.handleBlur(event);
 		if (event.target.value) {
 			let body = {
 				email: event.target.value.trim(),
 			};
 			if (event.target.value !== "") {
-				let result = await axios({
-					method: "POST",
-					url: "/customer/get_customer_by_email",
-					data: JSON.stringify(body),
-					headers: {
-						"Content-Type": "application/json",
-					},
-				});
+				let result = await ApplicationStatusByEmail(body)
 				if (result?.data?.AppSubmittedInLast30Days) {
 					setAppliedInLast30Days(true);
 				} else {
@@ -292,6 +283,7 @@ function PersonalInfo() {
 			formik.handleChange(event);
 		}
 	};
+
 	const preventSpace = (event) => {
 		if (event.keyCode === 32) {
 			event.preventDefault();
@@ -336,7 +328,9 @@ function PersonalInfo() {
 	const shortANDoperation = (pramOne, pramtwo) => {
 		return pramOne && pramtwo
 	};
-
+	const removeSpace = (event, name) => {
+    formik.setFieldValue(name, event.target.value.trim());
+  }
 	//JSX [part]
 	return (
 		<div data-testid="personal_Info_component">
@@ -419,7 +413,8 @@ function PersonalInfo() {
 												materialProps={{ maxLength: "30", ref: refFirstName, }}
 												value={formik.values.firstName}
 												onChange={onNameChange}
-												onBlur={formik.handleBlur}
+												onBlur={(event) => {formik.handleBlur(event);
+                        removeSpace(event, "firstName")}}
 												error={shortANDoperation(formik.touched.firstName, Boolean(formik.errors.firstName))}
                         helperText = {shortANDoperation(formik.touched.firstName , formik.errors.firstName)}
 												disabled={data.disabled}
@@ -443,7 +438,8 @@ function PersonalInfo() {
 												materialProps={{ maxLength: "30", ref: refLastName, }}
 												value={formik.values.lastName}
 												onChange={onNameChange}
-												onBlur={formik.handleBlur}
+												onBlur={(event) => {formik.handleBlur(event);
+                        removeSpace(event, "lastName")}}
 												error={shortANDoperation(formik.touched.lastName, Boolean(formik.errors.lastName))}
                         helperText = {shortANDoperation(formik.touched.lastName, formik.errors.lastName)}
 												disabled={data.disabled}
@@ -551,9 +547,9 @@ function PersonalInfo() {
 												onKeyDown={preventSpace}
 												value={formik.values.email}
 												materialProps={{ maxLength: "100" }}
-												onLoad={checkApplicationStatus}
+												onLoad={checkApplicationStatusEmail}
 												onChange={emailOnChange}
-												onBlur={checkApplicationStatus}
+												onBlur={checkApplicationStatusEmail}
 												error={shortANDoperation(formik.touched.email, Boolean(formik.errors.email))}
 												helperText = {shortANDoperation(formik.touched.email, formik.errors.email)}
 												disabled={data.disabled}
@@ -565,8 +561,7 @@ function PersonalInfo() {
 														: "hideError "
 												}
 											>
-												It looks like you have already submitted an application
-												within the last 30 days.
+												{globalMessages.Application_already_Submitted}
 											</p>
 										</Grid>
 
@@ -599,7 +594,7 @@ function PersonalInfo() {
 															error={shortANDoperation(formik.touched.phone, Boolean(formik.errors.phone))}
 															helperText = {shortANDoperation(formik.touched.phone, formik.errors.phone)}
 															onFocus={ updateActualValue }
-															disabled={ data.phone }
+															disabled={ data.phone ? true : false }
 														/>
 											<div className="alignErrorLeft">
 												<Typography

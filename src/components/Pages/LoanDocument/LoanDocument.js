@@ -214,7 +214,7 @@ export default function LoanDocument() {
             <Grid container direction="row">
               <Grid className="documentInput" item xs={12} sm={3}>
                 <input
-                  accept="image/png, image/jpeg, application/pdf, image/jpg "
+                  accept=".png, .jpeg, .pdf, .jpg "
                   multiple
                   id="file"
                   type="file"

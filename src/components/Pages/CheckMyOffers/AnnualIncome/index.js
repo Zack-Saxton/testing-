@@ -62,7 +62,7 @@ function NewUser() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const validate = (personal, household) => {
-		if(!personal){
+		if(!personal || personal.toString().length < 4){
 			setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 		}else if (!isNaN(personal) && !isNaN(household)) {
 			if (personal <= household) {
@@ -101,8 +101,11 @@ function NewUser() {
 
 		//On submit functionality
 		onSubmit: (values) => {
-			const modPersonalIncome = parseInt(values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
+			if(Boolean(!values.householdIncome.length)){
+				setErrorAnnual(globalMessages?.Annual_Household_Income_4_digits);
+			}
+			const modPersonalIncome = parseInt(values.personalIncome.replace(/\$|\,/g, ""));
+			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$|\,/g, ""));
 			if (!errorPersonal && !errorAnnual) {
 				if (validate(modPersonalIncome, modHouseholdIncome)) {
 					data.annualIncome = modPersonalIncome ? modPersonalIncome : "0";
@@ -114,13 +117,14 @@ function NewUser() {
 		},
 	});
 
+   
 	//Restrict alphabets
 	const onHandleChangePersonal = (event) => {
 		const pattern = /^[0-9.,$\b]+$/;
 		let annualPersonalIncome = event.target.value.trim();
 		if (!annualPersonalIncome || pattern.test(annualPersonalIncome)) {
 			setErrorPersonal("");
-			formik.handleChange(event);
+			formik.setFieldValue(event.target.name, annualPersonalIncome.replace(/^0+/, ''));
 		}
 	};
 	const onHandleChange = (event) => {
@@ -128,41 +132,39 @@ function NewUser() {
 		let annualHouseholdIncome = event.target.value.trim();
 		if (!annualHouseholdIncome || pattern.test(annualHouseholdIncome)) {
 			setErrorAnnual("");
-			formik.handleChange(event);
+			formik.setFieldValue(event.target.name, annualHouseholdIncome.replace(/^0+/, ''));
 		}
 	};
 
 	const handleHouseHoldIncomeValue = (event) => {
-		const num = event.target.value.trim()
-			.replace(/\$/g, "")
-			.replace(/,/g, "")
-			.substr(0, 7);
+		const num = event.target.value.trim().replace(/\$|\,/g, "").substr(0, 7);
 		const formated = parseFloat(num);
 		const currency = "$";
 		const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		formik.setFieldValue(event.target.name, forCur.slice(0, -3));
-		const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, ""));
-		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, ""));
+		const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$|\,/g, ""));
+		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$|\,/g, ""));
 		if (isNaN(modHouseholdIncome)) {
 			setErrorAnnual(globalMessages?.Annual_Household_Income_Required);
 		} else {
 			const numNxt = event.target.value.trim()
-				.replace(/\$/g, "")
-				.replace(/,/g, "")
-				.substr(0, 7);
+			    .replace(/\$|\,/g, "")
+			    .substr(0, 7);
 			if (numNxt.length < 4) {
 				setErrorAnnual(globalMessages?.Annual_Household_Income_4_digits);
 				return false;
 			}
 			const perval = document
 				.getElementById("personalIncome")
-				.value.replace(/\$/g, "")
-				.replace(/,/g, "")
-				.substr(0, 7);
+				.value.replace(/\$|\,/g, "").substr(0, 7);
 			if (perval.length < 4) {
 				setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
 				return false;
 			}
+			setcommonError(modPersonalIncome,modHouseholdIncome);
+		}
+	};
+		const setcommonError = (modPersonalIncome,modHouseholdIncome) => {
 			if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
 				if (modPersonalIncome <= modHouseholdIncome) {
 					setErrorAnnual("");
@@ -174,12 +176,10 @@ function NewUser() {
 				}
 			}
 		}
-	};
 
 	const handlePeronalIncomeValue = (event) => {
 		const personalIncomeValue = event.target.value.trim()
-			.replace(/\$/g, "")
-			.replace(/,/g, "")
+			.replace(/\$|\,/g, "")
 			.substr(0, 7);
 		const formated = parseFloat(personalIncomeValue);
 		const currency = "$";
@@ -187,33 +187,22 @@ function NewUser() {
 			currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		formik.setFieldValue(event.target.name, forCur.slice(0, -3));
 		const modPersonalIncome = parseInt(
-			formik.values.personalIncome.replace(/\$/g, "").replace(/,/g, "")
+			formik.values.personalIncome.replace(/\$|\,/g, "")
 		);
 		const modHouseholdIncome = parseInt(
-			formik.values.householdIncome.replace(/\$/g, "").replace(/,/g, "")
+			formik.values.householdIncome.replace(/\$|\,/g, "")
 		);
 		if (isNaN(modPersonalIncome)) {
 			setErrorPersonal(globalMessages?.Annual_Personal_Income_Required);
 		} else {
 			const num = event.target.value.trim()
-				.replace(/\$/g, "")
-				.replace(/,/g, "")
+				.replace(/\$|\,/g, "")
 				.substr(0, 7);
 			if (num.length < 4) {
 				setErrorPersonal(globalMessages?.Annual_Personal_Income_4_digits);
 				return false;
 			}
-
-			if (!isNaN(modPersonalIncome) && !isNaN(modHouseholdIncome)) {
-				if (modPersonalIncome <= modHouseholdIncome) {
-					setErrorAnnual("");
-					setErrorPersonal("");
-					return true;
-				} else {
-					setErrorAnnual(globalMessages?.Annual_Income_Greater_Equal);
-					return false;
-				}
-			}
+			setcommonError(modPersonalIncome,modHouseholdIncome);
 		}
 	};
 

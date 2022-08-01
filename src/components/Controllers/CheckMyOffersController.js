@@ -57,15 +57,18 @@ export async function checkMyOfferSubmit(customer) {
 					"processing": {
 						"tokens": {
 							"utm_source": null,
-							"utm_campaign": null,
 							"utm_medium": null,
+							"utm_campaign": null,
 						},
 					},
-					"processing.tokens": {
-						"utm_source": null,
-						"utm_campaign": null,
-						"utm_medium": null,
-					},
+				},
+				"lightbox": {
+					"amount": customer.loanAmount,
+					"term": customer.term,
+					"tracking_id": customer.trkcid,
+					"utm_source": customer.utm_source,
+					"utm_medium": customer.utm_medium,
+					"utm_campaign": customer.utm_campaign,
 				},
 				"applicant": {
 					"contact": {
@@ -105,7 +108,7 @@ export async function checkMyOfferSubmit(customer) {
 					"identification": {
 						"citizenship": customer.citizenship,
 						"date_of_birth": customer.dob,
-						"age": 39,
+						"age": Math.abs(new Date(Date.now() - customer.dob.getTime()).getUTCFullYear() - 1970),
 						"social_security_number_backup": customer.ssn,
 						"social_security_number": customer.ssn,
 						"first_name": customer.firstName,
@@ -203,7 +206,7 @@ export async function checkMyOfferSubmit(customer) {
 					"Content-Type": "application/json",
 				},
 				transformRequest: (data, headers) => {
-					delete headers.common[ "Content-Type" ];
+					delete headers.common["Content-Type"];
 					return data;
 				},
 			});
@@ -278,5 +281,34 @@ export async function creatProspect(body) {
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
 		ErrorLogger("Error executing creatProspect API", error);
+	}
+}
+
+
+export async function getCKLightBox(query) {
+	try {
+		//API
+		let url = "get_CK_Light_box";
+		let param = "";
+		let data = {
+			"query": {
+				"trkcid": query.trkcid,
+				"ib": query.ib,
+				"apr": query.apr,
+				"amnt": query.amt,
+				"term": query.term,
+				"campaign": query.campaign,
+				"hp": query.hp,
+				"own": query.own,
+				"lp": query.lp
+			}
+		};
+		let method = "POST";
+		let addAccessToken = false;
+
+		//API call
+		return await APICall(url, param, data, method, addAccessToken);
+	} catch (error) {
+		ErrorLogger("Error executing getCKLightBox API", error);
 	}
 }

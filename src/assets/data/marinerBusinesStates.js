@@ -60,13 +60,26 @@ const howManyBranchesforBranchLocatorPages = {
     BranchLocator: 10,
     StatePage: 50,
     BranchPage: 4,
-    stateBranchDistanceinMiles: 500
+    stateBranchDistanceinMiles: 600,
+    ShowBranchListWithinMiles: 60
 };
+
+const VirtualBranch = [
+    "0001",
+    "1022"
+];
+const BrnachLocatorURLs = {
+    GoogleMapURL: "https://www.google.com/maps/search/",
+    MarinerURL: "https://www.marinerfinance.com/",
+    MarinerBlogURL: ''
+}
 export {
     businesStates,
     branch_hours,
     ca_branch_hours,
     tzMatch,
     marinerWorkingSaturdayDateRange,
-    howManyBranchesforBranchLocatorPages
+    howManyBranchesforBranchLocatorPages,
+    BrnachLocatorURLs,
+    VirtualBranch
 };

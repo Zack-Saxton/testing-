@@ -82,6 +82,10 @@ function CheckMyOffersContext(props) {
       ssn: 11,
     },
     applicationStatus: '',
+    trkcid : '' ,     
+     utm_source:'',
+     utm_medium : '',
+     utm_campaign: ''
   });
 
   // setUserAccountDetails in context
@@ -188,6 +192,10 @@ function CheckMyOffersContext(props) {
         ssn: 11,
       },
       applicationStatus: '',
+      trkcid : '' ,     
+      utm_source:'',
+      utm_medium : '',
+      utm_campaign: ''
     });
     if (loginToken?.isLoggedIn) {
       // fetch userdetails

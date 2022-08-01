@@ -464,7 +464,7 @@ export default function BasicInformation(props) {
               </ButtonSecondary>
 
               <input
-                accept="image/png, image/jpeg, image/jpg "
+                accept=".png, .jpeg, .jpg "
                 multiple
                 hidden
                 id="selectImage"
@@ -473,7 +473,7 @@ export default function BasicInformation(props) {
               />
               <br></br>
               <small className={classes.fileAllowedText}>
-                Allowed jpg, gif or png. Max size of 800kb
+                Allowed jpg, jpeg or png. Max size of 800kb
               </small>
             </Grid>
           </Grid>

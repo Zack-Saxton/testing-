@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import NumberFormat from 'react-number-format';
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
+import globalMessages from "../../../assets/data/globalMessages.json"
 import { ButtonWithIcon } from "../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import { useStylesAccountOverview } from "./Style";
@@ -145,11 +146,7 @@ export default function ViewAccountDetails() {
                       </Grid>
                       <Grid>
                         <p className={classes.viewAppStatusDisplay}>
-                          Unfortunately, we could not provide an offer for you at
-                          this time. However, you may reapply in 30 days if you feel
-                          that your circumstances have changed. Feel free to read
-                          our blog articles to understand how you can increase your
-                          credit score.
+                          { globalMessages.Could_Not_Provide_An_Offer }
                         </p>
                       </Grid>
                     </> :

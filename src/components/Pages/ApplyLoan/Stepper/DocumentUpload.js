@@ -95,7 +95,7 @@ export default function DocumentUpload(props) {
 					Upload
 				</ButtonPrimary>
 				<input
-					accept="image/png, image/jpeg, application/pdf, image/jpg "
+					accept=".png, .jpeg, .pdf, .jpg "
 					id="file"
 					multiple={props?.multiple}
 					type="file"

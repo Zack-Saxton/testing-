@@ -3,11 +3,12 @@
 // Mon, Wed, Thu, Fri = 9:00am – 5.30pm
 // Tuesday = 10am – 7pm
 import Moment from "moment";
-let nowMinutes = Moment(new Date()).format("mm");
+let dateNow = Moment(new Date()).add(30,'minutes').format('YYYY-MM-DD HH:mm:ss');
 const skipPastTime = (timeList) => {
   return timeList.filter((time) => {
-    if (time.value >  Moment(new Date()).add(15,'minutes').format('HH:mm')) {
-      return time
+    let slotWithDate = Moment(new Date()).format('YYYY-MM-DD '+time.value+':00');
+    if(dateNow < slotWithDate){
+      return time;
     }
     return null;
   });

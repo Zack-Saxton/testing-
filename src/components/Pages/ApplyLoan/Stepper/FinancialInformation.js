@@ -81,6 +81,12 @@ export default function FinancialInformation(props) {
       formik.handleChange(event);
     }
   };
+
+  const trimValueOnBlur = (event) => {
+    formik.setFieldValue(event.target.name, event.target.value.trim());
+    formik.handleBlur(event);
+  };
+
   let yearsAtCurrentAddressOption = [];
   for(let start=0; start <= 20; start++){
     let labelString = start === 0 ? "<1 year" : (start === 1 ? "1 year" : (start === 20 ? "20+ years": `${start}`))
@@ -100,7 +106,7 @@ export default function FinancialInformation(props) {
             onChange={(event) => {
               nameChange(event);
             }}
-            onBlur={formik.handleBlur}
+            onBlur={trimValueOnBlur}
             error={formik.touched.employerName && Boolean(formik.errors.employerName)}
             helperText={formik.touched.employerName && formik.errors.employerName}
           />
@@ -115,7 +121,7 @@ export default function FinancialInformation(props) {
             onChange={(event) => {
               nameChange(event);
             }}
-            onBlur={formik.handleBlur}
+            onBlur={trimValueOnBlur}
             error={formik.touched.jobTitle && Boolean(formik.errors.jobTitle)}
             helperText={formik.touched.jobTitle && formik.errors.jobTitle}
           />

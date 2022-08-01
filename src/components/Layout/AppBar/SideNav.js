@@ -339,7 +339,7 @@ export default function SideNav() {
   const branchPhone = Cookies.get('branchphone');
   const getProfileImage = Cookies.get('getProfileImage');
 
-  const lastLoginRaw = JSON.parse(Cookies.get("user") ? Cookies.get("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
+  const lastLoginRaw = JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
   const loginDate = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
   const lastLogin = ((loginDate.getMonth() > 8) ? (loginDate.getMonth() + 1) : ('0' + (loginDate.getMonth() + 1))) + '/' + ((loginDate.getDate() > 9) ? loginDate.getDate() : ('0' + loginDate.getDate())) + '/' + loginDate.getFullYear();
 
@@ -864,17 +864,16 @@ export default function SideNav() {
                   data-testid="sideNavLoanDocumentsNavigation"
                   to="/customers/loanDocument"
                   onClick={(event) => {
-                    activeLoanData && event.preventDefault();
+                    if((activeLoanData && !loanStatus.includes(checkPresenceOfLoanStatus))){
+                      event.preventDefault();
+                    }
                   }}
                   className={activeLoanData ? "nav_link_disabled" : "nav_link"}
                 >
                   <ListItem
                     className="titleSidenav"
                     disabled={
-                      activeLoanData &&
-                        !loanStatus.includes(checkPresenceOfLoanStatus)
-                        ? true
-                        : false
+                      activeLoanData && !loanStatus.includes(checkPresenceOfLoanStatus)
                     }
                   >
                     <ListItemIcon>

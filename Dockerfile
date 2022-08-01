@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:14.16.1-alpine
+FROM --platform=linux/x86_64 node:14.16.1-alpine
 
 ARG SECRET_KEY=default_secret
 ENV SECRET_KEY ${SECRET_KEY}

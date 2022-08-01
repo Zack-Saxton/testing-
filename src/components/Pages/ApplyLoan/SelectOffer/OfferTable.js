@@ -73,14 +73,14 @@ export default function OfferTable(props) {
   const classes = useStylesApplyForLoan();
   // Shows the Brnach icon
   const branch = (
-    <Grid container direction="row" alignItems="center">
+    <Grid container  className="inBranchGrid"  direction="row">
       <AccountBalanceIcon /> In Branch
     </Grid>
   );
 
   //Shows the Online icon
   const online = (
-    <Grid container direction="row" alignItems="center">
+    <Grid className="desktopGrid" container direction="row" justifyContent="center" alignItems="center">
       <DesktopMacIcon /> Online
     </Grid>
   );
@@ -196,7 +196,7 @@ export default function OfferTable(props) {
                       </TableCell>
                       <TableCell
                         className={props.classes.tableHead}
-                        align="left"
+                        align="center"
                       >
                         Availability
                       </TableCell>

@@ -6,9 +6,9 @@ Functionality       :    To use this component to get the date with restrictions
 												 restrict future, past dates, select between given range of dates like that.
 
 #################################################################################################################*/
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import DatePicker from '@mui/lab/DatePicker';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Grid from "@mui/material/Grid";
 import TextField from '@mui/material/TextField';
 import "date-fns";
@@ -19,7 +19,7 @@ import "./DatePicker.css";
 
 const DatePickerWrapper = ({ format, label, views,
 	placeholder, required, onChange, disableDate, disablePastDate,
-	maxdate, minyear, error, helperText, value, mask, ...otherProps }) => {
+	maxdate, minyear, error, helperText, value, mask, disableFuture, ...otherProps }) => {
 
 	const [ selectedDate, setSelectedDate ] = useState(value ?? null);
 	const [ errorTF, setErrorTF ] = useState(false);
@@ -63,6 +63,7 @@ const DatePickerWrapper = ({ format, label, views,
 					minDate={minDate}
 					maxDate={new Date(maxdate)}
 					shouldDisableDate={disableCustomDate}
+					disableFuture={disableFuture}
 					disablePast={disablePastDate === "true" ? true : false}
 					views={views ?? [ 'year', 'month', 'day' ]}
 					InputProps={{ "data-testid": "datePicker" }}
@@ -87,8 +88,7 @@ DatePickerWrapper.propTypes = {
 	format: PropTypes.string,
 	mask: PropTypes.string,
 	label: PropTypes.string,
-	placeholder: PropTypes.string,
-	value: PropTypes.instanceOf(Date),
+	placeholder: PropTypes.string, 
 	maxdate: PropTypes.instanceOf(Date),
 	minyear: PropTypes.number,
 	helperText: PropTypes.string,
@@ -97,9 +97,14 @@ DatePickerWrapper.propTypes = {
 	onChange: PropTypes.func,
 	views: PropTypes.array,
 	disablePastDate: PropTypes.string,
+	disableFuture: PropTypes.bool,
 	disableDate: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.func
+	]),
+	value: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.instanceOf(Date),
 	]),
 };
 

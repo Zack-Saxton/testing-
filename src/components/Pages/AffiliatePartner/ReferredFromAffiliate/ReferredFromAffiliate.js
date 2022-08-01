@@ -15,12 +15,16 @@ import "../../../Pages/MyBranch/BranchInfo.css"
 import { ButtonPrimary } from "../../../FormsUI";
 import { ReferredUsestyle } from "./style";
 import {usePopulatePartnerReferred} from "./ReferredFromAffiliateMockData"
+import ScrollToTopOnMount from "../../ScrollToTop";
 import "./ReferredFromAffiliate.css";
 
 //Referred From Affiliate functional component initialization
 function ReferredFromAffiliate() {
   const classes = ReferredUsestyle()
   const navigate = useNavigate();
+  let location = useLocation();
+  let firstName_partner = location?.state?.firstname
+  
 
   const useQueryURL = () => new URLSearchParams(useLocation().search);
   const query = useQueryURL();
@@ -32,24 +36,31 @@ function ReferredFromAffiliate() {
   //API Call
   const { PopulatePartnerSignupData } = usePopulatePartnerReferred(applicantId);
 
-  useEffect(() => {
+  const getReferredDetails = () => {
+    if(!firstName_partner)
+    {
     SetPopulatePartnerSignupState(PopulatePartnerSignupData);
     if(!applicantId)
     {
       navigate("/error")
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ PopulatePartnerSignupData ]);
+  }
+  }
+
+  useEffect(() => {
+    getReferredDetails()   
+  },);
 
   //Populate referred application username from API
    let populateSignupData = populatePartnerSignupState?.data?.application?.identification?.full_name;
   const splitOnSpace = populateSignupData ?  populateSignupData?.split(' ') : [];
   const firstNameCaps = splitOnSpace[0];
-  const firstName = firstNameCaps ? firstNameCaps.charAt(0).toUpperCase() + firstNameCaps.slice(1) : "";
+  const firstName = firstNameCaps ? firstNameCaps.charAt(0).toUpperCase() + firstNameCaps.slice(1) : firstName_partner;
 
 	//JSX part
 	return (
 		<div data-testid="ReferredFromAffiliate_component">
+       <ScrollToTopOnMount />
       {!firstName ?
       <Grid className={classes.circularGrid}>
       <CircularProgress /> 

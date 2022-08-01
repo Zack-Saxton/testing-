@@ -211,8 +211,8 @@ let selectedQuestionStructured =
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const goBack = (_event) => {
-    history.back();
+  const backToVerificationStep = () => {
+    location?.state?.preVerification ? navigate("/MFA") : navigate(-1);
   }
 
 
@@ -236,7 +236,7 @@ let selectedQuestionStructured =
           <Paper className={classes.twoStepPaper}>
           <form onSubmit={formik.handleSubmit}>
             <Grid className={classes.headingTextWrap}>
-            <IconButton className={classes.backArrow} onClick={goBack}>
+            <IconButton className={classes.backArrow} onClick={backToVerificationStep}>
                 <ArrowBackIcon className={classes.yellowBackArrow} />
               </IconButton>
               <Typography className={classes.twoStepHeading} variant="h5" data-testid="title">
