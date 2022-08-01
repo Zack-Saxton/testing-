@@ -71,6 +71,7 @@ import VantageScore from "../Pages/VantageScore/VantageScore";
 import MFAGetPhoneNumber from "../Pages/MultiFactorAuthentication/MFAGetPhoneNumber";
 import NoOfferAvailable from "../Layout/offers/NoOfferAvailable"
 import AmOneNoOffersAvailable from "../Pages/CheckMyOffers/AmOneNoOffersAvailable/AmOneNoOffersAvailable"
+import SpringFourNoOffersAvailable from "../Pages/CheckMyOffers/SpringFourNoOffersAvailable/SpringFourNoOffersAvailable"
 import ReferredFromAffiliate from "../Pages/AffiliatePartner/ReferredFromAffiliate/ReferredFromAffiliate";
 import LightBox from "../Pages/CheckMyOffers/LightBox/LightBox"
 import "./App.css";
@@ -231,6 +232,7 @@ function App() {
                                                     <Route path='none-available' element={loadGeneralUserComponent(<NoOfferAvailable />)} />
                                                     <Route path='referral' element={loadGeneralUserComponent(<ReferredFromAffiliate />)} />                                                    
                                                     <Route path='no-offers' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />
+                                                    <Route path='SpringFourNoOffersAvailable' element={loadGeneralUserComponent(<SpringFourNoOffersAvailable />)} />
                                                 </Route>
                                                 <Route path='partners' >
                                                         <Route path='*' element={<LightBox />} />
