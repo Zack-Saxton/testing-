@@ -56,12 +56,11 @@ export async function checkMyOfferSubmit(customer) {
 					},
 					"processing": {
 						"tokens": {
-							"utm_source": null,
-							"utm_medium": null,
-							"utm_campaign": null,
+							"utm_source": customer.utm_source_otherPartner,
+							"utm_medium": customer.utm_medium_otherPartner,
+							"utm_campaign": customer.utm_campaign_otherPartner,
 						},
 					},
-
 				},
 				"lightbox": {
 					"amount": customer.loanAmount,
@@ -131,16 +130,16 @@ export async function checkMyOfferSubmit(customer) {
 				"submission_paramter": null,
 				"ip_address": ipAddress,
 			},
-			"gclid": null,
+			"gclid": customer.gclid_otherPartner,
 			"requested_product": "unsecured-individual-loan",
 			"geoip": ipAddress,
 			"sourceTracking": [
 				{
-					"referer": "https://cis-development.marinerfinance.io/application/form",
+					"referer": customer.referer_otherPartner,
 					"date": Date.now(),
-					"utm_source": null,
-					"utm_medium": null,
-					"utm_campaign": null,
+					"utm_source": customer.utm_source_otherPartner,
+					"utm_medium": customer.utm_medium_otherPartner,
+					"utm_campaign": customer.utm_campaign_otherPartner,
 				},
 			],
 			"update_sor_applicant_consents": {
@@ -197,7 +196,6 @@ export async function checkMyOfferSubmit(customer) {
 			},
 			"headersHost": "cis-development.marinerfinance.io",
 		};
-
 		if (!loggedIn && !token) {
 			result = await axios({
 				method: "POST",
