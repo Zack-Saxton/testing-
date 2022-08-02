@@ -56,6 +56,7 @@ import {
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
+import { usePaymentMethod } from "../MakePayment/usePaymentMethod";
 //Yup validations for Add Bank Account
 const validationSchemaDebitCard = yup.object({
   cardNumber: yup
@@ -155,7 +156,7 @@ export default function PaymentMethod() {
   const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
   const [ mailingZipcode, setMailingZipcode ] = useState("");
   const { data: accountDetails } = useQuery("loan-data", usrAccountDetails);
-  const { data: allPaymentMethod, refetch } = useQuery("payment-method", getPaymentMethods, { refetchOnMount: false,});
+  const { payments: allPaymentMethod, refetch } = usePaymentMethod();
   useEffect(() => {
     let schedulePayment = accountDetails?.data?.activeLoans?.length
       ? accountDetails.data.activeLoans[ 0 ].loanPaymentInformation?.scheduledPayments
