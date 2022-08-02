@@ -241,23 +241,6 @@ const BranchLocatorHeader = () => {
               </Grid>
             </Grid>
 
-            <NavLink
-              data-testid="MailOfferLink"
-              to="/select-amount/"
-              className="nav_link branchHeaderLinks mailOffer"
-            >
-              <Typography className={classes.subtitle}>Mail Offer?</Typography>
-            </NavLink>
-            {!loginToken.isLoggedIn ? (
-              <NavLink to="/login" className="nav_link branchHeaderLinks">
-                <Typography className={classes.subtitle}>My Account</Typography>
-              </NavLink>
-            ) : (
-              <div onClick={logoutUser} className="nav_link branchHeaderLinks">
-                <Typography className={classes.subtitle}>Sign out</Typography>
-              </div>
-            )}
-
             <NavLink  to= {!loginToken.isLoggedIn ? "/select-amount" : "/customers/resumeApplication" }
               className="nav_link branchHeaderLinksLast"
             >
@@ -548,11 +531,6 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link data-testid="MailOfferLinks" href='/select-amount/'>Mail Offer?</Link>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion className="noShadow">
-              <AccordionDetails className="menuHead">
                 {!loginToken.isLoggedIn ? (
                   <Link href="/login">Apply Now</Link>
                 ) : (
@@ -564,7 +542,17 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                  <Link data-testid="checkMyLinks" to= {!loginToken.isLoggedIn ? "/select-amount" : "/customers/resumeApplication" }>Check My Offers</Link>                
+                <Link data-testid="MailOfferLinks" href={`${ ServerURL }/careers/`}>Careers</Link>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion className="noShadow">
+              <AccordionDetails className="menuHead">
+                  <Link data-testid="checkMyLinks" to= {!loginToken.isLoggedIn ? "/select-amount" : "/customers/resumeApplication" }>Resume application</Link>                
+              </AccordionDetails>
+            </Accordion>
+            <Accordion className="noShadow">
+              <AccordionDetails className="menuHead">
+                <Link data-testid="MailOfferLinks" href='/select-amount/'>Mail Offer?</Link>
               </AccordionDetails>
             </Accordion>
           </Grid>
