@@ -15,7 +15,7 @@ import globalMessages from "../../../assets/data/globalMessages.json";
 import states from '../../../assets/data/States.json';
 import { validStates } from "../../../assets/data/constants";
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
-import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
+import { partnerConfirmInfo, getCreditKarmaData } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
@@ -135,7 +135,7 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function ConfirmationInfo() {
-  const classes = useStylesPartner();
+  const classes = useStylesPartner(); 
   const [ loading, setLoading ] = useState(false);
   const [ validZip, setValidZip ] = useState(true);
   const [ validSpouseZip, setValidSpouseZip ] = useState(true);
@@ -155,6 +155,11 @@ export default function ConfirmationInfo() {
   const [ creditPopup, setCreditPopup ] = useState(false);
   const [ webTOUPopup, setWebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
+  const [ creditKarmaData, setCreditKarmaData ] = useState();
+  const [ personalAnnualIncome, setPersonalAnnualIncome ] = useState();
+  const [ houseHoldAnnualIncome, setHouseHoldAnnualIncome ] = useState();
+  const [ zippy, setZippy ] = useState();
+  const [ zippy1, setZippy1 ] = useState("87654");
   let location = useLocation();
   const handleOnClickEsign = () => setEsignPopup(true);
   const handleOnClickEsignClose = () => setEsignPopup(false);
@@ -164,12 +169,28 @@ export default function ConfirmationInfo() {
   const handleOnClickwebTOUClose = () => setWebTOUPopup(false);
   const handleOnClickPrivacy = () => setPrivacyPopup(true);
   const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
+
+  const getCreditKarmaDetails = async () => {
+    let CK_Data = await getCreditKarmaData();
+    setCreditKarmaData(CK_Data);
+    setPersonalAnnualIncome(location?.state?.partnerSignupData?.applicant.self_reported?.annual_income ?? creditKarmaData?.data?.annual_income)
+    // setHouseHoldAnnualIncome
+    setZippy("74839");
+    setZippy1("09871")
+    console.log("sample", "09871");
+  }
   useEffect(() => {
-		if (!location?.state?.partnerSignupData?.applicant?.contact?.first_name || !location?.state?.partnerSignupData?.applicant?.contact?.last_name) {
-			navigate("/login");
-		}
+		// if (!location?.state?.partnerSignupData?.applicant?.contact?.first_name || !location?.state?.partnerSignupData?.applicant?.contact?.last_name) {
+		// 	navigate("/login");
+		// }
+    // else{
+    //   getCreditKarmaDetails();
+    // }
 		// eslint-disable-next-line react-hooks/exhaustive-deps
+
+    getCreditKarmaDetails();
 	}, []);
+
   const validate = (personal, household) => {
     let returnValue = false;
     if (!isNaN(personal) && !isNaN(household)) {
@@ -195,6 +216,7 @@ export default function ConfirmationInfo() {
   let refPersonalIncome = useRef();
   let refEmployementStatus = useRef();
   let refAnnualHousehold = useRef();
+
 
   const autoFocus = () => {
     if (!refFirstName.current.value) {
@@ -231,21 +253,26 @@ export default function ConfirmationInfo() {
                                 {"label": "Retired", "value": "Retired"}];
   
   const legalMaritalStatus =  "Separated, under decree of legal separation"
-
+console.log("zip inside", creditKarmaData?.data?.zipCode ?? "hello");
   //Form Submission
+
+  let heell = creditKarmaData?.data?.citizenship
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      firstName: location?.state?.partnerSignupData?.applicant?.contact.first_name ?? "",
-      lastName: location?.state?.partnerSignupData?.applicant?.contact.last_name ?? "",
-      streetAddress: location?.state?.partnerSignupData?.applicant?.contact.address_street ?? "",
-      city: location?.state?.partnerSignupData?.applicant?.contact.address_city ?? "",
-      state: location?.state?.partnerSignupData?.applicant?.contact.address_state ?? "",
-      zip: location?.state?.partnerSignupData?.applicant?.contact.address_postal_code ?? "",
-      citizenship: location?.state?.partnerSignupData?.applicant.self_reported?.citizenship ?? "",
-      personalIncome: location?.state?.partnerSignupData?.applicant.self_reported?.annual_income
+      firstName: location?.state?.partnerSignupData?.applicant?.contact.first_name ?? creditKarmaData?.data?.firstName ?? "",
+      lastName: location?.state?.partnerSignupData?.applicant?.contact.last_name ?? creditKarmaData?.data?.lastName ?? "",
+      streetAddress: location?.state?.partnerSignupData?.applicant?.contact.address_street ?? creditKarmaData?.data?.state ?? "",
+      city: location?.state?.partnerSignupData?.applicant?.contact.address_city ?? creditKarmaData?.data?.city ?? "",
+      state: location?.state?.partnerSignupData?.applicant?.contact.address_state ?? creditKarmaData?.data?.zipCode ?? "",
+      // zip: location?.state?.partnerSignupData?.applicant?.contact.address_postal_code ?? creditKarmaData?.data?.zipCode ?? "" ,
+      zip: zippy1 ,
+      // zip: zippy,
+      // citizenship: location?.state?.partnerSignupData?.applicant.self_reported?.citizenship ?? creditKarmaData?.data?.citizenship ?? "",
+      personalIncome: personalAnnualIncome
         ? "$" +
-        parseFloat(location.state.partnerSignupData?.applicant.self_reported?.annual_income)
+        parseFloat(personalAnnualIncome)
           .toFixed(2)
           .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
           .slice(0, -3)
@@ -304,12 +331,25 @@ export default function ConfirmationInfo() {
     },
   });
 
+
+
+
+
+  console.log("data", creditKarmaData);
+
   const onBlurAddress = (event) => {
     formik.setFieldValue("streetAddress", event.target.value.trim());
     formik.setFieldValue("spouseadd", event.target.value.trim());
   };
 
+  console.log(
+"formik data", formik.values.zip
+  );
+
+
+  
   const fetchAddress = async (event) => {
+    console.log("hello");
     try {
       let eventValue = event.target.value.trim();
       setErrorMsg(eventValue ? errorMsg : globalMessages.ZipCodeEnter);
@@ -362,6 +402,7 @@ export default function ConfirmationInfo() {
   }
   //fetch the state and city based in zip code
   const fetchSpouseAddress = async (event) => {
+    console.log("im in");
     try {
       if (event.target.value.length === 5 || !(event.target.value?.length)) {
         let result = await ZipCodeLookup(event.target.value);
@@ -488,6 +529,8 @@ export default function ConfirmationInfo() {
     formik.handleChange(event);
   };
 
+
+
   //View Part
   return (
     <div data-testid="confirmationInfo_component">
@@ -605,11 +648,13 @@ export default function ConfirmationInfo() {
                         label="Zip Code *"
                         refId={refZip}
                         value={formik.values.zip}
-                        onChange={fetchAddress}
-                        onBlur={formik.handleBlur}
+                        // onChange={fetchAddress}
+                        // onChange={formik.handleChange}
+                        // onBlur={formik.handleBlur}
                         error={(formik.touched.zip && Boolean(formik.errors.zip)) || !validZip}
                         helperText={validZip ? formik.touched.zip && formik.errors.zip : errorMsg}
                       />
+                      <p>{formik.values.zip}</p>
                     </Grid>
                     <Grid item xs={12} sm={4} container direction="row">
                       <TextField
@@ -866,7 +911,7 @@ export default function ConfirmationInfo() {
                                 : "hideCheckbox"
                             }
                           >
-                            <Zipcode
+                            {/* <Zipcode
                               id="spouseZip"
                               name="spouseZipcode"
                               label="Zipcode *"
@@ -875,7 +920,7 @@ export default function ConfirmationInfo() {
                               onBlur={formik.handleBlur}
                               error={(formik.touched.spouseZipcode && Boolean(formik.errors.spouseZipcode)) || !validSpouseZip}
                               helperText={validSpouseZip ? formik.touched.spouseZipcode && formik.errors.spouseZipcode : globalMessages.ZipCodeValid}
-                            />
+                            /> */}
                           </Grid>
                           <Grid
                             item

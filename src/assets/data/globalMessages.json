@@ -91,6 +91,7 @@
   "Error_executing_basicInformation_API": "Error executing basicInformation API",
   "Error_executing_BranchLocatorController_API": "Error executing BranchLocatorController API",
   "Error_executing_changePassword_API": "Error executing changePassword API",
+  "Error_executing_getCreditKarmaData_API": "Error executing changePassword API",
   "Error_executing_completeSignature_API": "Error executing completeSignature API",
   "Error_executing_deleteBankAccount_API": "Error executing deleteBankAccount API",
   "Error_executing_deleteCreditCard_API": "Error executing deleteCreditCard API",
