@@ -73,8 +73,10 @@ import NoOfferAvailable from "../Layout/offers/NoOfferAvailable"
 import AmOneNoOffersAvailable from "../Pages/CheckMyOffers/AmOneNoOffersAvailable/AmOneNoOffersAvailable"
 import SpringFourNoOffersAvailable from "../Pages/CheckMyOffers/SpringFourNoOffersAvailable/SpringFourNoOffersAvailable"
 import ReferredFromAffiliate from "../Pages/AffiliatePartner/ReferredFromAffiliate/ReferredFromAffiliate";
-import LightBox from "../Pages/CheckMyOffers/LightBox/LightBox"
+import LightBox from "../Pages/CheckMyOffers/LightBox/LightBox";
+import OtherPartner from "../Pages/AffiliatePartner/OtherPartners/OtherPartner";
 import "./App.css";
+import Admin from "./Admin"
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -142,7 +144,7 @@ function App() {
                                     <LoanAccount>
                                         <NavContext>
                                             <Routes>
-                                                <Route path='/' element={<Navigate replace to="/customers/accountOverview" />} />
+                                                <Route exact path='/'  element={<Admin />} />
                                                 <Route path='/components' element={loadGeneralUserComponent(<CustomComponents />)} />
                                                 <Route path='/login' element={loadGeneralUserComponent(<LoginPage />)} />
                                                 <Route path='/error' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
@@ -237,6 +239,11 @@ function App() {
                                                 <Route path='partners' >
                                                         <Route path='*' element={<LightBox />} />
                                                 </Route>
+                                                 <Route path = 'application' >                                                   
+                                                            <Route path='*' element={<OtherPartner />} />                                                    
+                                                </Route> 
+                                                <Route path = 'loan_by_mail'  element={<OtherPartner />} />    
+                                               
                                             </Routes>
                                         </NavContext>
                                     </LoanAccount>

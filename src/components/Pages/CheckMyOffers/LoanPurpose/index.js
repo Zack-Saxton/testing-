@@ -75,7 +75,23 @@ function LoanPurpose() {
 	const CKLightbox_campaign = Cookies.get("CKLightbox_campaign")
 	const CKLightbox_term = Cookies.get("CKLightbox_term")
 	const CKLightbox_amount = Cookies.get("CKLightbox_amount")
- 
+
+	const setCookieOtherPartner = () => {
+		const utm_source_otherPartner = Cookies.get("utm_source_otherPartner")
+		const utm_medium_otherPartner = Cookies.get("utm_medium_otherPartner")
+		const utm_campaign_otherPartner = Cookies.get("utm_campaign_otherPartner")
+		const referer_otherPartner = Cookies.get("referer_otherPartner")
+		const gclid_otherPartner = Cookies.get("gclid")
+	
+		setData({
+		  ...data, 
+		  utm_source_otherPartner : utm_source_otherPartner ?? "",
+		  utm_medium_otherPartner : utm_medium_otherPartner ?? "",
+		  utm_campaign_otherPartner :  utm_campaign_otherPartner ?? "",
+		  referer_otherPartner :    referer_otherPartner ?? "" ,
+		  gclid_otherPartner :    gclid_otherPartner ?? "" ,
+		})
+	  }
 
 	useEffect(() => {
 		if(CKLightbox_Source === "CKLightbox"){      
@@ -98,6 +114,7 @@ function LoanPurpose() {
 	const handleRoute = () => {
 		data.loanPurpose = purpose;
 		data.completedPage = data?.completedPage > data?.page?.loanPurpose ? data?.completedPage : data?.page?.loanPurpose;
+		setCookieOtherPartner()
 		navigate("/citizenship-status");
 	};
 
@@ -107,6 +124,7 @@ function LoanPurpose() {
 		setPurpose(val);
 		if (data.completedPage < data.page.loanPurpose) {
 			data.completedPage = data?.completedPage > data?.page?.loanPurpose ? data?.completedPage : data?.page?.loanPurpose;
+			setCookieOtherPartner()
 			navigate("/citizenship-status");
 		}
 	};
