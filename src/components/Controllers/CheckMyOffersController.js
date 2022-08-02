@@ -16,6 +16,12 @@ export async function checkMyOfferSubmit(customer) {
 		errors: "",
 		appSubmissionResult: "",
 	};
+
+	const utm_sources = {
+					"utm_source": customer.utm_source_otherPartner,
+					"utm_medium": customer.utm_medium_otherPartner,
+					"utm_campaign": customer.utm_campaign_otherPartner,
+	}
 	try {
 		//creating function to load ip address from the API
 		let dateNow = new Date().toISOString();
@@ -55,11 +61,7 @@ export async function checkMyOfferSubmit(customer) {
 						"last_name": customer.lastName,
 					},
 					"processing": {
-						"tokens": {
-							"utm_source": customer.utm_source_otherPartner,
-							"utm_medium": customer.utm_medium_otherPartner,
-							"utm_campaign": customer.utm_campaign_otherPartner,
-						},
+						"tokens": utm_sources
 					},
 				},
 				"lightbox": {
@@ -137,9 +139,7 @@ export async function checkMyOfferSubmit(customer) {
 				{
 					"referer": customer.referer_otherPartner,
 					"date": Date.now(),
-					"utm_source": customer.utm_source_otherPartner,
-					"utm_medium": customer.utm_medium_otherPartner,
-					"utm_campaign": customer.utm_campaign_otherPartner,
+					...utm_sources
 				},
 			],
 			"update_sor_applicant_consents": {
