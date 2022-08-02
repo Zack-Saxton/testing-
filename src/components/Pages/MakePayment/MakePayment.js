@@ -226,7 +226,7 @@ export default function MakePayment() {
         let loan = [];
         loan.push(data);
         setLatestLoanData(loan);
-        let totalAmount = data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2);
+        let totalAmount = data?.loanData?.amountDue?.toFixed(2);
         setPayOffAmount(data?.loanPaymentInformation?.accountDetails?.CurrentPayOffAmount);
         setPaymentAmount(totalAmount);
         setTotalPaymentAmount(totalAmount);
@@ -270,7 +270,7 @@ export default function MakePayment() {
       let schedulePaymentAmount = activeLoansData?.length && activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length
         ? activeLoansData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentAmount
         : 0;
-      let totalAmount = latestLoan?.length ? latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2) : null;
+      let totalAmount = latestLoan?.length ? latestLoan[ 0 ]?.loanData?.amountDue?.toFixed(2) : null;
       setPaymentAmount(hasSchedulePaymentActive ? schedulePaymentAmount.toFixed(2) : totalAmount);
       setTotalPaymentAmount(totalAmount);
       setAccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);

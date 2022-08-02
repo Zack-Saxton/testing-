@@ -144,7 +144,7 @@ export default function ActiveLoans() {
                                 className={classes.cardContent}
                               >
                                 {" "}
-                                Regular Amount
+                                Amount Due
                               </p>
                               <h5
                                 id="nextPaymentItems"
@@ -152,7 +152,7 @@ export default function ActiveLoans() {
                               >
                                 <span className="addCommaAmount">
                                   <NumberFormat
-                                    value={appData?.loanDetails?.RegularPaymentAmount}
+                                    value={appData?.loanData?.amountDue}
                                     displayType={"text"}
                                     thousandSeparator={true}
                                     decimalScale={2}
