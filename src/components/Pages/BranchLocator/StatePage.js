@@ -346,7 +346,7 @@ export default function StatePage() {
                       target="_blank"
                       rel="link"
                       className="Links"
-                      href={BrnachLocatorURLs.MarinerURL +'why-mariner-finance/'}
+                      href={`${ process.env.REACT_APP_WEBSITE }/why-mariner-finance/`}
                     >
                       Why Us{" "}
                     </Link>
