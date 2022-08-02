@@ -7,6 +7,7 @@ import { idVerificationAnswer } from '../../Controllers/MFAController';
 import { AutoCompleteMultiple, ButtonPrimary, Radio } from "../../FormsUI"
 import ScrollToTopOnMount from "../CheckMyOffers/ScrollToTop";
 import Messages from "../../../assets/data/globalMessages.json"
+import Cookies from "js-cookie";
 
 //Component to load the questions
 //To build the structure for load
