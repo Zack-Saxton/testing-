@@ -87,17 +87,6 @@ export default function Footer() {
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink data-testid="cac-termsofuse"
-                  to="/cac-termsofuse"
-                  target="_blank"
-                  className="hrefTag"
-                >
-                  <Typography className="normalFooterFont">
-                    CAC Terms of Use
-                  </Typography>
-                </NavLink>
-              </div>
-              <div className="footer-content">
                 <a data-testid="californiaResident"
                   href={`${ process.env.REACT_APP_WEBSITE }/california-consumer-privacy-act-ccpa-request/`}
                   rel="noreferrer"

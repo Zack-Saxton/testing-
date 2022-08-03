@@ -104,8 +104,9 @@ export default function BranchLocatorFooter() {
           link: `${ process.env.REACT_APP_WEBSITE }/resources/how-to-apply/`,
         },
         {
+          getTarget:"_blank",
           name: "FAQs",
-          link: "/faq",
+          link: `${ process.env.REACT_APP_WEBSITE }/resources/faq/`,
         },
         {
           name: "Blog",
@@ -241,7 +242,7 @@ export default function BranchLocatorFooter() {
                               key={item.name}
                               className="branchfooterLi"
                             >
-                              <a href={item.link} className="footerHrefTag">
+                              <a target={item.getTarget} href={item.link} className="footerHrefTag">
                                 {item.name}
                               </a>
                             </li>
@@ -267,7 +268,7 @@ export default function BranchLocatorFooter() {
             </p>
             <p>
               <small data-testid="processTexts">
-                *This process uses a soft credit inquiry to determine whether a
+                *This process uses a {'"'}soft{'"'} credit inquiry to determine whether a
                 loan offer is available, which does not impact your credit
                 score. If you continue with the application process online and
                 accept a loan offer, or are referred to a branch and continue
