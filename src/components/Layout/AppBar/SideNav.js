@@ -973,10 +973,11 @@ export default function SideNav() {
                  data-testid="sideNavBlogNavigation"
                   href={`${ process.env.REACT_APP_WEBSITE }/blog/`}
                   className="titleSidenav"
+                  id="blogLinkWrap"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <ListItem>
+                  <ListItem className="blogLitsItem">
                     <ListItemIcon>
                       {" "}
                       <BookIcon />{" "}
@@ -984,15 +985,15 @@ export default function SideNav() {
                     <ListItemText> Blog </ListItemText>
                   </ListItem>
                 </a>
-                <NavLink data-testid="sideNavfaqNavigation" to="/customers/faq" className="titleSidenav">
-                  <ListItem>
+                <a data-testid="sideNavfaqNavigation" id="faqLinkWrap" target="_blank" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} rel="noreferrer" className="titleSidenav">
+                  <ListItem className="faqLitsItem">
                     <ListItemIcon>
                       {" "}
                       <LiveHelpIcon />{" "}
                     </ListItemIcon>
                     <ListItemText> FAQ </ListItemText>
                   </ListItem>
-                </NavLink>
+                </a>
               </List>
             </PerfectScrollbar>
           </Drawer>
