@@ -15,7 +15,7 @@ import globalMessages from "../../../assets/data/globalMessages.json";
 import states from '../../../assets/data/States.json';
 import { validStates } from "../../../assets/data/constants";
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
-import { partnerConfirmInfo } from "../../Controllers/PartnerSignupController";
+import { partnerConfirmInfo, getCreditKarmaData } from "../../Controllers/PartnerSignupController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
@@ -135,7 +135,7 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function ConfirmationInfo() {
-  const classes = useStylesPartner();
+  const classes = useStylesPartner(); 
   const [ loading, setLoading ] = useState(false);
   const [ validZip, setValidZip ] = useState(true);
   const [ validSpouseZip, setValidSpouseZip ] = useState(true);
@@ -155,6 +155,8 @@ export default function ConfirmationInfo() {
   const [ creditPopup, setCreditPopup ] = useState(false);
   const [ webTOUPopup, setWebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
+  const [ creditKarmaData, setCreditKarmaData ] = useState();
+  const [ zipData, setZipData ] = useState();
   let location = useLocation();
   const handleOnClickEsign = () => setEsignPopup(true);
   const handleOnClickEsignClose = () => setEsignPopup(false);
@@ -164,12 +166,24 @@ export default function ConfirmationInfo() {
   const handleOnClickwebTOUClose = () => setWebTOUPopup(false);
   const handleOnClickPrivacy = () => setPrivacyPopup(true);
   const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
+
+  const getCreditKarmaDetails = async () => {
+    let CK_Data = await getCreditKarmaData();
+    setCreditKarmaData(CK_Data);
+    let addressFromZip = await ZipCodeLookup(CK_Data?.data?.zipCode);
+    setZipData(addressFromZip);
+ 
+  }
   useEffect(() => {
 		if (!location?.state?.partnerSignupData?.applicant?.contact?.first_name || !location?.state?.partnerSignupData?.applicant?.contact?.last_name) {
 			navigate("/login");
 		}
+    else{
+      getCreditKarmaDetails();
+    }
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
   const validate = (personal, household) => {
     let returnValue = false;
     if (!isNaN(personal) && !isNaN(household)) {
@@ -195,6 +209,7 @@ export default function ConfirmationInfo() {
   let refPersonalIncome = useRef();
   let refEmployementStatus = useRef();
   let refAnnualHousehold = useRef();
+
 
   const autoFocus = () => {
     if (!refFirstName.current.value) {
@@ -231,33 +246,31 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                                 {"label": "Retired", "value": "Retired"}];
   
   const legalMaritalStatus =  "Separated, under decree of legal separation"
-
   //Form Submission
+  const parseCurrencyFormat = (currencyVal) => {
+    return ("$" + parseFloat(currencyVal)
+          .toFixed(2)
+          .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+          .slice(0, -3))
+  }
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      firstName: location?.state?.partnerSignupData?.applicant?.contact.first_name ?? "",
-      lastName: location?.state?.partnerSignupData?.applicant?.contact.last_name ?? "",
-      streetAddress: location?.state?.partnerSignupData?.applicant?.contact.address_street ?? "",
-      city: location?.state?.partnerSignupData?.applicant?.contact.address_city ?? "",
-      state: location?.state?.partnerSignupData?.applicant?.contact.address_state ?? "",
-      zip: location?.state?.partnerSignupData?.applicant?.contact.address_postal_code ?? "",
-      citizenship: location?.state?.partnerSignupData?.applicant.self_reported?.citizenship ?? "",
+      firstName: location?.state?.partnerSignupData?.applicant?.contact.first_name ?? creditKarmaData?.data?.firstName ?? "",
+      lastName: location?.state?.partnerSignupData?.applicant?.contact.last_name ?? creditKarmaData?.data?.lastName ?? "",
+      streetAddress: location?.state?.partnerSignupData?.applicant?.contact.address_street ?? creditKarmaData?.data?.state ?? "",
+      city: location?.state?.partnerSignupData?.applicant?.contact.address_city ?? zipData?.data?.cityName ?? "",
+      state: location?.state?.partnerSignupData?.applicant?.contact.address_state ?? zipData?.data?.stateCode ?? "", 
+      zip: location?.state?.partnerSignupData?.applicant?.contact.address_postal_code ?? creditKarmaData?.data?.zipCode ?? "" ,
+      citizenship: location?.state?.partnerSignupData?.applicant.self_reported?.citizenship ?? creditKarmaData?.data?.citizenship ?? "",
       personalIncome: location?.state?.partnerSignupData?.applicant.self_reported?.annual_income
-        ? "$" +
-        parseFloat(location.state.partnerSignupData?.applicant.self_reported?.annual_income)
-          .toFixed(2)
-          .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-          .slice(0, -3)
-        : "",
+        ? parseCurrencyFormat(location?.state?.partnerSignupData?.applicant.self_reported?.annual_income)
+        : ( creditKarmaData?.data?.annual_income ? parseCurrencyFormat(creditKarmaData?.data?.annual_income) : "" ),
       householdIncome: location?.state?.partnerSignupData?.applicant.self_reported?.household_annual_income
-        ? "$" +
-        parseFloat(location.state.partnerSignupData?.applicant.self_reported?.household_annual_income)
-          .toFixed(2)
-          .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-          .slice(0, -3)
-        : "",
-      employementStatus: location?.state?.partnerSignupData?.applicant.self_reported?.employment_status ?? "",
+        ? parseCurrencyFormat(location?.state?.partnerSignupData?.applicant.self_reported?.household_annual_income)
+        : ( creditKarmaData?.data?.household_annual_income ? parseCurrencyFormat(creditKarmaData?.data?.household_annual_income) : "" ),
+      employementStatus: location?.state?.partnerSignupData?.applicant.self_reported?.employment_status ?? creditKarmaData?.data?.employment_status ?? "",
       activeDuty: location?.state?.partnerSignupData?.applicant.self_reported?.active_duty ?? "",
       activeDutyRank: location?.state?.partnerSignupData?.applicant.self_reported?.active_duty_rank ?? "",
       militaryStatus: location?.state?.partnerSignupData?.applicant.self_reported?.military_status ?? "",
@@ -304,11 +317,16 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
     },
   });
 
+
+
   const onBlurAddress = (event) => {
     formik.setFieldValue("streetAddress", event.target.value.trim());
     formik.setFieldValue("spouseadd", event.target.value.trim());
   };
 
+
+
+  
   const fetchAddress = async (event) => {
     try {
       let eventValue = event.target.value.trim();
@@ -487,6 +505,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
     else setCitizenship(false);
     formik.handleChange(event);
   };
+
 
   //View Part
   return (

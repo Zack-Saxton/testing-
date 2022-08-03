@@ -7,7 +7,7 @@ Functionality       :    To use this component to validate and get the zipcode i
 #################################################################################################################*/
 
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextBox from "../Textfield";
 import globalMessages from "../../../assets/data/globalMessages.json";
 
@@ -17,6 +17,12 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, refId, ...ot
   const [ zipCode, setZipCode ] = useState(value ? value : "");
   const [ isError, setIsError ] = useState(false);
   const [ helperText2, setHelperText2 ] = useState("");
+
+
+	useEffect(() => {
+		setZipCode(value);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ value ]);
 
   //Account Number field onChange handle
   const onHandleZipcodeChange = (event) => {

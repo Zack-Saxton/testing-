@@ -157,3 +157,20 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
     : toast.error("Please try again");
   return PartnerConfirmationAPI;
 }
+
+export async function getCreditKarmaData() {
+  try {
+    const email = Cookies.get("email");
+    let url = "get_credit_karma_data";
+    let param = "";
+    let data = {
+      email: email,
+    };
+    let method = "POST";
+    let addAccessToken = true;
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_getCreditKarmaData_API, error);
+  }
+}
