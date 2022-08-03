@@ -44,6 +44,8 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
             })
           );
           Cookies.set("email", partnerSignupMethod?.data?.applicant.contact.email);
+          Cookies.set("firstName", partnerSignupMethod?.data?.applicant?.contact?.first_name);
+          Cookies.set("lastName", partnerSignupMethod?.data?.applicant?.contact?.last_name);
           localStorage.setItem("user", JSON.stringify({ user: partnerSignupMethod?.data?.user }));
           navigate(statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
             {
