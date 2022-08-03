@@ -156,10 +156,7 @@ export default function ConfirmationInfo() {
   const [ webTOUPopup, setWebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
   const [ creditKarmaData, setCreditKarmaData ] = useState();
-  const [ personalAnnualIncome, setPersonalAnnualIncome ] = useState();
-  const [ houseHoldAnnualIncome, setHouseHoldAnnualIncome ] = useState();
-  const [ zippy, setZippy ] = useState();
-  const [ zippy1, setZippy1 ] = useState("87654");
+  const [ zipData, setZipData ] = useState();
   let location = useLocation();
   const handleOnClickEsign = () => setEsignPopup(true);
   const handleOnClickEsignClose = () => setEsignPopup(false);
@@ -173,22 +170,18 @@ export default function ConfirmationInfo() {
   const getCreditKarmaDetails = async () => {
     let CK_Data = await getCreditKarmaData();
     setCreditKarmaData(CK_Data);
-    setPersonalAnnualIncome(location?.state?.partnerSignupData?.applicant.self_reported?.annual_income ?? creditKarmaData?.data?.annual_income)
-    // setHouseHoldAnnualIncome
-    setZippy("74839");
-    setZippy1("09871")
-    console.log("sample", "09871");
+    let addressFromZip = await ZipCodeLookup(CK_Data?.data?.zipCode);
+    setZipData(addressFromZip);
+ 
   }
   useEffect(() => {
-		// if (!location?.state?.partnerSignupData?.applicant?.contact?.first_name || !location?.state?.partnerSignupData?.applicant?.contact?.last_name) {
-		// 	navigate("/login");
-		// }
-    // else{
-    //   getCreditKarmaDetails();
-    // }
+		if (!location?.state?.partnerSignupData?.applicant?.contact?.first_name || !location?.state?.partnerSignupData?.applicant?.contact?.last_name) {
+			navigate("/login");
+		}
+    else{
+      getCreditKarmaDetails();
+    }
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-
-    getCreditKarmaDetails();
 	}, []);
 
   const validate = (personal, household) => {
@@ -253,10 +246,13 @@ export default function ConfirmationInfo() {
                                 {"label": "Retired", "value": "Retired"}];
   
   const legalMaritalStatus =  "Separated, under decree of legal separation"
-console.log("zip inside", creditKarmaData?.data?.zipCode ?? "hello");
   //Form Submission
-
-  let heell = creditKarmaData?.data?.citizenship
+  const parseCurrencyFormat = (currencyVal) => {
+    return ("$" + parseFloat(currencyVal)
+          .toFixed(2)
+          .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+          .slice(0, -3))
+  }
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -264,27 +260,17 @@ console.log("zip inside", creditKarmaData?.data?.zipCode ?? "hello");
       firstName: location?.state?.partnerSignupData?.applicant?.contact.first_name ?? creditKarmaData?.data?.firstName ?? "",
       lastName: location?.state?.partnerSignupData?.applicant?.contact.last_name ?? creditKarmaData?.data?.lastName ?? "",
       streetAddress: location?.state?.partnerSignupData?.applicant?.contact.address_street ?? creditKarmaData?.data?.state ?? "",
-      city: location?.state?.partnerSignupData?.applicant?.contact.address_city ?? creditKarmaData?.data?.city ?? "",
-      state: location?.state?.partnerSignupData?.applicant?.contact.address_state ?? creditKarmaData?.data?.zipCode ?? "",
-      // zip: location?.state?.partnerSignupData?.applicant?.contact.address_postal_code ?? creditKarmaData?.data?.zipCode ?? "" ,
-      zip: zippy1 ,
-      // zip: zippy,
-      // citizenship: location?.state?.partnerSignupData?.applicant.self_reported?.citizenship ?? creditKarmaData?.data?.citizenship ?? "",
-      personalIncome: personalAnnualIncome
-        ? "$" +
-        parseFloat(personalAnnualIncome)
-          .toFixed(2)
-          .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-          .slice(0, -3)
-        : "",
+      city: location?.state?.partnerSignupData?.applicant?.contact.address_city ?? zipData?.data?.cityName ?? "",
+      state: location?.state?.partnerSignupData?.applicant?.contact.address_state ?? zipData?.data?.stateCode ?? "", 
+      zip: location?.state?.partnerSignupData?.applicant?.contact.address_postal_code ?? creditKarmaData?.data?.zipCode ?? "" ,
+      citizenship: location?.state?.partnerSignupData?.applicant.self_reported?.citizenship ?? creditKarmaData?.data?.citizenship ?? "",
+      personalIncome: location?.state?.partnerSignupData?.applicant.self_reported?.annual_income
+        ? parseCurrencyFormat(location?.state?.partnerSignupData?.applicant.self_reported?.annual_income)
+        : ( creditKarmaData?.data?.annual_income ? parseCurrencyFormat(creditKarmaData?.data?.annual_income) : "" ),
       householdIncome: location?.state?.partnerSignupData?.applicant.self_reported?.household_annual_income
-        ? "$" +
-        parseFloat(location.state.partnerSignupData?.applicant.self_reported?.household_annual_income)
-          .toFixed(2)
-          .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-          .slice(0, -3)
-        : "",
-      employementStatus: location?.state?.partnerSignupData?.applicant.self_reported?.employment_status ?? "",
+        ? parseCurrencyFormat(location?.state?.partnerSignupData?.applicant.self_reported?.household_annual_income)
+        : ( creditKarmaData?.data?.household_annual_income ? parseCurrencyFormat(creditKarmaData?.data?.household_annual_income) : "" ),
+      employementStatus: location?.state?.partnerSignupData?.applicant.self_reported?.employment_status ?? creditKarmaData?.data?.employment_status ?? "",
       activeDuty: location?.state?.partnerSignupData?.applicant.self_reported?.active_duty ?? "",
       activeDutyRank: location?.state?.partnerSignupData?.applicant.self_reported?.active_duty_rank ?? "",
       militaryStatus: location?.state?.partnerSignupData?.applicant.self_reported?.military_status ?? "",
@@ -333,23 +319,15 @@ console.log("zip inside", creditKarmaData?.data?.zipCode ?? "hello");
 
 
 
-
-
-  console.log("data", creditKarmaData);
-
   const onBlurAddress = (event) => {
     formik.setFieldValue("streetAddress", event.target.value.trim());
     formik.setFieldValue("spouseadd", event.target.value.trim());
   };
 
-  console.log(
-"formik data", formik.values.zip
-  );
 
 
   
   const fetchAddress = async (event) => {
-    console.log("hello");
     try {
       let eventValue = event.target.value.trim();
       setErrorMsg(eventValue ? errorMsg : globalMessages.ZipCodeEnter);
@@ -402,7 +380,6 @@ console.log("zip inside", creditKarmaData?.data?.zipCode ?? "hello");
   }
   //fetch the state and city based in zip code
   const fetchSpouseAddress = async (event) => {
-    console.log("im in");
     try {
       if (event.target.value.length === 5 || !(event.target.value?.length)) {
         let result = await ZipCodeLookup(event.target.value);
@@ -530,7 +507,6 @@ console.log("zip inside", creditKarmaData?.data?.zipCode ?? "hello");
   };
 
 
-
   //View Part
   return (
     <div data-testid="confirmationInfo_component">
@@ -648,13 +624,11 @@ console.log("zip inside", creditKarmaData?.data?.zipCode ?? "hello");
                         label="Zip Code *"
                         refId={refZip}
                         value={formik.values.zip}
-                        // onChange={fetchAddress}
-                        // onChange={formik.handleChange}
-                        // onBlur={formik.handleBlur}
+                        onChange={fetchAddress}
+                        onBlur={formik.handleBlur}
                         error={(formik.touched.zip && Boolean(formik.errors.zip)) || !validZip}
                         helperText={validZip ? formik.touched.zip && formik.errors.zip : errorMsg}
                       />
-                      <p>{formik.values.zip}</p>
                     </Grid>
                     <Grid item xs={12} sm={4} container direction="row">
                       <TextField
@@ -911,7 +885,7 @@ console.log("zip inside", creditKarmaData?.data?.zipCode ?? "hello");
                                 : "hideCheckbox"
                             }
                           >
-                            {/* <Zipcode
+                            <Zipcode
                               id="spouseZip"
                               name="spouseZipcode"
                               label="Zipcode *"
@@ -920,7 +894,7 @@ console.log("zip inside", creditKarmaData?.data?.zipCode ?? "hello");
                               onBlur={formik.handleBlur}
                               error={(formik.touched.spouseZipcode && Boolean(formik.errors.spouseZipcode)) || !validSpouseZip}
                               helperText={validSpouseZip ? formik.touched.spouseZipcode && formik.errors.spouseZipcode : globalMessages.ZipCodeValid}
-                            /> */}
+                            />
                           </Grid>
                           <Grid
                             item
