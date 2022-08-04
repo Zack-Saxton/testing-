@@ -259,11 +259,11 @@ function SelectAmount(props) {
             </Grid>
             <Grid
               item
-              xs={10}
+              xs={11}
               sm={10}
               md={10}
               lg={10}
-              xl={8}
+              xl={10}
               data-testid="descriptionOutside"
               className={innerClasses.alignSmallText}
               container
