@@ -148,7 +148,7 @@ const BranchLocatorHeader = () => {
                 <Link data-testid="howToApplyLink" href={`${ ServerURL }/resources/how-to-apply/`}>
                   How to Apply for a Personal loan
                 </Link>
-                <Link data-testid="FAQLink" href="/faq">FAQ</Link>
+                <Link target="_blank"  data-testid="FAQLink" href={`${ ServerURL }/resources/faq/`}>FAQ</Link>
                 <Link data-testid="BlogLink" href={`${ ServerURL }/blog/`}>Blog</Link>
                 <Link data-testid="marinerStates" href="/branch-locator">Mariner States</Link>
                 <Link data-testid="LegalLink" href={`${ ServerURL }/resources/legal/`}>Legal</Link>
@@ -240,23 +240,6 @@ const BranchLocatorHeader = () => {
                 <Link data-testid="sweepstakesLink" href={`${ ServerURL }/sweepstakes/`}>Sweepstakes</Link>
               </Grid>
             </Grid>
-
-            <NavLink
-              data-testid="MailOfferLink"
-              to="/select-amount/"
-              className="nav_link branchHeaderLinks mailOffer"
-            >
-              <Typography className={classes.subtitle}>Mail Offer?</Typography>
-            </NavLink>
-            {!loginToken.isLoggedIn ? (
-              <NavLink to="/login" className="nav_link branchHeaderLinks">
-                <Typography className={classes.subtitle}>My Account</Typography>
-              </NavLink>
-            ) : (
-              <div onClick={logoutUser} className="nav_link branchHeaderLinks">
-                <Typography className={classes.subtitle}>Sign out</Typography>
-              </div>
-            )}
 
             <NavLink  to= {!loginToken.isLoggedIn ? "/select-amount" : "/customers/resumeApplication" }
               className="nav_link branchHeaderLinksLast"
@@ -422,7 +405,7 @@ const BranchLocatorHeader = () => {
                   <Link data-testid="ApplyLoanLinks" href={`${ ServerURL }/resources/how-to-apply/`}>
                     How to Apply for a Personal loan
                   </Link>
-                  <Link data-testid="FAQLinks" href="/faq">FAQ</Link>
+                  <Link target="_blank"  data-testid="FAQLinks" href={`${ ServerURL }/resources/faq/`}>FAQ</Link>
                   <Link data-testid="blogLinks" href={`${ ServerURL }/blog/`}>Blog</Link>
                   <Link data-testid="marinerStatesLinks" href={`${ ServerURL }/state/`}>Mariner States</Link>
                   <Link data-testid="LegalLinks" href={`${ ServerURL }/resources/legal/`}>Legal</Link>
@@ -548,11 +531,6 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                <Link data-testid="MailOfferLinks" href='/select-amount/'>Mail Offer?</Link>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion className="noShadow">
-              <AccordionDetails className="menuHead">
                 {!loginToken.isLoggedIn ? (
                   <Link href="/login">Apply Now</Link>
                 ) : (
@@ -564,7 +542,17 @@ const BranchLocatorHeader = () => {
             </Accordion>
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
-                  <Link data-testid="checkMyLinks" to= {!loginToken.isLoggedIn ? "/select-amount" : "/customers/resumeApplication" }>Check My Offers</Link>                
+                <Link data-testid="MailOfferLinks" href={`${ ServerURL }/careers/`}>Careers</Link>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion className="noShadow">
+              <AccordionDetails className="menuHead">
+                  <Link data-testid="checkMyLinks" to= {!loginToken.isLoggedIn ? "/select-amount" : "/customers/resumeApplication" }>Resume application</Link>                
+              </AccordionDetails>
+            </Accordion>
+            <Accordion className="noShadow">
+              <AccordionDetails className="menuHead">
+                <Link data-testid="MailOfferLinks" href='/select-amount/'>Mail Offer?</Link>
               </AccordionDetails>
             </Accordion>
           </Grid>

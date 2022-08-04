@@ -85,7 +85,12 @@ function CheckMyOffersContext(props) {
     trkcid : '' ,     
      utm_source:'',
      utm_medium : '',
-     utm_campaign: ''
+     utm_campaign: '',
+     utm_source_otherPartner :  "",
+     utm_medium_otherPartner :  "",
+     utm_campaign_otherPartner :  "",
+     referer_otherPartner :   "" ,
+     gclid_otherPartner : "",
   });
 
   // setUserAccountDetails in context
@@ -195,7 +200,12 @@ function CheckMyOffersContext(props) {
       trkcid : '' ,     
       utm_source:'',
       utm_medium : '',
-      utm_campaign: ''
+      utm_campaign: '',
+      utm_source_otherPartner :  "",
+      utm_medium_otherPartner :  "",
+      utm_campaign_otherPartner :  "",
+      referer_otherPartner :   "" ,
+      gclid_otherPartner : "",
     });
     if (loginToken?.isLoggedIn) {
       // fetch userdetails

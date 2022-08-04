@@ -104,8 +104,9 @@ export default function BranchLocatorFooter() {
           link: `${ process.env.REACT_APP_WEBSITE }/resources/how-to-apply/`,
         },
         {
+          getTarget:"_blank",
           name: "FAQs",
-          link: "/faq",
+          link: `${ process.env.REACT_APP_WEBSITE }/resources/faq/`,
         },
         {
           name: "Blog",
@@ -241,7 +242,7 @@ export default function BranchLocatorFooter() {
                               key={item.name}
                               className="branchfooterLi"
                             >
-                              <a href={item.link} className="footerHrefTag">
+                              <a target={item.getTarget} href={item.link} className="footerHrefTag">
                                 {item.name}
                               </a>
                             </li>
@@ -267,7 +268,7 @@ export default function BranchLocatorFooter() {
             </p>
             <p>
               <small data-testid="processTexts">
-                *This process uses a soft credit inquiry to determine whether a
+                *This process uses a {'"'}soft{'"'} credit inquiry to determine whether a
                 loan offer is available, which does not impact your credit
                 score. If you continue with the application process online and
                 accept a loan offer, or are referred to a branch and continue
@@ -282,6 +283,18 @@ export default function BranchLocatorFooter() {
                 dissatisfied with your loan and repay it in full within 15 days
                 we will waive all finance charges with no penalties. Your
                 repayment amount must be in the form of cash or certified funds.
+              </small>
+            </p>
+            <p>
+              <small data-testid="satisfactionText">
+                ***The reviews and/or testimonials presented on the Mariner Finance website 
+                are voluntarily provided without incentive, financial or otherwise. <a className="footerLinks" href={`${ process.env.REACT_APP_WEBSITE }/testimonials/`}>Testimonials</a> 
+                presented with individual{"’"}s consent and may have been edited for clarity and 
+                consistency purposes. All reviews are available for review via the “Read all 
+                reviews” link and are representative of an individual{"’"}s experience(s). Some reviews 
+                are highlighted more prominently and are filtered to demonstrate opinions of satisfied 
+                customers. Mariner welcomes and encourages all feedback and reviews. You can leave a 
+                review by visiting an applicable Google My Business page and/or <a className="footerLinks" href="https://www.feefo.com/en_US/reviews/mariner-finance?displayFeedbackType=SERVICE&timeFrame=YEAR">FEEFO</a> and/or <a className="footerLinks" href="https://www.trustpilot.com/review/marinerfinance.com">Trustpilot</a>.
               </small>
             </p>
             <p className="californiaPara" >
@@ -302,13 +315,13 @@ export default function BranchLocatorFooter() {
                 <div className="row">
                   <div className="alignAddressDiv">
                     <p data-testid="footerAddressText" className="centerAlignAddress">
-                      Mariner Finance, LLC, NMLS No. 166564
+                      Mariner Finance, LLC, NMLS No.166564{" "}
                       <span
                         className="alignAddressSpan"
                         onClick={handleOpenConsumer}
                       >
                         (www.nmlsconsumeraccess.com)
-                      </span>
+                      </span>{" "}
                       8211 Town Center Drive, Nottingham, MD 21236; Telephone
                       Number -
                       <a href="tel:+8773102373" className="hrefTag ">

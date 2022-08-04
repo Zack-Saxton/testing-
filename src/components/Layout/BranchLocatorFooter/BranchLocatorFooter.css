@@ -43,6 +43,9 @@
   text-align: justify;
 }
 
+.paragraph p small {
+  font-size: 0.875rem;
+}
 .leftAlignAddress {
   font-size: 15px;
   line-height: 1.5;
@@ -52,6 +55,11 @@
   font-family: MuliBold, sans-serif !important;
   color: #333;
   font-weight: bolder !important;
+}
+.footerLinks{
+  display: inline-block;
+  color: #214476;
+  text-decoration: none;
 }
 
 .socialIcons {
@@ -148,7 +156,8 @@
 .alignAddressSpan {
   margin: 0;
   cursor: pointer;
-  overflow-wrap: break-word
+  overflow-wrap: break-word;
+  letter-spacing: 0.3px;
 }
 
 .copyrightSpan {

@@ -108,8 +108,8 @@
 	margin-right: 6px;
 }
 .inBranchGrid{
-	justify-content: center;
-	align-items: center;
+	justify-content: flex-start;
+	align-items: left;
 }
 .inBranchGrid svg{
 	margin-right: 6px;

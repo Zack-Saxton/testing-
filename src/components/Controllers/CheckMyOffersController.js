@@ -16,11 +16,31 @@ export async function checkMyOfferSubmit(customer) {
 		errors: "",
 		appSubmissionResult: "",
 	};
+
+	const utm_sources = {
+					"utm_source": customer.utm_source_otherPartner,
+					"utm_medium": customer.utm_medium_otherPartner,
+					"utm_campaign": customer.utm_campaign_otherPartner,
+	}
 	try {
 		//creating function to load ip address from the API
 		let dateNow = new Date().toISOString();
 		let browserType = navigator.userAgent;
 		let ipAddress = await getClientIp();
+		let esignConsent = {
+			"date": dateNow,
+			"useragent": browserType,
+			"ipaddress": ipAddress,
+		};
+		let customerAddress = {
+			"address_city": customer.city,
+			"address_postal_code": customer.zip,
+			"address_state": customer.state,
+			"address_street": customer.streetAddress,
+			"email": customer.email,
+			"phone_number_primary": customer.phone,
+			"phone_type": "Cell",
+		}
 		//Data to be send to api
 		let body = {
 			"user": {
@@ -43,23 +63,13 @@ export async function checkMyOfferSubmit(customer) {
 						"offer_code": null,
 					},
 					"contact": {
-						"address_city": customer.address_city,
-						"address_postal_code": customer.zip,
-						"address_state": customer.state,
-						"address_street": customer.streetAddress,
-						"email": customer.email,
-						"phone_number_primary": customer.phone,
-						"phone_type": "Cell",
+						...customerAddress,
 						"first_name": customer.firstName,
 						"full_name": customer.firstName + ' ' + customer.lastName,
 						"last_name": customer.lastName,
 					},
 					"processing": {
-						"tokens": {
-							"utm_source": null,
-							"utm_medium": null,
-							"utm_campaign": null,
-						},
+						"tokens": utm_sources
 					},
 				},
 				"lightbox": {
@@ -72,13 +82,7 @@ export async function checkMyOfferSubmit(customer) {
 				},
 				"applicant": {
 					"contact": {
-						"address_city": customer.city,
-						"address_postal_code": customer.zip,
-						"address_state": customer.state,
-						"address_street": customer.streetAddress,
-						"email": customer.email,
-						"phone_number_primary": customer.phone,
-						"phone_type": "Cell",
+						...customerAddress,
 						"first_name": customer.firstName,
 						"full_name": customer.firstName + customer.lastName,
 						"last_name": customer.lastName,
@@ -115,31 +119,21 @@ export async function checkMyOfferSubmit(customer) {
 						"full_name": customer.firstName + customer.lastName,
 						"last_name": customer.lastName,
 					},
-					"latest_contact": {
-						"address_city": customer.city,
-						"address_postal_code": customer.zip,
-						"address_state": customer.state,
-						"address_street": customer.streetAddress,
-						"email": customer.email,
-						"phone_number_primary": customer.phone,
-						"phone_type": "Cell",
-					},
+					"latest_contact": customerAddress,
 				},
 				"submission_id": null,
 				"submission_type": "CAC",
 				"submission_paramter": null,
 				"ip_address": ipAddress,
 			},
-			"gclid": null,
+			"gclid": customer.gclid_otherPartner,
 			"requested_product": "unsecured-individual-loan",
 			"geoip": ipAddress,
 			"sourceTracking": [
 				{
-					"referer": process.env.REACT_APP_APPLICATION_REFERER_URL,
+					"referer": customer.referer_otherPartner,
 					"date": Date.now(),
-					"utm_source": null,
-					"utm_medium": null,
-					"utm_campaign": null,
+					...utm_sources
 				},
 			],
 			"update_sor_applicant_consents": {
@@ -170,33 +164,16 @@ export async function checkMyOfferSubmit(customer) {
 					},
 				},
 				"esigns": {
-					"credit_contact_authorization": {
-						"date": dateNow,
-						"useragent": browserType,
-						"ipaddress": ipAddress,
-					},
-					"electronic_communications": {
-						"date": dateNow,
-						"useragent": browserType,
-						"ipaddress": ipAddress,
-					},
-					"privacy_policy": {
-						"date": dateNow,
-						"useragent": browserType,
-						"ipaddress": ipAddress,
-					},
-					"terms_of_use": {
-						"date": dateNow,
-						"useragent": browserType,
-						"ipaddress": ipAddress,
-					},
+					"credit_contact_authorization": esignConsent,
+					"electronic_communications": esignConsent,
+					"privacy_policy": esignConsent,
+					"terms_of_use": esignConsent,
 					"delaware_itemized_schedule_of_charges": true,
 					"california_credit_education_program": null,
 				},
 			},
 			"headersHost": process.env.REACT_APP_HOST_NAME,
 		};
-		
 		if (!loggedIn && !token) {
 			result = await axios({
 				method: "POST",

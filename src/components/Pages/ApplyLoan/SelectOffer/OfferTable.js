@@ -80,7 +80,7 @@ export default function OfferTable(props) {
 
   //Shows the Online icon
   const online = (
-    <Grid className="desktopGrid" container direction="row" justifyContent="center" alignItems="center">
+    <Grid className="desktopGrid" container direction="row" justifyContent="left" alignItems="left">
       <DesktopMacIcon /> Online
     </Grid>
   );
@@ -196,7 +196,7 @@ export default function OfferTable(props) {
                       </TableCell>
                       <TableCell
                         className={props.classes.tableHead}
-                        align="center"
+                        align="left"
                       >
                         Availability
                       </TableCell>

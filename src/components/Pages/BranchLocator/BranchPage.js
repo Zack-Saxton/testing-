@@ -515,26 +515,26 @@ export default function StatePage() {
                 </Grid>
                 {Display3moreClosestBranchList}
                 <Grid>
-                  <Typography className="learnMoreLinks">
+                <Typography className="learnMoreLinks">
                     Learn more about our{" "}
-                    <a href={BrnachLocatorURLs.MarinerURL + 'personal-loans/'}>
+                    <a href={`${process.env.REACT_APP_WEBSITE}/personal-loans/`}>
                       personal loans
                     </a>
                     ,{" "}
-                    <a href={BrnachLocatorURLs.MarinerURL + 'car-loans/'}>car loans</a>,{" "}
-                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/debt-consolidation-loans/'}>
+                    <a href={`${process.env.REACT_APP_WEBSITE}/car-loans/`}>car loans</a>,{" "}
+                    <a href={`${process.env.REACT_APP_WEBSITE}/personal-loans/debt-consolidation-loans/`}>
                       debt consolidation loans
                     </a>
                     ,{" "}
-                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/home-improvement-loans/'}>
+                    <a href={`${process.env.REACT_APP_WEBSITE}/personal-loans/home-improvement-loans/`}>
                       home improvement loans
                     </a>
                     ,{" "}
-                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/vacation-loans/'}>
+                    <a href={`${process.env.REACT_APP_WEBSITE}/personal-loans/vacation-loans/`}>
                       vacation loans
                     </a>
                     , and{" "}
-                    <a href={BrnachLocatorURLs.MarinerURL + '/personal-loans/wedding-loans/'}>
+                    <a href={`${process.env.REACT_APP_WEBSITE}/personal-loans/wedding-loans/`}>
                       wedding loans
                     </a>
                     .

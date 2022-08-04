@@ -13,13 +13,13 @@ import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import profileImg from "../../../assets/images/profile-img.jpg";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import LogoutController from "../../Controllers/LogoutController";
 import { basicInformation, uploadNewProfileImage } from "../../Controllers/MyProfileController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, TextField } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
 import { useStylesMyProfile } from "./Style";
+import { useAccountOverview } from '../AccountOverview/AccountOverviewHook/useAccountOverview';
 import "./Style.css";
 
 const validationSchema = yup.object({
@@ -67,13 +67,12 @@ export default function BasicInformation(props) {
   const classes = useStylesMyProfile();
   const [ loading, setLoading ] = useState(false);
   const { data, setData } = useContext(ProfilePicture);
+  const [ basicData, setBasicData ] = useState();
+  const [ basicInfo, setBasicInfo ] = useState();
   const navigate = useNavigate();
-  const { refetch } = useQuery('loan-data', usrAccountDetails);
+  const { accountDetails, refetch, isLoading } = useAccountOverview();
   const { refetch: refetchProfilePicture } = useQuery('my-profile-picture', ProfileImageController);
-
   let refSelectImage = useRef();
-  let basicData = props?.basicInformationData?.identification;
-  let basicInfo = props?.basicInformationData?.latest_contact;
   let profileImageData = props?.getProfileImage ?? profileImg;
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
   let hasApplicationStatus = Cookies.get("hasApplicationStatus");
@@ -83,9 +82,15 @@ export default function BasicInformation(props) {
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType ] = useState("");
   const [ uploadedImage, setUploadedImage ] = useState(null);
-
   const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
   const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
+
+  useEffect(() => {
+    if(accountDetails) {
+      setBasicData(accountDetails?.data?.customer?.identification);
+      setBasicInfo(accountDetails?.data?.customer?.latest_contact);
+    }
+  }, [accountDetails])
   
   const handleInputChange = () => {
     refSelectImage.current.click();
@@ -95,7 +100,6 @@ export default function BasicInformation(props) {
   const onClickCancelChange = () => {
     formik.resetForm();
     setPhoneNumberValue(basicInfo?.phone_number_primary ?? "");
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(basicInfo?.phone_number_primary ?? "")));
     setSelectedFile(null);
   };
 
@@ -111,10 +115,12 @@ export default function BasicInformation(props) {
     });
   };  
   useEffect(() => {
+    if(basicInfo) {
     setPhoneNumberValue(basicInfo?.phone_number_primary ?? "");
     setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(basicInfo?.phone_number_primary ?? "")));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ basicInfo?.phone_number_primary ]);
+  }, [ basicInfo]);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -329,7 +335,7 @@ export default function BasicInformation(props) {
         opacity: loading ? 0.55 : 1,
         pointerEvents: loading ? "none" : "initial"
       }}>
-        {!props?.basicInformationData ? (
+        {isLoading ? (
           <Grid align="center"><CircularProgress /></Grid>
         ) : <>
           <Grid
@@ -517,6 +523,5 @@ export default function BasicInformation(props) {
   );
 }
 BasicInformation.propTypes = {
-  basicInformationData: PropTypes.object,
   getProfileImage: PropTypes.string
 };

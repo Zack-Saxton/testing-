@@ -50,7 +50,8 @@ export default function LightBox(){
 
   useEffect(()  => {
     ckLightBoxApiCall()    
-  }, );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
 
 }

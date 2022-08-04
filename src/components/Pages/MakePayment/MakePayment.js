@@ -226,7 +226,7 @@ export default function MakePayment() {
         let loan = [];
         loan.push(data);
         setLatestLoanData(loan);
-        let totalAmount = data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2);
+        let totalAmount = data?.loanData?.amountDue?.toFixed(2);
         setPayOffAmount(data?.loanPaymentInformation?.accountDetails?.CurrentPayOffAmount);
         setPaymentAmount(totalAmount);
         setTotalPaymentAmount(totalAmount);
@@ -270,7 +270,7 @@ export default function MakePayment() {
       let schedulePaymentAmount = activeLoansData?.length && activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length
         ? activeLoansData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentAmount
         : 0;
-      let totalAmount = latestLoan?.length ? latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2) : null;
+      let totalAmount = latestLoan?.length ? latestLoan[ 0 ]?.loanData?.amountDue?.toFixed(2) : null;
       setPaymentAmount(hasSchedulePaymentActive ? schedulePaymentAmount.toFixed(2) : totalAmount);
       setTotalPaymentAmount(totalAmount);
       setAccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
@@ -843,16 +843,12 @@ export default function MakePayment() {
         <Grid item xs={12}>
           <p data-testid="pleaseContact" className={classes.endMessage}>
             {" "}
-            <small>
-              If you have questions or would like to obtain a payoff balance on
-              your loan, please contact your local branch listed on your My
+            <large>
+              *If you have questions or would like to obtain a payoff balance for
+              your future loan, please contact your local branch listed on your My
               Branch Page.
-            </small>
+            </large>
             <br />
-            <small>
-              Mariner Finance accepts either ACH Bank Account or Debit Card
-              Payments.
-            </small>
           </p>
         </Grid>
       </Grid>

@@ -106,6 +106,11 @@ function SSN() {
 		Cookies.remove("CKLightbox_campaign")
 		Cookies.remove("CKLightbox_term")
 		Cookies.remove("CKLightbox_amount")
+		Cookies.remove("utm_source_otherPartner")
+		Cookies.remove("utm_medium_otherPartner")
+		Cookies.remove("utm_campaign_otherPartner")
+		Cookies.remove("referer_otherPartner")
+		Cookies.remove("gclid")
 	}
 	const handleValidResponse = () => {
 		setData({

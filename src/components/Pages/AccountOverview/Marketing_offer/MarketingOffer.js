@@ -63,6 +63,12 @@ export default function MarketingOffer(data) {
       "p4": `Remember, you must respond by ${ moment(data.dateExpiration).format('MM/DD/YYYY') }.`,
     },
     {
+      "campaignType": "BCI",
+      "p1": 'Are you looking to plan a vacation? Perhaps make a major purchase? Do you need to consolidate your debt? Life and expenses aren\'t always on the same schedule.',
+      "p2": 'That\'s why we want you to know you may qualify for a loan up to $10,000* to help simplify your bills into one manageable payment!',
+      "p3": 'Sounds good, right?',
+    },
+    {
       "campaignType": "RBO",
       "p1": 'We have reviewed your account and you are prequalified to refinance your balance for a fresh start! This is a great opportunity to poosibly lower your monthly payment.',
       "p2": 'This may be done without you having to make a payment this month!',

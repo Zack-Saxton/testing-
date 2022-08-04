@@ -44,6 +44,8 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
             })
           );
           Cookies.set("email", partnerSignupMethod?.data?.applicant.contact.email);
+          Cookies.set("firstName", partnerSignupMethod?.data?.applicant?.contact?.first_name);
+          Cookies.set("lastName", partnerSignupMethod?.data?.applicant?.contact?.last_name);
           localStorage.setItem("user", JSON.stringify({ user: partnerSignupMethod?.data?.user }));
           navigate(statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
             {
@@ -156,4 +158,21 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
     )
     : toast.error("Please try again");
   return PartnerConfirmationAPI;
+}
+
+export async function getCreditKarmaData() {
+  try {
+    const email = Cookies.get("email");
+    let url = "get_credit_karma_data";
+    let param = "";
+    let data = {
+      email: email,
+    };
+    let method = "POST";
+    let addAccessToken = true;
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_getCreditKarmaData_API, error);
+  }
 }

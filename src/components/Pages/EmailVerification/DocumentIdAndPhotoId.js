@@ -345,7 +345,7 @@ function DocumentIdAndPhotoId(props) {
             </Typography>
           </MenuItem>
           <MenuItem>
-            <a to="/faq" className="nav_link ">
+            <a className="nav_link ">
               <Typography data-testid = "render_uploadFromCamera" className={classes.dropdownMenu} onClick={() => enableCameraOption()}>
                 Upload from Camera
               </Typography>
@@ -447,7 +447,7 @@ function DocumentIdAndPhotoId(props) {
             </Typography>
           </MenuItem>
           <MenuItem>
-            <a to="/faq" className="nav_link ">
+            <a className="nav_link">
               <Typography className={classes.dropdownMenu} onClick={() => enableSelfieCameraOption()}>
                 Upload from Camera
               </Typography>

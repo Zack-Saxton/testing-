@@ -9,8 +9,7 @@
   z-index: 1000;
 }
 
-.topBar {
-  height: 36px;
+.branchLocatorTopBar {
   background: linear-gradient(to left, #264266, #0f4eb3);
 }
 
@@ -33,7 +32,7 @@
   width: 100%;
   margin: auto;
   height: 82px;
-  padding: 0px !important;
+  padding: 0px 30px !important;
   align-items: center !important;
   box-sizing: border-box;
 }
@@ -99,14 +98,14 @@
   text-decoration: none
 }
 
-.topBarlinks {
+.branchLocatorTopBarLinks {
   display: flex;
   height: 100%;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0px;
+  justify-content: space-between;
   max-width: 1200px;
   margin: auto;
+  padding: 10px 30px;
 }
 
 .topBarLinkOne {
@@ -127,7 +126,7 @@
 .topBarLinkOne a {
   color: white;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   padding: 0px 15px;
   text-decoration: none;
 }
@@ -169,7 +168,7 @@
   padding: 0px;
   display: flex;
   align-items: center;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 
 .branchHeaderLinksLast p span {
@@ -207,7 +206,7 @@
 /* personal Loan dropdown */
 .personalLoanHolder {
   position: relative;
-  margin-right: 35px;
+  margin-right: 70px;
   cursor: pointer;
   user-select: none;
   border-bottom: 3px solid transparent !important;
@@ -257,7 +256,7 @@
 /* Car Loan dropdown */
 .carLoansHolder {
   position: relative;
-  margin-right: 35px;
+  margin-right: 70px;
   cursor: pointer;
   user-select: none;
 }
@@ -306,7 +305,7 @@
 /* home Loan dropdown */
 .homeLoansHolder {
   position: relative;
-  margin-right: 35px;
+  margin-right: 70px;
   cursor: pointer;
   user-select: none;
 }
@@ -355,7 +354,7 @@
 /* Resources dropdown */
 .resourcesHolder {
   position: relative;
-  margin-right: 35px;
+  margin-right: 70px;
   cursor: pointer;
   user-select: none;
 }
@@ -404,7 +403,7 @@
 /* Why Us dropdown */
 .whyUsHolder {
   position: relative;
-  margin-right: 35px;
+  margin-right: 70px;
   cursor: pointer;
   user-select: none;
 }
@@ -496,14 +495,45 @@
 }
 
 #applynowid {
-  padding: 11px 21px;
+  padding: 0px 23px !important;
   border-radius: 25px;
- background: #ffbc23;
- margin-left: 1rem;
+  background: #ffbc23;
  height: 38px;
 }
+.topRightIcons img{
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 40px;
+}
 
-@media only screen and (max-width: 1200px) {
+.leftLinks{
+  display: flex;
+}
+.rightTopIcon{
+  align-items: center;
+  display: flex;
+}
+.rightTopIcon a{
+  display: inline-flex;
+  padding: 0px 10px;
+}
+
+@media only screen and (max-width: 420px) {
+  .leftLinks{
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .branchLocatorTopBarLinks{
+    flex-direction: column;
+  }
+  .rightTopIcon{
+    margin-top: 10px;
+  }
+}
+@media only screen and (max-width: 1135px) {
   #desktopMenu {
     display: none;
   }
@@ -522,6 +552,7 @@
   background-color: white;
   width: 100%;
   top: 102%;
+  left: 0;
   max-height: 520px;
   overflow: scroll;
 }

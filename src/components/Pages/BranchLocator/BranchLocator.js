@@ -237,7 +237,7 @@ export default function BranchLocator() {
     <Grid>
 
       <Typography className="mainHeading">
-        <b>Apply Online</b> For a Personal Loan
+        <b>Apply Online</b> For a Personal Loan†
       </Typography>
       <p className="mainParagraph">
         Do you live in one of the states in which we operate and need a personal loan? Can’t reach a branch or prefer to apply online? If so, you’re in luck! You can apply online today*. It’s quick, easy, and secure.
