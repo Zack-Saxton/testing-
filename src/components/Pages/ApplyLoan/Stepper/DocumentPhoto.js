@@ -37,7 +37,24 @@ export default function DocumentPhoto(props) {
 	const classes = useStyles();
 	const [ iframeSrc, setIframeSrc ] = useState("");
 	const [ error, setError ] = useState(false);
-	//Load the IFrame
+	const [ resetIframe, setResetIframe ] = useState(0);
+	const [ windowHeight, setWindowHeight ] = useState(screen.height);
+	const [ windowWidth, setWindowWidth ] = useState(screen.width);
+
+		//Refresh IFrame of the window size changed, so make the camera pointer align correclty
+	let resizeTimeout;
+	window.addEventListener('resize', function(event) {
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(function(){
+			if(Math.abs(screen.width - windowWidth) >= 500 ||  Math.abs(screen.height - windowHeight) >= 500){
+				setResetIframe(resetIframe + 1);
+				setWindowHeight(screen.height);
+				setWindowWidth(screen.width);
+			}
+		}, 1500);
+	});
+
+		//Load the IFrame
 	async function loadIframe() {
 		let iframe = await getIframe();
 		setIframeSrc(DOMPurify.sanitize(iframe?.data?.iframeSrc));
@@ -99,7 +116,7 @@ export default function DocumentPhoto(props) {
 				</p>
 			</div>
 			<Grid item sm={12} data-testid="iframe">
-				{iframeSrc !== '' ? <iframe src={iframeSrc} allow="camera;" id="iframeDiv" title="document upload" height="650px" width="100%" /> : null}
+				{iframeSrc !== '' ? <iframe key={resetIframe} src={iframeSrc} allow="camera;" id="iframeDiv" title="document upload" height="650px" width="100%" /> : null}
 			</Grid>
 			<div>
 				<p className={classes.pTagStyle} data-testid="documentPhotoTextBottom">
