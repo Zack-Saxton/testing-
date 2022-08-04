@@ -20,7 +20,7 @@ import Cookies from "js-cookie";
 //Styling part
 const useStyles = makeStyles(() => ({
   alignSmallText: {
-    paddingTop: "25px",
+    paddingTop: ".6rem",
     paddingBottom: "70px",
     marginBottom: "3%",
   },
