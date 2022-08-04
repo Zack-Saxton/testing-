@@ -478,7 +478,7 @@ export default function BankAccountVerification(props) {
 						docType={"bank information"}
 						handle={handleUpload}
 						setLoadingFlag={props.setLoadingFlag}
-						multiple={paymnetMode === "checkpayment" ? false : true}
+						multiple={false}
 					/>
 				</div>
 				<div className={props.classes.actionsContainer}>
