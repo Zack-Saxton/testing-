@@ -115,11 +115,11 @@ function SSN() {
 	window.fsSetIdentity = function async () {
 		const fsIdentifyDetails = Cookies.get("fsIdentifyDetails") ? Cookies.get("fsIdentifyDetails") : '{}';
 		const fsIdentify = JSON.parse(fsIdentifyDetails);
-		let GUID = fsIdentify?.GUID ?? '';
+		let guid = fsIdentify?.GUID ?? '';
 		let displayName = fsIdentify?.displayName ?? '';
-		if (window.FS && (GUID) && (displayName)) {
-				window.FS.identify(GUID, {
-				GUID: GUID,
+		if (window.FS && (guid) && (displayName)) {
+				window.FS.identify(guid, {
+				GUID: guid,
 				displayName: fullName
 			})
 		}
