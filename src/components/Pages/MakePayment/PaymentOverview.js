@@ -71,7 +71,7 @@ export default function PaymentOverview(props) {
                                     {row.loanDetails.AccountNumber}
                                 </TableCell>
                                 <TableCell className={`${ classes.tableHeadRow } ${ classes.tableHead }`} align="right">
-                                    <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.CurrentPayOffAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
+                                    <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.CurrentPayOffAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} suffix = {'*'} />
                                 </TableCell>
                                 <TableCell className={`${ classes.tableHeadRow } ${ classes.tableHead }`} align="right">
                                     <NumberFormat value={Math.abs(row.loanData.amountDue)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />

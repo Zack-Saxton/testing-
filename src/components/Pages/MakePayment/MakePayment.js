@@ -843,16 +843,12 @@ export default function MakePayment() {
         <Grid item xs={12}>
           <p data-testid="pleaseContact" className={classes.endMessage}>
             {" "}
-            <small>
-              If you have questions or would like to obtain a payoff balance on
-              your loan, please contact your local branch listed on your My
+            <large>
+              *If you have questions or would like to obtain a payoff balance for
+              your future loan, please contact your local branch listed on your My
               Branch Page.
-            </small>
+            </large>
             <br />
-            <small>
-              Mariner Finance accepts either ACH Bank Account or Debit Card
-              Payments.
-            </small>
           </p>
         </Grid>
       </Grid>
