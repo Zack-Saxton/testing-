@@ -20,7 +20,7 @@ import Cookies from "js-cookie";
 //Styling part
 const useStyles = makeStyles(() => ({
   alignSmallText: {
-    paddingTop: "25px",
+    paddingTop: ".6rem",
     paddingBottom: "70px",
     marginBottom: "3%",
   },
@@ -259,11 +259,11 @@ function SelectAmount(props) {
             </Grid>
             <Grid
               item
-              xs={11}
+              xs={10}
               sm={10}
               md={10}
               lg={10}
-              xl={10}
+              xl={8}
               data-testid="descriptionOutside"
               className={innerClasses.alignSmallText}
               container
