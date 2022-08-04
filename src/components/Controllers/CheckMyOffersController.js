@@ -172,7 +172,7 @@ export async function checkMyOfferSubmit(customer) {
 					"california_credit_education_program": null,
 				},
 			},
-			"headersHost": "cis-development.marinerfinance.io",
+			"headersHost": process.env.REACT_APP_HOST_NAME,
 		};
 		if (!loggedIn && !token) {
 			result = await axios({
