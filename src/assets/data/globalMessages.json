@@ -240,7 +240,7 @@
   "Recaptcha_Verify": "reCAPTCHA Verified",
   "Recaptcha_Error": "reCAPTCHA validation failed. Please try again",
   "Routing_No_Required": "Bank Routing Number is required",
-  "Schedule_Appointment": "Meeting has been scheduled",
+  "Schedule_Appointment": "Schedule An In-Person Appointment",
   "Schedule_Appointment_Error": "Error scheduling an appointment",
   "Schedule_Call": "Call has been scheduled",
   "Schedule_Call_Error": "Error scheduling a call",
