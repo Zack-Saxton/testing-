@@ -162,7 +162,7 @@ export default function ActiveLoans() {
                                 </span>
                               </h5>
                               <p className={classes.cardContent}>
-                                * Amount may not <br></br> include all fees!
+                                * Amount may not <br></br> include all fees
                               </p>
                             </Grid>
                             <Grid item xs={12} sm={3}>
