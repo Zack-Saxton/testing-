@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { ButtonPrimary } from "../../../FormsUI";
 import { SpringFourNoOffersAvailableStyle } from "./Style";
 import SpringFour from "../../../../assets/images/SpringFour_logo.png"
@@ -57,7 +57,12 @@ const SpringFourNoOffersAvailable = () => {
                       </Grid>
                     </Grid>
                     <ButtonPrimary stylebutton='{"color":""}'>
-                      Get Started 
+                    <a 
+                    rel="noreferrer"
+                    target="_blank"
+                    className={classes.getStartedSpringFourButton} href="https://wps-qa.marinerfinance.io/resources/#springfour">
+                    Get Started
+                    </a>                      
                     </ButtonPrimary>
                   </Grid>
                 </Grid>

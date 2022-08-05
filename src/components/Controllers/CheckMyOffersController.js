@@ -2,6 +2,8 @@ import axios from "axios";
 import getClientIp from "../Controllers/CommonController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import globalMessages from "../../assets/data/globalMessages.json";
+
 
 export async function checkMyOfferSubmit(customer) {
 
@@ -22,11 +24,18 @@ export async function checkMyOfferSubmit(customer) {
 					"utm_medium": customer.utm_medium_otherPartner,
 					"utm_campaign": customer.utm_campaign_otherPartner,
 	}
+	let current_hostName = window.location.hostname;
 	try {
 		//creating function to load ip address from the API
 		let dateNow = new Date().toISOString();
 		let browserType = navigator.userAgent;
 		let ipAddress = await getClientIp();
+
+		const eSigns_Data = {
+						"date": dateNow,
+						"useragent": browserType,
+						"ipaddress": ipAddress,
+		}				
 		//Data to be send to api
 		let body = {
 			"user": {
@@ -170,31 +179,15 @@ export async function checkMyOfferSubmit(customer) {
 					},
 				},
 				"esigns": {
-					"credit_contact_authorization": {
-						"date": dateNow,
-						"useragent": browserType,
-						"ipaddress": ipAddress,
-					},
-					"electronic_communications": {
-						"date": dateNow,
-						"useragent": browserType,
-						"ipaddress": ipAddress,
-					},
-					"privacy_policy": {
-						"date": dateNow,
-						"useragent": browserType,
-						"ipaddress": ipAddress,
-					},
-					"terms_of_use": {
-						"date": dateNow,
-						"useragent": browserType,
-						"ipaddress": ipAddress,
-					},
+					"credit_contact_authorization": eSigns_Data,
+					"electronic_communications":eSigns_Data,
+					"privacy_policy":eSigns_Data,
+					"terms_of_use": eSigns_Data,
 					"delaware_itemized_schedule_of_charges": true,
 					"california_credit_education_program": null,
 				},
 			},
-			"headersHost": "cis-development.marinerfinance.io",
+			"headersHost": current_hostName,
 		};
 		if (!loggedIn && !token) {
 			result = await axios({
@@ -212,7 +205,7 @@ export async function checkMyOfferSubmit(customer) {
 			response.appSubmissionResult = result?.data;
 		}
 	} catch (error) {
-		ErrorLogger("Error executing checkMyOfferSubmit API", error);
+		ErrorLogger(globalMessages.Error_executing_checkMyOfferSubmit_API, error);
 		response.appSubmissionResult = error.response;
 	}
 	return response;
@@ -232,7 +225,7 @@ export async function getCustomerByEmail(email) {
 		//API call
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
-		ErrorLogger("Error executing getCustomerByEmail API", error);
+		ErrorLogger(globalMessages.Error_executing_getCustomerByEmail_API, error);
 	}
 }
 
@@ -279,7 +272,7 @@ export async function creatProspect(body) {
 		//API call
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
-		ErrorLogger("Error executing creatProspect API", error);
+		ErrorLogger(globalMessages.Error_executing_creatProspect_API, error);
 	}
 }
 
@@ -308,6 +301,6 @@ export async function getCKLightBox(query) {
 		//API call
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
-		ErrorLogger("Error executing getCKLightBox API", error);
+		ErrorLogger(globalMessages.Error_executing_getCKLightBox_API, error);
 	}
 }

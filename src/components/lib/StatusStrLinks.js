@@ -12,7 +12,7 @@ export let statusStrLinks = {
   "pre_qual_rejected": "/select-amount",
   "pre_qualified": "/credit-karma",
   "referred": "/referred-to-branch",
-  "rejected": "/no-offers-available",
+  "rejected": "/offers/SpringFourNoOffersAvailable",
   "under_review": "/customers/loanDocument",
   "closing_process": "/customers/finalVerification",
   "final_review": "/customers/loanDocument"
@@ -32,7 +32,7 @@ export let statusStrLinks_PartnerSignUp = {
   "pre_qual_rejected": "/select-amount",
   "pre_qualified": "/credit-karma",
   "referred": "/offers/referral",
-  "rejected": "/offers/none-available",
+  "rejected": "/offers/SpringFourNoOffersAvailable",
   "under_review": "/customers/loanDocument",
   "closing_process": "/customers/finalVerification",
   "final_review": "/customers/loanDocument"
