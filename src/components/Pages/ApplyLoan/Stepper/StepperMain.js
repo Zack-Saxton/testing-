@@ -8,9 +8,10 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import Cookies from "js-cookie";
 import React, { createRef, useEffect, useRef, useState } from "react";
+import { useQuery } from "react-query";
+import { verificationSteps } from "../../../Controllers/ApplyForLoanController";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ButtonPrimary } from "../../../FormsUI";
-import APICall from "../../../lib/AxiosLib";
 import BankAccountVerification from "./BankAccountVerification";
 import DocumentPhoto from "./DocumentPhoto";
 import EmailVerification from "./EmailVerification";
@@ -67,8 +68,8 @@ function getSteps() {
 		"Email Verification",
 		"Phone Verification",
 		"Financial Information",
-		"ID Document & Photo",
 		"ID Verification Questions",
+		"ID Document & Photo",	
 		"Bank Account Verification",
 		"Income Verification",
 	];
@@ -82,12 +83,11 @@ export default function StepperMain() {
 	const [ loadingFlag, setLoadingFlag ] = useState(false);
 	const steps = getSteps();
 	const elementsRef = useRef(steps.map(() => createRef()));
+	const { data: res, refetch } = useQuery('verification-data', verificationSteps);
 
 	//To open the the stepper from were the user needs to continue.
 	const getApplicationStatus = async () => {
-		let data = {};
 		const skip = JSON.parse(Cookies.get("skip") ? Cookies.get("skip") : "{ }");
-		let res = await APICall("verification_steps_cac", '', data, "POST", true);
 		let tabPosition = "";
 		if (
 			res?.data?.email &&
@@ -106,11 +106,11 @@ export default function StepperMain() {
 			tabPosition = 1;
 		} else if (!res?.data?.financial_information && !tabPosition) {
 			tabPosition = 2;
-		} else if (!res?.data?.id_document && !tabPosition) {
-			tabPosition = 3;
-		} else if (!res?.data?.id_photo && !tabPosition) {
-			tabPosition = 3;
 		} else if (!res?.data?.id_questions && !tabPosition) {
+			tabPosition = 3;
+		} else if (!res?.data?.id_document && !tabPosition) {
+			tabPosition = 4;
+		} else if (!res?.data?.id_photo && !tabPosition) {
 			tabPosition = 4;
 		} else if (!res?.data?.bank_account_information && !tabPosition) {
 			tabPosition = 5;
@@ -126,7 +126,7 @@ export default function StepperMain() {
 	useEffect(() => {
 		getApplicationStatus();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [res]);
 
 	//To handle the next prev and reset funcationality
 
@@ -144,7 +144,7 @@ export default function StepperMain() {
 			case 0:
 				return (
 					<EmailVerification
-						next={getApplicationStatus}
+						next={refetch}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -156,7 +156,7 @@ export default function StepperMain() {
 			case 1:
 				return (
 					<PhoneVerification
-						next={getApplicationStatus}
+						next={refetch}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -168,7 +168,7 @@ export default function StepperMain() {
 			case 2:
 				return (
 					<FinancialInformation
-						next={getApplicationStatus}
+						next={refetch}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -179,8 +179,8 @@ export default function StepperMain() {
 				);
 			case 3:
 				return (
-					<DocumentPhoto
-						next={getApplicationStatus}
+					<VerificationQuestion
+						next={refetch}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -192,8 +192,8 @@ export default function StepperMain() {
 				);
 			case 4:
 				return (
-					<VerificationQuestion
-						next={getApplicationStatus}
+					<DocumentPhoto
+						next={refetch}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -205,7 +205,7 @@ export default function StepperMain() {
 			case 5:
 				return (
 					<BankAccountVerification
-						next={getApplicationStatus}
+						next={refetch}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
@@ -217,7 +217,7 @@ export default function StepperMain() {
 			case 6:
 				return (
 					<IncomeVerification
-						next={getApplicationStatus}
+						next={refetch}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
