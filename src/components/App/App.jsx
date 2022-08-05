@@ -232,19 +232,19 @@ function App() {
                                                 </Route>
                                                 <Route path='offers' >
                                                     <Route path='none-available' element={loadGeneralUserComponent(<NoOfferAvailable />)} />
-                                                    <Route path='referral' element={loadGeneralUserComponent(<ReferredFromAffiliate />)} />                                                    
+                                                    <Route path='referral' element={loadGeneralUserComponent(<ReferredFromAffiliate />)} />
                                                     <Route path='no-offers' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />
                                                     <Route path='SpringFourNoOffersAvailable' element={loadGeneralUserComponent(<SpringFourNoOffersAvailable />)} />
                                                 </Route>
                                                 <Route path='partners' >
                                                         <Route path='*' element={<LightBox />} />
                                                 </Route>
-                                                 <Route path = 'app' >   
-                                                 <Route path = 'form' element={<OtherPartner />}>         
+                                                 <Route path = 'application' >
+                                                 <Route path = 'form' element={<OtherPartner />}>
                                                 </Route>
-                                                </Route> 
-                                                <Route path = 'loan_by_mail'  element={<OtherPartner />} />    
-                                               
+                                                </Route>
+                                                <Route path = 'loan_by_mail'  element={<OtherPartner />} />
+
                                             </Routes>
                                         </NavContext>
                                     </LoanAccount>
