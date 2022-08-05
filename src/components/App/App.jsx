@@ -239,7 +239,7 @@ function App() {
                                                 <Route path='partners' >
                                                         <Route path='*' element={<LightBox />} />
                                                 </Route>
-                                                 <Route path = 'app' >   
+                                                 <Route path = 'application' >   
                                                  <Route path = 'form' element={<OtherPartner />}>         
                                                 </Route>
                                                 </Route> 
