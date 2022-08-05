@@ -7,7 +7,7 @@ import { statusStrLinks_PartnerSignUp } from "../lib/StatusStrLinks"
 
 let statusStrLink = statusStrLinks_PartnerSignUp;
 
-export default async function PartnerSignup(navigate, partnerToken, applicantId, partnerSignupData) {
+export default async function PartnerSignup(navigate, partnerToken, applicantId, partnerSignupData,utm_source) {
   let url = "partner_signup";
   let param = "";
   let data = {
@@ -28,7 +28,7 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
 
   partnerSignupMethod?.status === 200
     ? toast.success(partnerSignupMethod?.data?.statusText ? partnerSignupMethod?.data?.statusText
-      : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info" ? "Successfully Registered, Please confirm your information" : "Successfully Registered",
+      : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info" ? globalMessages.confirm_Info_LoginMessage : globalMessages.confirm_Info_Login,
       {
         onClose: () => {
           let now = new Date().getTime();
@@ -47,6 +47,10 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
           Cookies.set("firstName", partnerSignupMethod?.data?.applicant?.contact?.first_name);
           Cookies.set("lastName", partnerSignupMethod?.data?.applicant?.contact?.last_name);
           localStorage.setItem("user", JSON.stringify({ user: partnerSignupMethod?.data?.user }));
+          if(utm_source === "amone" && partnerSignupMethod?.data?.applicant?.processing?.status === "rejected" ){
+            navigate("/offers/no-offers")
+          }
+          else{
           navigate(statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
             {
               state: {
@@ -54,10 +58,11 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
                 firstname: partnerSignupMethod?.data?.applicant?.contact?.first_name              
               }
             });
+          }
         },
       }
     )
-    : toast.error(partnerSignupMethod?.statusText ?? "Please check your data");
+    : toast.error(partnerSignupMethod?.statusText ?? globalMessages.Confirm_Info_checkData);
   return partnerSignupMethod;
 }
 export async function PopulatePartnerSignup(
@@ -156,7 +161,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
         },
       }
     )
-    : toast.error("Please try again");
+    : toast.error(globalMessages.TryAgain);
   return PartnerConfirmationAPI;
 }
 

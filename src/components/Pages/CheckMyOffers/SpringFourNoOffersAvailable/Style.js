@@ -59,6 +59,10 @@ const SpringFourNoOffersAvailableStyle = makeStyles(() => ({
     color:"#fff",
     textAlign:"justify",
     padding:"15px 23px 8% 23px",  
+  },
+  getStartedSpringFourButton:{
+    color: "#171717",
+    textDecoration: "none",
   }
 
 

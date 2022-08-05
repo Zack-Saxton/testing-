@@ -2,6 +2,8 @@ import axios from "axios";
 import getClientIp from "../Controllers/CommonController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import globalMessages from "../../assets/data/globalMessages.json";
+
 
 export async function checkMyOfferSubmit(customer) {
 
@@ -190,7 +192,7 @@ export async function checkMyOfferSubmit(customer) {
 			response.appSubmissionResult = result?.data;
 		}
 	} catch (error) {
-		ErrorLogger("Error executing checkMyOfferSubmit API", error);
+		ErrorLogger(globalMessages.Error_executing_checkMyOfferSubmit_API, error);
 		response.appSubmissionResult = error.response;
 	}
 	return response;
@@ -210,7 +212,7 @@ export async function getCustomerByEmail(email) {
 		//API call
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
-		ErrorLogger("Error executing getCustomerByEmail API", error);
+		ErrorLogger(globalMessages.Error_executing_getCustomerByEmail_API, error);
 	}
 }
 
@@ -257,7 +259,7 @@ export async function creatProspect(body) {
 		//API call
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
-		ErrorLogger("Error executing creatProspect API", error);
+		ErrorLogger(globalMessages.Error_executing_creatProspect_API, error);
 	}
 }
 
@@ -286,6 +288,6 @@ export async function getCKLightBox(query) {
 		//API call
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
-		ErrorLogger("Error executing getCKLightBox API", error);
+		ErrorLogger(globalMessages.Error_executing_getCKLightBox_API, error);
 	}
 }

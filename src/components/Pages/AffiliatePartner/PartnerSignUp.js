@@ -194,6 +194,7 @@ export default function PartnerSignUp() {
         partnerToken,
         applicantId,
         partnerSignupData,
+        utm_source,
       );
       if (partnerRes.status === 404 && partnerRes.statusText === "Last four SSN do not match") {
         setLoading(false);

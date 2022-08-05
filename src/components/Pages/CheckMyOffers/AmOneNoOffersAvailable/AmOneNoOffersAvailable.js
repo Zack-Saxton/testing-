@@ -5,26 +5,14 @@ import CheckIcon from "@mui/icons-material/Check";
 import LockIcon from "@mui/icons-material/Lock";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import amOneLogo from "../../../../assets/icon/amOneWhite.png";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { ButtonPrimary } from "../../../FormsUI";
 import { AmOneNoOffersStyle } from "./Style";
-import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import "./AmOneNoOffersAvailable.css";
 
-const AmOneNoOffersAvailable = (props) => {
-  const classes = AmOneNoOffersStyle();
-  const { data } = useContext(CheckMyOffers);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    //redirects to select amount of directly called
-    if (data?.completedPage < data?.page?.ssn && data?.applicationStatus?.toLowerCase() !== "rejected" && props?.location?.formcomplete?.toLowerCase() !== "yes") {
-    	navigate("/select-amount");
-    }
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+const AmOneNoOffersAvailable = () => {
+  const classes = AmOneNoOffersStyle(); 
 
   return (
     <div>
