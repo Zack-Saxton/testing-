@@ -57,7 +57,7 @@ function ReferredToBranch(props) {
 								md={7}
 								lg={7}
 								xl={7}
-								className="cardWrapperImg row"
+								className="congratulationsImg row"
 								container
 								justifyContent="center"
 								alignItems="center"
@@ -150,39 +150,20 @@ function ReferredToBranch(props) {
 								alignItems="center"
 							>
 								<Grid
-									item
-									xs={9}
-									sm={6}
-									md={5}
-									lg={4}
-									xl={4}
-									className="alignButton paddingButton buttonStart"
 									container
 									justifyContent="center"
 									alignItems="center"
+									mt={3}
 								>
 									<ButtonPrimary
-										stylebutton='{"background": "", "color":"", "fontSize": "0.938rem","padding":"0px 30px"}'
+										stylebutton='{"background": "", "color":"","marginRight":"10px"}'
 										href="customers/myBranch"
 										data-testid = "finishByPhone_button"
 									>
 										Finish by Phone
 									</ButtonPrimary>
-								</Grid>
-								<Grid
-									item
-									xs={9}
-									sm={6}
-									md={5}
-									lg={4}
-									xl={4}
-									className="alignButton paddingButton buttonEnd"
-									container
-									justifyContent="center"
-									alignItems="center"
-								>
 									<ButtonPrimary
-										stylebutton='{"background": "", "color":"", "fontSize": "0.938rem","padding":"0px 30px" }'
+										stylebutton='{"background": "", "color":""}'
 										href="customers/myBranch"
 										data-testid = "finishByBranch_button"
 									>
