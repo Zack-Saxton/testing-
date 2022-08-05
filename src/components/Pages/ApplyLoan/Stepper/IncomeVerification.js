@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { verificationSteps } from "../../../Controllers/ApplyForLoanController";
@@ -24,22 +24,35 @@ export default function IncomeVerification(props) {
 	const navigate = useNavigate();
 	const classes = useStyles();
 	const [ internalLoading, setInternalLoading ] = useState(false);
-	const { refetch : loanRefetch } = useQuery('verification-data', verificationSteps);
+	const [ fileUploadSuccess, setFileUploadSuccess ] = useState(false);
+	const { data : verifySteps, refetch : loanRefetch } = useQuery('verification-data', verificationSteps);
 	const { refetch : accountOverviewRefetch } = useQuery('loan-data', usrAccountDetails);
 
 	const handleUpload = (res) => {
 		if (res?.data?.income_verification) {
 			toast.success(messages.document.uploadSuccess);
+			setFileUploadSuccess(true);
 		} else {
+			props.setLoadingFlag(false);
+			setInternalLoading(false)
 			toast.error(messages.document.upoloadFailed);
 		}
 	};
 
-	const handleFinishOnClick = async () => {
-		props.setLoadingFlag(true);
-		setInternalLoading(true);
-		let verifySteps = await verificationSteps();
-		//To check all the steps are completed or not
+	const handleFinishOnClick = async () => {	
+		if (!fileUploadSuccess) {
+			toast.error(messages?.bankAccountVerification?.notValid);
+			props.setLoadingFlag(false);
+			setInternalLoading(false);
+		}
+		else {
+			loanRefetch();
+			props.setLoadingFlag(true);
+			setInternalLoading(true);
+		}
+	}
+
+	const checkApplicationStatus = () => {
 		if (
 			verifySteps?.data?.email &&
 			verifySteps?.data?.financial_information &&
@@ -52,7 +65,6 @@ export default function IncomeVerification(props) {
 		) {
 			props.setLoadingFlag(false);
 			setInternalLoading(false)
-			loanRefetch();
 			accountOverviewRefetch();
 			navigate("/customers/receiveYourMoney");
 		} else {
@@ -61,6 +73,14 @@ export default function IncomeVerification(props) {
 			toast.error(messages.incomeVerification.finishAllSteps);
 		}
 	}
+
+	useEffect(() => {
+		if(fileUploadSuccess) {
+		checkApplicationStatus();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [verifySteps])
+
 	//JSX part
 	return (
 		<div>
