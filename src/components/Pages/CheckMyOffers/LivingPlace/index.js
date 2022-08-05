@@ -44,7 +44,7 @@ function LivingPlace() {
 
 	const [ error, setError ] = useState();
 	const [ helperText, setHelperText ] = useState();
-	let [ livingPlace, setLivingPlace ] = useState(data.homeOwnership ?? "");
+	const [ livingPlace, setLivingPlace ] = useState(data.homeOwnership ?? "");
 	const navigate = useNavigate();
 	const currencyFormat = (currencyValue) => {
 		if (currencyValue) {
@@ -286,11 +286,6 @@ function LivingPlace() {
 											}
 											onClick={() => {
 												setLivingPlace(homeData.mobile);
-												data.rentMortgageAmount = 0;
-												data.homeOwnership = homeData.mobile;
-												if (data.completedPage < data.page.livingPlace) {
-													setDataState(homeData.mobile);
-												}
 											}}
 										>
 											Own a mobile home
@@ -308,12 +303,6 @@ function LivingPlace() {
 											}
 											onClick={() => {
 												setLivingPlace(homeData.withRelative);
-												data.rentMortgageAmount = 0;
-												data.homeOwnership = homeData.withRelative;
-
-												if (data.completedPage < data.page.livingPlace) {
-													setDataState(homeData.withRelative);
-												}
 											}}
 										>
 											Living with relatives
