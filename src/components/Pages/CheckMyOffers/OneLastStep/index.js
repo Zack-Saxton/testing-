@@ -120,7 +120,7 @@ function SSN() {
 		if (window.FS && (guid) && (displayName)) {
 				window.FS.identify(guid, {
 				GUID: guid,
-				displayName: fullName
+				displayName: displayName
 			})
 		}
 	}; 	
