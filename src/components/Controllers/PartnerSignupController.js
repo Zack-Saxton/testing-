@@ -108,6 +108,8 @@ export async function PopulatePartnerReferred(applicantId) {
 }
 
 export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
+ 
+  const email = Cookies.get("email");
   let url = "partner_confirm_info";
   let param = "";
   let data = {
@@ -115,7 +117,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
     fname: dataConfirmInfo.firstName,
     lname: dataConfirmInfo.lastName,
     home_phone: "",
-    email: dataConfirmInfo.email,
+    email: email,
     address_street: dataConfirmInfo.streetAddress,
     address_city: dataConfirmInfo.city,
     address_state: dataConfirmInfo.state,
