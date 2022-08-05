@@ -101,6 +101,7 @@ const useStylesMyProfile = makeStyles((theme) => ({
 	smallText: {
 		color: "#353535",
 		fontSize: "small",
+		textAlign: "justify",
 	},
 	paymentBody: {
 		paddingBottom: "20px",

@@ -86,7 +86,10 @@
     "mfa_disambiguate_answer": "/integration/lexisnexis/mfa_kba_disambiguate_answers?test=true",
     "mfa_answers_cac": "/integration/lexisnexis/mfa_kba_answers?test=true",
     "mfa_save_phone_number":"/customer/save_MFA_Text_Phone",
+    "post_fullstory":"/customer/update_full_customer",
     "save_id_scane":"/idscan/save_response_cac",
-    "save_id_scane_before_cac":"/idscan/save_response_before_cac"
+    "save_id_scane_before_cac":"/idscan/save_response_before_cac",
+    "get_": "/psa/get_creditkarma_data",
+    "get_credit_karma_data": "/customer/get_creditkarma_data_cac"
   }
 }

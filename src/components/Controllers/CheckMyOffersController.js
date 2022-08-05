@@ -24,18 +24,25 @@ export async function checkMyOfferSubmit(customer) {
 					"utm_medium": customer.utm_medium_otherPartner,
 					"utm_campaign": customer.utm_campaign_otherPartner,
 	}
-	let current_hostName = window.location.hostname;
 	try {
 		//creating function to load ip address from the API
 		let dateNow = new Date().toISOString();
 		let browserType = navigator.userAgent;
 		let ipAddress = await getClientIp();
-
-		const eSigns_Data = {
-						"date": dateNow,
-						"useragent": browserType,
-						"ipaddress": ipAddress,
-		}				
+		let esignConsent = {
+			"date": dateNow,
+			"useragent": browserType,
+			"ipaddress": ipAddress,
+		};
+		let customerAddress = {
+			"address_city": customer.city,
+			"address_postal_code": customer.zip,
+			"address_state": customer.state,
+			"address_street": customer.streetAddress,
+			"email": customer.email,
+			"phone_number_primary": customer.phone,
+			"phone_type": "Cell",
+		}
 		//Data to be send to api
 		let body = {
 			"user": {
@@ -58,13 +65,7 @@ export async function checkMyOfferSubmit(customer) {
 						"offer_code": null,
 					},
 					"contact": {
-						"address_city": customer.address_city,
-						"address_postal_code": customer.zip,
-						"address_state": customer.state,
-						"address_street": customer.streetAddress,
-						"email": customer.email,
-						"phone_number_primary": customer.phone,
-						"phone_type": "Cell",
+						...customerAddress,
 						"first_name": customer.firstName,
 						"full_name": customer.firstName + ' ' + customer.lastName,
 						"last_name": customer.lastName,
@@ -83,13 +84,7 @@ export async function checkMyOfferSubmit(customer) {
 				},
 				"applicant": {
 					"contact": {
-						"address_city": customer.city,
-						"address_postal_code": customer.zip,
-						"address_state": customer.state,
-						"address_street": customer.streetAddress,
-						"email": customer.email,
-						"phone_number_primary": customer.phone,
-						"phone_type": "Cell",
+						...customerAddress,
 						"first_name": customer.firstName,
 						"full_name": customer.firstName + customer.lastName,
 						"last_name": customer.lastName,
@@ -126,15 +121,7 @@ export async function checkMyOfferSubmit(customer) {
 						"full_name": customer.firstName + customer.lastName,
 						"last_name": customer.lastName,
 					},
-					"latest_contact": {
-						"address_city": customer.city,
-						"address_postal_code": customer.zip,
-						"address_state": customer.state,
-						"address_street": customer.streetAddress,
-						"email": customer.email,
-						"phone_number_primary": customer.phone,
-						"phone_type": "Cell",
-					},
+					"latest_contact": customerAddress,
 				},
 				"submission_id": null,
 				"submission_type": "CAC",
@@ -179,15 +166,15 @@ export async function checkMyOfferSubmit(customer) {
 					},
 				},
 				"esigns": {
-					"credit_contact_authorization": eSigns_Data,
-					"electronic_communications":eSigns_Data,
-					"privacy_policy":eSigns_Data,
-					"terms_of_use": eSigns_Data,
+					"credit_contact_authorization": esignConsent,
+					"electronic_communications": esignConsent,
+					"privacy_policy": esignConsent,
+					"terms_of_use": esignConsent,
 					"delaware_itemized_schedule_of_charges": true,
 					"california_credit_education_program": null,
 				},
 			},
-			"headersHost": current_hostName,
+			"headersHost": process.env.REACT_APP_HOST_NAME,
 		};
 		if (!loggedIn && !token) {
 			result = await axios({

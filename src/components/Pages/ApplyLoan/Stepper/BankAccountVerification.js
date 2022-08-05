@@ -469,7 +469,7 @@ export default function BankAccountVerification(props) {
 						<p className={classes.exampleText}>
 							Please ensure:
 							<li className={classes.exampleText}>Your full account number and name are visibless</li>
-							<li className={classes.exampleText}>Acceptable file formats are PDF, JPG, JPEG, GIF and PNG</li>
+							<li className={classes.exampleText}>Acceptable file formats are PDF, JPG, JPEG and PNG</li>
 						</p>
 					</div>
 					<DocumentUpload
@@ -478,7 +478,7 @@ export default function BankAccountVerification(props) {
 						docType={"bank information"}
 						handle={handleUpload}
 						setLoadingFlag={props.setLoadingFlag}
-						multiple={paymnetMode === "checkpayment" ? false : true}
+						multiple={false}
 					/>
 				</div>
 				<div className={props.classes.actionsContainer}>

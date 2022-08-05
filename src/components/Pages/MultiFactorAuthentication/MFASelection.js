@@ -70,8 +70,8 @@ const MFASelection = ({ securityQuestionsSaved, phoneNumberList, mfaDetails }) =
       <b>Select a phone number to receive an authentication PIN via text :</b><br />
       {
         phoneNumberList?.length === 1 
-        ? <span>{`Get a code on (***) *** ${phoneNumberList[0]?.number.substr(-4)}`}</span>
-        : (DISABLE_CONDITION ? <span>To phone number : {`(***) *** ${selection?.substr(-4)}`}</span> : <span>Get a code on your preferred phone number</span>)
+        ? <span>{`Get a code on (***) ***-${phoneNumberList[0]?.number.substr(-4)}`}</span>
+        : (DISABLE_CONDITION ? <span>To phone number : {`(***) ***-${selection?.substr(-4)}`}</span> : <span>Get a code on your preferred phone number</span>)
       } 
     </div>
   );

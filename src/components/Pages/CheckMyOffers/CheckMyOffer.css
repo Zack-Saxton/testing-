@@ -525,6 +525,12 @@
 .cardWrapperImg {
 	margin-top: 4%;
 }
+.congratulationsImg {
+	margin-top: 4%;
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+}
 
 .smallTextImg {
 	font-size: 1.15rem !important;

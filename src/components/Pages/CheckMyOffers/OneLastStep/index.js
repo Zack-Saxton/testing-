@@ -57,7 +57,7 @@ function SSN() {
 			marginLeft: "8%",
 			marginTop: "2%",
 		}
-	}));
+	}));	 
 	const classes = useStyles();
 
 	//handle modal actions
@@ -112,7 +112,19 @@ function SSN() {
 		Cookies.remove("referer_otherPartner")
 		Cookies.remove("gclid")
 	}
-	const handleValidResponse = () => {
+	window.fsSetIdentity = function async () {
+		const fsIdentifyDetails = Cookies.get("fsIdentifyDetails") ? Cookies.get("fsIdentifyDetails") : '{}';
+		const fsIdentify = JSON.parse(fsIdentifyDetails);
+		let guid = fsIdentify?.GUID ?? '';
+		let displayName = fsIdentify?.displayName ?? '';
+		if (window.FS && (guid) && (displayName)) {
+				window.FS.identify(guid, {
+				GUID: guid,
+				displayName: displayName
+			})
+		}
+	}; 	
+	const handleValidResponse = async () => {
 		setData({
 			...data,
 			result: response.appSubmissionResult,
@@ -121,6 +133,7 @@ function SSN() {
 		setApplicationLoading(false);
 		if ( response?.appSubmissionResult?.data?.applicationStatus === "offers_available") {
 			setData({ ...data, applicationStatus: "offers_available" });
+			fsSetIdentity();
 			navigate("/eligible-for-offers", { formcomplete: "yes" });
 		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected" && response?.appSubmissionResult?.data?.borrowerType === "new borrower") {
 			setData({ ...data, applicationStatus: "rejected" });

@@ -34,9 +34,20 @@ header {
   color: rgba(0, 0, 0, 0.87);
 }
 
-#moneySkillNavLink:hover {
+#moneySkillNavLink:hover{
   background-color: #00000009;
-  width: 90%;
+  width: 95%;
+  border-radius: 0 5px 5px 0;
+}
+#blogLinkWrap:hover .blogLitsItem{
+  background-color: #00000009;
+  width: 95%;
+  border-radius: 0 5px 5px 0;
+}
+#faqLinkWrap:hover .faqLitsItem{
+  background-color: #00000009;
+  width: 95%;
+  border-radius: 0 5px 5px 0;
 }
 
 a.nav_link:link {

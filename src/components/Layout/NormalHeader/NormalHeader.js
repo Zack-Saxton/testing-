@@ -47,9 +47,9 @@ const NormalHeader = () => {
         </Typography>
       </MenuItem>
       <MenuItem >
-        <NavLink data-testid="faqMobileNavigation" to="/faq" className="nav_link ">
+        <a target="_blank" rel="noreferrer" data-testid="faqMobileNavigation" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} className="nav_link ">
           <Typography className={classes.headerAlign}>FAQ</Typography>
-        </NavLink>
+        </a>
       </MenuItem>
       <MenuItem >
         <NavLink data-testid="branchLocatorMobileNavigation" to="/branch-locator" className="nav_link">
@@ -78,9 +78,9 @@ const NormalHeader = () => {
                 Blog
               </a>
             </Typography>
-            <NavLink data-testid="faqNavigation" className="faqLink" to="/faq"  >
+            <a target="_blank" rel="noreferrer" data-testid="faqNavigation" className="faqLink" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} >
               <Typography className={classes.subtitle}>FAQ</Typography>
-            </NavLink>
+            </a>
             <NavLink data-testid="branchLocatorNavigation" to="/branch-locator" className="nav_link branchLocatorLink">
               <Typography className={classes.subtitle}>Branch Locator</Typography>
             </NavLink>

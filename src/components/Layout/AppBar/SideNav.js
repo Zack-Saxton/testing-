@@ -55,7 +55,7 @@ import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import { LoanAccount } from "../../../contexts/LoanAccount";
 import { NavContext } from "../../../contexts/NavContext";
 import { ProfilePicture } from "../../../contexts/ProfilePicture";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import usrAccountDetails, { postFullStorySession } from "../../Controllers/AccountOverviewController";
 import { verificationSteps } from "../../Controllers/ApplyForLoanController";
 import LogoutController from "../../Controllers/LogoutController";
 import branchDetails from "../../Controllers/MyBranchController";
@@ -227,7 +227,15 @@ export default function SideNav() {
   const handleDeviceType = (status) => {
     setDeviceType(status);
   };
-
+  window.fullStorySession = function (customer) {    
+    Cookies.set('fsIdentifyDetails', JSON.stringify({ GUID: customer?.identification?.guid , displayName: customer?.identification?.full_name }));
+    if (window.FS && window.FS.getCurrentSessionURL && typeof window.FS.getCurrentSessionURL === 'function' && window.FS.getCurrentSessionURL() !== null) {
+        let fsSession = window.FS.getCurrentSessionURL();        
+        let fsSessionKey = fsSession.split('/')[ fsSession.split('/').length - 1 ];
+        postFullStorySession(customer, fsSession, fsSessionKey)
+    }		
+  }
+  
   useEffect(() => {
     let noOfLoans = dataAccountOverview?.data?.activeLoans?.length;
     let activeLoan = dataAccountOverview?.data?.applicants;
@@ -238,7 +246,7 @@ export default function SideNav() {
 
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
     setCurrentLoan(presenceOfLoan || userAccountStatus === "closed" ? true : false);
-    setCheckPresenceOfLoan(presenceOfLoan);
+    setCheckPresenceOfLoan(presenceOfLoan);    
     //logic to if there is any active Loan Data is there or not
     if (!noOfLoans) {
       setActiveLoanData(true);
@@ -249,7 +257,11 @@ export default function SideNav() {
       setCurrentLoan({});
     };
   }, [ dataAccountOverview, activeLoanData, currentLoan ]);
-
+  useEffect(() => {
+    const customer = dataAccountOverview?.data?.customer;
+    fullStorySession(customer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ dataAccountOverview?.data?.customer ]);
   const getFinalApplicationStatus = async () => {
     if (
       verificationStepsApplyforLoan?.data?.email &&
@@ -973,10 +985,11 @@ export default function SideNav() {
                  data-testid="sideNavBlogNavigation"
                   href={`${ process.env.REACT_APP_WEBSITE }/blog/`}
                   className="titleSidenav"
+                  id="blogLinkWrap"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <ListItem>
+                  <ListItem className="blogLitsItem">
                     <ListItemIcon>
                       {" "}
                       <BookIcon />{" "}
@@ -984,15 +997,15 @@ export default function SideNav() {
                     <ListItemText> Blog </ListItemText>
                   </ListItem>
                 </a>
-                <NavLink data-testid="sideNavfaqNavigation" to="/customers/faq" className="titleSidenav">
-                  <ListItem>
+                <a data-testid="sideNavfaqNavigation" id="faqLinkWrap" target="_blank" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} rel="noreferrer" className="titleSidenav">
+                  <ListItem className="faqLitsItem">
                     <ListItemIcon>
                       {" "}
                       <LiveHelpIcon />{" "}
                     </ListItemIcon>
                     <ListItemText> FAQ </ListItemText>
                   </ListItem>
-                </NavLink>
+                </a>
               </List>
             </PerfectScrollbar>
           </Drawer>
