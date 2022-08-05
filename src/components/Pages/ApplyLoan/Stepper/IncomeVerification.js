@@ -101,7 +101,7 @@ export default function IncomeVerification(props) {
 				</p>
 
 				<p style={{ textAlign: "justify", fontSize: "0.938rem" }}>
-					Acceptable ﬁle Formats are PDF, JPG, JPEG, GIF, 81 PNG (please note
+					Acceptable ﬁle Formats are PDF, JPG, JPEG, PNG (please note
 					that we are unable to accept screenshots or photos of a computer
 					screen).
 				</p>
