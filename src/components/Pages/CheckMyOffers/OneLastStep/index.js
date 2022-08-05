@@ -134,7 +134,7 @@ function SSN() {
 		if ( response?.appSubmissionResult?.data?.applicationStatus === "offers_available") {
 			setData({ ...data, applicationStatus: "offers_available" });
 			fsSetIdentity();
-			navigate("/eligible-for-offers", { formcomplete: "yes" });
+			navigate("/customers/selectOffer", { formcomplete: "yes" });
 		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected" && response?.appSubmissionResult?.data?.borrowerType === "new borrower") {
 			setData({ ...data, applicationStatus: "rejected" });
 			navigate("/offers/no-offers", { formcomplete: "yes" });
