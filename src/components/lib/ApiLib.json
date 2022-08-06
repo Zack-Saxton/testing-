@@ -26,6 +26,7 @@
     "vantagescore_credit_monitoring": "/creditmonitoring/get_credit_reports_cac",
     "fetch_available_offers": "/application/get_offers_cac",
     "submit_selected_offers": "/application/select_offer_cac",
+    "refer_branch_offers": "/application/refer_branch_offer_cac",
     "esignature_iframe": "/integration/eoriginal/authenticate_cac",
     "esignature_complete": "/integration/eoriginal/complete_cac",
     "resend_verification_email": "/verification/resend_email_verification_cac",

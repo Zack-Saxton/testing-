@@ -38,6 +38,23 @@ export async function submitSelectedOfferAPI(selectedOffer) {
   }
 }
 
+/***** Refer selected branch offer *****/
+export async function referSelectedBranchOfferAPI(selectedOffer) {
+  try {
+    let url = "refer_branch_offers";
+    let param = "";
+    let method = "POST";
+    let addAccessToken = true;
+    let data = {
+      selected_offer: selectedOffer
+    };
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_referSelectedBranchOfferAPI_API, error);
+  }
+}
+
 /***** Get signature Iframe *****/
 export async function getSignatureIframe() {
   try {

@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { offerTypeData } from "../../../../assets/data/constants";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
-import { submitSelectedOfferAPI } from "../../../Controllers/ApplyForLoanController";
+import { submitSelectedOfferAPI , referSelectedBranchOfferAPI} from "../../../Controllers/ApplyForLoanController";
 import { ButtonWithIcon } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import ScrollToTopOnMount from "../../ScrollToTop";
@@ -60,8 +60,15 @@ export default function SelectOffer() {
 	const submitSelectedOffer = async (selTerm, selIndex) => {
 		setLoading(true);
 		if (accountDetails && selTerm && selIndex >= 0) {
-			let selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
-			if (selectedOfferResponse?.data?.selected_offer) {
+			let selectedOffer = accountDetails?.data?.Offers[ selTerm ][ selIndex ];
+			let selectedOfferResponse
+			if ( selectedOffer?.offerType?.toLowerCase() === "branch" ) {
+				selectedOfferResponse = await referSelectedBranchOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
+			} else {
+				selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
+			}
+			console.log({selectedOfferResponse})
+			if (selectedOfferResponse?.data?.selected_offer || selectedOfferResponse?.status === 200 ) {
 				setLoading(false);
 				refetch();
 				navigate(offerTypeData[ accountDetails?.data?.Offers[ selTerm ][ selIndex ]?.offerType ], { selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
