@@ -106,13 +106,12 @@ export default function DocumentPhoto(props) {
 		<div>
 			<div className={classes.content_grid}>
 				<p className={classes.pTagStyle} data-testid="documentPhotoTextTop">
-					<span className={classes.spanStyle}> Please upload an image or your driver‘s license, passport,
-						state-issued photo ID card, or military/federal government photo ID.
+					<span className={classes.spanStyle}>Please upload pictures of the front and back of your valid federal or state issued ID.
 					</span>
 					<br />
-					<span className={classes.spanStyle}>Please ensure:</span>
-					<li className={classes.listStyle}>Document is currently valid</li>
-					<li className={classes.listStyle}>The entire document is visible and all information is legible</li>
+					<span className={classes.spanStyle}>Next, upload a picture of yourself for comparison.</span>
+					<br/>
+					<span className={classes.spanStyle}>Please ensure all photos are clear and in color. This is similar to an in-person ID check.</span>
 				</p>
 			</div>
 			<Grid item sm={12} data-testid="iframe">

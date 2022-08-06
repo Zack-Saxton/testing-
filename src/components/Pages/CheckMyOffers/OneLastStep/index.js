@@ -39,12 +39,20 @@ function SSN() {
 	const { refetch } = useQuery('loan-data', usrAccountDetails);
 	const navigate = useNavigate();
 	const useStyles = makeStyles(() => ({
-		linkDesign: {
+		oneLastStepLinks: {
 			marginTop: "3px !important",
 			marginBottom: "3px !important",
+			marginLeft:"7%",
+			paddingLeft:"5px",
 			textDecoration: "underline !important",
 			color: "#0F4EB3 !important",
-			display: "block !important"
+			display: "block !important",
+			cursor:"pointer"
+		},
+		oneLastStepLinksWrap:{
+			flexDirection:"column",
+			justifyContent:"flex-start",
+			alignItems:"flex-start"
 		},
 		paddingOneSide: {
 			padding: "4% 0px"
@@ -134,7 +142,7 @@ function SSN() {
 		if ( response?.appSubmissionResult?.data?.applicationStatus === "offers_available") {
 			setData({ ...data, applicationStatus: "offers_available" });
 			fsSetIdentity();
-			navigate("/eligible-for-offers", { formcomplete: "yes" });
+			navigate("/customers/selectOffer", { formcomplete: "yes" });
 		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected" && response?.appSubmissionResult?.data?.borrowerType === "new borrower") {
 			setData({ ...data, applicationStatus: "rejected" });
 			navigate("/offers/no-offers", { formcomplete: "yes" });
@@ -331,10 +339,7 @@ function SSN() {
 													By clicking this box, you acknowledge that you have received,
 													reviewed and agree to the following disclosures and consents:
 													<br />
-													<span data-testid="eSignatureLink" className={classes.linkDesign} onClick={() => { handleOnClickEsign(); }}>E-Signature Disclosure and Consent,</span>
-													<span data-testid="creditContactAuth"className={classes.linkDesign} onClick={() => { handleOnClickCredit(); }}>Credit and Contact Authorization,</span>
-													<span data-testid="websiteTerms" className={classes.linkDesign} onClick={() => { handleOnClickwebTOU(); }}>Website Terms of Use,</span>
-													<span data-testid="websitePrivacy" className={classes.linkDesign} onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
+													
 												</p>
 											}
 											required={true}
@@ -342,6 +347,13 @@ function SSN() {
 											stylecheckbox='{ "color":"blue", "top": "0", "position": "absolute"}'
 											stylecheckboxlabel='{ "color":"" }'
 										/>
+												<Grid container className={classes.oneLastStepLinksWrap}>
+
+													<span data-testid="eSignatureLink" className={classes.oneLastStepLinks} onClick={() => { handleOnClickEsign(); }}>E-Signature Disclosure and Consent,</span>
+													<span data-testid="creditContactAuth"className={classes.oneLastStepLinks} onClick={() => { handleOnClickCredit(); }}>Credit and Contact Authorization,</span>
+													<span data-testid="websiteTerms" className={classes.oneLastStepLinks} onClick={() => { handleOnClickwebTOU(); }}>Website Terms of Use,</span>
+													<span data-testid="websitePrivacy" className={classes.oneLastStepLinks} onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
+												</Grid>	
 										<div
 											className={data.state === "DE" ? "showCB " : "hideMsg "}
 										>
