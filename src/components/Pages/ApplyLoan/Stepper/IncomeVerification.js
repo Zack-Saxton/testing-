@@ -25,7 +25,6 @@ export default function IncomeVerification(props) {
 	const classes = useStyles();
 	const [ internalLoading, setInternalLoading ] = useState(false);
 	const { refetch : loanRefetch } = useQuery('verification-data', verificationSteps);
-	const { refetch : accountOverviewRefetch } = useQuery('loan-data', usrAccountDetails);
 
 	const handleUpload = (res) => {
 		if (res?.data?.income_verification) {
@@ -53,7 +52,6 @@ export default function IncomeVerification(props) {
 			props.setLoadingFlag(false);
 			setInternalLoading(false)
 			loanRefetch();
-			accountOverviewRefetch();
 			navigate("/customers/receiveYourMoney");
 		} else {
 			props.setLoadingFlag(false);
