@@ -123,6 +123,7 @@
   "Error_executing_saveIDVerificationResponseBefore_API": "Error executing saveIDVerificationResponseBefore API",
   "Error_executing_submitFinancialInformation_API": "Error executing submitFinancialInformation API",
   "Error_executing_submitSelectedOfferAPI_API": "Error executing submitSelectedOfferAPI API",
+  "Error_executing_referSelectedBranchOfferAPI_API": "Error executing referSelectedBranchOfferAPI API",
   "Error_executing_setDefaultPayment_API": "Error executing setDefaultPayment API",
   "Error_executing_verifyPasscode_API": "Error executing verifyPasscode API",
   "Error_executing_verifyFinancialInformation_API": "Error executing verifyFinancialInformation API",
