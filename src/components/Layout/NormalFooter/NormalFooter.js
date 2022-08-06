@@ -31,11 +31,16 @@ export default function NormalFooter() {
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink to="/privacyStatement" target="_blank" className="hrefTag" data-testid="privacyStatement">
+                <a href={`${ process.env.REACT_APP_WEBSITE }/resources/legal/#fusion-tab-privacystatement`} target="_blank" rel="noreferrer" className="hrefTag privacyStatementWeb" data-testid="privacyStatement">
                   <Typography className="normalFooterFont">
                     Privacy Statement
                   </Typography>
-                </NavLink>
+                </a>
+                <a href={`${ process.env.REACT_APP_WEBSITE }/resources/legal/#mobile-fusion-tab-privacystatement`} target="_blank" rel="noreferrer" className="hrefTag privacyStatementMobile" data-testid="privacyStatement">
+                  <Typography className="normalFooterFont">
+                    Privacy Statement
+                  </Typography>
+                </a>
               </div>
               <div className="footer-content">
                 <NavLink to="/cac-termsofuse" target="_blank" className="hrefTag" data-testid="termsofuse">
