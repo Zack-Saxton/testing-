@@ -67,7 +67,6 @@ export default function SelectOffer() {
 			} else {
 				selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
 			}
-			console.log({selectedOfferResponse})
 			if (selectedOfferResponse?.data?.selected_offer || selectedOfferResponse?.status === 200 ) {
 				setLoading(false);
 				refetch();
