@@ -64,7 +64,6 @@ export default function IncomeVerification(props) {
 		) {
 			props.setLoadingFlag(false);
 			setInternalLoading(false)
-			loanRefetch();
 			navigate("/customers/receiveYourMoney");
 		} else {
 			props.setLoadingFlag(false);
