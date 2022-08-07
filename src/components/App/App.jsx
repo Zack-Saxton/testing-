@@ -3,7 +3,7 @@ import { ThemeProvider } from '@mui/styles';
 import 'dotenv/config';
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import CheckMyOffers from '../../contexts/CheckMyOffers';
@@ -193,7 +193,6 @@ function App() {
                                                 </Route>
                                                 <Route path='/offer-code' element={loadGeneralUserComponent(<SelectAmount enableOffer= {true} />)} />
                                                 <Route path='customers' >
-
                                                     <Route path='accountOverview' element={LoadPostComponent(<AccountOverview />)} />
                                                     <Route path='paymentHistory' element={LoadPostComponent(<PaymentHistory />)} />
                                                     <Route path='selectOffer' element={LoadPostComponent(<ApplyLoan />)} />
@@ -243,8 +242,7 @@ function App() {
                                                  <Route path = 'form' element={<OtherPartner />}>
                                                 </Route>
                                                 </Route>
-                                                <Route path = 'loan_by_mail'  element={<OtherPartner />} />
-
+                                                <Route path = 'loan_by_mail' element={<OtherPartner />} />
                                             </Routes>
                                         </NavContext>
                                     </LoanAccount>
