@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import { statusStrLinks_PartnerSignUp } from "../lib/StatusStrLinks" 
+import { statusStrLinks_PartnerSignUp } from "../lib/StatusStrLinks";
 
 let statusStrLink = statusStrLinks_PartnerSignUp;
 
@@ -107,8 +107,7 @@ export async function PopulatePartnerReferred(applicantId) {
   }
 }
 
-export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
- 
+export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
   const email = Cookies.get("email");
   let url = "partner_confirm_info";
   let param = "";
@@ -147,7 +146,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
   PartnerConfirmationAPI?.status === 200
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {
-        onClose: () => {
+        onClose: async () => {
           let stateDataToPass  = {
             firstname: dataConfirmInfo.firstName,
             partnerSignupData: {
@@ -159,6 +158,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate) {
               }
             }
           }
+          await refetch();
           navigate(statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ], { state: stateDataToPass });
         },
       }

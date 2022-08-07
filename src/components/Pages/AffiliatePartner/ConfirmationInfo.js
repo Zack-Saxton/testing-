@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
+import { useQuery } from 'react-query';
 import PropTypes from "prop-types";
 import React, { useRef, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -16,6 +17,7 @@ import states from '../../../assets/data/States.json';
 import { validStates } from "../../../assets/data/constants";
 import creditkarmalogo from "../../../assets/images/ck_logo.png";
 import { partnerConfirmInfo, getCreditKarmaData } from "../../Controllers/PartnerSignupController";
+import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
@@ -166,6 +168,7 @@ export default function ConfirmationInfo() {
   const handleOnClickwebTOUClose = () => setWebTOUPopup(false);
   const handleOnClickPrivacy = () => setPrivacyPopup(true);
   const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
+  const { refetch } = useQuery('loan-data', usrAccountDetails);
 
   const getCreditKarmaDetails = async () => {
     let CK_Data = await getCreditKarmaData();
@@ -309,7 +312,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
           email: location?.state?.partnerSignupData?.applicant?.contact?.email ?? "",
         };
 
-        let partnerConfirmRes = await partnerConfirmInfo(confirmInfoData, navigate);
+        let partnerConfirmRes = await partnerConfirmInfo(confirmInfoData, navigate, refetch);
         if (partnerConfirmRes.status !== 200) {
           setLoading(false);
         }
