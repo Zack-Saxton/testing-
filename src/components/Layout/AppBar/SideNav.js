@@ -577,6 +577,8 @@ export default function SideNav() {
 
             <div className={classes.grow} />
             <div id="tool-bar-list">
+            {
+            !activeLoanData &&
               <NavLink
                 data-testid="qickPayIcon"
                 id="quickNameIcon"
@@ -585,7 +587,7 @@ export default function SideNav() {
                   activeLoanData && event.preventDefault();
                 }}
                 className={activeLoanData ? "nav_link_disabled" : ""}
-              >
+              > 
                 <Tooltip title="Quick Pay" placement="bottom">
                   <img
                     className={clsx(classes.headerimg, classes.headerimgResp)}
@@ -595,6 +597,7 @@ export default function SideNav() {
                   />
                 </Tooltip>
               </NavLink>
+}
 
               <Notification />
 
