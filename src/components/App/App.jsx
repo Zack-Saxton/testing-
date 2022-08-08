@@ -242,11 +242,7 @@ function App() {
                                                 <Route path = 'application' >
                                                     <Route path = 'form' element={<OtherPartner />}>
                                                     </Route>
-                                                </Route>
-                                                <Route path = 'app' >
-                                                    <Route path = 'form' element={<OtherPartner />}>
-                                                    </Route>
-                                                </Route>
+                                                </Route>                                                
                                                 <Route path = 'loan_by_mail' element={<OtherPartner />} />
                                             </Routes>
                                         </NavContext>
