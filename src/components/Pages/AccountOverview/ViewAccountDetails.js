@@ -141,7 +141,7 @@ export default function ViewAccountDetails() {
                           variant="h6"
                           className={classes.viewAppStatusHeading}
                         >
-                          We are Sorry! {viewAppApplicantInfo?.status}
+                          We are Sorry!
                         </Typography>
                       </Grid>
                       <Grid>
