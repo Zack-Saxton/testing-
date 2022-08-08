@@ -128,7 +128,7 @@ export async function checkMyOfferSubmit(customer) {
 				"submission_paramter": null,
 				"ip_address": ipAddress,
 			},
-			"gclid": customer.gclid_otherPartner,
+			"gclid": customer.gclid_otherPartner === "null" ? null : customer.gclid_otherPartner,
 			"requested_product": "unsecured-individual-loan",
 			"geoip": ipAddress,
 			"sourceTracking": [
