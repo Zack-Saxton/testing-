@@ -5,6 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import { useQuery } from 'react-query';
@@ -508,7 +509,9 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
     else setCitizenship(false);
     formik.handleChange(event);
   };
-
+  const preventEvent = (event) => {
+    event.preventDefault();
+    };
 
   //View Part
   return (
@@ -984,10 +987,38 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                           <p className="agreeCheckbox">
                             By clicking this box you acknowledge that you have
                             received, reviewed and agree to the {""}
-                            <span className="formatHref" onClick={() => { handleOnClickEsign(); }}>E-Signature Disclosure and Consent,</span>
-                            {""} <span className="formatHref" onClick={() => { handleOnClickCredit(); }}>Credit and Contact Authorization,</span>
-                            {""} <span className="formatHref" onClick={() => { handleOnClickwebTOU(); }}>Website Terms of Use,</span>
-                            {""} <span className="formatHref" onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
+                            <Link
+                             onClick={(event) => {
+                             preventEvent(event);
+                             handleOnClickEsign();
+                             }}
+                             >
+                               E-Signature Disclosure and Consent,
+                             </Link>{" "}
+                            <Link
+                             onClick={(event) => {
+                             preventEvent(event);
+                             handleOnClickCredit();
+                             }}
+                             >
+                               Credit and Contact Authorization,
+                             </Link>{" "}
+                            <Link
+                             onClick={(event) => {
+                             preventEvent(event);
+                             handleOnClickwebTOU();
+                             }}
+                             >
+                               Website Terms of Use,
+                             </Link>{" "}
+                            <Link
+                             onClick={(event) => {
+                             preventEvent(event);
+                             handleOnClickPrivacy();
+                             }}
+                             >
+                              Website Privacy Statement.
+                             </Link>
                           </p>
                         }
                         required={true}
@@ -1014,12 +1045,15 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                             <p className="agreeCheckbox">
                               By clicking this box you acknowledge that you have
                               received and reviewed the{" "}
-                              <span
+                              <Link
                                 className="formatHref"
-                                onClick={handleClickDelawareOpen}
+                                onClick={(event) => {
+                                  preventEvent(event);
+                                  handleClickDelawareOpen();
+                                  }}
                               >
                                 Delaware Itemized Schedule Of Charges.{" "}
-                              </span>
+                              </Link>
                             </p>
                           }
                           required={formik.values.state === "Delaware" || formik.values.state === "DE" }
