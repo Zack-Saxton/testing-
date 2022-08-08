@@ -41,7 +41,7 @@ export async function RegisterController(registerData) {
     let addAccessToken = false;
 
     //API call
-    return APICall(api, param, data, method, addAccessToken);
+    return await APICall(api, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger(globalMessages.Error_executing_RegisterController_API, error);
   }

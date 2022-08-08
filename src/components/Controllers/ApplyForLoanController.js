@@ -156,28 +156,6 @@ export async function hardPullCheck() {
   }
 }
 
-/***** Verify Financial Information *****/
-export async function verifyFinancialInformation() {
-  try {
-    let url = "verify_financial_information";
-    let param = "";
-    let data = {
-      employer_name: "vicky",
-      current_job_title: "develoer",
-      employer_phone: "9876543210",
-      years_at_current_address: "12",
-      refer: "nil",
-    };
-    let method = "POST";
-    let addAccessToken = true;
-
-    //API call
-    return await APICall(url, param, data, method, addAccessToken);
-  } catch (error) {
-    ErrorLogger(globalMessages.Error_executing_verifyFinancialInformation_API, error);
-  }
-}
-
 /***** ID Verification for IFrame *****/
 export async function getIDVerificationIframe() {
   try {

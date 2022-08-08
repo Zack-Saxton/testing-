@@ -431,7 +431,7 @@ function SSN() {
 														{ globalMessages.New_Mexico_Consumer_Text }
 														<a
 															className="formatURL"
-															href={"https://www.marinerfinance.com/wp-content/uploads/2021/03/NM-Consumer-Brochure-1.pdf"}
+															href={process.env.REACT_APP_NEW_MEXICO_CONSUMER_BROCHURE}
 															target="_blank"
 															rel="noreferrer noopener"
 														>
