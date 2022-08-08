@@ -218,6 +218,9 @@ function SSN() {
 		window.history.pushState(null, document.title, window.location.href);
 	});
 
+	const preventEvent = (event) => {
+		event.preventDefault();
+		};
 	//JSX poart
 	return (
 		<div>
@@ -375,7 +378,10 @@ function SSN() {
 														received and reviewed the{" "}
 														<span
 															className="formatURLStyle"
-															onClick={handleClickOpen}
+															onClick={(event) => {
+																preventEvent(event);
+																handleClickOpen();
+																}}
 														>
 															Delaware Itemized Schedule Of Charges.,{" "}
 														</span>

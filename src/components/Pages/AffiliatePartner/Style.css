@@ -153,7 +153,14 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
     text-align: justify;
     cursor: pointer;
     color: #595959;
-
+    user-select: none;
+}
+.agreeCheckbox a, .agreeCheckbox a:hover {
+    color: #0F4EB3;
+    text-decoration: underline !important;
+}
+.agreeCheckbox a {
+    color: #0F4EB3;
 }
 
 

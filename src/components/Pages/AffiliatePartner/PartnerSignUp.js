@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
+import Link from "@mui/material/Link";
 import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { useLocation, useNavigate } from "react-router-dom";
@@ -230,6 +231,9 @@ export default function PartnerSignUp() {
   { "label": "Cell", "value": "cell"},
   {"label": "Home","value": "home"}
 ]
+const preventEvent = (event) => {
+  event.preventDefault();
+  };
   //View Part
   return (
     <div data-testid="partnerSignup_component">
@@ -524,10 +528,38 @@ export default function PartnerSignUp() {
                           <p className="agreeCheckbox">
                             By clicking this box you acknowledge that you have
                             received, reviewed and agree to the {""}
-                            <span className="formatHref" onClick={() => { handleOnClickEsign(); }}>E-Signature Disclosure and Consent,</span>
-                            {""} <span className="formatHref" onClick={() => { handleOnClickCredit(); }}>Credit and Contact Authorization,</span>
-                            {""} <span className="formatHref" onClick={() => { handleOnClickwebTOU(); }}>Website Terms of Use,</span>
-                            {""} <span className="formatHref" onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
+                            <Link
+                             onClick={(event) => {
+                              preventEvent(event);
+                              handleOnClickEsign();
+                             }}
+                             >
+                               E-Signature Disclosure and Consent,
+                             </Link>{" "}
+                            <Link
+                             onClick={(event) => {
+                              preventEvent(event);
+                             handleOnClickCredit();
+                             }}
+                             >
+                               Credit and Contact Authorization,
+                             </Link>{" "}
+                            <Link
+                             onClick={(event) => {
+                              preventEvent(event);
+                             handleOnClickwebTOU();
+                             }}
+                             >
+                               Website Terms of Use,
+                             </Link>{" "}
+                            <Link
+                             onClick={(event) => {
+                              preventEvent(event);
+                             handleOnClickPrivacy();
+                             }}
+                             >
+                              Website Privacy Statement.
+                             </Link>
                           </p>
                         }
                         required={utm_source !== "CreditKarma" }
