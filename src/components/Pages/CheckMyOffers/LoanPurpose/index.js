@@ -4,7 +4,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { createStyles, makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { loanPurposeData } from "../../../../assets/data/constants";
 import AutoExpenseIcon from "../../../../assets/icon/AutoExpense-Repair.png";
 import DeptIcon from "../../../../assets/icon/Debt-Consolidation.png";
@@ -68,6 +68,7 @@ function LoanPurpose() {
 	const [ purpose, setPurpose ] = useState(data.loanPurpose ?? "");
 	const navigate = useNavigate();
 	const preLoginStyles = preLoginStyle();
+	let params = useParams();
 
 	const CKLightbox_Source = Cookies.get("CKLightbox_Source")
 	const CKLightbox_Web = Cookies.get("CKLightbox_Web")
@@ -94,6 +95,14 @@ function LoanPurpose() {
 	  }
 
 	useEffect(() => {
+		if(params?.amount){
+			setData({
+				...data, formStatus: "started",
+				loanAmount : params?.amount,   
+				completedPage : data.page.selectAmount,
+			})
+		}
+
 		if(CKLightbox_Source === "CKLightbox"){      
 			setData({
 				...data, trkcid: CKLightbox_trkcid ?? "",
@@ -105,7 +114,7 @@ function LoanPurpose() {
 			})
 			navigate("/loan-purpose");	
 		}
-		else if( (data?.completedPage < data?.page?.selectAmount || data?.formStatus?.toLowerCase() === "completed"))  {
+		else if( (data?.completedPage < data?.page?.selectAmount || data?.formStatus?.toLowerCase() === "completed") && (!params?.amount))  {
 			navigate("/select-amount");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
