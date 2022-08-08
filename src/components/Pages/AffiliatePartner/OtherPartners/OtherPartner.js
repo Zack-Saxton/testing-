@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import {getCKLightBox} from "../../../Controllers/CheckMyOffersController"
+
 import Cookies from "js-cookie";
 
 
@@ -15,7 +17,9 @@ const useQueryURL = () => new URLSearchParams(useLocation().search);
   const utm_dealer = query.get("utm_dealer");
   const utm_campaign = query.get("utm_campaign");
   const gclid = query.get("gclid")
-
+  let queryParm = {
+    trkcid : 0
+ }; 
 
   let UTMinfo = `utm_source=${utm_source}&utm_medium=${utm_medium}&utm_campaign=${utm_campaign}&utm_dealer=${utm_dealer}`
   let redirectParams = '?'  
@@ -27,8 +31,9 @@ const useQueryURL = () => new URLSearchParams(useLocation().search);
   Cookies.set("referer_otherPartner",referer_otherPartner_url)
   Cookies.set("gclid",gclid)
 
-  function navigateToSelectAmount()
-  {
+  const navigateToSelectAmount = async () => {
+    //here the API called dummy purpose
+    await getCKLightBox(queryParm);
     if(utm_source){   
     navigate(`/select-amount${redirectParams}${UTMinfo}`)
   }

@@ -10,9 +10,9 @@ export let statusStrLinks = {
   "offers_available": "/customers/selectOffer",
   "pre_qual_referred": "/select-amount",
   "pre_qual_rejected": "/select-amount",
-  "pre_qualified": "/credit-karma",
+  "pre_qualified": "/customers/myBranch",
   "referred": "/referred-to-branch",
-  "rejected": "/offers/SpringFourNoOffersAvailable",
+  "rejected": "/offers/none-available",
   "under_review": "/customers/loanDocument",
   "closing_process": "/customers/finalVerification",
   "final_review": "/customers/loanDocument"
@@ -30,9 +30,9 @@ export let statusStrLinks_PartnerSignUp = {
   "offers_available": "/customers/selectOffer",
   "pre_qual_referred": "/select-amount",
   "pre_qual_rejected": "/select-amount",
-  "pre_qualified": "/credit-karma",
+  "pre_qualified": "/customers/myBranch",
   "referred": "/offers/referral",
-  "rejected": "/offers/SpringFourNoOffersAvailable",
+  "rejected": "/offers/none-available",
   "under_review": "/customers/loanDocument",
   "closing_process": "/customers/finalVerification",
   "final_review": "/customers/loanDocument"
