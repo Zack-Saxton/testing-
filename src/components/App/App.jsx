@@ -69,7 +69,6 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
 import MFAGetPhoneNumber from "../Pages/MultiFactorAuthentication/MFAGetPhoneNumber";
-import NoOfferAvailable from "../Layout/offers/NoOfferAvailable"
 import AmOneNoOffersAvailable from "../Pages/CheckMyOffers/AmOneNoOffersAvailable/AmOneNoOffersAvailable"
 import SpringFourNoOffersAvailable from "../Pages/CheckMyOffers/SpringFourNoOffersAvailable/SpringFourNoOffersAvailable"
 import ReferredFromAffiliate from "../Pages/AffiliatePartner/ReferredFromAffiliate/ReferredFromAffiliate";
@@ -230,10 +229,9 @@ function App() {
                                                     <Route path='*' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
                                                 </Route>
                                                 <Route path='offers' >
-                                                    <Route path='none-available' element={loadGeneralUserComponent(<NoOfferAvailable />)} />
+                                                    <Route path='none-available' element={loadGeneralUserComponent(<SpringFourNoOffersAvailable />)} />
                                                     <Route path='referral' element={loadGeneralUserComponent(<ReferredFromAffiliate />)} />
                                                     <Route path='no-offers' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />
-                                                    <Route path='SpringFourNoOffersAvailable' element={loadGeneralUserComponent(<SpringFourNoOffersAvailable />)} />
                                                 </Route>
                                                 <Route path='partners' >
                                                         <Route path='*' element={<LightBox />} />

@@ -142,15 +142,19 @@ function SSN() {
 		if ( response?.appSubmissionResult?.data?.applicationStatus === "offers_available") {
 			setData({ ...data, applicationStatus: "offers_available" });
 			fsSetIdentity();
+			removeCKLightboxCookie();
 			navigate("/customers/selectOffer", { formcomplete: "yes" });
-		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected" && response?.appSubmissionResult?.data?.borrowerType === "new borrower") {
+		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected" && response?.appSubmissionResult?.data?.borrowerType === "new borrower" || Cookies.get("utm_source_otherPartner") === "amone") {
 			setData({ ...data, applicationStatus: "rejected" });
+			removeCKLightboxCookie();
 			navigate("/offers/no-offers", { formcomplete: "yes" });
 		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected") {
 			setData({ ...data, applicationStatus: "rejected" });
-			navigate("/no-offers-available", { formcomplete: "yes" });
+			removeCKLightboxCookie();
+			navigate("/offers/none-available", { formcomplete: "yes" });
 		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "referred") {
 			setData({ ...data, applicationStatus: "referred" });
+			removeCKLightboxCookie();
 			navigate("/referred-to-branch", { formcomplete: "yes" });
 		}
 	};
@@ -174,15 +178,14 @@ function SSN() {
 				completedPage: data.page.ssn,
 			});
 			if (response?.appSubmissionResult?.status === 200) {
-				handleValidResponse();
-				removeCKLightboxCookie();
+				handleValidResponse();				
 				refetch();
 			} else if (response?.appSubmissionResult?.status === 403) {
 				setData({ ...data, applicationStatus: "rejected" });
 				setApplicationLoading(false);
 				removeCKLightboxCookie();
 				refetch();
-				navigate("/no-offers-available", { formcomplete: "yes" });
+				navigate("/offers/none-available", { formcomplete: "yes" });
 			} else {
 				alert(globalMessages.Network_Error_Please_Try_Again);
 				setLoading(false);
