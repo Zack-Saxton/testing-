@@ -74,7 +74,7 @@ const AmOneNoOffersAvailable = () => {
                   rel="noreferrer"
                   target="_blank"
                   className="checkMyOffersLink"
-                  href="http://o1.qnsr.com/cgi/r?;n=203;c=1674838;s=30419;x=7936;f=202012171442020;u=j;z=TIMESTAMP"
+                  href="https://o1.qnsr.com/cgi/r?;n=203;c=1674838;s=30419;x=7936;f=202012171442020;u=j;z=TIMESTAMP"
                 >
                   <ButtonPrimary
                     data-testid="amOnebtn"

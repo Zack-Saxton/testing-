@@ -64,7 +64,6 @@ function LivingPlace() {
 		if (data.state === "NC") {
 			data.completedPage = data.page.livingPlace;
 			setData({ ...data, rentMortgageAmount: 0, homeOwnership: val });
-			livingPlace = val;
 			navigate("/active-duty");
 		} else if (data.state === "WI") {
 			data.completedPage = data.page.livingPlace;
