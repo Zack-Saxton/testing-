@@ -69,7 +69,7 @@ export default function Login(props) {
          setLongitude(position.coords.longitude);
      });
     let currentUrl = window.location.href;
-    let currentHost = currentUrl.replaceAll(':', '.').substring(currentUrl.indexOf('//') + 2).split('.')[0];
+    let currentHost = currentUrl.replace(/:/g, '.').substring(currentUrl.indexOf('//') + 2).split('.')[0];
     if (['localhost', 'cac-dev', 'cac-qa', 'cac-staging'].includes(currentHost)) setDisableEmailPaste(false);
     
   },[])
