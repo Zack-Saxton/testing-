@@ -99,7 +99,6 @@ export default function BasicInformation(props) {
 
   const onClickCancelChange = () => {
     formik.resetForm();
-    setPhoneNumberValue(basicInfo?.phone_number_primary ?? "");
     setSelectedFile(null);
   };
 
@@ -318,11 +317,11 @@ export default function BasicInformation(props) {
     }
   };
   
-  const updateActualValue = (event) => {
-    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
+  const updateActualValue = (_event) => {
+    setPhoneNumberCurrentValue(phoneNumberMask(basicInfo?.phone_number_primary));
   }
-  const updateMaskValue = (event) => {
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
+  const updateMaskValue = (_event) => {
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(basicInfo?.phone_number_primary))) ;
   }
   const updateEnterPhoneNo = (event) =>{
     setPhoneNumberValue(event.target.value);
