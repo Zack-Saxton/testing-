@@ -42,15 +42,22 @@ test('Navigate to communityguidelines', () => {
 });
 test("Navigate to privacy statement", () => {
     render(component());
+    const element = screen.getByTestId("privacyStatementWeb");
+    expect(element).toHaveAttribute("href",`${ process.env.REACT_APP_WEBSITE }/resources/legal/#fusion-tab-privacystatement`);
+    expect(element).toBeTruthy();
+  
+  });
+test("Navigate to privacy statement Mobile", () => {
+    render(component());
     const element = screen.getByTestId("privacyStatement");
-    expect(element).toHaveAttribute("href",`/privacyStatement`);
+    expect(element).toHaveAttribute("href",`${ process.env.REACT_APP_WEBSITE }/resources/legal/#mobile-fusion-tab-privacystatement`);
     expect(element).toBeTruthy();
   
   });
 test('Navigate to terms', () => {
     render(component());
     const element = screen.getByTestId("termsofuse");
-    expect(element).toHaveAttribute("href",`/termsofuse`);
+    expect(element).toHaveAttribute("href",`/cac-termsofuse`);
     expect(element).toBeTruthy();
 });
 test('Navigate to license', () => {
@@ -74,13 +81,13 @@ test('Navigate to website accessibility', () => {
 test('Navigate to cac terms', () => {
     render(component());
     const element = screen.getByTestId("cac-termsofuse");
-    expect(element).toHaveAttribute("href",`/cac-termsofuse`);
+    expect(element).toHaveAttribute("href",`/termsofuse`);
     expect(element).toBeTruthy();
 });
 test('Navigate to privacyStatement', () => {
     render(component());
     const element = screen.getByTestId("californiaResident");
-    expect(element).toHaveAttribute("href",`/privacyStatement`);
+    expect(element).toHaveAttribute("href",`${ process.env.REACT_APP_WEBSITE }/california-consumer-privacy-act-ccpa-request/`);
     expect(element).toBeTruthy();
 });
 test('Should match the snapshot', () => {

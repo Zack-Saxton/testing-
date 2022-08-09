@@ -55,7 +55,7 @@ test("Link Availability tests", () => {
 test("Link Availability tests", () => {
   render(component());
   const element = screen.getByTestId("faqNavigation");
-  expect(element).toHaveAttribute("href", "/faq");
+  expect(element).toHaveAttribute("href", `${ process.env.REACT_APP_WEBSITE }/resources/faq/`);
   expect(element).toBeTruthy();
 });
 
@@ -91,7 +91,7 @@ test("Link Availability tests", () => {
 test("Link Availability tests", () => {
   render(component());
   const element = screen.getByTestId("faqMobileNavigation");
-  expect(element).toHaveAttribute("href", "/faq");
+  expect(element).toHaveAttribute("href", `${ process.env.REACT_APP_WEBSITE }/resources/faq/`);
   expect(element).toBeTruthy();
 });
 

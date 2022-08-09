@@ -134,10 +134,14 @@ const useStylesApplyForLoan = makeStyles((theme) => ({
     fontSize: 25,
     fontWeight: 400,
     textAlign: "center",
+    "@media (max-width: 1280px)": {
+      fontSize: 20,
+    },
   },
   rightBorder: {
     borderRight: "1px solid",
     lineHeight: 1,
+    boxSizing:"content-box",
     "@media (max-width: 599px)": {
       borderRight: "none",
     },

@@ -176,7 +176,7 @@ useEffect(()=>{
                     <CircularProgress />
                   </Grid>
                   :
-                  <Grid container justifyContent="flex-start">
+                  <Grid container justifyContent="space-between">
                     <Grid
                       item
                       xs={12}
@@ -235,6 +235,7 @@ useEffect(()=>{
                       </h2>
                     </Grid>
                   <Grid
+                      pr={1}
                       item
                       xs={12}
                       sm={1.5}

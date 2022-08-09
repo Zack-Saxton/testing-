@@ -115,7 +115,7 @@ test("Clicking Mobile Home Test", async () => {
 	});
 	expect(MobileHome).toHaveClass("activeBorder");
 	const TextField = container.getByTestId("rentOrMortgage");
-	expect(TextField).toHaveClass("hideMsg")
+	expect(TextField).toHaveClass("showMsg")
 	const ContinueButton = container.getByTestId("cntButton");
 	expect(ContinueButton.hasAttribute("disabled")).toBe(false);
 });
@@ -128,7 +128,7 @@ test("Clicking Living with Relatives Test", async() => {
 	});
 	expect(LivingWithRelatives).toHaveClass("activeBorder");
 	const TextField = container.getByTestId("rentOrMortgage");
-	expect(TextField).toHaveClass("hideMsg")
+	expect(TextField).toHaveClass("showMsg")
 	const ContinueButton = container.getByTestId("cntButton");
 	expect(ContinueButton.hasAttribute("disabled")).toBe(false);
 });

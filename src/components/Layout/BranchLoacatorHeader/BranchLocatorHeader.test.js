@@ -188,7 +188,7 @@ test("Desktop Menu Link availability tests", () => {
 test("Desktop Menu Link availability tests", () => {
   render(component());
   const element = screen.getByTestId("FAQLink");
-  expect(element).toHaveAttribute("href", "/faq");
+  expect(element).toHaveAttribute("href", `${ process.env.REACT_APP_WEBSITE }/resources/faq/`);
   expect(element).toBeTruthy();
 });
 // 19
@@ -367,7 +367,7 @@ test("Desktop Menu Link availability tests", () => {
 // 39
 test("Desktop Menu Link availability tests", () => {
   render(component());
-  const element = screen.getByTestId("MailOfferLink");
+  const element = screen.getByTestId("MailOfferLinks");
   expect(element).toHaveAttribute("href", "/select-amount/");
   expect(element).toBeTruthy();
 });
@@ -535,7 +535,7 @@ test("Mobile Menu Hamburger Button availability test", () => {
 test("Mobile Menu Hamburger Button availability test", () => {
   render(component());
   const element = screen.getByTestId("FAQLinks");
-  expect(element).toHaveAttribute("href", "/faq");
+  expect(element).toHaveAttribute("href", `${ process.env.REACT_APP_WEBSITE }/resources/faq/`);
   expect(element).toBeTruthy();
 });
 //59
