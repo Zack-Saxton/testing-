@@ -72,7 +72,7 @@ test("Check the submit button exist in the UI", async () => {
 
 test("Check can able to select calendar in UI", async () => {
 	const today = new Date();
-  const currentMonth = (Moment(today).format("MMMM"));
+  const currentMonth = (Moment(today).format("MMMM YYYY"));
 	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	const button = screen.getByTestId("appointment");
 	fireEvent.click(button);	
@@ -81,6 +81,7 @@ test("Check can able to select calendar in UI", async () => {
   expect(datePicker).toBeTruthy();
 	fireEvent.click(datePicker);
   fireEvent.mouseDown(datePicker);
+	screen.debug(undefined, 10000000000);
 	expect(getByText(currentMonth)).toBeTruthy();	
 });
 
