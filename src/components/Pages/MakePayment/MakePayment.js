@@ -75,10 +75,12 @@ export default function MakePayment() {
   const [ requiredAmount, setRequiredAmount ] = useState("");
   const [ showCircularProgress, setShowCircularProgress ] = useState(false);
   const [ loading, setLoading ] = useState(false);
-  const [ autoPayAmount, setAutoPayAmount ] = useState(null);
+  const [ totalPaymentAmount, setTotalPaymentAmount ] = useState(null);
   const [ checkAutoPay, setCheckAutoPay ] = useState(true);
+  const [ loanStatus, setLoanStatus ] = useState();
   const [ autopaySubmitDisabled, setAutopaySubmitDisabled ] = useState(true);
   const [ autopaySwitchDisabled, setAutopaySwitchDisabled ] = useState(false);
+  const [ autoPayDisableMain, setAutoPayDisableMain ] = useState(false);
   const [ scheduleDate, setScheduleDate ] = useState(new Date());
   const [ payoff, setPayoff ] = useState(false);
   const [ calendarDisabled, setCalendarDisabled ] = useState(false);
@@ -92,6 +94,11 @@ export default function MakePayment() {
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
   const [stateName,setStatename] = useState("");
   const [ payOffAmount, setPayOffAmount] = useState();
+  const PAST_DUE_LOAN = 'Past Due'.toLowerCase();
+
+  const autoPaySwitch = ( main, secondary) => {
+    return ((!main && !secondary) ? false : true)
+  }
 
   let nextDueDateCheck = new Date();
 
@@ -225,11 +232,13 @@ export default function MakePayment() {
         let loan = [];
         loan.push(data);
         setLatestLoanData(loan);
-        let totalAmount = data?.loanData?.amountDue?.toFixed(2);
+        let totalAmount = data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2);
         setPayOffAmount(data?.loanPaymentInformation?.accountDetails?.CurrentPayOffAmount);
         setPaymentAmount(totalAmount);
-        let autoPay = data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2)
-        setAutoPayAmount(autoPay);
+        setTotalPaymentAmount(totalAmount);
+        let status = data?.loanData?.status?.toLowerCase();
+        setLoanStatus(status);
+        setAutoPayDisableMain(status === PAST_DUE_LOAN ? true : false)
         setAccntNo(data.loanData?.accountNumber);
         getPaymentMethods();
         setDisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
@@ -270,10 +279,12 @@ export default function MakePayment() {
       let schedulePaymentAmount = activeLoansData?.length && activeLoansData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length
         ? activeLoansData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentAmount
         : 0;
-      let totalAmount = latestLoan?.length ? latestLoan[ 0 ]?.loanData?.amountDue?.toFixed(2) : null;
+      let totalAmount = latestLoan?.length ? latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2) : null;
       setPaymentAmount(hasSchedulePaymentActive ? schedulePaymentAmount.toFixed(2) : totalAmount);
-      let autoPay = latestLoan?.length ? latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2) : null
-      setAutoPayAmount(autoPay);
+      setTotalPaymentAmount(totalAmount);
+      let status = latestLoan?.length ? latestLoan[ 0 ]?.loanData?.status?.toLowerCase() : '';
+      setLoanStatus(status);
+      setAutoPayDisableMain(status === PAST_DUE_LOAN ? true : false);
       setAccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
       getPaymentMethods();
       setDisabledContent(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
@@ -691,7 +702,7 @@ export default function MakePayment() {
 
                           <p className={classes.autoPayStyle}>
                             <small className={classes.autoPayColor}>
-                              Choose auto pay to make payments of ${autoPayAmount} on your next due date
+                              Choose auto pay to make payments of ${totalPaymentAmount} on your next due date
                             </small>
                           </p>
                           <FormControlLabel
@@ -703,7 +714,7 @@ export default function MakePayment() {
                                 value={disabledContent}
                                 inputProps={{ "data-test-id": "switch" }}
                                 color="primary"
-                                disabled={autopaySwitchDisabled}
+                                disabled={autoPaySwitch(autoPayDisableMain, autopaySwitchDisabled)}
                               />
                             }
                             labelPlacement="end"
@@ -895,7 +906,7 @@ export default function MakePayment() {
                       <TableCell align="left">
                         {!disabledContent
                           ? ""
-                          : numberFormat(autoPayAmount)}
+                          : numberFormat(totalPaymentAmount)}
                       </TableCell>
 
                     </TableRow>
