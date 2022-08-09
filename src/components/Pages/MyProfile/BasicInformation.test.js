@@ -8,6 +8,7 @@ import { MemoryRouter } from "react-router-dom";
 import ProfilePicture from '../../../contexts/ProfilePicture';
 import BasicInformationCard from './BasicInformation';
 import { basicInformationData } from "../../../__mock__/data/MyProfile.data";
+import { LoanDataMock } from "./../../../__mock__/LoanData.mock";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -36,13 +37,18 @@ const component = () => {
 		</ThemeProvider>
 	);
 }
+jest.mock("./../AccountOverview/AccountOverviewHook/useAccountOverview", ()=>({
+  useAccountOverview: jest.fn(),
+}))
 test("Checks the component is rendered", () => {
+	LoanDataMock();
 	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('basic-information-component');
 	expect(element).toBeTruthy();
 });
 
 test("Check the first name field in UI", () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="firstname"]`);
 	expect(input).toBeTruthy();
@@ -50,6 +56,7 @@ test("Check the first name field in UI", () => {
 });
 
 test("Check the last name field in UI", () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="lastname"]`);
 	expect(input).toBeTruthy();
@@ -57,6 +64,7 @@ test("Check the last name field in UI", () => {
 });
 
 test("Check the Date of Birth field in UI", () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="dob"]`);
 	expect(input).toBeTruthy();
@@ -64,6 +72,7 @@ test("Check the Date of Birth field in UI", () => {
 });
 
 test("Check the Email Address field in UI", () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="email"]`);
 	expect(input).toBeTruthy();
@@ -71,6 +80,7 @@ test("Check the Email Address field in UI", () => {
 });
 
 test("Check the Primary phone number field in UI", () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
@@ -78,12 +88,14 @@ test("Check the Primary phone number field in UI", () => {
 });
 
 test("Check the upload image field in UI", () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[id="selectImage"]`);
 	expect(input).toBeTruthy();
 });
 
 test("First name field to be disabled in UI", () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="firstname"]`);
 	expect(input).toBeTruthy();
@@ -91,6 +103,7 @@ test("First name field to be disabled in UI", () => {
 });
 
 test("Last name field to be disabled in UI", () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="lastname"]`);
 	expect(input).toBeTruthy();
@@ -98,6 +111,7 @@ test("Last name field to be disabled in UI", () => {
 });
 
 test("Date of Birth field to be disabled in UI", () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="dob"]`);
 	expect(input).toBeTruthy();
@@ -105,6 +119,7 @@ test("Date of Birth field to be disabled in UI", () => {
 });
 
 test("Check can able to enter email id in Email Address filed in UI", async () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="email"]`);
 	expect(input).toBeTruthy();
@@ -115,6 +130,7 @@ test("Check can able to enter email id in Email Address filed in UI", async () =
 });
 
 test("Show error message if entered invalid email id", async () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="email"]`);
 	expect(input).toBeTruthy();
@@ -128,6 +144,7 @@ test("Show error message if entered invalid email id", async () => {
 });
 
 test("Check can able to enter phone number in Phone Number filed in UI", async () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
@@ -138,6 +155,7 @@ test("Check can able to enter phone number in Phone Number filed in UI", async (
 });
 
 test("Check number masking after entering phone number", async () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
@@ -149,6 +167,7 @@ test("Check number masking after entering phone number", async () => {
 });
 
 test("Check number masking after entering phone number", async () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[name="phone"]`);
 	expect(input).toBeTruthy();
@@ -160,6 +179,7 @@ test("Check number masking after entering phone number", async () => {
 });
 
 test("Verify can able to click file upload", async () => {
+	LoanDataMock();
 	const { container } = render(component(), { wrapper: MemoryRouter });
 	const input = container.querySelector(`input[id="selectImage"]`);
 	fireEvent.click(input);
@@ -167,6 +187,7 @@ test("Verify can able to click file upload", async () => {
 });
 
 test('Should match the snapshot', () => {
+	LoanDataMock();
 	const { asFragment } = render(component(), { wrapper: MemoryRouter });
 	expect(asFragment).toMatchSnapshot();
 });

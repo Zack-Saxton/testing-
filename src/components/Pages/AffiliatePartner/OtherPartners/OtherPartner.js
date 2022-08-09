@@ -15,8 +15,7 @@ const useQueryURL = () => new URLSearchParams(useLocation().search);
   const utm_dealer = query.get("utm_dealer");
   const utm_campaign = query.get("utm_campaign");
   const gclid = query.get("gclid")
-
-
+  
   let UTMinfo = `utm_source=${utm_source}&utm_medium=${utm_medium}&utm_campaign=${utm_campaign}&utm_dealer=${utm_dealer}`
   let redirectParams = '?'  
   let referer_otherPartner_url = window.location.href
@@ -27,8 +26,7 @@ const useQueryURL = () => new URLSearchParams(useLocation().search);
   Cookies.set("referer_otherPartner",referer_otherPartner_url)
   Cookies.set("gclid",gclid)
 
-  function navigateToSelectAmount()
-  {
+  const navigateToSelectAmount = async () => {    
     if(utm_source){   
     navigate(`/select-amount${redirectParams}${UTMinfo}`)
   }

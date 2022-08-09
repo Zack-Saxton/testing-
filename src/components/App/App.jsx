@@ -69,7 +69,6 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import RegisterPage from '../Pages/Register/Register';
 import VantageScore from "../Pages/VantageScore/VantageScore";
 import MFAGetPhoneNumber from "../Pages/MultiFactorAuthentication/MFAGetPhoneNumber";
-import NoOfferAvailable from "../Layout/offers/NoOfferAvailable"
 import AmOneNoOffersAvailable from "../Pages/CheckMyOffers/AmOneNoOffersAvailable/AmOneNoOffersAvailable"
 import SpringFourNoOffersAvailable from "../Pages/CheckMyOffers/SpringFourNoOffersAvailable/SpringFourNoOffersAvailable"
 import ReferredFromAffiliate from "../Pages/AffiliatePartner/ReferredFromAffiliate/ReferredFromAffiliate";
@@ -191,6 +190,9 @@ function App() {
                                                 <Route path='select-amount' element={loadGeneralUserComponent(<SelectAmount />)} >
                                                     <Route path=':amount' element={loadGeneralUserComponent(<SelectAmount />)} />
                                                 </Route>
+                                                <Route path='loan-purpose' element={loadGeneralUserComponent(<LoanPurpose />)} >
+                                                    <Route path=':amount' element={loadGeneralUserComponent(<LoanPurpose />)} />
+                                                </Route>
                                                 <Route path='/offer-code' element={loadGeneralUserComponent(<SelectAmount enableOffer= {true} />)} />
                                                 <Route path='customers' >
                                                     <Route path='accountOverview' element={LoadPostComponent(<AccountOverview />)} />
@@ -230,18 +232,17 @@ function App() {
                                                     <Route path='*' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
                                                 </Route>
                                                 <Route path='offers' >
-                                                    <Route path='none-available' element={loadGeneralUserComponent(<NoOfferAvailable />)} />
+                                                    <Route path='none-available' element={loadGeneralUserComponent(<SpringFourNoOffersAvailable />)} />
                                                     <Route path='referral' element={loadGeneralUserComponent(<ReferredFromAffiliate />)} />
                                                     <Route path='no-offers' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />
-                                                    <Route path='SpringFourNoOffersAvailable' element={loadGeneralUserComponent(<SpringFourNoOffersAvailable />)} />
                                                 </Route>
                                                 <Route path='partners' >
                                                         <Route path='*' element={<LightBox />} />
                                                 </Route>
-                                                 <Route path = 'application' >
-                                                 <Route path = 'form' element={<OtherPartner />}>
-                                                </Route>
-                                                </Route>
+                                                <Route path = 'application' >
+                                                    <Route path = 'form' element={<OtherPartner />}>
+                                                    </Route>
+                                                </Route>                                                
                                                 <Route path = 'loan_by_mail' element={<OtherPartner />} />
                                             </Routes>
                                         </NavContext>

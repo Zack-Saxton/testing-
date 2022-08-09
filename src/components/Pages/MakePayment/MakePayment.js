@@ -75,8 +75,7 @@ export default function MakePayment() {
   const [ requiredAmount, setRequiredAmount ] = useState("");
   const [ showCircularProgress, setShowCircularProgress ] = useState(false);
   const [ loading, setLoading ] = useState(false);
-  const [ accountDetails ] = useState(null);
-  const [ totalPaymentAmount, setTotalPaymentAmount ] = useState(null);
+  const [ autoPayAmount, setAutoPayAmount ] = useState(null);
   const [ checkAutoPay, setCheckAutoPay ] = useState(true);
   const [ autopaySubmitDisabled, setAutopaySubmitDisabled ] = useState(true);
   const [ autopaySwitchDisabled, setAutopaySwitchDisabled ] = useState(false);
@@ -229,7 +228,8 @@ export default function MakePayment() {
         let totalAmount = data?.loanData?.amountDue?.toFixed(2);
         setPayOffAmount(data?.loanPaymentInformation?.accountDetails?.CurrentPayOffAmount);
         setPaymentAmount(totalAmount);
-        setTotalPaymentAmount(totalAmount);
+        let autoPay = data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2)
+        setAutoPayAmount(autoPay);
         setAccntNo(data.loanData?.accountNumber);
         getPaymentMethods();
         setDisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
@@ -272,7 +272,8 @@ export default function MakePayment() {
         : 0;
       let totalAmount = latestLoan?.length ? latestLoan[ 0 ]?.loanData?.amountDue?.toFixed(2) : null;
       setPaymentAmount(hasSchedulePaymentActive ? schedulePaymentAmount.toFixed(2) : totalAmount);
-      setTotalPaymentAmount(totalAmount);
+      let autoPay = latestLoan?.length ? latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2) : null
+      setAutoPayAmount(autoPay);
       setAccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
       getPaymentMethods();
       setDisabledContent(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
@@ -321,7 +322,6 @@ export default function MakePayment() {
   let isCard = latestLoanData?.length && latestLoanData[ 0 ]?.loanPaymentInformation?.scheduledPayments?.length && latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ]?.PaymentMethod?.IsCard
     ? latestLoanData[ 0 ].loanPaymentInformation.scheduledPayments[ 0 ].PaymentMethod.IsCard
     : false;
-  let status = accountDetails?.data?.status;
 
   //Select account
   const handleChangeSelect = (event) => {
@@ -691,7 +691,7 @@ export default function MakePayment() {
 
                           <p className={classes.autoPayStyle}>
                             <small className={classes.autoPayColor}>
-                              Choose auto pay to make payments of ${totalPaymentAmount} on your next due date
+                              Choose auto pay to make payments of ${autoPayAmount} on your next due date
                             </small>
                           </p>
                           <FormControlLabel
@@ -895,7 +895,7 @@ export default function MakePayment() {
                       <TableCell align="left">
                         {!disabledContent
                           ? ""
-                          : numberFormat(totalPaymentAmount)}
+                          : numberFormat(autoPayAmount)}
                       </TableCell>
 
                     </TableRow>
