@@ -63,7 +63,7 @@ function NewUser() {
 	}, []);
 	const validate = (personal, household) => {
 		if(!personal || personal.toString().length < 4){
-			setErrorPersonal(globalMessages.Annual_Personal_Income_4_digits);
+			setErrorPersonal(globalMessages.Annual_Personal_Income_Required);
 		}else if (!isNaN(personal) && !isNaN(household)) {
 			if (personal <= household) {
 				setErrorAnnual("");
@@ -102,7 +102,7 @@ function NewUser() {
 		//On submit functionality
 		onSubmit: (values) => {
 			if(Boolean(!values.householdIncome.length)){
-				setErrorAnnual(globalMessages?.Annual_Household_Income_4_digits);
+				setErrorAnnual(globalMessages.Annual_Household_Income_Required);
 			}
 			const modPersonalIncome = parseInt(values.personalIncome.replace(/\$|\,/g, ""));
 			const modHouseholdIncome = parseInt(values.householdIncome.replace(/\$|\,/g, ""));
