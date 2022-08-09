@@ -145,7 +145,7 @@ function SSN() {
 			fsSetIdentity();
 			removeCKLightboxCookie();
 			navigate("/customers/selectOffer", { formcomplete: "yes" });
-		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected" && response?.appSubmissionResult?.data?.borrowerType === "new borrower" && (Cookies.get("utm_source_otherPartner") && !affiliateUTMs.includes(Cookies.get("utm_source_otherPartner").toLowerCase()))) {
+		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected" && response?.appSubmissionResult?.data?.borrowerType === "new borrower" && ( !Cookies.get("utm_source_otherPartner") || (Cookies.get("utm_source_otherPartner") && !affiliateUTMs.includes(Cookies.get("utm_source_otherPartner").toLowerCase())))) {
 			setData({ ...data, applicationStatus: "rejected" });
 			removeCKLightboxCookie();
 			navigate("/offers/no-offers", { formcomplete: "yes" });
