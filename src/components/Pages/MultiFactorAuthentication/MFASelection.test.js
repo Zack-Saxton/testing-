@@ -110,7 +110,7 @@ it("Check if clicking on Phone Number changes Button text (More than 1 phone num
   fireEvent.click(popUpElement);
   const closeElement = container.getByTestId("modalButton")
   fireEvent.click(closeElement);
-  const buttonElement = screen.getByText("To phone number : (***) *** 5555");
+  const buttonElement = screen.getByText("To phone number : (***) ***-5555");
   await waitFor(() => expect(buttonElement).toBeInTheDocument())
 })
 
@@ -130,6 +130,6 @@ it("Check if the title varies when no phone number is present", async() => {
 
 it("Check if the title varies according to Phone number availability", () => {
   render(MFASelectionComponent(true, phoneListOne));
-  const titleElement = screen.getByText("Get a code on (***) *** 6789");
+  const titleElement = screen.getByText("Get a code on (***) ***-6789");
   expect(titleElement).toBeTruthy();
 })

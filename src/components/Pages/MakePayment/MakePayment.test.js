@@ -122,14 +122,13 @@ test("Cell values rendered correct;y", () => {
     payments: paymentMethodsMockData,
   }))
     render(component());
-    screen.debug(undefined, 4000000);
     const AccNo = screen.getByText("3508-006936-16");
     expect(AccNo).toBeTruthy();  
-    const todayPayoff = screen.getByText("$4,167.52");
+    const todayPayoff = screen.getByText("$4,167.52*");
     expect(todayPayoff).toBeTruthy();  
     const regAmount = screen.getByText("$174.17");
     expect(regAmount).toBeTruthy();
-    const intrest = screen.getByText("$22.99");
+    const intrest = screen.getByText("22.99%");
     expect(intrest).toBeTruthy();
     const loadFees = screen.getByText("$0.00");
     expect(loadFees).toBeTruthy();
