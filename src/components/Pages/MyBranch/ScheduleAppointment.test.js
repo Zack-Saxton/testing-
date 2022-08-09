@@ -81,7 +81,6 @@ test("Check can able to select calendar in UI", async () => {
   expect(datePicker).toBeTruthy();
 	fireEvent.click(datePicker);
   fireEvent.mouseDown(datePicker);
-	screen.debug(undefined, 10000000000);
 	expect(getByText(currentMonth)).toBeTruthy();	
 });
 
