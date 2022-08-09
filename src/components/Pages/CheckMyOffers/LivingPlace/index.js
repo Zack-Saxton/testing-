@@ -95,7 +95,7 @@ function LivingPlace() {
 		if (livingPlace === homeData.renting || livingPlace === homeData.withMortage || livingPlace === homeData.mobile || livingPlace === homeData.withRelative  ) {
 			if (data.rentMortgageAmount !== "" && data.rentMortgageAmount !== 0 && data.rentMortgageAmount >= 100) {
 				validateUserInput();
-			} else {
+			} else if(!data.rentMortgageAmount ) {
 				setError(true);
 				setHelperText(globalMessages.Rent_Mortgage_Valid);
 			}

@@ -243,7 +243,7 @@
   "Regular_Amount": "Regular Amount",
   "Rent_Mortgage_Min": "Amount should be a minimum of $100",
   "Rent_Mortgage_Zero": "Rent/Mortgage amount should not be zero",
-  "Rent_Mortgage_Valid": "Enter valid Rent/Mortgage amount",
+  "Rent_Mortgage_Valid": "Please enter Rent/Mortgage amount",
   "required": "Required",
   "Recaptcha_Verify": "reCAPTCHA Verified",
   "Recaptcha_Error": "reCAPTCHA validation failed. Please try again",
