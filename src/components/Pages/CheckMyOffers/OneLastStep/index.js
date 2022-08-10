@@ -358,8 +358,8 @@ function SSN() {
 
 													<span data-testid="eSignatureLink" className={classes.oneLastStepLinks} onClick={() => { handleOnClickEsign(); }}>E-Signature Disclosure and Consent,</span>
 													<span data-testid="creditContactAuth"className={classes.oneLastStepLinks} onClick={() => { handleOnClickCredit(); }}>Credit and Contact Authorization,</span>
-													<span data-testid="websiteTerms" className={classes.oneLastStepLinks} onClick={() => { handleOnClickwebTOU(); }}>Website Terms of Use,</span>
-													<span data-testid="websitePrivacy" className={classes.oneLastStepLinks} onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
+													<span data-testid="websiteTerms" className={classes.oneLastStepLinks} onClick={() => { handleOnClickwebTOU(); }}>Terms of Use,</span>
+													<span data-testid="websitePrivacy" className={classes.oneLastStepLinks} onClick={() => { handleOnClickPrivacy(); }}>Privacy Statement.</span>
 												</Grid>	
 										<div
 											className={data.state === "DE" ? "showCB " : "hideMsg "}
