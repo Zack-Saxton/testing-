@@ -1,4 +1,4 @@
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 import globalMessages from "../../assets/data/globalMessages.json";
 import getClientIp from "../Controllers/CommonController";
 import APICall from "../lib/AxiosLib";
@@ -41,7 +41,7 @@ export async function validateActivationToken(verify) {
 /***** To upload document *****/
 
 export async function uploadEmailVerificationDocument(compressedFile, filesInfo, applicationNumber, customerEmail, documentType) {
-  try{
+  try {
     let url = "upload_email_verification_document";
     let param = "";
     let data = {
@@ -56,21 +56,21 @@ export async function uploadEmailVerificationDocument(compressedFile, filesInfo,
 
     //API call
     let uploadData = await APICall(url, param, data, method, addAccessToken);
-    
-    if(uploadData.status !== 200){
+
+    if (uploadData.status !== 200) {
       toast.error(uploadData?.data?.message ?? globalMessages.Error_executing_EmailVerificationController_API)
     }
     return uploadData;
-  }catch (error){
+  } catch (error) {
     ErrorLogger(globalMessages.Error_executing_EmailVerificationController_API, error);
   }
-  
+
 }
 
 /***** save consent *****/
 
 export async function saveConsentStatus(customerEmail, applicationNumber) {
-  try{
+  try {
     let url = "save_consents";
     let param = "";
     let data = {
@@ -84,19 +84,19 @@ export async function saveConsentStatus(customerEmail, applicationNumber) {
 
     //API call
     let uploadData = await APICall(url, param, data, method, addAccessToken);
-    if(uploadData.status !== 200){
+    if (uploadData.status !== 200) {
       toast.error(uploadData?.data?.message ?? globalMessages.ConsentStatusUpdateError)
     }
     return uploadData.status === 200;
-  }catch (error){
+  } catch (error) {
     ErrorLogger(globalMessages.Error_executing_EmailVerificationController_API, error);
-  }  
+  }
 }
 
 /***** Save Acquire Click *****/
 
 export async function saveAcquireClick(customerEmail, applicationNumber) {
-  try{
+  try {
     let url = "save_acquire_click";
     let param = "";
     let acquireClickedat = new Date().toLocaleString("en-US", {
@@ -112,9 +112,9 @@ export async function saveAcquireClick(customerEmail, applicationNumber) {
     let addAccessToken = true;
     //API call
     let uploadData = await APICall(url, param, data, method, addAccessToken);
-    return uploadData.status === 200;                   
-  }catch (error){
+    return uploadData.status === 200;
+  } catch (error) {
     ErrorLogger(globalMessages.Error_executing_EmailVerificationController_API, error);
   }
-  
+
 }

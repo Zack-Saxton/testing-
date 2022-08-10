@@ -1,13 +1,13 @@
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
-import { statusStrLinks_PartnerSignUp } from "../lib/StatusStrLinks";
+import {statusStrLinks_PartnerSignUp} from "../lib/StatusStrLinks";
 
 let statusStrLink = statusStrLinks_PartnerSignUp;
 
-export default async function PartnerSignup(navigate, partnerToken, applicantId, partnerSignupData,utm_source) {
+export default async function PartnerSignup(navigate, partnerToken, applicantId, partnerSignupData, utm_source) {
   let url = "partner_signup";
   let param = "";
   let data = {
@@ -32,7 +32,7 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
       {
         onClose: () => {
           let now = new Date().getTime();
-          Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
+          Cookies.set("redirec", JSON.stringify({to: "/select-amount"}));
           Cookies.set(
             "token",
             JSON.stringify({
@@ -46,18 +46,18 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
           Cookies.set("email", partnerSignupMethod?.data?.applicant.contact.email);
           Cookies.set("firstName", partnerSignupMethod?.data?.applicant?.contact?.first_name);
           Cookies.set("lastName", partnerSignupMethod?.data?.applicant?.contact?.last_name);
-          localStorage.setItem("user", JSON.stringify({ user: partnerSignupMethod?.data?.user }));
-          if(utm_source === "amone" && partnerSignupMethod?.data?.applicant?.processing?.status === "rejected" ){
+          localStorage.setItem("user", JSON.stringify({user: partnerSignupMethod?.data?.user}));
+          if (utm_source === "amone" && partnerSignupMethod?.data?.applicant?.processing?.status === "rejected") {
             navigate("/offers/no-offers")
           }
-          else{
-          navigate(statusStrLink[ partnerSignupMethod?.data?.applicant.processing.status ],
-            {
-              state: {
-                partnerSignupData: partnerSignupMethod?.data,
-                firstname: partnerSignupMethod?.data?.applicant?.contact?.first_name              
-              }
-            });
+          else {
+            navigate(statusStrLink[partnerSignupMethod?.data?.applicant.processing.status],
+              {
+                state: {
+                  partnerSignupData: partnerSignupMethod?.data,
+                  firstname: partnerSignupMethod?.data?.applicant?.contact?.first_name
+                }
+              });
           }
         },
       }
@@ -97,7 +97,7 @@ export async function PopulatePartnerReferred(applicantId) {
   try {
     let url = "populate_partner_referred";
     let param = "";
-    let data = { application_id: applicantId };
+    let data = {application_id: applicantId};
     let method = "POST";
     let addAccessToken = false;
     //API call
@@ -147,7 +147,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {
         onClose: async () => {
-          let stateDataToPass  = {
+          let stateDataToPass = {
             firstname: dataConfirmInfo.firstName,
             partnerSignupData: {
               applicant: {
@@ -159,7 +159,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
             }
           }
           await refetch();
-          navigate(statusStrLink[ PartnerConfirmationAPI?.data.applicationStatus ], { state: stateDataToPass });
+          navigate(statusStrLink[PartnerConfirmationAPI?.data.applicationStatus], {state: stateDataToPass});
         },
       }
     )

@@ -81,7 +81,11 @@ const validationSchema = yup.object({
   martialStatus: yup.string().when("state", {
     is: "Wisconsin",
     then: yup.string().required(globalMessages?.Marital_Status_Required),
-  }),
+  }).when("state", {
+    is: "WI",
+    then: yup.string().required(globalMessages?.Marital_Status_Required),
+  }
+  ),
   spouseadd: yup
     .string()
     .when("martialStatus", {
@@ -826,10 +830,10 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                           : "hideCheckbox"
                       }
                     >
-                      <Grid item xs={12} id="marriedStatusWrap">
-                        <p>
-                          <b>Are you married?*</b>
-                        </p>
+                      <p>
+                      <b>Are you married?*</b>
+                     </p>
+                      <Grid item xs={12} id="marriedStatusWrap">                        
                         <Select
                           name="martialStatus"
                           labelform="Marital Status *"
