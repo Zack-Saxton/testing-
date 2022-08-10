@@ -20,24 +20,24 @@ export default async function setAccountDetails() {
 
 
 export async function postFullStorySession(customer, fsSession, fsSessionKey) {
-	try {
-		//API
-		let url = "post_fullstory";
-		let param = "";
-    customer.fullstory = Object.assign({}, customer.fullstory,{
-      [ fsSessionKey ]: {
-          url: fsSession,
-          date: new Date(),
+  try {
+    //API
+    let url = "post_fullstory";
+    let param = "";
+    customer.fullstory = Object.assign({}, customer.fullstory, {
+      [fsSessionKey]: {
+        url: fsSession,
+        date: new Date(),
       }
     });
-    let data = { 
-        formdata: customer
+    let data = {
+      formdata: customer
     }
     let method = "POST";
-		let addAccessToken = true;
-		//API call
-		return await APICall(url, param, data, method, addAccessToken);
-	} catch (error) {
+    let addAccessToken = true;
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
     ErrorLogger("Error executing post fullstory API", error);
-	}
-}	
+  }
+}

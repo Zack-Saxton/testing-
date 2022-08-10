@@ -20,9 +20,9 @@ export async function checkMyOfferSubmit(customer) {
 	};
 
 	const utm_sources = {
-					"utm_source": customer.utm_source_otherPartner,
-					"utm_medium": customer.utm_medium_otherPartner,
-					"utm_campaign": customer.utm_campaign_otherPartner,
+		"utm_source": customer.utm_source_otherPartner,
+		"utm_medium": customer.utm_medium_otherPartner,
+		"utm_campaign": customer.utm_campaign_otherPartner,
 	}
 	try {
 		//creating function to load ip address from the API
