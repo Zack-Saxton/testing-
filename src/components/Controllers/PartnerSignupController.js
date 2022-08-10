@@ -28,7 +28,7 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
 
   partnerSignupMethod?.status === 200
     ? toast.success(partnerSignupMethod?.data?.statusText ? partnerSignupMethod?.data?.statusText
-      : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info" ? globalMessages.confirm_Info_LoginMessage : globalMessages.confirm_Info_Login,
+      : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info" ? globalMessages.confirm_Info_Login : globalMessages.confirm_Info_LoginMessage,
       {
         onClose: () => {
           let now = new Date().getTime();
