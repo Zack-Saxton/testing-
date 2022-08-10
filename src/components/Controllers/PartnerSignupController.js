@@ -18,7 +18,14 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
     phone_type: partnerSignupData.phoneType,
     password: partnerSignupData.password,
     password_confirm: partnerSignupData.confirm_password,
-    isAuthenticated: true
+    isAuthenticated: true,
+    active_duty: partnerSignupData.activeDuty,
+    active_duty_rank: partnerSignupData.activeDutyRank,
+    spouse_city: partnerSignupData.spousecity,
+    spouse_zipcode: partnerSignupData.spouseZipcode,
+    spouse_state: partnerSignupData.spouseSelectState,
+    spouse_address: partnerSignupData.spouseadd,
+    marital_status: partnerSignupData.martialStatus,
   };
   let method = "POST";
   let addAccessToken = false;
