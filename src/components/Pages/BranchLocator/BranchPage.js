@@ -286,8 +286,8 @@ export default function StatePage() {
             </Grid>
           </Grid>
           <Grid className="secondaryButtonWrap" container>
-            <ButtonSecondary 
-            data-testid = "directionButton"
+            <ButtonPrimary
+              data-testid = "directionButton"
               onClick={() => {
                 setBranchAddress(
                   `${BrnachLocatorURLs.GoogleMapURL}${ branch_Details?.current?.Address ? branch_Details?.current?.Address : branchList && branchList[ 0 ]?.Address }`
@@ -297,7 +297,7 @@ export default function StatePage() {
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
             >
               Get Directions
-            </ButtonSecondary>
+            </ButtonPrimary>
           </Grid>
         </Grid>
       </Grid>
