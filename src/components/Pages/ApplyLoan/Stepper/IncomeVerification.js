@@ -40,7 +40,7 @@ export default function IncomeVerification(props) {
 
 	const handleFinishOnClick = async () => {	
 		if (!fileUploadSuccess) {
-			toast.error(messages?.bankAccountVerification?.notValid);
+			toast.error(messages.incomeVerification.finishAllSteps);
 			props.setLoadingFlag(false);
 			setInternalLoading(false);
 		}
