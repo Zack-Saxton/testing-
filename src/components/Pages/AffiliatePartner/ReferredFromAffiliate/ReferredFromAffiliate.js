@@ -33,14 +33,14 @@ function ReferredFromAffiliate() {
   const getReferredDetails = () => {
     if(!firstName_partner)
     {
-    SetPopulatePartnerSignupState(PopulatePartnerSignupData);    
+    SetPopulatePartnerSignupState(PopulatePartnerSignupData);   
   }
   }
 
   useEffect(() => {
     getReferredDetails()   
      // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  },[PopulatePartnerSignupData]);
 
   //Populate referred application username from API
    let populateSignupData = populatePartnerSignupState?.data?.application?.identification?.full_name;
