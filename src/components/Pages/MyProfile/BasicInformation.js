@@ -102,6 +102,13 @@ export default function BasicInformation(props) {
     setSelectedFile(null);
   };
 
+  const onClickResetForm = () =>{
+    formik.resetForm();
+    setPhoneNumberValue(basicInfo?.phone_number_primary ?? "");
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(basicInfo?.phone_number_primary ?? "")));
+    setSelectedFile(null);
+  }
+
   const logOut = () => {
     setLoading(false);
     LogoutController();
@@ -317,11 +324,11 @@ export default function BasicInformation(props) {
     }
   };
   
-  const updateActualValue = (_event) => {
-    setPhoneNumberCurrentValue(phoneNumberMask(basicInfo?.phone_number_primary));
+  const updateActualValue = (event) => {
+    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
   }
-  const updateMaskValue = (_event) => {
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(basicInfo?.phone_number_primary))) ;
+  const updateMaskValue = (event) => {
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
   }
   const updateEnterPhoneNo = (event) =>{
     setPhoneNumberValue(event.target.value);
@@ -494,7 +501,7 @@ export default function BasicInformation(props) {
             <ButtonSecondary
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
-              onClick={onClickCancelChange}
+              onClick={onClickResetForm}
               disabled={!disableField}
             >
               Cancel
