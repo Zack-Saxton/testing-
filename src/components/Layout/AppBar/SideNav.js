@@ -210,7 +210,11 @@ export default function SideNav() {
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const [ isMobileDevice, setDeviceType ] = useState(false);
   const [ checkFinalVerificationStatus, setCheckFinalVerificationStatus ] = useState(false);
-  const { data: verificationStepsApplyforLoan } = useQuery('verification-data', verificationSteps);
+  const { data: verificationStepsApplyforLoan } = useQuery('verification-data', verificationSteps
+  , {
+    enabled: [ 'approved', 'completing_application', 'signature_complete', 'closing_process' ].includes(dataAccountOverview?.data?.applicants?.find((applicant) => applicant?.isActive)?.status),
+  }
+  );
   const [ option, setOpenOption ] = React.useState(false);
   const anchorRef = React.useRef(null);
   let refProfileDetails = useRef();
