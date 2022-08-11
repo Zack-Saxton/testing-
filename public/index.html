@@ -46,11 +46,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     zE("webWidget", "hide");
   </script>
   <script>
-    if (window && window.location && window.location.origin === 'https://cac-qa.marinerfinance.io') {
+    if (window && window.location && (window.location.origin === 'https://cac-qa.marinerfinance.io' || window.location.origin === 'https://loans.marinerfinance.io')) {
+      let orgID = window.location.origin === 'https://loans.marinerfinance.io' ? "540DP" : "o-1C7D4C-na1";
       window['_fs_debug'] = false;
       window['_fs_host'] = 'fullstory.com';
       window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
-      window['_fs_org'] = 'o-1C7D4C-na1';
+      window['_fs_org'] = orgID;
       window['_fs_namespace'] = 'FS';
       (function(m,n,e,t,l,o,g,y){
           if (e in m) {if(m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');} return;}
