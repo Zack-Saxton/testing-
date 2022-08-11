@@ -157,6 +157,7 @@ export default function StepperMain() {
 				return (
 					<PhoneVerification
 						next={refetch}
+						nextOnSkip={getApplicationStatus}
 						prev={handleBack}
 						reset={handleReset}
 						steps={steps}
