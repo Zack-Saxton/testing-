@@ -57,7 +57,7 @@ test('Active Loans render test', () => {
 
 test('Recent Payment render test', () => {
   const container = render(MockAccountOverview());
-  const headingElement = container.getByTestId("recent payments");
+  const headingElement = container.getByText("Recent Payments")
   expect(headingElement).toBeTruthy();
 })
 
