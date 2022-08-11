@@ -8,7 +8,7 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import CongratulationsImage from "../../../../assets/images/Referred-to-Branch.png";
 import CustomerRatings from "../../../Pages/MyBranch/CustomerRatings"
 import "../../../Pages/MyBranch/BranchInfo.css"
@@ -21,35 +21,26 @@ import "./ReferredFromAffiliate.css";
 //Referred From Affiliate functional component initialization
 function ReferredFromAffiliate() {
   const classes = ReferredUsestyle()
-  const navigate = useNavigate();
   let location = useLocation();
   let firstName_partner = location?.state?.firstname
   
 
-  const useQueryURL = () => new URLSearchParams(useLocation().search);
-  const query = useQueryURL();
-  const applicantId = query.get("REF");
-
   const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
 
-
   //API Call
-  const { PopulatePartnerSignupData } = usePopulatePartnerReferred(applicantId);
+  const { PopulatePartnerSignupData } = usePopulatePartnerReferred();
 
   const getReferredDetails = () => {
     if(!firstName_partner)
     {
-    SetPopulatePartnerSignupState(PopulatePartnerSignupData);
-    if(!applicantId)
-    {
-      navigate("/error")
-    }
+    SetPopulatePartnerSignupState(PopulatePartnerSignupData);   
   }
   }
 
   useEffect(() => {
     getReferredDetails()   
-  },);
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[PopulatePartnerSignupData]);
 
   //Populate referred application username from API
    let populateSignupData = populatePartnerSignupState?.data?.application?.identification?.full_name;
