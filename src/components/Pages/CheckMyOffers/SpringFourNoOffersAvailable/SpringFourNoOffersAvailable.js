@@ -62,7 +62,7 @@ const SpringFourNoOffersAvailable = () => {
                     <a 
                     rel="noreferrer"
                     target="_blank"
-                    className={classes.getStartedSpringFourButton} href="https://wps-qa.marinerfinance.io/resources/#springfour">
+                    className={classes.getStartedSpringFourButton}  href={`${ process.env.REACT_APP_WEBSITE }/resources/#springfour`}>
                     Get Started
                     </a>                      
                     </ButtonPrimary>
