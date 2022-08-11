@@ -199,6 +199,7 @@ export default function StepperMain() {
 						steps={steps}
 						activeStep={activeStep}
 						classes={classes}
+						reference={elementsRef}
 						setLoadingFlag={setLoadingFlag}
 					/>
 				);
