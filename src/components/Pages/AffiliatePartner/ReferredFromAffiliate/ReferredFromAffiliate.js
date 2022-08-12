@@ -8,7 +8,6 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import CongratulationsImage from "../../../../assets/images/Referred-to-Branch.png";
 import CustomerRatings from "../../../Pages/MyBranch/CustomerRatings"
 import "../../../Pages/MyBranch/BranchInfo.css"
@@ -17,18 +16,20 @@ import { ReferredUsestyle } from "./style";
 import {usePopulatePartnerReferred} from "./ReferredFromAffiliateMockData"
 import ScrollToTopOnMount from "../../ScrollToTop";
 import "./ReferredFromAffiliate.css";
+import Cookies from "js-cookie";
+
 
 //Referred From Affiliate functional component initialization
 function ReferredFromAffiliate() {
   const classes = ReferredUsestyle()
-  let location = useLocation();
-  let firstName_partner = location?.state?.firstname
+  
+  let firstName_partner = Cookies.get("firstName")
   
 
   const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
 
   //API Call
-  const { PopulatePartnerSignupData } = usePopulatePartnerReferred();
+  const { PopulatePartnerSignupData } = usePopulatePartnerReferred(firstName_partner);
 
   const getReferredDetails = () => {
     if(!firstName_partner)
