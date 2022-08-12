@@ -609,7 +609,7 @@ const preventEvent = (event) => {
                         <Grid
                           item
                           xs={12}
-                          className={`${ formik.values.activeDutyRank === "E4 and below" ? "showCheckbox" : "hideCheckbox" } ${ classes.redText }`}
+                          className={`${ formik.values.activeDutyRank === "E4 and below" ? "showCheckbox" : "hideCheckbox" } ${ classes.redTextPartner }`}
                         >
                           Unfortunately, based on the application information provided, you do not meet our application requirements.
                         </Grid>
@@ -775,7 +775,7 @@ const preventEvent = (event) => {
                     </Grid>
 
                     {/* ****************************************************  Password Fields ***************************************** */}
-                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12}>
+                    <Grid id = "passwordGrid" className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12}>
                       <PasswordField
                         name="password"
                         label="Create New Password *"
@@ -1028,7 +1028,11 @@ const preventEvent = (event) => {
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-                        disabled={loading}
+                        disabled={
+                           formik.values.activeDutyRank === "E4 and below" 
+                            ? true
+                            : loading
+                        }
                       >
                         {utm_source === "CreditKarma" ? "Continue" : "View your offers"}
                         <i

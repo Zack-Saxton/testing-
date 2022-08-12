@@ -264,6 +264,9 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 }
 .errorvalidationWrap{
     padding-bottom: 10px;
+} 
+#passwordGrid{
+    padding-top: 10px;
 }
 #socialSecurityNumber div div div input{
     /* font-size: 0.938rem !important; */
