@@ -44,7 +44,7 @@ export async function checkMyOfferSubmit(customer) {
 			"phone_type": "Cell",
 		}
 
-		//API for latest consent versions 
+		//API for latest consent versions
 		let url = "get_active_documents";
 		let param = "";
 		let data = {};
@@ -59,26 +59,25 @@ export async function checkMyOfferSubmit(customer) {
 
 		//Assemble 'consent', 'user' Object with dynamic data
 		activeConsetDocument.data.documents.forEach(doc => {
-			if (doc.displayname.toLowerCase() === 'credit_contact_authorization') { 
+			if (doc.displayname.toLowerCase() === 'credit_contact_authorization') {
 				consent.credit_contact_authorization = {
 					"consent": true,
 					"version": doc.version.toString(),
 				}
 				user.Consent_Credit_Contact_Authorization_Version__c = doc.version.toString();
-
-			} else if(doc.displayname.toLowerCase() === 'electronic_disclosure_consent') { 
+			} else if (doc.displayname.toLowerCase() === 'electronic_disclosure_consent') {
 				consent.electronic_communications = {
 					"consent": true,
 					"version": doc.version.toString(),
 				}
 				user.Consent_Electronic_Communication_Policy_Version__c = doc.version.toString();
-			} else if(doc.displayname.toLowerCase() === 'terms_of_use_document') { 
+			} else if (doc.displayname.toLowerCase() === 'terms_of_use_document') {
 				consent.terms_of_use = {
 					"consent": true,
 					"version": doc.version.toString(),
 				}
 				user.Consent_Terms_Of_Use_Version__c = doc.version.toString();
-			} else if(doc.displayname.toLowerCase() === 'privacy_policy_document') { 
+			} else if (doc.displayname.toLowerCase() === 'privacy_policy_document') {
 				consent.privacy_policy = {
 					"consent": true,
 					"version": doc.version.toString(),
@@ -86,7 +85,7 @@ export async function checkMyOfferSubmit(customer) {
 				user.Consent_Privacy_Policy_Version__c = doc.version.toString();
 			}
 		});
-		
+
 		consent.delaware_itemized_schedule_of_charges = {
 			"consent": false,
 			"version": "1.0",
@@ -97,24 +96,24 @@ export async function checkMyOfferSubmit(customer) {
 		};
 
 		//dynamically update deleware 'consent' and 'esign' if applicable
-		if(customer.state === 'DE') {
+		if (customer.state === 'DE') {
 			consent.delaware_itemized_schedule_of_charges.consent = true;
 			esign.delaware_itemized_schedule_of_charges = esignConsent;
 		}
 
 		//dynamically update california 'consent' and 'esign' if applicable
-		if(customer.state === 'CA') {
+		if (customer.state === 'CA') {
 			consent.california_credit_education_program.consent = true;
 			esign.california_credit_education_program = esignConsent;
 		}
 
-		//assemble 'esign' Object 
+		//assemble 'esign' Object
 		esign.credit_contact_authorization = esignConsent;
 		esign.electronic_communications = esignConsent;
 		esign.privacy_policy = esignConsent;
 		esign.terms_of_use = esignConsent;
 
-		//assemble 'user' Object 
+		//assemble 'user' Object
 		user.password = customer.password;
 		user.confirm_password = customer.confirmPassword;
 		user.terms_agreement = "on";
