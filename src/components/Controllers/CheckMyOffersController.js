@@ -48,7 +48,7 @@ export async function checkMyOfferSubmit(customer) {
 		let url = "get_active_documents";
 		let param = "";
 		let data = {};
-		let method = "POST";
+		let method = "GET";
 		let addAccessToken = false;
 
 		//API call
