@@ -86,7 +86,6 @@ test("Checks the component is rendered", () => {
   }))
   const container = render(component());
   const element = container.getByTestId("makePaymentComponent");
-  container.debug(undefined, 4000000);
   expect(element).toBeTruthy();
 });
 

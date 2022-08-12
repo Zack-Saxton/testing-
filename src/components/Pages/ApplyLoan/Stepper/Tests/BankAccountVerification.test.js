@@ -128,8 +128,8 @@ test("Availability test: Bank Account Number", () => {
 
 test("Availability test: Bank Account Number", () => {
   render(component());
-  const autoPayment = screen.getByText("Automatic Payment");
-  const payByCheck = screen.getByText("Payment by Check");
+  const autoPayment = screen.getByText("Automatic Payment:");
+  const payByCheck = screen.getByText("Payment by Check:");
   expect(autoPayment).toBeTruthy();
   expect(payByCheck).toBeTruthy();
 });
