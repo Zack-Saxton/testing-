@@ -82,7 +82,7 @@ test("Settings Icon Availability Test", () => {
 test("Side Navigation buttons Availability Test", () => {
   render(component());
   const element = screen.getByTestId("sideNavfaqNavigation");
-  expect(element).toHaveAttribute("href", "/customers/faq");
+  expect(element).toHaveAttribute("href", "https://wps-qa.marinerfinance.io/resources/faq/");
   expect(element).toBeTruthy();
 });
 
