@@ -94,7 +94,7 @@ export default function DocumentPhoto(props) {
 		} else {
 			window.attachEvent("onmessage", onMessageHandler);
 		}
-	});
+	}, []);
 
 	//call function load
 	useEffect(() => {
