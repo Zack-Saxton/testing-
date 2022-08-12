@@ -201,6 +201,7 @@ function PersonalInfo() {
 		onSubmit: async (values) => {
 			const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
 			setLoading(true);
+			Cookies.set("firstName",values.firstName)
 			//To check the component is mounted or not to update the state
 			if (componentMounted.current) {
 				data.firstName = values.firstName.trim();
