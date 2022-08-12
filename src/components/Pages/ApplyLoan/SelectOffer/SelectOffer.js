@@ -164,7 +164,9 @@ export default function SelectOffer() {
 			checked: "false",
 		};
 		let formatedBuildData = createData(buildData);
-		rowsterm.push(formatedBuildData);
+		if(!rowsterm.includes(formatedBuildData)){
+			rowsterm.push(formatedBuildData);
+		}
 		return null;
 
 	};
