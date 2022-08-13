@@ -156,7 +156,7 @@ function SSN() {
 		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "referred") {
 			setData({ ...data, applicationStatus: "referred" });
 			removeCKLightboxCookie();
-			navigate("/referred-to-branch", { formcomplete: "yes" });
+			navigate("/referred-to-branch", { formcomplete: "yes"  , state:{referedToBranchData:response?.appSubmissionResult?.data?.branch_referral}});
 		}
 	};
 
