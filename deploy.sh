@@ -28,19 +28,29 @@ then
     exit
 fi
 
-if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ]
+if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ] || [ "$env" = "prod5" ]
 then
     if [ "$env" = "prod1" ]
     then
-      serverName="ubuntu@cis--app1-prod.marinerfinance.io"
+      serverName="ubuntu@cis-app1-prod.marinerfinance.io"
     else
       if [ "$env" = "prod2" ]
       then
-        serverName="ubuntu@cis--app2-prod.marinerfinance.io"
+        serverName="ubuntu@cis-app2-prod.marinerfinance.io"
       else
         if [ "$env" = "prod3" ]
         then
-          serverName="ubuntu@cis--app2-prod.marinerfinance.io"
+          serverName="ubuntu@cis-app3-prod.marinerfinance.io"
+        else
+          if [ "$env" = "prod4" ]
+          then
+            serverName="ubuntu@cis-app4-prod.marinerfinance.io"
+          else
+            if [ "$env" = "prod5" ]
+            then
+              serverName="ubuntu@cis-app5-prod.marinerfinance.io"
+            fi
+          fi
         fi
       fi
     fi
