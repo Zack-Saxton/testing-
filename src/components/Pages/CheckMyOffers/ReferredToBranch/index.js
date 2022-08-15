@@ -30,7 +30,7 @@ function ReferredToBranch(props) {
 	const refferdToBranchName = Cookies.get("firstName") 
 	useEffect(() => {
 		//redirects to select amount of directly called
-		if (data?.completedPage < data?.page?.ssn && data?.applicationStatus?.toLowerCase() !== "referred" && props?.location?.formcomplete?.toLowerCase() !== "yes") {
+		if (data?.completedPage < data?.page?.ssn && data?.applicationStatus && data?.applicationStatus?.toLowerCase() !== "referred" && props?.location?.formcomplete?.toLowerCase() !== "yes") {
 			navigate("/select-amount");
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

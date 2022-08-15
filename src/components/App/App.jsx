@@ -71,7 +71,6 @@ import VantageScore from "../Pages/VantageScore/VantageScore";
 import MFAGetPhoneNumber from "../Pages/MultiFactorAuthentication/MFAGetPhoneNumber";
 import AmOneNoOffersAvailable from "../Pages/CheckMyOffers/AmOneNoOffersAvailable/AmOneNoOffersAvailable"
 import SpringFourNoOffersAvailable from "../Pages/CheckMyOffers/SpringFourNoOffersAvailable/SpringFourNoOffersAvailable"
-import ReferredFromAffiliate from "../Pages/AffiliatePartner/ReferredFromAffiliate/ReferredFromAffiliate";
 import LightBox from "../Pages/CheckMyOffers/LightBox/LightBox";
 import OtherPartner from "../Pages/AffiliatePartner/OtherPartners/OtherPartner";
 import "./App.css";
@@ -176,7 +175,6 @@ function App() {
                                                 <Route path='/marital-status' element={loadGeneralUserComponent(<MarriedStatus />)} />
                                                 <Route path='/oneLastStep' element={loadGeneralUserComponent(<SSN />)} />
                                                 <Route path='/no-offers-available' element={loadGeneralUserComponent(<NoOffersAvailable />)} />
-                                                <Route path='/referred-to-branch' element={loadGeneralUserComponent(<ReferredToBranch />)} />
                                                 <Route path='/eligible-for-offers' element={loadGeneralUserComponent(<EligibleForOffers />)} />
                                                 <Route path='/zipcode' element={loadGeneralUserComponent(<ZipCode />)} />
                                                 <Route path='/personal-info' element={loadGeneralUserComponent(<PersonalInfo />)} />
@@ -233,7 +231,7 @@ function App() {
                                                 </Route>
                                                 <Route path='offers' >
                                                     <Route path='none-available' element={loadGeneralUserComponent(<SpringFourNoOffersAvailable />)} />
-                                                    <Route path='referral' element={loadGeneralUserComponent(<ReferredFromAffiliate />)} />
+                                                    <Route path='referral' element={loadGeneralUserComponent(<ReferredToBranch />)} />
                                                     <Route path='no-offers' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />
                                                 </Route>
                                                 <Route path='partners' >
