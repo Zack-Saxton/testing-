@@ -30,7 +30,20 @@ fi
 
 if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ]
 then
-    serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io"
+    if [ "$env" = "prod1" ]
+    then
+      serverName="ubuntu@cis--app1-prod.marinerfinance.io"
+    else
+      if [ "$env" = "prod2" ]
+      then
+        serverName="ubuntu@cis--app2-prod.marinerfinance.io"
+      else
+        if [ "$env" = "prod3" ]
+        then
+          serverName="ubuntu@cis--app2-prod.marinerfinance.io"
+        fi
+      fi
+    fi
     dockerNetwork="prodNetwork"
     env1="prod"
 else
@@ -179,7 +192,7 @@ echo -e "\033[1;36m * TUNNELING INTO EC2 INSTANCE ($app)           \033[0m"
 echo -e "\033[1;36m ********************************************** \033[0m"
 
 #ssh -o "StrictHostKeyChecking no" -i $PEM_FILE $serverName << ENDHERE
-ssh  -i $_PEM_FILE_ $server << ENDHERE
+ssh  -i $_PEM_FILE_ $serverName << ENDHERE
      echo -e "\033[1;36m ********************************************** \033[0m"
      echo -e "\033[1;36m * START stopping all container ($app) and then  \033[0m"
      echo -e "\033[1;36m * removing all  container ($app)                \033[0m"
