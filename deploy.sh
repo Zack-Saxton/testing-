@@ -31,8 +31,12 @@ fi
 if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ]
 then
     serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io"
+    dockerNetwork="prodNetwork"
+    env1="prod"
 else
     serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
+    dockerNetwork="${env}Network"
+    env1="${env}"
 fi
 pemFile=marinerfinance-us-east-1.pem
 otherPemFile=~/Code/psa/otherdocs/marinerfinance-us-east-1.pem
@@ -41,27 +45,6 @@ hostname="cac-app1-${env}.marinerfinance.io"
 message="$hostname Deployment START from $branch to $env By $deployUser"
 url="https://hooks.slack.com/services/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"
 curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
-
-case $env in
-  "qa")
-    dockerNetwork="qaNetwork"
-    server="ubuntu@cis-app1-qa.marinerfinance.io"
-    #printf "REACT_APP_PSA_URL=https://psa-qa.marinerfinance.io" >> .env
-    ;;
-  "dev")
-    dockerNetwork="devNetwork"
-    server="ubuntu@cis-app1-dev.marinerfinance.io"
-    #printf "REACT_APP_PSA_URL=https://psa-development.marinerfinance.io" >> .env
-    ;;
-  "staging")
-    dockerNetwork="stagingNetwork"
-    server="ubuntu@cis-app1-staging.marinerfinance.io"
-    #printf "REACT_APP_PSA_URL=https://psa-staging.marinerfinance.io" >> .env
-    ;;
-  *)
-    dockerNetwork="qaNetwork"
-    ;;
-esac
 
 #GIT and PEM Details
 #gitRepo="git@github.com:marinerfinance/cac.git"
@@ -110,7 +93,7 @@ git checkout $branch
 git pull
 
 #echo "git checkout $env"
-if [ "$env" = "prod" ]
+if [ "$env1" = "prod" ]
 then
     git checkout master
 else
@@ -135,7 +118,7 @@ latestCommit=$(git rev-parse --short HEAD)
 #Dockerise the environment
 imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"
 #docker build -f Dockerfile -t ${imageName} .
-case $env in
+case $env1 in
   "dev")
     cat ~/.
     docker build -t $imageName  $(for i in `cat ~/.env_cac_dev`; do out+="--build-arg $i " ; done; echo $out;out="") .
@@ -165,13 +148,6 @@ case $env in
       exit 1;
     fi
     ;;
-  *)
-    # docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
-    # if [ $? != 0 ]; then
-    #   echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
-    #   exit 1;
-    # fi
-    # ;;
 esac
 
 echo  "****** Created New Image ****"
@@ -246,8 +222,6 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
    sudo reboot
    exit
 ENDHERE
-
-
 
 #-------------------------------------------------------------------------#
 #@ END OF REBOOT
