@@ -64,7 +64,7 @@ fi
 pemFile=marinerfinance-us-east-1.pem
 otherPemFile=~/Code/psa/otherdocs/marinerfinance-us-east-1.pem
 deployUser=$(whoami)
-hostname="cac-app1-${env}.marinerfinance.io"
+hostname="cac-app1-${env1}.marinerfinance.io"
 message="$hostname Deployment START from $branch to $env By $deployUser"
 url="https://hooks.slack.com/services/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"
 curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
@@ -139,7 +139,7 @@ echo "**************************************************************************
 
 latestCommit=$(git rev-parse --short HEAD)
 #Dockerise the environment
-imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"
+imageName="marinerfinance/ops:${app}-${env1}-${latestCommit}"
 #docker build -f Dockerfile -t ${imageName} .
 case $env1 in
   "dev")
@@ -239,7 +239,7 @@ ssh  -i $_PEM_FILE_ $serverName << ENDHERE
    for ((count=1;count<=$instances;count++))
    do
      echo  "****** Spinning Instance "\$count": "
-     docker run -dit --restart=always --name "${app}"\$count"-${env}-${latestCommit}" --network $dockerNetwork $imageName
+     docker run -dit --restart=always --name "${app}"\$count"-${env1}-${latestCommit}" --network $dockerNetwork $imageName
      sleep 5
    done
    sudo reboot
