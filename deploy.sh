@@ -226,7 +226,7 @@ ssh  -i $_PEM_FILE_ $serverName << ENDHERE
      echo -e "\033[1;36m * START Updating server    : ($app)            \033[0m"
      echo -e "\033[1;36m ********************************************** \033[0m"
 
-     sudo apt-get update && sudo apt-get dist-upgrade -y
+     sudo apt-get update && sudo apt --fix-broken install && sudo apt-get dist-upgrade -y
 
      docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
 
