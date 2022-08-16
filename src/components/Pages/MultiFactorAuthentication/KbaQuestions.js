@@ -73,8 +73,7 @@ const KbaQuestions = () => {
         "answer": ""
       });
       setResponseData(tempArray);
-    }
-    else if (response?.data?.result || response?.data?.questions?.question.length > 1) {
+    } else if (response?.data?.result || response?.data?.questions?.question.length > 1) {
       KBAdata = response?.data?.result || response.data
       setIsProd(true);
       setQuestionSetIdMultiple( KBAdata.questions?.["question-set-id"]);
@@ -92,8 +91,7 @@ const KbaQuestions = () => {
       setResponseDataMultipleQ(tempArray);
       setSetOneFinished(true);
       setLoadingFlag(false);
-    }
-    else {
+    } else {
       toast.error("Something went wrong, please try again");
     }
   }
