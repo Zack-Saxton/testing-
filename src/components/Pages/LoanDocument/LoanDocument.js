@@ -79,7 +79,7 @@ export default function LoanDocument() {
         let compressFileData = reader.result;
         let imageData = compressFileData
           .toString()
-          .replace(/^dataimage\/[a-z]+base64/, "");
+          .replace(/^data:.+;base64,/, "");
         let fileName = selectedFile.files[ 0 ].name;
         let fileType = selectedFile.files[ 0 ].type;
         let documentType = docType;
