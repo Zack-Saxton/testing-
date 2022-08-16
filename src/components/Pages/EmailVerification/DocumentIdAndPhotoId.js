@@ -133,6 +133,7 @@ function DocumentIdAndPhotoId(props) {
         reader.onload = async () => {
           let compressFileData = reader.result;
           let imageData = compressFileData
+            .toString()
           .replace(/^data:.+;base64,/, "");
           const buffer2 = Buffer.from(imageData, "base64");
           let fileName = fileObject.files[ 0 ].name;
