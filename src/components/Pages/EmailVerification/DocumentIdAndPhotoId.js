@@ -280,7 +280,6 @@ function DocumentIdAndPhotoId(props) {
 
   const uploadDocument = () => {
     getValueByLable("ID Document & Photo").scrollIntoView();
-    console.log(' LINE 285 ==============')
     //Upload ID document
     setLoading(true);
     if (imgSrc) {
