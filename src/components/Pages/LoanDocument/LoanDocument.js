@@ -77,13 +77,14 @@ export default function LoanDocument() {
       reader.readAsDataURL(selectedFile.files[ 0 ]);
       reader.onload = async () => {
         let compressFileData = reader.result;
-        const buffer2 = Buffer.from(compressFileData, "base64");
-       // let fileData = Buffer.from(buffer2).toString("base64");
+        let imageData = compressFileData
+          .toString()
+          .replace(/^dataimage\/[a-z]+base64/, "");
         let fileName = selectedFile.files[ 0 ].name;
         let fileType = selectedFile.files[ 0 ].type;
         let documentType = docType;
         setLoading(true);
-        let response = await uploadDocument(buffer2, fileName, fileType, documentType);
+        let response = await uploadDocument(imageData, fileName, fileType, documentType);
         if (response) {
           setLoading(false);
           setDocType("");
