@@ -75,19 +75,17 @@ function UploadDocument(props) {
       if (selectedFile.files && selectedFile.files[ 0 ]) {
         reader.readAsDataURL(selectedFile.files[ 0 ]);
         reader.onload = async () => {
-          let compressFileData = reader.result;
-          const buffer2 = Buffer.from(compressFileData, "base64");
-          // let encodedFile = Buffer.from(buffer2).toString("base64");
-          // let imageData = encodedFile
-          //   .toString()
-          //   .replace(/^dataimage\/[a-z]+base64/, "");          
+          let compressFileData = reader.result
+          let imageData = compressFileData
+            .toString()
+            .replace(/^data:.+;base64,/, "");         
           let fileName = selectedFile.files[ 0 ].name;
           let fileType = selectedFile.files[ 0 ].type;
           let documentType = typeOfDocument;
           setLoading(true);
           let compressedFile = [ {
             sourcePath: "",
-            data: buffer2,
+            data: imageData,
             fileName: fileName
           } ];
           let fileExtension = fileName.split('.').pop();
@@ -154,7 +152,7 @@ function UploadDocument(props) {
       let fileName = "Passport.jpeg"
       let fileData = imageData
         .toString()
-        .replace(/^dataimage\/[a-z]+base64/, "");
+        .replace(/^data:.+;base64,/, "");
       let compressedFile = [ {
         sourcePath: "",
         data: fileData,
