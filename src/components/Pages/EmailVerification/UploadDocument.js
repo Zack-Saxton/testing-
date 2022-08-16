@@ -78,14 +78,15 @@ function UploadDocument(props) {
           let compressFileData = reader.result
           let imageData = compressFileData
             .toString()
-            .replace(/^data:.+;base64,/, "");         
+            .replace(/^data:.+;base64,/, "");  
+          const buffer2 = Buffer.from(imageData, "base64");       
           let fileName = selectedFile.files[ 0 ].name;
           let fileType = selectedFile.files[ 0 ].type;
           let documentType = typeOfDocument;
           setLoading(true);
           let compressedFile = [ {
             sourcePath: "",
-            data: imageData,
+            data: buffer2,
             fileName: fileName
           } ];
           let fileExtension = fileName.split('.').pop();
