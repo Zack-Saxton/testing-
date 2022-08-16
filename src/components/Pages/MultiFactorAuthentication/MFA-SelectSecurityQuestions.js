@@ -30,11 +30,11 @@ const validationSchema = yup.object({
   question2: yup
     .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required(message.Please_Select_Security_Question),  
+    .required(message.Please_Select_Security_Question),
   question3: yup
     .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
-    .required(message.Please_Select_Security_Question),  
+    .required(message.Please_Select_Security_Question),
   question4: yup
     .string(message.Please_Select_Security_Question)
     .max(70, "Maximum of 70")
@@ -107,11 +107,11 @@ useEffect(() => {
         answer4: "",
         answer5: ""
       },
-  
+
       validationSchema: validationSchema,
       onSubmit: async (values) => {
 
-let selectedQuestionStructured = 
+let selectedQuestionStructured =
 [
   {
       "question_id": values.question1,
@@ -135,7 +135,7 @@ let selectedQuestionStructured =
   }
 ];
 
-        let answerData = {   
+        let answerData = {
           "email": userEmail,
           "deviceType": navigator.userAgent,
           "securityQuestions": selectedQuestionStructured
@@ -194,7 +194,7 @@ let selectedQuestionStructured =
     let temp = [...selectQuestionArray];
     temp[index] = event.target.value;
     setSelectQuestionArry(temp);
-    
+
   }
   const getAvailableOptions = (inde) => {
     const availableOptionsLeft = questionOption;
@@ -242,15 +242,15 @@ let selectedQuestionStructured =
               <Typography className={classes.twoStepHeading} variant="h5" data-testid="title">
                 Verification Questions Setup
               </Typography>
-              
+
               <Typography className={classes.securityCubText} variant="h6" data-testid="title1">
                 Select five different questions from the list below and enter your answers.<br/>These questions will be used to verify your identity.
               </Typography>
-              
+
             </Grid>
-            
+
             <Grid className={classes.otpWrap} container>
-                
+
               <Grid style={{ width: "100%"}}>
                 {
                   questions ?
@@ -269,7 +269,7 @@ let selectedQuestionStructured =
                           error={(formik.touched.question1 && Boolean(formik.errors.question1))}
                           helperText={formik.touched.question1 && formik.errors.question1 }
                           select={JSON.stringify(getAvailableOptions(0))}
-                        />      
+                        />
                         </Grid>
                         <Grid className="answerGrid" container item md={6}  style={{ padding: "10px" }}>
                         <TextField
@@ -301,10 +301,10 @@ let selectedQuestionStructured =
                           }}
                           onBlur={formik.handleBlur}
                           error={(formik.touched.question2 && Boolean(formik.errors.question2))}
-                          helperText={formik.touched.question2 && formik.errors.question2 } 
+                          helperText={formik.touched.question2 && formik.errors.question2 }
                           select={JSON.stringify(getAvailableOptions(1))}
 
-                        />      
+                        />
                         </Grid>
                         <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
@@ -336,10 +336,10 @@ let selectedQuestionStructured =
                           }}
                           onBlur={formik.handleBlur}
                           error={(formik.touched.question3 && Boolean(formik.errors.question3))}
-                          helperText={formik.touched.question3 && formik.errors.question3 }  
-                          select={JSON.stringify(getAvailableOptions(2))} 
+                          helperText={formik.touched.question3 && formik.errors.question3 }
+                          select={JSON.stringify(getAvailableOptions(2))}
 
-                        />      
+                        />
                         </Grid>
                         <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
@@ -364,17 +364,17 @@ let selectedQuestionStructured =
                       <Select
                           id="questionFour"
                           name="question4"
-                          labelform="Question 4"      
-                          value={formik.values.question4}                    
+                          labelform="Question 4"
+                          value={formik.values.question4}
                           onChange={ (event) => {
                             handleOnChangeQuestions(event, 3)
                           }}
                           onBlur={formik.handleBlur}
                           error={(formik.touched.question4 && Boolean(formik.errors.question4))}
-                          helperText={formik.touched.question4 && formik.errors.question4 } 
-                          select={JSON.stringify(getAvailableOptions(3))} 
+                          helperText={formik.touched.question4 && formik.errors.question4 }
+                          select={JSON.stringify(getAvailableOptions(3))}
 
-                        />      
+                        />
                         </Grid>
                         <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
@@ -406,9 +406,9 @@ let selectedQuestionStructured =
                           }}
                           onBlur={formik.handleBlur}
                           error={(formik.touched.question5 && Boolean(formik.errors.question5))}
-                          helperText={formik.touched.question5 && formik.errors.question5 } 
-                          select={JSON.stringify(getAvailableOptions(4))} 
-                        />      
+                          helperText={formik.touched.question5 && formik.errors.question5 }
+                          select={JSON.stringify(getAvailableOptions(4))}
+                        />
                         </Grid>
                         <Grid container className="answerGrid" item md={6}  style={{ padding: "10px" }}>
                         <TextField
@@ -428,9 +428,9 @@ let selectedQuestionStructured =
                                   />
                         </Grid>
                         </Grid>
-                      </Grid> 
-                  : 
-                  <p>Somthing went wrong</p>
+                      </Grid>
+                  :
+                  <p>Something went wrong</p>
                 }
               </Grid>
             </Grid>

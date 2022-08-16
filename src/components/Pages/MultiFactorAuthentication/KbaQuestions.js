@@ -92,7 +92,7 @@ const KbaQuestions = () => {
       setLoadingFlag(false);
     }
     else {
-      toast.error("Somthing went wrong, please try again");
+      toast.error("Something went wrong, please try again");
     }
   }
 
