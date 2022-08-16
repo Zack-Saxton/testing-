@@ -30,7 +30,7 @@ export default function Admin() {
       navigate(`/select-amount${ redirectParams }${ UTMinfo }`)
     }
     else {
-      navigate("/customers/accountOverview")
+      navigate("/select-amount")
     }
   }
 
