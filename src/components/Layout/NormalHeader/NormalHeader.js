@@ -5,6 +5,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../../../assets/images/mf-logo.png";
@@ -16,6 +17,9 @@ const NormalHeader = () => {
   const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const loginToken = JSON.parse(
+    Cookies.get("token") ? Cookies.get("token") : "{ }"
+  );
   //Menu open & close
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -56,6 +60,11 @@ const NormalHeader = () => {
           <Typography className={classes.headerAlign}>Branch Locator</Typography>
         </NavLink>
       </MenuItem>
+      <MenuItem style={loginToken?.isLoggedIn || window?.location?.pathname === '/login' ? { display: "none" } : { display: "inline-flex" }} >
+      <NavLink data-testid="loginNavigation" to="/login" className="nav_link loginLink">
+              <Typography className={classes.subtitle}>Login</Typography>
+            </NavLink>
+      </MenuItem>
     </Menu>
   );
 
@@ -83,6 +92,9 @@ const NormalHeader = () => {
             </a>
             <NavLink data-testid="branchLocatorNavigation" to="/branch-locator" className="nav_link branchLocatorLink">
               <Typography className={classes.subtitle}>Branch Locator</Typography>
+            </NavLink>
+            <NavLink style={loginToken?.isLoggedIn || window?.location?.pathname === '/login' ? { display: "none" } : { display: "block" }} data-testid="loginMobileNavigation" to="/login" className="nav_link branchLocatorLink logInLink">
+              <Typography className={classes.subtitle}>Login</Typography>
             </NavLink>
           </div>
           <div className={classes.sectionMobile}>
