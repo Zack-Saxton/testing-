@@ -73,7 +73,7 @@ const KbaQuestions = () => {
         "answer": ""
       });
       setResponseData(tempArray);
-    } else if (response?.data?.result || response?.data?.questions?.question.length > 1) {
+    } else if (response?.data?.result?.questions?.question.length > 1 || response?.data?.questions?.question.length > 1) {
       KBAdata = response?.data?.result || response.data
       setIsProd(true);
       setQuestionSetIdMultiple( KBAdata.questions?.["question-set-id"]);
