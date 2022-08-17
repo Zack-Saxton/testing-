@@ -74,9 +74,12 @@
   padding: 0px;
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  margin-right: 35px;
   border-bottom: 3px solid transparent !important;
   transition: 0.2s;
+}
+.logInLink p{
+  margin-right: 0 !important;
 }
 
 #blogsLink a:hover {

@@ -39,8 +39,7 @@ export default function MyBranch() {
             <Typography variant="h3" className={classes.heading}>
               <NavLink
               data-testid="my-branch"
-                to="/customers/accountOverview"
-                className={classes.navLinkMyBranch} >
+                to="/customers/accountOverview">
                 <ButtonWithIcon
                   icon="arrow_backwardIcon"
                   iconposition="left"
@@ -55,10 +54,10 @@ export default function MyBranch() {
               My Branch
             </Typography>
             <Typography variant="h3" className={classes.heading} data-testid="branch-location">
-              Need to find another branch location? Click&nbsp;
+              Need to find another branch location? 
               <NavLink to="/branch-locator"
-                className={classes.navLinkMyBranch} >
-                here
+                className={classes.navLinkMyBranch}>{" "}
+                Click here
               </NavLink>
             </Typography>
           </Grid>
