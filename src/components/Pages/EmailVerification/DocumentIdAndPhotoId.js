@@ -246,13 +246,14 @@ function DocumentIdAndPhotoId(props) {
       let fileName = `${ docTypeName }.jpeg`;
       let fileData = imageData
         .toString()
-        .replace(/^dataimage\/[a-z]+base64/, "");
+      .replace(/^data:.+;base64,/, "");
+      const buffer2 = Buffer.from(fileData, "base64");
       let compressedFile = [ {
         sourcePath: "",
-        data: fileData,
+        data: buffer2,
         fileName: fileName
       } ];
-
+      
       let filesInfo = getFileInfo(fileName, "image/jpeg", "jpeg", "0");
       let response = await uploadEmailVerificationDocument(compressedFile, filesInfo, props.applicationNumber, props.customerEmail, "customer_identification_license");
       if (response?.status === 200) {
