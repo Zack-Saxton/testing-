@@ -153,10 +153,11 @@ function UploadDocument(props) {
       let fileName = "Passport.jpeg"
       let fileData = imageData
         .toString()
-        .replace(/^data:.+;base64,/, "");
+      .replace(/^data:.+;base64,/, "");
+      const buffer2 = Buffer.from(fileData, "base64");
       let compressedFile = [ {
         sourcePath: "",
-        data: fileData,
+        data: buffer2,
         fileName: fileName
       } ];
 
