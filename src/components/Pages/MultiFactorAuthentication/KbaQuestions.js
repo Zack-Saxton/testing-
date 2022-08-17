@@ -62,19 +62,8 @@ const KbaQuestions = () => {
     let KBAdata;
     // structure the API data response to store it in array
     let tempArray = [];
-    if (response?.data?.kba_response) {
-      KBAdata = response?.data?.kba_response?.data || response?.data?.kba_response
-      tempArray.push({
-        "key": 0,
-        "fullData": KBAdata,
-        "question": KBAdata.questions?.question["help-text"]?.statement,
-        "choice": KBAdata.questions?.question?.choice,
-        "questionId": KBAdata.questions?.question["question-id"],
-        "answer": ""
-      });
-      setResponseData(tempArray);
-    } else if (response?.data?.result?.questions?.question.length > 1 || response?.data?.questions?.question.length > 1) {
-      KBAdata = response?.data?.result || response.data
+    if (response?.data?.kba_response?.data?.questions?.question?.length > 1 ) {
+      KBAdata = response?.data?.kba_response?.data
       setIsProd(true);
       setQuestionSetIdMultiple( KBAdata.questions?.["question-set-id"]);
       setTransactionIdMultiple( KBAdata?.["transaction-status"]?.["transaction-id"]);
@@ -91,6 +80,17 @@ const KbaQuestions = () => {
       setResponseDataMultipleQ(tempArray);
       setSetOneFinished(true);
       setLoadingFlag(false);
+    } else if (response?.data?.kba_response) {
+      KBAdata = response?.data?.kba_response?.data || response?.data?.kba_response
+      tempArray.push({
+        "key": 0,
+        "fullData": KBAdata,
+        "question": KBAdata.questions?.question["help-text"]?.statement,
+        "choice": KBAdata.questions?.question?.choice,
+        "questionId": KBAdata.questions?.question["question-id"],
+        "answer": ""
+      });
+      setResponseData(tempArray);
     } else {
       toast.error("Something went wrong, please try again");
     }
