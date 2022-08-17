@@ -36,7 +36,7 @@ export const accountOverviewData = {
               "623890e6676f6d044d5a9b4b"
            ],
            "issuedproducts":[
-              
+
            ],
            "applications":[
               "5c743dbcffbf7814ab74f6db",
@@ -175,7 +175,7 @@ export const accountOverviewData = {
            "status_check_time":null
         },
         "contenttypes":[
-           
+
         ],
         "entitytype":"customer",
         "_id":"5c743dbcffbf7814ab74f6da",
@@ -184,7 +184,7 @@ export const accountOverviewData = {
         "__v":0,
         "docid":"5c743dbcffbf7814ab74f6da",
         "notes":[
-           
+
         ],
         "use_session":true
      },
@@ -370,7 +370,7 @@ export const accountOverviewData = {
            },
            "gen_1_score":193,
            "adverse_reason_codes":[
-              
+
            ],
            "referral_reason_codes":[
               "B1"
@@ -407,7 +407,6 @@ export const accountOverviewData = {
            "credit_product":null,
            "credit_product_type":null,
            "model_code":null,
-           "cosigner_required":null,
            "approved_loan_amount":null,
            "annual_interest_rate":null,
            "origination_fee_rate":null,
@@ -427,7 +426,6 @@ export const accountOverviewData = {
            "credit_product":null,
            "credit_product_type":null,
            "model_code":null,
-           "cosigner_required":null,
            "approved_loan_amount":null,
            "annual_interest_rate":null,
            "origination_fee_rate":null,
@@ -462,14 +460,14 @@ export const accountOverviewData = {
               "requested_product":"58b44ccc924ecefde2ce328d"
            },
            "files":[
-              
+
            ],
            "collateral":[
-              
+
            ],
            "branch_referral":{
               "contenttypes":[
-                 
+
               ],
               "entitytype":"branchinfo",
               "branchNumber":2032,
@@ -506,7 +504,7 @@ export const accountOverviewData = {
                  },
                  "third_party_data":{
                     "geoips":[
-                       
+
                     ]
                  },
                  "_id":"623890e6676f6d044d5a9b55",
@@ -545,7 +543,7 @@ export const accountOverviewData = {
                           "623890e6676f6d044d5a9b4b"
                        ],
                        "issuedproducts":[
-                          
+
                        ],
                        "applications":[
                           "5c743dbcffbf7814ab74f6db",
@@ -684,7 +682,7 @@ export const accountOverviewData = {
                        "status_check_time":null
                     },
                     "contenttypes":[
-                       
+
                     ],
                     "entitytype":"customer",
                     "_id":"5c743dbcffbf7814ab74f6da",
@@ -693,7 +691,7 @@ export const accountOverviewData = {
                     "__v":0,
                     "docid":"5c743dbcffbf7814ab74f6da",
                     "notes":[
-                       
+
                     ],
                     "use_session":true
                  },
@@ -822,7 +820,7 @@ export const accountOverviewData = {
                     "sorad":{
                        "third_party_data":{
                           "geoips":[
-                             
+
                           ],
                           "soft_credit_pull":"623890f0676f6d044d5a9b62"
                        },
@@ -1290,7 +1288,7 @@ export const accountOverviewData = {
                        }
                     },
                     "contenttypes":[
-                       
+
                     ],
                     "entitytype":"applicant",
                     "applicant_type":"primary",
@@ -1310,7 +1308,7 @@ export const accountOverviewData = {
            ]
         },
         "contenttypes":[
-           
+
         ],
         "entitytype":"application",
         "gclid":null,
@@ -1456,7 +1454,7 @@ export const accountOverviewData = {
         "sorad":{
            "third_party_data":{
               "geoips":[
-                 
+
               ],
               "soft_credit_pull":"623890f0676f6d044d5a9b62"
            },
@@ -1924,7 +1922,7 @@ export const accountOverviewData = {
            }
         },
         "contenttypes":[
-           
+
         ],
         "entitytype":"applicant",
         "applicant_type":"primary",
@@ -1996,7 +1994,7 @@ export const accountOverviewData = {
               "LoanIsDelinquent":false,
               "NextDueDate":"2022-06-15T00:00:00",
               "Errors":[
-                 
+
               ],
               "SuccessMessage":"",
               "HasNoErrors":true
@@ -2020,7 +2018,7 @@ export const accountOverviewData = {
               },
               "hasScheduledPayment":false,
               "scheduledPayments":[
-                 
+
               ],
               "paymentOptions":{
                  "NumberOfDaysAllowedForPayoff":0,
@@ -2611,7 +2609,7 @@ export const accountOverviewData = {
               }
            ],
            "Errors":[
-              
+
            ],
            "SuccessMessage":"",
            "HasNoErrors":true
