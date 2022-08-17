@@ -22,7 +22,7 @@ then
 fi
 
 # Choose a git branch
-if [ $branch != "dev" ] && [ $branch != "staging" ] && [ $branch != "prod" ] && [ $branch !='v1-clean-up' ] && [ $branch !='v1-clean-up-merge-dev' ]
+if [ $branch != "dev" ] && [ $branch != "qa" ] && [ $branch != "staging" ] && [ $branch != "prod" ] && [ $branch !='v1-clean-up' ] && [ $branch !='v1-clean-up-merge-dev' ]
 then
     echo 'Invalid Git Branch'
     exit
