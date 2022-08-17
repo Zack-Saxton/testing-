@@ -153,7 +153,7 @@ export async function checkMyOfferSubmit(customer) {
 					"contact": {
 						...customerAddress,
 						"first_name": customer.firstName,
-						"full_name": customer.firstName + customer.lastName,
+						"full_name": customer.firstName + ' ' + customer.lastName,
 						"last_name": customer.lastName,
 					},
 					"self_reported": {
@@ -185,7 +185,7 @@ export async function checkMyOfferSubmit(customer) {
 						"social_security_number_backup": customer.ssn,
 						"social_security_number": customer.ssn,
 						"first_name": customer.firstName,
-						"full_name": customer.firstName + customer.lastName,
+						"full_name": customer.firstName + ' ' + customer.lastName,
 						"last_name": customer.lastName,
 					},
 					"latest_contact": customerAddress,
