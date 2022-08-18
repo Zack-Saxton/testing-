@@ -215,7 +215,7 @@ function UploadDocument(props) {
           data-testid = "render_selectDocument"
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
         >
-          {props.title ?? 'Select Your Document'}
+          {props.title ?? 'Upload Document'}
         </ButtonPrimary>
         { showLabel(label) }
         <Menu

@@ -306,7 +306,7 @@ function DocumentIdAndPhotoId(props) {
           onClick={handleMenuOpen}
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
         >
-          Select Your Documents
+          Upload Document
         </ButtonPrimary>
         {
           label ?
@@ -411,7 +411,7 @@ function DocumentIdAndPhotoId(props) {
           onClick={handleSelfieMenuOpen}
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
         >
-          Select Your Picture
+          Select File
         </ButtonPrimary>
         {
           selfieLabel ?
