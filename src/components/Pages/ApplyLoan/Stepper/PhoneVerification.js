@@ -153,6 +153,7 @@ export default function PhoneVerification(props) {
 	const skipPhoneVerification = (_event) => {
 		Cookies.set("skip", JSON.stringify({ phone: true }));
 		handleClose();
+		props.nextOnSkip();
 	};
 
 	const handleClose = () => {
