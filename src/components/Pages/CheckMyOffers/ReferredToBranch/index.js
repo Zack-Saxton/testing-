@@ -86,7 +86,7 @@ function ReferredToBranch(props) {
 							Questions?
 						</Typography>
 						<Typography className="questionsTextTwo">
-							Feel free to call the branch at (912) 764-6242
+							Feel free to call the branch at {branchPhoneNumber}
 						</Typography>
 						<Typography className="yellowTextOne">
 							Prefer to visit in person? Our branches will be open to walk-ins.<br/>No appointment necessary!
