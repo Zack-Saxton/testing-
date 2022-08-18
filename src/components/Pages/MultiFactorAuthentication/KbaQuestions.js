@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
 import CheckLoginStatus from '../../App/CheckLoginStatus';
+import globalMessages from '../../../assets/data/globalMessages.json'
 
 
 const KbaQuestions = () => {
@@ -92,7 +93,7 @@ const KbaQuestions = () => {
       });
       setResponseData(tempArray);
     } else {
-      toast.error('Unable to generate identify verification questions. Please select another option.');
+      toast.error(globalMessages.KBA_Error);
       navigate('/MFA', {state : {noKbaQuestions : true}})
     }
   }

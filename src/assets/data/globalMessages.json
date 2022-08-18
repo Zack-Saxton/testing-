@@ -304,5 +304,6 @@
   "Government_fight_the_funding": "To help the government fight the funding of terrorism and money laundering activities, Federal law requires all financial institutions to obtain, verify, and record information identifies each person who opens an account. As a result, under our customer identification program, we must ask for your name, street address, mailing address, date of birth, and other information that will allow us to identify you. We may also ask to see your driver's license or other identifying documents.",
   "New_Mexico_Consumer_Text": "NM Residents: By clicking this box you acknowledge that you have reviewed the Important Consumer Information in Mariner’s ",
   "Could_Not_Provide_An_Offer": "Unfortunately, we could not provide an offer for you at this time. However, you may reapply in 30 days if you feel that your circumstances have changed. Feel free to read our blog articles to understand how you can increase your credit score.",
-  "Multiple_Records": "More than 1 customer record retrieved "
+  "Multiple_Records": "More than 1 customer record retrieved ",
+  "KBA_Error" : "Unable to generate identify verification questions. Please select another option."
 }
