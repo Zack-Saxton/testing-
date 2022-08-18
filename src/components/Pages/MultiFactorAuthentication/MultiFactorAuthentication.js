@@ -3,16 +3,19 @@ import "./MultiFactorAuthentication.css";
 import Cookies from 'js-cookie';
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
 import { useMultiFactorAuthentication } from "./useMultiFactorAuthentication";
+import { useLocation } from "react-router-dom";
 import MFASelection from "./MFASelection";
 import CheckLoginStatus from '../../App/CheckLoginStatus';
 import CircularProgress from "@mui/material/CircularProgress";
 import "./mfa.css"
 
 const MultiFactorAuthentication = () => {
+  const location = useLocation();
   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
   const [mfaData, setMFAData] = useState();
   const { loading_mfaData, mfaInfo } = useMultiFactorAuthentication();
   const [ uniqueNumber, setUniqueNumber] = useState();
+  const [ disableSecurityQuestions, setDisableSecurityQuestions ] = useState(false);
   let securityQuestionsSaved = mfaData?.mfaDetails?.securityQuestionsSaved; 
   Cookies.remove("otpSkip");
   Cookies.remove("kbaSkip");
@@ -55,6 +58,13 @@ const MultiFactorAuthentication = () => {
   }
 
   useEffect(() => {
+    if(location?.state?.noKbaQuestions) {
+      setDisableSecurityQuestions(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+  useEffect(() => {
     mfaValidation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mfaInfo]);
@@ -76,6 +86,7 @@ const MultiFactorAuthentication = () => {
             securityQuestionsSaved={securityQuestionsSaved}
             phoneNumberList={uniqueNumber}
             mfaDetails={mfaData}
+            disableSecurityQuestions={disableSecurityQuestions}
           />
         }
         </>

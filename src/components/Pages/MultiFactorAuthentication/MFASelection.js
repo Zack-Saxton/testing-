@@ -20,7 +20,7 @@ import { useMutation } from 'react-query';
 import {SendLoginPassCode} from "../../Controllers/MFAController"
 
 
-const MFASelection = ({ securityQuestionsSaved, phoneNumberList, mfaDetails }) => {
+const MFASelection = ({ securityQuestionsSaved, phoneNumberList, mfaDetails, disableSecurityQuestions }) => {
 
   const classes = useStylesMFA();
   const navigate = useNavigate();
@@ -145,7 +145,7 @@ const MFASelection = ({ securityQuestionsSaved, phoneNumberList, mfaDetails }) =
                   id="FormControlLabel"
                   className={classes.smallRadioButton}
                   value={SECURITY_QUESTIONS}
-                  control={<Radio color="primary" data-testid="questionSelection" onClick={()=>setSelection(SECURITY_QUESTIONS)} />}
+                  control={<Radio color="primary" disabled={disableSecurityQuestions} data-testid="questionSelection" onClick={()=>setSelection(SECURITY_QUESTIONS)} />}
                   label={securityQuestions}
                 />
               </RadioGroup>
@@ -167,6 +167,7 @@ MFASelection.propTypes = {
   securityQuestionsSaved: PropTypes.bool,
   phoneNumberList: PropTypes.array,
   mfaDetails: PropTypes.object,
+  disableSecurityQuestions: PropTypes.bool,
 }
 
 export default MFASelection

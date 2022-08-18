@@ -92,7 +92,8 @@ const KbaQuestions = () => {
       });
       setResponseData(tempArray);
     } else {
-      toast.error("Something went wrong, please try again");
+      toast.error('Unable to generate identify verification questions. Please select another option.');
+      navigate('/MFA', {state : {noKbaQuestions : true}})
     }
   }
 
