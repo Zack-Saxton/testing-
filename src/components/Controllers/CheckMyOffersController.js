@@ -20,7 +20,7 @@ export async function checkMyOfferSubmit(customer) {
 	};
 
 	const utm_sources = {
-		"utm_source": customer.utm_source_otherPartner ?? "CAC",
+		"utm_source": ["", "null"].includes(customer?.utm_source_otherPartner) ? "CAC" : customer?.utm_source_otherPartner,
 		"utm_medium": customer.utm_medium_otherPartner,
 		"utm_campaign": customer.utm_campaign_otherPartner,
 	}
