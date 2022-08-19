@@ -6,6 +6,7 @@ import Step from "@mui/material/Step";
 import StepContent from "@mui/material/StepContent";
 import StepLabel from "@mui/material/StepLabel";
 import Stepper from "@mui/material/Stepper";
+import StepButton from '@mui/material/StepButton';
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import {
@@ -41,6 +42,7 @@ export default function EmailVerification() {
   const [ collaborateOption, setCollaborateOption ] = useState("off");
   const [ activeStep, setActiveStep ] = useState(0);
   const [ agreeTerms, setAgreeTerms ] = useState(false);
+  const [completed, setCompleted] = useState({});
   const [ consentLoading, setConsentLoading ] = useState(false);
   const [ eSign, seteSign ] = useState(false);
   const [ creditTerms, setCreditTerms ] = useState(false);
@@ -82,12 +84,45 @@ export default function EmailVerification() {
     return document.evaluate("//*[.='" + text + "']",
       ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
   }
+
+  const totalSteps = () => {
+    return steps.length;
+  };
+
+  const completedSteps = () => {
+    return Object.keys(completed).length;
+  };
+
+  const isLastStep = () => {
+    return activeStep === totalSteps() - 1;
+  };
+
+  const allStepsCompleted = () => {
+    return completedSteps() === totalSteps();
+  };
+
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const newActiveStep =
+    isLastStep() && !allStepsCompleted()
+      ? steps.findIndex((step, i) => !(i in completed))
+      : activeStep + 1;
+  setActiveStep(newActiveStep);
     if (activeStep <= 1) {
       getValueByLable("ID Document & Photo").scrollIntoView();
     }
   };
+
+  const handleComplete = () => {
+    const newCompleted = completed;
+    newCompleted[activeStep] = true;
+    setCompleted(newCompleted);
+    handleNext();
+  };
+
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
+
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -147,7 +182,7 @@ export default function EmailVerification() {
         return <DocumentIdAndPhotoId
           applicationNumber={applicationNumber}
           customerEmail={customerEmail}
-          next={handleNext}
+          next={handleComplete}
           prev={handleBack}
           reset={handleReset}
           steps={steps}
@@ -157,7 +192,7 @@ export default function EmailVerification() {
         return <IncomeVerification
           applicationNumber={applicationNumber}
           customerEmail={customerEmail}
-          next={handleNext}
+          next={handleComplete}
           prev={handleBack}
           reset={handleReset}
           steps={steps}
@@ -167,7 +202,7 @@ export default function EmailVerification() {
         return <BankAccountVerification
           applicationNumber={applicationNumber}
           customerEmail={customerEmail}
-          next={handleNext}
+          next={handleComplete}
           prev={handleBack}
           reset={handleReset}
           steps={steps}
@@ -177,7 +212,7 @@ export default function EmailVerification() {
         return <VehiclePhotos
           applicationNumber={applicationNumber}
           customerEmail={customerEmail}
-          next={handleNext}
+          next={handleComplete}
           prev={handleBack}
           reset={handleReset}
           steps={steps}
@@ -276,10 +311,12 @@ export default function EmailVerification() {
 
             </Grid>
             <Grid data-testid ="checkboxGrid" id="checkBoxGrid" className={agreeTerms ? classes.showCheckbox : classes.hideCheckbox}>
-              <Stepper activeStep={activeStep} orientation="vertical">
+              <Stepper nonLinear activeStep={activeStep} orientation="vertical">
                 {steps.map((label, index) => (
-                  <Step key={Math.random() * 1000}>
-                    <StepLabel>{label}</StepLabel>
+                  <Step key={Math.random() * 1000} completed={completed[index]}>
+                    <StepButton onClick={handleStep(index)}>
+							        {label}
+						        </StepButton>
                     <StepContent>
                       <span>{getStepContent(index)}</span>
                     </StepContent>
