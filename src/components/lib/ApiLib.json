@@ -34,7 +34,6 @@
     "verify_passcode": "/integration/LexisNexis/otp_verify_cac",
     "verify_financial_information": "/verification/financial_information_cac",
     "id_verification_iframe": "/idscan/get_idscan_iframe_cac",
-    "save_id_verification": "/idscan/save_response_before_cac",
     "submit_final_verification": "/verification/financial_information_cac",
     "get_iframe": "/idscan/get_idscan_iframe_cac",
     "upload_verification_document": "/verification/upload_document_cac",
