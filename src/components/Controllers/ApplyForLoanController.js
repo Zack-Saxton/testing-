@@ -172,22 +172,6 @@ export async function getIDVerificationIframe() {
   }
 }
 
-/***** Save ID verification response *****/
-export async function saveIDVerificationResponseBefore() {
-  try {
-    let url = "save_id_verification";
-    let param = "";
-    let data = {};
-    let method = "POST";
-    let addAccessToken = true;
-
-    //API call
-    return await APICall(url, param, data, method, addAccessToken);
-  } catch (error) {
-    ErrorLogger(globalMessages.Error_executing_saveIDVerificationResponseBefore_API, error);
-  }
-}
-
 /***** Submit financial information *****/
 export async function submitFinancialInformation(body) {
   try {
