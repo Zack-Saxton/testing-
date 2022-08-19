@@ -159,6 +159,7 @@ export default function StatePage() {
           Personal Loans in {name} | Mariner Finance Branch | Discover More
         </title>
         <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
+        <link rel="canonical" href={window.location.href} />
         <meta
           name="description"
           content={`Looking for a personal loans in ${ name }?  Mariner Finance branch employees can help. Discover a ${ name } location today.`}
