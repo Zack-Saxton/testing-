@@ -27,7 +27,7 @@ const BranchLocatorLayout = ({ children }) => {
               Resume Application
             </Link>
           </Typography>
-          <NavLink to="/branch-locator" className="nav_link topBarLinkThree">
+            <NavLink to="/select-amount" className="nav_link topBarLinkThree">
             <Typography >Mail Offer?</Typography>
           </NavLink>
           </Grid>

@@ -455,9 +455,10 @@ export default function StatePage() {
       <Helmet >
         <meta charSet="utf-8" />
         <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
+        <link rel="canonical" href={window.location.href} />
         <meta
           name="description"
-          content={`Looking for a personal loans in ${ branch_Details?.current?.BranchName },${ stateShortName ?? stateShortNm?.current } ?  Our ${ branch_Details?.current?.BranchName }, ${ stateLongNm?.current } branch welcomes you for personal loans that fit your needs.`}
+          content={`Looking for a personal loan in ${ branch_Details?.current?.BranchName }, ${ stateShortName ?? stateShortNm?.current } ? Our ${ branch_Details?.current?.BranchName }, ${ stateLongNm?.current } branch welcomes you for personal loans that fit your needs.`}
         />
       </Helmet>
       <Grid className="greyBackground" container justifyContent={"center"}>
