@@ -187,7 +187,7 @@ export default function MakePayment() {
 
   const handlePaymentSuccess = (message) =>{
     toast.success(message, { autoClose: 5000 }) && refetch()
-    if (paymentDatepicker === Moment().format("YYYY/MM/DD")){
+    if (Moment(paymentDatepicker).format("YYYY/MM/DD") === Moment().format("YYYY/MM/DD")){
       navigate("/customers/accountOverview");
     }
   }
