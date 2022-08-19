@@ -185,6 +185,12 @@ export default function MakePayment() {
     }
   }
 
+  const handlePaymentSuccess = (message) =>{
+    toast.success(message, { autoClose: 5000 }) && refetch()
+    if (paymentDatepicker === Moment().format("YYYY/MM/DD")){
+      navigate("/customers/accountOverview");
+    }
+  }
   //Enable scheduled payment
   async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
     setOpenPayment(false);
@@ -197,7 +203,7 @@ export default function MakePayment() {
         result?.data?.paymentResult?.ReferenceNumber;
     result.status === 200
       ? result?.data?.paymentResult?.PaymentCompleted !== undefined
-        ? toast.success(message, { autoClose: 5000 }) && refetch()
+        ? handlePaymentSuccess(message)
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000 })
       : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, { autoClose: 5000, });
     refetch();
@@ -850,11 +856,11 @@ export default function MakePayment() {
         <Grid item xs={12}>
           <p data-testid="pleaseContact" className={classes.endMessage}>
             {" "}
-            <large>
+            <span>
               *If you have questions or would like to obtain a payoff balance for
               your future loan, please contact your local branch listed on your My
               Branch Page.
-            </large>
+            </span>
             <br />
           </p>
         </Grid>
