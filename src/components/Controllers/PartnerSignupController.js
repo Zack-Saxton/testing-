@@ -159,8 +159,8 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
             partnerSignupData: {
               applicant: {
                 contact: {
-                  last_name: Cookies.get("lastName"),
-                  first_name: Cookies.get("firstName")
+                  last_name: dataConfirmInfo.lastName,
+                  first_name: dataConfirmInfo.firstName
                 }
               }
             }
