@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import { trimSpecialCharacters } from "../Controllers/CommonController";
 
 export async function changePassword(oldPassword, newPassword) {
   try {
@@ -30,8 +31,8 @@ export async function basicInformation(body) {
       isAuthenticated: true,
       profileInfo: {
         email: body.email,
-        primaryPhoneNumber: body.primaryPhoneNumber,
-        updatedPrimaryPhoneNumber: body.primaryPhoneNumber,
+        primaryPhoneNumber: trimSpecialCharacters(body.primaryPhoneNumber),
+        updatedPrimaryPhoneNumber: trimSpecialCharacters(body.primaryPhoneNumber),
         updatedEmail: body.email,
       },
     };
@@ -69,7 +70,7 @@ export async function mailingAddress(body) {
 export async function textNotification(body, subscribe) {
   try {
     const email = Cookies.get("email");
-    let cleanednumber = body.phone.replace(/\D/g, "");
+    let cleanednumber = trimSpecialCharacters(body.phone);
     let allLoansClosed = !(/true/i).test(Cookies.get("hasActiveLoan"));
     let url = "text_unsubscribe";
     let textingOn = false;
@@ -123,7 +124,7 @@ export default async function getTextNotify() {
     const token = JSON.parse(Cookies.get("token"));
     let appGUID = token.applicantGuid;
     let opted_phone_texting = Cookies.get("opted_phone_texting");
-    let cleanednumber = opted_phone_texting.replace(/\D/g, "");
+    let cleanednumber = trimSpecialCharacters(opted_phone_texting);
     let allLoansClosed = !(/true/i).test(Cookies.get("hasActiveLoan"));
     let url = "sbt_getInfo";
     let param = "";
@@ -199,7 +200,7 @@ export async function addCreditCard(values, cardType) {
       "cardholder_name": values.cardName,
       "card_number": values.cardNumber,
       "issuer": cardType,
-      "cvv": parseInt(values.cvv),
+      "cvv": values.cvv ,
       "exp_date": expiryDate,
       "defaultBank": values.setDefault ? 1 : 0
     };

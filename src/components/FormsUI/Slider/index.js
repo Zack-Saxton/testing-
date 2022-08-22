@@ -10,7 +10,7 @@ import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NumberFormat from 'react-number-format';
 import "./Slider.css";
 
@@ -41,6 +41,7 @@ const TextfieldWrapper = ({
   difference,
   defaultValue,
   customMarks,
+  amount,
   ...otherProps
 }) => {
   //Set Formik field
@@ -75,6 +76,18 @@ const TextfieldWrapper = ({
     center: {
       textAlign: "center",
     },
+    hideSection:{
+      display:"none"
+    },
+    showSection: {
+      display: "block",
+    },
+    '& .MuiSlider-thumb':{
+      color:"red !important"
+    },
+    test:{
+      color:"red"
+    },
     MuiSliderMarkLabel: {},
   }));
 
@@ -98,6 +111,7 @@ const TextfieldWrapper = ({
     }
   };
 
+  const [ display, setdisplay ] = useState(false);
   //Configuring the field with properties
   const config = {
     name: name,
@@ -111,8 +125,14 @@ const TextfieldWrapper = ({
     min: min ?? 1000,
     max: max ?? 25000,
     marks: customMarks ?? marks,
-    track: false,
+    // track: false,
   };
+
+useEffect(() => {
+  if (amount === false){
+    setdisplay(true);
+  } 
+},[amount])
 
   return (
     <div className={classes.FormControlWrap}>
@@ -123,30 +143,37 @@ const TextfieldWrapper = ({
             id="discrete-slider-always"
             gutterBottom
           >
-            {label}
+            <span className="sliderLabelWrap">
+                        <span>Select Loan Amount†</span>
+                        <span className="minAndMaxDiv">
+                          <span className="minDiv">Min<br/><NumberFormat value={min} displayType={'text'} thousandSeparator={true} decimalScale={0} fixedDecimalScale={true} prefix={'$'} /></span>
+                          <span id="selectedAmountText" className={display ? classes.showSection : classes.hideSection}> 
+                            <NumberFormat value={value} displayType={'text'} thousandSeparator={true} decimalScale={0} fixedDecimalScale={true} prefix={'$'} />
+                          </span>
+                          <span className="maxDiv">Max<br/><NumberFormat value={max} displayType={'text'} thousandSeparator={true} decimalScale={0} fixedDecimalScale={true} prefix={'$'} /></span>
+                        </span>
+              </span>
           </Typography>
         </div>
-        <Slider {...config} {...otherProps} name={name}
-        />
+        <div>
+          
+        </div>
+        <Slider  className={`${classes.test}`} {...config} {...otherProps} name={name}/>
       </FormControl>
-      <div className={classes.center}>
-        <Typography id="discrete-slider-always-amount" variant='h6' className={classes.OutputText}>
-          <NumberFormat value={value} displayType={'text'} thousandSeparator={true} decimalScale={0} fixedDecimalScale={true} prefix={'$'} />
-        </Typography>
-      </div>
     </div>
   );
 };
 
 TextfieldWrapper.propTypes = {
   name: PropTypes.string.isRequired,
-  label: PropTypes.string,
+  label: PropTypes.object,
   min: PropTypes.number,
   setSelect: PropTypes.func,
   max: PropTypes.number,
   difference: PropTypes.number,
   defaultValue: PropTypes.number,
   customMarks: PropTypes.object,
+  amount: PropTypes.bool,
 };
 
 export default TextfieldWrapper;

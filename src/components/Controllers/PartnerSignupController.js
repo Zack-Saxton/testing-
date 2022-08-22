@@ -5,6 +5,7 @@ import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import {statusStrLinks_PartnerSignUp} from "../lib/StatusStrLinks";
 import LoginController from "../Controllers/LoginController"
+import { trimSpecialCharacters } from "../Controllers/CommonController";
 
 let statusStrLink = statusStrLinks_PartnerSignUp;
 
@@ -15,7 +16,7 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
     partner_token: partnerToken,
     applicant_id: applicantId,
     ssn_last_four: partnerSignupData.ssn,
-    phone: partnerSignupData.phone,
+    phone: trimSpecialCharacters(partnerSignupData.phone),
     phone_type: partnerSignupData.phoneType,
     password: partnerSignupData.password,
     password_confirm: partnerSignupData.confirm_password,
@@ -161,10 +162,11 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
     partner_token: dataConfirmInfo.partner_token
   };
   let method = "POST";
-  let addAccessToken = true;
+  let addAccessToken = false;
   //API call
   let PartnerConfirmationAPI = await APICall(url, param, data, method, addAccessToken);
 
+  console.log('DAXY Response :: ', JSON.stringify(PartnerConfirmationAPI, null, 4));
   PartnerConfirmationAPI?.status === 200
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {
