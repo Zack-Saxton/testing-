@@ -9,3 +9,10 @@ export default async function getClientIp(rountingNumber) {
     return '127.0.0.1';
   }
 }
+
+export function trimSpecialCharacters(value){
+  return value.replace(/-/g, "")
+  .replace(/\)/g, "")
+  .replace(/\(/g, "")
+  .replace(/ /g, "") || "";
+}

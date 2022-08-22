@@ -4,6 +4,7 @@ import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import messages from "../lib/Lang/applyForLoan.json";
+import { trimSpecialCharacters } from "../Controllers/CommonController";
 
 /***** Get Available offer details *****/
 export async function fetchAvailableOffers() {
@@ -112,7 +113,7 @@ export async function OTPInitialSubmission(phoneNumber, deliverMethod) {
     let url = "otp_initial_submission";
     let param = "";
     let data = {
-      phone_number_primary_formatted: phoneNumber,
+      phone_number_primary_formatted: trimSpecialCharacters(phoneNumber),
       deliverMethod: deliverMethod,
     };
     let method = "POST";
