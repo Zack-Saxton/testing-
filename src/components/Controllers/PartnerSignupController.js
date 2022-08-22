@@ -4,13 +4,14 @@ import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import {statusStrLinks_PartnerSignUp} from "../lib/StatusStrLinks";
+import LoginController from "../Controllers/LoginController"
 
 let statusStrLink = statusStrLinks_PartnerSignUp;
 
 export default async function PartnerSignup(navigate, partnerToken, applicantId, partnerSignupData, utm_source) {
   let url = "partner_signup";
   let param = "";
-  let data = {
+  let data = { 
     partner_token: partnerToken,
     applicant_id: applicantId,
     ssn_last_four: partnerSignupData.ssn,
@@ -37,19 +38,32 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
     ? toast.success(partnerSignupMethod?.data?.statusText ? partnerSignupMethod?.data?.statusText
       : partnerSignupMethod?.data?.applicant?.processing?.status === "confirming_info" ? globalMessages.confirm_Info_Login : globalMessages.confirm_Info_LoginMessage,
       {
-        onClose: () => {
+        onClose: async () => {
           let now = new Date().getTime();
-          Cookies.set("redirec", JSON.stringify({to: "/select-amount"}));
+          Cookies.set("redirec", JSON.stringify({to: "/select-amount"}));         
+
+         let jwtTokenCheck =  partnerSignupMethod?.data?.user?.extensionattributes
+          ?.login?.jwt_token  ?? ""
+
+          if(!jwtTokenCheck ){
+            let loginRes =  await LoginController(
+              partnerSignupData?.email,
+              partnerSignupData.password, partnerSignupData?.ClientIP,"","",
+              window.navigator.userAgent, //It is static for now. Will add the dynamic code later
+              ""
+            );
+            jwtTokenCheck = loginRes?.data?.user?.extensionattributes
+            ?.login?.jwt_token
+          }
+
           Cookies.set(
             "token",
             JSON.stringify({
               isLoggedIn: true,
-              apiKey:
-                partnerSignupMethod?.data?.user?.extensionattributes
-                  ?.login?.jwt_token,
+              apiKey: jwtTokenCheck,                
               setupTime: now,
             })
-          );
+          )
           Cookies.set("email", partnerSignupMethod?.data?.applicant.contact.email);
           Cookies.set("firstName", partnerSignupMethod?.data?.applicant?.contact?.first_name);
           Cookies.set("lastName", partnerSignupMethod?.data?.applicant?.contact?.last_name);
@@ -115,6 +129,7 @@ export async function PopulatePartnerReferred(applicantId) {
 }
 
 export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
+  console.log("dataConfirmInfo",dataConfirmInfo)
   const email = Cookies.get("email");
   let url = "partner_confirm_info";
   let param = "";
