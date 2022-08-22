@@ -20,7 +20,7 @@ import GTLlogo from "../../../assets/partners/WelcomeGTLMember.png";
 import LendingTreelogo from "../../../assets/partners/WelcomeLTMember.png";
 import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
-import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
+import PartnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
 import validateUserEnteredInput from "../../Pages/Login/ValidateUserEnteredInput";
 import { ButtonPrimary, Checkbox, EmailTextField, PasswordField,Zipcode, Popup, RenderContent, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
 import { useStylesPartner } from "./style";
@@ -38,7 +38,7 @@ const validationSchema = yup.object({
     .matches(/^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, globalMessages.EmailValid)
     .required(globalMessages.EmailRequired),
   password: yup
-    .string(globalMessages.PasswordEnter)    
+    .string(globalMessages.PasswordEnter)
     .max(30, globalMessages.PasswordMax)
     .min(10, globalMessages.PasswordMin)
     .matches(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,30}$/, globalMessages.PasswordCriteria)
@@ -196,7 +196,7 @@ export default function PartnerSignUp() {
     SetPopulatePartnerSignupState(PopulatePartnerSignupData);
     setPhoneNumberValue(phoneNum);
     SetPopulatePartnerPhone(phoneNum);
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNum)));    
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNum)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ PopulatePartnerSignupData, populatePartnerPhone ]);
 
@@ -303,10 +303,10 @@ export default function PartnerSignUp() {
         spouseadd: values.spouseadd,
         spouseZipcode: values.spouseZipcode,
         spousecity: values.spousecity,
-        spouseSelectState: values.spouseSelectState.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.spouseSelectState) : values.spouseSelectState,  
+        spouseSelectState: values.spouseSelectState.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.spouseSelectState) : values.spouseSelectState,
 
-      };      
-      let partnerRes = await partnerSignup(
+      };
+      let partnerRes = await PartnerSignup(
         navigate,
         partnerToken,
         applicantId,
@@ -632,7 +632,7 @@ const preventEvent = (event) => {
                       <p>
                       <b>Are you married?*</b>
                      </p>
-                      <Grid item xs={12} id="marriedStatusWrap">                        
+                      <Grid item xs={12} id="marriedStatusWrap">
                         <Select
                           name="martialStatus"
                           labelform="Marital Status *"
@@ -807,7 +807,7 @@ const preventEvent = (event) => {
                        <ul className="error-validation">
                        {validateUserEnteredInput(formik.values.password, 0)}
                        </ul>
-                      
+
                     </Grid>
                     </Grid>
 
@@ -1029,7 +1029,7 @@ const preventEvent = (event) => {
                         data-testid="submit"
                         stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={
-                           formik.values.activeDutyRank === "E4 and below" 
+                           formik.values.activeDutyRank === "E4 and below"
                             ? true
                             : loading
                         }
