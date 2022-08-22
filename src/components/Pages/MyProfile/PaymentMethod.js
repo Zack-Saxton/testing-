@@ -1299,7 +1299,7 @@ export default function PaymentMethod() {
                 name="cvv"
                 id="cvv"
                 label="CVV"
-                type='number'
+                type="number"
                 placeholder="Enter your CVV Number"
                 disabled={editMode}
                 materialProps={{ maxLength: "3" }}
