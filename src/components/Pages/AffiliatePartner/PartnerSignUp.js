@@ -28,7 +28,7 @@ import "./Style.css";
 import Cookies from "js-cookie";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import states from '../../../assets/data/States.json';
-
+import getClientIp from "../../Controllers/CommonController";
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -186,6 +186,8 @@ export default function PartnerSignUp() {
   const [ populatePartnerPhone, SetPopulatePartnerPhone ] = useState("");
   const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
   const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
+  const {data:ClientIP} = useQuery('ipaddress', getClientIp);
+
 
   //API Call
   const { data: PopulatePartnerSignupData } = useQuery([ 'populate-data', partnerToken, applicantId, requestAmt, requestApr, requestTerm ], () => PopulatePartnerSignup(partnerToken, applicantId, requestAmt, requestApr, requestTerm));
@@ -292,6 +294,7 @@ export default function PartnerSignUp() {
       setLoading(true);
       setFailed("");
       let partnerSignupData = {
+        email: values.email,
         ssn: values.ssn,
         phone: phoneNumberValue.replace(/\)|\(|\s+|\-/g, "") || "",
         phoneType: values.phoneType,
@@ -303,7 +306,8 @@ export default function PartnerSignUp() {
         spouseadd: values.spouseadd,
         spouseZipcode: values.spouseZipcode,
         spousecity: values.spousecity,
-        spouseSelectState: values.spouseSelectState.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.spouseSelectState) : values.spouseSelectState,
+        spouseSelectState: values.spouseSelectState.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.spouseSelectState) : values.spouseSelectState,  
+        ClientIP : ClientIP
 
       };
       let partnerRes = await PartnerSignup(

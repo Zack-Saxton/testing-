@@ -313,7 +313,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
           spouseZipcode: values.spouseZipcode,
           spousecity: values.spousecity,
           spouseSelectState: values.spouseSelectState.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.spouseSelectState) : values.spouseSelectState,
-          partner_token: location?.state?.partnerSignupData?.partner_token?.partner_token ?? "",
+          partner_token: location?.state?.partnerSignupData?.user?.attributes?.partner_token ?? "",
           email: location?.state?.partnerSignupData?.applicant?.contact?.email ?? "",
         };
 
