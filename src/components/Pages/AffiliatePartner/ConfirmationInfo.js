@@ -142,7 +142,7 @@ const validationSchema = yup.object({
 
 //Begin: Login page
 export default function ConfirmationInfo() {
-  const classes = useStylesPartner(); 
+  const classes = useStylesPartner();
   const [ loading, setLoading ] = useState(false);
   const [ validZip, setValidZip ] = useState(true);
   const [ validSpouseZip, setValidSpouseZip ] = useState(true);
@@ -180,7 +180,7 @@ export default function ConfirmationInfo() {
     setCreditKarmaData(CK_Data);
     let addressFromZip = await ZipCodeLookup(CK_Data?.data?.zipCode);
     setZipData(addressFromZip);
- 
+
   }
   useEffect(() => {
 		if (!location?.state?.partnerSignupData?.applicant?.contact?.first_name || !location?.state?.partnerSignupData?.applicant?.contact?.last_name) {
@@ -252,7 +252,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                                 {"label": "Self Employed / 1099", "value": "Self-Employed"},
                                 {"label": "Unemployed", "value": "Unemployed"},
                                 {"label": "Retired", "value": "Retired"}];
-  
+
   const legalMaritalStatus =  "Separated, under decree of legal separation"
   //Form Submission
   const parseCurrencyFormat = (currencyVal) => {
@@ -269,7 +269,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
       lastName: location?.state?.partnerSignupData?.applicant?.contact.last_name ?? creditKarmaData?.data?.lastName ?? "",
       streetAddress: location?.state?.partnerSignupData?.applicant?.contact.address_street ?? creditKarmaData?.data?.state ?? "",
       city: location?.state?.partnerSignupData?.applicant?.contact.address_city ?? zipData?.data?.cityName ?? "",
-      state: location?.state?.partnerSignupData?.applicant?.contact.address_state ?? zipData?.data?.stateCode ?? "", 
+      state: location?.state?.partnerSignupData?.applicant?.contact.address_state ?? zipData?.data?.stateCode ?? "",
       zip: location?.state?.partnerSignupData?.applicant?.contact.address_postal_code ?? creditKarmaData?.data?.zipCode ?? "" ,
       citizenship: location?.state?.partnerSignupData?.applicant.self_reported?.citizenship ?? creditKarmaData?.data?.citizenship ?? "",
       personalIncome: location?.state?.partnerSignupData?.applicant.self_reported?.annual_income
@@ -293,7 +293,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
     onSubmit: async (values) => {
       const modPersonalIncome = parseInt(values.personalIncome.replace(/[^\d]/g, ""));
       const modHouseholdIncome = parseInt(values.householdIncome.replace(/[^\d]/g, ""));
-      if (!errorPersonal && !errorAnnual && validate(modPersonalIncome, modHouseholdIncome)) {        
+      if (!errorPersonal && !errorAnnual && validate(modPersonalIncome, modHouseholdIncome)) {
         setLoading(true);
         let confirmInfoData = {
           firstName: values.firstName,
@@ -325,16 +325,11 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
     },
   });
 
-
-
   const onBlurAddress = (event) => {
     formik.setFieldValue("streetAddress", event.target.value.trim());
     formik.setFieldValue("spouseadd", event.target.value.trim());
   };
 
-
-
-  
   const fetchAddress = async (event) => {
     try {
       let eventValue = event.target.value.trim();
@@ -430,7 +425,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
       formik.handleChange(event);
     }
   };
-  
+
   const preventUnwanted = (event) => {
     if (event.keyCode === 190 || event.keyCode === 188) {
       event.preventDefault();
@@ -724,7 +719,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                           ref: refAnnualHousehold
                         }}
                         autoComplete="off"
-                        onChange={(event) => {onHandleChangeIncome(event,2)}}  
+                        onChange={(event) => {onHandleChangeIncome(event,2)}}
                         onBlur={currencyFormat}
                         onKeyDown={preventUnwanted}
                         error={errorAnnual !== ""}
@@ -833,7 +828,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                       <p>
                       <b>Are you married?*</b>
                      </p>
-                      <Grid item xs={12} id="marriedStatusWrap">                        
+                      <Grid item xs={12} id="marriedStatusWrap">
                         <Select
                           name="martialStatus"
                           labelform="Marital Status *"
