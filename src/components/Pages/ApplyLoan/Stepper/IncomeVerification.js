@@ -40,7 +40,7 @@ export default function IncomeVerification(props) {
 
 	const handleFinishOnClick = async () => {	
 		if (!fileUploadSuccess) {
-			toast.error(messages?.bankAccountVerification?.notValid);
+			toast.error(messages.incomeVerification.finishAllSteps);
 			props.setLoadingFlag(false);
 			setInternalLoading(false);
 		}
@@ -94,7 +94,7 @@ export default function IncomeVerification(props) {
 					</li>
 					if you need to upload multiple documents to verify your stated income,
 					you will have the opportunity to upload additional documents from your
-					My Account Page &gt; Loan Application after you complete the
+					Account Overview &gt; Loan Documents page after you complete the
 					verification steps.
 				</p>
 

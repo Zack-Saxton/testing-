@@ -25,17 +25,36 @@ export default function VerificationQuestion(props) {
   const [ check, setCheck ] = useState(null);
   const [ questionSetIdMultiple, setQuestionSetIdMultiple ] = useState(null);
   const [ transactionIdMultiple, setTransactionIdMultiple ] = useState(null);
-
+  const [isProd, setIsProd] = useState(false);
   async function getUserAccountDetails() {
     let url = "kba_questions_cac",
       data = {},
       method = "POST",
       addAccessToken = true;
-    response = await APICall(url, '', data, method, addAccessToken);
+      response = await APICall(url, '', data, method, addAccessToken);
 
     // structure the API data response to store it in array
     let tempArray = [];
-    if (response?.data?.questions) {
+    
+    if (response?.data?.questions?.question && response?.data?.questions?.question.length > 1) {
+      setIsProd(true);
+      setQuestionSetIdMultiple(response?.data?.questions?.["question-set-id"]);
+      setTransactionIdMultiple(response?.data?.["transaction-status"]?.["transaction-id"]);
+      response?.data?.questions?.question.map((val, key) => {
+        tempArray.push({
+          "key": key,
+          "fullData": val,
+          "question": val["help-text"].statement,
+          "choice": val.choice,
+          "questionId": val["question-id"]
+        });
+        return null;
+      });
+      setResponseDataMultipleQ(tempArray);
+      setSetOneFinished(true);
+      props.setLoadingFlag(false);
+    }
+    else if (response?.data?.questions?.question) {
       tempArray.push({
         "key": 0,
         "fullData": response.data,
@@ -46,6 +65,9 @@ export default function VerificationQuestion(props) {
       });
       setResponseData(tempArray);
     }
+    else {
+      toast.error("Something went wrong, please try again");
+    }
   }
 
   // get the function to fetch api on page load
@@ -53,6 +75,12 @@ export default function VerificationQuestion(props) {
     getUserAccountDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    if (setOneFinished && !isProd) {
+      toast.success("Saved");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setOneFinished]);
 
   //Purposly commented
   return (
@@ -63,7 +91,7 @@ export default function VerificationQuestion(props) {
       </p>
       <div className={props.classes.actionsContainer}>
         <div className={props.classes.button_div} >
-          {responseData && !setOneFinished ? <LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} /> : !setOneFinished ? <CircularProgress /> : <> </>}
+          {responseData && !setOneFinished ? (<LoadQuestions responseData={responseData} setResponseData={setResponseData} classes={classes} check={check} setCheck={setCheck} />) : isProd ? ( <> </>) : setOneFinished ? ( <> </> ) : (<CircularProgress />)}
           <div>
             {setOneFinished ? <MultipleQuestion setLoadingFlag={props.setLoadingFlag} next={props.next} transactionIdMultiple={transactionIdMultiple} questionSetIdMultiple={questionSetIdMultiple} responseData={responseDataMultipleQ} setResponseData={setResponseDataMultipleQ} classes={classes} check={check} setCheck={setCheck} /> : null}
           </div>

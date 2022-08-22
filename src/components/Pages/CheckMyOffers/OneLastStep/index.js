@@ -145,7 +145,7 @@ function SSN() {
 			fsSetIdentity();
 			removeCKLightboxCookie();
 			navigate("/customers/selectOffer", { formcomplete: "yes" });
-		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected" && response?.appSubmissionResult?.data?.borrowerType === "new borrower" && ( !Cookies.get("utm_source_otherPartner") || (Cookies.get("utm_source_otherPartner") && !affiliateUTMs.includes(Cookies.get("utm_source_otherPartner").toLowerCase())))) {
+		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "rejected" && response?.appSubmissionResult?.data?.borrowerType === "new borrower" ) {
 			setData({ ...data, applicationStatus: "rejected" });
 			removeCKLightboxCookie();
 			navigate("/offers/no-offers", { formcomplete: "yes" });
@@ -156,7 +156,7 @@ function SSN() {
 		} else if ( response?.appSubmissionResult?.data?.applicationStatus === "referred") {
 			setData({ ...data, applicationStatus: "referred" });
 			removeCKLightboxCookie();
-			navigate("/referred-to-branch", { formcomplete: "yes" });
+			navigate("/offers/referral", { formcomplete: "yes"  , state:{referedToBranchData:response?.appSubmissionResult?.data?.branch_referral}});
 		}
 	};
 
@@ -358,8 +358,8 @@ function SSN() {
 
 													<span data-testid="eSignatureLink" className={classes.oneLastStepLinks} onClick={() => { handleOnClickEsign(); }}>E-Signature Disclosure and Consent,</span>
 													<span data-testid="creditContactAuth"className={classes.oneLastStepLinks} onClick={() => { handleOnClickCredit(); }}>Credit and Contact Authorization,</span>
-													<span data-testid="websiteTerms" className={classes.oneLastStepLinks} onClick={() => { handleOnClickwebTOU(); }}>Website Terms of Use,</span>
-													<span data-testid="websitePrivacy" className={classes.oneLastStepLinks} onClick={() => { handleOnClickPrivacy(); }}>Website Privacy Statement.</span>
+													<span data-testid="websiteTerms" className={classes.oneLastStepLinks} onClick={() => { handleOnClickwebTOU(); }}>Terms of Use,</span>
+													<span data-testid="websitePrivacy" className={classes.oneLastStepLinks} onClick={() => { handleOnClickPrivacy(); }}>Privacy Statement.</span>
 												</Grid>	
 										<div
 											className={data.state === "DE" ? "showCB " : "hideMsg "}

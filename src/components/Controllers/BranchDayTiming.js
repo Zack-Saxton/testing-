@@ -1,6 +1,6 @@
 import moment from "moment";
 import globalMessages from "../../assets/data/globalMessages.json";
-import { marinerWorkingSaturdayDateRange, tzMatch } from "../../assets/data/marinerBusinesStates";
+import {marinerWorkingSaturdayDateRange, tzMatch} from "../../assets/data/marinerBusinesStates";
 import ErrorLogger from "../lib/ErrorLogger";
 
 export default async function BranchDayTiming(branchLookupData) {
@@ -13,12 +13,12 @@ export default async function BranchDayTiming(branchLookupData) {
     let dayInNumber = moment().day();
     let today = new Date();
     let todayHour = today.getHours();
-    let closedOrOpen = { "Value1": "Open Now!", "Value2": "", "Value3": "" };
-    if (([ 1, 3, 4, 5 ].includes(dayInNumber)) && moment().isBefore(moment().format("YYYY-MM-DD") + "T17:30") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00") && caState) {
+    let closedOrOpen = {"Value1": "Open Now!", "Value2": "", "Value3": ""};
+    if (([1, 3, 4, 5].includes(dayInNumber)) && moment().isBefore(moment().format("YYYY-MM-DD") + "T17:30") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00") && caState) {
         closedOrOpen = branchInfoDisplay('5:30 P.M. ', branchLookupData);
     } else if ((dayInNumber === 2 && moment().isBefore(moment().format("YYYY-MM-DD") + "T19:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T10:00") && caState)) {
         closedOrOpen = branchInfoDisplay('7:00 P.M. ', branchLookupData);
-    } else if (([ 1, 3, 4 ].includes(dayInNumber)) && moment().isBefore(moment().format("YYYY-MM-DD") + "T17:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {
+    } else if (([1, 3, 4].includes(dayInNumber)) && moment().isBefore(moment().format("YYYY-MM-DD") + "T17:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {
         branchInfoDisplay('5:00 P.M. ', branchLookupData);
     } else if (dayInNumber === 2 && moment().isBefore(moment().format("YYYY-MM-DD") + "T19:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {
         closedOrOpen = branchInfoDisplay('7:00 P.M. ', branchLookupData);
@@ -38,13 +38,13 @@ export default async function BranchDayTiming(branchLookupData) {
             closedOrOpen.Value3 = `${ currentDay }: 10:00am - 7:00pm ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
         } else if ((currentDay === 'Saturday') && isHolidayHours && moment().isBefore(moment().format("YYYY-MM-DD") + "T13:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {
             closedOrOpen.Value3 = `${ currentDay }: 9:00am - 1:00pm ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
-        } else if (([ 'Monday', 'Wednesday', 'Thursday' ].includes(currentDay)) && moment().isBefore(moment().format("YYYY-MM-DD") + "T17:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {
+        } else if ((['Monday', 'Wednesday', 'Thursday'].includes(currentDay)) && moment().isBefore(moment().format("YYYY-MM-DD") + "T17:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {
             closedOrOpen.Value3 = `${ currentDay }: 9:00am - 5:30pm ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
         } else if ((currentDay === 'Friday') && moment().isBefore(moment().format("YYYY-MM-DD") + "T17:30") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {
             closedOrOpen.Value3 = `${ currentDay }: 9:00am - 5:30pm ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
         }
     } else if (!caState) {
-        if (([ 'Monday', 'Wednesday', 'Thursday' ].includes(currentDay)) && moment().isBefore(moment().format("YYYY-MM-DD") + "T17:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {
+        if ((['Monday', 'Wednesday', 'Thursday'].includes(currentDay)) && moment().isBefore(moment().format("YYYY-MM-DD") + "T17:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {
             closedOrOpen.Value3 = `${ currentDay }: 9:00am - 5:00pm ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
         } else if ((currentDay === 'Tuesday') && moment().isBefore(moment().format("YYYY-MM-DD") + "T19:00") && moment().isAfter(moment().format("YYYY-MM-DD") + "T09:00")) {
             closedOrOpen.Value3 = `${ currentDay }: 9:00am - 7:00pm ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
@@ -56,7 +56,7 @@ export default async function BranchDayTiming(branchLookupData) {
     }
     if (closedOrOpen.Value1 === "CLOSED" && todayHour > 16) {
         closedOrOpen.Value1 = "Will open ";
-        if ([ 5, 6, 0 ].includes(dayInNumber)) {
+        if ([5, 6, 0].includes(dayInNumber)) {
             closedOrOpen.Value2 = `Monday at 9am ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
         } else if (dayInNumber === 1) {
             closedOrOpen.Value2 = `Tuesday at 9am ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
@@ -71,7 +71,7 @@ export default async function BranchDayTiming(branchLookupData) {
     return closedOrOpen;
 }
 const branchInfoDisplay = function (time, branchLookupData) {
-    let tz = tzMatch[ branchLookupData.timeZoneName ];
+    let tz = tzMatch[branchLookupData.timeZoneName];
     return (
         {
             "Value2": `${ time } ${ tz }`,
@@ -81,7 +81,7 @@ const branchInfoDisplay = function (time, branchLookupData) {
     );
 };
 const TimeZoneShort = function (timeZoneName) {
-    return tzMatch[ timeZoneName ];
+    return tzMatch[timeZoneName];
 };
 export async function mapInformationBranchLocator(branchList) {
     try {
@@ -134,7 +134,7 @@ export function formatDate(date) {
     let day = MonthNameDate.getDate().toString().padStart(2, '0');
     let year = MonthNameDate.getFullYear();
 
-    return [ year, month, day ].join('-');
+    return [year, month, day].join('-');
 };
 
 export const convertDistanceUnit = (value) => {

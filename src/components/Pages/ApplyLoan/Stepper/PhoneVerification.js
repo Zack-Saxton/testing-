@@ -133,7 +133,7 @@ export default function PhoneVerification(props) {
 	const onNextClick = async () => {
 		const skip = JSON.parse(Cookies.get("skip") ? Cookies.get("skip") : "{ }");
 		if (skip?.phone && !passcode) {
-			props.next();
+			props.nextOnSkip();
 		} else if (!passcode) {
 			toast.error("Enter Passcode");
 		} else {
@@ -153,6 +153,7 @@ export default function PhoneVerification(props) {
 	const skipPhoneVerification = (_event) => {
 		Cookies.set("skip", JSON.stringify({ phone: true }));
 		handleClose();
+		props.nextOnSkip();
 	};
 
 	const handleClose = () => {
@@ -342,6 +343,7 @@ export default function PhoneVerification(props) {
 }
 PhoneVerification.propTypes = {
 	next: PropTypes.func,
+	nextOnSkip: PropTypes.func,
 	classes: PropTypes.object,
 	steps: PropTypes.array,
 	activeStep: PropTypes.number

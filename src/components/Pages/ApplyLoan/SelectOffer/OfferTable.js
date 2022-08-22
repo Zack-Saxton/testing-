@@ -192,7 +192,7 @@ export default function OfferTable(props) {
                         className={props.classes.tableHead}
                         align="right"
                       >
-                        Loan Amount
+                        Loan Amount*
                       </TableCell>
                       <TableCell
                         className={props.classes.tableHead}
@@ -206,7 +206,7 @@ export default function OfferTable(props) {
                       >
                         <Grid container direction="row" alignItems="center">
                           {" "}
-                          APR &nbsp;
+                          APR† &nbsp;
                           <HtmlTooltip
                             title={
                               <>

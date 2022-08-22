@@ -8,12 +8,14 @@ import Recruitment from "../../../../assets/icon/recruitment.png"
 import Deal from "../../../../assets/icon/deal.png"
 import "./SpringFourNoOffersAvailable.css";
 import { Typography } from "@mui/material";
+import ScrollToTopOnMount from "../ScrollToTop";
 
 const SpringFourNoOffersAvailable = () => {
   const classes = SpringFourNoOffersAvailableStyle();
 
   return (
     <div>
+      <ScrollToTopOnMount />
       <Grid className={classes.blueBG}>
           <Grid className={classes.mainContentWrap}>
             <Grid item container md={12} lg={9} className={classes.centerGrid}>
@@ -60,7 +62,7 @@ const SpringFourNoOffersAvailable = () => {
                     <a 
                     rel="noreferrer"
                     target="_blank"
-                    className={classes.getStartedSpringFourButton} href="https://wps-qa.marinerfinance.io/resources/#springfour">
+                    className={classes.getStartedSpringFourButton}  href={`${ process.env.REACT_APP_WEBSITE }/resources/#springfour`}>
                     Get Started
                     </a>                      
                     </ButtonPrimary>

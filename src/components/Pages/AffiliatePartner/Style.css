@@ -214,7 +214,9 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 .creditkarmaLogoImage {
     height: 13px;
 }
-
+#marriedStatusWrap div p{
+    margin: 3px 0px 0px 0px;
+}
 #marriedStatusWrap div label {
     font-size: 0.968rem !important;
 }
@@ -262,6 +264,9 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 }
 .errorvalidationWrap{
     padding-bottom: 10px;
+} 
+#passwordGrid{
+    padding-top: 10px;
 }
 #socialSecurityNumber div div div input{
     /* font-size: 0.938rem !important; */

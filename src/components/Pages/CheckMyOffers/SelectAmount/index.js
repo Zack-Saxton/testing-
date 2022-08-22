@@ -273,36 +273,27 @@ function SelectAmount(props) {
                     >
                       {globalMessages.We_Offer_personal_loans}
                     </Typography>
+                    <Typography
+                      className="alignText justifyText checkMyOffersText"
+                      align="center"
+                    >
+                      {globalMessages.Government_fight_the_funding}
+                    </Typography>
+                    <Typography
+                      className="alignText justifyText checkMyOffersText"
+                      align="center"
+                    >
+                      *This process uses a {'"'}soft{'"'} credit inquiry to determine
+                      whether a loan offer is available, which does not impact your
+                      credit score. If you continue with the application process
+                      online and accept a loan offer, or are referred to a branch and
+                      continue your application there, we will pull your credit report
+                      and credit score again using a “hard” credit inquiry. This
+                      “hard” credit inquiry may impact your credit score.
+                    </Typography>
                   </Grid>
                 </Grid>
               </Paper>
-            </Grid>
-            <Grid
-              item
-              xs={11}
-              sm={10}
-              md={10}
-              lg={10}
-              xl={10}
-              data-testid="descriptionOutside"
-              className={innerClasses.alignSmallText}
-              container
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Typography className={classes.smallText} align="center">
-                {globalMessages.Government_fight_the_funding}
-              </Typography>
-              <br />
-              <Typography className={classes.smallText} align="center">
-                *This process uses a {'"'}soft{'"'} credit inquiry to determine
-                whether a loan offer is available, which does not impact your
-                credit score. If you continue with the application process
-                online and accept a loan offer, or are referred to a branch and
-                continue your application there, we will pull your credit report
-                and credit score again using a “hard” credit inquiry. This
-                “hard” credit inquiry may impact your credit score.
-              </Typography>
             </Grid>
           </Grid>
         </Box>

@@ -22,46 +22,52 @@ then
 fi
 
 # Choose a git branch
-if [ $branch != "dev" ] && [ $branch != "staging" ] && [ $branch != "prod" ] && [ $branch !='v1-clean-up' ] && [ $branch !='v1-clean-up-merge-dev' ]
+if [ $branch != "dev" ] && [ $branch != "qa" ] && [ $branch != "staging" ] && [ $branch != "prod" ] && [ $branch !='v1-clean-up' ] && [ $branch !='v1-clean-up-merge-dev' ]
 then
     echo 'Invalid Git Branch'
     exit
 fi
 
-if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ]
+if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ] || [ "$env" = "prod5" ]
 then
-    serverName="ubuntu@${app}-${app1}-prod.marinerfinance.io"
+    if [ "$env" = "prod1" ]
+    then
+      serverName="ubuntu@cis-app1-prod.marinerfinance.io"
+    else
+      if [ "$env" = "prod2" ]
+      then
+        serverName="ubuntu@cis-app2-prod.marinerfinance.io"
+      else
+        if [ "$env" = "prod3" ]
+        then
+          serverName="ubuntu@cis-app3-prod.marinerfinance.io"
+        else
+          if [ "$env" = "prod4" ]
+          then
+            serverName="ubuntu@cis-app4-prod.marinerfinance.io"
+          else
+            if [ "$env" = "prod5" ]
+            then
+              serverName="ubuntu@cis-app5-prod.marinerfinance.io"
+            fi
+          fi
+        fi
+      fi
+    fi
+    dockerNetwork="prodNetwork"
+    env1="prod"
 else
     serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
+    dockerNetwork="${env}Network"
+    env1="${env}"
 fi
 pemFile=marinerfinance-us-east-1.pem
 otherPemFile=~/Code/psa/otherdocs/marinerfinance-us-east-1.pem
 deployUser=$(whoami)
-hostname="cac-app1-${env}.marinerfinance.io"
+hostname="cac-app1-${env1}.marinerfinance.io"
 message="$hostname Deployment START from $branch to $env By $deployUser"
 url="https://hooks.slack.com/services/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"
 curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
-
-case $env in
-  "qa")
-    dockerNetwork="qaNetwork"
-    server="ubuntu@cis-app1-qa.marinerfinance.io"
-    #printf "REACT_APP_PSA_URL=https://psa-qa.marinerfinance.io" >> .env
-    ;;
-  "dev")
-    dockerNetwork="devNetwork"
-    server="ubuntu@cis-app1-dev.marinerfinance.io"
-    #printf "REACT_APP_PSA_URL=https://psa-development.marinerfinance.io" >> .env
-    ;;
-  "staging")
-    dockerNetwork="stagingNetwork"
-    server="ubuntu@cis-app1-staging.marinerfinance.io"
-    #printf "REACT_APP_PSA_URL=https://psa-staging.marinerfinance.io" >> .env
-    ;;
-  *)
-    dockerNetwork="qaNetwork"
-    ;;
-esac
 
 #GIT and PEM Details
 #gitRepo="git@github.com:marinerfinance/cac.git"
@@ -110,7 +116,7 @@ git checkout $branch
 git pull
 
 #echo "git checkout $env"
-if [ "$env" = "prod" ]
+if [ "$env1" = "prod" ]
 then
     git checkout master
 else
@@ -133,9 +139,9 @@ echo "**************************************************************************
 
 latestCommit=$(git rev-parse --short HEAD)
 #Dockerise the environment
-imageName="marinerfinance/ops:${app}-${env}-${latestCommit}"
+imageName="marinerfinance/ops:${app}-${env1}-${latestCommit}"
 #docker build -f Dockerfile -t ${imageName} .
-case $env in
+case $env1 in
   "dev")
     cat ~/.
     docker build -t $imageName  $(for i in `cat ~/.env_cac_dev`; do out+="--build-arg $i " ; done; echo $out;out="") .
@@ -165,13 +171,6 @@ case $env in
       exit 1;
     fi
     ;;
-  *)
-    # docker build -t $imageName  $(for i in `cat ~/.env_cac_qa`; do out+="--build-arg $i " ; done; echo $out;out="") .
-    # if [ $? != 0 ]; then
-    #   echo -e "\033[1;31m Failed \033[0m => (reason): docker failed  to build image locally"
-    #   exit 1;
-    # fi
-    # ;;
 esac
 
 echo  "****** Created New Image ****"
@@ -203,7 +202,7 @@ echo -e "\033[1;36m * TUNNELING INTO EC2 INSTANCE ($app)           \033[0m"
 echo -e "\033[1;36m ********************************************** \033[0m"
 
 #ssh -o "StrictHostKeyChecking no" -i $PEM_FILE $serverName << ENDHERE
-ssh  -i $_PEM_FILE_ $server << ENDHERE
+ssh  -i $_PEM_FILE_ $serverName << ENDHERE
      echo -e "\033[1;36m ********************************************** \033[0m"
      echo -e "\033[1;36m * START stopping all container ($app) and then  \033[0m"
      echo -e "\033[1;36m * removing all  container ($app)                \033[0m"
@@ -227,7 +226,7 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
      echo -e "\033[1;36m * START Updating server    : ($app)            \033[0m"
      echo -e "\033[1;36m ********************************************** \033[0m"
 
-     sudo apt-get update && sudo apt-get dist-upgrade -y
+     sudo apt-get update && sudo apt --fix-broken install && sudo apt-get dist-upgrade -y
 
      docker login --username=$DOCKERHUB_USER  --password=$DOCKERHUB_PSWD
 
@@ -240,14 +239,12 @@ ssh  -i $_PEM_FILE_ $server << ENDHERE
    for ((count=1;count<=$instances;count++))
    do
      echo  "****** Spinning Instance "\$count": "
-     docker run -dit --restart=always --name "${app}"\$count"-${env}-${latestCommit}" --network $dockerNetwork $imageName
+     docker run -dit --restart=always --name "${app}"\$count"-${env1}-${latestCommit}" --network $dockerNetwork $imageName
      sleep 5
    done
    sudo reboot
    exit
 ENDHERE
-
-
 
 #-------------------------------------------------------------------------#
 #@ END OF REBOOT

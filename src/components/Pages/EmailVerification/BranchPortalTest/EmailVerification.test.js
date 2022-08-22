@@ -80,8 +80,6 @@ it("Load Acknowledgement links", () => {
   expect(esignClick).toBeTruthy();
 	const creditContact = container.getByTestId("creditContact");
   expect(creditContact).toBeTruthy();
-	const websiteTerms = container.getByTestId("websiteTerms");
-  expect(websiteTerms).toBeTruthy();
 	const websitePrivacy = container.getByTestId("websitePrivacy");
   expect(websitePrivacy).toBeTruthy();
 }); 

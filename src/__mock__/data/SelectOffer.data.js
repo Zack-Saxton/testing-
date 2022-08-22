@@ -4,7 +4,6 @@ export const mockOffers = {
       "12": [
         {
           "model_code": "individual-credit-engine-mariner-12-month",
-          "cosigner_required": false,
           "loan_amount": 7000,
           "annual_interest_rate": 0.2648,
           "origination_fee_rate": 0,
@@ -47,7 +46,6 @@ export const mockOffers = {
         },
         {
           "model_code": "individual-credit-engine-mariner-12-month",
-          "cosigner_required": false,
           "loan_amount": 6500,
           "annual_interest_rate": 0.2715,
           "origination_fee_rate": 0,
@@ -90,7 +88,6 @@ export const mockOffers = {
         },
         {
           "model_code": "individual-credit-engine-mariner-12-month",
-          "cosigner_required": false,
           "loan_amount": 6000,
           "annual_interest_rate": 0.2789,
           "origination_fee_rate": 0,
@@ -135,7 +132,6 @@ export const mockOffers = {
       "24": [
         {
           "model_code": "individual-credit-engine-mariner-24-month",
-          "cosigner_required": false,
           "loan_amount": 7000,
           "annual_interest_rate": 0.2628,
           "origination_fee_rate": 0,
@@ -178,7 +174,6 @@ export const mockOffers = {
         },
         {
           "model_code": "individual-credit-engine-mariner-24-month",
-          "cosigner_required": false,
           "loan_amount": 6500,
           "annual_interest_rate": 0.2695,
           "origination_fee_rate": 0,
@@ -221,7 +216,6 @@ export const mockOffers = {
         },
         {
           "model_code": "individual-credit-engine-mariner-24-month",
-          "cosigner_required": false,
           "loan_amount": 6000,
           "annual_interest_rate": 0.2769,
           "origination_fee_rate": 0,
@@ -266,7 +260,6 @@ export const mockOffers = {
       "36": [
         {
           "model_code": "individual-credit-engine-mariner-36-month",
-          "cosigner_required": false,
           "loan_amount": 7000,
           "annual_interest_rate": 0.2599,
           "origination_fee_rate": 0,
@@ -309,7 +302,6 @@ export const mockOffers = {
         },
         {
           "model_code": "individual-credit-engine-mariner-36-month",
-          "cosigner_required": false,
           "loan_amount": 6500,
           "annual_interest_rate": 0.2665,
           "origination_fee_rate": 0,
@@ -352,7 +344,6 @@ export const mockOffers = {
         },
         {
           "model_code": "individual-credit-engine-mariner-36-month",
-          "cosigner_required": false,
           "loan_amount": 6000,
           "annual_interest_rate": 0.2739,
           "origination_fee_rate": 0,

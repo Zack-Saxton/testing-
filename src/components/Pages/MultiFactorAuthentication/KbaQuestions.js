@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
 import CheckLoginStatus from '../../App/CheckLoginStatus';
+import globalMessages from '../../../assets/data/globalMessages.json'
 
 
 const KbaQuestions = () => {
@@ -59,25 +60,15 @@ const KbaQuestions = () => {
     let method = "POST";
     let addAccessToken = true;
     let response = await APICall(url, '', data, method, addAccessToken);
-
+    let KBAdata;
     // structure the API data response to store it in array
     let tempArray = [];
-    if (response?.data?.kba_response?.data?.questions) {
-      tempArray.push({
-        "key": 0,
-        "fullData": response.data?.kba_response?.data,
-        "question": response.data?.kba_response?.data?.questions?.question["help-text"]?.statement,
-        "choice": response.data?.kba_response?.data?.questions?.question?.choice,
-        "questionId": response.data?.kba_response?.data?.questions?.question["question-id"],
-        "answer": ""
-      });
-      setResponseData(tempArray);
-    }
-    else if (response?.data?.result && response?.data?.result?.questions?.question.length > 1) {
+    if (response?.data?.kba_response?.data?.questions?.question?.length > 1 ) {
+      KBAdata = response?.data?.kba_response?.data
       setIsProd(true);
-      setQuestionSetIdMultiple(response?.data?.result?.questions?.["question-set-id"]);
-      setTransactionIdMultiple(response?.data?.result?.["transaction-status"]?.["transaction-id"]);
-      response?.data?.result?.questions?.question.map((val, key) => {
+      setQuestionSetIdMultiple( KBAdata.questions?.["question-set-id"]);
+      setTransactionIdMultiple( KBAdata?.["transaction-status"]?.["transaction-id"]);
+      KBAdata?.questions?.question.map((val, key) => {
         tempArray.push({
           "key": key,
           "fullData": val,
@@ -90,9 +81,20 @@ const KbaQuestions = () => {
       setResponseDataMultipleQ(tempArray);
       setSetOneFinished(true);
       setLoadingFlag(false);
-    }
-    else {
-      toast.error("Somthing went wrong, please try again");
+    } else if (response?.data?.kba_response) {
+      KBAdata = response?.data?.kba_response?.data || response?.data?.kba_response
+      tempArray.push({
+        "key": 0,
+        "fullData": KBAdata,
+        "question": KBAdata.questions?.question["help-text"]?.statement,
+        "choice": KBAdata.questions?.question?.choice,
+        "questionId": KBAdata.questions?.question["question-id"],
+        "answer": ""
+      });
+      setResponseData(tempArray);
+    } else {
+      toast.error(globalMessages.KBA_Error);
+      navigate('/MFA', {state : {noKbaQuestions : true}})
     }
   }
 

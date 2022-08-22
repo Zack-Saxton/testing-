@@ -132,17 +132,16 @@ function DocumentIdAndPhotoId(props) {
         reader.readAsDataURL(fileObject.files[ 0 ]);
         reader.onload = async () => {
           let compressFileData = reader.result;
-          const buffer2 = Buffer.from(compressFileData, "base64");
-          let encodedFile = Buffer.from(buffer2).toString("base64");
-          let imageData = encodedFile
+          let imageData = compressFileData
             .toString()
-            .replace(/^dataimage\/[a-z]+base64/, "");
+          .replace(/^data:.+;base64,/, "");
+          const buffer2 = Buffer.from(imageData, "base64");
           let fileName = fileObject.files[ 0 ].name;
           let fileType = fileObject.files[ 0 ].type;
           setLoading(true);
           let compressedFile = [ {
             sourcePath: "",
-            data: imageData,
+            data: buffer2,
             fileName: fileName
           } ];
           let fileExtension = fileName.split('.').pop();
@@ -247,13 +246,14 @@ function DocumentIdAndPhotoId(props) {
       let fileName = `${ docTypeName }.jpeg`;
       let fileData = imageData
         .toString()
-        .replace(/^dataimage\/[a-z]+base64/, "");
+      .replace(/^data:.+;base64,/, "");
+      const buffer2 = Buffer.from(fileData, "base64");
       let compressedFile = [ {
         sourcePath: "",
-        data: fileData,
+        data: buffer2,
         fileName: fileName
       } ];
-
+      
       let filesInfo = getFileInfo(fileName, "image/jpeg", "jpeg", "0");
       let response = await uploadEmailVerificationDocument(compressedFile, filesInfo, props.applicationNumber, props.customerEmail, "customer_identification_license");
       if (response?.status === 200) {
@@ -306,7 +306,7 @@ function DocumentIdAndPhotoId(props) {
           onClick={handleMenuOpen}
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
         >
-          Select Your Documents
+          Upload Document
         </ButtonPrimary>
         {
           label ?
@@ -411,7 +411,7 @@ function DocumentIdAndPhotoId(props) {
           onClick={handleSelfieMenuOpen}
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
         >
-          Select Your Picture
+          Select File
         </ButtonPrimary>
         {
           selfieLabel ?

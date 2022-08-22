@@ -66,6 +66,19 @@ test("Link Availability tests", () => {
   expect(element).toBeTruthy();
 });
 
+test("Link Availability tests", () => {
+  render(component());
+  const element = screen.getByTestId("loginMobileNavigation");
+  expect(element).toHaveAttribute("href", "/login");
+  expect(element).toBeTruthy();
+});
+
+test("Link Availability tests", () => {
+  render(component());
+  const element = screen.getByTestId("loginNavigation");
+  expect(element).toHaveAttribute("href", "/login");
+  expect(element).toBeTruthy();
+});
 test("Menu Icon Availability tests", () => {
   render(component());
   const element = screen.getByTestId("moreIcon");

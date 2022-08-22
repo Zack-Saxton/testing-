@@ -542,6 +542,7 @@ export default function BranchLocator() {
         <meta charSet="utf-8" />
         <title>Mariner Finance States | Personal Loans |Discover More</title>
         <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
+        <link rel="canonical" href={window.location.href} />
         <meta name="description" content="Looking for a personal loans?  Discover which states Mariner Finance serves.  Visit a branch in one of our many states today." />
       </Helmet>
       <Grid

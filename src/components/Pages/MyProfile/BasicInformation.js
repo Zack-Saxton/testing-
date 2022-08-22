@@ -27,7 +27,7 @@ const validationSchema = yup.object({
     .string(globalMessages.EmailEnter)
     .email(globalMessages.EmailValid)
     .matches(
-      /^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
+      /^[a-zA-Z0-9](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
       globalMessages.EmailValid
     )
     .required(globalMessages.EmailRequired),
@@ -101,6 +101,13 @@ export default function BasicInformation(props) {
     formik.resetForm();
     setSelectedFile(null);
   };
+
+  const onClickResetForm = () =>{
+    formik.resetForm();
+    setPhoneNumberValue(basicInfo?.phone_number_primary ?? "");
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(basicInfo?.phone_number_primary ?? "")));
+    setSelectedFile(null);
+  }
 
   const logOut = () => {
     setLoading(false);
@@ -317,11 +324,11 @@ export default function BasicInformation(props) {
     }
   };
   
-  const updateActualValue = (_event) => {
-    setPhoneNumberCurrentValue(phoneNumberMask(basicInfo?.phone_number_primary));
+  const updateActualValue = (event) => {
+    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
   }
-  const updateMaskValue = (_event) => {
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(basicInfo?.phone_number_primary))) ;
+  const updateMaskValue = (event) => {
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
   }
   const updateEnterPhoneNo = (event) =>{
     setPhoneNumberValue(event.target.value);
@@ -494,7 +501,7 @@ export default function BasicInformation(props) {
             <ButtonSecondary
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
-              onClick={onClickCancelChange}
+              onClick={onClickResetForm}
               disabled={!disableField}
             >
               Cancel

@@ -25,7 +25,7 @@ const component = () => {
 			<QueryClientProvider client={queryClient}>
 				<BrowserRouter>					
 					<UploadDocument
-					title="Select Your Document"
+					title="Upload Document"
           applicationNumber={"7001-0000016058"}
           customerEmail={"mariner@mariner.com"}
           documentType="proof_of_income" />

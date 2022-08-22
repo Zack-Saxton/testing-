@@ -20,9 +20,9 @@ export async function checkMyOfferSubmit(customer) {
 	};
 
 	const utm_sources = {
-					"utm_source": customer.utm_source_otherPartner,
-					"utm_medium": customer.utm_medium_otherPartner,
-					"utm_campaign": customer.utm_campaign_otherPartner,
+		"utm_source": ["", "null"].includes(customer?.utm_source_otherPartner) ? "CAC" : customer?.utm_source_otherPartner,
+		"utm_medium": customer.utm_medium_otherPartner,
+		"utm_campaign": customer.utm_campaign_otherPartner,
 	}
 	try {
 		//creating function to load ip address from the API
@@ -43,18 +43,85 @@ export async function checkMyOfferSubmit(customer) {
 			"phone_number_primary": customer.phone,
 			"phone_type": "Cell",
 		}
+
+		//API for latest consent versions
+		let url = "get_active_documents";
+		let param = "";
+		let data = {};
+		let method = "GET";
+		let addAccessToken = false;
+
+		//API call
+		let activeConsetDocument = await APICall(url, param, data, method, addAccessToken);
+		let consent = {};
+		let esign = {};
+		let user = {};
+
+		//Assemble 'consent', 'user' Object with dynamic data
+		activeConsetDocument.data.documents.forEach(doc => {
+			if (doc.displayname.toLowerCase() === 'credit_contact_authorization') {
+				consent.credit_contact_authorization = {
+					"consent": true,
+					"version": doc.version.toString(),
+				}
+				user.Consent_Credit_Contact_Authorization_Version__c = doc.version.toString();
+			} else if (doc.displayname.toLowerCase() === 'electronic_disclosure_consent') {
+				consent.electronic_communications = {
+					"consent": true,
+					"version": doc.version.toString(),
+				}
+				user.Consent_Electronic_Communication_Policy_Version__c = doc.version.toString();
+			} else if (doc.displayname.toLowerCase() === 'terms_of_use_document') {
+				consent.terms_of_use = {
+					"consent": true,
+					"version": doc.version.toString(),
+				}
+				user.Consent_Terms_Of_Use_Version__c = doc.version.toString();
+			} else if (doc.displayname.toLowerCase() === 'privacy_policy_document') {
+				consent.privacy_policy = {
+					"consent": true,
+					"version": doc.version.toString(),
+				}
+				user.Consent_Privacy_Policy_Version__c = doc.version.toString();
+			}
+		});
+
+		consent.delaware_itemized_schedule_of_charges = {
+			"consent": false,
+			"version": "1.0",
+		};
+		consent.california_credit_education_program = {
+			"consent": false,
+			"version": "1.0",
+		};
+
+		//dynamically update deleware 'consent' and 'esign' if applicable
+		if (customer.state === 'DE') {
+			consent.delaware_itemized_schedule_of_charges.consent = true;
+			esign.delaware_itemized_schedule_of_charges = esignConsent;
+		}
+
+		//dynamically update california 'consent' and 'esign' if applicable
+		if (customer.state === 'CA') {
+			consent.california_credit_education_program.consent = true;
+			esign.california_credit_education_program = esignConsent;
+		}
+
+		//assemble 'esign' Object
+		esign.credit_contact_authorization = esignConsent;
+		esign.electronic_communications = esignConsent;
+		esign.privacy_policy = esignConsent;
+		esign.terms_of_use = esignConsent;
+
+		//assemble 'user' Object
+		user.password = customer.password;
+		user.confirm_password = customer.confirmPassword;
+		user.terms_agreement = "on";
+		user.create_account_get_rate_button = "Get Your Rate";
+
 		//Data to be send to api
 		let body = {
-			"user": {
-				"password": customer.password,
-				"confirm_password": customer.confirmPassword,
-				"terms_agreement": "on",
-				"create_account_get_rate_button": "Get Your Rate",
-				"Consent_Credit_Contact_Authorization_Version__c": "12",
-				"Consent_Electronic_Communication_Policy_Version__c": "14",
-				"Consent_Privacy_Policy_Version__c": "9",
-				"Consent_Terms_Of_Use_Version__c": "7",
-			},
+			"user": user,
 			"isAuthenticated": true,
 			"formData": {
 				"application": {
@@ -86,7 +153,7 @@ export async function checkMyOfferSubmit(customer) {
 					"contact": {
 						...customerAddress,
 						"first_name": customer.firstName,
-						"full_name": customer.firstName + customer.lastName,
+						"full_name": customer.firstName + ' ' + customer.lastName,
 						"last_name": customer.lastName,
 					},
 					"self_reported": {
@@ -118,7 +185,7 @@ export async function checkMyOfferSubmit(customer) {
 						"social_security_number_backup": customer.ssn,
 						"social_security_number": customer.ssn,
 						"first_name": customer.firstName,
-						"full_name": customer.firstName + customer.lastName,
+						"full_name": customer.firstName + ' ' + customer.lastName,
 						"last_name": customer.lastName,
 					},
 					"latest_contact": customerAddress,
@@ -139,40 +206,8 @@ export async function checkMyOfferSubmit(customer) {
 				},
 			],
 			"update_sor_applicant_consents": {
-				"consents": {
-					"credit_contact_authorization": {
-						"consent": true,
-						"version": "12",
-					},
-					"electronic_communications": {
-						"consent": true,
-						"version": "14",
-					},
-					"privacy_policy": {
-						"consent": true,
-						"version": "9",
-					},
-					"terms_of_use": {
-						"consent": true,
-						"version": "7",
-					},
-					"delaware_itemized_schedule_of_charges": {
-						"consent": true,
-						"version": "1.0",
-					},
-					"california_credit_education_program": {
-						"consent": false,
-						"version": "1.0",
-					},
-				},
-				"esigns": {
-					"credit_contact_authorization": esignConsent,
-					"electronic_communications": esignConsent,
-					"privacy_policy": esignConsent,
-					"terms_of_use": esignConsent,
-					"delaware_itemized_schedule_of_charges": true,
-					"california_credit_education_program": null,
-				},
+				"consents": consent,
+				"esigns": esign,
 			},
 			"headersHost": process.env.REACT_APP_HOST_NAME,
 		};
@@ -284,7 +319,6 @@ export async function getCKLightBox(query) {
 		};
 		let method = "POST";
 		let addAccessToken = false;
-
 		//API call
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {

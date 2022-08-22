@@ -23,7 +23,7 @@ function BankAccountVerification(props) {
       </ul>
       <Grid item sm={12} md={6} >
         <UploadDocument
-          title="Select Your Document"
+          title="Upload Document"
           applicationNumber={props.applicationNumber}
           customerEmail={props.customerEmail}
           documentType="proof_of_income"

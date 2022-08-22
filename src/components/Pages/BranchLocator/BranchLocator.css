@@ -600,6 +600,9 @@
   padding-bottom: 4%;
 }
 
+.secondaryButtonWrap button{
+  font-weight: 600!important;
+}
 .learnMoreLinks {
   margin-top: 10px;
 }
@@ -644,13 +647,12 @@
 
 .blueBoxWrap {
   padding: 20px 40px;
-  background-image: linear-gradient(90deg,
-      rgba(38, 66, 102, 0.9) 0%,
-      rgba(38, 66, 102, 0.8) 100%);
+  background-image: linear-gradient(90deg, rgba(1, 52, 116, 0.92) 0%, rgba(21, 17, 71, 0.9) 100%);
   background-position: left top;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 25px;
+  height: auto;
   height: auto;
 }
 

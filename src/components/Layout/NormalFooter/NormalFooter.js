@@ -36,7 +36,7 @@ export default function NormalFooter() {
                     Privacy Statement
                   </Typography>
                 </a>
-                <a href={`${ process.env.REACT_APP_WEBSITE }/resources/legal/#mobile-fusion-tab-privacystatement`} target="_blank" rel="noreferrer" className="hrefTag privacyStatementMobile" data-testid="privacyStatement">
+                <a href={`${ process.env.REACT_APP_WEBSITE }/resources/legal/#mobile-fusion-tab-privacystatement`} target="_blank" rel="noreferrer" className="hrefTag privacyStatementMobile" data-testid="privacyStatementMobile">
                   <Typography className="normalFooterFont">
                     Privacy Statement
                   </Typography>

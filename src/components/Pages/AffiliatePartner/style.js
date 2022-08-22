@@ -75,6 +75,9 @@ const useStylesPartner = makeStyles((theme) => ({
   redText: {
     color: "#ff0000"
   },
+  redTextPartner:{
+    color: "#d32f2f"
+  },
 
   paddingBottom_Right: {
     paddingBottom:"18px",

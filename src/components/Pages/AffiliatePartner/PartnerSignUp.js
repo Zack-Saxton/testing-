@@ -22,10 +22,12 @@ import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import partnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
 import validateUserEnteredInput from "../../Pages/Login/ValidateUserEnteredInput";
-import { ButtonPrimary, Checkbox, EmailTextField, PasswordField, Popup, RenderContent, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
+import { ButtonPrimary, Checkbox, EmailTextField, PasswordField,Zipcode, Popup, RenderContent, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
 import { useStylesPartner } from "./style";
 import "./Style.css";
 import Cookies from "js-cookie";
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import states from '../../../assets/data/States.json';
 
 
 //Yup validations for all the input fields
@@ -33,7 +35,7 @@ const validationSchema = yup.object({
   email: yup
     .string(globalMessages.EmailEnter)
     .email(globalMessages.EmailValid)
-    .matches(/^[a-zA-Z][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, globalMessages.EmailValid)
+    .matches(/^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, globalMessages.EmailValid)
     .required(globalMessages.EmailRequired),
   password: yup
     .string(globalMessages.PasswordEnter)    
@@ -73,6 +75,80 @@ const validationSchema = yup.object({
     .string(globalMessages.PhoneType)
     .max(30, globalMessages.PhoneTypeMax)
     .required(globalMessages.PhoneTypeRequired),
+
+    activeDuty: yup.string().when("state", {
+      is: "North Carolina",
+      then: yup.string().required(globalMessages?.Active_DutyRequired),
+    })
+      .when("state", {
+        is: "NC",
+        then: yup.string().required(globalMessages?.Active_DutyRequired),
+      }
+      ),
+    activeDutyRank: yup.string().when("activeDuty", {
+      is: "Yes",
+      then: yup.string().required(globalMessages?.Active_Duty_Rank_Required),
+    }),
+    martialStatus: yup.string().when("state", {
+      is: "Wisconsin",
+      then: yup.string().required(globalMessages?.Marital_Status_Required),
+    }).when("state", {
+      is: "WI",
+      then: yup.string().required(globalMessages?.Marital_Status_Required),
+    }
+    ),
+    spouseadd: yup
+      .string()
+      .when("martialStatus", {
+        is: "Married",
+        then: yup
+          .string()
+          .trim()
+          .max(100, globalMessages?.Marital_Status_Max)
+          .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
+      })
+      .when("martialStatus", {
+        is: globalMessages.MaritalStatusLegal,
+        then: yup
+          .string()
+          .trim()
+          .max(100, globalMessages?.Marital_Status_Max)
+          .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
+      }),
+    spouseZipcode: yup
+      .string()
+      .when("martialStatus", {
+        is: "Married",
+        then: yup.string().required(globalMessages?.ZipCodeRequired),
+      })
+      .when("martialStatus", {
+        is: globalMessages.MaritalStatusLegal,
+        then: yup.string().required(globalMessages?.ZipCodeRequired),
+      }),
+    spousecity: yup
+      .string()
+      .when("martialStatus", {
+        is: "Married",
+        then: yup
+          .string()
+          .required(globalMessages?.Address_Home_City),
+      })
+      .when("martialStatus", {
+        is: globalMessages.MaritalStatusLegal,
+        then: yup
+          .string()
+          .required(globalMessages?.Address_Home_City),
+      }),
+    spouseSelectState: yup
+      .string()
+      .when("martialStatus", {
+        is: "Married",
+        then: yup.string().required(globalMessages?.Address_State_Required),
+      })
+      .when("martialStatus", {
+        is: globalMessages.MaritalStatusLegal,
+        then: yup.string().required(globalMessages?.Address_State_Required),
+      }),
 });
 const phoneNumberMask = (values) => {
 	if(values){
@@ -142,9 +218,11 @@ export default function PartnerSignUp() {
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
   const [ openCA, setOpenCA ] = useState(false);
   const [ openOhio, setOpenOhio ] = useState(false);
+  const [ validSpouseZip, setValidSpouseZip ] = useState(true);
 
   const handlePopupCA = populateSignupData?.state === "CA" ? true : false;
   const handlePopupOhio = populateSignupData?.state === "OH" ? true : false;
+  const otherPartnerState = utm_source === "CreditKarma" ? "" : populateSignupData?.state
 
   useEffect(() => {
     if (handlePopupCA) {
@@ -168,6 +246,27 @@ export default function PartnerSignUp() {
   const handleOnClickPrivacy = () => setPrivacyPopup(true);
   const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
 
+   //fetch the state and city based in zip code
+   const fetchSpouseAddress = async (event) => {
+    try {
+      if (event.target.value.length === 5 || !(event.target.value?.length)) {
+        let result = await ZipCodeLookup(event.target.value);
+        if (result?.data?.cityName) {
+          formik.setFieldValue("spousecity", result?.data?.cityName);
+          formik.setFieldValue("spouseSelectState", result?.data?.stateCode);
+          setValidSpouseZip(true);
+        } else {
+          setValidSpouseZip(false);
+          formik.setFieldValue("spouseSelectState", "");
+          formik.setFieldValue("spousecity", "");
+        }
+        formik.handleChange(event);
+      }
+    } catch (error) {
+      ErrorLogger("Error from fetchSpouseAddress.",);
+    }
+  };
+
   //Form Submission
   const formik = useFormik({
     enableReinitialize: true,
@@ -178,6 +277,15 @@ export default function PartnerSignUp() {
       ssn: "",
       callPhNo: populatePartnerPhone ?? "",
       phoneType: "",
+      state: otherPartnerState ?? "",
+      activeDuty: "",
+      activeDutyRank: "",
+      militaryStatus: "",
+      martialStatus: "",
+      spouseadd: "",
+      spouseZipcode: "",
+      spousecity: "",
+      spouseSelectState: ""
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -188,7 +296,15 @@ export default function PartnerSignUp() {
         phone: phoneNumberValue.replace(/\)|\(|\s+|\-/g, "") || "",
         phoneType: values.phoneType,
         password: values.password,
-        confirm_password: values.confirmPassword
+        confirm_password: values.confirmPassword,
+        activeDuty: values.activeDuty,
+        activeDutyRank: values.activeDutyRank,
+        martialStatus: values.martialStatus,
+        spouseadd: values.spouseadd,
+        spouseZipcode: values.spouseZipcode,
+        spousecity: values.spousecity,
+        spouseSelectState: values.spouseSelectState.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.spouseSelectState) : values.spouseSelectState,  
+
       };      
       let partnerRes = await partnerSignup(
         navigate,
@@ -231,6 +347,8 @@ export default function PartnerSignUp() {
   { "label": "Cell", "value": "cell"},
   {"label": "Home","value": "home"}
 ]
+const legalMaritalStatus =  "Separated, under decree of legal separation"
+
 const preventEvent = (event) => {
   event.preventDefault();
   };
@@ -434,7 +552,230 @@ const preventEvent = (event) => {
                       />
                     </Grid>
 
-                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12}>
+ {/* **************************************************active duty***************************************************** */}
+ <Grid
+                      item
+                      xs={12}
+                      className={
+                        formik.values.state === "North Carolina" ||
+                          formik.values.state === "NC"
+                          ? "showCheckbox"
+                          : "hideCheckbox"
+                      }
+                    >
+                      <p>
+                        {" "}
+                        <b>
+                          Are you active duty military or do you have a future
+                          active duty date?
+                        </b>
+                      </p>
+                      <Grid id="activeDutyGrid">
+                        <Select
+                          id="confirmActiveDuty"
+                          name="activeDuty"
+                          labelform="Active Duty *"
+                          select='[{"value":"Yes"}, {"value":"No"}]'
+                          value={formik.values.activeDuty}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          error={formik.touched.activeDuty && Boolean(formik.errors.activeDuty)}
+                          helperText={formik.touched.activeDuty && formik.errors.activeDuty}
+                          inputTestID="ADinput"
+                          selectTestID="ADselect"
+                        />
+                      </Grid>
+                      <Grid
+                        id="activeDutyRankGrid"
+                        item
+                        xs={12}
+                        className={
+                          formik.values.activeDuty === "Yes"
+                            ? "showCheckbox"
+                            : "hideCheckbox"
+                        }
+                      >
+                        <Select
+                          id="confirmactiveDutyRank"
+                          name="activeDutyRank"
+                          labelform="Active duty rank *"
+                          select='[{"value":"E4 and below"}, {"value":"E5 and above"}]'
+                          value={formik.values.activeDutyRank}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          error={formik.touched.activeDutyRank && Boolean(formik.errors.activeDutyRank)}
+                          helperText={formik.touched.activeDutyRank && formik.errors.activeDutyRank}
+                        />
+                        <Grid
+                          item
+                          xs={12}
+                          className={`${ formik.values.activeDutyRank === "E4 and below" ? "showCheckbox" : "hideCheckbox" } ${ classes.redTextPartner }`}
+                        >
+                          Unfortunately, based on the application information provided, you do not meet our application requirements.
+                        </Grid>
+                      </Grid>
+
+                    </Grid>
+
+                    {/* ****************************************************Married Statue ***************************************** */}
+
+                    <Grid
+                      item
+                      xs={12}
+                      className={
+                        formik.values.state === "Wisconsin" ||
+                          formik.values.state === "WI"
+                          ? "showCheckbox"
+                          : "hideCheckbox"
+                      }
+                    >
+                      <p>
+                      <b>Are you married?*</b>
+                     </p>
+                      <Grid item xs={12} id="marriedStatusWrap">                        
+                        <Select
+                          name="martialStatus"
+                          labelform="Marital Status *"
+                          id="marriedStatus"
+                          select='[{"value":"Married"}, {"value":"Unmarried"}, {"value":"Separated, under decree of legal separation"}]'
+                          value={formik.values.martialStatus}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          error={formik.touched.martialStatus && Boolean(formik.errors.martialStatus)}
+                          helperText={formik.touched.martialStatus && formik.errors.martialStatus}
+                        />
+                      </Grid>
+                      <Grid
+                        id="maritalStatusGrid"
+                        item
+                        xs={12}
+                        className={
+                          formik.values.martialStatus === "Married" ||
+                            formik.values.martialStatus ===
+                            legalMaritalStatus
+                            ? "showCheckbox"
+                            : "hideCheckbox"
+                        }
+                      >
+                        <TextField
+                          id="maritalStatusInput"
+                          name="spouseadd"
+                          label="Spouse's Address (if different)"
+                          value={formik.values.spouseadd}
+                          onChange={formik.handleChange}
+                        />
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        className={
+                          formik.values.martialStatus === "Married" ||
+                            formik.values.martialStatus ===
+                            legalMaritalStatus
+                            ? "showCheckbox"
+                            : "hideCheckbox"
+                        }
+                      >
+                        <p>
+                          <b>Location</b>{" "}
+                        </p>
+
+                        <Grid container direction="row">
+                          <Grid
+                            item
+                            xs={12}
+                            sm={4}
+                            id="spouseZipWrap"
+                            className={
+                              formik.values.martialStatus === "Married" ||
+                                formik.values.martialStatus ===
+                                legalMaritalStatus
+                                ? "showCheckbox"
+                                : "hideCheckbox"
+                            }
+                          >
+                            <Zipcode
+                              id="spouseZip"
+                              name="spouseZipcode"
+                              label="Zipcode *"
+                              value={formik.values.spouseZipcode}
+                              onChange={fetchSpouseAddress}
+                              onBlur={formik.handleBlur}
+                              error={(formik.touched.spouseZipcode && Boolean(formik.errors.spouseZipcode)) || !validSpouseZip}
+                              helperText={validSpouseZip ? formik.touched.spouseZipcode && formik.errors.spouseZipcode : globalMessages.ZipCodeValid}
+                            />
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={4}
+                            id="spouseCityWrap"
+                            className={
+                              formik.values.martialStatus === "Married" ||
+                                formik.values.martialStatus ===
+                                legalMaritalStatus
+                                ? "showCheckbox"
+                                : "hideCheckbox"
+                            }
+                          >
+                            <TextField
+                              name="spousecity"
+                              label="City"
+                              id="spouseCity"
+                              value={formik.values.spousecity}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              disabled={true}
+                              error={
+                                formik.touched.spousecity &&
+                                Boolean(formik.errors.spousecity) || !validSpouseZip
+                              }
+                              helperText={
+                                validSpouseZip
+                                  ? (formik.touched.spousecity && formik.errors.spousecity)
+                                  : globalMessages.Address_Home_City
+                              }
+                            />
+                          </Grid>
+
+                          <Grid
+                            item
+                            xs={12}
+                            sm={4}
+                            id="spouseStateWrap"
+                            className={
+                              formik.values.martialStatus === "Married" ||
+                                formik.values.martialStatus ===
+                                legalMaritalStatus
+                                ? "showCheckbox"
+                                : "hideCheckbox"
+                            }
+                          >
+                            <TextField
+                              name="spouseSelectState"
+                              id="spouseState"
+                              label="State"
+                              value={formik.values.spouseSelectState}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              disabled={true}
+                              error={
+                                (formik.touched.spouseSelectState &&
+                                  Boolean(formik.errors.spouseSelectState)) || !validSpouseZip
+                              }
+                              helperText={
+                                validSpouseZip
+                                  ? (formik.touched.spouseSelectState && formik.errors.spouseSelectState)
+                                  : globalMessages.Address_State_Required
+                              }
+                            />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+
+                    {/* ****************************************************  Password Fields ***************************************** */}
+                    <Grid id = "passwordGrid" className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12}>
                       <PasswordField
                         name="password"
                         label="Create New Password *"
@@ -504,6 +845,8 @@ const preventEvent = (event) => {
                         {failed}
                       </p>
                     </Grid>
+
+    {/* **************************************************** Acknowledgements  ***************************************** */}
 
                     <Grid
                       item
@@ -685,7 +1028,11 @@ const preventEvent = (event) => {
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-                        disabled={loading}
+                        disabled={
+                           formik.values.activeDutyRank === "E4 and below" 
+                            ? true
+                            : loading
+                        }
                       >
                         {utm_source === "CreditKarma" ? "Continue" : "View your offers"}
                         <i

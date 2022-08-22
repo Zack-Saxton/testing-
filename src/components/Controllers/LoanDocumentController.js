@@ -1,6 +1,6 @@
 import Buffer from "buffer";
 import printJS from "print-js";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
@@ -25,13 +25,13 @@ export async function loanDocumentController(accountNumber) {
 function downloadFileData(fileData) {
   Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
   const buff = Buffer.from(fileData?.data?.bufferFile.data);
-  const url = window.URL.createObjectURL(new Blob([ buff ]));
+  const url = window.URL.createObjectURL(new Blob([buff]));
   const link = document.createElement("a");
   link.href = url;
   link.setAttribute("download", fileData?.data?.exportName);
   document.body.appendChild(link);
   link.click();
-  if (!toast.isActive("closeToast")) { toast.success(globalMessages.Document_download, { toastId: "closeToast" }); }
+  if (!toast.isActive("closeToast")) {toast.success(globalMessages.Document_download, {toastId: "closeToast"});}
 }
 
 /****** Document Download method *****/
@@ -57,7 +57,7 @@ export async function documentdownload(id, name, fileURL) {
 function print(data) {
   Buffer = require("buffer/").Buffer; // note: the trailing slash is important!
   const buff = Buffer.from(data?.data?.bufferFile.data);
-  let pdfFile = new Blob([ buff ]);
+  let pdfFile = new Blob([buff]);
   let pdfUrl = URL.createObjectURL(pdfFile);
   printJS(pdfUrl);
 }

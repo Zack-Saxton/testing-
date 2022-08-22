@@ -77,7 +77,6 @@ export default function MakePayment() {
   const [ loading, setLoading ] = useState(false);
   const [ totalPaymentAmount, setTotalPaymentAmount ] = useState(null);
   const [ checkAutoPay, setCheckAutoPay ] = useState(true);
-  const [ loanStatus, setLoanStatus ] = useState();
   const [ autopaySubmitDisabled, setAutopaySubmitDisabled ] = useState(true);
   const [ autopaySwitchDisabled, setAutopaySwitchDisabled ] = useState(false);
   const [ autoPayDisableMain, setAutoPayDisableMain ] = useState(false);
@@ -94,7 +93,6 @@ export default function MakePayment() {
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
   const [stateName,setStatename] = useState("");
   const [ payOffAmount, setPayOffAmount] = useState();
-  const PAST_DUE_LOAN = 'Past Due'.toLowerCase();
 
   const autoPaySwitch = ( main, secondary) => {
     return ((!main && !secondary) ? false : true)
@@ -187,6 +185,12 @@ export default function MakePayment() {
     }
   }
 
+  const handlePaymentSuccess = (message) =>{
+    toast.success(message, { autoClose: 5000 }) && refetch()
+    if (Moment(paymentDatepicker).format("YYYY/MM/DD") === Moment().format("YYYY/MM/DD")){
+      navigate("/customers/accountOverview");
+    }
+  }
   //Enable scheduled payment
   async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
     setOpenPayment(false);
@@ -199,7 +203,7 @@ export default function MakePayment() {
         result?.data?.paymentResult?.ReferenceNumber;
     result.status === 200
       ? result?.data?.paymentResult?.PaymentCompleted !== undefined
-        ? toast.success(message, { autoClose: 5000 }) && refetch()
+        ? handlePaymentSuccess(message)
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000 })
       : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, { autoClose: 5000, });
     refetch();
@@ -236,9 +240,8 @@ export default function MakePayment() {
         setPayOffAmount(data?.loanPaymentInformation?.accountDetails?.CurrentPayOffAmount);
         setPaymentAmount(totalAmount);
         setTotalPaymentAmount(totalAmount);
-        let status = data?.loanData?.status?.toLowerCase();
-        setLoanStatus(status);
-        setAutoPayDisableMain(status === PAST_DUE_LOAN ? true : false)
+        let status = data?.loanDetails?.LoanIsDelinquent;
+        setAutoPayDisableMain(status)
         setAccntNo(data.loanData?.accountNumber);
         getPaymentMethods();
         setDisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
@@ -282,9 +285,8 @@ export default function MakePayment() {
       let totalAmount = latestLoan?.length ? latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2) : null;
       setPaymentAmount(hasSchedulePaymentActive ? schedulePaymentAmount.toFixed(2) : totalAmount);
       setTotalPaymentAmount(totalAmount);
-      let status = latestLoan?.length ? latestLoan[ 0 ]?.loanData?.status?.toLowerCase() : '';
-      setLoanStatus(status);
-      setAutoPayDisableMain(status === PAST_DUE_LOAN ? true : false);
+      let status = latestLoan?.length && latestLoan[ 0 ]?.loanDetails?.LoanIsDelinquent;
+      setAutoPayDisableMain(status)
       setAccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
       getPaymentMethods();
       setDisabledContent(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
@@ -854,11 +856,11 @@ export default function MakePayment() {
         <Grid item xs={12}>
           <p data-testid="pleaseContact" className={classes.endMessage}>
             {" "}
-            <large>
+            <span>
               *If you have questions or would like to obtain a payoff balance for
               your future loan, please contact your local branch listed on your My
               Branch Page.
-            </large>
+            </span>
             <br />
           </p>
         </Grid>

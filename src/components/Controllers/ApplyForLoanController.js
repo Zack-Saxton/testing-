@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
@@ -100,7 +100,7 @@ export async function resendVerificationEmail() {
   let resendVerificationEmailMethod = await APICall(url, param, data, method, addAccessToken);
   if (resendVerificationEmailMethod?.status === 200 && resendVerificationEmailMethod?.statusText === "OK") {
     if (!toast.isActive("closeToast")) {
-      toast.success(messages?.emailVerification?.emailSentSuccess + email, { toastId: "closeToast" });
+      toast.success(messages?.emailVerification?.emailSentSuccess + email, {toastId: "closeToast"});
     }
   }
   return resendVerificationEmailMethod;
@@ -130,7 +130,7 @@ export async function verifyPasscode(passcode) {
   try {
     let url = "verify_passcode";
     let param = "";
-    let data = { passcode: passcode };
+    let data = {passcode: passcode};
     let method = "POST";
     let addAccessToken = true;
 
@@ -169,22 +169,6 @@ export async function getIDVerificationIframe() {
     return await APICall(url, param, data, method, addAccessToken);
   } catch (error) {
     ErrorLogger(globalMessages.Error_executing_getIDVerificationIframe_API, error);
-  }
-}
-
-/***** Save ID verification response *****/
-export async function saveIDVerificationResponseBefore() {
-  try {
-    let url = "save_id_verification";
-    let param = "";
-    let data = {};
-    let method = "POST";
-    let addAccessToken = true;
-
-    //API call
-    return await APICall(url, param, data, method, addAccessToken);
-  } catch (error) {
-    ErrorLogger(globalMessages.Error_executing_saveIDVerificationResponseBefore_API, error);
   }
 }
 
@@ -280,7 +264,7 @@ export async function verificationSteps() {
 }
 
 /**** To verify uploaded document ********************/
-export async function saveIDScan(requestID){
+export async function saveIDScan(requestID) {
   try {
     let url = "save_id_scane";
     let param = "";
@@ -296,7 +280,7 @@ export async function saveIDScan(requestID){
 }
 
 /**** To upload the scaned document ********************/
-export async function saveIDScanBeforeCAC(bodyContent){
+export async function saveIDScanBeforeCAC(bodyContent) {
   try {
     let url = "save_id_scane_before_cac";
     let param = "";

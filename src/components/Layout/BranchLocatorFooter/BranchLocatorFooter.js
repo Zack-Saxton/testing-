@@ -286,7 +286,7 @@ export default function BranchLocatorFooter() {
               </small>
             </p>
             <p>
-              <small data-testid="satisfactionText">
+              <small>
                 ***The reviews and/or testimonials presented on the Mariner Finance website 
                 are voluntarily provided without incentive, financial or otherwise. <a className="footerLinks" href={`${ process.env.REACT_APP_WEBSITE }/testimonials/`}>Testimonials</a> 
                 presented with individual{"’"}s consent and may have been edited for clarity and 

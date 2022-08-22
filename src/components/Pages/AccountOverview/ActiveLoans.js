@@ -29,7 +29,7 @@ export default function ActiveLoans() {
     return (numberOfDays <= 10);
   };
   const getAPRWithTwoDecimal = (number) => {
-    return number.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+    return number?.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
   }
   //View
   return (

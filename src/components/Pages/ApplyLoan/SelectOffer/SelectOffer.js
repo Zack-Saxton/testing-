@@ -351,6 +351,17 @@ useEffect(() => {
 							<Typography
 								className={classes.bottomText}
 							>
+								This process uses a {'"'}soft{'"'} credit inquiry to determine whether a
+								loan offer is available, which does not impact your credit
+								score. If you continue with the application process online and
+								accept a loan offer, or are referred to a branch and continue
+								your application there, we will pull your credit report and
+								credit score again using a “hard” credit inquiry. This “hard”
+								credit inquiry may impact your credit score.
+							</Typography>
+							<Typography
+								className={classes.bottomText}
+							>
 								*Loan funding subject to normal lending requirements, including,
 								but not limited to, verification of applicant identity,
 								submission of any required supporting documentation, and review
@@ -372,17 +383,6 @@ useEffect(() => {
 								creditworthy borrowers. All terms and conditions of a loan
 								offer, including the APR, will be disclosed during the
 								application process.
-							</Typography>
-							<Typography
-								className={classes.bottomText}
-							>
-								*This process uses a {'"'}soft{'"'} credit inquiry to determine whether a
-								loan offer is available, which does not impact your credit
-								score. If you continue with the application process online and
-								accept a loan offer, or are referred to a branch and continue
-								your application there, we will pull your credit report and
-								credit score again using a “hard” credit inquiry. This “hard”
-								credit inquiry may impact your credit score.
 							</Typography>
 						</Grid>
 					</TabPanel>

@@ -45,7 +45,7 @@ const validationSchema = yup.object({
 		.email(globalMessages.EmailValid)
 		.matches(
 			// eslint-disable-next-line
-			/^[a-zA-Z](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
+			/^[a-zA-Z0-9](?!.*[+/._-][+/._-])(([^<>()|?{}='[\]\\,;:#!$%^&*\s@\"]+(\.[^<>()|?{}=/+'[\]\\.,;_:#!$%^&*-\s@\"]+)*)|(\".+\"))[a-zA-Z0-9]@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,3}))$/, //eslint-disable-line
 			globalMessages.EmailValid
 		)
 		.required(globalMessages.EmailRequired),
@@ -201,6 +201,7 @@ function PersonalInfo() {
 		onSubmit: async (values) => {
 			const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : "{ }");
 			setLoading(true);
+			Cookies.set("firstName",values.firstName)
 			//To check the component is mounted or not to update the state
 			if (componentMounted.current) {
 				data.firstName = values.firstName.trim();

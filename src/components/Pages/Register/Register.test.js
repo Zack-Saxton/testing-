@@ -154,7 +154,7 @@ test("Zipcode Valid Input", async () => {
 	await act(() => {
 		fireEvent.change(input, { target: { value: "abc" } });
 	});	
-	expect(input.value).toBe("");
+	expect(input.value).not.toBe(true);
 	await act(() => {
 		fireEvent.change(input, { target: { value: "12345" } });
 	});	

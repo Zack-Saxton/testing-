@@ -69,7 +69,8 @@ export default function DocumentPhoto(props) {
 				saveIDScan(event.data.request_id );
 				event.source.window.postMessage({ isVerified: true, }, "*");
 			} else if (event.data.idscanPayload) {
-				saveIDScanBeforeCAC(event.data);
+				//Commented this line because of uploding document multiple times
+				//saveIDScanBeforeCAC(event.data);
 			}
 		} catch (errorAPI) {
 			toast.error("Error uploading document "+errorAPI);
@@ -94,7 +95,7 @@ export default function DocumentPhoto(props) {
 		} else {
 			window.attachEvent("onmessage", onMessageHandler);
 		}
-	});
+	}, []);
 
 	//call function load
 	useEffect(() => {
