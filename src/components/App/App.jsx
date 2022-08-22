@@ -156,8 +156,8 @@ function App() {
                                                 <Route path='/faq' element={loadGeneralUserComponent(<FaqBeforeLogin />)} />
                                                 <Route path='/privacyStatement' element={loadGeneralUserComponent(<Disclosure URL="/privacy" />)} />
                                                 <Route path='/communityGuidelines' element={loadGeneralUserComponent(<Disclosure URL="/communityGuidelines" />)} />
-                                                <Route path='/termsofuse' element={loadGeneralUserComponent(<Disclosure URL="/termsOfUse" />)} />
-                                                <Route path='/cac-termsofuse' element={loadGeneralUserComponent(<Disclosure URL="/cacTermsOfUse" />)} />
+                                                <Route path='/termsofuse' element={loadGeneralUserComponent(<Disclosure URL="/cacTermsOfUse" />)} />
+                                                <Route path='/cac-termsofuse' element={loadGeneralUserComponent(<Disclosure URL="/termsOfUse" />)} />
                                                 <Route path='/licenseDisclosure' element={loadGeneralUserComponent(<Disclosure URL="/licensing" />)} />
                                                 <Route path='/textingTermsOfUse' element={loadGeneralUserComponent(<Disclosure URL="/textingTermsOfUse" />)} />
                                                 <Route path='/californiaResident' element={loadGeneralUserComponent(<Disclosure URL="/california" />)} />
