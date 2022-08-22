@@ -4,6 +4,7 @@ import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import {statusStrLinks_PartnerSignUp} from "../lib/StatusStrLinks";
+import { trimSpecialCharacters } from "../Controllers/CommonController";
 
 let statusStrLink = statusStrLinks_PartnerSignUp;
 
@@ -14,7 +15,7 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
     partner_token: partnerToken,
     applicant_id: applicantId,
     ssn_last_four: partnerSignupData.ssn,
-    phone: partnerSignupData.phone,
+    phone: trimSpecialCharacters(partnerSignupData.phone),
     phone_type: partnerSignupData.phoneType,
     password: partnerSignupData.password,
     password_confirm: partnerSignupData.confirm_password,

@@ -1,5 +1,5 @@
 import axios from "axios";
-import getClientIp from "../Controllers/CommonController";
+import getClientIp, { trimSpecialCharacters } from "../Controllers/CommonController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import globalMessages from "../../assets/data/globalMessages.json";
@@ -40,7 +40,7 @@ export async function checkMyOfferSubmit(customer) {
 			"address_state": customer.state,
 			"address_street": customer.streetAddress,
 			"email": customer.email,
-			"phone_number_primary": customer.phone,
+			"phone_number_primary": trimSpecialCharacters(customer.phone),
 			"phone_type": "Cell",
 		}
 
@@ -160,7 +160,7 @@ export async function checkMyOfferSubmit(customer) {
 						"annual_income": customer.annualIncome,
 						"household_annual_income": customer.householdAnnualIncome,
 						"employment_status": customer.employmentStatus,
-						"employer_phone_number": customer.EmployerPhone,
+						"employer_phone_number": trimSpecialCharacters(customer.EmployerPhone),
 						"loan_purpose": customer.loanPurpose,
 						"tenure_at_employer": customer.yearsAtEmployers,
 						"marital_status": customer.maritalStatus,
@@ -264,8 +264,8 @@ export async function creatProspect(body) {
 			"ssn": body.ssn,
 			"address_postal_code": body.zip,
 			"password": null,
-			"phone": body.phone,
-			"phone_type": null,
+			"phone": trimSpecialCharacters(body.phone),
+			"phone_type": "Cell",
 			"citizenship": body.citizenship,
 			"income": null,
 			"household_annual_income": null,
