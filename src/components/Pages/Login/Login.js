@@ -383,7 +383,7 @@ export default function Login(props) {
         </DialogActions>
       </Dialog>
       <Popup popupFlag={cacTerms} title='Terms Of Use' closePopup={handleOnClickCacTermsClose}>
-        <RenderContent disclosureLink="/cacTermsOfUse" findContent="<h2>Terms Of Use</h2>" replaceContent='' />
+        <RenderContent disclosureLink="/termsOfUse" findContent="<h2>Terms of Use</h2>" replaceContent='' />
       </Popup>
     </div>
 

@@ -45,7 +45,7 @@ export default function Footer() {
                 </a>
               </div>
               <div className="footer-content">
-                <NavLink to="/cac-termsofuse" target="_blank" className="hrefTag" data-testid="termsofuse">
+                <NavLink to="/termsofuse" target="_blank" className="hrefTag" data-testid="termsofuse">
                   <Typography className="normalFooterFont">
                     Terms of Use
                   </Typography>
@@ -88,7 +88,7 @@ export default function Footer() {
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink to="/termsofuse" target="_blank" className="hrefTag" data-testid="cac-termsofuse">
+                <NavLink to="/cac-termsofuse" target="_blank" className="hrefTag" data-testid="cac-termsofuse">
                   <Typography className="normalFooterFont">
                     CAC Terms of Use
                   </Typography>
