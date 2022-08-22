@@ -130,7 +130,6 @@ export async function PopulatePartnerReferred(applicantId) {
 }
 
 export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
-  console.log("dataConfirmInfo",dataConfirmInfo)
   const email = Cookies.get("email");
   let url = "partner_confirm_info";
   let param = "";
@@ -166,7 +165,6 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
   //API call
   let PartnerConfirmationAPI = await APICall(url, param, data, method, addAccessToken);
 
-  console.log('DAXY Response :: ', JSON.stringify(PartnerConfirmationAPI, null, 4));
   PartnerConfirmationAPI?.status === 200
     ? toast.success(PartnerConfirmationAPI?.data?.statusText ? PartnerConfirmationAPI?.data?.statusText : "Successfully registered",
       {
