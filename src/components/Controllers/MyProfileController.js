@@ -200,7 +200,7 @@ export async function addCreditCard(values, cardType) {
       "cardholder_name": values.cardName,
       "card_number": values.cardNumber,
       "issuer": cardType,
-      "cvv": parseInt(values.cvv),
+      "cvv": values.cvv,
       "exp_date": expiryDate,
       "defaultBank": values.setDefault ? 1 : 0
     };
