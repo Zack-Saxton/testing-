@@ -141,6 +141,10 @@ export default function StatePage() {
       .join(' ');
   }
   useEffect(() => {
+    document.title = `Personal Loans in  ${branch_Details?.current?.BranchName}, ${stateShortName ?? stateShortNm?.current} | Mariner Finance Branch | Discover More `;
+  }, [branch_Details?.current?.BranchName, stateShortName]);
+
+  useEffect(() => {
     if (!location?.state) {
       let pathName = location?.pathname.split('/');
       let FixString = 'personal-loans-in-'.length;
@@ -319,7 +323,7 @@ export default function StatePage() {
                   state={{ branch_Details: item, stateLongNm: stateLongName, stateShortNm: stateShortName }}
                   className="nav_link"
                   onClick={() => {
-                    document.title = `Personal Loans in ${ item.BranchName }, ${ stateShortName } | Mariner Finance Branch | Discover More`;
+                    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
                   }}
                 >
                   <b>
@@ -458,7 +462,7 @@ export default function StatePage() {
         <link rel="canonical" href={window.location.href} />
         <meta
           name="description"
-          content={`Looking for a personal loan in ${ branch_Details?.current?.BranchName }, ${ stateShortName ?? stateShortNm?.current } ? Our ${ branch_Details?.current?.BranchName }, ${ stateLongNm?.current } branch welcomes you for personal loans that fit your needs.`}
+          content={`Looking for a personal loan in ${ branch_Details?.current?.BranchName }, ${ stateShortName ?? stateShortNm?.current }? Our ${ branch_Details?.current?.BranchName }, ${ stateLongNm?.current } branch welcomes you for personal loans that fit your needs.`}
         />
       </Helmet>
       <Grid className="greyBackground" container justifyContent={"center"}>
