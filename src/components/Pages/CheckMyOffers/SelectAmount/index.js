@@ -29,11 +29,19 @@ const useStyles = makeStyles(() => ({
     marginTop: "5%",
     marginBottom: "2%",
   },
+  showSection:{
+    color:"#fec33a"
+  },
+  hideSection:{
+    color:"#c4c4c4"
+  },
 }));
 
 //initializing check my offers functonal component
 function SelectAmount(props) {
   const { data, setData, resetData } = useContext(Check);
+  const [ hoverColor, setHoverColor ] = useState(true);
+  const [ amount, setAmount ] = useState(true);
   const [ hasOfferCode, setHasOfferCode ] = useState(props?.enableOffer ?? false);
   const classes = preLoginStyle();
   const innerClasses = useStyles();
@@ -128,6 +136,14 @@ function SelectAmount(props) {
     }
   };
 
+  const changeColor = () =>{
+    if (hoverColor !== false){
+      setHoverColor(false);
+    }     
+    if (amount !== false){
+      setAmount(false);
+    } 
+}
   // jsx part
   return (
     <div data-testid="check-my-affer-select-amout">
@@ -169,12 +185,16 @@ function SelectAmount(props) {
                 >
                   <Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
                     <Slider
+                      amount={amount}
+                      marks={[]}
                       id="sliderBar"
-                      className="setSlider"
+                      className={hoverColor ? innerClasses.hideSection : innerClasses.showSection}
+                      onMouseEnter={changeColor} 
                       name="slider"
                       defaultValue={select ? select : 10000}
                       setSelect={setSelect}
-                      label="Select Loan Amount†"
+                      min={1000}
+                      max={25000}
                     />
                   </Grid>
                 </Grid>
