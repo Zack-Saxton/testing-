@@ -93,12 +93,24 @@ export default function MakePayment() {
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
   const [stateName,setStatename] = useState("");
   const [ payOffAmount, setPayOffAmount] = useState();
+  const [ paymentList, setPaymentList ] = useState();
+  const [ currentPayment, setCurrentPayment ] = useState(false);
 
   const autoPaySwitch = ( main, secondary) => {
     return ((!main && !secondary) ? false : true)
   }
 
   let nextDueDateCheck = new Date();
+
+  useEffect(() => {
+    if(User && accntNo){
+      let findLoan = User?.data?.loanHistory?.length ? User.data.loanHistory.find((loan) => loan.accountNumber === accntNo) : null
+      setPaymentList(findLoan)  
+      let presenceOfCurrentPayment = findLoan?.AppAccountHistory?.length ? findLoan.AppAccountHistory[0]?.TransactionDate : null
+      setCurrentPayment(Moment(presenceOfCurrentPayment).format("MM/DD/YYYY") === Moment(paymentDatepicker).format("MM/DD/YYYY") ? true : false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [User, accntNo, paymentDatepicker])
 
   useEffect(() => {
     setStatename(User?.data?.applicant?.contact?.address_state);
@@ -1019,6 +1031,7 @@ export default function MakePayment() {
 
       <Dialog
         open={openPayment}
+        maxWidth="sm"
         id="scheduleDialogBox"
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -1034,10 +1047,19 @@ export default function MakePayment() {
           </IconButton>
         </DialogTitle>
         <DialogContent className="scheduleTxtWrap">
+          {currentPayment 
+          ? 
+          <Typography id="scheduleTxt" className={classes.dialogHeading}>
+            You have already submitted a payment for today.<br/> 
+            If you proceed, your payment of: {numberFormat(paymentAmount)} will be applied to 
+            your account.
+          </Typography>
+          :
           <Typography id="scheduleTxt" className={classes.dialogHeading}>
             Your Payment of: {numberFormat(paymentAmount)} will be applied to
             your account.
           </Typography>
+          }
           <TableContainer>
             <Table
               className={classes.table}
