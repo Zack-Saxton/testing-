@@ -131,6 +131,7 @@
   "Error_executing_mapInformationBranchLocator": "Error from mapInformationBranchLocator",
   "Error_executing_RegisterController_API": "Error executing RegisterController API",
   "Error_executing_MyBranchAPI_API": "Error executing MyBranchAPI API",
+  "Error_executing_Google_Time_Zone_API": "Error executing Google Time Zone API",
   "Error_executing_Send_Login_Passcode_API": "Error executing sendLoginPasscode API",
   "Error_executing_Verify_Login_Passcode_API": "Error executing verifyLoginPassCode API",
   "Error_executing_mailingAddress_API": "Error executing mailingAddress API",

@@ -48,6 +48,8 @@ const dateFormat = "YYYY-MM-DD";
 export default function ScheduleAppointment({
   MyBranchAppointment,
   holidayData,
+  latitude,
+  longitude
 }) {
   //Material UI css class
   const classes = useStylesMyBranch();
@@ -66,7 +68,6 @@ export default function ScheduleAppointment({
       holidayAPIDataValues.includes(appointmentDate.getTime())
     );
   }
-
   //Validating current date is holiday
   const today = new Date();
   const todayDate = (Moment(today).format(dateFormat));
@@ -107,7 +108,7 @@ export default function ScheduleAppointment({
         .zoneAbbr();
 
       setLoading(true);
-      let response = await ScheduleVisitApi(visitDate, visitTime, visitTimeZone);
+      let response = await ScheduleVisitApi(visitDate, visitTime, visitTimeZone, latitude, longitude);
       if (response) {
         formik.values.appointmentDate = null;
         formik.values.appointmentTime = "";
@@ -303,4 +304,6 @@ export default function ScheduleAppointment({
 ScheduleAppointment.propTypes = {
   MyBranchAppointment: PropTypes.object,
   holidayData: PropTypes.array,
+  latitude: PropTypes.string,
+  longitude: PropTypes.string
 };

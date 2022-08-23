@@ -2,6 +2,8 @@ import {toast} from "react-toastify";
 import globalMessages from "../../assets/data/globalMessages.json";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
+import { getTimeZoneDetails } from "../Controllers/CommonController";
+
 /***** My branch details *****/
 export default async function MyBranchAPI() {
   try {
@@ -20,8 +22,9 @@ export default async function MyBranchAPI() {
 }
 
 /***** Schedule call ****/
-export async function ScheduleCallApi(callDate, callingTime, callTimeZone) {
+export async function ScheduleCallApi(callDate, callingTime, callTimeZone, latitude, longitude) {
   //API
+  let zoneDetails = await getTimeZoneDetails(latitude, longitude);
   let url = "myBranch_scheduleMeet";
   let param = "";
   let data = {
@@ -29,11 +32,13 @@ export async function ScheduleCallApi(callDate, callingTime, callTimeZone) {
       date: callDate,
       time: callingTime,
       time_zone_timeZoneName: callTimeZone,
+      time_zone_dstOffset: zoneDetails?.dstOffset ?? "",
+      time_zone_rawOffset: zoneDetails?.rawOffset ?? "",
     },
     type: "call",
     phone_number: "",
     isAuthenticated: true,
-  };
+  };  
   let method = "POST";
   let addAccessToken = true;
 
@@ -48,8 +53,9 @@ export async function ScheduleCallApi(callDate, callingTime, callTimeZone) {
 }
 
 /***** Schedule appoitment *****/
-export async function ScheduleVisitApi(visitDate, visitTime, visitTimeZone) {
+export async function ScheduleVisitApi(visitDate, visitTime, visitTimeZone, latitude, longitude) {
   //API
+  let zoneDetails = await getTimeZoneDetails(latitude, longitude);
   let url = "myBranch_scheduleMeet";
   let param = "";
   let data = {
@@ -57,6 +63,8 @@ export async function ScheduleVisitApi(visitDate, visitTime, visitTimeZone) {
       date: visitDate,
       time: visitTime,
       time_zone_timeZoneName: visitTimeZone,
+      time_zone_dstOffset: zoneDetails?.dstOffset ?? "",
+      time_zone_rawOffset: zoneDetails?.rawOffset ?? "",
     },
     type: "visit",
     phone_number: "",
