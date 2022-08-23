@@ -57,11 +57,13 @@ function ReferredToBranch(props) {
 					<Typography>
 						We may be able to help but we need a bit more information to finish the application and verification process.* Let{"’"}s get on a call**
 					</Typography>
+					<a href={`tel:${branchPhoneNumber}`} >
 					<ButtonPrimary stylebutton='{"background": ""}'>
 						Call Now
 						<br/>
-						<a href={`tel:${branchPhoneNumber}`}>{ branchPhoneNumber }</a>
+						{ branchPhoneNumber }
 					</ButtonPrimary>
+					</a>
 					<Typography variant="h6">
 						Applying after hours? Schedule a call below
 					</Typography>
