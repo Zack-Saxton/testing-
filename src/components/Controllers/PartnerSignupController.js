@@ -161,7 +161,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
     partner_token: dataConfirmInfo.partner_token
   };
   let method = "POST";
-  let addAccessToken = false;
+  let addAccessToken = true;
   //API call
   let PartnerConfirmationAPI = await APICall(url, param, data, method, addAccessToken);
 
