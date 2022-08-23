@@ -156,13 +156,10 @@
   padding-left: 15px;
 }
 
-.OverviewAccountNumberText {
-  padding-top: 20px;
-}
-
 .OverviewAccountNumberText p {
   margin: 0;
   line-height: 1.5;
+  padding-bottom: 1.9px;
 }
 
 #offerText a {

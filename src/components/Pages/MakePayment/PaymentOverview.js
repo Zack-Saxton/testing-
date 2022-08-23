@@ -28,7 +28,7 @@ export default function PaymentOverview(props) {
                         Regular Amount
                     </TableCell>
                     <TableCell className={classes.tableHead} align="right">
-                        Interest Rate
+                        APR
                     </TableCell>
                     <TableCell className={classes.tableHead} align="right">
                         Loan Fees
@@ -77,7 +77,7 @@ export default function PaymentOverview(props) {
                                     <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.RegularPaymentAmount)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />
                                 </TableCell>
                                 <TableCell className={`${ classes.tableHeadRow } ${ classes.tableHead }`} align="right">
-                                    <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.InterestRate)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} suffix={'%'} />
+                                    <NumberFormat value={Math.abs(row.loanDetails.OriginalAPR)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} suffix={'%'} />
                                 </TableCell>
                                 <TableCell className={`${ classes.tableHeadRow } ${ classes.tableHead }`} align="right">
                                     <NumberFormat value={Math.abs(row.loanPaymentInformation.accountDetails.LoanFeesAndCharges)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />

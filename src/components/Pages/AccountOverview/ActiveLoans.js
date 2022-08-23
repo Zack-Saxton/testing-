@@ -245,7 +245,7 @@ export default function ActiveLoans() {
                         sm={3}
                       >
                         <Paper id="overviewWrap" className={classes.paper}>
-                          <Grid item xs={12}>
+                          <Grid container item xs={12} className={classes.overviewGrid}>
                             <Typography
                               variant="h5"
                               className={classes.activeLoanSubHeading}
