@@ -54,18 +54,8 @@ export default function BranchDetail(MyBranchDetail) {
   //Branch details from API
   let branchDetail = MyBranchDetail;
 
-  //Spliting statename
-  let stateName = branchDetail?.MyBranchDetail
-    ? branchDetail?.MyBranchDetail?.result
-      ? null
-      : branchDetail?.MyBranchDetail?.message
-        ? null
-        : branchDetail?.MyBranchDetail
-          ? branchDetail?.MyBranchDetail?.Address?.split(",")
-          [ branchDetail?.MyBranchDetail?.Address?.split(",").length - 1 ].trim()
-            .substring(0, 2)
-          : null
-    : null;
+  //Statename
+  let stateName = branchDetail?.MyBranchDetail?.branchstate;
 
   //Formating Phone Number
   function formatPhoneNumber(phoneNumber) {
