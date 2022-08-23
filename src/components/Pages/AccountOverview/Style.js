@@ -120,8 +120,11 @@ const useStylesAccountOverview = makeStyles((theme) => ({
     color: "#171717",
     fontWeight: "400",
     fontSize: "18px",
-    margin: "auto",
-    lineHeight: "2.7",
+  },
+  overviewGrid:{
+    flexDirection:"column",
+    justifyContent:"space-between",
+    alignItems:"flex-start"
   },
   activeLoanSubHeading_content: {
     color: "#171717",

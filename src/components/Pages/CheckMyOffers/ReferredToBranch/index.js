@@ -73,7 +73,7 @@ function ReferredToBranch(props) {
 						</a>
 							
 					<Typography variant="h6">
-						Can{"'"}t talk or get in touch with us? That{"'"}s ok, schedule a call back time and will call you back at your earliest convience.
+						Can{"'"}t talk or get in touch with us? That{"'"}s ok, schedule a call back time and we will call you back at your earliest convenience.
 					</Typography>
 					</Grid>
 					</Grid>
