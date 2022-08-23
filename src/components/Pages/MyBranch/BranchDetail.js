@@ -151,7 +151,7 @@ export default function BranchDetail(MyBranchDetail) {
                 <Grid className={classes.branchDetailGrid}>
                   <h4 className={classes.branchDetailHeading}>Working Hours</h4>
                 </Grid>
-                <Table className={classes.table} aria-label="simple table">
+                <Table id="workingHoursCATableWrap" className={classes.table} aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <TableCell>Day</TableCell>

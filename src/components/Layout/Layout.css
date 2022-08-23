@@ -79,6 +79,7 @@
 }
 .logInLink p{
   margin-right: 0 !important;
+  margin-left: 35px !important;
 }
 
 #blogsLink a:hover {
