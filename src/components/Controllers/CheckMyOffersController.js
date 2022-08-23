@@ -3,7 +3,7 @@ import getClientIp, { trimSpecialCharacters } from "../Controllers/CommonControl
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import globalMessages from "../../assets/data/globalMessages.json";
-
+import Moment from "moment";
 
 export async function checkMyOfferSubmit(customer) {
 
@@ -180,7 +180,7 @@ export async function checkMyOfferSubmit(customer) {
 				"customer": {
 					"identification": {
 						"citizenship": customer.citizenship,
-						"date_of_birth": customer.dob,
+						"date_of_birth": Moment(customer.dob).format("MM/DD/YYYY"),
 						"age": Math.abs(new Date(Date.now() - customer.dob.getTime()).getUTCFullYear() - 1970),
 						"social_security_number_backup": customer.ssn,
 						"social_security_number": customer.ssn,
