@@ -687,7 +687,7 @@
 	padding: 2.3% 0%;
 	text-align: center;
 }
-.callNowSection button{
+.callNowSection  a button{
 	height: 80px !important;
 	border-radius: 10px !important;
 	font-size: 1.5rem;
@@ -697,11 +697,14 @@
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	margin: auto;
 }
-.callNowSection button a{
+
+.callNowSection  a{
 		margin-top: 10px;
 		color: #000;
 		text-decoration: none;
+		width: 100%;
 }
 .secondaryButton{
 	display: flex;
@@ -719,9 +722,7 @@
 	color: #fff;
 	border: 1px solid #fff;
 }
-.secondaryButton a button{
-	margin: 0;
-	width: 100%;
+.secondaryButton a button{	
 	color: #fff;
 }
 .secondaryButton a {
