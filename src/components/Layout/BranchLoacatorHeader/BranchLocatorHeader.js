@@ -532,7 +532,7 @@ const BranchLocatorHeader = () => {
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
                 {!loginToken.isLoggedIn ? (
-                  <Link href="/login">Apply Now</Link>
+                  <Link href="/select-amount">Apply Now</Link>
                 ) : (
                   <div onClick={logoutMobileUser} >
                     <span className={classes.signOutSpan}>Sign out</span>
