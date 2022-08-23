@@ -63,7 +63,7 @@ const validationSchema = yup.object({
 export default function BankAccountVerification(props) {
 	const classes = useStylesApplyForLoan();
 	//Initializing state variables
-	const [ accountType, setAccountType ] = useState("saving");
+	const [ accountType, setAccountType ] = useState("Savings Account");
 	const [ paymnetMode, setPaymentMode ] = useState("autopayment");
 	const [ verifyRequired, setVerifyRequired ] = useState(false);
 	const [ error, setError ] = useState("");
@@ -231,7 +231,7 @@ export default function BankAccountVerification(props) {
 						id="accountTypeRadioTxt"
 						name="accountType"
 						labelforform="Account Type"
-						radiolabel='[{"label":"Savings", "value":"saving"},{"label":"Checking", "value":"checking"}]'
+						radiolabel='[{"label":"Savings", "value":"Savings Account"},{"label":"Checking", "value":"Checking Account"}]'
 						checked={accountType}
 						onClick={(event) => {
 							setAccountType(event);
