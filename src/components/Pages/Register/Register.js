@@ -145,7 +145,7 @@ export default function Register() {
         let customerStatus = await RegisterController(body);
         let register = customerStatus?.data?.message
         let passwordReset = customerStatus?.data?.successMessage
-        if(customerStatus?.data?.statusCode !== 400 && !customerStatus?.data?.errorMessage){
+        if(customerStatus?.data?.statusCode !== 400 && (!customerStatus?.data?.errorMessage && !customerStatus?.data?.error)){
           toast.success(register ? register : passwordReset);
           loginUser(values);
         } else if (customerStatus?.data?.errorMessage === globalMessages.Multiple_Records){
