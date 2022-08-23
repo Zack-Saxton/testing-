@@ -40,11 +40,17 @@ export default function BranchDetail(MyBranchDetail) {
 
   //API call
   const [ holidayCalenderApi, SetHolidayCalenderApi ] = useState(null);
+  const [latitude,setLatitude] = useState();
+  const [longitude,setLongitude] = useState();
   async function AsyncEffect_HolidayCalender() {
     SetHolidayCalenderApi(await HolidayCalender());
   }
   useEffect(() => {
     AsyncEffect_HolidayCalender();
+    navigator.geolocation.getCurrentPosition(function(position){
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+  });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -184,6 +190,8 @@ export default function BranchDetail(MyBranchDetail) {
               <ScheduleCall
                 MyBranchCall={MyBranchDetail}
                 holidayData={holidayCalenderData}
+                latitude={latitude}
+                longitude={longitude}
               />
             </Grid>
 
@@ -195,6 +203,8 @@ export default function BranchDetail(MyBranchDetail) {
               <ScheduleAppointment
                 MyBranchAppointment={MyBranchDetail}
                 holidayData={holidayCalenderData}
+                latitude={latitude}
+                longitude={longitude}
               />
             </Grid>
           </>

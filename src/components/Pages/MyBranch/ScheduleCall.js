@@ -47,7 +47,7 @@ const validationSchema = yup.object({
     .required(globalMessages.Appointment_Time_Required),
 });
 const dateFormat = "YYYY-MM-DD";
-export default function ScheduleCall({ MyBranchCall, holidayData }) {
+export default function ScheduleCall({ MyBranchCall, holidayData, latitude, longitude }) {
   //Material UI css class
   const classes = useStylesMyBranch();
   const refFormCall = useRef();
@@ -65,7 +65,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
       holidayAPIDataValues.includes(appointmentDate.getTime())
     );
   }
-
+  
   //Validating current date is holiday
   const today = new Date();
   const todayDate = (Moment(today).format(dateFormat));
@@ -105,7 +105,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
         .zoneAbbr();
 
       setLoading(true);
-      let response = await ScheduleCallApi(callDate, callingTime, callTimeZone);
+      let response = await ScheduleCallApi(callDate, callingTime, callTimeZone, latitude, longitude);
       if (response) {
         formik.values.appointmentDate = null;
         formik.values.callTime = "";
@@ -305,4 +305,6 @@ export default function ScheduleCall({ MyBranchCall, holidayData }) {
 ScheduleCall.propTypes = {
   MyBranchCall: PropTypes.object,
   holidayData: PropTypes.array,
+  latitude: PropTypes.string,
+  longitude: PropTypes.string
 };
