@@ -10,6 +10,7 @@ import { NavContext } from "../../../../contexts/NavContext";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { hardPullCheck } from "../../../Controllers/ApplyForLoanController";
+import getClientIp from "../../../Controllers/CommonController";
 import { ButtonSecondary, ButtonWithIcon, Checkbox } from "../../../FormsUI";
 import Iframe from "../../../FormsUI/iframe";
 import APICall from "../../../lib/AxiosLib";
@@ -78,7 +79,12 @@ useEffect(()=>{
 
   const submitOnClick = async (_event) => {
     setLoading(true);
-    let dataStatus = {};
+    let ipAddress = await getClientIp();
+    let dataStatus = {
+      geoip: {
+        ip: ipAddress
+      }
+};
     let authenticateStatus = await APICall("esignature_complete", '', dataStatus, "POST", true);
     if (authenticateStatus?.data?.message === "Applicant successfully updated") {
       let hardPull = await hardPullCheck();
