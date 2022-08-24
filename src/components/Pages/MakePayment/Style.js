@@ -114,7 +114,13 @@ const useStylesMakePayment = makeStyles((theme) => ({
     paddingTop: "10px",
   },
   paymentButtonStyle: {
-    paddingTop: "25px"
+    paddingTop: "15px"
+  },
+  paymentNote: {
+    paddingTop: "10px",
+    fontWeight: "900",
+    fontSize: "1.15rem",
+    color: "black",
   },
   dialogActionStyle: {
     justifyContent: "center",
