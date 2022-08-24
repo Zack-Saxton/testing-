@@ -48,6 +48,7 @@ import PersonalInfo from '../Pages/CheckMyOffers/PersonalInfo';
 import PreApproved from "../Pages/CheckMyOffers/PreApproved";
 import ReferredToBranch from "../Pages/CheckMyOffers/ReferredToBranch";
 import SelectAmount from '../Pages/CheckMyOffers/SelectAmount';
+import SelectAmountRouting from '../Pages/CheckMyOffers/SelectAmount/SelectAmountRouting';
 import ZipCode from '../Pages/CheckMyOffers/Zipcode';
 import EmailVerification from "../Pages/EmailVerification/EmailVerification";
 import FaqBeforeLogin from "../Pages/Faq/FaqBeforeLogin";
@@ -223,13 +224,14 @@ function App() {
                                                         <Route path='*' element={loadGeneralUserComponent(<PartnerSignUP />)} />
                                                     </Route>
                                                     <Route path='confirm-signup' element={loadGeneralUserComponent(<ConfirmationInfo />)} />
-                                                    <Route path='*' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
+                                                    <Route path='' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
                                                 </Route>
                                                 <Route path='branch' >
                                                     <Route path='verifyemail' element={loadGeneralUserWithoutHeader(<EmailVerification />)} />
-                                                    <Route path='*' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
+                                                    <Route path='' element={loadGeneralUserComponent(<ErrorBeforeLogin />)} />
                                                 </Route>
                                                 <Route path='offers' >
+                                                <Route path=''  element={<SelectAmountRouting />} />
                                                     <Route path='none-available' element={loadGeneralUserComponent(<SpringFourNoOffersAvailable />)} />
                                                     <Route path='referral' element={loadGeneralUserComponent(<ReferredToBranch />)} />
                                                     <Route path='no-offers' element={loadGeneralUserComponent(<AmOneNoOffersAvailable />)} />
