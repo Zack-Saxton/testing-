@@ -13,7 +13,7 @@ export default function CustomerRatings() {
 
   return (
     <Grid data-testid="feefoRatingComponent" className="blueBGColor">
-      <h4>Customer Ratings</h4>
+      <h4>Customer Ratings***</h4>
       <div id="feefo-service-review-carousel-widgetId" className="feefo-review-carousel-widget-service" >
       </div>
     </Grid>
