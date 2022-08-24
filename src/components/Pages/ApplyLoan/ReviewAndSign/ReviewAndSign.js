@@ -88,7 +88,8 @@ useEffect(()=>{
         toast.success(authenticateStatus?.data?.message);
         navigate("/customers/finalVerification");
       } else {
-        setLoading(false);
+        //temporarily commented below line because getting error response in hardpull API
+        //setLoading(false);
         toast.error(messages.reviewAndSignin.eSignFailed);
       }
     } else {

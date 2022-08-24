@@ -151,7 +151,13 @@ export async function hardPullCheck() {
     let addAccessToken = true;
 
     //API call
-    return await APICall(url, param, data, method, addAccessToken);
+    let response =  await APICall(url, param, data, method, addAccessToken);
+    //When getting response other then 200, Capture logger
+    if (response?.data?.status !== 200){
+      let logData = {'request': data, 'response':response};
+      ErrorLogger("Failure response from hardpull API", JSON.stringify(logData));
+    }
+    return response
   } catch (error) {
     ErrorLogger(globalMessages.Error_executing_hardPullCheck_API, error);
   }
