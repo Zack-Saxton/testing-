@@ -200,10 +200,12 @@ export default function MakePayment() {
   }
 
   const handlePaymentSuccess = (message) =>{
-    toast.success(message, { autoClose: 5000 }) && refetch()
+    toast.success(message, { autoClose: 5000 }) 
+    refetch().then(() => {
     if (Moment(paymentDatepicker).format("YYYY/MM/DD") === Moment().format("YYYY/MM/DD")){
       navigate("/customers/accountOverview");
     }
+  })
   }
   //Enable scheduled payment
   async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
