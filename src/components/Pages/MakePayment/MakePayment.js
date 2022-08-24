@@ -95,6 +95,7 @@ export default function MakePayment() {
   const [ payOffAmount, setPayOffAmount] = useState();
   const [ paymentList, setPaymentList ] = useState();
   const [ currentPayment, setCurrentPayment ] = useState(false);
+  const [ currentPaymentNote, setCurrentPaymentNote ] = useState(false);
 
   const autoPaySwitch = ( main, secondary) => {
     return ((!main && !secondary) ? false : true)
@@ -108,6 +109,7 @@ export default function MakePayment() {
       setPaymentList(findLoan)  
       let presenceOfCurrentPayment = findLoan?.AppAccountHistory?.length ? findLoan.AppAccountHistory[0]?.TransactionDate : null
       setCurrentPayment(Moment(presenceOfCurrentPayment).format("MM/DD/YYYY") === Moment(paymentDatepicker).format("MM/DD/YYYY") ? true : false)
+      setCurrentPaymentNote(Moment(presenceOfCurrentPayment).format("MM/DD/YYYY") === Moment().format("MM/DD/YYYY") ? true : false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [User, accntNo, paymentDatepicker])
@@ -829,6 +831,11 @@ export default function MakePayment() {
                               {requiredDate}
                             </p>
                           </Grid>
+                          {currentPaymentNote 
+                            ? 
+                            <Typography className={classes.paymentNote}>Note: We have already processed a payment from you today.</Typography>
+                            :
+                            null}
                           <Grid id="paymentBtnWrap" className={classes.paymentButtonStyle}>
                             <Grid id="make-payment-cancel-button-grid">
                               <ButtonSecondary
