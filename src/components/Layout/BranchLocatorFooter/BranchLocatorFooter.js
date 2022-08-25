@@ -9,14 +9,23 @@ import React, { useState } from "react";
 import Housing from "../../../assets/images/equal_Housing_Lender.png";
 import Logo from "../../../assets/images/mf-logo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
+import SocialMediaDialog from "../ConsumerFooterDialog/SocialMediaDialog";
 import "./BranchLocatorFooter.css";
 import globalMessages from "../../../assets/data/globalMessages.json";
 
 export default function BranchLocatorFooter() {
   const [ consumer, setConsumer ] = useState(false);
+  const [ socialMedia, setSocialMedia ] = useState(false);
+  const [ URL, setURL] = useState('');
   // Consumer popup
   const handleOpenConsumer = () => {
     setConsumer(true);
+  };
+  
+  // Social media redirect popup
+  const handleOpensocialMedia = (customUrl) => {
+    setURL(customUrl);
+    setSocialMedia(true);
   };
 
   const footers = [
@@ -201,36 +210,33 @@ export default function BranchLocatorFooter() {
                       </Typography>
                       {element.title === "Stay Connected" ? (
                         <Grid className="socialIconsWrap">
-                          <a
-                            data-testid="facebookIcon"
-                            target="_blank"
-                            rel="noreferrer"
-                            href="https://www.facebook.com/MarinerFinance/"
-                          >
-                            <IconButton className="socialIcons">
+                          <span data-testid="facebookIcon">
+                            <IconButton
+                            onClick={()=>{
+                              handleOpensocialMedia("https://www.facebook.com/MarinerFinance/")
+                            }}
+                            className="socialIcons">
                               <FacebookIcon />
                             </IconButton>
-                          </a>
-                          <a
-                            data-testid="twitterIcon"
-                            target="_blank"
-                            rel="noreferrer"
-                            href="https://twitter.com/MarinerFinance"
-                          >
-                            <IconButton className="socialIcons">
+                          </span>
+                          <span data-testid="twitterIcon">
+                            <IconButton
+                              onClick={()=>{
+                                handleOpensocialMedia("https://twitter.com/MarinerFinance")
+                              }}
+                              className="socialIcons">
                               <TwitterIcon />
                             </IconButton>
-                          </a>
-                          <a
-                            data-testid="linkedInIcon"
-                            target="_blank"
-                            rel="noreferrer"
-                            href="https://www.linkedin.com/company/mariner-finance/"
-                          >
-                            <IconButton className="socialIcons">
+                          </span>
+                          <span data-testid="linkedInIcon">
+                            <IconButton 
+                            onClick={()=>{
+                              handleOpensocialMedia("https://www.linkedin.com/company/mariner-finance/")
+                            }}
+                            className="socialIcons">
                               <LinkedInIcon />
                             </IconButton>
-                          </a>
+                          </span>
                         </Grid>
                       ) : (
                         element.description.map((item) => (
@@ -353,6 +359,7 @@ export default function BranchLocatorFooter() {
         </section>
       </footer>
       <ConsumerDialog consumer={consumer} onChange={setConsumer} />
+      <SocialMediaDialog URL={URL} socialMedia={socialMedia} onChange={setSocialMedia} />
     </div>
   );
 }

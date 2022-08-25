@@ -39,27 +39,18 @@ test("Checks the component is rendered", () => {
 test("Footer Link availability tests", () => {
   render(component());
   const element = screen.getByTestId("facebookIcon");
-  expect(element).toHaveAttribute(
-    "href",
-    "https://www.facebook.com/MarinerFinance/"
-  );
   expect(element).toBeTruthy();
 });
 
 test("Footer Link Link availability tests", () => {
   render(component());
   const element = screen.getByTestId("twitterIcon");
-  expect(element).toHaveAttribute("href", "https://twitter.com/MarinerFinance");
   expect(element).toBeTruthy();
 });
 
 test("Footer Link Link availability tests", () => {
   render(component());
   const element = screen.getByTestId("linkedInIcon");
-  expect(element).toHaveAttribute(
-    "href",
-    "https://www.linkedin.com/company/mariner-finance/"
-  );
   expect(element).toBeTruthy();
 });
 
