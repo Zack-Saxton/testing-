@@ -202,14 +202,9 @@ const KbaQuestions = () => {
                               setLoadingFlag(true);
                               let sendData = {
                                 email: customerEmail,
-                                ref: responseData[0]?.fullData?.[
-                                  "transaction-status"
-                                ]?.["transaction-id"],
+                                ref: responseData[0]?.fullData?.["transaction-status"]?.["transaction-id"],
                                 answers: {
-                                  question_set_id:
-                                    responseData[0]?.fullData?.questions?.[
-                                      "question-set-id"
-                                    ],
+                                  question_set_id: responseData[0]?.fullData?.questions?.["question-set-id"],
                                   questions: [
                                     {
                                       id: responseData[0]?.questionId,

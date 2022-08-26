@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
+import ErrorLogger from "../../../lib/ErrorLogger";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import LoadQuestions from "./LoadQuestions";
 import MultipleQuestion from "./multipleQuestion";
@@ -32,10 +33,11 @@ export default function VerificationQuestion(props) {
       method = "POST",
       addAccessToken = true;
       response = await APICall(url, '', data, method, addAccessToken);
+    console.log('kba_questions_cac :: ', JSON.stringify(response, null, 4));
 
     // structure the API data response to store it in array
     let tempArray = [];
-    
+
     if (response?.data?.questions?.question && response?.data?.questions?.question.length > 1) {
       setIsProd(true);
       setQuestionSetIdMultiple(response?.data?.questions?.["question-set-id"]);
