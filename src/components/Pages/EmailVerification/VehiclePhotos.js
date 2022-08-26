@@ -21,7 +21,7 @@ function VehiclePhotos(props) {
 
         <ButtonPrimary
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
-          target="_blank" href={`https://${ process.env.REACT_APP_GOLDPOINT_HOST_NAME}/?applicationNumber=${ props.applicationNumber }`}
+          target="_blank" href={`${ process.env.REACT_APP_GOLDPOINT_HOST_NAME}/?applicationNumber=${ props.applicationNumber }`}
           data-testid = "UploadVehicle_photo"
         >
           Upload Vehicle Photo
