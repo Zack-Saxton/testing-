@@ -43,14 +43,8 @@ export default function LightBox(){
   const ckLightBoxApiCall = async () => {
     if(trkcid)
     {
-      let response = await getCKLightBox(queryParm);
-      console.log('HPATEL Line 47 = ckLightBoxApiCall ==',JSON.stringify(response))            
-      if (response.status === 200) {
-        navigate(`/loan-purpose${redirectParams}${UTMinfo}`) 
-      } 
-      // else {
-      //   navigate(`/loan-purpose`)         
-      // }        
+      await getCKLightBox(queryParm);
+      navigate(`/loan-purpose${redirectParams}${UTMinfo}`)       
     }
   };
 
