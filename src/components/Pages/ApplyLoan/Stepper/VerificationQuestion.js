@@ -40,8 +40,8 @@ export default function VerificationQuestion(props) {
 
     if (response?.data?.questions?.question && response?.data?.questions?.question.length > 1) {
       setIsProd(true);
-      setQuestionSetIdMultiple(response?.data?.questions?.["question-set-id"]);
-      setTransactionIdMultiple(response?.data?.["transaction-status"]?.["transaction-id"]);
+      setQuestionSetIdMultiple(response?.data?.questions?.["question-set-id"] ?? response?.data?.questions?.question_set_id);
+      setTransactionIdMultiple(response?.data?.["transaction-status"]?.["transaction-id"] ?? response?.data?.questions?.transaction_id);
       response?.data?.questions?.question.map((val, key) => {
         tempArray.push({
           "key": key,
