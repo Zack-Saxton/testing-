@@ -71,6 +71,15 @@ function SelectAmount(props) {
         : 10000
   );
   let location = useLocation();
+
+let check_source = location?.state?.getSourceUser
+let check_campaignType = location?.state?.getSourceOffer
+if(check_source && check_campaignType){
+  Cookies.set("utm_source_otherPartner","CAC")
+  Cookies.set("utm_medium_otherPartner","welcome")
+  Cookies.set("utm_campaign_otherPartner","Mrktoffer_"+check_campaignType)
+}
+
   useEffect(() => {
     const CKLightbox_Source = Cookies.get("CKLightbox_Source")   
     if(CKLightbox_Source === "CKLightbox"){  

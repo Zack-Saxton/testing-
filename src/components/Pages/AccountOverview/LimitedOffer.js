@@ -42,6 +42,9 @@ export default function LimitedOffer(userOfferData) {
   const branchName = myBranchData?.branchName ? (`${ myBranchData?.branchName } Branch`) : "";
   const branchManager = myBranchData?.branchmanager ?? "";
   const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
+  
+  const getSourceUser = dataAccountOverview?.data?.application?.processing?.tokens
+  const getSourceOffer = dataAccountOverview?.data?.application?.attributes?.promo_offer?.CampaignTypeDesc
   const classes = useStylesAccountOverview()
 
   const navigate = useNavigate();
@@ -67,7 +70,7 @@ export default function LimitedOffer(userOfferData) {
 
   const showModal = () => setInitModal(true);
   const closeModal = () => setInitModal(false);
-  const handleContinue = () => navigate("/select-amount");
+  const handleContinue = () => navigate("/select-amount",{state: {getSourceUser:getSourceUser, getSourceOffer:getSourceOffer}});
 
   //View
   return (
