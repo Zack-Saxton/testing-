@@ -1,5 +1,5 @@
 import axios from "axios";
-import getClientIp, { trimSpecialCharacters } from "../Controllers/CommonController";
+import getClientIp, {trimSpecialCharacters} from "../Controllers/CommonController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import globalMessages from "../../assets/data/globalMessages.json";
@@ -305,17 +305,15 @@ export async function getCKLightBox(query) {
 		let url = "get_CK_Light_box";
 		let param = "";
 		let data = {
-			"query": {
-				"trkcid": query.trkcid,
-				"ib": query.ib,
-				"apr": query.apr,
-				"amnt": query.amt,
-				"term": query.term,
-				"campaign": query.campaign,
-				"hp": query.hp,
-				"own": query.own,
-				"lp": query.lp
-			}
+			"trkcid": query.trkcid,
+			"ib": query.ib,
+			"apr": query.apr,
+			"amnt": query.amt,
+			"term": query.term,
+			"campaign": query.campaign,
+			"hp": query.hp,
+			"own": query.own,
+			"lp": query.lp
 		};
 		let method = "POST";
 		let addAccessToken = false;
