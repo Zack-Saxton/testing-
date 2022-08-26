@@ -43,8 +43,13 @@ export default function LightBox(){
   const ckLightBoxApiCall = async () => {
     if(trkcid)
     {
-       await getCKLightBox(queryParm);
-      navigate(`/loan-purpose${redirectParams}${UTMinfo}`)       
+      let response = await getCKLightBox(queryParm);
+      if (response.status === 200) {
+        navigate(`/loan-purpose${redirectParams}${UTMinfo}`) 
+      } 
+      // else {
+      //   navigate(`/loan-purpose`)         
+      // }        
     }
   };
 
