@@ -89,7 +89,6 @@
     "post_fullstory":"/customer/update_full_customer",
     "save_id_scane":"/idscan/save_response_cac",
     "save_id_scane_before_cac":"/idscan/save_response_before_cac",
-    "get_": "/psa/get_creditkarma_data",
     "get_credit_karma_data": "/customer/get_creditkarma_data_cac",
     "get_active_documents": "/product/get_active_documents"
   }
