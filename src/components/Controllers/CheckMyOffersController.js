@@ -308,7 +308,7 @@ export async function getCKLightBox(query) {
 			"trkcid": query.trkcid,
 			"ib": query.ib,
 			"apr": query.apr,
-			"amnt": query.amt,
+			"amnt": query.amount,
 			"term": query.term,
 			"campaign": query.campaign,
 			"hp": query.hp,
