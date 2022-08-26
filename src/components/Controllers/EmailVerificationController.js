@@ -58,7 +58,7 @@ export async function uploadEmailVerificationDocument(compressedFile, filesInfo,
     let uploadData = await APICall(url, param, data, method, addAccessToken);
 
     if (uploadData.status !== 200) {
-      toast.error(uploadData?.data?.message ?? globalMessages.Error_executing_EmailVerificationController_API)
+      toast.error(uploadData?.data?.message ?? globalMessages.File_Size_Too_Large);
     }
     return uploadData;
   } catch (error) {
