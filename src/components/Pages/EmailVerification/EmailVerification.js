@@ -6,8 +6,8 @@ import Step from "@mui/material/Step";
 import StepContent from "@mui/material/StepContent";
 import StepLabel from "@mui/material/StepLabel";
 import Stepper from "@mui/material/Stepper";
-import StepButton from '@mui/material/StepButton';
 import Typography from "@mui/material/Typography";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import React, { useEffect, useState } from "react";
 import {
   ButtonPrimary,
@@ -235,6 +235,12 @@ export default function EmailVerification() {
     );
   }
 
+  const showArrowButton = () =>{
+    return(<div className={classes.stepLabelButton}>
+      <NavigateNextIcon />
+    </div>);
+  }
+
   return (
     <Grid data-testid = "emailVerification_component">
       {isLoading ?
@@ -314,9 +320,9 @@ export default function EmailVerification() {
               <Stepper nonLinear activeStep={activeStep} orientation="vertical">
                 {steps.map((label, index) => (
                   <Step key={Math.random() * 1000} completed={completed[index]}>
-                    <StepButton onClick={handleStep(index)}>
-							        {label}
-						        </StepButton>
+                    <StepLabel StepIconComponent={showArrowButton} onClick={handleStep(index)}>
+                      {label}
+                    </StepLabel>
                     <StepContent>
                       <span>{getStepContent(index)}</span>
                     </StepContent>

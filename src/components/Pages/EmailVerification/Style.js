@@ -122,6 +122,14 @@ const useStylesEmailVerification = makeStyles((theme) => ({
       height: "auto",
       margin: "0"
     }
+  },
+  stepLabelButton:{
+    backgroundColor: '#1976d2',
+    borderRadius: '50%',
+    color: '#fff',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 
 
