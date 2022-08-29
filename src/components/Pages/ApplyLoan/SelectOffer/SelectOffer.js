@@ -61,8 +61,9 @@ export default function SelectOffer() {
 		setLoading(true);
 		if (accountDetails && selTerm && selIndex >= 0) {
 			let selectedOffer = accountDetails?.data?.Offers[ selTerm ][ selIndex ];
-			let selectedOfferResponse
-			if ( selectedOffer?.offerType?.toLowerCase() === "branch" ) {
+			let selectedOfferResponse;
+			let offerType = selectedOffer?.offerType?.toLowerCase();
+			if ( offerType === "branch" ) {
 				selectedOfferResponse = await referSelectedBranchOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
 			} else {
 				selectedOfferResponse = await submitSelectedOfferAPI(accountDetails?.data?.Offers[ selTerm ][ selIndex ]);
@@ -70,7 +71,7 @@ export default function SelectOffer() {
 			if (selectedOfferResponse?.data?.selected_offer || selectedOfferResponse?.status === 200 ) {
 				setLoading(false);
 				refetch();
-				navigate(offerTypeData[ accountDetails?.data?.Offers[ selTerm ][ selIndex ]?.offerType ], { selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, });
+				navigate(offerTypeData[ accountDetails?.data?.Offers[ selTerm ][ selIndex ]?.offerType ], { selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, replace: offerType === 'branch' ? true : false });
 			} else {
 				setLoading(false);
 				toast.error(messages.unHandledError)
@@ -98,6 +99,13 @@ export default function SelectOffer() {
 		getAvailableOffers();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ offers ]);
+
+	  // call the get URL funtion on page load
+		useEffect(() => {
+			let selectedOffer = (!isLoading ? accountDetials?.data?.application?.selected_offer : null);
+
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [ accountDetials ]);
 
 	function tabVerticalProps(verticalIndex) {
 		return {
