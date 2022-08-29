@@ -199,6 +199,7 @@ if(check_source && check_campaignType){
                       id="sliderBar"
                       className={hoverColor ? innerClasses.hideSection : innerClasses.showSection}
                       onMouseEnter={changeColor} 
+                      onFocus={changeColor}
                       name="slider"
                       defaultValue={select ? select : 10000}
                       setSelect={setSelect}

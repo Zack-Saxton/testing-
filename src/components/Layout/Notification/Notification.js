@@ -26,7 +26,7 @@ import "../AppBar/SideNav.css";
 //Material UI css class
 const useStyles = makeStyles(() => ({
   customBadge: {
-    backgroundColor: "#ffd524",
+    backgroundColor: "#FFBC23",
     color: "black",
   },
 }));

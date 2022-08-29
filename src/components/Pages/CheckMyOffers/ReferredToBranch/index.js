@@ -44,8 +44,8 @@ function ReferredToBranch(props) {
 			<ScrollToTopOnMount />
 			<Grid className={classes.blueBackground}>
 				<Grid className="mainText">
-				<img className={classes.goldIcon} src={goldIcon}/>
-				<Typography variant="h4">
+				<img data-testid="goldDollerIcon" alt="goldDollerIcon" className={classes.goldIcon} src={goldIcon}/>
+				<Typography data-testid="congratulationsHeading" variant="h4">
 					Congratulations! {refferdToBranchName}
 				</Typography>
 				<Typography variant="h6">
@@ -54,10 +54,10 @@ function ReferredToBranch(props) {
 				</Grid>
 				<Grid container item md={6} lg={6} className={classes.blueBox}>
 					<Grid container item md={10} lg={10} className="callNowSection">
-					<Typography>
+					<Typography data-testid="callNowSectionText">
 						We may be able to help but we need a bit more information to finish the application and verification process.* Let{"’"}s get on a call**
 					</Typography>
-					<a href={`tel:${branchPhoneNumber}`} >
+					<a data-testid="branchPhoneNumber" href={`tel:${branchPhoneNumber}`} >
 					<ButtonPrimary stylebutton='{"background": ""}'>
 						Call Now
 						<br/>
@@ -68,7 +68,7 @@ function ReferredToBranch(props) {
 						Applying after hours? Schedule a call below
 					</Typography>
 					<Grid className="secondaryButton">
-						<a href="/customers/myBranch">
+						<a data-testid="scheduleCall" href="/customers/myBranch">
 						<ButtonSecondary stylebutton='{"background": ""}'>
 							Schedule a Call Back
 							</ButtonSecondary>
@@ -109,7 +109,7 @@ function ReferredToBranch(props) {
 						</Typography>
 					</Grid>
 					<hr className="horizontalLine"></hr>
-					<Grid className="footerTexts">
+					<Grid data-testid="preFooterText" className="footerTexts">
 						<Typography>
 						1California branch hours differ and are as follows: Monday 9AM–5:30PM Tuesday10AM–7PM Wednesday 9AM–5:30PM Thursday 9AM–5:30PM Friday 9AM–5:30PM
 						<br/>
