@@ -100,13 +100,6 @@ export default function SelectOffer() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ offers ]);
 
-	  // call the get URL funtion on page load
-		useEffect(() => {
-			let selectedOffer = (!isLoading ? accountDetials?.data?.application?.selected_offer : null);
-
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, [ accountDetials ]);
-
 	function tabVerticalProps(verticalIndex) {
 		return {
 			id: `scrollable-auto-tab-vertical-${ verticalIndex }`,
