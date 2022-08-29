@@ -5,7 +5,3 @@ Dockerfile
 Dockerfile.prod
 .editorconfig
 otherdocs/marinerfinance-us-east-1.pem
-dist
-docs
-test
-.env
