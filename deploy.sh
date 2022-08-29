@@ -239,7 +239,7 @@ ssh  -i $_PEM_FILE_ $serverName << ENDHERE
    for ((count=1;count<=$instances;count++))
    do
      echo  "****** Spinning Instance "\$count": "
-     docker run -dit --restart=always --name "${app}"\$count"-${env1}-${latestCommit}" --network $dockerNetwork $imageName
+     docker run -dit --env-file="./env" --restart=always --name "${app}"\$count"-${env1}-${latestCommit}" --network $dockerNetwork $imageName
      sleep 5
    done
    sudo reboot
