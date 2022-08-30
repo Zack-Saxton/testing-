@@ -617,7 +617,7 @@ function PersonalInfo() {
 													}
 													align="left"
 												>
-													Please <a href="/login">sign in.</a>
+													You have already registered an account. Please use the associated email address to <a href="/login">sign in.</a>
 												</Typography>
 											</div>
 										</Grid>
@@ -634,7 +634,7 @@ function PersonalInfo() {
 												onClick={autoFocus}
 												type="submit"
 												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem", "padding":"0px 30px"}'
-												disabled={appliedInLast30Days || error || loading}
+												disabled={appliedInLast30Days || error || loading || !ssnEmailMatch}
 											>
 												Continue
 												<i
