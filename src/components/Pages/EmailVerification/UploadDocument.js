@@ -65,7 +65,6 @@ function UploadDocument(props) {
           .catch(function (error) {
             toast.error("Error uploading document, please try again")
             ErrorLogger("Error uploading document", error.message)
-            console.log("Error uploading document", error.message)
           });
       }
 
