@@ -19,6 +19,7 @@ import ScrollToTopOnMount from "../../ScrollToTop";
 import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
+import ErrorLogger from "../../../lib/ErrorLogger";
 import "./ReviewAndSign.css";
 
 
@@ -96,6 +97,9 @@ useEffect(()=>{
       } else {
         //temporarily commented below line because getting error response in hardpull API
         //setLoading(false);
+        let requestBody = JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : '{ }');
+        let logData = {'request': requestBody, 'response':hardPull};
+        ErrorLogger("Failure response from hardpull API", JSON.stringify(logData));
         toast.error(messages.reviewAndSignin.eSignFailed);
       }
     } else {
