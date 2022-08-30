@@ -24,6 +24,7 @@ import BankNameLookup from "../../../Controllers/BankNameLookup";
 import "./stepper.css";
 import { useStylesApplyForLoan } from "../Style"
 import globalMessages from "../../../../assets/data/globalMessages.json";
+import getClientIp from "../../../Controllers/CommonController";
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -64,7 +65,7 @@ export default function BankAccountVerification(props) {
 	const classes = useStylesApplyForLoan();
 	//Initializing state variables
 	const [ accountType, setAccountType ] = useState("Savings Account");
-	const [ paymnetMode, setPaymentMode ] = useState("autopayment");
+	const [ paymentMode, setPaymentMode ] = useState("autopayment");
 	const [ verifyRequired, setVerifyRequired ] = useState(false);
 	const [ error, setError ] = useState("");
 	const [ fileUploadSuccess, setFileUploadSuccess ] = useState(false);
@@ -109,18 +110,35 @@ export default function BankAccountVerification(props) {
 				account_type: accountType,
 				routing_number: values.bankRoutingNumber,
 				bank_name: values.bankInformation,
-				repayment: paymnetMode,
+				repayment: paymentMode,
 			};
 			if (verifyRequired && !fileUploadSuccess) {
 				toast.error(messages?.bankAccountVerification?.notValid);
 				props.setLoadingFlag(false);
 				setInternalLoading(false);
-			}
-			else if (verifyRequired && fileUploadSuccess) {
+			} else if (verifyRequired && fileUploadSuccess) {
 				getValueByLable("Bank Account Verification").scrollIntoView();
 				props.next();
-			}
-			else {
+			} else {
+				if ( paymentMode === "autopayment" ) {
+					let userAgent = navigator.userAgent;
+					let ipAddress = await getClientIp();
+					data.ach = {
+						consents : {
+						ach_authorization : {
+							consent : true,
+							version : '1.0'
+							},
+						},
+						esigns : {
+						ach_authorization : {
+							date : new Date(),
+							useragent : userAgent,
+							ipaddress : ipAddress
+							}
+						}
+					}
+				}
 				let res = await APICall("bank_information_cac", '', data, "POST", true);
 				if (res?.data?.bank_account_information && res?.data?.bank_account_verification) {
 					props.setLoadingFlag(false);
@@ -129,7 +147,7 @@ export default function BankAccountVerification(props) {
 					props.next();
 				} else if (res?.data?.bank_account_information || res?.data?.bank_account_verification) {
 					setError(
-						paymnetMode === "autopayment"
+						paymentMode === "autopayment"
 							? messages?.bankAccountVerification?.notValid
 							: messages?.bankAccountVerification?.uploadCheck
 					);
@@ -393,10 +411,10 @@ export default function BankAccountVerification(props) {
 				</div>
 				<Grid item xs={12} className={classes.content_grid}>
 					<Radio
-						name="paymnetMode"
+						name="paymentMode"
 						radiolabel='[{"label":"Automatic Payment:", "value":"autopayment"}]'
 						row={true}
-						checked={paymnetMode}
+						checked={paymentMode}
 						value={"autopayment"}
 						onClick={() => {
 							setPaymentMode("autopayment");
@@ -405,7 +423,7 @@ export default function BankAccountVerification(props) {
 						style={{ fontWeight: "normal" }}
 					/>
 					<FormHelperText style={{ paddingLeft: "28px" }} error={true}>
-						{!paymnetMode ? messages?.bankAccountVerification?.accountTypeRequired : ""}
+						{!paymentMode ? messages?.bankAccountVerification?.accountTypeRequired : ""}
 					</FormHelperText>
 					<span>
 						<p
@@ -432,7 +450,7 @@ export default function BankAccountVerification(props) {
 						name="question"
 						radiolabel='[{"label":"Payment by Check:", "value":"checkpayment"}]'
 						row={true}
-						checked={paymnetMode}
+						checked={paymentMode}
 						value={"checkpayment"}
 						onClick={() => {
 							setPaymentMode("checkpayment");
