@@ -195,7 +195,7 @@ fi
 
 echo -e "\033[1;35m * PUSHED IMAGE ID: ($imageName)               \033[0m"
 
-docker rmi $(docker images -q | tail -n +2)
+docker rmi $(docker images -q | tail -n +4)
 
 echo -e "\033[1;36m ********************************************** \033[0m"
 echo -e "\033[1;36m * TUNNELING INTO EC2 INSTANCE ($app)           \033[0m"
@@ -213,15 +213,13 @@ ssh  -i $_PEM_FILE_ $serverName << ENDHERE
      echo -e "\033[1;36m ********************************************** \033[0m"
      echo -e "\033[1;36m * removed all running container from : ($app)  \033[0m"
      echo -e "\033[1;36m ********************************************** \033[0m"
-    #  echo -e "\033[1;36m ********************************************** \033[0m"
-    #  echo -e "\033[1;36m * START removing all old images : ($app)       \033[0m"
-    #  echo -e "\033[1;36m ********************************************** \033[0m"
-    #  removeAllImages=\$(docker images -aq)
-    #  echo ${removeAllImages}
-    #  docker rmi \$removeAllImages
-    #  echo -e "\033[1;36m ********************************************** \033[0m"
-    #  echo -e "\033[1;36m * removed all images from : ($app)             \033[0m"
-    #  echo -e "\033[1;36m ********************************************** \033[0m"
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     echo -e "\033[1;36m * START removing all old images except last 4 : ($app) \033[0m"
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     docker rmi $(docker images -q | tail -n +4)
+     echo -e "\033[1;36m ********************************************** \033[0m"
+     echo -e "\033[1;36m * removed all images except last 4 from : ($app) \033[0m"
+     echo -e "\033[1;36m ********************************************** \033[0m"
      echo -e "\033[1;36m ********************************************** \033[0m"
      echo -e "\033[1;36m * START Updating server    : ($app)            \033[0m"
      echo -e "\033[1;36m ********************************************** \033[0m"
