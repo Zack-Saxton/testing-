@@ -171,7 +171,6 @@ function DocumentIdAndPhotoId(props) {
           let response = await uploadEmailVerificationDocument(compressedFile, filesInfo, props.applicationNumber, props.customerEmail, "customer_identification_license");
           if (response?.status === 200) {
             selectedFile.value = "";
-            selectedSelfieFile.value = "";
             if (callSecondFunction) {
               uploadSelfieDocument();
             } else {
