@@ -121,13 +121,26 @@ export default function BankAccountVerification(props) {
 				props.next();
 			} else {
 				if ( paymentMode === "autopayment" ) {
+					//API for latest consent versions
+					let url = "get_active_documents";
+					let param = "";
+					let requestData = {};
+					let method = "GET";
+					let addAccessToken = false;
+
+					//API call
+					let activeConsetDocument = await APICall(url, param, requestData, method, addAccessToken);
+					let version = activeConsetDocument.data.documents.filter( doc => 
+						doc.displayname.toLowerCase() === 'auto_debit_disclosure_document'
+					)
+					version = version[0].version.toString()
 					let userAgent = navigator.userAgent;
 					let ipAddress = await getClientIp();
 					data.ach = {
 						consents : {
 						ach_authorization : {
 							consent : true,
-							version : '1.0'
+							version : version
 							},
 						},
 						esigns : {
