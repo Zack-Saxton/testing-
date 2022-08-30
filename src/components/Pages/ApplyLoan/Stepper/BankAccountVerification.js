@@ -64,7 +64,8 @@ const validationSchema = yup.object({
 export default function BankAccountVerification(props) {
 	const classes = useStylesApplyForLoan();
 	//Initializing state variables
-	const [ accountType, setAccountType ] = useState("Savings Account");
+	const [ accountType, setAccountType ] = useState();
+	const [ accountTypeError, setAccountTypeError ] = useState();
 	const [ paymentMode, setPaymentMode ] = useState("autopayment");
 	const [ verifyRequired, setVerifyRequired ] = useState(false);
 	const [ error, setError ] = useState("");
@@ -74,6 +75,7 @@ export default function BankAccountVerification(props) {
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
 	const [ internalLoading, setInternalLoading ] = useState(false);
 	const holderName = Cookies.get("firstName")+" "+Cookies.get("lastName");
+	console.log(accountType);
 	function getValueByLable(text, ctx) {
 		return document.evaluate("//*[.='" + text + "']",
 			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
@@ -103,6 +105,9 @@ export default function BankAccountVerification(props) {
 
 		//On submit - submit the user entered details
 		onSubmit: async (values) => {
+			if(!accountType) {
+				setAccountTypeError('Account type required');
+			} else {
 			props.setLoadingFlag(true);
 			setInternalLoading(true);
 			let data = {
@@ -177,7 +182,8 @@ export default function BankAccountVerification(props) {
 					alert(globalMessages.Network_Error_Please_Try_Again);
 				}
 			}
-		},
+		}
+	}
 	});
 
 	//restrictTextOnChange
@@ -266,13 +272,14 @@ export default function BankAccountVerification(props) {
 						checked={accountType}
 						onClick={(event) => {
 							setAccountType(event);
+							setAccountTypeError('');
 						}}
 						row={true}
 						labelplacement={"end"}
 						style={{ fontWeight: "normal", fontSize: "10px" }}
 					/>
 					<FormHelperText error={true}>
-						{!accountType ? "Account type required" : ""}
+						{accountTypeError}
 					</FormHelperText>
 				</Grid>
 				<Grid container spacing={4} direction="row">
