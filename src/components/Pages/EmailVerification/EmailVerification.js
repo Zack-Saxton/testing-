@@ -30,7 +30,7 @@ function getSteps() {
     "ID Document & Photo",
     "Income Verification",
     "Bank Account Verification",
-    "Vehicle Photos",
+    "Auto Collateral Information",
   ];
 }
 
