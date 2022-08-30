@@ -96,6 +96,8 @@ export default function MakePayment() {
   const [ paymentList, setPaymentList ] = useState();
   const [ currentPayment, setCurrentPayment ] = useState(false);
   const [ currentPaymentNote, setCurrentPaymentNote ] = useState(false);
+  const [ confirmPayment, setConfirmPayment ] = useState(false);
+  const [ paymentReferenceNumber,setPaymentReferenceNumber ] = useState();
 
   const autoPaySwitch = ( main, secondary) => {
     return ((!main && !secondary) ? false : true)
@@ -199,14 +201,19 @@ export default function MakePayment() {
     }
   }
 
-  const handlePaymentSuccess = (message) =>{
-    toast.success(message, { autoClose: 5000 }) 
-    refetch().then(() => {
-    if (Moment(paymentDatepicker).format("YYYY/MM/DD") === Moment().format("YYYY/MM/DD")){
-      navigate("/customers/accountOverview");
-    }
-  })
+  const handlePaymentSuccess = () =>{
+    setConfirmPayment(true); 
   }
+
+  const handlePaymentConfirmation = () => {
+    setConfirmPayment(false);
+    refetch().then(() => {
+      if (Moment(paymentDatepicker).format("YYYY/MM/DD") === Moment().format("YYYY/MM/DD")){
+         navigate("/customers/accountOverview");
+       }
+      })
+  }
+
   //Enable scheduled payment
   async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
     setOpenPayment(false);
@@ -217,12 +224,12 @@ export default function MakePayment() {
         : globalMessages.Payment_has_Scheduled +
         " Confirmation: " +
         result?.data?.paymentResult?.ReferenceNumber;
+        setPaymentReferenceNumber(result?.data?.paymentResult?.ReferenceNumber);
     result.status === 200
       ? result?.data?.paymentResult?.PaymentCompleted !== undefined
         ? handlePaymentSuccess(message)
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000 })
       : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, { autoClose: 5000, });
-    refetch();
   }
   //Disable scheduled payment
   async function deletePayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard) {
@@ -259,7 +266,6 @@ export default function MakePayment() {
         let status = data?.loanDetails?.LoanIsDelinquent;
         setAutoPayDisableMain(status)
         setAccntNo(data.loanData?.accountNumber);
-        getPaymentMethods();
         setDisabledContent(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
         setCheckAutoPay(data?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
         setPaymentDate(Moment(data?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD"));
@@ -304,7 +310,6 @@ export default function MakePayment() {
       let status = latestLoan?.length && latestLoan[ 0 ]?.loanDetails?.LoanIsDelinquent;
       setAutoPayDisableMain(status)
       setAccntNo(latestLoan?.length ? latestLoan[ 0 ]?.loanData?.accountNumber : null);
-      getPaymentMethods();
       setDisabledContent(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
       setCheckAutoPay(latestLoan?.length && latestLoan[ 0 ]?.loanPaymentInformation?.appRecurringACHPayment ? true : false);
       setPaymentDate(latestLoan?.length ? Moment(latestLoan[ 0 ]?.loanPaymentInformation?.accountDetails?.NextDueDate).format("YYYY-MM-DD") : "NONE");
@@ -320,9 +325,13 @@ export default function MakePayment() {
 
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ User, activeLoansData, isFetching ]);
+
+  useEffect(() => {
     getPaymentMethods();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ User, activeLoansData, isFetching, payments ]);
+  }, [payments, User]);
 
   //Account select payment options
   let paymentData = paymentMethods?.data;
@@ -1035,6 +1044,154 @@ export default function MakePayment() {
           )}
         </DialogActions>
       </Dialog>
+
+      {/*********** **** Payment Confirmation modal ************* */}
+      
+      <Dialog
+        open={confirmPayment}
+        maxWidth="sm"
+        id="scheduleDialogBox"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        classes={{ paper: classes.dialogPaper }}
+      >
+        <DialogTitle id="scheduleDialogHeading">
+          <IconButton
+            aria-label="close"
+            className={classes.closeButton}
+            onClick={handlePaymentConfirmation}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent className="scheduleTxtWrap">
+          <Typography id="scheduleTxt" className={classes.dialogHeading}>
+            Your payment of: {numberFormat(paymentAmount)} has been applied to 
+            your account.
+          </Typography>
+          <TableContainer>
+            <Table
+              className={classes.table}
+              aria-label="simple table"
+              border-color="white"
+            >
+              <TableBody>
+                <TableRow>
+                  <TableCell
+                    className={classes.tableheadrow}
+                    align="left"
+                    width="20%"
+                  ></TableCell>
+                  <TableCell align="left">Bank/Card:</TableCell>
+                  <TableCell align="left">{cardLabel}</TableCell>
+                  <TableCell
+                    className={classes.tableheadrow}
+                    align="left"
+                  ></TableCell>
+                </TableRow>
+
+                {isDebit && extraCharges ? (
+                  <TableRow>
+                    <TableCell
+                      className={classes.tableheadrow}
+                      align="left"
+                      width="20%"
+                    ></TableCell>
+                    <TableCell align="left">
+                      Third Party Convenience fee:
+                    </TableCell>
+                    <TableCell align="left">{"$"+extraCharges}</TableCell>
+                    <TableCell
+                      className={classes.tableheadrow}
+                      align="left"
+                    ></TableCell>
+                  </TableRow>
+                ) : null
+                }
+                {isDebit ? (
+                  <TableRow>
+                    <TableCell
+                      className={classes.tableheadrow}
+                      align="left"
+                      width="20%"
+                    ></TableCell>
+                    <TableCell align="left">
+                      Total Amount:
+                    </TableCell>
+                    <TableCell align="left">{numberFormat(paymentAmountWithFees)}</TableCell>
+                    <TableCell
+                      className={classes.tableheadrow}
+                      align="left"
+                    ></TableCell>
+                  </TableRow>
+                ) : null
+                }
+                <TableRow>
+                  <TableCell
+                    className={classes.tableheadrow}
+                    align="left"
+                    width="20%"
+                  ></TableCell>
+                  <TableCell align="left">
+                    Payment Date:
+                  </TableCell>
+                  <TableCell align="left">
+                    {Moment(paymentDatepicker).format("MM/DD/YYYY")}
+                  </TableCell>
+                  <TableCell
+                    className={classes.tableheadrow}
+                    align="left"
+                  ></TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    className={classes.tableheadrow}
+                    align="left"
+                    width="20%"
+                  ></TableCell>
+                  <TableCell className={classes.tableheadrow} align="left">
+                    Account Number:
+                  </TableCell>
+                  <TableCell align="left">{accntNo}</TableCell>
+                  <TableCell
+                    className={classes.tableheadrow}
+                    align="left"
+                  ></TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    className={classes.tableheadrow}
+                    align="left"
+                    width="20%"
+                  ></TableCell>
+                  <TableCell className={classes.tableheadrow} align="left">
+                    Confirmation Number:
+                  </TableCell>
+                  <TableCell align="left">{paymentReferenceNumber}</TableCell>
+                  <TableCell
+                    className={classes.tableheadrow}
+                    align="left"
+                  ></TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </DialogContent>
+
+        <DialogActions className={` ${ classes.dialogActionStyle }`}>
+          <Grid container className="buttonsWrap">
+          <Grid container className="schedulePopup">
+          <ButtonSecondary
+            stylebutton='{"background": "", "color":"","margin": "0px 10px 0px 0px" }'
+            onClick={handlePaymentConfirmation}
+          >
+            OK
+          </ButtonSecondary>
+          </Grid>             
+          </Grid>
+        </DialogActions>
+      </Dialog>
+
 
       {/* ************** Schedule payment modal ******************* */}
 
