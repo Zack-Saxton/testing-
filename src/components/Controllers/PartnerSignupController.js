@@ -5,11 +5,101 @@ import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import {statusStrLinks_PartnerSignUp} from "../lib/StatusStrLinks";
 import LoginController from "../Controllers/LoginController"
-import { trimSpecialCharacters } from "../Controllers/CommonController";
+import getClientIp, { trimSpecialCharacters } from "../Controllers/CommonController";
+
 
 let statusStrLink = statusStrLinks_PartnerSignUp;
 
 export default async function PartnerSignup(navigate, partnerToken, applicantId, partnerSignupData, utm_source) {
+  
+  let dateNow = new Date().toISOString();
+		let browserType = navigator.userAgent;
+		let ipAddress = await getClientIp();
+let esignConsent = {
+  "date": dateNow,
+  "useragent": browserType,
+  "ipaddress": ipAddress,
+};
+
+//API for latest consent versions
+  let url_consent = "get_active_documents";
+  let param_consent = "";
+  let data_consent = {};
+  let method_consent = "GET";
+  let addAccessToken_consent = false;
+
+
+  //API call
+  let activeConsetDocument = await APICall(url_consent, param_consent, data_consent, method_consent, addAccessToken_consent);
+  let consent = {};
+  let esign = {};
+  let user = {};
+
+  //Assemble 'consent', 'user' Object with dynamic data
+  activeConsetDocument.data.documents.forEach(doc => {
+    if (doc.displayname.toLowerCase() === 'credit_contact_authorization') {
+      consent.credit_contact_authorization = {
+        "consent": true,
+        "version": doc.version.toString(),
+      }
+      user.Consent_Credit_Contact_Authorization_Version__c = doc.version.toString();
+    } else if (doc.displayname.toLowerCase() === 'electronic_disclosure_consent') {
+      consent.electronic_communications = {
+        "consent": true,
+        "version": doc.version.toString(),
+      }
+      user.Consent_Electronic_Communication_Policy_Version__c = doc.version.toString();
+    } else if (doc.displayname.toLowerCase() === 'terms_of_use_document') {
+      consent.terms_of_use = {
+        "consent": true,
+        "version": doc.version.toString(),
+      }
+      user.Consent_Terms_Of_Use_Version__c = doc.version.toString();
+    } else if (doc.displayname.toLowerCase() === 'privacy_policy_document') {
+      consent.privacy_policy = {
+        "consent": true,
+        "version": doc.version.toString(),
+      }
+      user.Consent_Privacy_Policy_Version__c = doc.version.toString();
+    }
+  });
+//dynamically update deleware 'consent' and 'esign' if applicable
+if (partnerSignupData.state === 'DE') {
+  consent.delaware_itemized_schedule_of_charges = {
+    "consent": true,
+    "version": "1.0",
+  };
+     esign.delaware_itemized_schedule_of_charges = esignConsent;
+ }
+
+ //dynamically update california 'consent' and 'esign' if applicable
+ if (partnerSignupData.state === 'CA') {
+  consent.california_credit_education_program = {
+    "consent": true,
+    "version": "1.0",
+  };
+   esign.california_credit_education_program = esignConsent;
+ }
+
+ if (partnerSignupData.state === 'NM') {
+  consent.new_mexico_disclosure = {
+    "consent": true,
+    "version": "1.0",
+  };
+  esign.new_mexico_disclosure = esignConsent;
+}
+  //assemble 'esign' Object
+  esign.credit_contact_authorization = esignConsent;
+  esign.electronic_communications = esignConsent;
+  esign.privacy_policy = esignConsent;
+  esign.terms_of_use = esignConsent;
+
+  let consentdata = partnerSignupData?.utm_source === "CreditKarma" ? "" :  {consentdata : {
+      "consents": consent,
+      "esigns": esign,
+    }}
+  
+  
   let url = "partner_signup";
   let param = "";
   let data = { 
@@ -28,6 +118,7 @@ export default async function PartnerSignup(navigate, partnerToken, applicantId,
     spouse_state: partnerSignupData.spouseSelectState,
     spouse_address: partnerSignupData.spouseadd,
     marital_status: partnerSignupData.martialStatus,
+    ...consentdata
   };
   let method = "POST";
   let addAccessToken = false;
@@ -131,6 +222,48 @@ export async function PopulatePartnerReferred(applicantId) {
 
 export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
   const email = Cookies.get("email");
+
+ //API for latest consent versions
+ let url_consent = "get_active_documents";
+ let param_consent = "";
+ let data_consent = {};
+ let method_consent = "GET";
+ let addAccessToken_consent = false;
+
+ //API call
+ let activeConsetDocument = await APICall(url_consent, param_consent, data_consent, method_consent, addAccessToken_consent);
+ let consent = {};
+
+ //Assemble 'consent', 'user' Object with dynamic data
+ activeConsetDocument.data.documents.forEach(doc => {
+   if (doc.displayname.toLowerCase() === 'credit_contact_authorization') {
+     consent.credit_contact_authorization = doc.version.toString()
+   } 
+   else if (doc.displayname.toLowerCase() === 'electronic_disclosure_consent') {
+     consent.electronic_communications = doc.version.toString()
+   }
+    else if (doc.displayname.toLowerCase() === 'terms_of_use_document') {
+     consent.terms_of_use = doc.version.toString()
+   }
+    else if (doc.displayname.toLowerCase() === 'privacy_policy_document') {
+     consent.privacy_policy = doc.version.toString()
+   }
+ });
+ 
+ //dynamically update deleware 'consent' and 'esign' if applicable
+ if (dataConfirmInfo.state === 'DE') {
+  consent.delaware_itemized_schedule_of_charges = true
+ }
+
+ //dynamically update california 'consent' and 'esign' if applicable
+ if (dataConfirmInfo.state === 'CA') {
+  consent.california_credit_education_program = true
+ }
+
+ if (dataConfirmInfo.state === 'NM') {
+  consent.new_mexico_disclosure =true
+}
+
   let url = "partner_confirm_info";
   let param = "";
   let data = {
@@ -158,7 +291,14 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
     spouse_state: dataConfirmInfo.spouseSelectState,
     spouse_address: dataConfirmInfo.spouseadd,
     marital_status: dataConfirmInfo.martialStatus,
-    partner_token: dataConfirmInfo.partner_token
+    partner_token: dataConfirmInfo.partner_token,
+    credit_contact_authorization_version:  consent.credit_contact_authorization,
+    electronic_communications : consent.electronic_communications,
+    privacy_policy_version: consent.privacy_policy,
+    terms_of_use_version:  consent.terms_of_use,
+    delaware_itemized_schedule_of_charges: consent.delaware_itemized_schedule_of_charges ?? false,
+    california_credit_education_program: consent.california_credit_education_program ?? false,
+    new_mexico_disclosure: consent.new_mexico_disclosure ?? false
   };
   let method = "POST";
   let addAccessToken = true;
