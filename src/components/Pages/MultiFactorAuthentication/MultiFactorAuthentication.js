@@ -26,7 +26,7 @@ const MultiFactorAuthentication = () => {
       let structureMFAdata = {
        mfaDetails: mfaInfo.data.MFAInformation
   }
-  if(structureMFAdata?.mfaDetails?.phone_type === "Cell" && structureMFAdata?.mfaDetails?.phone_number_primary){
+  if(structureMFAdata?.mfaDetails?.phone_number_primary){
     eligibleNumber.push({number : structureMFAdata.mfaDetails.phone_number_primary.trim(),
                          type : 'phone_number_primary'})
   }
