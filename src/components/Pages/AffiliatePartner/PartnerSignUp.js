@@ -307,7 +307,9 @@ export default function PartnerSignUp() {
         spouseZipcode: values.spouseZipcode,
         spousecity: values.spousecity,
         spouseSelectState: values.spouseSelectState.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.spouseSelectState) : values.spouseSelectState,  
-        ClientIP : ClientIP
+        ClientIP : ClientIP,
+        state: values.state.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.state) : values.state,
+        utm_source : utm_source
 
       };
       let partnerRes = await PartnerSignup(
