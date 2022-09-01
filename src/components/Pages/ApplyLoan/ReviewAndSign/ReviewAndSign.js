@@ -95,7 +95,7 @@ useEffect(()=>{
     let ipAddress = await getClientIp();
     let dataStatus = {
       isAuthenticated: true,
-      headersHost: process.env.REACT_APP_HOST_NAME,
+      headersHost: process.env?.REACT_APP_HOST_NAME,
       geoip: {
         ip: ipAddress
       }
