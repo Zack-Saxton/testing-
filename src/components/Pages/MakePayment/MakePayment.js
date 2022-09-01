@@ -117,12 +117,15 @@ export default function MakePayment() {
   }, [User, accntNo, paymentDatepicker])
 
   useEffect(() => {
-    setStatename(User?.data?.applicant?.contact?.address_state);
     if (payments?.data?.paymentOptions) {
       setCheckCard(payments.data.paymentOptions.length && payments.data.paymentOptions[ 0 ].CardType);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ payments, User ]);
+  
+  useEffect(() => {
+    setStatename(latestLoanData?.[ 0 ]?.loanDetails?.Address?.State);
+  }, [ latestLoanData ]);
 
   useEffect(() => {
     setPaymentDatepicker(scheduleDate ? scheduleDate : new Date());
