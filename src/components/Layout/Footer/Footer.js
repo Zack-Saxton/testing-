@@ -109,7 +109,7 @@ export default function Footer() {
             </Grid>
 
             <Grid className="feefoBadgeWrap" item sm={12} md={4} lg={4}>
-              <img type="image" src={badge} alt="photo" id="badge" />
+              <img type="image" width="1000" src={badge} alt="photo" id="badge" />
             </Grid>
           </Grid>
 
