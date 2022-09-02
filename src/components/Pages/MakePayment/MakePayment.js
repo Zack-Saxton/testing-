@@ -47,6 +47,7 @@ import { useHolidayCalender } from "./useHolidayCalender"
 
 
 const paymentMaxDate = new Date();
+const lastDayOfMonth = new Date(paymentMaxDate.getFullYear(), paymentMaxDate.getMonth()+1, 0);
 paymentMaxDate.setDate(paymentMaxDate.getDate() + 30);
 
 export default function MakePayment() {
@@ -819,7 +820,7 @@ export default function MakePayment() {
                               disableFuture={payoff}
                               disabled={calendarDisabled}
                               autoComplete="off"
-                              maxdate={paymentMaxDate}
+                              maxdate={ nextDueDateCheck < todaysDate ? lastDayOfMonth : paymentMaxDate}
                               onKeyDown={(event) => event.preventDefault()}
                               disableDate={disableHolidays}
                               minyear={4}
