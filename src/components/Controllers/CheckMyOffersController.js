@@ -86,25 +86,32 @@ export async function checkMyOfferSubmit(customer) {
 			}
 		});
 
-		consent.delaware_itemized_schedule_of_charges = {
-			"consent": false,
-			"version": "1.0",
-		};
-		consent.california_credit_education_program = {
-			"consent": false,
-			"version": "1.0",
-		};
 
 		//dynamically update deleware 'consent' and 'esign' if applicable
 		if (customer.state === 'DE') {
-			consent.delaware_itemized_schedule_of_charges.consent = true;
+			consent.delaware_itemized_schedule_of_charges = {
+				"consent": true,
+				"version": "1.0",
+			};
 			esign.delaware_itemized_schedule_of_charges = esignConsent;
 		}
 
 		//dynamically update california 'consent' and 'esign' if applicable
 		if (customer.state === 'CA') {
-			consent.california_credit_education_program.consent = true;
+			consent.california_credit_education_program = {
+				"consent": true,
+				"version": "1.0",
+			};
 			esign.california_credit_education_program = esignConsent;
+		}
+
+		//dynamically update New Maxico 'consent' and 'esign' if applicable
+		if (customer.state === 'NM') {
+			consent.new_mexico_disclosure = {
+				"consent": true,
+				"version": "1.0",
+			};
+			esign.new_mexico_disclosure = esignConsent;
 		}
 
 		//assemble 'esign' Object
