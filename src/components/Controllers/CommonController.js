@@ -7,9 +7,9 @@ export default async function getClientIp(rountingNumber) {
     let ipResponse = await fetch("https://www.cloudflare.com/cdn-cgi/trace");
     ipResponse = await ipResponse.text();
     let ipRegex = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/;
-    return ipResponse.match(ipRegex)[0] ?? '127.0.0.1';
+    return ipResponse.match(ipRegex)[0];
   } catch (err) {
-    return '127.0.0.1';
+    return null;
   }
 }
 export async function getTimeZoneDetails(latitude, longitude) {
