@@ -142,6 +142,9 @@ export async function checkMyOfferSubmit(customer) {
 					"processing": (Object.keys(utm_sources).length > 0) ? {
 						"tokens": utm_sources
 					} : {},
+					"contact": {
+						"first_name": customer.firstName
+					}
 				},
 				"lightbox": {
 					"amount": customer.loanAmount,
