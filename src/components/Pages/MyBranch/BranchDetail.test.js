@@ -21,7 +21,11 @@ const queryClient = new QueryClient({
 
 const theme = createTheme();
 window.scrollTo = jest.fn();
-
+const mockGeolocation = {
+  getCurrentPosition: jest.fn(),
+  watchPosition: jest.fn()
+};
+global.navigator.geolocation = mockGeolocation;
 const component = (myBranchData) => {
 	return (
 		<ThemeProvider theme={theme}>
