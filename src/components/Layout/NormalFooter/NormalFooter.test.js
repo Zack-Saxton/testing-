@@ -43,14 +43,14 @@ test('Navigate to communityguidelines', () => {
 test("Navigate to privacy statement", () => {
     render(component());
     const element = screen.getByTestId("privacyStatement");
-    expect(element).toHaveAttribute("href",`https://wps-qa.marinerfinance.io/resources/legal/#fusion-tab-privacystatement`);
+    expect(element).toHaveAttribute("href",`https://www.marinerfinance.com/resources/legal/#fusion-tab-privacystatement`);
     expect(element).toBeTruthy();
   
   });
 test('Navigate to terms', () => {
     render(component());
     const element = screen.getByTestId("termsofuse");
-    expect(element).toHaveAttribute("href",`/cac-termsofuse`);
+    expect(element).toHaveAttribute("href",`/termsofuse`);
     expect(element).toBeTruthy();
 });
 test('Navigate to license', () => {
@@ -74,13 +74,13 @@ test('Navigate to website accessibility', () => {
 test('Navigate to cac terms', () => {
     render(component());
     const element = screen.getByTestId("cac-termsofuse");
-    expect(element).toHaveAttribute("href",`/termsofuse`);
+    expect(element).toHaveAttribute("href",`/cac-termsofuse`);
     expect(element).toBeTruthy();
 });
 test('Navigate to privacyStatement', () => {
     render(component());
     const element = screen.getByTestId("californiaResident");
-    expect(element).toHaveAttribute("href",`https://wps-qa.marinerfinance.io/california-consumer-privacy-act-ccpa-request/`);
+    expect(element).toHaveAttribute("href",`https://www.marinerfinance.com/california-consumer-privacy-act-ccpa-request/`);
     expect(element).toBeTruthy();
 });
 test('Should match the snapshot', () => {
