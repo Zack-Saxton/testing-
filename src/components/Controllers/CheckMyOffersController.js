@@ -57,8 +57,9 @@ export async function checkMyOfferSubmit(customer) {
 		let consent = {};
 		let esign = {};
 		let user = {};
-
-		console.log('DATA :: ', JOSN.stringify(activeConsetDocument, null, 4));
+		// if (activeConsetDocument?.data?.documents) {
+		// 	activeConsetDocument.data.documents = JSON.parse(activeConsetDocument.data.documents);
+		// };
 		//Assemble 'consent', 'user' Object with dynamic data
 		activeConsetDocument.data.documents.forEach(doc => {
 			if (doc.displayname.toLowerCase() === 'credit_contact_authorization') {
