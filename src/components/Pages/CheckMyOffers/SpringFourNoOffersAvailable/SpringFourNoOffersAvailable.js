@@ -16,46 +16,46 @@ const SpringFourNoOffersAvailable = () => {
   return (
     <div>
       <ScrollToTopOnMount />
-      <Grid className={classes.blueBG}>
+      <Grid data-testid="springFourComponent" className={classes.blueBG}>
           <Grid className={classes.mainContentWrap}>
             <Grid item container md={12} lg={9} className={classes.centerGrid}>
               <Grid className={classes.fullWidth}>  
-              <Typography className={classes.mainHeadingOne} variant="h5">
+              <Typography data-testid="thankYouText" className={classes.mainHeadingOne} variant="h5">
                 Thank you for applying!
               </Typography>
-              <Typography className={classes.mainHeadingTwo} variant="h5">
+              <Typography  data-testid="unfortunatelyText" className={classes.mainHeadingTwo} variant="h5">
                 Unfortunately! We don{"'"}t have an offer for you<br/>
                 based on your application at this time.
               </Typography>
               </Grid>
               <Grid className={classes.blueGradiantBox}>
                 <Grid className={classes.boxGrid} item lg={10} md={10} sm={10} xl={10}>
-                  <Typography className={classes.boxText} variant="h5">
+                  <Typography data-testid="blueBoxText" className={classes.boxText} variant="h5">
                     However, Mariner Finance has partnered with SpringFour, a free online tool that helps consumers
                     locate verified and vetted food, financial, and health resources in their community.
                   </Typography>
                 <Grid className={classes.whiteBorderBox}>
                   <Grid className="whiteBorderWrap" container item md={10} sm={10} lg={10} xl={10}>
                     <Grid className="SpringFourImgWrap">
-                      <img src={ SpringFour } />
+                      <img data-testid="springFourLogo" alt="Spring four logo" src={ SpringFour } />
                     </Grid>
                     <Grid className="SpringFourText">
-                      <Typography variant="h5">
+                      <Typography data-testid="resourcesText" variant="h5">
                         Resources When You Need Them Most!
                       </Typography>
                     </Grid>
                     <Grid container>
                       <Grid container item md={4} className="imageTextWrap">
-                        <img src={ Financial }/>
-                        <Typography>Financial<br/>Advice</Typography>
+                        <img data-testid="financialAdviceLogo"  alt="Financial Advice" src={ Financial }/>
+                        <Typography data-testid="financialAdviceText">Financial<br/>Advice</Typography>
                       </Grid>
                       <Grid container item md={4} className="imageTextWrap">
-                        <img src={ Recruitment }/>
-                        <Typography>Employment<br/>Services</Typography>
+                        <img data-testid="employmentServicesLogo" alt="Employment Services" src={ Recruitment }/>
+                        <Typography data-testid="employmentServicesText">Employment<br/>Services</Typography>
                       </Grid>
                       <Grid container item md={4} className="imageTextWrap">
-                        <img src={ Deal }/>
-                        <Typography>Rental<br/>Resources</Typography>
+                        <img data-testid="rentalResourcesLogo" alt="Rental Resources" src={ Deal }/>
+                        <Typography data-testid="rentalResourcesText">Rental<br/>Resources</Typography>
                       </Grid>
                     </Grid>
                     <ButtonPrimary stylebutton='{"color":""}'>
@@ -77,7 +77,7 @@ const SpringFourNoOffersAvailable = () => {
           </Grid>
           
           <Grid className={classes.bottomTextGrid}>
-            <Typography>
+            <Typography data-testid="preFooterTxt">
             *We offer personal loans from $1,000 to $25,000, with loans terms from 12 to 60 months. Minimum and maximum amounts dependent on an applicant’s state of residence and the underwriting of the loan. 
             Loans between $1,500 and $15,000 may be funded online. Loans greater than $15,000 or less than $1,500 are funded through our branch network. Specific interest rates and fees are determined as permitted 
             under applicable state law and depend upon loan amount, term, and the applicant’s ability to meet our credit criteria, including, but not limited to, credit history, income, debt payment obligations, and 
@@ -114,7 +114,7 @@ const SpringFourNoOffersAvailable = () => {
             15 Day Satisfaction Guarantee- If, for any reason, you are dissatisfied with your loan and repay it in full within 15 days we will waive all finance charges with no penalties. Your repayment amount must be in the form of cash or certified funds.
             </Typography>
             <br/>
-            <Typography>
+            <Typography data-testid="preFooterLastText">
             2 This is where you put the disclosure provided from legal on the approval conditions.
             </Typography>
           </Grid>
