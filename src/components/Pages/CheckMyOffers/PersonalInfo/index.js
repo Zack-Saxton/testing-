@@ -27,6 +27,8 @@ import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./PersonalInfo.css";
 import {checkCustomeruser,ApplicationStatusByEmail} from "../../../Controllers/PersonalInfoController";
+import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../../Controllers/CommonController'
+import { usePhoneNumber } from "../../../../hooks/usePhoneNumber";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -135,9 +137,8 @@ function PersonalInfo() {
 	const [ ssnEmailMatch, setSsnEmailMatch ] = useState(true);
 	const [ error, setError ] = useState(false);
 	const [ loading, setLoading ] = useState(false);
-	const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
-  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
-	const componentMounted = useRef(true);                                               //
+	const { phoneNumberValue, setPhoneNumberValue, phoneNumberCurrentValue, setPhoneNumberCurrentValue, updateActualValue, updateMaskValue, updateEnterPhoneNo } = usePhoneNumber();
+	const componentMounted = useRef(true);                                               
 	const navigate = useNavigate();
 	const innerClasses = useStyles();
 	const classes = preLoginStyle();
@@ -145,17 +146,6 @@ function PersonalInfo() {
 	myDate.setDate(myDate.getDate() - 6571);
 	let refFirstName = useRef();
 	let refLastName = useRef();
-
-	const phoneNumberMask = (values) => {
-		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-		values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-		return (values);
-	}
-
-	const maskPhoneNumberWithAsterisk = (phoneNumber) => {
-		let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);		
-		return firstNumber.replace(/\d/g, '*') + phoneNumber.slice(10);		
-		}
 
 		useEffect(() => {
 			setPhoneNumberValue( data?.phone ?? "");
@@ -316,16 +306,6 @@ function PersonalInfo() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const updateActualValue = (_event) => {
-	    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
-  }
-  const updateMaskValue = (_event) => {	
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
-  }
-  const updateEnterPhoneNo = (event) =>{
-	  setPhoneNumberValue(event.target.value);
-    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
-  }
 	const shortANDoperation = (pramOne, pramtwo) => {
 		return pramOne && pramtwo
 	};
