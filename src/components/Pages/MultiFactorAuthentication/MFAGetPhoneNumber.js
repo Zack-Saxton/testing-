@@ -22,7 +22,8 @@ import IconButton from "@mui/material/IconButton";
 import "./mfa.css";
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
 import CheckLoginStatus from '../../App/CheckLoginStatus';
-
+import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../Controllers/CommonController'
+import { usePhoneNumber } from '../../../hooks/usePhoneNumber';
 
 //Yup validation schema
 const validationSchema = yup.object().shape({
@@ -44,8 +45,7 @@ const MFAGetPhoneNumber = () => {
 	const navigate = useNavigate();
 	const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
 	const [disabledButton, setDisabledButton] = useState(true);
-  const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
-  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
+  const { phoneNumberValue, phoneNumberCurrentValue, updateActualValue, updateMaskValue, updateEnterPhoneNo } = usePhoneNumber();
 	const location = useLocation();
   const PHONE_NUMBER_LENGTH = 14;
 
@@ -86,29 +86,6 @@ const MFAGetPhoneNumber = () => {
 			event.preventDefault();
 		}
 	};
-
-  const updateActualValue = (_event) => {
-    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
-  }
-
-  const maskPhoneNumberWithAsterisk = (phoneNumberToMask) => {
-    let firstNumber = phoneNumberToMask.slice(0, 10);
-    return firstNumber.replace(/\d/g, '*') + phoneNumberToMask.slice(10);
-  }
-
-  const phoneNumberMask = (values) => {
-		let phoneNum = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-		values = !phoneNum[ 2 ] ? phoneNum[ 1 ] : '(' + phoneNum[ 1 ] + ') ' + phoneNum[ 2 ] + (phoneNum[ 3 ] ? '-' + phoneNum[ 3 ] : '');
-		return (values);
-	}
-
-  const updateMaskValue = (_event) => {	
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
-  }
-  const updateEnterPhoneNo = (event) =>{
-	  setPhoneNumberValue(event.target.value);
-    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
-  }
 
 	const handleToSaveContinue = async () => {
 		if (location?.state) {

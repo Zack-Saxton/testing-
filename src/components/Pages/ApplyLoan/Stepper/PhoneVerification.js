@@ -17,6 +17,7 @@ import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
+import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../../Controllers/CommonController'
 
 const useStyles = makeStyles(() => ({
 	pTagTextStyle: {
@@ -54,18 +55,6 @@ const validationSchema = yup.object({
 		.matches(/^(\d)(?!\1+$)\d{9}$/, messages?.phoneVerification?.invalidPhone)
 		.min(10, messages?.phoneVerification?.phoneNumMin),
 });
-const phoneNumberMask = (values) => {
-	if(values){
-		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  	values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-  	return (values);
-	}
-  return '';
-}
-const maskPhoneNumberWithAsterisk = (phoneNumber) => {
-  let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
-  return firstNumber.replace(/[\d]/g, '*') + phoneNumber.slice(10);
-}
 //View Part
 export default function PhoneVerification(props) {
 	const [ hasPasscode, setOfferCode ] = useState(false);

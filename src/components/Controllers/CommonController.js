@@ -29,3 +29,17 @@ export function trimSpecialCharacters(value){
   .replace(/\(/g, "")
   .replace(/ /g, "") || "";
 }
+
+export const phoneNumberMask = (values) => {
+  	if(values){
+  		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+    	values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
+    	return (values);
+  	}
+    return '';
+  }
+
+export const maskPhoneNumberWithAsterisk = (phoneNumberToMask) => {
+  let firstNumber = phoneNumberToMask.slice(0, 10);
+  return firstNumber.replace(/\d/g, '*') + phoneNumberToMask.slice(10);
+}
