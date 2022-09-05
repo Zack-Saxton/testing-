@@ -19,10 +19,11 @@ export async function checkMyOfferSubmit(customer) {
 		appSubmissionResult: "",
 	};
 
-	const utm_sources = {
-		"utm_source": ["", "null"].includes(customer?.utm_source_otherPartner) ? "CAC" : customer?.utm_source_otherPartner,
-		"utm_medium": customer.utm_medium_otherPartner,
-		"utm_campaign": customer.utm_campaign_otherPartner,
+	const utm_sources = {};
+	if (!["", "null"].includes(customer?.utm_source_otherPartner)) {
+		utm_sources.utm_source = customer?.utm_source_otherPartner;
+		utm_sources.utm_medium = customer.utm_medium_otherPartner;
+		utm_sources.utm_campaign = customer.utm_campaign_otherPartner;
 	}
 	try {
 		//creating function to load ip address from the API
@@ -56,7 +57,9 @@ export async function checkMyOfferSubmit(customer) {
 		let consent = {};
 		let esign = {};
 		let user = {};
-
+		// if (activeConsetDocument?.data?.documents) {
+		// 	activeConsetDocument.data.documents = JSON.parse(activeConsetDocument.data.documents);
+		// };
 		//Assemble 'consent', 'user' Object with dynamic data
 		activeConsetDocument.data.documents.forEach(doc => {
 			if (doc.displayname.toLowerCase() === 'credit_contact_authorization') {
@@ -64,54 +67,59 @@ export async function checkMyOfferSubmit(customer) {
 					"consent": true,
 					"version": doc.version.toString(),
 				}
+				esign.credit_contact_authorization = esignConsent;
 				user.Consent_Credit_Contact_Authorization_Version__c = doc.version.toString();
 			} else if (doc.displayname.toLowerCase() === 'electronic_disclosure_consent') {
 				consent.electronic_communications = {
 					"consent": true,
 					"version": doc.version.toString(),
 				}
+				esign.electronic_communications = esignConsent;
 				user.Consent_Electronic_Communication_Policy_Version__c = doc.version.toString();
 			} else if (doc.displayname.toLowerCase() === 'terms_of_use_document') {
 				consent.terms_of_use = {
 					"consent": true,
 					"version": doc.version.toString(),
 				}
+				esign.terms_of_use = esignConsent;
 				user.Consent_Terms_Of_Use_Version__c = doc.version.toString();
 			} else if (doc.displayname.toLowerCase() === 'privacy_policy_document') {
 				consent.privacy_policy = {
 					"consent": true,
 					"version": doc.version.toString(),
 				}
+				esign.privacy_policy = esignConsent;
 				user.Consent_Privacy_Policy_Version__c = doc.version.toString();
 			}
 		});
 
-		consent.delaware_itemized_schedule_of_charges = {
-			"consent": false,
-			"version": "1.0",
-		};
-		consent.california_credit_education_program = {
-			"consent": false,
-			"version": "1.0",
-		};
 
 		//dynamically update deleware 'consent' and 'esign' if applicable
 		if (customer.state === 'DE') {
-			consent.delaware_itemized_schedule_of_charges.consent = true;
+			consent.delaware_itemized_schedule_of_charges = {
+				"consent": true,
+				"version": "1.0",
+			};
 			esign.delaware_itemized_schedule_of_charges = esignConsent;
 		}
 
 		//dynamically update california 'consent' and 'esign' if applicable
 		if (customer.state === 'CA') {
-			consent.california_credit_education_program.consent = true;
+			consent.california_credit_education_program = {
+				"consent": true,
+				"version": "1.0",
+			};
 			esign.california_credit_education_program = esignConsent;
 		}
 
-		//assemble 'esign' Object
-		esign.credit_contact_authorization = esignConsent;
-		esign.electronic_communications = esignConsent;
-		esign.privacy_policy = esignConsent;
-		esign.terms_of_use = esignConsent;
+		//dynamically update New Maxico 'consent' and 'esign' if applicable
+		if (customer.state === 'NM') {
+			consent.new_mexico_disclosure = {
+				"consent": true,
+				"version": "1.0",
+			};
+			esign.new_mexico_disclosure = esignConsent;
+		}
 
 		//assemble 'user' Object
 		user.password = customer.password;
@@ -131,15 +139,12 @@ export async function checkMyOfferSubmit(customer) {
 						"requested_loan_term": 36,
 						"offer_code": null,
 					},
-					"contact": {
-						...customerAddress,
-						"first_name": customer.firstName,
-						"full_name": customer.firstName + ' ' + customer.lastName,
-						"last_name": customer.lastName,
-					},
-					"processing": {
+					"processing": (Object.keys(utm_sources).length > 0) ? {
 						"tokens": utm_sources
-					},
+					} : {},
+					"contact": {
+						"first_name": customer.firstName
+					}
 				},
 				"lightbox": {
 					"amount": customer.loanAmount,
@@ -153,7 +158,7 @@ export async function checkMyOfferSubmit(customer) {
 					"contact": {
 						...customerAddress,
 						"first_name": customer.firstName,
-						"full_name": customer.firstName + ' ' + customer.lastName,
+						"full_name": `${ customer.firstName } ${ customer.lastName }`,
 						"last_name": customer.lastName,
 					},
 					"self_reported": {
@@ -185,13 +190,13 @@ export async function checkMyOfferSubmit(customer) {
 						"social_security_number_backup": customer.ssn,
 						"social_security_number": customer.ssn,
 						"first_name": customer.firstName,
-						"full_name": customer.firstName + ' ' + customer.lastName,
+						"full_name": `${ customer.firstName } ${ customer.lastName }`,
 						"last_name": customer.lastName,
 					},
 					"latest_contact": customerAddress,
 				},
 				"submission_id": null,
-				"submission_type": "CAC",
+				"submission_type": "CIS",
 				"submission_paramter": null,
 				"ip_address": ipAddress,
 			},

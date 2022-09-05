@@ -28,7 +28,8 @@ import "./Style.css";
 import Cookies from "js-cookie";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import states from '../../../assets/data/States.json';
-import getClientIp from "../../Controllers/CommonController";
+import getClientIp, { phoneNumberMask, maskPhoneNumberWithAsterisk } from "../../Controllers/CommonController";
+
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -150,18 +151,6 @@ const validationSchema = yup.object({
         then: yup.string().required(globalMessages?.Address_State_Required),
       }),
 });
-const phoneNumberMask = (values) => {
-	if(values){
-		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  	values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-  	return (values);
-	}
-  return '';
-}
-const maskPhoneNumberWithAsterisk = (phoneNumber) => {
-  let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
-  return firstNumber.replace(/\d/g, '*') + phoneNumber.slice(10);
-}
 
 export default function PartnerSignUp() {
   //Decoding URL for partner signup
@@ -307,7 +296,9 @@ export default function PartnerSignUp() {
         spouseZipcode: values.spouseZipcode,
         spousecity: values.spousecity,
         spouseSelectState: values.spouseSelectState.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.spouseSelectState) : values.spouseSelectState,  
-        ClientIP : ClientIP
+        ClientIP : ClientIP,
+        state: values.state.length !== 2 ? Object.keys(states).find(key => states[ key ] === values.state) : values.state,
+        utm_source : utm_source
 
       };
       let partnerRes = await PartnerSignup(

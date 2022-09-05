@@ -17,6 +17,8 @@ import {
 import { uploadEmailVerificationDocument } from "../../Controllers/EmailVerificationController";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesEmailVerification } from "./Style";
+import imageCompression from 'browser-image-compression';
+
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
 
@@ -49,6 +51,23 @@ function UploadDocument(props) {
     setDisableNext(false);
   }, [ refWebCam, setImgSrc ]);
 
+  function handleImageUpload(event) {
+        var imageFile = event.files[0];
+        var options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true
+        }
+        imageCompression(imageFile, options)
+          .then(function (compressedFile) {
+            handleElseTwo(compressedFile)
+          })
+          .catch(function (error) {
+            toast.error("Error uploading document, please try again")
+            ErrorLogger("Error uploading document", error.message)
+          });
+      }
+
   const handleChange = (_event) => {
     let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
     if (selectedFile?.files[ 0 ]?.name) {
@@ -69,19 +88,19 @@ function UploadDocument(props) {
       }
     }
   };
-  const handleElseTwo = async () => {
+  const handleElseTwo = async (fileUploadDocument) => {
     let reader = new FileReader();
     try {
-      if (selectedFile.files && selectedFile.files[ 0 ]) {
-        reader.readAsDataURL(selectedFile.files[ 0 ]);
+      if (selectedFile.files && fileUploadDocument) {
+        reader.readAsDataURL(fileUploadDocument);
         reader.onload = async () => {
           let compressFileData = reader.result
           let imageData = compressFileData
             .toString()
             .replace(/^data:.+;base64,/, "");  
           const buffer2 = Buffer.from(imageData, "base64");       
-          let fileName = selectedFile.files[ 0 ].name;
-          let fileType = selectedFile.files[ 0 ].type;
+          let fileName = fileUploadDocument.name;
+          let fileType = fileUploadDocument.type;
           let documentType = typeOfDocument;
           setLoading(true);
           let compressedFile = [ {
@@ -90,7 +109,7 @@ function UploadDocument(props) {
             fileName: fileName
           } ];
           let fileExtension = fileName.split('.').pop();
-          let fileSize = selectedFile.files[ 0 ].size;
+          let fileSize = fileUploadDocument.size;
           let filesInfo = getFileInfo(fileName, fileType, fileExtension, fileSize);
           let response = await uploadEmailVerificationDocument(compressedFile, filesInfo, props.applicationNumber, props.customerEmail, documentType);
           if (response?.status === 200) {
@@ -183,7 +202,15 @@ function UploadDocument(props) {
     if (imgSrc) {
       uploadCameraPhoto();
     } else if (selectedFile.files && selectedFile.files[ 0 ]) {
-      handleElseTwo();
+
+      let filterImage = /(\.jpg|\.jpeg|\.png)$/i;
+      if(filterImage.exec(selectedFile?.files[0].name)){
+        handleImageUpload(selectedFile);
+      }
+      else{
+        handleElseTwo(selectedFile?.files[0]);
+      }
+      
     }
   }
   const deleteSelectedFile = () => {

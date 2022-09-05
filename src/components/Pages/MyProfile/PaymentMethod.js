@@ -754,10 +754,11 @@ export default function PaymentMethod() {
             </p>
             <p className={classes.smallText}>
               Mariner Finance accepts either ACH bank account or debit card payments via the Customer Account Center.
-              You may set either of these methods as your default payment method. Please note that each one-time debit card
-              payment will incur a $2.50 convenience fee charge imposed by the third-party payment processor. One-time
-              and recurring ACH payments are available with no additional chanrge. For other no-charge payment options,
-              please contact your local branch. Recurring payments may only be set up using an ACH bank account payment method.
+              You may set either of these methods as your default payment method. Please note that in states other than MD, 
+              SC, VA, and WI, each one-time debit card payment will incur a $2.50 convenience fee charged by Mariner Finance’s 
+              third-party payment processor. One-time and recurring ACH payments are available with no additional chanrge. 
+              For other no-charge payment options, please contact your local branch. Recurring payments may only be set up using 
+              an ACH bank account payment method.
             </p>
           </Grid>
 

@@ -21,6 +21,8 @@ import ErrorLogger from '../../lib/ErrorLogger';
 import { useStylesMyProfile } from "./Style";
 import { useAccountOverview } from '../AccountOverview/AccountOverviewHook/useAccountOverview';
 import "./Style.css";
+import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../Controllers/CommonController'
+import { usePhoneNumber } from '../../../hooks/usePhoneNumber';
 
 const validationSchema = yup.object({
   email: yup
@@ -46,15 +48,6 @@ async function filetoImage(file) {
   } catch (error) {
     ErrorLogger("Error executing image conversion", error);
   }
-}
-const phoneNumberMask = (values) => {
-  let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-  return (values);
-}
-const maskPhoneNumberWithAsterisk = (phoneNumber) => {
-  let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
-  return firstNumber.replace(/\d/g, '*') + phoneNumber.slice(10);
 }
 const maskDOB = (dob) => {
   let monthDay = (dob.slice(0, 6)).replace(/\d/g, '*'); 
@@ -82,8 +75,7 @@ export default function BasicInformation(props) {
   const [ selectedFile, setSelectedFile ] = useState(null);
   const [ docType ] = useState("");
   const [ uploadedImage, setUploadedImage ] = useState(null);
-  const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
-  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
+  const { phoneNumberValue, setPhoneNumberValue, phoneNumberCurrentValue, setPhoneNumberCurrentValue, updateActualValue, updateMaskValue, updateEnterPhoneNo } = usePhoneNumber();
 
   useEffect(() => {
     if(accountDetails) {
@@ -323,17 +315,6 @@ export default function BasicInformation(props) {
       event.preventDefault();
     }
   };
-  
-  const updateActualValue = (event) => {
-    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
-  }
-  const updateMaskValue = (event) => {
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
-  }
-  const updateEnterPhoneNo = (event) =>{
-    setPhoneNumberValue(event.target.value);
-    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
-  }
   
   return (
     <div data-testid="basic-information-component">

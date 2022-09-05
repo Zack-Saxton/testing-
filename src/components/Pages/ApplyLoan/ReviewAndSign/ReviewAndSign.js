@@ -19,6 +19,8 @@ import ScrollToTopOnMount from "../../ScrollToTop";
 import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
+import ErrorLogger from "../../../lib/ErrorLogger";
+import Cookies from "js-cookie";
 import "./ReviewAndSign.css";
 
 
@@ -33,9 +35,12 @@ export default function ReviewAndSign() {
   const [ selectedOffer, setSelectOffer ] = useState();
   const [prepaidCharge,setprepaid] = useState(); 
   const [ loading, setLoading ] = useState(false);
+  const [ disableSubmitButton, setDisableSubmitButton ] = useState(false);
+  const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const { refetch, isLoading, data: accountDetials } = useQuery('loan-data', usrAccountDetails);
   const handleChange = (_event, newValue) => setValue(newValue);
   const { data, setData } = useContext(NavContext);
+  let hardpullCounter = 0;
 
   // To get the iframe url from the API
   async function getIframeURL() {
@@ -50,11 +55,22 @@ export default function ReviewAndSign() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
+  const navStatusPage = () => {
+    if(checkPresenceOfLoanStatus === "completing_application")
+    {
+      navigate("/customers/finalVerification")
+    }
+  }
   // call the get URL funtion on page load
   useEffect(() => {
     setSelectOffer(!isLoading ? accountDetials?.data?.application?.selected_offer : null);
+    let activeLoan = accountDetials?.data?.applicants;
+    const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant?.isActive);
+    setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
+    navStatusPage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ accountDetials ]);
+  }, [ accountDetials,checkPresenceOfLoanStatus ]);
 
 useEffect(()=>{
   if(selectedOffer && selectedOffer.fees){
@@ -77,30 +93,60 @@ useEffect(()=>{
     }
   };
 
-  const submitOnClick = async (_event) => {
-    setLoading(true);
+  const onHardPullDone = async () => {
     let ipAddress = await getClientIp();
     let dataStatus = {
+      isAuthenticated: true,
+      headersHost: process.env?.REACT_APP_HOST_NAME,
       geoip: {
         ip: ipAddress
       }
-};
+    };
     let authenticateStatus = await APICall("esignature_complete", '', dataStatus, "POST", true);
     if (authenticateStatus?.data?.message === "Applicant successfully updated") {
-      let hardPull = await hardPullCheck();
-      if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
-        setLoading(false);
-        refetch();
-        toast.success(authenticateStatus?.data?.message);
-        navigate("/customers/finalVerification");
-      } else {
-        //temporarily commented below line because getting error response in hardpull API
-        //setLoading(false);
-        toast.error(messages.reviewAndSignin.eSignFailed);
-      }
-    } else {
+      setLoading(false);
+      refetch();
+      toast.success(authenticateStatus?.data?.message);
+      navigate("/customers/finalVerification");
+    }
+    else {
       setLoading(false);
       toast.error(messages.reviewAndSignin.completeEsign);
+    }
+  }
+
+  const getHardPull = async () => {
+    hardpullCounter += 1;
+    let hardPull = await hardPullCheck();
+    if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
+      Cookies.set("hardpulFailsThreeTime", false);
+      onHardPullDone();
+    }
+    else{
+      if(hardpullCounter >= 3){
+        Cookies.set("hardpulFailsThreeTime", true);
+        let requestBody = JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : '{ }');
+        let logData = {'request': requestBody, 'response':hardPull};
+        ErrorLogger("Failure response from hardpull API", JSON.stringify(logData));
+        setDisableSubmitButton(true);
+        setLoading(false);
+        toast.error(messages.reviewAndSignin.eSignFailed);
+      }
+      else{
+        getHardPull();
+      }
+     
+    }
+  }
+
+  const submitOnClick = async (_event) => {
+    setLoading(true);
+    if(accountDetials?.data?.customer?.sorad?.third_party_data?.hard_credit_pull){
+      onHardPullDone();
+    }
+    else{
+      hardpullCounter = 0;
+      getHardPull();
     }
   };
 
@@ -360,7 +406,7 @@ useEffect(()=>{
                       styleicon='{ "color":"" }'
                       id="review-submit-button"
                       data-testid = "review-submit-button"
-                      disabled={!confirm || loading}
+                      disabled={ !confirm || loading || disableSubmitButton }
                       onClick={submitOnClick}
                     >
                       Submit

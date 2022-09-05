@@ -18,6 +18,7 @@ import {
 import { uploadEmailVerificationDocument } from "../../Controllers/EmailVerificationController";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesEmailVerification } from "./Style";
+import imageCompression from 'browser-image-compression';
 
 const videoConstraints = {
   facingMode: "environment"
@@ -31,6 +32,7 @@ function DocumentIdAndPhotoId(props) {
   const [ showSelfieCamera, SetShowSelfieCamera ] = useState(false);
   const refWebCam = useRef(null);
   const refWebCamPhoto = useRef(null);
+  const compressedImageRed = useRef(null);
   const [ label, setLabel ] = useState("");
   const [ selfieLabel, setSelfieLabel ] = useState("");
   const [ selectDocument, setSelectDocument ] = useState(null);
@@ -51,6 +53,24 @@ function DocumentIdAndPhotoId(props) {
     checkSelectedAllDocument();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ imgSrc, selfieImageSrc ]);
+
+  function handleImageUpload(event, flag) {
+    var imageFile = event.files[0];
+    var options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true
+    }
+    imageCompression(imageFile, options)
+      .then(function (compressedFile) {
+        compressedImageRed.current = compressedFile;
+        uploadSelectedDocument(compressedFile, flag)
+      })
+      .catch(function (error) {
+        toast.error("Error uploading document, please try again")
+        ErrorLogger("Error uploading document", error.message)
+      });
+  }
 
   const handleDocType = (event) => {
     setDocType(event.target.value.trim());
@@ -125,19 +145,20 @@ function DocumentIdAndPhotoId(props) {
     }
   };
 
-  const uploadSelectedDocument = async (fileObject, callSecondFunction) => {
-    let reader = new FileReader();
+  const uploadSelectedDocument = async (composedFileObject, callSecondFunction) => {
+    let reader = new FileReader(composedFileObject);
+
     try {
-      if (fileObject.files && fileObject.files[ 0 ]) {
-        reader.readAsDataURL(fileObject.files[ 0 ]);
+      if ( composedFileObject) {
+        reader.readAsDataURL(composedFileObject);
         reader.onload = async () => {
           let compressFileData = reader.result;
           let imageData = compressFileData
             .toString()
           .replace(/^data:.+;base64,/, "");
           const buffer2 = Buffer.from(imageData, "base64");
-          let fileName = fileObject.files[ 0 ].name;
-          let fileType = fileObject.files[ 0 ].type;
+          let fileName = composedFileObject.name;
+          let fileType = composedFileObject.type;
           setLoading(true);
           let compressedFile = [ {
             sourcePath: "",
@@ -145,11 +166,11 @@ function DocumentIdAndPhotoId(props) {
             fileName: fileName
           } ];
           let fileExtension = fileName.split('.').pop();
-          let fileSize = fileObject.files[ 0 ].size;
+          let fileSize = composedFileObject.size;
           let filesInfo = getFileInfo(fileName, fileType, fileExtension, fileSize);
           let response = await uploadEmailVerificationDocument(compressedFile, filesInfo, props.applicationNumber, props.customerEmail, "customer_identification_license");
           if (response?.status === 200) {
-            fileObject.value = "";
+            selectedFile.value = "";
             if (callSecondFunction) {
               uploadSelfieDocument();
             } else {
@@ -286,7 +307,13 @@ function DocumentIdAndPhotoId(props) {
     if (imgSrc) {
       uploadCameraPhoto(imgSrc, docType, true);
     } else if (selectedFile?.files) {
-      uploadSelectedDocument(selectedFile, true);
+      let filterImage = /(\.jpg|\.jpeg|\.png)$/i;
+      if(filterImage.exec(selectedFile?.files[0].name)){
+        handleImageUpload(selectedFile, true);
+      }
+      else{
+        uploadSelectedDocument(selectedFile?.files[0], true);
+      }
     }
   }
 
@@ -295,7 +322,13 @@ function DocumentIdAndPhotoId(props) {
     if (selfieImageSrc) {
       uploadCameraPhoto(selfieImageSrc, "selfie_photo", false);
     } else if (selectedSelfieFile?.files) {
-      uploadSelectedDocument(selectedSelfieFile, false);
+      let filterImage = /(\.jpg|\.jpeg|\.png)$/i;
+      if(filterImage.exec(selectedSelfieFile?.files[0].name)){
+        handleImageUpload(selectedSelfieFile, false);
+      }
+      else{
+        uploadSelectedDocument(selectedSelfieFile?.files[0], false);
+      }
     }
   }
   const fileOptionDesign = (refChangeEventObj, facingMode) => {
