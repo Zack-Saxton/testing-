@@ -80,7 +80,7 @@ const useStylesMyBranch = makeStyles((theme) => ({
     paddingBottom: "10px"
   },
   navLinkMyBranch: {
-    textDecoration: "none",
+    textDecoration: "underline",
     fontWeight:"700",
     "&:visited":{
       color:"unset"
