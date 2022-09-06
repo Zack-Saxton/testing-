@@ -29,7 +29,7 @@ import Cookies from "js-cookie";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import states from '../../../assets/data/States.json';
 import getClientIp, { phoneNumberMask, maskPhoneNumberWithAsterisk } from "../../Controllers/CommonController";
-
+import { usePhoneNumber } from '../../../hooks/usePhoneNumber'
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -173,8 +173,7 @@ export default function PartnerSignUp() {
   //API call
   const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
   const [ populatePartnerPhone, SetPopulatePartnerPhone ] = useState("");
-  const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
-  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
+  const { phoneNumberValue, setPhoneNumberValue, phoneNumberCurrentValue, setPhoneNumberCurrentValue, updateActualValue, updateMaskValue, updateEnterPhoneNo } = usePhoneNumber();
   const {data:ClientIP} = useQuery('ipaddress', getClientIp);
 
 
@@ -327,16 +326,6 @@ export default function PartnerSignUp() {
       event.preventDefault();
     }
   };
-  const updateActualValue = (_event) => {
-    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
-  }
-  const updateMaskValue = (_event) => {
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
-  }
-  const updateEnterPhoneNo = (event) =>{
-    setPhoneNumberValue(event.target.value);
-    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
-  }
 
   const selectPhoneType = [
   { "label": "Cell", "value": "cell"},
