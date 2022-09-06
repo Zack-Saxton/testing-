@@ -118,7 +118,8 @@ export default function SelectOffer() {
 			_id = buildData._id,
 			termNum = buildData.termNum,
 			tabIndex = buildData.tabIndex,
-			checked = buildData.checked;
+			checked = buildData.checked,
+			display = buildData.display;
 		return {
 			select,
 			loanAmount,
@@ -130,6 +131,7 @@ export default function SelectOffer() {
 			termNum,
 			tabIndex,
 			checked,
+			display,
 		};
 	}
 
@@ -163,6 +165,7 @@ export default function SelectOffer() {
 			termNum: termNum,
 			tabIndex: tabIndex,
 			checked: "false",
+			display: item.display,
 		};
 		let formatedBuildData = createData(buildData);
 		rowsterm.push(formatedBuildData);
