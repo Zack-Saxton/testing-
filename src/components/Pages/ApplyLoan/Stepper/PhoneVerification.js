@@ -18,6 +18,7 @@ import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/Apply
 import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../../Controllers/CommonController'
+import { usePhoneNumber } from '../../../../hooks/usePhoneNumber'
 
 const useStyles = makeStyles(() => ({
 	pTagTextStyle: {
@@ -64,8 +65,7 @@ export default function PhoneVerification(props) {
 	const [ open, setOpen ] = useState(false);
 	const innerClasses = useStyles();
 	const { data: accountDetials } = useQuery('loan-data', usrAccountDetails);
-  const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
-  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
+	const { phoneNumberValue, setPhoneNumberValue, phoneNumberCurrentValue, setPhoneNumberCurrentValue, updateActualValue, updateMaskValue, updateEnterPhoneNo } = usePhoneNumber();
 	
 	// get the phone number on load
 	useEffect(() => {
@@ -148,16 +148,7 @@ export default function PhoneVerification(props) {
 	const handleClose = () => {
 		setOpen(false);
 	};
-	const updateActualValue = (_event) => {
-    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
-  }
-  const updateMaskValue = (_event) => {
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
-  }
-  const updateEnterPhoneNo = (event) =>{
-    setPhoneNumberValue(event.target.value);
-    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
-  }
+
 	//view part
 	return (
 		<div>
