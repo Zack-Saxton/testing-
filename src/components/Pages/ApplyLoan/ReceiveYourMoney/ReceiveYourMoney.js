@@ -66,7 +66,7 @@ export default function ReceiveYourMoney() {
 											Thank you for submitting your verification information!
 										</b>
 										<br />
-										You will receive an email regarding your funds afer a review of your
+										You will receive an email regarding your funds after a review of your
 										application provided that we need no additional information,
 										in which case we will reach out to you.
 									</p>
