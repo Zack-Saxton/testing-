@@ -45,13 +45,13 @@ const NormalHeader = () => {
     >
       <MenuItem>
         <Typography className={classes.headerAlign}>
-          <a data-testid="blogNavigation" href={`${ process.env.REACT_APP_WEBSITE }/blog/`} target="_blank" className="hrefTag" rel="noreferrer">
+          <a data-testid="blogNavigation" href={`${ process.env.REACT_APP_WEBSITE }/blog/`} className="hrefTag" rel="noreferrer">
             Blog
           </a>
         </Typography>
       </MenuItem>
       <MenuItem >
-        <a target="_blank" rel="noreferrer" data-testid="faqMobileNavigation" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} className="nav_link ">
+        <a rel="noreferrer" data-testid="faqMobileNavigation" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} className="nav_link ">
           <Typography className={classes.headerAlign}>FAQ</Typography>
         </a>
       </MenuItem>
@@ -69,7 +69,7 @@ const NormalHeader = () => {
   );
 
   const redirectToAccountOverview = () => {
-    window.open(`${ process.env.REACT_APP_WEBSITE }`, "_blank");
+    window.open(`${ process.env.REACT_APP_WEBSITE }`, "_self");
   };
 
   //View Part
@@ -83,11 +83,11 @@ const NormalHeader = () => {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Typography id="blogsLink" className={classes.subtitle}>
-              <a data-testid="blogsLink" href={`${ process.env.REACT_APP_WEBSITE }/blog/`} target="_blank" className="hrefTag" rel="noreferrer">
+              <a data-testid="blogsLink" href={`${ process.env.REACT_APP_WEBSITE }/blog/`} className="hrefTag" rel="noreferrer">
                 Blog
               </a>
             </Typography>
-            <a target="_blank" rel="noreferrer" data-testid="faqNavigation" className="faqLink" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} >
+            <a rel="noreferrer" data-testid="faqNavigation" className="faqLink" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} >
               <Typography className={classes.subtitle}>FAQ</Typography>
             </a>
             <NavLink data-testid="branchLocatorNavigation" to="/branch-locator" className="nav_link branchLocatorLink">

@@ -699,7 +699,6 @@ export default function SideNav() {
             <div className={classes.toolbar}>
               <a
                 href={`${ process.env.REACT_APP_WEBSITE }`}
-                target="_blank"
                 rel="noreferrer"
               >
                 <input
@@ -993,7 +992,6 @@ export default function SideNav() {
                   href={`${ process.env.REACT_APP_WEBSITE }/blog/`}
                   className="titleSidenav"
                   id="blogLinkWrap"
-                  target="_blank"
                   rel="noreferrer"
                 >
                   <ListItem className="blogLitsItem">
@@ -1004,7 +1002,7 @@ export default function SideNav() {
                     <ListItemText> Blog </ListItemText>
                   </ListItem>
                 </a>
-                <a data-testid="sideNavfaqNavigation" id="faqLinkWrap" target="_blank" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} rel="noreferrer" className="titleSidenav">
+                <a data-testid="sideNavfaqNavigation" id="faqLinkWrap" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} rel="noreferrer" className="titleSidenav">
                   <ListItem className="faqLitsItem">
                     <ListItemIcon>
                       {" "}

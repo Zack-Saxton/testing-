@@ -4,6 +4,7 @@ import React from "react";
 import { useQuery } from 'react-query';
 import DisclosureLinkController from "../../Controllers/DisclosureLinkController";
 import "./Style.css";
+import ScrollToTopOnMount from '../../Pages/ScrollToTop';
 
 const RenderContent = ({ disclosureLink, findContent, replaceContent }) => {
     const loadData = () => {
@@ -16,6 +17,7 @@ const RenderContent = ({ disclosureLink, findContent, replaceContent }) => {
     }
     return (
         <div>
+            <ScrollToTopOnMount />
             {
                 !isLoading ? <div className='contentWrap' dangerouslySetInnerHTML={{ __html: content }} /> : <CircularProgress />
             }

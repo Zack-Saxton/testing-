@@ -24,7 +24,6 @@ export default function Footer() {
               <div className="footer-content">
                 <NavLink
                   to="/communityGuidelines"
-                  target="_blank"
                   className="hrefTag"
                 >
                   <Typography className="normalFooterFont">
@@ -33,19 +32,19 @@ export default function Footer() {
                 </NavLink>
               </div>
               <div className="footer-content" >
-              <a href={`${ process.env.REACT_APP_WEBSITE }/resources/legal/#fusion-tab-privacystatement`} target="_blank" rel="noreferrer" className="hrefTag privacyStatementWeb" data-testid="privacyStatementWeb">
+              <a href={`${ process.env.REACT_APP_WEBSITE }/resources/legal/#fusion-tab-privacystatement`} rel="noreferrer" className="hrefTag privacyStatementWeb" data-testid="privacyStatementWeb">
                   <Typography className="normalFooterFont">
                     Privacy Statement
                   </Typography>
                 </a>
-                <a href={`${ process.env.REACT_APP_WEBSITE }/resources/legal/#mobile-fusion-tab-privacystatement`} target="_blank" rel="noreferrer" className="hrefTag privacyStatementMobile" data-testid="privacyStatement">
+                <a href={`${ process.env.REACT_APP_WEBSITE }/resources/legal/#mobile-fusion-tab-privacystatement`} rel="noreferrer" className="hrefTag privacyStatementMobile" data-testid="privacyStatement">
                   <Typography className="normalFooterFont">
                     Privacy Statement
                   </Typography>
                 </a>
               </div>
               <div className="footer-content">
-                <NavLink to="/termsofuse" target="_blank" className="hrefTag" data-testid="termsofuse">
+                <NavLink to="/termsofuse" className="hrefTag" data-testid="termsofuse">
                   <Typography className="normalFooterFont">
                     Terms of Use
                   </Typography>
@@ -54,7 +53,6 @@ export default function Footer() {
               <div className="footer-content">
                 <NavLink data-testid="licenseDisclosure"
                   to="/licenseDisclosure"
-                  target="_blank"
                   className="hrefTag"
                 >
                   <Typography className="normalFooterFont">
@@ -65,7 +63,6 @@ export default function Footer() {
               <div className="footer-content">
                 <NavLink data-testid="textingTermsOfUse"
                   to="/textingTermsOfUse"
-                  target="_blank"
                   className="hrefTag"
                 >
                   <Typography className="normalFooterFont">
@@ -79,7 +76,6 @@ export default function Footer() {
               <div className="footer-content">
                 <NavLink data-testid="websiteAccessibility"
                   to="/websiteAccessibility"
-                  target="_blank"
                   className="hrefTag"
                 >
                   <Typography className="normalFooterFont">
@@ -88,7 +84,7 @@ export default function Footer() {
                 </NavLink>
               </div>
               <div className="footer-content">
-                <NavLink to="/cac-termsofuse" target="_blank" className="hrefTag" data-testid="cac-termsofuse">
+                <NavLink to="/cac-termsofuse" className="hrefTag" data-testid="cac-termsofuse">
                   <Typography className="normalFooterFont">
                     CAC Terms of Use
                   </Typography>
@@ -98,7 +94,6 @@ export default function Footer() {
                 <a data-testid="californiaResident"
                   href={`${ process.env.REACT_APP_WEBSITE }/california-consumer-privacy-act-ccpa-request/`}
                   rel="noreferrer"
-                  target="_blank"
                   className="hrefTag"
                 >
                   <Typography className="normalFooterFont">

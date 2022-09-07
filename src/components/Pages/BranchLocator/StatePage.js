@@ -344,7 +344,6 @@ export default function StatePage() {
                   <p className="PesonalLoanParagraph">
                     For all the reasons to choose Mariner Finance, visit{" "}
                     <Link
-                      target="_blank"
                       rel="link"
                       className="Links"
                       href={`${ process.env.REACT_APP_WEBSITE }/why-mariner-finance/`}
@@ -384,7 +383,6 @@ export default function StatePage() {
                     }
                   }}
                   stylebutton='{"width": "100%", "padding":"0 15px", "fontSize":"0.938rem", "fontWeight":"400", "height":"47px" }'
-                  target="_blank"
                 >
                   Get Driving Directions To Nearest Location
                 </ButtonPrimary>
@@ -563,7 +561,6 @@ export default function StatePage() {
                           onClick={closeGetDirectionModal}
                           id="Continue"
                           stylebutton='{"float": "" }'
-                          target="_blank"
                         >
                           Continue
                         </ButtonPrimary>
