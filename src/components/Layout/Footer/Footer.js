@@ -106,6 +106,18 @@ export default function Footer() {
                   </Typography>
                 </a>
               </div>
+              <div className="footer-content">
+                <a data-testid="sitemap"
+                  href={`${ process.env.REACT_APP_WEBSITE }/sitemap.xml`}
+                  rel="noreferrer"
+                  target="_blank"
+                  className="hrefTag"
+                >
+                  <Typography className="normalFooterFont">
+                    Sitemap
+                  </Typography>
+                </a>
+              </div>
             </Grid>
 
             <Grid className="feefoBadgeWrap" item sm={12} md={4} lg={4}>
