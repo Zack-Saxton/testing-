@@ -436,7 +436,6 @@ export default function StatePage() {
           onClick={closeGetDirectionModal}
           id="Continue"
           stylebutton='{"float": "" }'
-          target="_blank"
         >
           Continue
         </ButtonPrimary>

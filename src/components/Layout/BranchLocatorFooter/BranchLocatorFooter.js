@@ -113,7 +113,6 @@ export default function BranchLocatorFooter() {
           link: `${ process.env.REACT_APP_WEBSITE }/resources/how-to-apply/`,
         },
         {
-          getTarget:"_blank",
           name: "FAQs",
           link: `${ process.env.REACT_APP_WEBSITE }/resources/faq/`,
         },

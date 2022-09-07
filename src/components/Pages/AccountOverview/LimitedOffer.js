@@ -175,7 +175,7 @@ export default function LimitedOffer(userOfferData) {
                   refinance your mortgage
                 </Typography>
                 <Grid className="buttonSecondaryWrap" container>
-                  <a rel="noreferrer" target="_blank" href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage" alt="mortgage link">
+                  <a rel="noreferrer" href="https://www.marinerfinance.com/apply-home-loan/?utm_source=CAC&utm_medium=panel&utm_campaign=Mrktoffer_Mortgage" alt="mortgage link">
                     <ButtonSecondary
                       id="applyNowButton"
                       data-testid = "mortgageApplyNowbutton"

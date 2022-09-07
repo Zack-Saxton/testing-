@@ -10,7 +10,7 @@ const HeaderWithoutMenu = () => {
   const classes = useStyles();
 
   const redirectToAccountOverview = () => {
-    window.open(`${ process.env.REACT_APP_WEBSITE }`, "_blank");
+    window.open(`${ process.env.REACT_APP_WEBSITE }`, "_self");
   };
 
   //View Part

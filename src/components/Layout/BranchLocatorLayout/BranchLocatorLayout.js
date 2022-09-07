@@ -41,11 +41,11 @@ const BranchLocatorLayout = ({ children }) => {
               <img src={ BranchLocatorIcon }/>
             </Link>
 
-            <Link target="_blank" href={`${ process.env.REACT_APP_WEBSITE }/customer-support/`} className="topRightIcons">
+            <Link href={`${ process.env.REACT_APP_WEBSITE }/customer-support/`} className="topRightIcons">
               <img src={ CustomerSupportIcon }/>
             </Link>
 
-            <Link target="_blank" href={`${ process.env.REACT_APP_WEBSITE }/?s=search`} className="topRightIcons">
+            <Link href={`${ process.env.REACT_APP_WEBSITE }/?s=search`} className="topRightIcons">
               <img src={ SearchIcon }/>
             </Link>
           </Grid>
