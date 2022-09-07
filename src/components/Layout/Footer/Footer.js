@@ -108,7 +108,7 @@ export default function Footer() {
               </div>
               <div className="footer-content">
                 <a data-testid="sitemap"
-                  href={`${ process.env.REACT_APP_WEBSITE }/sitemap.xml`}
+                  href={`https://${ process.env.REACT_APP_HOST_NAME }/sitemap.xml`}
                   rel="noreferrer"
                   target="_blank"
                   className="hrefTag"
