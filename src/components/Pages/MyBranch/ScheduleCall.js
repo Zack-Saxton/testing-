@@ -100,9 +100,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData, latitude, long
     onSubmit: async (values) => {
       let callDate = Moment(values.appointmentDate).format(dateFormat);
       let callingTime = values.callTime;
-      let callTimeZone = momentTimeZone
-        .tz(momentTimeZone.tz.guess())
-        .zoneAbbr();
+      let callTimeZone = branchDetail.MyBranchDetail.timezone;
 
       setLoading(true);
       let response = await ScheduleCallApi(callDate, callingTime, callTimeZone, latitude, longitude);
