@@ -93,7 +93,9 @@
 }
 
 #mfInfoImg {
-  padding-right: 25px
+  padding-right: 25px;
+  height: 62px;
+  width: 157px;
 }
 
 @media all and (max-width: 1200px) {

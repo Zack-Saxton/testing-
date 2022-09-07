@@ -50,7 +50,8 @@
 #mfInfoImg {
   max-width: 100%;
   padding: 0px !important;
-
+  height: 62px;
+  width: 157px;
 }
 
 .footerWrap {
@@ -72,6 +73,11 @@
   justify-content: flex-end;
 }
 
+.FooterHousingLogo img {
+  width: 79px;
+  height: 100%;
+}
+
 .bottomSectionWrap {
   align-items: center;
 }
@@ -86,6 +92,11 @@
 }
 .privacyStatementMobile{
  display: none;
+}
+
+.feefoBadgeWrap img {
+  width: 314px;
+  height: 100px;
 }
 
 @media only screen and (max-width: 799px) {
@@ -135,6 +146,7 @@
 @media only screen and (max-width: 360px) {
   .feefoBadgeWrap img {
     width: 100% !important;
+    
   }
 }
 
