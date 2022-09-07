@@ -64,7 +64,6 @@ export default function SocialMediaDialog(props) {
             onClick={handleCloseSocialMedia}
             id="Continue"
             stylebutton='{"float": "" }'
-            target="_blank"
           >
             Continue
           </ButtonPrimary>

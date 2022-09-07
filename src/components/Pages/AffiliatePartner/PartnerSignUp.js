@@ -953,7 +953,6 @@ const preventEvent = (event) => {
                                 href={
                                   "https://lms.moneyskill.org/yourcreditrating/module/mariner/en"
                                 }
-                                target="_blank"
                                 rel="noreferrer noopener"
                               >
                                 Credit Education Program
@@ -989,7 +988,6 @@ const preventEvent = (event) => {
                               <a
                                 className="formatHref"
                                 href={process.env.REACT_APP_NEW_MEXICO_CONSUMER_BROCHURE}
-                                target="_blank"
                                 rel="noreferrer noopener"
                               >
                                 New Mexico Consumer Brochure.
