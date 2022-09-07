@@ -9,7 +9,6 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import { jsPDF } from "jspdf";
@@ -27,6 +26,8 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import PaymentHistoryTable from "./PaymentHistoryTable.js";
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
+import GenerateTableHeader from "./GenerateTableHeader";
+
 
 //Main function
 export default function PaymentHistory() {
@@ -70,7 +71,8 @@ export default function PaymentHistory() {
     { label: "Total", key: "Total" },
     { label: "Balance", key: "RunningPrincipalBalance" },
   ];
-
+  let headingLabel = ["Date","Description","Principal","Interest","Other","Total","Balance"];
+  let columnAlignment = ["left","left","right","right","right","right","right"];
   const currencyFormat = (amount) => {
     const formated = parseFloat(amount);
     const currency = "$";
@@ -233,31 +235,7 @@ export default function PaymentHistory() {
           <Grid item xs={12}>
             <TableContainer data-testid = "pdfDiv" id="pdfdiv" component={Paper}>
               <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell className={classes.tableHead} align="left">
-                      Date
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="left">
-                      Description
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="right">
-                      Principal
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="right">
-                      Interest
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="right">
-                      Other
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="right">
-                      Total
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="right">
-                      Balance
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
+              <GenerateTableHeader headingLabel={ headingLabel } columnAlignment={ columnAlignment } />                
                 <TableBody>
                   <TableRow>
                     <TableCell colSpan="7" align="center">
