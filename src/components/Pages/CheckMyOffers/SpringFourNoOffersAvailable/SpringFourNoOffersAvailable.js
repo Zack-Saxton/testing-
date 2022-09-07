@@ -61,7 +61,6 @@ const SpringFourNoOffersAvailable = () => {
                     <ButtonPrimary stylebutton='{"color":""}'>
                     <a 
                     rel="noreferrer"
-                    target="_blank"
                     className={classes.getStartedSpringFourButton}  href={`${ process.env.REACT_APP_WEBSITE }/resources/#springfour`}>
                     Get Started
                     </a>                      

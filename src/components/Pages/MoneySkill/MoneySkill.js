@@ -97,7 +97,6 @@ export default function MoneySkill(props) {
             id="Continue"
             data-testid = "Continue_Btn"
             stylebutton='{"float": "" }'
-            target="_blank"
             disabled={!moneySkillUrl}
             onClick={handleCloseMoneySkill}
           >
