@@ -36,7 +36,7 @@ const validationSchema = yup.object({
   email: yup
     .string(globalMessages.EmailEnter)
     .email(globalMessages.EmailValid)
-    .matches(/^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, globalMessages.EmailValid)
+    .matches(/^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9+/._-]+\.[a-zA-Z]{2,6}$/, globalMessages.EmailValid)
     .required(globalMessages.EmailRequired),
   password: yup
     .string(globalMessages.PasswordEnter)
