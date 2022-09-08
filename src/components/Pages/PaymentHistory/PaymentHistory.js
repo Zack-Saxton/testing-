@@ -17,7 +17,7 @@ import Moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { useQuery } from 'react-query';
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { LoanAccount } from "../../../contexts/LoanAccount";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
@@ -36,6 +36,7 @@ export default function PaymentHistory() {
   const { selectedLoanAccount } = useContext(LoanAccount);
   const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
   const [ anchorEl, setAnchorEl ] = useState(null);
+  const location = useLocation()
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -51,9 +52,10 @@ export default function PaymentHistory() {
 
   useEffect(() => {
     if (accountDetails?.data?.loanHistory?.length) {
-      let respectiveList = accountDetails.data.loanHistory.find((loan) => loan.accountNumber === selectedLoanAccount)
+      let respectiveList = accountDetails.data.loanHistory.find((loan) => loan.accountNumber === (selectedLoanAccount || location?.state))
       setHistoryOfLoans(respectiveList);
     }
+    // eslint-disable-next-line
   }, [ selectedLoanAccount, accountDetails ]);
 
   useEffect(() => {
