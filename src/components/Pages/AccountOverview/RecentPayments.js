@@ -218,6 +218,7 @@ export default function RecentPayments() {
                       <NavLink
                         to="/customers/paymenthistory"
                         className={classes.decorNone}
+                        state={selectedLoanAccount}
                       >
                         <ButtonPrimary
                           data-testid="payment_history_button"
