@@ -71,7 +71,7 @@ export default function SelectOffer() {
 			if (selectedOfferResponse?.data?.selected_offer || selectedOfferResponse?.status === 200 ) {
 				setLoading(false);
 				refetch();
-				navigate(offerTypeData[ accountDetails?.data?.Offers[ selTerm ][ selIndex ]?.offerType ], { selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, replace: offerType === 'branch' ? true : false });
+				navigate(offerTypeData[ accountDetails?.data?.Offers[ selTerm ][ selIndex ]?.offerType ], {state: { selectedIndexOffer: selectedOfferResponse?.data?.selected_offer, replace: offerType === 'branch' ? true : false }});
 			} else {
 				setLoading(false);
 				toast.error(messages.unHandledError)
