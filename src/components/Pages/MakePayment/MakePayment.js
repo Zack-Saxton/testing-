@@ -222,16 +222,10 @@ export default function MakePayment() {
   async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
     setOpenPayment(false);
     let result = await makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment);
-    let message =
-      paymentDatepicker === Moment().format("YYYY/MM/DD")
-        ? globalMessages.We_Received_Your_Payment_Successfully
-        : globalMessages.Payment_has_Scheduled +
-        " Confirmation: " +
-        result?.data?.paymentResult?.ReferenceNumber;
-        setPaymentReferenceNumber(result?.data?.paymentResult?.ReferenceNumber);
+    setPaymentReferenceNumber(result?.data?.paymentResult?.ReferenceNumber);
     result.status === 200
       ? result?.data?.paymentResult?.PaymentCompleted !== undefined
-        ? handlePaymentSuccess(message)
+        ? handlePaymentSuccess()
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000 })
       : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, { autoClose: 5000, });
   }

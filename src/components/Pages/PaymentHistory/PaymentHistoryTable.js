@@ -133,8 +133,8 @@ export default function PaymentHistoryTable({ userRecentPaymentData }) {
                   page * rowsPerPage + rowsPerPage
                 )
                 : userRecentPaymentData
-              ).map((row) => (
-                <TableRow key={Math.random() * 1000}>
+              ).map((row, index) => (
+                <TableRow key={`payment-history-table-${index}`}>
                   <TableCell
                     component="th"
                     className={classes.tableHeadRow}

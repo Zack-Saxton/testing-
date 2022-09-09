@@ -42,7 +42,7 @@ export default function ControlledAccordions(keyFactors) {
       </h3>
       {
         keyFactorList.map((factor, index) => (
-          <Accordion expanded={expanded === `panel${ index }`} onChange={handleChange(`panel${ index }`)} key={Math.random() * 1000}>
+          <Accordion expanded={expanded === `panel${ index }`} onChange={handleChange(`panel${ index }`)} key={`key-factor-${index}`}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel${ index }bh-content`}

@@ -625,10 +625,10 @@ export default function PaymentMethod() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {allPaymentMethod?.data?.paymentOptions.map((row) => (
+                  {allPaymentMethod?.data?.paymentOptions.map((row, index) => (
                     <TableRow
                       hover
-                      key={Math.random() * 1000}
+                      key={`payment-methods-${index}`}
                       className="rowProps"
                       height="80px"
                     >
