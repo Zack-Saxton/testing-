@@ -239,7 +239,6 @@ export default function SideNav() {
         postFullStorySession(customer, fsSession, fsSessionKey)
     }		
   }
-  
   useEffect(() => {
     let noOfLoans = dataAccountOverview?.data?.activeLoans?.length;
     let activeLoan = dataAccountOverview?.data?.applicants;
@@ -357,7 +356,7 @@ export default function SideNav() {
 
   const lastLoginRaw = JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : '{ }')?.user?.extensionattributes?.login?.timestamp_date;
   const loginDate = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
-  const lastLogin = ((loginDate.getMonth() > 8) ? (loginDate.getMonth() + 1) : ('0' + (loginDate.getMonth() + 1))) + '/' + ((loginDate.getDate() > 9) ? loginDate.getDate() : ('0' + loginDate.getDate())) + '/' + loginDate.getFullYear();
+  const lastLogin = ((loginDate.getMonth() > 8) ? (loginDate.getMonth() + 1) : String(loginDate.getMonth() + 1).padStart(2, "0")) + '/' + ((loginDate.getDate() > 9) ? loginDate.getDate() : (String(loginDate.getDate()).padStart(2, "0"))) + '/' + loginDate.getFullYear();
 
 
   //Side bar open on mouse event
@@ -581,8 +580,6 @@ export default function SideNav() {
 
             <div className={classes.grow} />
             <div id="tool-bar-list">
-            {
-            !activeLoanData &&
               <NavLink
                 data-testid="qickPayIcon"
                 id="quickNameIcon"
@@ -591,7 +588,7 @@ export default function SideNav() {
                   activeLoanData && event.preventDefault();
                 }}
                 className={activeLoanData ? "nav_link_disabled" : ""}
-              > 
+              > { !activeLoanData &&
                 <Tooltip title="Quick Pay" placement="bottom">
                   <img
                     className={clsx(classes.headerimg, classes.headerimgResp)}
@@ -599,9 +596,8 @@ export default function SideNav() {
                     data-test-id="background"
                     alt="quick pay"
                   />
-                </Tooltip>
+                </Tooltip>}
               </NavLink>
-}
 
               <Notification />
 

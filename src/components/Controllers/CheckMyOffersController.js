@@ -288,8 +288,8 @@ export async function creatProspect(body) {
 			"gclid": null,
 			"loan_requested": null,
 			"birth_year": dobDate.getFullYear().toString(),
-			"birth_month": ("0" + (dobDate.getMonth() + 1)).slice(-2),
-			"birth_day": ("0" + (dobDate.getDate() + 1)).slice(-2),
+			"birth_month": String(dobDate.getMonth() + 1).padStart(2, "0"),
+			"birth_day": String(dobDate.getDate()).padStart(2, "0"),
 			"address_street": body.streetAddress,
 			"address_city": body.city,
 			"address_state": body.state
