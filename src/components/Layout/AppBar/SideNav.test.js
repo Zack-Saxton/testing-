@@ -70,14 +70,6 @@ test("Qick Pay Link Icon Availability Test", () => {
   expect(element).toBeTruthy();
 });
 
-test("Qick Pay Link Icon Availability Test", () => {
-  render(component());
-  LoanDataMock();
-  const element = screen.getByTestId("qickPayIcon");
-  expect(element).toHaveAttribute("href", "/customers/makePayment");
-  expect(element).toBeTruthy();
-});
-
 test("Settings Icon Availability Test", () => {
   render(component());
   const element = screen.getByTestId("settingsIcon");
