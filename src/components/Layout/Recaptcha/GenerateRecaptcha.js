@@ -53,9 +53,9 @@ const GenerateRecaptcha = (props) => {
         <div
           className={recaptchaData?.data?.recaptcha?.class}
           data-expired-callback="OnExpireCallback"
-          data-sitekey={recaptchaData.data.recaptcha.dataSitekey}
+          data-sitekey={recaptchaData?.data?.recaptcha?.dataSitekey}
           id="html_element"
-          data-callback={recaptchaData.data.recaptcha.dataCallback}
+          data-callback={recaptchaData?.data?.recaptcha?.dataCallback}
         ></div>
       ) : (
         <CircularProgress />
