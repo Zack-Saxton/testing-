@@ -114,7 +114,7 @@ export default function PaymentHistory() {
       currencyFormat(Math.abs(dataItem.RunningPrincipalBalance)),
     ]);
     document.setFontSize(15);
-    document.text(`Active Loan / Payment History(${ selectedLoanAccount })`, 40, 30);
+    document.text(`Active Loan / Payment History(${ selectedLoanAccount || location?.state })`, 40, 30);
     let content = {
       startY: 50,
       head: headerPDF,
@@ -122,7 +122,7 @@ export default function PaymentHistory() {
       theme: "plain",
     };
     document.autoTable(content);
-    document.save("" + selectedLoanAccount + ".pdf");
+    document.save("" + `${selectedLoanAccount || location?.state }` + ".pdf");
     setAnchorEl(null);
   };
 
@@ -181,9 +181,9 @@ export default function PaymentHistory() {
                 />
               </NavLink>{" "}
               Active Loan{" "}
-              {selectedLoanAccount ? (
+              {selectedLoanAccount || location?.state ? (
                 <span className={classes.spanStyle}>
-                  ({selectedLoanAccount})
+                  ({selectedLoanAccount || location?.state})
                 </span>
               ) : ("")}
               {" "}
@@ -214,7 +214,7 @@ export default function PaymentHistory() {
                   className={`${ classes.linkStyle } ${ classes.menuColor }`}
                   onClick={handleClose}
                   headers={headersCSV}
-                  filename={"" + selectedLoanAccount + ".csv"}
+                  filename={"" + `${selectedLoanAccount || location?.state }` + ".csv"}
                   data={dataCSV}
                   data-testid = "csvOption"
                 >
