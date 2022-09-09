@@ -8,11 +8,10 @@ export default function MarketingOffer(data) {
   const [ amount, setAmount ] = useState("$ " + (Math.round(data?.amount * 100) / 100).toLocaleString());
 
   const findMarketingMessage = () => {
-    let usermarketingMessage;
-    MarketingMessages.map(promo => {
-      if (promo.campaignType === data.promoType) usermarketingMessage = promo;
+    let usermarketingMessage = MarketingMessages.filter(promo => {
+      return promo.campaignType === data.promoType;
     });
-    setMessage(usermarketingMessage);
+    setMessage(usermarketingMessage[0] ? usermarketingMessage[0] : {});
   };
 
   useEffect(() => {

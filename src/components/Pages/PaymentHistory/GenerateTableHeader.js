@@ -13,7 +13,7 @@ export default function GenerateTableHeader(props) {
       <TableRow>
         {
           headingLabel.map((value, index) => (
-            <TableCell className={classes.tableHead} align={columnAlignment[index]} key={Math.random() * 1000}>
+            <TableCell className={classes.tableHead} align={columnAlignment[index]} key={`generate-table-header-${index}`}>
               { value }
             </TableCell>
           ))

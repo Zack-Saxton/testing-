@@ -61,8 +61,8 @@ export default function PaymentOverview(props) {
                     :
                     (props?.overview && props?.overview.length && !props?.overview[ 0 ].loanPaymentInformation?.errorMessage)
                         ?
-                        props.overview.map((row) => (
-                            <TableRow key={(Math.random() * 1000)}>
+                        props.overview.map((row, index) => (
+                            <TableRow key={`payment-overview-key-${index}`}>
                                 <TableCell
                                     component="th"
                                     className={classes.tableHeadRow}
