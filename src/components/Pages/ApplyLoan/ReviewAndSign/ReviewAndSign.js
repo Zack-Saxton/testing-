@@ -22,7 +22,7 @@ import TabSection from "../TabSection";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import Cookies from "js-cookie";
 import "./ReviewAndSign.css";
-
+import { useLocation } from "react-router-dom";
 
 //Initializing the Review and sign functional component
 export default function ReviewAndSign() {
@@ -40,6 +40,7 @@ export default function ReviewAndSign() {
   const { refetch, isLoading, data: accountDetials } = useQuery('loan-data', usrAccountDetails);
   const handleChange = (_event, newValue) => setValue(newValue);
   const { data, setData } = useContext(NavContext);
+  let location = useLocation();
   let hardpullCounter = 0;
 
   // To get the iframe url from the API
@@ -64,11 +65,13 @@ export default function ReviewAndSign() {
   }
   // call the get URL funtion on page load
   useEffect(() => {
-    setSelectOffer(!isLoading ? accountDetials?.data?.application?.selected_offer : null);
-    let activeLoan = accountDetials?.data?.applicants;
-    const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant?.isActive);
-    setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
-    navStatusPage();
+    if (!location?.state?.selectedIndexOffer) {
+      setSelectOffer(!isLoading ? accountDetials?.data?.application?.selected_offer : null);
+      let activeLoan = accountDetials?.data?.applicants;
+      const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant?.isActive);
+      setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
+      navStatusPage();
+    } else setSelectOffer(location?.state?.selectedIndexOffer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ accountDetials,checkPresenceOfLoanStatus ]);
 
@@ -80,7 +83,6 @@ useEffect(()=>{
     setprepaid(totalValue);
   }
 },[selectedOffer])
-
 
   //Conver the value into currency format
   const currencyFormat = (val) => {
@@ -241,7 +243,7 @@ useEffect(()=>{
                         Select Amount
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {currencyFormat(selectedOffer.approved_loan_amount)}{" "}
+                        {currencyFormat(selectedOffer?.approved_loan_amount)}{" "}
                       </h2>
                     </Grid>
                     <Grid
@@ -255,7 +257,7 @@ useEffect(()=>{
                         Loan Term
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {selectedOffer.term}M
+                        {selectedOffer?.term}M
                       </h2>
                     </Grid>
                     <Grid
@@ -284,7 +286,7 @@ useEffect(()=>{
                         Interest Rate
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {selectedOffer.annual_interest_rate && (selectedOffer.annual_interest_rate * 100).toFixed(2)}%
+                        {selectedOffer?.annual_interest_rate && (selectedOffer?.annual_interest_rate * 100).toFixed(2)}%
                       </h2>
                     </Grid>
                   <Grid
@@ -299,7 +301,7 @@ useEffect(()=>{
                         Loan Proceeds
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {currencyFormat(selectedOffer.approved_loan_amount)}
+                        {currencyFormat(selectedOffer?.approved_loan_amount)}
                       </h2>
                     </Grid>
                     <Grid
@@ -313,7 +315,7 @@ useEffect(()=>{
                         APR
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {(selectedOffer.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[ 0 ]} %
+                        {(selectedOffer?.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[ 0 ]} %
                       </h2>
                     </Grid>
                     <Grid
@@ -327,7 +329,7 @@ useEffect(()=>{
                         Monthly Payment
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {currencyFormat(selectedOffer.monthly_payment)}
+                        {currencyFormat(selectedOffer?.monthly_payment)}
                       </h2>
                     </Grid>
                   </Grid>
