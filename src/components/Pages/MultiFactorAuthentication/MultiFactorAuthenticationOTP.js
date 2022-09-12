@@ -193,7 +193,7 @@ const MultiFactorAuthenticationOTP = () => {
                     </Grid>
                     <Typography className={classes.twoStepParagraph}>
                       Enter the 6 digit passcode received on your mobile{" "}
-                      <span>{`(***) *** ${customerPhoneNumber.substr(
+                      <span>{`(***) ***-${customerPhoneNumber.substr(
                         -4
                       )}`}</span>
                       . Code is valid for 15 minutes.
