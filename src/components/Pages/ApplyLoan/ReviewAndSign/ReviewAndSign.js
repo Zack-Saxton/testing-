@@ -76,7 +76,7 @@ export default function ReviewAndSign() {
   }, [ accountDetials,checkPresenceOfLoanStatus ]);
 
 useEffect(()=>{
-  if(selectedOffer && selectedOffer.fees){
+  if(selectedOffer && selectedOffer.fees && Object.keys(selectedOffer.fees).length){
     let totalValue = Object.values(selectedOffer.fees).reduce((a,b)=>{
       return a + b
     })
