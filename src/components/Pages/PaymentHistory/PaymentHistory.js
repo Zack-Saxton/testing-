@@ -52,7 +52,7 @@ export default function PaymentHistory() {
 
   useEffect(() => {
     if (accountDetails?.data?.loanHistory?.length) {
-      let respectiveList = accountDetails.data.loanHistory.find((loan) => loan.accountNumber === (selectedLoanAccount || location?.state))
+      let respectiveList = accountDetails.data.loanHistory.find((loan) => loan.accountNumber === (selectedLoanAccount || location?.state?.selectedLoanAccount))
       setHistoryOfLoans(respectiveList);
     }
     // eslint-disable-next-line
@@ -114,7 +114,7 @@ export default function PaymentHistory() {
       currencyFormat(Math.abs(dataItem.RunningPrincipalBalance)),
     ]);
     document.setFontSize(15);
-    document.text(`Active Loan / Payment History(${ selectedLoanAccount || location?.state })`, 40, 30);
+    document.text(`Active Loan / Payment History(${ selectedLoanAccount || location?.state?.selectedLoanAccount })`, 40, 30);
     let content = {
       startY: 50,
       head: headerPDF,
@@ -122,7 +122,7 @@ export default function PaymentHistory() {
       theme: "plain",
     };
     document.autoTable(content);
-    document.save("" + `${selectedLoanAccount || location?.state }` + ".pdf");
+    document.save("" + `${selectedLoanAccount || location?.state?.selectedLoanAccount }` + ".pdf");
     setAnchorEl(null);
   };
 
@@ -181,9 +181,9 @@ export default function PaymentHistory() {
                 />
               </NavLink>{" "}
               Active Loan{" "}
-              {selectedLoanAccount || location?.state ? (
+              {selectedLoanAccount || location?.state?.selectedLoanAccount ? (
                 <span className={classes.spanStyle}>
-                  ({selectedLoanAccount || location?.state})
+                  ({selectedLoanAccount || location?.state?.selectedLoanAccount})
                 </span>
               ) : ("")}
               {" "}
@@ -214,7 +214,7 @@ export default function PaymentHistory() {
                   className={`${ classes.linkStyle } ${ classes.menuColor }`}
                   onClick={handleClose}
                   headers={headersCSV}
-                  filename={"" + `${selectedLoanAccount || location?.state }` + ".csv"}
+                  filename={"" + `${selectedLoanAccount || location?.state?.selectedLoanAccount }` + ".csv"}
                   data={dataCSV}
                   data-testid = "csvOption"
                 >
