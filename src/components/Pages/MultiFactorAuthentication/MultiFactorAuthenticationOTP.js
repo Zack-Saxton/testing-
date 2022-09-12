@@ -195,7 +195,7 @@ const MultiFactorAuthenticationOTP = () => {
                       Enter the 6 digit passcode received on your mobile{" "}
                       <span>{`(***) ***-${customerPhoneNumber.substr(
                         -4
-                      )}`}</span>
+                      )}`} </span>
                       . Code is valid for 15 minutes.
                     </Typography>
                     {/* {${customerPhoneNumber.substr(-4)} */}
