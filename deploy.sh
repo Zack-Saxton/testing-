@@ -27,6 +27,41 @@ then
     echo 'Invalid Git Branch'
     exit
 fi
+#unit test automation script
+if [ $branch = "dev" ];
+then
+    echo "*************************Unit test automation started*************************"
+    CI=true npm test 2>&1 | tee unit_test_result.txt
+    UNIT_TEST_RESULT='passed'
+    TOTAL_TEST_SUITES=$(cat unit_test_result.txt | grep 'Test Suites:')  
+    PASSED_TESTS=$(cat unit_test_result.txt | grep 'Tests:') 
+    SNAPSHORT_TESTS=$(cat unit_test_result.txt | grep 'Snapshots:') 
+    TIME_TAKEN=$(cat unit_test_result.txt | grep 'Time:')
+
+    message="
+    *Unit Test Result Summary -: CAC Application*
+      * ${TOTAL_TEST_SUITES}
+      * ${PASSED_TESTS}
+      * ${SNAPSHORT_TESTS}
+      * ${TIME_TAKEN} 
+    "
+    url="https://hooks.slack.com/services/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"
+    curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
+    SUB='failed'
+    case $PASSED_TESTS in
+      *"$SUB"*)
+        UNIT_TEST_RESULT='failed'
+        ;;
+    esac
+
+    if [ $UNIT_TEST_RESULT != "passed" ];
+    then
+        echo 'Unit test automation failed'
+        exit
+    fi
+    echo "*************************Unit test automation end*************************"
+fi
+
 
 if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ] || [ "$env" = "prod5" ]
 then
