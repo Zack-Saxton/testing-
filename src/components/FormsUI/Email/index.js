@@ -16,7 +16,6 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, disablePaste, ..
   //Basic Configuration for Email field
   const configTextfield = {
     name: name,
-    type: "email",
     lable: lable,
     fullWidth: true,
     InputProps: suffix
@@ -43,7 +42,6 @@ const EmailWrapper = ({ name, suffix, lable, materialProps, id, disablePaste, ..
     <TextField
       id={id}
       lable="email"
-      type="email"
       fullWidth={true}
       variant="standard"
       inputProps={materialProps}
