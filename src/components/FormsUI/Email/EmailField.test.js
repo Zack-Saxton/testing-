@@ -12,7 +12,6 @@ test('Render DEmail field', () => {
       name="Email"
       label="Enter your email id"
       required={true}
-      type="email"
       materialProps={{ "data-testid": "test" }}
     />);
 
@@ -28,7 +27,6 @@ test('Check email input field', () => {
       name="firstName"
       label="Enter your first name"
       required={true}
-      type="email"
       materialProps={{ "data-testid": "test" }}
     />);
 

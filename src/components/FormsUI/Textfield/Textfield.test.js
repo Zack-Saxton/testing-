@@ -10,7 +10,6 @@ test('Render DatePicker', () => {
       name="firstName"
       label="Enter your first name"
       required={true}
-      type="email"
       materialProps={{ "data-testid": "test" }}
     />)
 
@@ -26,7 +25,6 @@ test('Initially empty', () => {
       name="firstName"
       label="Enter your first name"
       required={true}
-      type="email"
       materialProps={{ "data-testid": "test" }}
     />);
 
@@ -40,7 +38,6 @@ test('Changing value', async() => {
       name="firstName"
       label="Enter your first name"
       required={true}
-      type="email"
       materialProps={{ "data-testid": "test" }}
     />);
 
