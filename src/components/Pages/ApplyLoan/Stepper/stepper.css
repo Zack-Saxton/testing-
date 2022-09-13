@@ -53,13 +53,20 @@
 	font-size: 0.938rem !important;
 	margin-left: -14px;
 }
+#financialEmpPhoneWrap div .MuiInputLabel-formControl {
+	font-size: 0.938rem !important;
+}
 
-#currentAddressSelectWrap,
+#currentAddressSelectWrap,#financialEmpPhoneWrap,
 #heardUsSelectWrap {
 	margin-top: 20px;
 }
 
 #currentAddressSelectWrap .MuiFormControl-fullWidth p {
+	margin: 3px 0px 0px 0px;
+}
+
+#financialEmpPhoneWrap .MuiFormControl-fullWidth p {
 	margin: 3px 0px 0px 0px;
 }
 
@@ -208,4 +215,16 @@
 	.mobileFontParagraph {
 		font-size: 1rem !important;
 	}
+}
+
+.showMsg {
+	display: block;
+	margin: 0;
+	color: #f44336 !important;
+	font-family: "Muli", sans-serif;
+	font-weight: 400;
+}
+
+.hideMsg {
+	display: none !important;
 }
