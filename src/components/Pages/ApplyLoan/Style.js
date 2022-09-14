@@ -26,6 +26,7 @@ const useStylesApplyForLoan = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   heading: {
+    display:"none",
     color: "#214476",
     fontWeight: "400",
     fontSize: "1.563rem",

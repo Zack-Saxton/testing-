@@ -64,7 +64,6 @@ export default function ConsumerDialog(props) {
             onClick={handleCloseConsumer}
             id="Continue"
             stylebutton='{"float": "" }'
-            target="_blank"
           >
             Continue
           </ButtonPrimary>

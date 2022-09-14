@@ -319,7 +319,7 @@ export default function EmailVerification() {
             <Grid data-testid ="checkboxGrid" id="checkBoxGrid" className={agreeTerms ? classes.showCheckbox : classes.hideCheckbox}>
               <Stepper nonLinear activeStep={activeStep} orientation="vertical">
                 {steps.map((label, index) => (
-                  <Step key={Math.random() * 1000} completed={completed[index]}>
+                  <Step key={`email-verification-row-${index}`} completed={completed[index]}>
                     <StepLabel StepIconComponent={showArrowButton} onClick={handleStep(index)}>
                       {label}
                     </StepLabel>

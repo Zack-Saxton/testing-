@@ -229,7 +229,6 @@ export default function TextNotification() {
             I have read, understand, and agree to the &nbsp;
             <Link
               to={`/textingTermsOfUse`}
-              target="_blank"
               className={classes.linkStyle}
             >
               Texting Terms of Use.

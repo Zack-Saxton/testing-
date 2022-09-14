@@ -28,14 +28,15 @@ import "./Style.css";
 import Cookies from "js-cookie";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import states from '../../../assets/data/States.json';
-import getClientIp from "../../Controllers/CommonController";
+import getClientIp, { phoneNumberMask, maskPhoneNumberWithAsterisk } from "../../Controllers/CommonController";
+import { usePhoneNumber } from '../../../hooks/usePhoneNumber'
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
   email: yup
     .string(globalMessages.EmailEnter)
     .email(globalMessages.EmailValid)
-    .matches(/^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, globalMessages.EmailValid)
+    .matches(/^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9+/._-]+\.[a-zA-Z]{2,6}$/, globalMessages.EmailValid)
     .required(globalMessages.EmailRequired),
   password: yup
     .string(globalMessages.PasswordEnter)
@@ -150,18 +151,6 @@ const validationSchema = yup.object({
         then: yup.string().required(globalMessages?.Address_State_Required),
       }),
 });
-const phoneNumberMask = (values) => {
-	if(values){
-		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  	values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-  	return (values);
-	}
-  return '';
-}
-const maskPhoneNumberWithAsterisk = (phoneNumber) => {
-  let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
-  return firstNumber.replace(/\d/g, '*') + phoneNumber.slice(10);
-}
 
 export default function PartnerSignUp() {
   //Decoding URL for partner signup
@@ -184,8 +173,7 @@ export default function PartnerSignUp() {
   //API call
   const [ populatePartnerSignupState, SetPopulatePartnerSignupState ] = useState(null);
   const [ populatePartnerPhone, SetPopulatePartnerPhone ] = useState("");
-  const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
-  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
+  const { phoneNumberValue, setPhoneNumberValue, phoneNumberCurrentValue, setPhoneNumberCurrentValue, updateActualValue, updateMaskValue, updateEnterPhoneNo } = usePhoneNumber();
   const {data:ClientIP} = useQuery('ipaddress', getClientIp);
 
 
@@ -338,16 +326,6 @@ export default function PartnerSignUp() {
       event.preventDefault();
     }
   };
-  const updateActualValue = (_event) => {
-    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
-  }
-  const updateMaskValue = (_event) => {
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
-  }
-  const updateEnterPhoneNo = (event) =>{
-    setPhoneNumberValue(event.target.value);
-    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
-  }
 
   const selectPhoneType = [
   { "label": "Cell", "value": "cell"},
@@ -975,7 +953,6 @@ const preventEvent = (event) => {
                                 href={
                                   "https://lms.moneyskill.org/yourcreditrating/module/mariner/en"
                                 }
-                                target="_blank"
                                 rel="noreferrer noopener"
                               >
                                 Credit Education Program
@@ -1011,7 +988,6 @@ const preventEvent = (event) => {
                               <a
                                 className="formatHref"
                                 href={process.env.REACT_APP_NEW_MEXICO_CONSUMER_BROCHURE}
-                                target="_blank"
                                 rel="noreferrer noopener"
                               >
                                 New Mexico Consumer Brochure.

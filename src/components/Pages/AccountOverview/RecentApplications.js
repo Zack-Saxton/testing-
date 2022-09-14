@@ -19,6 +19,7 @@ import { useStylesAccountOverview } from "./Style";
 import { NavContext } from "../../../contexts/NavContext";
 import { statusStrLinks } from "../../lib/StatusStrLinks" 
 import "./Style.css";
+import GenerateTableHeader from "./../PaymentHistory/GenerateTableHeader";
 
 export default function RecentApplications() {
   //Material UI css class
@@ -90,7 +91,8 @@ export default function RecentApplications() {
       return null
   });
 };
-
+  let headingLabel = ["Applied on","Product Type","Requested Amount","Loan Purpose","Status","Actions"];
+  let columnAlignment = ["left","left","right","left","left","center"];
 
   //View
   return (
@@ -113,16 +115,7 @@ export default function RecentApplications() {
       <Grid item xs={12} className={classes.tableGrid}>
         <TableContainer id="summaryOfApplications" component={Paper}>
           <Table id="summaryOfApplicationsTable" className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell className={classes.tableHead}>Applied on</TableCell>
-                <TableCell className={classes.tableHead} align="left">Product Type</TableCell>
-                <TableCell className={classes.tableHead} align="right">Requested Amount</TableCell>
-                <TableCell className={classes.tableHead} align="left">Loan Purpose</TableCell>
-                <TableCell className={classes.tableHead} align="left">Status</TableCell>
-                <TableCell className={classes.tableHead} align="center">Actions</TableCell>
-              </TableRow>
-            </TableHead>
+            <GenerateTableHeader headingLabel={ headingLabel } columnAlignment={ columnAlignment } />
             <TableBody>
               {isLoading ? (
                 <TableRow>

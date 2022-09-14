@@ -175,7 +175,6 @@ export default function BranchLocator() {
           onClick={closeGetDirectionModal}
           id="Continue"
           stylebutton='{"float": "" }'
-          target="_blank"
         >
           Continue
         </ButtonPrimary>
@@ -272,7 +271,6 @@ export default function BranchLocator() {
             }
           }}
           stylebutton='{"width": "" }'
-          target="_blank"
         >
           Get Driving Directions To Nearest Location
         </ButtonPrimary>

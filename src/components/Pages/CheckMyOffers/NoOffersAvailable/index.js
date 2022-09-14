@@ -19,7 +19,7 @@ function NoOffersAvailable(props) {
 	const classes = preLoginStyle();
 	//handle
 	const handleBlog = (event) => {
-		window.open(`${ process.env.REACT_APP_WEBSITE }/blog/`, "_blank");
+		window.open(`${ process.env.REACT_APP_WEBSITE }/blog/`, "_self");
 	};
 	const handleHome = (event) => {
 		navigate("/customers/accountoverview");

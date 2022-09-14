@@ -4,7 +4,7 @@
         "selectTwoToCompare": "Please select any two offers to compare"
     },
     "reviewAndSignin": {
-        "eSignFailed": "Signing process failed, please try again.",
+        "eSignFailed": "Signing process failed, please try again later",
         "completeEsign": "Please complete your signing process before continuing to the next page"
     },
     "document": {

@@ -9,7 +9,6 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import { jsPDF } from "jspdf";
@@ -18,7 +17,7 @@ import Moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { useQuery } from 'react-query';
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { LoanAccount } from "../../../contexts/LoanAccount";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
@@ -27,6 +26,8 @@ import ScrollToTopOnMount from "../ScrollToTop";
 import PaymentHistoryTable from "./PaymentHistoryTable.js";
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
+import GenerateTableHeader from "./GenerateTableHeader";
+
 
 //Main function
 export default function PaymentHistory() {
@@ -35,6 +36,7 @@ export default function PaymentHistory() {
   const { selectedLoanAccount } = useContext(LoanAccount);
   const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
   const [ anchorEl, setAnchorEl ] = useState(null);
+  const location = useLocation()
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -50,9 +52,10 @@ export default function PaymentHistory() {
 
   useEffect(() => {
     if (accountDetails?.data?.loanHistory?.length) {
-      let respectiveList = accountDetails.data.loanHistory.find((loan) => loan.accountNumber === selectedLoanAccount)
+      let respectiveList = accountDetails.data.loanHistory.find((loan) => loan.accountNumber === (selectedLoanAccount || location?.state?.selectedLoanAccount))
       setHistoryOfLoans(respectiveList);
     }
+    // eslint-disable-next-line
   }, [ selectedLoanAccount, accountDetails ]);
 
   useEffect(() => {
@@ -70,7 +73,8 @@ export default function PaymentHistory() {
     { label: "Total", key: "Total" },
     { label: "Balance", key: "RunningPrincipalBalance" },
   ];
-
+  let headingLabel = ["Date","Description","Principal","Interest","Other","Total","Balance"];
+  let columnAlignment = ["left","left","right","right","right","right","right"];
   const currencyFormat = (amount) => {
     const formated = parseFloat(amount);
     const currency = "$";
@@ -110,7 +114,7 @@ export default function PaymentHistory() {
       currencyFormat(Math.abs(dataItem.RunningPrincipalBalance)),
     ]);
     document.setFontSize(15);
-    document.text(`Active Loan / Payment History(${ selectedLoanAccount })`, 40, 30);
+    document.text(`Active Loan / Payment History(${ selectedLoanAccount || location?.state?.selectedLoanAccount })`, 40, 30);
     let content = {
       startY: 50,
       head: headerPDF,
@@ -118,7 +122,7 @@ export default function PaymentHistory() {
       theme: "plain",
     };
     document.autoTable(content);
-    document.save("" + selectedLoanAccount + ".pdf");
+    document.save("" + `${selectedLoanAccount || location?.state?.selectedLoanAccount }` + ".pdf");
     setAnchorEl(null);
   };
 
@@ -177,9 +181,9 @@ export default function PaymentHistory() {
                 />
               </NavLink>{" "}
               Active Loan{" "}
-              {selectedLoanAccount ? (
+              {selectedLoanAccount || location?.state?.selectedLoanAccount ? (
                 <span className={classes.spanStyle}>
-                  ({selectedLoanAccount})
+                  ({selectedLoanAccount || location?.state?.selectedLoanAccount})
                 </span>
               ) : ("")}
               {" "}
@@ -210,7 +214,7 @@ export default function PaymentHistory() {
                   className={`${ classes.linkStyle } ${ classes.menuColor }`}
                   onClick={handleClose}
                   headers={headersCSV}
-                  filename={"" + selectedLoanAccount + ".csv"}
+                  filename={"" + `${selectedLoanAccount || location?.state?.selectedLoanAccount }` + ".csv"}
                   data={dataCSV}
                   data-testid = "csvOption"
                 >
@@ -233,31 +237,7 @@ export default function PaymentHistory() {
           <Grid item xs={12}>
             <TableContainer data-testid = "pdfDiv" id="pdfdiv" component={Paper}>
               <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell className={classes.tableHead} align="left">
-                      Date
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="left">
-                      Description
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="right">
-                      Principal
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="right">
-                      Interest
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="right">
-                      Other
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="right">
-                      Total
-                    </TableCell>
-                    <TableCell className={classes.tableHead} align="right">
-                      Balance
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
+              <GenerateTableHeader headingLabel={ headingLabel } columnAlignment={ columnAlignment } />                
                 <TableBody>
                   <TableRow>
                     <TableCell colSpan="7" align="center">

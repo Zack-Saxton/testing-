@@ -10,7 +10,6 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableFooter from '@mui/material/TableFooter';
-import TableHead from "@mui/material/TableHead";
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from "@mui/material/TableRow";
 import { makeStyles, useTheme } from '@mui/styles';
@@ -20,6 +19,7 @@ import React, { useState } from "react";
 import NumberFormat from "react-number-format";
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
+import GenerateTableHeader from "./GenerateTableHeader";
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -117,37 +117,14 @@ export default function PaymentHistoryTable({ userRecentPaymentData }) {
     setRowsPerPage(parseInt(event.target.value.trim(), 10));
     setPage(0);
   };
-
+  let headingLabel = ["Date","Description","Principal","Interest","Other","Total","Balance"];
+  let columnAlignment = ["left","left","right","right","right","right","right"];
   //View part
   return (
     <Grid item xs={12} className={classes.tableStyle}>
       <TableContainer id="pdfdiv" component={Paper}>
         <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell className={classes.tableHead} align="left">
-                Date
-              </TableCell>
-              <TableCell className={classes.tableHead} align="left">
-                Description
-              </TableCell>
-              <TableCell className={classes.tableHead} align="right">
-                Principal
-              </TableCell>
-              <TableCell className={classes.tableHead} align="right">
-                Interest
-              </TableCell>
-              <TableCell className={classes.tableHead} align="right">
-                Other
-              </TableCell>
-              <TableCell className={classes.tableHead} align="right">
-                Total
-              </TableCell>
-              <TableCell className={classes.tableHead} align="right">
-                Balance
-              </TableCell>
-            </TableRow>
-          </TableHead>
+          <GenerateTableHeader headingLabel={ headingLabel } columnAlignment={ columnAlignment } />
           <TableBody>
             {userRecentPaymentData ? (
               (rowsPerPage > 0
@@ -156,8 +133,8 @@ export default function PaymentHistoryTable({ userRecentPaymentData }) {
                   page * rowsPerPage + rowsPerPage
                 )
                 : userRecentPaymentData
-              ).map((row) => (
-                <TableRow key={Math.random() * 1000}>
+              ).map((row, index) => (
+                <TableRow key={`payment-history-table-${index}`}>
                   <TableCell
                     component="th"
                     className={classes.tableHeadRow}

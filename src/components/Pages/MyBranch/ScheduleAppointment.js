@@ -103,10 +103,8 @@ export default function ScheduleAppointment({
     onSubmit: async (values) => {
       let visitDate = Moment(values.appointmentDate).format(dateFormat);
       let visitTime = values.appointmentTime;
-      let visitTimeZone = momentTimeZone
-        .tz(momentTimeZone.tz.guess())
-        .zoneAbbr();
-
+      let visitTimeZone = branchDetail.MyBranchDetail.timezone;
+      
       setLoading(true);
       let response = await ScheduleVisitApi(visitDate, visitTime, visitTimeZone, latitude, longitude);
       if (response) {

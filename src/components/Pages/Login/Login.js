@@ -214,7 +214,6 @@ export default function Login(props) {
                       <EmailTextField
                         id="email"
                         name="email"
-                        type="email"
                         testid="email-input"
                         placeholder="Enter your email address"
                         label="Email Address *"
