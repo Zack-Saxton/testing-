@@ -11,6 +11,7 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
+import Tooltip from "@mui/material/Tooltip";
 import { useQuery } from 'react-query';
 import Cookies from "js-cookie";
 import { NavLink, useLocation } from "react-router-dom";
@@ -240,34 +241,35 @@ export default function LoanDocument() {
             )}
 
             <Grid
-              className="selectDocument"
-              item
-              xs={12}
-              sm={3}
+              className="selectUplpadDocument"
             >        
 
                 <Grid 
-                  item
-                  xs={12}
-                  sm={3}
-                  className={isActiveApplicationExist ? "showMsg" : "hideMsg" }
+                  container
+                  id="showMsg"
+                  className={isActiveApplicationExist ? "showDiv" : "hideDiv" }
                 >
-                  <FormLabel component="legend">Upload :</FormLabel>
-                  <RadioGroup
+                  {/* <FormLabel component="legend">Upload :</FormLabel> */}
+                    <RadioGroup
                     id="textAndCall"
                     aria-label="method"
                     name="method"
                     value={purposeOfDocumentUpload}
                     onChange={handleRadioChange}
                     row={true}
-                  >
-                    <FormControlLabel value="online_verification_doc" control={<Radio color='primary' />} label="Online Verification Document" />
-                    <FormControlLabel value="existing_loan_doc" control={<Radio color='primary' />} label="Existing Loan Document" />
-                  </RadioGroup>
+                    >
+                      <Tooltip title="Mariner Finance, LLC, NMLS No. 166564 (www.nmlsconsumeraccess.com) 8211 Town Center Drive, Nottingham, MD 21236; Telephone Number -  (877) 310-2373" placement="top">
+                          <FormControlLabel value="online_verification_doc" control={<Radio color='primary' />} label="Online Verification Document" />
+                      </Tooltip>
+                      <Tooltip title="Mariner Finance, LLC, NMLS No. 166564 (www.nmlsconsumeraccess.com) 8211 Town Center Drive, Nottingham, MD 21236; Telephone Number -  (877) 310-2373" placement="top">
+                          <FormControlLabel value="existing_loan_doc" control={<Radio color='primary' />} label="Existing Loan Document" />
+                      </Tooltip>
+                  </RadioGroup> 
                 </Grid>
               <Grid
                 item
-                className={purposeOfDocumentUpload ? "showMsg" : "hideMsg"}
+                md={6}
+                className={purposeOfDocumentUpload ? "showRadio" : "hideRadio"}
               >
                   <Select
                 id="selectDoccumentWrap"

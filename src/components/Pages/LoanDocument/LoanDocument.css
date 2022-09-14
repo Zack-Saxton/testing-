@@ -30,12 +30,52 @@
 
 .selectDocument {
     padding-top: 25px;
-    width: 225px;
+}
+#showMsg{
+    display: flex !important;
+    align-items: center;
+}
+#showDiv{
+    display: block;
+	margin: 0;
+	color: #171717 !important;
+	font-family: "Muli", sans-serif;
+	font-weight: 400;
+}
+#hideDiv{
+	display: none !important;
+}
+.showRadio{
+    display: block;
+	margin: 18px 0 0 0;
+	color: #171717 !important;
+	font-family: "Muli", sans-serif;
+	font-weight: 400;
+}
+.hideRadio{
+	display: none !important;
+}
+
+.selectUplpadDocument{
+    padding-top: 15px;
 }
 
 .selectDocument div label {
+    margin-left: 0px;
+    font-size: 0.9rem !important;
+}
+.selectUplpadDocument div label {
     margin-left: -14px;
     font-size: 0.9rem !important;
+}
+
+@media only screen and (max-width: 559px) {
+    #textAndCall label{
+        padding-bottom: 15px;
+    }
+  }
+.selectUplpadDocument div label .MuiRadio-colorPrimary{
+    padding: 0px 9px 0px 9px;
 }
 
 .loanDocumentGrid {
