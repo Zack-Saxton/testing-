@@ -258,10 +258,10 @@ export default function LoanDocument() {
                     onChange={handleRadioChange}
                     row={true}
                     >
-                      <Tooltip title="Mariner Finance, LLC, NMLS No. 166564 (www.nmlsconsumeraccess.com) 8211 Town Center Drive, Nottingham, MD 21236; Telephone Number -  (877) 310-2373" placement="top">
+                      <Tooltip title={<p className="documentUploadToolTip">{globalMessages.Online_Verification_Upload_Info}</p>} placement="top">
                           <FormControlLabel value="online_verification_doc" control={<Radio color='primary' />} label="Online Verification Document" />
                       </Tooltip>
-                      <Tooltip title="Mariner Finance, LLC, NMLS No. 166564 (www.nmlsconsumeraccess.com) 8211 Town Center Drive, Nottingham, MD 21236; Telephone Number -  (877) 310-2373" placement="top">
+                      <Tooltip title={<p className="documentUploadToolTip">{globalMessages.Existing_Loan_Upload_Info}</p>} placement="top">
                           <FormControlLabel value="existing_loan_doc" control={<Radio color='primary' />} label="Existing Loan Document" />
                       </Tooltip>
                   </RadioGroup> 

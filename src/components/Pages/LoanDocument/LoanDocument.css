@@ -85,3 +85,7 @@
 .documentInput {
     padding-top: 20px;
 }
+.documentUploadToolTip {
+    font-size: 14px;
+    margin: 0px;
+}
