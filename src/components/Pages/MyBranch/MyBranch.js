@@ -54,11 +54,7 @@ export default function MyBranch() {
               My Branch
             </Typography>
             <Typography variant="h3" className={classes.heading} data-testid="branch-location">
-              Need to find another branch location? 
-              <NavLink to="/branch-locator"
-                className={classes.navLinkMyBranch}>{" "}
-                Click here
-              </NavLink>
+              Need to find another branch location? <NavLink to="/branch-locator"className={classes.navLinkMyBranch}>{" "}Click here</NavLink>
             </Typography>
           </Grid>
         </Grid>

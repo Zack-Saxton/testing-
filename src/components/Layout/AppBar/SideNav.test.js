@@ -10,6 +10,7 @@ import CheckMyOffers from "../../../contexts/CheckMyOffers";
 import LoanAccount from "../../../contexts/LoanAccount";
 import NavContext from "../../../contexts/NavContext";
 import ProfilePicture from "../../../contexts/ProfilePicture";
+import { LoanDataMock } from "./../../../__mock__/LoanData.mock";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,7 +42,9 @@ const component = () => {
     </ThemeProvider>
   );
 };
-
+jest.mock("../../Pages/AccountOverview/AccountOverviewHook/useAccountOverview", ()=>({
+  useAccountOverview: jest.fn(),
+}))
 test("Checks the component is rendered", () => {
   render(component());
   const element = screen.getByTestId("side_nav_component");
@@ -62,14 +65,8 @@ test("Menu Icon Availability Test", () => {
 
 test("Qick Pay Link Icon Availability Test", () => {
   render(component());
+  LoanDataMock();
   const element = screen.getByTestId("qickPayIcon");
-  expect(element).toBeTruthy();
-});
-
-test("Qick Pay Link Icon Availability Test", () => {
-  render(component());
-  const element = screen.getByTestId("qickPayIcon");
-  expect(element).toHaveAttribute("href", "/customers/makePayment");
   expect(element).toBeTruthy();
 });
 
@@ -82,7 +79,7 @@ test("Settings Icon Availability Test", () => {
 test("Side Navigation buttons Availability Test", () => {
   render(component());
   const element = screen.getByTestId("sideNavfaqNavigation");
-  expect(element).toHaveAttribute("href", "https://wps-qa.marinerfinance.io/resources/faq/");
+  expect(element).toHaveAttribute("href", "https://www.marinerfinance.com/resources/faq/");
   expect(element).toBeTruthy();
 });
 

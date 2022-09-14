@@ -40,8 +40,8 @@ export default function LoanDocumentTable(userLoanDocumentData) {
         </TableHead>
         <TableBody data-testid="table-body">
           {userLoanDocument?.userLoanDocumentData?.length ? (
-            userLoanDocument.userLoanDocumentData.map((row) => (
-              <TableRow key={(Math.random() * 1000)}>
+            userLoanDocument.userLoanDocumentData.map((row, index) => (
+              <TableRow key={`document-table-key-${index}`}>
                 <TableCell
                   component="th"
                   className={classes.tableHeadRow}

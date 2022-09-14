@@ -66,10 +66,9 @@ export default function ReceiveYourMoney() {
 											Thank you for submitting your verification information!
 										</b>
 										<br />
-										You should receive an email regarding the funds by the end
-										of the next business day provided that we require no
-										additional information, in which case we will reach out to
-										you.
+										You will receive an email regarding your funds after a review of your
+										application provided that we need no additional information,
+										in which case we will reach out to you.
 									</p>
 								</div>
 							</Paper>

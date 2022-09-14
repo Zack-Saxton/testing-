@@ -251,7 +251,9 @@ export default function OfferTable(props) {
 
                   {props.rowData ? (
                     <TableBody data-testid="offer_Table">
-                      {props.rowData.map((row, ind) => (
+                      {props.rowData.map((row, ind) => {
+                        if (row.display) {
+                        return (
                         <TableRow key={ind} data-testid={`offer_Table_Row_${ind}`}>
                           <TableCell
                             component="th"
@@ -350,7 +352,7 @@ export default function OfferTable(props) {
                             )}
                           </TableCell>
                         </TableRow>
-                      ))}
+                      )}})}
                     </TableBody>
                   ) : (
                     <Typography>

@@ -8,9 +8,13 @@ import { submitFinancialInformation } from "../../../Controllers/ApplyForLoanCon
 import {
   ButtonPrimary,
   ButtonSecondary, Select,
-  TextField
+  TextField,PhoneNumber
 } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
+import {trimSpecialCharacters} from "../../../Controllers/CommonController";
+import globalMessages from "../../../../assets/data/globalMessages.json";
+import { useAccountOverview } from "../../AccountOverview/AccountOverviewHook/useAccountOverview";
+import "./stepper.css"
 
 //styling part
 const useStyles = makeStyles(() => ({
@@ -37,6 +41,20 @@ const validationSchema = yup.object({
   yearsAtCurrentAddress: yup
     .string(messages.financialInformation.yearAtCurrent)
     .required(messages.financialInformation.yearAtCurrent),
+  phone: yup
+			.string(globalMessages.PhoneEnter)
+			.nullable()
+			.transform((value) => value.replace(/[^\d]/g, ""))
+			.matches(/^$|^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
+			.matches(/^$|^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
+      .when("employementStatus", {
+        is: "Employed Hourly",
+        then: yup.string().required(globalMessages?.PhoneRequired),
+      })
+      .when("employementStatus", {
+        is: "Employed Salaried",
+        then: yup.string().required(globalMessages?.PhoneRequired),
+      }),
 });
 
 //View Part
@@ -44,13 +62,18 @@ export default function FinancialInformation(props) {
   //Initiaizing state variable
   const [ error, setError ] = useState('');
   const classes = useStyles();
+  const {  accountDetails } = useAccountOverview();
+  const checkEmployStatus = accountDetails?.data?.applicant?.self_reported?.employment_status;
+
   let formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       employerName: "",
       jobTitle: "",
       yearsAtCurrentAddress: "",
-      howDoYouHearAboutUs: ""
+      howDoYouHearAboutUs: "",
+      employementStatus: checkEmployStatus ?? "",
+      phone: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -59,7 +82,8 @@ export default function FinancialInformation(props) {
         "employer_name": values.employerName,
         "current_job_title": values.jobTitle,
         "years_at_current_address": values.yearsAtCurrentAddress,
-        "refer": values.howDoYouHearAboutUs
+        "refer": values.howDoYouHearAboutUs,
+        "employer_phone": trimSpecialCharacters(values.phone),
       };
       //API call to submit financial info
       let res = await submitFinancialInformation(body);
@@ -87,11 +111,22 @@ export default function FinancialInformation(props) {
     formik.handleBlur(event);
   };
 
+  // prevent keyboard space
+	const preventSpace = (event) => {
+		if (event.keyCode === 32) {
+			event.preventDefault();
+		}
+	};
+	const shortANDOperation = (pramOne, pramtwo) => {
+		return pramOne && pramtwo
+	};
+
   let yearsAtCurrentAddressOption = [];
   for(let start=0; start <= 20; start++){
     let labelString = start === 0 ? "<1 year" : (start === 1 ? "1 year" : (start === 20 ? "20+ years": `${start}`))
     yearsAtCurrentAddressOption.push({value: start === 20 ? 21 : start, label: labelString});
   }
+
   //View part
   return (
     <div>
@@ -126,6 +161,43 @@ export default function FinancialInformation(props) {
             helperText={formik.touched.jobTitle && formik.errors.jobTitle}
           />
         </Grid>
+
+        <Grid item sm={5} id="financialEmpPhoneWrap" 
+											data-testid="phone number field"
+											className={
+												checkEmployStatus === "Employed Hourly" ||
+                        checkEmployStatus === "Employed Salaried"
+													? "showMsg"
+													: "hideMsg"
+											}
+										>
+											<PhoneNumber
+												name="phone"
+												className={
+													checkEmployStatus === "Employed Hourly" ||
+                          checkEmployStatus === "Employed Salaried"
+														? "showMsg"
+														: "hideMsg"
+												}
+												label="Employer's phone number *"
+												placeholder="Enter employer's phone number"
+												id="phone"
+												type="text"
+												data-testid="phone_number_field"
+												onKeyDown={preventSpace}
+												value={formik.values.phone}
+												onLoad={formik.handleChange}
+												onChange={formik.handleChange}
+												onBlur={formik.handleBlur}
+												error = {
+													shortANDOperation(formik.touched.phone,Boolean(formik.errors.phone))
+												}
+												
+												helperText = {
+													shortANDOperation(formik.touched.phone,formik.errors.phone)
+												}
+											/>
+										</Grid>
         <Grid id="currentAddressSelectWrap" item sm={5} className={classes.content_grid}>
           <Select
             id="currentAddressSelect"

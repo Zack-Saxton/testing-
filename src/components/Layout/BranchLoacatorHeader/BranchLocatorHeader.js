@@ -28,7 +28,7 @@ const BranchLocatorHeader = () => {
     Cookies.get("token") ? Cookies.get("token") : "{ }"
   );
   const redirectToAccountOverview = () => {
-    window.open(`${ ServerURL }`, "_blank");
+    window.open(`${ ServerURL }`, '_self');
   };
   const [ display, setdisplay ] = useState(true);
 
@@ -148,7 +148,7 @@ const BranchLocatorHeader = () => {
                 <Link data-testid="howToApplyLink" href={`${ ServerURL }/resources/how-to-apply/`}>
                   How to Apply for a Personal loan
                 </Link>
-                <Link target="_blank"  data-testid="FAQLink" href={`${ ServerURL }/resources/faq/`}>FAQ</Link>
+                <Link data-testid="FAQLink" href={`${ ServerURL }/resources/faq/`}>FAQ</Link>
                 <Link data-testid="BlogLink" href={`${ ServerURL }/blog/`}>Blog</Link>
                 <Link data-testid="marinerStates" href="/branch-locator">Mariner States</Link>
                 <Link data-testid="LegalLink" href={`${ ServerURL }/resources/legal/`}>Legal</Link>
@@ -248,7 +248,6 @@ const BranchLocatorHeader = () => {
                 data-testid="applyNowBtn"
                 id="applynowid"
                 stylebutton='{"fontSize":"1rem","fontWeight":"400","color":"#151147"}'
-                target="_blank"
               >
                 Apply Now
               </ButtonPrimary>
@@ -274,7 +273,6 @@ const BranchLocatorHeader = () => {
               >
                 <a
                   data-testid="personalLoansLink"
-                  target="_blank"
                   rel="noreferrer"
                   href={`${ ServerURL }/personal-loans/`}
                 >
@@ -285,7 +283,6 @@ const BranchLocatorHeader = () => {
                 <Grid  className="subMenuWrap">
                   <a
                     data-testid="unexpectedExpensesLink"
-                    target="_blank"
                     rel="noreferrer"
                     href={`${ ServerURL }/personal-loans/unexpected-expenses/`}
                   >
@@ -293,7 +290,6 @@ const BranchLocatorHeader = () => {
                   </a>
                   <a
                     data-testid="vacationLoansLinks"
-                    target="_blank"
                     rel="noreferrer"
                     href={`${ ServerURL }/personal-loans/vacation-loans/`}
                   >
@@ -301,7 +297,6 @@ const BranchLocatorHeader = () => {
                   </a>
                   <a
                     data-testid="debtConsolidationLoanLink"
-                    target="_blank"
                     rel="noreferrer"
                     href={`${ ServerURL }/personal-loans/debt-consolidation-loans/`}
                   >
@@ -310,7 +305,6 @@ const BranchLocatorHeader = () => {
 
                   <a
                     data-testid="homeImprovementLoansLinks"
-                    target="_blank"
                     rel="noreferrer"
                     href={`${ ServerURL }/personal-loans/home-improvement-loans/`}
                   >
@@ -318,7 +312,6 @@ const BranchLocatorHeader = () => {
                   </a>
                   <a
                     data-testid="weddingLoansLinks"
-                    target="_blank"
                     rel="noreferrer"
                     href={`${ ServerURL }/personal-loans/wedding-loans/`}
                   >
@@ -334,7 +327,6 @@ const BranchLocatorHeader = () => {
               >
                 <a
                   data-testid="carLoanLinkMobile"
-                  target="_blank"
                   rel="noreferrer"
                   href={`${ ServerURL }/car-loans/`}
                 >
@@ -362,7 +354,6 @@ const BranchLocatorHeader = () => {
               >
                 <a
                   data-testid="homeLoansLinks"
-                  target="_blank"
                   rel="noreferrer"
                   href={`${ ServerURL }/home-loans`}
                 >
@@ -393,7 +384,6 @@ const BranchLocatorHeader = () => {
               >
                 <a
                   data-testid="ResourcesLinks"
-                  target="_blank"
                   rel="noreferrer"
                   href={`${ ServerURL }/resources/`}
                 >
@@ -405,7 +395,7 @@ const BranchLocatorHeader = () => {
                   <Link data-testid="ApplyLoanLinks" href={`${ ServerURL }/resources/how-to-apply/`}>
                     How to Apply for a Personal loan
                   </Link>
-                  <Link target="_blank"  data-testid="FAQLinks" href={`${ ServerURL }/resources/faq/`}>FAQ</Link>
+                  <Link data-testid="FAQLinks" href={`${ ServerURL }/resources/faq/`}>FAQ</Link>
                   <Link data-testid="blogLinks" href={`${ ServerURL }/blog/`}>Blog</Link>
                   <Link data-testid="marinerStatesLinks" href={`${ ServerURL }/state/`}>Mariner States</Link>
                   <Link data-testid="LegalLinks" href={`${ ServerURL }/resources/legal/`}>Legal</Link>
@@ -419,7 +409,6 @@ const BranchLocatorHeader = () => {
               >
                 <a
                   data-testid="whyUsLinks"
-                  target="_blank"
                   rel="noreferrer"
                   href={`${ ServerURL }/why-mariner-finance/`}
                 >
@@ -451,7 +440,6 @@ const BranchLocatorHeader = () => {
                     >
                       <a
                         data-testid="partnerWithUsLinks"
-                        target="_blank"
                         rel="noreferrer"
                         href={`${ ServerURL }/why-mariner-finance/partner-with-us/`}
                       >
@@ -497,7 +485,6 @@ const BranchLocatorHeader = () => {
                       <a
                         data-testid="careersLinks"
                         className="noBorder"
-                        target="_blank"
                         rel="noreferrer"
                         href={`${ ServerURL }/careers/`}
                       >

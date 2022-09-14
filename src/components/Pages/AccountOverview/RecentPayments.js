@@ -17,6 +17,8 @@ import { ButtonPrimary, Select, TableCellWrapper } from "../../FormsUI";
 import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
 import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
+import GenerateTableHeader from "./../PaymentHistory/GenerateTableHeader";
+
 export default function RecentPayments() {
   //Material UI css class
   const classes = useStylesAccountOverview();
@@ -157,7 +159,8 @@ export default function RecentPayments() {
       });
     });
   }
-
+  let headingLabel = ["Date","Description","Principal","Interest","Other","Total Amount","Balance"];
+  let columnAlignment = ["left","left","right","right","right","right","right"];
   return (
     <>
       {isLoading ? (
@@ -215,6 +218,7 @@ export default function RecentPayments() {
                       <NavLink
                         to="/customers/paymenthistory"
                         className={classes.decorNone}
+                        state={{ selectedLoanAccount: selectedLoanAccount }}
                       >
                         <ButtonPrimary
                           data-testid="payment_history_button"
@@ -238,53 +242,8 @@ export default function RecentPayments() {
                   </Grid>
                   <Grid item xs={12} className={classes.mainGrid}>
                     <TableContainer>
-                      <Table id="recentPaymentsTable" aria-label="simple table">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell
-                              className={classes.tablehead}
-                              align="left"
-                            >
-                              Date
-                            </TableCell>
-                            <TableCell
-                              className={classes.tablehead}
-                              align="left"
-                            >
-                              Description
-                            </TableCell>
-                            <TableCell
-                              className={classes.tablehead}
-                              align="right"
-                            >
-                              Principal
-                            </TableCell>
-                            <TableCell
-                              className={classes.tablehead}
-                              align="right"
-                            >
-                              Interest
-                            </TableCell>
-                            <TableCell
-                              className={classes.tablehead}
-                              align="right"
-                            >
-                              Other
-                            </TableCell>
-                            <TableCell
-                              className={classes.tablehead}
-                              align="right"
-                            >
-                              Total Amount
-                            </TableCell>
-                            <TableCell
-                              className={classes.tablehead}
-                              align="right"
-                            >
-                              Balance
-                            </TableCell>
-                          </TableRow>
-                        </TableHead>
+                      <Table id="recentPaymentsTable" aria-label="simple table">                        
+                        <GenerateTableHeader headingLabel={ headingLabel } columnAlignment={ columnAlignment } />
                         <TableCellWrapper parseData={parData} />
                       </Table>
                     </TableContainer>

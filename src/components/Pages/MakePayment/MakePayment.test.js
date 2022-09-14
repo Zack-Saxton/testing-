@@ -10,7 +10,7 @@ import { useAccountOverview } from './useAccountOverview';
 import { useHolidayCalender } from './useHolidayCalender';
 import { usePaymentMethod } from './usePaymentMethod';
 import LoanAccount from '../../../contexts/LoanAccount';
-import { makePaymentMockData, holidayCalendarMockData, paymentMethodsMockData } from "./MockData";
+import { makePaymentMockData, holidayCalendarMockData, paymentMethodsMockData } from "./../../../__mock__/data/MockData";
 import AccountOverview from '../AccountOverview/AccountOverview'
 import NavContext from '../../../contexts/NavContext';
 

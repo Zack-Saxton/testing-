@@ -110,7 +110,7 @@ test("Check customer rating exist in the UI", ()=>{
       {component()}
     </MemoryRouter>
   );
-  expect(getByText("Customer Ratings")).toBeTruthy();
+  expect(getByText("Customer Ratings***")).toBeTruthy();
 });
 
 test('Should match the snapshot', () => {

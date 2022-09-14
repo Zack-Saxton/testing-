@@ -20,8 +20,9 @@ import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
 import ErrorLogger from "../../../lib/ErrorLogger";
+import Cookies from "js-cookie";
 import "./ReviewAndSign.css";
-
+import { useLocation } from "react-router-dom";
 
 //Initializing the Review and sign functional component
 export default function ReviewAndSign() {
@@ -34,10 +35,13 @@ export default function ReviewAndSign() {
   const [ selectedOffer, setSelectOffer ] = useState();
   const [prepaidCharge,setprepaid] = useState(); 
   const [ loading, setLoading ] = useState(false);
+  const [ disableSubmitButton, setDisableSubmitButton ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const { refetch, isLoading, data: accountDetials } = useQuery('loan-data', usrAccountDetails);
   const handleChange = (_event, newValue) => setValue(newValue);
   const { data, setData } = useContext(NavContext);
+  let location = useLocation();
+  let hardpullCounter = 0;
 
   // To get the iframe url from the API
   async function getIframeURL() {
@@ -61,23 +65,24 @@ export default function ReviewAndSign() {
   }
   // call the get URL funtion on page load
   useEffect(() => {
-    setSelectOffer(!isLoading ? accountDetials?.data?.application?.selected_offer : null);
-    let activeLoan = accountDetials?.data?.applicants;
-    const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant?.isActive);
-    setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
-    navStatusPage()
+    if (!location?.state?.selectedIndexOffer) {
+      setSelectOffer(!isLoading ? accountDetials?.data?.application?.selected_offer : null);
+      let activeLoan = accountDetials?.data?.applicants;
+      const presenceOfLoanStatus = activeLoan?.find((applicant) => applicant?.isActive);
+      setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
+      navStatusPage();
+    } else setSelectOffer(location?.state?.selectedIndexOffer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ accountDetials,checkPresenceOfLoanStatus ]);
 
 useEffect(()=>{
-  if(selectedOffer && selectedOffer.fees){
+  if(selectedOffer && selectedOffer.fees && Object.keys(selectedOffer.fees).length){
     let totalValue = Object.values(selectedOffer.fees).reduce((a,b)=>{
       return a + b
     })
     setprepaid(totalValue);
   }
 },[selectedOffer])
-
 
   //Conver the value into currency format
   const currencyFormat = (val) => {
@@ -90,8 +95,7 @@ useEffect(()=>{
     }
   };
 
-  const submitOnClick = async (_event) => {
-    setLoading(true);
+  const onHardPullDone = async () => {
     let ipAddress = await getClientIp();
     let dataStatus = {
       isAuthenticated: true,
@@ -99,26 +103,52 @@ useEffect(()=>{
       geoip: {
         ip: ipAddress
       }
-};
+    };
     let authenticateStatus = await APICall("esignature_complete", '', dataStatus, "POST", true);
     if (authenticateStatus?.data?.message === "Applicant successfully updated") {
-      let hardPull = await hardPullCheck();
-      if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
-        setLoading(false);
-        refetch();
-        toast.success(authenticateStatus?.data?.message);
-        navigate("/customers/finalVerification");
-      } else {
-        //temporarily commented below line because getting error response in hardpull API
-        //setLoading(false);
+      setLoading(false);
+      refetch();
+      toast.success(authenticateStatus?.data?.message);
+      navigate("/customers/finalVerification");
+    }
+    else {
+      setLoading(false);
+      toast.error(messages.reviewAndSignin.completeEsign);
+    }
+  }
+
+  const getHardPull = async () => {
+    hardpullCounter += 1;
+    let hardPull = await hardPullCheck();
+    if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
+      Cookies.set("hardpulFailsThreeTime", false);
+      onHardPullDone();
+    }
+    else{
+      if(hardpullCounter >= 3){
+        Cookies.set("hardpulFailsThreeTime", true);
         let requestBody = JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : '{ }');
         let logData = {'request': requestBody, 'response':hardPull};
         ErrorLogger("Failure response from hardpull API", JSON.stringify(logData));
+        setDisableSubmitButton(true);
+        setLoading(false);
         toast.error(messages.reviewAndSignin.eSignFailed);
       }
-    } else {
-      setLoading(false);
-      toast.error(messages.reviewAndSignin.completeEsign);
+      else{
+        getHardPull();
+      }
+     
+    }
+  }
+
+  const submitOnClick = async (_event) => {
+    setLoading(true);
+    if(accountDetials?.data?.customer?.sorad?.third_party_data?.hard_credit_pull){
+      onHardPullDone();
+    }
+    else{
+      hardpullCounter = 0;
+      getHardPull();
     }
   };
 
@@ -213,7 +243,7 @@ useEffect(()=>{
                         Select Amount
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {currencyFormat(selectedOffer.approved_loan_amount)}{" "}
+                        {currencyFormat(selectedOffer?.approved_loan_amount)}{" "}
                       </h2>
                     </Grid>
                     <Grid
@@ -227,7 +257,7 @@ useEffect(()=>{
                         Loan Term
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {selectedOffer.term}M
+                        {selectedOffer?.term}M
                       </h2>
                     </Grid>
                     <Grid
@@ -256,7 +286,7 @@ useEffect(()=>{
                         Interest Rate
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {selectedOffer.annual_interest_rate && (selectedOffer.annual_interest_rate * 100).toFixed(2)}%
+                        {selectedOffer?.annual_interest_rate && (selectedOffer?.annual_interest_rate * 100).toFixed(2)}%
                       </h2>
                     </Grid>
                   <Grid
@@ -271,7 +301,7 @@ useEffect(()=>{
                         Loan Proceeds
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {currencyFormat(selectedOffer.approved_loan_amount)}
+                        {currencyFormat(selectedOffer?.approved_loan_amount)}
                       </h2>
                     </Grid>
                     <Grid
@@ -285,7 +315,7 @@ useEffect(()=>{
                         APR
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {(selectedOffer.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[ 0 ]} %
+                        {(selectedOffer?.apr * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[ 0 ]} %
                       </h2>
                     </Grid>
                     <Grid
@@ -299,7 +329,7 @@ useEffect(()=>{
                         Monthly Payment
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {currencyFormat(selectedOffer.monthly_payment)}
+                        {currencyFormat(selectedOffer?.monthly_payment)}
                       </h2>
                     </Grid>
                   </Grid>
@@ -378,7 +408,7 @@ useEffect(()=>{
                       styleicon='{ "color":"" }'
                       id="review-submit-button"
                       data-testid = "review-submit-button"
-                      disabled={!confirm || loading}
+                      disabled={ !confirm || loading || disableSubmitButton }
                       onClick={submitOnClick}
                     >
                       Submit

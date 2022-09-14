@@ -57,7 +57,7 @@ test("Navigate to privacy statement Mobile", () => {
 test('Navigate to terms', () => {
     render(component());
     const element = screen.getByTestId("termsofuse");
-    expect(element).toHaveAttribute("href",`/cac-termsofuse`);
+    expect(element).toHaveAttribute("href",`/termsofuse`);
     expect(element).toBeTruthy();
 });
 test('Navigate to license', () => {
@@ -81,7 +81,7 @@ test('Navigate to website accessibility', () => {
 test('Navigate to cac terms', () => {
     render(component());
     const element = screen.getByTestId("cac-termsofuse");
-    expect(element).toHaveAttribute("href",`/termsofuse`);
+    expect(element).toHaveAttribute("href",`/cac-termsofuse`);
     expect(element).toBeTruthy();
 });
 test('Navigate to privacyStatement', () => {

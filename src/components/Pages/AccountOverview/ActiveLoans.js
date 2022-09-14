@@ -83,7 +83,7 @@ export default function ActiveLoans() {
                   (appData, index) => (
                     <Grid className={classes.activeLoancardwrap}
                       container
-                      key={Math.random() * 1000}
+                      key={`active-loan-details1-${index}`}
                     >
                       <Grid
                         id="activeLoanWrap"
@@ -109,7 +109,7 @@ export default function ActiveLoans() {
                             <Grid item xs={12} sm={6} data-testid="button_Class">
                               <NavLink
                                 to={`/customers/makePayment/?accNo=${ window.btoa(appData.loanDetails.AccountNumber) }`}
-                                key={Math.random() * 1000}
+                                key={`active-loan-details2-${index}`}
                               >
                                 <ButtonPrimary
                                   id="makeAPaymentButtonStyle"

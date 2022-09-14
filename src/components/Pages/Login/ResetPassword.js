@@ -124,7 +124,6 @@ export default function ResetPassword(props) {
                   <EmailTextField
                     id="email"
                     name="email"
-                    type="email"
                     testid="email-input"
                     disabled={true}
                     InputLabelProps={{ style: { fontSize: 40 } }}

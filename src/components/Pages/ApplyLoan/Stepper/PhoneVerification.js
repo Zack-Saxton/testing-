@@ -17,6 +17,8 @@ import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { OTPInitialSubmission, verifyPasscode } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary, ButtonSecondary, ButtonWithIcon, TextField } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
+import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../../Controllers/CommonController'
+import { usePhoneNumber } from '../../../../hooks/usePhoneNumber'
 
 const useStyles = makeStyles(() => ({
 	pTagTextStyle: {
@@ -54,18 +56,6 @@ const validationSchema = yup.object({
 		.matches(/^(\d)(?!\1+$)\d{9}$/, messages?.phoneVerification?.invalidPhone)
 		.min(10, messages?.phoneVerification?.phoneNumMin),
 });
-const phoneNumberMask = (values) => {
-	if(values){
-		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  	values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-  	return (values);
-	}
-  return '';
-}
-const maskPhoneNumberWithAsterisk = (phoneNumber) => {
-  let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
-  return firstNumber.replace(/[\d]/g, '*') + phoneNumber.slice(10);
-}
 //View Part
 export default function PhoneVerification(props) {
 	const [ hasPasscode, setOfferCode ] = useState(false);
@@ -75,8 +65,7 @@ export default function PhoneVerification(props) {
 	const [ open, setOpen ] = useState(false);
 	const innerClasses = useStyles();
 	const { data: accountDetials } = useQuery('loan-data', usrAccountDetails);
-  const [ phoneNumberValue, setPhoneNumberValue ] = useState("");
-  const [ phoneNumberCurrentValue, setPhoneNumberCurrentValue ] = useState("");
+	const { phoneNumberValue, setPhoneNumberValue, phoneNumberCurrentValue, setPhoneNumberCurrentValue, updateActualValue, updateMaskValue, updateEnterPhoneNo } = usePhoneNumber();
 	
 	// get the phone number on load
 	useEffect(() => {
@@ -159,16 +148,7 @@ export default function PhoneVerification(props) {
 	const handleClose = () => {
 		setOpen(false);
 	};
-	const updateActualValue = (_event) => {
-    setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
-  }
-  const updateMaskValue = (_event) => {
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(phoneNumberValue))) ;
-  }
-  const updateEnterPhoneNo = (event) =>{
-    setPhoneNumberValue(event.target.value);
-    setPhoneNumberCurrentValue(phoneNumberMask(event.target.value));
-  }
+
 	//view part
 	return (
 		<div>

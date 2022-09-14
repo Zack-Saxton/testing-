@@ -293,7 +293,7 @@ export async function partnerConfirmInfo(dataConfirmInfo, navigate, refetch) {
     marital_status: dataConfirmInfo.martialStatus,
     partner_token: dataConfirmInfo.partner_token,
     credit_contact_authorization_version:  consent.credit_contact_authorization,
-    electronic_communications : consent.electronic_communications,
+    electronic_communications_version : consent.electronic_communications,
     privacy_policy_version: consent.privacy_policy,
     terms_of_use_version:  consent.terms_of_use,
     delaware_itemized_schedule_of_charges: consent.delaware_itemized_schedule_of_charges ?? false,

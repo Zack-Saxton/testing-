@@ -113,7 +113,6 @@ export default function BranchLocatorFooter() {
           link: `${ process.env.REACT_APP_WEBSITE }/resources/how-to-apply/`,
         },
         {
-          getTarget:"_blank",
           name: "FAQs",
           link: `${ process.env.REACT_APP_WEBSITE }/resources/faq/`,
         },
@@ -202,7 +201,7 @@ export default function BranchLocatorFooter() {
           <section className="branch-Locator-Footer">
             <Grid container spacing={4} justifyContent="space-evenly">
               {groupedFooter.map((nested) => (
-                <Grid item xs={12} sm={3} key={Math.random() * 1000}>
+                <Grid item xs={12} sm={3} key={`branch-locator-footer2-main`}>
                   {nested.map((element) => (
                     <div key={element.title} className="divFooterLinkTitle">
                       <Typography className="footerLinkstitle" gutterBottom>
@@ -239,10 +238,10 @@ export default function BranchLocatorFooter() {
                           </span>
                         </Grid>
                       ) : (
-                        element.description.map((item) => (
+                        element.description.map((item, index) => (
                           <ul
                             className="branchfooterUl"
-                            key={Math.random() * 1000}
+                            key={`branch-locator-footer2-${index}`}
                           >
                             <li
                               key={item.name}
