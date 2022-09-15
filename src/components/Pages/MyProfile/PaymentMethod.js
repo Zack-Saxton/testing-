@@ -41,7 +41,6 @@ import {
   addCreditCard,
   deleteBankAccount,
   deleteCreditCard,
-  getPaymentMethods,
   setDefaultPayment
 } from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
@@ -241,7 +240,7 @@ export default function PaymentMethod() {
       setDefault: false,
     },
     validationSchema: validationSchemaDebitCard,
-    onSubmit: async (values) => {
+    onSubmit: async (_values) => {
       setDebitCardModal(true);
     },
   });

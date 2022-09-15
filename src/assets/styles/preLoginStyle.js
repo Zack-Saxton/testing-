@@ -1,7 +1,7 @@
 import { makeStyles } from "@mui/styles";
 
 //Styling
-const preLoginStyle = makeStyles((theme) => ({
+const preLoginStyle = makeStyles((_theme) => ({
   mainDiv: {
     backgroundColor: "#f6f6f6",
     minHeight: "500px !important"

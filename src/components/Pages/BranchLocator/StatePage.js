@@ -49,7 +49,7 @@ export default function StatePage() {
   const [ zoomDepth, setZoomDepth ] = useState();
   const [ address1, setAddress1 ] = useState(() => "");
   const [ address2, setAddress2 ] = useState(() => "");
-  const [ branchDistance, setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
+  const [ , setBranchDistance ] = useState(() => Math.abs(parseInt(howManyBranchesforBranchLocatorPages?.stateBranchDistanceinMiles, 10)));
   const [ stateLongName, setStateLongName ] = useState();
   const [ stateShortName, setStateShortName ] = useState();
   const [ stateSearchFlag, setStateSearchFlag ] = useState(() => location?.state?.flag ?? false);

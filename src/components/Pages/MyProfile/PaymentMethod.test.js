@@ -38,8 +38,6 @@ jest.mock("./../AccountOverview/AccountOverviewHook/useAccountOverview", ()=>({
   useAccountOverview: jest.fn(),
 }))
 
-test("---------------------------------------Add Bank Nummber Cases----------------------------------", async () => {  
-});
 
 test("Check the component is rendered", async () => {
   LoanDataMock();
@@ -135,9 +133,6 @@ test("Check Bank Account number validation is working", async () => {
 	expect(errorInfo).toBeTruthy();	
 	expect(errorInfo).toHaveTextContent('Bank Account Number is required.');
 
-});
-
-test("---------------------------------------Add Debit Card Test Cases----------------------------------", async () => {  
 });
 
 test("Check Add Debit Card button exist in the UI", async () => {

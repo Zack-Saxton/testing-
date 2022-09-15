@@ -104,7 +104,7 @@ export default function EmailVerification() {
   const handleNext = () => {
     const newActiveStep =
     isLastStep() && !allStepsCompleted()
-      ? steps.findIndex((step, i) => !(i in completed))
+      ? steps.findIndex((_step, i) => !(i in completed))
       : activeStep + 1;
   setActiveStep(newActiveStep);
     if (activeStep <= 1) {
@@ -155,9 +155,6 @@ export default function EmailVerification() {
   };
   const handleOnClickCreditTermsClose = () => {
     setCreditTerms(false);
-  };
-  const handleOnClickCacTerms = () => {
-    setCacTerms(true);
   };
   const handleOnClickCacTermsClose = () => {
     setCacTerms(false);

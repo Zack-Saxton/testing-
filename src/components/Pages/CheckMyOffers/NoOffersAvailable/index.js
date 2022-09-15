@@ -18,10 +18,10 @@ function NoOffersAvailable(props) {
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
 	//handle
-	const handleBlog = (event) => {
+	const handleBlog = (_event) => {
 		window.open(`${ process.env.REACT_APP_WEBSITE }/blog/`, "_self");
 	};
-	const handleHome = (event) => {
+	const handleHome = (_event) => {
 		navigate("/customers/accountoverview");
 	};
 	const { data } = useContext(CheckMyOffers);

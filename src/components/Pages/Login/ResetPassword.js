@@ -44,7 +44,7 @@ const ResetPasswordvalidationSchema = yup.object().shape({
     .required(globalValidation.PasswordConfirmationRequired),
 });
 //Begin: Login page
-export default function ResetPassword(props) {
+export default function ResetPassword(_props) {
   const classes = useStylesLogin();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

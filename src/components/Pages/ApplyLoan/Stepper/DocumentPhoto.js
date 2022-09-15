@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import DOMPurify from 'dompurify';
-import { getIframe, saveIDScan, saveIDScanBeforeCAC } from "../../../Controllers/ApplyForLoanController";
+import { getIframe, saveIDScan } from "../../../Controllers/ApplyForLoanController";
 import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
 import messages from "../../../lib/Lang/applyForLoan.json";
@@ -43,7 +43,7 @@ export default function DocumentPhoto(props) {
 
 		//Refresh IFrame of the window size changed, so make the camera pointer align correclty
 	let resizeTimeout;
-	window.addEventListener('resize', function(event) {
+	window.addEventListener('resize', function(_event) {
 		clearTimeout(resizeTimeout);
 		resizeTimeout = setTimeout(function(){
 			if(Math.abs(screen.width - windowWidth) >= 500 ||  Math.abs(screen.height - windowHeight) >= 500){
