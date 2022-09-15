@@ -80,7 +80,7 @@ export default function MyProfile() {
   let basicInfoData = accountDetails?.data?.customer;
   let getProfImage = profileImage;
   const [ tabNumber, setProfileTabNumber ] = useGlobalState();
-  const handleTabChange = (event, newValues) => {
+  const handleTabChange = (_event, newValues) => {
     setProfileTabNumber({ profileTabNumber: newValues });
   };
 

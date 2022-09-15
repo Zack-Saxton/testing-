@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom/extend-expect";
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from "@testing-library/react";
+import {  render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import FinancialInformation from "../FinancialInformation";
-import { ThemeProvider, makeStyles } from '@mui/styles';
+import { ThemeProvider } from '@mui/styles';
 import { createTheme, StyledEngineProvider } from '@mui/material/styles'
 
 const handleClickMock = jest.fn();

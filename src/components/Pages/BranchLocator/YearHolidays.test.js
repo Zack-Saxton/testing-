@@ -7,7 +7,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from "react-router-dom";
 import ProfilePicture from '../../../contexts/ProfilePicture';
 import YearHolidays from './YearHolidays';
-import { useUSHolidayList } from "./useYearHolidays";
 import { YearHolidaysMock } from "../../../__mock__/YearHolidays.mock";
 
 beforeEach(cleanup);

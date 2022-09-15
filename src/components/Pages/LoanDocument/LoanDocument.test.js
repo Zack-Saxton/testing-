@@ -55,10 +55,3 @@ test("Select Document Type ", () => {
   expect(input.value).toBe("income_doc");
 });
 
-
-test("Upload button renders and functions ", () => {
-  render(component());
-  const uploadBtn = screen.getByTestId("uploadButton");
-});
-
-

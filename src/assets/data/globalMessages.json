@@ -307,5 +307,7 @@
   "Could_Not_Provide_An_Offer": "Unfortunately, we could not provide an offer for you at this time. However, you may reapply in 30 days if you feel that your circumstances have changed. Feel free to read our blog articles to understand how you can increase your credit score.",
   "Multiple_Records": "More than 1 customer record retrieved ",
   "KBA_Error" : "Unable to generate identify verification questions. Please select another option.",
-  "File_Size_Too_Large": "File size too large.  Please upload a smaller file size"
+  "File_Size_Too_Large": "File size too large.  Please upload a smaller file size",
+  "Online_Verification_Upload_Info":"Use this option if you've applied for a loan and your Mariner team member has asked you for additional information",
+  "Existing_Loan_Upload_Info":"Use this option if you have been contacted by the branch to upload information regarding your existing loan"
 }

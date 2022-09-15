@@ -67,7 +67,6 @@ function SSN() {
 		}
 	}));	 
 	const classes = useStyles();
-	const affiliateUTMs = ["credibler", "creditkarma"];
 
 	//handle modal actions
 	const handleClickOpen = () => {
@@ -160,7 +159,7 @@ function SSN() {
 		}
 	};
 
-	const handleOnClick = async (event) => {
+	const handleOnClick = async (_event) => {
 		data.dob = new Date(data.dob);
 		data.completedPage = data.page.ssn;
 		setLoading(true);
@@ -215,7 +214,7 @@ function SSN() {
 		window.onbeforeunload = null;
 	};
 	window.history.pushState(null, document.title, window.location.href);
-	window.addEventListener("popstate", function (event) {
+	window.addEventListener("popstate", function (_event) {
 		window.history.pushState(null, document.title, window.location.href);
 	});
 

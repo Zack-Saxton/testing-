@@ -116,7 +116,7 @@ if(check_source && check_campaignType){
     setData({ ...data, loanAmount: select });
   };
 
-  const handleRoute = async (event) => {
+  const handleRoute = async (_event) => {
     try {
       if (!data.offerCode) {
         setPageStatus();
@@ -222,7 +222,7 @@ if(check_source && check_campaignType){
                       data-testid="offerCodeTriggerText"
                       className="setGreenColor cursorPointer"
                       align="center"
-                      onClick={(event) => {
+                      onClick={(_event) => {
                         setHasOfferCode(!hasOfferCode);
                       }}
                     >

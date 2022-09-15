@@ -7,7 +7,7 @@ import { ButtonPrimary } from "../../../FormsUI";
 
 export default function CampaignMessage({ amount, offerCode, handleContinue, expiryDate }) {
 
-    const [ message, setMessage ] = useState("");
+    const [ , setMessage ] = useState("");
     const [ formattedAmount, setAmount ] = useState("");
 
     useEffect(() => {
