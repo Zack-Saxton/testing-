@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
-import axios from "axios";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useRef, useState } from "react";

@@ -34,8 +34,7 @@ beforeAll(() => {
   setupGoogleMock();
 });
 
-jest.mock("./BranchLocatorMap", () => () => {
-});
+jest.mock("./BranchLocatorMap", () => ({}))
 
 test('Checks the state search blue box rendered', async () => {
   render( 

@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ButtonPrimary } from "../../../FormsUI";
 import APICall from "../../../lib/AxiosLib";
-import ErrorLogger from "../../../lib/ErrorLogger";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import LoadQuestions from "./LoadQuestions";
 import MultipleQuestion from "./multipleQuestion";

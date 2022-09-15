@@ -16,7 +16,7 @@ function EligibleForOffers(props) {
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
 	//Handle button click redirecting to account overview page
-	const handleRoute = async (event) => {
+	const handleRoute = async (_event) => {
 		navigate("/customers/selectOffer");
 	};
 
