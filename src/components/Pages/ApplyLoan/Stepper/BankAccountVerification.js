@@ -29,6 +29,8 @@ import getClientIp from "../../../Controllers/CommonController";
 const validationSchema = yup.object({
 	accountHolder: yup
 		.string(messages?.bankAccountVerification?.enterAccHolderName)
+		.max(30, globalMessages.Account_Holder_Name_Max)
+    .min(2, globalMessages.Account_Holder_Name_Min)
 		.required(messages?.bankAccountVerification?.accountHolderRequired),
 	bankRoutingNumber: yup
 		.string(messages?.bankAccountVerification?.enterBankRoutingNum)
