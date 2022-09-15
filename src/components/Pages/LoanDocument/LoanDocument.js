@@ -9,7 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import Tooltip from "@mui/material/Tooltip";
 import { useQuery } from 'react-query';
@@ -62,7 +62,8 @@ export default function LoanDocument() {
     }
     let statusFromAPI = Cookies.get("isActiveApplicationExist") ? Cookies.get("isActiveApplicationExist") : false;
     let activeAppStatus = (statusFromAPI === 'true' || statusFromAPI === true);
-    if(activeAppStatus){    
+    let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
+    if(activeAppStatus && hasActiveLoan){    
       let applicationGuid = Cookies.get("activeApplicationGuid") ? Cookies.get("activeApplicationGuid") : '';
       setActiveApplicationGuid(applicationGuid);
       setPurposeOfDocumentUpload('');
@@ -246,7 +247,6 @@ export default function LoanDocument() {
 
                 <Grid 
                   container
-                  id="showMsg"
                   className={isActiveApplicationExist ? "showDiv" : "hideDiv" }
                 >
                   {/* <FormLabel component="legend">Upload :</FormLabel> */}

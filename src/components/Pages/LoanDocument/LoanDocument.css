@@ -31,18 +31,15 @@
 .selectDocument {
     padding-top: 25px;
 }
-#showMsg{
-    display: flex !important;
-    align-items: center;
-}
-#showDiv{
-    display: block;
+.showDiv{
+    display: flex;
 	margin: 0;
 	color: #171717 !important;
 	font-family: "Muli", sans-serif;
 	font-weight: 400;
+    align-items: center;
 }
-#hideDiv{
+.hideDiv{
 	display: none !important;
 }
 .showRadio{
