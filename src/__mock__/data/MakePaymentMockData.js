@@ -251,7 +251,6 @@ export const accOverviewData = () => {
                  }
              }
          ],
-         "debitStateFlag": false
      }
    }
 }
@@ -313,7 +312,6 @@ export const holidayData = () => {
 export const paymentData = () => {
    return {
       data: {
-         "debitStateFlag": false,
          "defaultBank": "Ashok",
          "paymentOptions": [
              {
