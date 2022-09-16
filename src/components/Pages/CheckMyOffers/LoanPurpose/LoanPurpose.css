@@ -57,7 +57,7 @@
 	transition: width 0.3s linear;
 }
 
-.progress {
+/* .progress {
 	position: relative;
 	display: block;
 	overflow: hidden;
@@ -66,7 +66,7 @@
 	border-radius: 2px;
 	background-color: white;
 	height: 16px;
-}
+} */
 
 .mt-0 {
 	margin-top: 0 !important;
@@ -89,14 +89,18 @@
 }
 
 .block {
-	height: inherit;
+	height: 100%;
 	text-align: center;
 	position: relative;
-	-webkit-transition: box-shadow 0.25s;
 	transition: box-shadow 0.25s;
 	border-radius: 2px;
 	background-color: #fff;
 	cursor: pointer;
+	min-height: 160px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 .insideBlock {

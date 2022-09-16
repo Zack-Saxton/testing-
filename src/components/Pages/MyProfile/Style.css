@@ -9,6 +9,48 @@
 	max-width: unset !important;
 }
 
+#scrollable-auto-tab-vertical-0.Mui-selected,
+#scrollable-auto-tab-vertical-1.Mui-selected,
+#scrollable-auto-tab-vertical-2.Mui-selected,
+#scrollable-auto-tab-vertical-3.Mui-selected,
+	#scrollable-auto-tab-vertical-4.Mui-selected{
+	background: linear-gradient(85deg, #264266, #0f4eb3) !important;
+	color: white !important;
+	max-width: unset;
+	width: 90%;
+	border-radius: 0 5px 5px 0;
+	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
+}
+.MuiInput-underline:before {
+	border-bottom: 2px solid #0F4EB3 !important;
+}
+.Mui-disabled:before {
+	border-bottom: 2px solid #0F4EB3 !important;
+}
+.Mui-disabled{
+	opacity: 0.7;
+}
+.MuiInputLabel-formControl.Mui-disabled {
+	color: black !important;
+}
+#streetAddress,
+#zip,
+#city,
+#state,
+#zipcode {
+	padding-bottom: 15px !important;
+	color: #171717;
+	-webkit-text-fill-color: #000000 !important;
+}
+
+#streetAddress-label,
+#zip-label,
+#city-label,
+#state-label,
+#zipcode-label {
+	font-size: 0.938rem !important;
+	padding-bottom: 10px !important;
+}
 #dolor-icon-loan-history {
 	height: 25px;
 	width: 25px;

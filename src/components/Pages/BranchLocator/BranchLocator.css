@@ -10,7 +10,9 @@
       U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
     U+FEFF, U+FFFD;
 }
-
+.blueBGColor #feefo-service-review-carousel-widgetId feefowidget-container-carousel feefowidget-container-main .feefowidget-standard .feefowidget-desktop-wrapper feefowidget-carousel-summary .feefowidget-carousel-summary .feefowidget-top-row span {
+  color: white !important;
+}
 #workingHoursTableWrap thead tr th {
   border: 1px solid rgba(224, 224, 224, 1) !important;
 }
@@ -69,7 +71,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  margin: 15px 0px 23px 0px;
+  margin: 0px 0px 23px 0px;
 }
 
 #findBranchGridBottom {
@@ -265,18 +267,19 @@
 }
 
 .blueBGColor {
-  background-color: #214476;
+  background-color: #214476 !important;
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
   padding: 4% 1% 4% 1%;
-  margin: 4% 0 0 0;
+  margin: 0% 0 0 0;
 }
 
 .blueBGColor h4 {
   font-size: 2.138rem;
   color: white;
+  margin: 0 !important;
 }
 
 .feefowidget-window-modal-content {
@@ -581,7 +584,62 @@
 .branchDetailsWrap {
   margin: 15px 0px;
 }
+#findBranchWrapTwo h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.625rem !important;
+  font-weight: 400;
+  color: #fff;
+}
+#findBranchWrapTwo h4 span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.625rem !important;
+  font-weight: 700;
+  color: #fff;
+}
 
+feefowidget-merchant-header .feefowidget-merchant-header__content.feefowidget-viewport-tablet-mobile {
+  padding: 40px 16px 10px 16px !important;
+}
+
+.home .feefowidget-top-row span.feefowidget-average-customer-rating,
+body.home .feefowidget-top-row .feefowidget-rating-label,
+.feefowidget-title-row,
+.feefowidget-content-row {
+  color: white !important;
+}
+
+#feefo-service-review-carousel-widgetId {
+  background-color: transparent !important;
+}
+
+.feefowidget-carousel-summary__logo-large {
+  display: none;
+}
+
+.feefowidget-rating-label {
+  color: white !important;
+}
+
+.feefowidget-meta-row {
+  color: #ffffff8a !important;
+}
+
+.feefowidget-carousel-summary-average-customer-rating div span {
+  color: #ffffff8a !important;
+}
+
+.feefowidget-right-button i,
+.feefowidget-left-button i {
+  color: white !important;
+}
+
+.feefowidget-read-all-reviews {
+  color: #ffffff8a !important;
+}
+.customerRatingsWrap {
+  width: 100%;
+  background-color: #214476;
+}
 .branchManager {
   padding: 5px 0px 15px 0px;
 }
