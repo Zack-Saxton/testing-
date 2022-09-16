@@ -118,7 +118,7 @@ useEffect(()=>{
 
   const getHardPull = async () => {
     hardpullCounter += 1;
-    let hardPull = await hardPullCheck();
+    let hardPull = await hardPullCheck(location?.state?.selectedIndexOffer?.applicant);
     if (hardPull?.data?.status === 200 || hardPull?.data?.result === "success") {
       Cookies.set("hardpulFailsThreeTime", false);
       onHardPullDone();
