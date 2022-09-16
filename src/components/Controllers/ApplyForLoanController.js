@@ -142,11 +142,11 @@ export async function verifyPasscode(passcode) {
   }
 }
 
-export async function hardPullCheck() {
+export async function hardPullCheck(applicantID) {
   try {
     let url = "cis_hardpull";
     let param = "";
-    let data = JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : '{ }');
+    let data = Object.assign(JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : '{ }'), { applicant_id: applicantID});
     let method = "POST";
     let addAccessToken = true;
 
