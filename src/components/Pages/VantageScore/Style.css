@@ -70,10 +70,12 @@
   width: 15%;
 }
 
-#date {
+#creditDate {
   margin: 0px;
   font-size: 15px;
   font-weight: bolder;
+  color: #000;
+  padding: 0 0 15px 0;
 }
 
 #ProvidedBy {
