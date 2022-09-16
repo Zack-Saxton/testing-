@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 
-const AmOneNoOffersStyle = makeStyles((theme) => ({
+const AmOneNoOffersStyle = makeStyles((_theme) => ({
   blueBackGround: {
     backgroundColor: "#013474",
     minHeight: "90vh",

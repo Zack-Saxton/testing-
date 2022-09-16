@@ -4,7 +4,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from 'react-query';
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { NavContext } from "../../../../contexts/NavContext";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
@@ -22,7 +22,6 @@ import TabSection from "../TabSection";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import Cookies from "js-cookie";
 import "./ReviewAndSign.css";
-import { useLocation } from "react-router-dom";
 
 //Initializing the Review and sign functional component
 export default function ReviewAndSign() {
