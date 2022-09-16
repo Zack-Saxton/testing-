@@ -3603,7 +3603,6 @@ export const makePaymentMockData = {
         "HasNoErrors":true
      }
   ],
-  "debitStateFlag":false
 }
 }
 
@@ -3719,7 +3718,6 @@ export const paymentMethodsMockData = {
           "Nickname":"Debit-0003"
        }
     ],
-    "debitStateFlag":false,
     "defaultBank":"Debit-0003",
     "paymentOptions":[
        {
