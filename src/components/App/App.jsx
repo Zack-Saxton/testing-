@@ -109,7 +109,7 @@ const queryClient = new QueryClient({
 const loadGeneralUserComponent = (componentName) => {
     return (
         <GeneralUser>
-            <Suspense>
+            <Suspense fallback = {<div id='globalSpinnerDiv'><CircularProgress id='globalSpinner'/></div>}>
             {componentName}
             </Suspense>
         </GeneralUser>
@@ -119,7 +119,7 @@ const loadGeneralUserComponent = (componentName) => {
 const loadGeneralUserWithoutHeader = (componentName) => {
     return (
         <GeneralUser skipHeaderMenu={true}>
-            <Suspense>
+            <Suspense fallback = {<div id='globalSpinnerDiv'><CircularProgress id='globalSpinner'/></div>}>
             {componentName}
             </Suspense>
         </GeneralUser>
@@ -141,7 +141,7 @@ const LoadPostComponent = (componentName) => {
 const branchHeaderComponent = (componentName) => {
     return (
         <BranchLocatorLayout>
-        <Suspense>
+        <Suspense fallback = {<div id='globalSpinnerDiv'><CircularProgress id='globalSpinner'/></div>}>
             {componentName}
         </Suspense>
         </BranchLocatorLayout>
