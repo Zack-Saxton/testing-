@@ -200,8 +200,8 @@ export default function BranchLocatorFooter() {
         <Grid className="branchLocatorFooterWrap">
           <section className="branch-Locator-Footer">
             <Grid container spacing={4} justifyContent="space-evenly">
-              {groupedFooter.map((nested) => (
-                <Grid item xs={12} sm={3} key={`branch-locator-footer2-main`}>
+              {groupedFooter.map((nested, nestedIndex) => (
+                <Grid item xs={12} sm={3} key={`branch-locator-footer2-main-${nestedIndex}`}>
                   {nested.map((element) => (
                     <div key={element.title} className="divFooterLinkTitle">
                       <Typography className="footerLinkstitle" gutterBottom>

@@ -218,8 +218,6 @@ export default function BranchLocator() {
               xl={2}
             >
               <p
-                // to={"/login"}
-                state={{ item }}
                 className="nav_link stateLinks"
                 onClick={MFButtonClick}
               >
@@ -325,9 +323,10 @@ export default function BranchLocator() {
   const displayBranchListinDropDown = (
     <Grid className="findBranchWrap" >
       {loading ? (
-        <div align="center">
+         <Grid container 
+         justifyContent="center" >
           <CircularProgress />{" "}
-        </div>
+        </Grid>
       ) : (
         <Grid
           id="branchLocatorLists"

@@ -453,9 +453,10 @@ export default function StatePage() {
 
             <Grid className="findBranchWrap" item xs={12} sm={12} >
               {loading ? (
-                <div align="center">
+                <Grid container 
+                justifyContent="center" >
                   <CircularProgress />{" "}
-                </div>
+                </Grid>
               ) : (
                 <Grid
                   id="branchLists"
