@@ -461,7 +461,7 @@ const preventEvent = (event) => {
                   >
                     <Grid className={`${classes.fullWidth} ${classes.paddingBottom}`} item xs={12}>
                       <EmailTextField
-                        id="email"
+                        id="emailPartner"
                         name="email"
                         label="Email Address"
                         placeholder="Enter your email address"
@@ -494,11 +494,11 @@ const preventEvent = (event) => {
                       />
                     </Grid>
 
-                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom_Right}`} item xs={12} sm={6} container direction="row">
+                    <Grid className={`${classes.fullWidth} ${classes.paddingBottom_Right}`} item xs={12} sm={6} container direction="row" id="phoneNumberWrapPartner">
                       <TextField
                         name="callPhNo"
                         label="Phone number *"
-                        id="phone"
+                        id="phonePartner"
                         type="text"
                         materialProps={{ maxLength: "14" }}
                         onKeyDown={preventSpace}
