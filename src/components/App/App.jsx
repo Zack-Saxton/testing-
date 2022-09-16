@@ -10,6 +10,7 @@ import CheckMyOffers from '../../contexts/CheckMyOffers';
 import LoanAccount from '../../contexts/LoanAccount';
 import NavContext from "../../contexts/NavContext";
 import ProfilePicture from '../../contexts/ProfilePicture';
+import { CircularProgress } from '@mui/material';
 const CustomComponents = lazy(() => import( "../CustomComponent"));
 const Disclosure = lazy(() => import( "../Layout/DisclosureLink/Disclosure"));
 const ErrorAfterLogin = lazy(() => import( "../Layout/ErrorAfterLogin/ErrorAfterLogin"));
@@ -111,7 +112,7 @@ const LoadPostComponent = (componentName) => {
 
         <div id="main" >
             <PostLogin >
-            <Suspense >
+            <Suspense fallback = {<div id='globalSpinnerDiv'><CircularProgress id='globalSpinner'/></div>} >
                 {componentName}
             </Suspense>
             </PostLogin>
