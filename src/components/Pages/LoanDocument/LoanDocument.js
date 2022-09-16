@@ -9,8 +9,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
+import Tooltip from "@mui/material/Tooltip";
 import { useQuery } from 'react-query';
+import Cookies from "js-cookie";
 import { NavLink, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
@@ -19,11 +22,19 @@ import {
   loanDocumentController as loanDocument,
   uploadDocument
 } from "../../Controllers/LoanDocumentController";
+import { uploadDocument as documentForOnlineApplication } from "../../Controllers/ApplyForLoanController";
+
 import { ButtonWithIcon, Select } from "../../FormsUI";
 import "../LoanDocument/LoanDocument.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import LoanDocumentTable from "./DocumentTable";
 import { useStylesLoanDocument } from "./Style";
+const documentTypeList = {
+  'income_doc': "income information",
+  'bank_doc': "bank information",
+  'id_doc': "identity verification",
+  'other_doc': "other_doc",
+}
 
 export default function LoanDocument() {
 
@@ -33,14 +44,30 @@ export default function LoanDocument() {
   const [ docType, setDocType ] = useState("");
   const [ loading, setLoading ] = useState(false);
   const [ label, setlabel ] = useState("No File Upload");
+  const [ purposeOfDocumentUpload, setPurposeOfDocumentUpload ] = useState('existing_loan_doc');
+  const [ isActiveApplicationExist, setIsActiveApplicationExist ] = useState(false);
+  const [ activeApplicationGuid, setActiveApplicationGuid ] = useState('');  
   const changeEvent = useRef("");
   let location = useLocation();
-
+  
+	const handleRadioChange = (event) => {
+    setPurposeOfDocumentUpload(event.target.value.trim());
+	};
+  
   //Api call
   const { data: loanDocumentStatus, refetch } = useQuery('loan-document', () => loanDocument(location?.state?.accNo ? location?.state?.accNo : null));
   useEffect(() => {
     if (refetch) {
       refetch();
+    }
+    let statusFromAPI = Cookies.get("isActiveApplicationExist") ? Cookies.get("isActiveApplicationExist") : false;
+    let activeAppStatus = (statusFromAPI === 'true' || statusFromAPI === true);
+    let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
+    if(activeAppStatus && hasActiveLoan){    
+      let applicationGuid = Cookies.get("activeApplicationGuid") ? Cookies.get("activeApplicationGuid") : '';
+      setActiveApplicationGuid(applicationGuid);
+      setPurposeOfDocumentUpload('');
+      setIsActiveApplicationExist(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -85,7 +112,22 @@ export default function LoanDocument() {
         let fileType = selectedFile.files[ 0 ].type;
         let documentType = docType;
         setLoading(true);
-        let response = await uploadDocument(buffer2, fileName, fileType, documentType);
+        let response;
+        if (purposeOfDocumentUpload === 'online_verification_doc' && activeApplicationGuid !== ''){
+          documentType = documentTypeList[documentType] ? documentTypeList[documentType] : 'other_doc';
+          response = await documentForOnlineApplication(
+            buffer2,
+            fileName,
+            fileType,
+            documentType,
+            activeApplicationGuid
+          );
+          response.status === 200
+          ? toast.success(response?.data?.message ?? globalMessages.Document_upload)
+          : toast.error(response?.data?.message ?? globalMessages.Document_upload_error);
+        }else{
+          response = await uploadDocument(buffer2, fileName, fileType, documentType);          
+        }
         if (response) {
           setLoading(false);
           setDocType("");
@@ -97,7 +139,11 @@ export default function LoanDocument() {
   };
 
   const uploadDoc = () => {
-    if (!selectedFile) {
+    if(purposeOfDocumentUpload === ''){
+      if (!toast.isActive("closeToast")) {
+        toast.error("Please select document upload type", { toastId: "closeToast" });
+      }
+    }else if (!selectedFile) {
       if (!toast.isActive("closeToast")) {
         toast.error(globalMessages.Please_Select_File_Upload, { toastId: "closeToast" });
       }
@@ -114,10 +160,10 @@ export default function LoanDocument() {
         }
         selectedFile.value = "";
         return false;
-      } else if (selectedFile.files[ 0 ].size <= 10240000) {
-        handleElseTwo();
-      } else {
+      } else if (selectedFile.files[ 0 ].size > 10240000) {
         handleElse();
+      } else {
+        handleElseTwo();
       }
     }
     setlabel("No File uploaded");
@@ -196,12 +242,36 @@ export default function LoanDocument() {
             )}
 
             <Grid
-              className="selectDocument"
-              item
-              xs={12}
-              sm={3}
-            >
-              <Select
+              className="selectUplpadDocument"
+            >        
+
+                <Grid 
+                  container
+                  className={isActiveApplicationExist ? "showDiv" : "hideDiv" }
+                >
+                  {/* <FormLabel component="legend">Upload :</FormLabel> */}
+                    <RadioGroup
+                    id="textAndCall"
+                    aria-label="method"
+                    name="method"
+                    value={purposeOfDocumentUpload}
+                    onChange={handleRadioChange}
+                    row={true}
+                    >
+                      <Tooltip title={<p className="documentUploadToolTip">{globalMessages.Online_Verification_Upload_Info}</p>} placement="top">
+                          <FormControlLabel value="online_verification_doc" control={<Radio color='primary' />} label="Upload to my Application" />
+                      </Tooltip>
+                      <Tooltip title={<p className="documentUploadToolTip">{globalMessages.Existing_Loan_Upload_Info}</p>} placement="top">
+                          <FormControlLabel value="existing_loan_doc" control={<Radio color='primary' />} label="Upload to my Loan" />
+                      </Tooltip>
+                  </RadioGroup> 
+                </Grid>
+              <Grid
+                item
+                md={6}
+                className={purposeOfDocumentUpload ? "showRadio" : "hideRadio"}
+              >
+                  <Select
                 id="selectDoccumentWrap"
                 name="selectDocument"
                 labelform="Select Document Type"
@@ -210,8 +280,9 @@ export default function LoanDocument() {
                 { "label": "Bank Account Document","value": "bank_doc"},
                 { "label": "Other Document","value":"other_doc"}]'
                 onChange={handleDocType}
-                value={docType}
-              />
+                value={docType}                               
+               />
+              </Grid>              
             </Grid>
             <Grid container direction="row">
               <Grid className="documentInput" item xs={12} sm={3}>

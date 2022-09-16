@@ -17,6 +17,20 @@ body {
 .MuiTableCell-root {
   font-family: 'Muli', sans-serif !important;
 }
+/* .MuiPaper-rounded{
+  border-radius: 10px !important;
+}
+.progress {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	width: 100%;
+	margin: 0.5rem 0 0.938rem 0;
+	border-radius: 10px 10px 0px 0px !important;
+	background-color: white;
+	height: 16px;
+	text-align: left !important;
+} */
 
 .placeholder {
   font-size: 10px;

@@ -14,7 +14,7 @@ export default async function ResetPasswordController(password) {
         let addAccessToken = true;
 
         //API call
-        return await APICall(url, param, data, method, addAccessToken);;
+        return await APICall(url, param, data, method, addAccessToken);
     } catch (error) {
         ErrorLogger(globalMessages.Error_executing_ResetPasswordController_API, error);
     }

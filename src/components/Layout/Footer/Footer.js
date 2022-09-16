@@ -154,7 +154,7 @@ export default function Footer() {
               <Grid className="footerPadding FooterHousingLogo" item sm={12} md={2} lg={2}>
                 <img
                   type="image"
-                  id="mfInfoImg"
+                  id="housingImage"
                   src={housingImage}
                   alt="logo image"
                 />

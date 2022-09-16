@@ -46,6 +46,8 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		color: "#214476",
 		fontWeight: "400",
 		fontSize: "1.563rem",
+		display:"flex",
+		alignItems:"center"
 	},
 	centerGrid: {
 		marginTop: "20px",
@@ -231,7 +233,9 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		width: "100%",
 		fontSize: "0.938rem",
 		fontFamily: "Muli,sans-serif",
-		fontWeight: "700"
+		fontWeight: "700",
+		display:"flex",
+		alignItems:"center"
 	},
 	firstMenuLabel: {
 		float: "left",
@@ -239,7 +243,9 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		verticalAlign: "top",
 		fontSize: "0.938rem",
 		fontFamily: "Muli,sans-serif",
-		fontWeight: "700"
+		fontWeight: "700",
+		display:"flex",
+		alignItems:"center"
 	},
 	profileSetting: {
 		width: "100%",
@@ -257,7 +263,8 @@ const useStylesMyProfile = makeStyles((theme) => ({
 		width: "100%"
 	},
 	sideNavLink: {
-		textDecoration: "none"
+		textDecoration: "none",
+		paddingRight:"6px"
 	},
 	leftMenu: {
 		padding: "20px 0px"

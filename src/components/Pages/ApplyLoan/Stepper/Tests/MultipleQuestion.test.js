@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom/extend-expect";
 import "@testing-library/jest-dom";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import {  render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import MultipleQuestion from "../multipleQuestion";
-import { ThemeProvider, makeStyles } from "@mui/styles";
+import { ThemeProvider } from "@mui/styles";
 import { createTheme, StyledEngineProvider } from "@mui/material/styles";
 
 const responseSet = jest.fn();
@@ -25,15 +25,6 @@ const queryClient = new QueryClient({
 
 const component = () => {
   window.scrollTo = jest.fn();
-  let stepsMock = [
-    "Email Verification",
-    "Phone Verification",
-    "Financial Information",
-    "ID Document & Photo",
-    "ID Verification Questions",
-    "Bank Account Verification",
-    "Income Verification",
-  ];
 
   const classes = {
     "smallRadioButton": "makeStyles-smallRadioButton-15",

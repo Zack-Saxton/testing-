@@ -248,6 +248,8 @@ export default function SideNav() {
     const userAccountStatus = dataAccountOverview?.data?.customer?.user_account?.status;
 
     setCheckPresenceOfLoanStatus(presenceOfLoanStatus?.status);
+    Cookies.set('isActiveApplicationExist', presenceOfLoanStatus?.isActive ?? false);
+    Cookies.set('activeApplicationGuid', presenceOfLoanStatus?.applicantGuid ?? '');
     setCurrentLoan(presenceOfLoan || userAccountStatus === "closed" ? true : false);
     setCheckPresenceOfLoan(presenceOfLoan);    
     //logic to if there is any active Loan Data is there or not

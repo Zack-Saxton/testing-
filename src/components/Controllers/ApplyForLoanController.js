@@ -207,13 +207,13 @@ export async function getIframe() {
 }
 
 /***** Upload Document *****/
-export async function uploadDocument(fileData, fileName, fileType, documentType) {
+export async function uploadDocument(fileData, fileName, fileType, documentType, applicantGuid) {
   try {
     const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
     let url = "upload_verification_document";
     let param = "";
     let data = {
-      applicantGuid: loginToken.applicantGuid,
+      applicantGuid: applicantGuid !== '' ? applicantGuid : loginToken.applicantGuid,
       file: {
         document_file: {
           name: fileName,
