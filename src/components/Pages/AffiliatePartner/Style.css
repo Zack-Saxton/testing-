@@ -184,7 +184,8 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #spouseCity-label,
 #spouseZip-label,
 #phonePartner-label,
-#emailPartner-label {
+#emailPartner-label,
+#firstName-label, #lastName-label {
     font-size: 0.938rem !important;
     padding-bottom: 10px !important;
 }
