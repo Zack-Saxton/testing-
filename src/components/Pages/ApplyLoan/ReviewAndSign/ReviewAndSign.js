@@ -126,7 +126,7 @@ useEffect(()=>{
     else{
       if(hardpullCounter >= 3){
         Cookies.set("hardpulFailsThreeTime", true);
-        let requestBody = JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : '{ }');
+        let requestBody = JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : {});
         let logData = {'request': requestBody, 'response':hardPull};
         ErrorLogger("Failure response from hardpull API", JSON.stringify(logData));
         setDisableSubmitButton(true);

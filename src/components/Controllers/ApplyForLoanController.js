@@ -146,7 +146,7 @@ export async function hardPullCheck(applicantID) {
   try {
     let url = "cis_hardpull";
     let param = "";
-    let data = Object.assign(JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : '{ }'), { applicant_id: applicantID});
+    let data = Object.assign(JSON.parse(localStorage.getItem("user") ? localStorage.getItem("user") : {}), { applicant_id: applicantID});
     let method = "POST";
     let addAccessToken = true;
 
