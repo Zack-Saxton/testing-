@@ -32,7 +32,7 @@ export default function AutoPayStatus(account) {
           </NavLink>
         </Typography>
         <Typography variant="body1" className={classes.cardContent}>
-          <NavLink data-testid = "autoPay_account" to={`/customers/makePayment/?accNo=${ account.accountNumber }`} className={classes.autoPayEnableLink}>
+          <NavLink data-testid = "autoPay_account" to={`/customers/makePayment/?accNo=${ window.btoa(account.accountNumber) }`} className={classes.autoPayEnableLink}>
             Enable AUTOPAY and be stress free!
           </NavLink>
         </Typography>
