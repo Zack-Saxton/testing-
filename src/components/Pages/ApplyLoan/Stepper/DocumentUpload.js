@@ -56,7 +56,8 @@ export default function DocumentUpload(props) {
 							fileData,
 							fileName,
 							fileType,
-							props.docType
+							props.docType,
+							''
 						);
 						props.setLoadingFlag(response ? false : true);
 						setLoader(response ? false : true);

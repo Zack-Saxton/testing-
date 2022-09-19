@@ -135,7 +135,7 @@ export function formatDate(date) {
     let year = MonthNameDate.getFullYear();
 
     return [year, month, day].join('-');
-};
+}
 
 export const convertDistanceUnit = (value) => {
     if (!value) return null;

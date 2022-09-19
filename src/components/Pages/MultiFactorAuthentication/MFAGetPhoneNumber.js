@@ -22,7 +22,7 @@ import IconButton from "@mui/material/IconButton";
 import "./mfa.css";
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
 import CheckLoginStatus from '../../App/CheckLoginStatus';
-import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../Controllers/CommonController'
+import { maskPhoneNumberWithAsterisk } from '../../Controllers/CommonController'
 import { usePhoneNumber } from '../../../hooks/usePhoneNumber';
 
 //Yup validation schema

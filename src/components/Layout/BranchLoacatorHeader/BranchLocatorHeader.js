@@ -38,11 +38,6 @@ const BranchLocatorHeader = () => {
     navigate("/login");
   }
 
-  const logoutUser = () => {
-    toast.success(globalMessages.LoggedOut, {
-      onClose: () => logOut(),
-    });
-  };
   const logoutMobileUser = () => {
     toast.success(globalMessages.LoggedOut, {
       onClose: () => logOut(),

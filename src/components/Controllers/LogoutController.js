@@ -19,6 +19,8 @@ export default function LogoutController() {
   Cookies.set("firstName", '');
   Cookies.set("lastName", '');
   Cookies.set("userId", '');
+  Cookies.remove("isActiveApplicationExist")
+  Cookies.remove("activeApplicationGuid")
   Cookies.remove("selectTerm")
   Cookies.remove("CKLightbox_Source")
   Cookies.remove("CKLightbox_Web")

@@ -81,7 +81,7 @@ export default function Credit(creditData) {
           formatTextValue={(_value) => score}
           colors={[ "#a50100", "#e05534", "#f2d82b", "#BCEA78", "#85c900" ]}
         />
-        <p id="date">{creditDate}</p>
+        <p id="creditDate">{creditDate}</p>
         <img id="VantageScoreImg" src={VantageScore} alt="VantageScore-logo" ></img>
         <p id="ProvidedBy">Provided by</p>
         <img id="Equifax" src={Equifax} alt="EquifaxLogo"></img>

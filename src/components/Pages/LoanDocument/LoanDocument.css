@@ -3,6 +3,9 @@
     font-size: 0.938rem;
     font-family: 'Muli', sans-serif !important;
 }
+.MuiInput-underline:before {
+    border-bottom: 2px solid #0f4eb3 !important;
+}
 
 #pageHeading {
     margin: 0 !important;
@@ -30,12 +33,49 @@
 
 .selectDocument {
     padding-top: 25px;
-    width: 225px;
+}
+.showDiv{
+    display: flex;
+	margin: 0;
+	color: #171717 !important;
+	font-family: "Muli", sans-serif;
+	font-weight: 400;
+    align-items: center;
+}
+.hideDiv{
+	display: none !important;
+}
+.showRadio{
+    display: block;
+	margin: 18px 0 0 0;
+	color: #171717 !important;
+	font-family: "Muli", sans-serif;
+	font-weight: 400;
+}
+.hideRadio{
+	display: none !important;
+}
+
+.selectUplpadDocument{
+    padding-top: 15px;
 }
 
 .selectDocument div label {
+    margin-left: 0px;
+    font-size: 0.9rem !important;
+}
+.selectUplpadDocument div label {
     margin-left: -14px;
     font-size: 0.9rem !important;
+}
+
+@media only screen and (max-width: 559px) {
+    #textAndCall label{
+        padding-bottom: 15px;
+    }
+  }
+.selectUplpadDocument div label .MuiRadio-colorPrimary{
+    padding: 0px 9px 0px 9px;
 }
 
 .loanDocumentGrid {
@@ -44,4 +84,12 @@
 
 .documentInput {
     padding-top: 20px;
+}
+.documentUploadToolTip {
+    font-size: 14px;
+    margin: 0px;
+}
+.MuiTableCell-root {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

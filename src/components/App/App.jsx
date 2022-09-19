@@ -10,6 +10,7 @@ import CheckMyOffers from '../../contexts/CheckMyOffers';
 import LoanAccount from '../../contexts/LoanAccount';
 import NavContext from "../../contexts/NavContext";
 import ProfilePicture from '../../contexts/ProfilePicture';
+import { CircularProgress } from '@mui/material';
 const CustomComponents = lazy(() => import( "../CustomComponent"));
 const Disclosure = lazy(() => import( "../Layout/DisclosureLink/Disclosure"));
 const ErrorAfterLogin = lazy(() => import( "../Layout/ErrorAfterLogin/ErrorAfterLogin"));
@@ -31,25 +32,44 @@ const ValidateToken = lazy(() => import( '../Pages/ApplyLoan/Stepper/ValidateTok
 const BranchLocator = lazy(() => import( "../Pages/BranchLocator/BranchLocator"));
 const BranchPage = lazy(() => import( "../Pages/BranchLocator/BranchPage"));
 const StatePage = lazy(() => import( "../Pages/BranchLocator/StatePage"));
-const ActiveDuty = lazy(() => import( "../Pages/CheckMyOffers/ActiveDuty"));
-const AnnualIncome = lazy(() => import( '../Pages/CheckMyOffers/AnnualIncome'));
-const CitizenshipStatus = lazy(() => import( '../Pages/CheckMyOffers/CitizenshipStatus'));
-const EligibleForOffers = lazy(() => import( "../Pages/CheckMyOffers/EligibleForOffer"));
-const EmploymentStatus = lazy(() => import( '../Pages/CheckMyOffers/EmploymentStatus'));
-const ExistingUser = lazy(() => import( "../Pages/CheckMyOffers/ExistingUser"));
-const HomeAddress = lazy(() => import( "../Pages/CheckMyOffers/HomeAddress"));
-const LivingPlace = lazy(() => import( "../Pages/CheckMyOffers/LivingPlace"));
-const LoanPurpose = lazy(() => import( '../Pages/CheckMyOffers/LoanPurpose'));
-const MarriedStatus = lazy(() => import( "../Pages/CheckMyOffers/MarriedStatus"));
-const NewUser = lazy(() => import( '../Pages/CheckMyOffers/NewUser'));
-const NoOffersAvailable = lazy(() => import( "../Pages/CheckMyOffers/NoOffersAvailable"));
-const SSN = lazy(() => import( "../Pages/CheckMyOffers/OneLastStep"));
-const PersonalInfo = lazy(() => import( '../Pages/CheckMyOffers/PersonalInfo'));
-const PreApproved = lazy(() => import( "../Pages/CheckMyOffers/PreApproved"));
-const ReferredToBranch = lazy(() => import( "../Pages/CheckMyOffers/ReferredToBranch"));
-const SelectAmount = lazy(() => import( '../Pages/CheckMyOffers/SelectAmount'));
-const SelectAmountRouting = lazy(() => import( '../Pages/CheckMyOffers/SelectAmount/SelectAmountRouting'));
-const ZipCode = lazy(() => import( '../Pages/CheckMyOffers/Zipcode'));
+// const ActiveDuty = lazy(() => import( "../Pages/CheckMyOffers/ActiveDuty"));
+// const AnnualIncome = lazy(() => import( '../Pages/CheckMyOffers/AnnualIncome'));
+// const CitizenshipStatus = lazy(() => import( '../Pages/CheckMyOffers/CitizenshipStatus'));
+// const EligibleForOffers = lazy(() => import( "../Pages/CheckMyOffers/EligibleForOffer"));
+// const EmploymentStatus = lazy(() => import( '../Pages/CheckMyOffers/EmploymentStatus'));
+// const ExistingUser = lazy(() => import( "../Pages/CheckMyOffers/ExistingUser"));
+// const HomeAddress = lazy(() => import( "../Pages/CheckMyOffers/HomeAddress"));
+// const LivingPlace = lazy(() => import( "../Pages/CheckMyOffers/LivingPlace"));
+// const LoanPurpose = lazy(() => import( '../Pages/CheckMyOffers/LoanPurpose'));
+// const MarriedStatus = lazy(() => import( "../Pages/CheckMyOffers/MarriedStatus"));
+// const NewUser = lazy(() => import( '../Pages/CheckMyOffers/NewUser'));
+// const NoOffersAvailable = lazy(() => import( "../Pages/CheckMyOffers/NoOffersAvailable"));
+// const SSN = lazy(() => import( "../Pages/CheckMyOffers/OneLastStep"));
+// const PersonalInfo = lazy(() => import( '../Pages/CheckMyOffers/PersonalInfo'));
+// const PreApproved = lazy(() => import( "../Pages/CheckMyOffers/PreApproved"));
+// const ReferredToBranch = lazy(() => import( "../Pages/CheckMyOffers/ReferredToBranch"));
+// const SelectAmount = lazy(() => import( '../Pages/CheckMyOffers/SelectAmount'));
+// const SelectAmountRouting = lazy(() => import( '../Pages/CheckMyOffers/SelectAmount/SelectAmountRouting'));
+// const ZipCode = lazy(() => import( '../Pages/CheckMyOffers/Zipcode'));
+import ActiveDuty from "../Pages/CheckMyOffers/ActiveDuty";
+import AnnualIncome from '../Pages/CheckMyOffers/AnnualIncome';
+import CitizenshipStatus from '../Pages/CheckMyOffers/CitizenshipStatus';
+import EligibleForOffers from "../Pages/CheckMyOffers/EligibleForOffer";
+import EmploymentStatus from '../Pages/CheckMyOffers/EmploymentStatus';
+import ExistingUser from "../Pages/CheckMyOffers/ExistingUser";
+import HomeAddress from "../Pages/CheckMyOffers/HomeAddress";
+import LivingPlace from "../Pages/CheckMyOffers/LivingPlace";
+import LoanPurpose from '../Pages/CheckMyOffers/LoanPurpose';
+import MarriedStatus from "../Pages/CheckMyOffers/MarriedStatus";
+import NewUser from '../Pages/CheckMyOffers/NewUser';
+import NoOffersAvailable from "../Pages/CheckMyOffers/NoOffersAvailable";
+import SSN from "../Pages/CheckMyOffers/OneLastStep";
+import PersonalInfo from '../Pages/CheckMyOffers/PersonalInfo';
+import PreApproved from "../Pages/CheckMyOffers/PreApproved";
+import ReferredToBranch from "../Pages/CheckMyOffers/ReferredToBranch";
+import SelectAmount from '../Pages/CheckMyOffers/SelectAmount';
+import SelectAmountRouting from '../Pages/CheckMyOffers/SelectAmount/SelectAmountRouting';
+import ZipCode from '../Pages/CheckMyOffers/Zipcode';
 const EmailVerification = lazy(() => import( "../Pages/EmailVerification/EmailVerification"));
 const FaqBeforeLogin = lazy(() => import( "../Pages/Faq/FaqBeforeLogin"));
 const FaqPostLogin = lazy(() => import( "../Pages/Faq/FaqPostLogin"));
@@ -89,7 +109,7 @@ const queryClient = new QueryClient({
 const loadGeneralUserComponent = (componentName) => {
     return (
         <GeneralUser>
-            <Suspense>
+            <Suspense fallback = {<div id='globalSpinnerDiv'><CircularProgress id='globalSpinner'/></div>}>
             {componentName}
             </Suspense>
         </GeneralUser>
@@ -99,7 +119,7 @@ const loadGeneralUserComponent = (componentName) => {
 const loadGeneralUserWithoutHeader = (componentName) => {
     return (
         <GeneralUser skipHeaderMenu={true}>
-            <Suspense>
+            <Suspense fallback = {<div id='globalSpinnerDiv'><CircularProgress id='globalSpinner'/></div>}>
             {componentName}
             </Suspense>
         </GeneralUser>
@@ -111,7 +131,7 @@ const LoadPostComponent = (componentName) => {
 
         <div id="main" >
             <PostLogin >
-            <Suspense >
+            <Suspense fallback = {<div id='globalSpinnerDiv'><CircularProgress id='globalSpinner'/></div>} >
                 {componentName}
             </Suspense>
             </PostLogin>
@@ -121,7 +141,7 @@ const LoadPostComponent = (componentName) => {
 const branchHeaderComponent = (componentName) => {
     return (
         <BranchLocatorLayout>
-        <Suspense>
+        <Suspense fallback = {<div id='globalSpinnerDiv'><CircularProgress id='globalSpinner'/></div>}>
             {componentName}
         </Suspense>
         </BranchLocatorLayout>

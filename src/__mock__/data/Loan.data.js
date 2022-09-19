@@ -2615,6 +2615,5 @@ export const accountOverviewData = {
            "HasNoErrors":true
         }
      ],
-     "debitStateFlag":false
   }
 }

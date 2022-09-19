@@ -2,7 +2,7 @@ import ErrorLogger from "../lib/ErrorLogger";
 import globalMessages from "../../assets/data/globalMessages.json";
 import Moment from "moment";
 /***** get IP from cloudflare method *****/
-export default async function getClientIp(rountingNumber) {
+export default async function getClientIp(_rountingNumber) {
   try {
     let ipResponse = await fetch("https://www.cloudflare.com/cdn-cgi/trace");
     ipResponse = await ipResponse.text();

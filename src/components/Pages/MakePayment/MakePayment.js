@@ -94,7 +94,7 @@ export default function MakePayment() {
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
   const [stateName,setStatename] = useState("");
   const [ payOffAmount, setPayOffAmount] = useState();
-  const [ paymentList, setPaymentList ] = useState();
+  const [ , setPaymentList ] = useState();
   const [ currentPayment, setCurrentPayment ] = useState(false);
   const [ currentPaymentNote, setCurrentPaymentNote ] = useState(false);
   const [ confirmPayment, setConfirmPayment ] = useState(false);

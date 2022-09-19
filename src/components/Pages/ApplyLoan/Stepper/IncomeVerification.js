@@ -9,7 +9,6 @@ import { ButtonPrimary } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
 import { useQuery } from "react-query";
 import DocumentUpload from "./DocumentUpload";
-import usrAccountDetails  from "../../../Controllers/AccountOverviewController"
 
 //styling part
 const useStyles = makeStyles(() => ({
