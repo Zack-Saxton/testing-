@@ -22,6 +22,7 @@ import "./EmailVerification.css";
 import IncomeVerification from "./IncomeVerification";
 import { useStylesEmailVerification } from "./Style";
 import VehiclePhotos from "./VehiclePhotos";
+import OtherDocument from "./OtherDocument";
 import { useBranchPortalHook } from './BranchPortalTest/useBranchPortalHook';
 
 
@@ -30,7 +31,7 @@ function getSteps() {
     "ID Document & Photo",
     "Income Verification",
     "Bank Account Verification",
-    "Auto Collateral Information",
+    "Auto Collateral Information"
   ];
 }
 
@@ -80,6 +81,7 @@ export default function EmailVerification() {
   if (autoVerification !== 'on') {
     steps.pop();
   }
+  steps.push("Upload Other Documents");
   function getValueByLable(text, ctx) {
     return document.evaluate("//*[.='" + text + "']",
       ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
@@ -173,7 +175,8 @@ export default function EmailVerification() {
       ErrorLogger(" Error in saveAcquireClick API", error);
     }
   }
-  function getStepContent(step) {
+  function getStepContent(step, label) {
+    step = label === 'Upload Other Documents' ? 4 : step;
     switch (step) {
       case 0:
         return <DocumentIdAndPhotoId
@@ -215,6 +218,16 @@ export default function EmailVerification() {
           steps={steps}
           activeStep={activeStep}
         />;
+      case 4:
+        return <OtherDocument
+          applicationNumber={applicationNumber}
+          customerEmail={customerEmail}
+          next={handleComplete}
+          prev={handleBack}
+          reset={handleReset}
+          steps={steps}
+          activeStep={activeStep}
+        />;        
       default:
         return "Unknown step";
     }
@@ -321,7 +334,7 @@ export default function EmailVerification() {
                       {label}
                     </StepLabel>
                     <StepContent>
-                      <span>{getStepContent(index)}</span>
+                      <span>{getStepContent(index, label)}</span>
                     </StepContent>
                   </Step>
                 ))}
