@@ -29,7 +29,8 @@ const ResumeApplication = lazy(() => import( "../Pages/ApplyLoan/ResumeApplicati
 const ReviewAndSign = lazy(() => import( "../Pages/ApplyLoan/ReviewAndSign/ReviewAndSign"));
 const ApplyLoan = lazy(() => import( "../Pages/ApplyLoan/SelectOffer/SelectOffer"));
 const ValidateToken = lazy(() => import( '../Pages/ApplyLoan/Stepper/ValidateToken'));
-const BranchLocator = lazy(() => import( "../Pages/BranchLocator/BranchLocator"));
+import BranchLocator from  "../Pages/BranchLocator/BranchLocator";
+// const BranchLocator = lazy(() => import( "../Pages/BranchLocator/BranchLocator"));
 const BranchPage = lazy(() => import( "../Pages/BranchLocator/BranchPage"));
 const StatePage = lazy(() => import( "../Pages/BranchLocator/StatePage"));
 // const ActiveDuty = lazy(() => import( "../Pages/CheckMyOffers/ActiveDuty"));

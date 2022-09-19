@@ -48,7 +48,10 @@ const validationSchema = yup.object({
 const useStyles = makeStyles(() => ({
   gridStyle: {
     padding: "4% 0",
-    margin: "auto"
+    margin: "auto",
+    marginTop: "5%",
+    marginBottom: "2%;"
+  
   },
   paperStyle: {
     justify: "center",
