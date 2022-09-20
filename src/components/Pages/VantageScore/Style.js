@@ -31,6 +31,9 @@ const useStyleVantageScore = makeStyles((theme) => ({
   },
   // Credit Start
   graph: {
+    "@media (max-width: 599px)": {
+      borderRight: "none",
+    },
     borderRight: "1px solid #9a9a9a",
   },
   flex: {
