@@ -249,9 +249,29 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
     margin: 3px 0px 0px 0px;
 }
 
-#phoneNumberWrapPartner{
-
+#password, #cpass {
+    padding-bottom: 15px !important;
+  }
+  #password-label, #cpass-label {
+    font-size: 0.938rem !important;
+    padding-bottom: 10px !important;
+  }
+  .validation-failed {
+    color: #000;
+  }
+  .validation-success{
+    color: #008000;
+  }
+  .errorvalidationOne{
+    padding-right: 20px;
+  }
+  .validation-failed:before {
+    content: "✘";
+    padding: 1px;
 }
+  .validation-success:before{
+    content: "✓";
+  }
 #phonePartner,#emailPartner
     {
         padding-bottom: 15px !important;

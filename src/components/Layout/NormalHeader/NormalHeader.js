@@ -60,7 +60,7 @@ const NormalHeader = () => {
           <Typography className={classes.headerAlign}>Branch Locator</Typography>
         </NavLink>
       </MenuItem>
-      <MenuItem style={loginToken?.isLoggedIn || window?.location?.pathname === '/login' ? { display: "none" } : { display: "inline-flex" }} >
+      <MenuItem className="MenuListMain" style={loginToken?.isLoggedIn || window?.location?.pathname === '/login' ? { display: "none" } : { display: "inline-flex" }} >
       <NavLink data-testid="loginNavigation" to="/login" className="nav_link loginLink">
               <Typography className={classes.subtitle}>Login</Typography>
             </NavLink>
