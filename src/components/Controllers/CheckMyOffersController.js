@@ -45,6 +45,10 @@ export async function checkMyOfferSubmit(customer) {
 			"phone_type": "Cell",
 		}
 
+		let consentObj = {
+			"consent": true,
+			"version": "1.0",
+		};
 		//API for latest consent versions
 		let url = "get_active_documents";
 		let param = "";
@@ -93,31 +97,15 @@ export async function checkMyOfferSubmit(customer) {
 			}
 		});
 
-
 		//dynamically update deleware 'consent' and 'esign' if applicable
 		if (customer.state === 'DE') {
-			consent.delaware_itemized_schedule_of_charges = {
-				"consent": true,
-				"version": "1.0",
-			};
+			consent.delaware_itemized_schedule_of_charges = consentObj;
 			esign.delaware_itemized_schedule_of_charges = esignConsent;
-		}
-
-		//dynamically update california 'consent' and 'esign' if applicable
-		if (customer.state === 'CA') {
-			consent.california_credit_education_program = {
-				"consent": true,
-				"version": "1.0",
-			};
+		} else if (customer.state === 'CA') { //dynamically update california 'consent' and 'esign' if applicable
+			consent.california_credit_education_program = consentObj;
 			esign.california_credit_education_program = esignConsent;
-		}
-
-		//dynamically update New Maxico 'consent' and 'esign' if applicable
-		if (customer.state === 'NM') {
-			consent.new_mexico_disclosure = {
-				"consent": true,
-				"version": "1.0",
-			};
+		} else if (customer.state === 'NM') { //dynamically update New Maxico 'consent' and 'esign' if applicable
+			consent.new_mexico_disclosure = consentObj;
 			esign.new_mexico_disclosure = esignConsent;
 		}
 
