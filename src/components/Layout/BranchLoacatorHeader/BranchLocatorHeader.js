@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import Logo from "../../../assets/images/mf-logo.png";
@@ -37,7 +37,21 @@ const BranchLocatorHeader = () => {
     LogoutController();
     navigate("/login");
   }
+  const useQueryURL = () => new URLSearchParams(useLocation().search);
+  const query = useQueryURL();
+  let utmInfo = {};
+  for (const [key, value] of query) {
+    utmInfo[key] = value;
+  }
+  const utm_source = query.get("utm_source");
+  const utm_medium = query.get("utm_medium");  
+  const utm_campaign = query.get("utm_campaign");  
+  Cookies.set("utm_source_otherPartner",utm_source)
+  Cookies.set("utm_medium_otherPartner",utm_medium)
+  Cookies.set("utm_campaign_otherPartner",utm_campaign)
 
+  const utmQueryString = '?' + new URLSearchParams(utmInfo).toString();
+  
   const logoutMobileUser = () => {
     toast.success(globalMessages.LoggedOut, {
       onClose: () => logOut(),
@@ -236,7 +250,7 @@ const BranchLocatorHeader = () => {
               </Grid>
             </Grid>
 
-            <NavLink  to= {!loginToken.isLoggedIn ? "/select-amount" : "/customers/resumeApplication" }
+            <NavLink  to= {!loginToken.isLoggedIn ? `/select-amount${utmQueryString}` : "/customers/resumeApplication" }
               className="nav_link branchHeaderLinksLast"
             >
               <ButtonPrimary
@@ -514,7 +528,7 @@ const BranchLocatorHeader = () => {
             <Accordion className="noShadow">
               <AccordionDetails className="menuHead">
                 {!loginToken.isLoggedIn ? (
-                  <Link href="/select-amount">Apply Now</Link>
+                  <Link href={`/select-amount${utmQueryString}`}>Apply Now</Link>
                 ) : (
                   <div onClick={logoutMobileUser} >
                     <span className={classes.signOutSpan}>Sign out</span>
