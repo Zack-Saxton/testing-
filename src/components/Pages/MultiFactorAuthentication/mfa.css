@@ -33,3 +33,7 @@ padding: 10%;
 #continue_button{
 	margin: auto;
 }
+.modalButton{
+	width: 10%;
+	padding: 10px 40px !important;
+}

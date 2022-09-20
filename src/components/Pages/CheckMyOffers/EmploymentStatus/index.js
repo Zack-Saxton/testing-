@@ -18,7 +18,9 @@ import "./EmploymentStatus.css";
 
 const useStyles = makeStyles(() => ({
 	boxGrid: {
-		padding: "4% 0px 4% 0px"
+		padding: "4% 0px 4% 0px",
+		marginTop: "5%",
+    marginBottom: "2%;"
 	},
 	paperStyle: {
 		justify: "center",

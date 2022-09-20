@@ -3,6 +3,9 @@
     font-size: 0.938rem;
     font-family: 'Muli', sans-serif !important;
 }
+.MuiInput-underline:before {
+    border-bottom: 2px solid #0f4eb3 !important;
+}
 
 #pageHeading {
     margin: 0 !important;
@@ -85,4 +88,8 @@
 .documentUploadToolTip {
     font-size: 14px;
     margin: 0px;
+}
+.MuiTableCell-root {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

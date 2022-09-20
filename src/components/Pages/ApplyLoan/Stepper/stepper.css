@@ -12,6 +12,12 @@
 	cursor: pointer !important;
 }
 
+.MuiStepLabel-labelContainer .MuiStepLabel-label {
+	padding: 12px 0px 12px 10px !important;
+	font-size: 0.938rem !important;
+	color: #595959 !important;
+}
+
 .underline {
 	text-decoration: underline !important;
 }
@@ -105,6 +111,10 @@
 
 #radioSelectTxt label .MuiFormControlLabel-label {
 	font-size: 0.938rem !important;
+}
+
+#LoanQuestionWrap, #radioSelectTxt{
+  flex-direction: column;
 }
 
 /* Bank Account Verification */

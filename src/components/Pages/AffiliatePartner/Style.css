@@ -32,7 +32,7 @@
 }
 
 .MuiInput-underline:before {
-    border-bottom: 2px solid #0F4EB3 !important;
+    border-bottom: 2px solid #0F4EB3 !important; 
 }
 
 .cardWOPadding {
@@ -61,7 +61,7 @@
 
 @media (max-width:400px) {
 
-    #email-label,
+    #emailPartner-label,
     #password-label,
     #c-pass-label,
     #firstname-label,
@@ -182,7 +182,10 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #personalIncome-label,
 #spouseState-label,
 #spouseCity-label,
-#spouseZip-label {
+#spouseZip-label,
+#phonePartner-label,
+#emailPartner-label,
+#firstName-label, #lastName-label {
     font-size: 0.938rem !important;
     padding-bottom: 10px !important;
 }
@@ -246,6 +249,44 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
     margin: 3px 0px 0px 0px;
 }
 
+#password, #cpass {
+    padding-bottom: 15px !important;
+  }
+  #password-label, #cpass-label {
+    font-size: 0.938rem !important;
+    padding-bottom: 10px !important;
+  }
+  .validation-failed {
+    color: #000;
+  }
+  .validation-success{
+    color: #008000;
+  }
+  .errorvalidationOne{
+    padding-right: 20px;
+  }
+  .validation-failed:before {
+    content: "✘";
+    padding: 1px;
+}
+  .validation-success:before{
+    content: "✓";
+  }
+#phonePartner,#emailPartner
+    {
+        padding-bottom: 15px !important;
+        color: black !important;
+        -webkit-text-fill-color: #000 !important;
+        opacity: unset !important;
+    }
+    
+
+.MuiInputLabel-formControl.Mui-disabled {
+        color: black !important;
+}
+.Mui-disabled {
+    opacity: 0.7;
+}
 #phoneTypeWrap div div div:nth-child(1) {
     padding-bottom: 15px !important;
 }

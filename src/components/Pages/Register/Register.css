@@ -12,6 +12,10 @@
   border-bottom: 2px solid #0f4eb3;
 }
 
+#zip {
+  padding-bottom: 15px !important;
+}
+
 .cardWOPadding {
   text-align: center;
 }

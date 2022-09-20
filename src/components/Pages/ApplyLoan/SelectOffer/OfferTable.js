@@ -1,5 +1,5 @@
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import DesktopMacIcon from "@mui/icons-material/DesktopMac";
+import DesktopMacOutlinedIcon from "@mui/icons-material/DesktopMacOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -81,7 +81,7 @@ export default function OfferTable(props) {
   //Shows the Online icon
   const online = (
     <Grid className="desktopGrid" container direction="row" justifyContent="left" alignItems="left">
-      <DesktopMacIcon /> Online
+      <DesktopMacOutlinedIcon /> Online
     </Grid>
   );
 

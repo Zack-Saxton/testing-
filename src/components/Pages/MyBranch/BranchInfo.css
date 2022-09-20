@@ -22,6 +22,10 @@
   color: #0f4eb3 !important;
 }
 
+#branchMapWrap {
+  height: 100% !important;
+}
+
 #branchMapWrap iframe {
   height: 100% !important;
   border-radius: 10px !important;

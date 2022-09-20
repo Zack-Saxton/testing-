@@ -38,6 +38,17 @@
 .MuiInputBase-root {
   color: black !important;
 }
+
+#globalSpinnerDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#globalSpinner {
+  padding: 30%;
+}
+
 @media only screen and (max-width: 500px) {
   .toast_message_box {
     font-size: 18px;
