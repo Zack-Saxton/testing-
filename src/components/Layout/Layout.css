@@ -200,6 +200,9 @@
   border-bottom: 3px solid #214476 !important;
   padding-top: 3px;
 }
+.MenuListMain{
+  width: 100%;
+}
 
 .mailOffer,
 .loginLink {
