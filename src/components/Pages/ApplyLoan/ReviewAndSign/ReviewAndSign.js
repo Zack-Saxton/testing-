@@ -387,7 +387,7 @@ useEffect(()=>{
                       testid="checkbox"
                       stylelabelform='{ "fontSize":"12px" }'
                       stylecheckbox='{ "marginBottom":"0px" }'
-                      stylecheckboxlabel='{ "fontSize":"12px" }'
+                      stylecheckboxlabel='{ "fontSize":"12px", "alignItems":"flex-start" }'
                     />
                   </Grid>
                   <Grid container direction="row">

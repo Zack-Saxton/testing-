@@ -113,6 +113,10 @@
 	font-size: 0.938rem !important;
 }
 
+#LoanQuestionWrap, #radioSelectTxt{
+  flex-direction: column;
+}
+
 /* Bank Account Verification */
 
 #accountHolderInput-label {
