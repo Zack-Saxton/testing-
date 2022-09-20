@@ -7,7 +7,7 @@ export default async function setAccountDetails() {
   try {
     let url = "account_overview";
     let param = "";
-    let data = {};
+    let data = Object.assign(localStorage?.getItem("user") ? { user: localStorage?.getItem("user") } : {});
     let method = "GET";
     let addAccessToken = true;
 

@@ -326,22 +326,36 @@ function UploadDocument(props) {
           </>
         }
         <Grid className={classes.nextButton} container>
-          <ButtonSecondary
-            id="buttonMarginRight"
-            stylebutton='{"color": "black", "borderRadius": "50px"}'
-            onClick={props.prev}
-            data-testid = "render_prevButton"
-          >
-            Prev
-          </ButtonSecondary>
-          <ButtonPrimary
+          {!props?.showUploadButton ? 
+          <>
+              <ButtonSecondary
+              id="buttonMarginRight"
+              stylebutton='{"color": "black", "borderRadius": "50px"}'
+              onClick={props.prev}
+              data-testid = "render_prevButton"
+            >
+              Prev
+            </ButtonSecondary>
+            <ButtonPrimary
+              stylebutton='{"color": ""}'
+              disabled={disableNext}
+              onClick={UploadDocumentFile}
+              data-testid = "render_nextButton"
+            >
+              Next
+            </ButtonPrimary>
+          </>
+          :
+            <ButtonPrimary
             stylebutton='{"color": ""}'
             disabled={disableNext}
             onClick={UploadDocumentFile}
             data-testid = "render_nextButton"
           >
-            Next
+            Submit
           </ButtonPrimary>
+          }
+          
         </Grid>
       </>
     }
@@ -358,4 +372,5 @@ UploadDocument.propTypes = {
   docType: PropTypes.string,
   prev: PropTypes.func,
   next: PropTypes.func,
+  showUploadButton: PropTypes.bool,
 };
