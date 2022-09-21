@@ -1372,7 +1372,7 @@ export default function MakePayment() {
           {paymentIsScheduled === "yes" ? (
             <ButtonPrimary
               id="replaceCurrentButton"
-              stylebutton='{"background": "", "color":"","margin": "0px 10px 0px 0px" }'
+              stylebutton='{"background": "", "color":""}'
               onClick={handleSchedulePaymentSubmit}
               disabled={loading}
             >
