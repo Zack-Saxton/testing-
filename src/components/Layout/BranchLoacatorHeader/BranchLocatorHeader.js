@@ -18,6 +18,7 @@ import Logo from "../../../assets/images/mf-logo.png";
 import LogoutController from "../../Controllers/LogoutController";
 import { ButtonPrimary } from "../../FormsUI";
 import { useStyles } from "../BranchLoacatorHeader/BranchLocatorStyle";
+import CaptureUTMInfo from "../../CustomComponent/CaptureUTMInfo";
 import "../Layout.css";
 const BranchLocatorHeader = () => {
   const classes = useStyles();
@@ -43,13 +44,6 @@ const BranchLocatorHeader = () => {
   for (const [key, value] of query) {
     utmInfo[key] = value;
   }
-  const utm_source = query.get("utm_source");
-  const utm_medium = query.get("utm_medium");  
-  const utm_campaign = query.get("utm_campaign");  
-  Cookies.set("utm_source_otherPartner",utm_source)
-  Cookies.set("utm_medium_otherPartner",utm_medium)
-  Cookies.set("utm_campaign_otherPartner",utm_campaign)
-
   const utmQueryString = '?' + new URLSearchParams(utmInfo).toString();
   
   const logoutMobileUser = () => {
@@ -60,6 +54,7 @@ const BranchLocatorHeader = () => {
   //View Part
   return (
     <div id="headerWrap" className={classes.grow} data-testid="branch_locater_header_component">
+      <CaptureUTMInfo />
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="branchLocatorHeaderToolBar">
           <Typography
