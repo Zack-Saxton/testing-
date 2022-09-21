@@ -45,6 +45,12 @@
     margin-right: 0px;
     margin-top: 20px;
   }
+  .autoPayButtons button{
+    padding: 0px 15px !important;
+  }
+  #replaceCurrentButton {
+    margin: 0  0 15px 0 !important;
+}
 }
 .buttonsWrap{
   align-items: center;
@@ -102,11 +108,6 @@
 .hideError {
   display: none;
 }
-
-#scheduleDialogBox .MuiDialog-paperWidthSm {
-  border-radius: 2px !important;
-}
-
 #scheduleDialogHeading {
   padding: 35px 15px 18px 15px !important;
   justify-content: normal;
@@ -261,11 +262,19 @@
   padding-bottom: 10px;
 }
 
-@media only screen and (max-width: 960px) {
 
-  #autoPayButton {
+@media only screen and (max-width: 1153px) {
+  
+  #paymentBtnWrap {
+    flex-direction: column-reverse;
+  }
+  #cancelPaymentBtn{
+    white-space: nowrap;
+    margin-right: 0px;
     margin-top: 15px;
-    white-space: normal !important;
+  }
+  #make-payment-schedule-button{
+    padding: 0px 53px !important;
   }
 
 }

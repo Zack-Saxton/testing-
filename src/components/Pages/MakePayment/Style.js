@@ -79,6 +79,10 @@ const useStylesMakePayment = makeStyles((theme) => ({
     paddingBottom: "10px",
   },
   payFromStyle: {
+    "@media (max-width: 599px)": {
+      width: "min-content",
+      paddingRight: "0px",
+    },
     width: "100%",
     paddingTop: "10px",
     paddingRight: "15px",
@@ -114,7 +118,7 @@ const useStylesMakePayment = makeStyles((theme) => ({
     paddingTop: "10px",
   },
   paymentButtonStyle: {
-    paddingTop: "15px"
+    paddingTop: "30px"
   },
   paymentNote: {
     paddingTop: "10px",
