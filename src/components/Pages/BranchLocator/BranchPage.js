@@ -111,6 +111,8 @@ export default function StatePage() {
   };
   const apiGetBranchList = async (value, branchName) => {
     try {
+      let selectedBranch = [];
+      let allBranches = [];
       let result = await getBranchLists(value);
       if (result?.length > 2) result = result.slice(0, 4);
       for (let ele in result) {
@@ -119,9 +121,13 @@ export default function StatePage() {
         if (result[ele].BranchName.toLowerCase() === 'lees summit') result[ele] = Object.assign(result[ele], { BranchName: `Lee's Summit` }, { Address: `1171 NE Rice Road, Lee's Summit, MO 64086` }); 
         if((branchName) && (result[ ele ].BranchName.trim()).toLowerCase() === (branchName.trim()).toLocaleLowerCase()){
           branch_Details.current = { BranchName: result[ ele ].BranchName };
+          selectedBranch.push(result[ ele ]);
+        }else{
+          allBranches.push(result[ ele ]);
         }
       }
-      setBranchList(result);
+      allBranches = [...selectedBranch, ...allBranches];
+      setBranchList(allBranches);
       listForMapView(result);
     } catch (error) {
       ErrorLogger(" Error from apiGetBranchList ", error);
