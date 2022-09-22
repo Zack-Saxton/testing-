@@ -24,7 +24,10 @@ export default async function LoginController(email, password, clientIp, longitu
 
     //API call
     let loginMethod = await APICall(url, param, data, method, addAccessToken);
-    localStorage.setItem("user", JSON.stringify({user: loginMethod?.data?.user}));
+    Cookies.set("userCustomerId",loginMethod?.data?.user?.attributes?.sor_data?.customer_id)
+    Cookies.set("userApplicantId",loginMethod?.data?.user?.attributes?.sor_data?.applicant_id)
+    Cookies.set("userLastLogin",loginMethod?.data?.user?.extensionattributes?.login?.timestamp_date)
+    
     return loginMethod;
   } catch (error) {
     ErrorLogger(globalMessages.Error_executing_LoginController_API, error);

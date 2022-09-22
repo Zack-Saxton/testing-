@@ -143,10 +143,16 @@ export async function verifyPasscode(passcode) {
 }
 
 export async function hardPullCheck(applicantID) {
+  const userCustomerId = Cookies.get('userCustomerId')
+  const userApplicantId = Cookies.get('userApplicantId')
+
   try {
     let url = "cis_hardpull";
     let param = "";
-    let data = Object.assign(localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}, { applicant_id: applicantID});
+    let data = {
+      customer_id: userCustomerId,
+      applicant_id: applicantID ?? userApplicantId
+    }
     let method = "POST";
     let addAccessToken = true;
 

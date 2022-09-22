@@ -159,7 +159,10 @@ if (partnerSignupData.state === 'DE') {
           Cookies.set("email", partnerSignupMethod?.data?.applicant.contact.email);
           Cookies.set("firstName", partnerSignupMethod?.data?.applicant?.contact?.first_name);
           Cookies.set("lastName", partnerSignupMethod?.data?.applicant?.contact?.last_name);
-          localStorage.setItem("user", JSON.stringify({user: partnerSignupMethod?.data?.user}));
+          Cookies.set("userCustomerId",partnerSignupMethod?.data?.user?.attributes?.sor_data?.customer_id)
+          Cookies.set("userApplicantId",partnerSignupMethod?.data?.user?.attributes?.sor_data?.applicant_id)
+          Cookies.set("userLastLogin",partnerSignupMethod?.data?.user?.extensionattributes?.login?.timestamp_date)
+          
           if (utm_source === "amone" && partnerSignupMethod?.data?.applicant?.processing?.status === "rejected") {
             navigate("/offers/no-offers")
           }
