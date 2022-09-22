@@ -125,10 +125,7 @@ useEffect(()=>{
     }
     else{
       if(hardpullCounter >= 3){
-        Cookies.set("hardpulFailsThreeTime", true);
-        let requestBody = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
-        let logData = {'request': requestBody, 'response':hardPull};
-        ErrorLogger("Failure response from hardpull API", JSON.stringify(logData));
+        Cookies.set("hardpulFailsThreeTime", true);        
         setDisableSubmitButton(true);
         setLoading(false);
         toast.error(messages.reviewAndSignin.eSignFailed);

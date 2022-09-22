@@ -356,8 +356,7 @@ export default function SideNav() {
   const branchPhone = Cookies.get('branchphone');
   const getProfileImage = Cookies.get('getProfileImage');
 
-  const userData = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
-  const lastLoginRaw = userData?.user?.extensionattributes?.login?.timestamp_date;
+  const lastLoginRaw = Cookies.get('userLastLogin')
   const loginDate = lastLoginRaw ? new Date(lastLoginRaw) : new Date();
   const lastLogin = ((loginDate.getMonth() > 8) ? (loginDate.getMonth() + 1) : String(loginDate.getMonth() + 1).padStart(2, "0")) + '/' + ((loginDate.getDate() > 9) ? loginDate.getDate() : (String(loginDate.getDate()).padStart(2, "0"))) + '/' + loginDate.getFullYear();
 
