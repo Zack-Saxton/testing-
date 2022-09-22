@@ -135,7 +135,8 @@ export default function StepperMain() {
 	};
 
 	const handleReset = () => {
-		if (activeStep >= 0 && activeStep < 7) setActiveStep(activeStep);
+		let currentActiveStep = activeStep;
+		if (activeStep >= 0 && activeStep < 7) setActiveStep(currentActiveStep);
 	};
 
 	//To load the component based on the step selected
