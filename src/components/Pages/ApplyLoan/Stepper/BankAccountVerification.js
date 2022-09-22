@@ -253,6 +253,7 @@ export default function BankAccountVerification(props) {
 							onChange={restrictAccountHolderOnChange}
 							onBlur={onBlurAccountHolderName}
 							materialProps={{ maxLength: "30" }}
+							disabled={true}
 							error={
 								formik.touched.accountHolder &&
 								Boolean(formik.errors.accountHolder)
