@@ -17,7 +17,8 @@ import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
 import CheckLoginStatus from '../../App/CheckLoginStatus';
-import globalMessages from '../../../assets/data/globalMessages.json'
+import globalMessages from '../../../assets/data/globalMessages.json';
+import { verificationAnswer } from '../../Controllers/MFAController';
 
 
 const KbaQuestions = () => {
@@ -114,6 +115,65 @@ const KbaQuestions = () => {
     navigate(-1);
   }
 
+  const sendVerificationAnswer = async() => {
+    if (check) {
+      setLoadingFlag(true);
+      let sendData = {
+        email: customerEmail,
+        ref: responseData[0]?.fullData?.["transaction-status"]?.["transaction-id"],
+        answers: {
+          question_set_id: responseData[0]?.fullData?.questions?.["question-set-id"],
+          questions: [
+            {
+              id: responseData[0]?.questionId,
+              answer: check,
+            },
+          ],
+        },
+      };
+      let nxtRes = await verificationAnswer(sendData);
+      let tempArray = [];
+      if (nxtRes?.data?.result) {
+        setQuestionSetIdMultiple(
+          nxtRes?.data?.result?.questions?.[
+            "question-set-id"
+          ]
+        );
+        setTransactionIdMultiple(
+          nxtRes?.data?.result?.[
+            "transaction-status"
+          ]?.["transaction-id"]
+        );
+        nxtRes?.data?.result?.questions?.question.map(
+          (val, key) => {
+            tempArray.push({
+              key: key,
+              fullData: val,
+              question: val.text.statement,
+              choice: val.choice,
+              questionId: val["question-id"],
+            });
+            return null;
+          }
+        );
+        setResponseDataMultipleQ(tempArray);
+        setSetOneFinished(true);
+        setLoadingFlag(false);
+      } else {
+        setLoadingFlag(false);
+        toast.error("Internal Server Error");
+        navigate("/MFA", {
+          state: location?.state?.mfaSecurityQuestions,
+        });
+      }
+    } else {
+      setLoadingFlag(false);
+      toast.error(
+        "Please answer the question before continuing"
+      );
+    }
+  }
+
   return (
     <div>
       <CheckLoginTimeout />
@@ -197,70 +257,7 @@ const KbaQuestions = () => {
                           data-testid="submit"
                           id="button_stepper_next"
                           stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
-                          onClick={async () => {
-                            if (check) {
-                              setLoadingFlag(true);
-                              let sendData = {
-                                email: customerEmail,
-                                ref: responseData[0]?.fullData?.["transaction-status"]?.["transaction-id"],
-                                answers: {
-                                  question_set_id: responseData[0]?.fullData?.questions?.["question-set-id"],
-                                  questions: [
-                                    {
-                                      id: responseData[0]?.questionId,
-                                      answer: check,
-                                    },
-                                  ],
-                                },
-                              };
-                              let nxtRes = await APICall(
-                                "mfa_answers_cac",
-                                "",
-                                sendData,
-                                "POST",
-                                true
-                              );
-                              let tempArray = [];
-                              if (nxtRes?.data?.result) {
-                                setQuestionSetIdMultiple(
-                                  nxtRes?.data?.result?.questions?.[
-                                    "question-set-id"
-                                  ]
-                                );
-                                setTransactionIdMultiple(
-                                  nxtRes?.data?.result?.[
-                                    "transaction-status"
-                                  ]?.["transaction-id"]
-                                );
-                                nxtRes?.data?.result?.questions?.question.map(
-                                  (val, key) => {
-                                    tempArray.push({
-                                      key: key,
-                                      fullData: val,
-                                      question: val.text.statement,
-                                      choice: val.choice,
-                                      questionId: val["question-id"],
-                                    });
-                                    return null;
-                                  }
-                                );
-                                setResponseDataMultipleQ(tempArray);
-                                setSetOneFinished(true);
-                                setLoadingFlag(false);
-                              } else {
-                                setLoadingFlag(false);
-                                toast.error("Internal Server Error");
-                                navigate("/MFA", {
-                                  state: location?.state?.mfaSecurityQuestions,
-                                });
-                              }
-                            } else {
-                              setLoadingFlag(false);
-                              toast.error(
-                                "Please answer the question before continuing"
-                              );
-                            }
-                          }}
+                          onClick={sendVerificationAnswer}
                         >
                           Submit and Continue
                         </ButtonPrimary>

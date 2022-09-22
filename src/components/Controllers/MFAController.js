@@ -126,3 +126,18 @@ export async function SavePhoneNumber(email, phone) {
     ErrorLogger(globalMessages.Error_executing_SavePhoneNumber_API, error);
   }
 }
+
+/****** Send Verification KBA Answer ******/
+export async function verificationAnswer(sendData) {
+  try {
+    let url = "mfa_answers_cac";
+    let param = "";
+    let data = sendData
+    let method = "POST";
+    let addAccessToken = true;
+    //API call
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger(globalMessages.KBA_Error, error);
+  }
+}
