@@ -1,19 +1,12 @@
 #card_loanhistory-bg {
 	background: linear-gradient(85deg, #0f4eb3, #264266) !important;
 	box-shadow: 0 6px 20px 0 rgba(57, 73, 171, 0.5) !important;
-
 }
-
 #scrollable-auto-tab-vertical-0.Mui-selected {
 	width: 90% !important;
 	max-width: unset !important;
 }
-
-#scrollable-auto-tab-vertical-0.Mui-selected,
-#scrollable-auto-tab-vertical-1.Mui-selected,
-#scrollable-auto-tab-vertical-2.Mui-selected,
-#scrollable-auto-tab-vertical-3.Mui-selected,
-	#scrollable-auto-tab-vertical-4.Mui-selected{
+#scrollable-auto-tab-vertical-0.Mui-selected,#scrollable-auto-tab-vertical-1.Mui-selected,#scrollable-auto-tab-vertical-2.Mui-selected,#scrollable-auto-tab-vertical-3.Mui-selected,#scrollable-auto-tab-vertical-4.Mui-selected{
 	background: linear-gradient(85deg, #264266, #0f4eb3) !important;
 	color: white !important;
 	max-width: unset;
@@ -21,33 +14,21 @@
 	border-radius: 0 5px 5px 0;
 	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
 }
-.MuiInput-underline:before {
+.MuiInput-underline:before,.Mui-disabled:before {
 	border-bottom: 2px solid #0F4EB3 !important;
 }
-.Mui-disabled:before {
-	border-bottom: 2px solid #0F4EB3 !important;
-}
-.Mui-disabled{
-	opacity: 0.7;
+.Mui-disabled,#profilePhoneNumberWrap div div div{
+	opacity: 0.7 !important;
 }
 .MuiInputLabel-formControl.Mui-disabled {
 	color: black !important;
 }
-#streetAddress,
-#zip,
-#city,
-#state,
-#zipcode {
+#streetAddress,#zip,#city,#state,#zipcode{
 	padding-bottom: 15px !important;
 	color: #171717;
 	-webkit-text-fill-color: #000000 !important;
 }
-
-#streetAddress-label,
-#zip-label,
-#city-label,
-#state-label,
-#zipcode-label {
+#streetAddress-label,#zip-label,#city-label,#state-label,#zipcode-label{
 	font-size: 0.938rem !important;
 	padding-bottom: 10px !important;
 }
@@ -75,42 +56,32 @@
 	padding: 0;
 	margin: 0;
 }
-
 .validation-success:before{
 	content:"✓";
 }
-
 .validation-failed:before{
 	content:"✘";
 	padding:1px;
 }
-
-
-
 .posRelativeWidthAuto {
 	position: relative !important;
 	width: auto !important;
 }
-
 .rowProps {
 	margin-top: 50px !important;
 	margin-bottom: 50px !important;
 }
-
 .paddingLeftZero {
 	padding-left: 0 !important;
 }
-
 .rowFont {
 	font-size: 1rem !important;
 	font-weight: 700 !important;
 }
-
 .yelloWBG {
 	background: #ffbc23 !important;
 	color: #171717 !important;
 }
-
 .material-icons {
 	font-family: "Material Icons";
 	font-size: 24px;
@@ -129,36 +100,26 @@
 	-webkit-font-feature-settings: "liga";
 	font-feature-settings: "liga";
 }
-
 .background-round {
 	padding: 15px;
 	border-radius: 50%;
 }
-
 .showContent {
 	display: block;
 }
-
 .hideContent {
 	display: none;
 }
-
-#profilePhoneNumberWrap div div div {
-	opacity: 0.7 !important;
-}
-
 #paymentMethodBtnWrap {
 	display: flex !important;
 	margin-bottom: 10px;
 }
-
 #addBankAccount_button {
 	margin-right: 20px;
 	padding: 0 35px;
 	font-family: "Muli", sans-serif !important;
 	font-size: 15px !important;
 }
-
 .sepmarginBottom {
 	font-size: 0.938rem;
 	text-align: justify;
@@ -167,32 +128,22 @@
 	line-height: 1.5;
 	color: #171717;
 }
-
-#txtPhoneNumber div div label {
+#txtPhoneNumber div div label,#basicFirstName-label,#basicLastName-label,#basicDOB-label,#basicPhoneNumber div div label,#profilePhoneNumberWrap div div label,#oldPasswordWrap-label,#newPasswordWrap-label,#retypeNewPasswordWrap-label,#accountNickname-label,#accountHolder-label,#bankRoutingNumber-label,#bankName-label,#bankAccountNumber-label,#cardNumber-label,#cardName-label{
 	font-size: 0.938rem !important;
-
 }
-
-#txtPhoneNumber div div div input {
+#txtPhoneNumber div div div input,#basicFirstName,#basicLastName,#basicDOB,#basicPhoneNumber div div div input,#profilePhoneNumberWrap div div div input,#oldPasswordWrap,#newPasswordWrap,#retypeNewPasswordWrap,#accountNickname,#accountHolder,#bankRoutingNumber,#bankName,#bankAccountNumber,#cardNumber,#cardName{
 	padding-bottom: 15px !important;
 }
-
 #addDebitCard_button {
 	font-family: "Muli", sans-serif !important;
 	font-size: 15px !important;
 	color: #171717;
 	padding: 0px 25px;
 }
-
 .expiryDate div div {
 	display: none;
 }
-
-#mainContentTab {
-	border-radius: 10px !important;
-}
-
-#basicInfo {
+#mainContentTab,#basicInfo {
 	border-radius: 10px !important;
 }
 #basicFirstName,
@@ -204,239 +155,83 @@ color: black !important;
 	-webkit-text-fill-color: #000 !important;
 	opacity: unset !important;
 }
-
-#basicFirstName {
-	padding-bottom: 15px;
-}
-
-#basicFirstName-label {
-	font-size: 0.938rem;
-}
-
-#basicLastName {
-	padding-bottom: 15px;
-}
-
-#basicLastName-label {
-	font-size: 0.938rem !important;
-}
-
-#basicDOB {
-	padding-bottom: 15px;
-}
-
-#basicDOB-label {
-	font-size: 0.938rem !important;
-}
-
-#basicPhoneNumber div div div input {
-	padding-bottom: 15px;
-}
-
-#basicPhoneNumber div div label {
-	font-size: 0.938rem !important;
-}
-
-#profilePhoneNumberWrap div div div {
-	opacity: 0.7 !important;
-}
-
-#profilePhoneNumberWrap div div div input {
-	padding-bottom: 15px;
-}
-
-#profilePhoneNumberWrap div div label {
-	font-size: 0.938rem !important;
-}
-
 #uploadProfileImage {
 	transition: 0.5s !important;
 }
-
 #uploadProfileImage:hover {
 	background-color: #214476 !important;
 	color: white !important;
 }
-
 #imgUploadWrap {
-
 	max-width: 100px !important;
 	max-height: 100px !important;
 	border-radius: 50%;
 	margin-right: 25px;
 	overflow: hidden;
 }
-
 #imgUploadWrap img {
 	width: 100%;
 }
-
-#oldPasswordWrap {
-	padding-bottom: 15px !important;
-}
-
-#oldPasswordWrap-label {
-	font-size: 0.938rem !important;
-}
-
-#newPasswordWrap {
-	padding-bottom: 15px !important;
-}
-
-#newPasswordWrap-label {
-	font-size: 0.938rem !important;
-}
-
-#retypeNewPasswordWrap {
-	padding-bottom: 15px !important;
-}
-
-#retypeNewPasswordWrap-label {
-	font-size: 0.938rem !important;
-}
-
 #apply-loan-reset-button {
 	padding: 0px 30px !important;
-	font-size: 00.938rem !important;
+	font-size: 0.938rem !important;
 	font-family: "Muli", sans-serif !important;
 }
-
 #reEnterUpdate {
 	margin-right: 10px;
 	padding: 10px 0px;
 }
-
-#accountNickname-label {
-	font-size: 0.938rem !important;
-}
-
-#accountNickname {
-	padding-bottom: 15px !important;
-}
-
-#accountHolder-label {
-	font-size: 0.938rem !important;
-}
-
-#accountHolder {
-	padding-bottom: 15px !important;
-}
-
-#bankRoutingNumber-label {
-	font-size: 0.938rem !important;
-}
-
-#bankRoutingNumber {
-	padding-bottom: 15px !important;
-}
-
-#bankName-label {
-	font-size: 0.938rem !important;
-}
-
-#bankName {
-	padding-bottom: 15px !important;
-}
-
-#bankAccountNumber-label {
-	font-size: 0.938rem !important;
-}
-
-#bankAccountNumber {
-	padding-bottom: 15px !important;
-}
-
-/* Add debit card */
-
-#cardNumber-label {
-	font-size: 0.938rem !important;
-}
-
-#cardNumber {
-	padding-bottom: 15px !important;
-}
-
-#cardName-label {
-	font-size: 0.938rem !important;
-}
-
-#cardName {
-	padding-bottom: 15px !important;
-}
-
 #NotificationsTxt .MuiFormControlLabel-label {
 	font-size: 0.75rem;
 }
-
 .mailingButtons {
 	display: flex;
 }
-
 .textNotificationWrap {
 	padding: 20px;
 }
-
 #reEnterCancel {
 	padding: 10px 0px;
 }
-
 @media (max-width:425px) {
 	#reEnterCancel {
 		justify-content: center !important;
 		width: 100% !important;
 	}
-
 	#reEnterUpdate {
 		justify-content: center !important;
 		width: 100% !important;
 		margin-right: 0px !important;
 	}
-
-	#reEnterCancel button {
+	#reEnterCancel button,#reEnterUpdate button {
 		width: 100% !important;
 	}
-
-	#reEnterUpdate button {
-		width: 100% !important;
-	}
-
 	.mailingButtons {
 		flex-direction: column-reverse;
 	}
-
 	#mailingSaveButton {
 		margin-left: 0px !important;
 		margin-bottom: 12px;
 	}
-
 	.textNotificationWrap {
 		padding: 9px;
 	}
 }
-
 @media (max-width: 599px) {
 	#myProfileMainContent {
 		padding-left: 0px !important;
 		margin-top: 20px;
 	}
-
 	#paymentMethodBtnWrap {
 		flex-direction: column-reverse;
 		align-items: center;
 		justify-content: center;
 		display: unset !important;
 	}
-
 	#make-payment-cancel-button {
 		margin: 0 !important;
 	}
-
-	#addBankAccount_button {
-		width: 100%;
-		margin-top: 20px;
-	}
-
-	#addDebitCard_button {
+	#addBankAccount_button,#addDebitCard_button {
 		width: 100%;
 		margin-top: 20px;
 	}

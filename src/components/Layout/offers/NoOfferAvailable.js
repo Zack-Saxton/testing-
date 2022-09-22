@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import { NavLink } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
 import { useStylesNoOfferAvailable } from "./Style";
-import "./Style.css";
 
 export default function NoOfferAvailable() {
   //Material UI css class

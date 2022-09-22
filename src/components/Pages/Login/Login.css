@@ -1,20 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,500,600&display=swap");
-
-#main-content-background {
-  min-height: 500px;
-
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .MuiInput-underline:before {
   border-bottom: 2px solid #0F4EB3 !important;
 }
-
-
 #resetPasswordWrap {
   display: flex;
   align-items: center;
@@ -22,18 +9,15 @@
   min-height: 90vh;
   background-color: #f6f6f6 !important;
 }
-
 #main-content {
   width: 100%;
 }
-
 .validation-failed {
   color: black;
 }
 .validation-success {
   color: green;
 }
-
 .errorValidationOne ul,
 .errorValidationTwo ul {
   padding: 0px;
@@ -42,11 +26,9 @@
 .errorValidationTwo ul li {
   text-decoration: none;
 }
-
 .validation-success:before {
   content: "✓";
 }
-
 .validation-failed:before {
   content: "✘";
   padding: 1px;
@@ -54,62 +36,49 @@
 #reset-main-content {
   max-width: 620px;
 }
-
 #remember-me {
   padding-left: 12px;
 }
-
 #signInContainer {
   border-radius: 6px !important;
   padding: 30px;
   width: 100%;
 }
-
 .fullWidth {
   width: 100%;
 }
-
 #fullWidth {
   width: 100%;
 }
 .passwordInputGrid {
   padding: 0px 0px 16px 0px;
 }
-
 .nonDecoratedLink {
   text-decoration: none;
 }
-
 .dialogActionsWrap {
   justify-content: center !important;
   margin-bottom: 25px;
 }
-
 #loginPaperCard {
   max-width: 385px !important;
 }
-
 @media (max-width: 600px) {
-
   #resetPasswordWrap {
     padding: 0px 25px;
   }
 }
-
 @media (max-width: 400px) {
   #email-label {
     font-size: 4vw;
   }
-
   #password-label {
     font-size: 4vw;
   }
-
   #remember-me span {
     font-size: 4vw;
   }
 }
-
 .showError {
   display: block;
   color: red;
@@ -117,40 +86,33 @@
   margin-top: 0;
   margin-bottom: 0;
 }
-
 .Mui-focused {
   background-color: transparent !important;
   color: white;
 }
-
 .hideError {
   display: none;
 }
-
 .add-pad {
   margin-left: -1px !important;
   padding-top: 20px !important;
   font-size: 14px !important;
 }
-
 #mainContentBackground {
   min-height: 93vh;
 }
 #mainContentBackgroundWrap {
   min-height: 93vh;
 }
-
 #email,
 #password {
   padding-bottom: 15px !important;
 }
-
 #email-label,
 #password-label {
   font-size: 0.938rem !important;
   padding-bottom: 10px !important;
 }
-
 #helpLogin {
   font-size: 1rem !important;
   color: #214476 !important;

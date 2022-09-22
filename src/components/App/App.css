@@ -1,54 +1,43 @@
 .app {
   text-align: center;
 }
-
 .gridStyle {
   margin: 30px;
 }
-
 .topBar {
   height: 36px;
   background: linear-gradient(to left, #264266, #0F4EB3);
 }
-
 #main {
   transition: 0.5s;
   margin-left: 240px
 }
-
 @media (max-width:959px) {
   #main {
     margin-left: unset !important
   }
 }
-
 #body {
   background: #f6f6f6;
 }
-
 .MuiButton-root {
   line-height: normal !important;
 }
-
 .toast_message_box {
   font-size: 30px;
   width: auto;
 }
-
 .MuiInputBase-root {
   color: black !important;
 }
-
 #globalSpinnerDiv {
   width: 100%;
   display: flex;
   justify-content: center;
 }
-
 #globalSpinner {
   padding: 30%;
 }
-
 @media only screen and (max-width: 500px) {
   .toast_message_box {
     font-size: 18px;
