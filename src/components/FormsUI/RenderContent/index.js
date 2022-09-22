@@ -1,12 +1,15 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from 'react-query';
 import DisclosureLinkController from "../../Controllers/DisclosureLinkController";
 import "./Style.css";
 import ScrollToTopOnMount from '../../Pages/ScrollToTop';
 
 const RenderContent = ({ disclosureLink, findContent, replaceContent }) => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, [disclosureLink]);
     const loadData = () => {
         return DisclosureLinkController(disclosureLink);
     };
