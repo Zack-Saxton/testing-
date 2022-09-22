@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,500,600&display=swap');
-
 body {
   margin: 0;
   padding: 0;
@@ -18,11 +17,9 @@ body {
  .MuiPaper-rounded{
   border-radius: 10px !important;
 }
-
 .placeholder {
   font-size: 10px;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
