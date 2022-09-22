@@ -149,15 +149,19 @@ export default function StatePage() {
   useEffect(() => {
     document.title = `Personal Loans in  ${branch_Details?.current?.BranchName}, ${stateShortName ?? stateShortNm?.current} | Mariner Finance Branch | Discover More `;
   }, [branch_Details?.current?.BranchName, stateShortName]);
-
+  let branchToRedirect = ['/branch-locator/mississippi/personal-loans-in-quitman-ms', '/branch-locator/illinois/personal-loans-in-charleston-il'];
   useEffect(() => {
     if (!location?.state) {
-      let pathName = location?.pathname.split('/');
+      let pathInfo = location?.pathname;
+      let pathName = pathInfo.split('/');
       let FixString = 'personal-loans-in-'.length;
       let branchNm = formatBranchName(pathName[ 3 ]).substring(FixString).slice(0, -3);
       stateLongNm.current = formatString(pathName[ 2 ]);
       stateShortNm.current = pathName[ 3 ].substring(FixString).slice(-2).toUpperCase();
       branch_Details.current = { BranchName: "" };
+      if(branchToRedirect.includes(pathInfo)){
+        navigate(pathInfo.replace('quitman','meridian').replace('charleston','effingham'));
+      }
       apiGetBranchList(pathName[ 3 ].substring(FixString), formatString(branchNm));
     } else {
       apiGetBranchList(branch_Details?.current?.Address, "");
