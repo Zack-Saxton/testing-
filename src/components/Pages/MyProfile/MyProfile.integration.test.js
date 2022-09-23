@@ -107,10 +107,6 @@ test("Check the five tabs are available in UI", () => {
 });
 
 
-test("--------------------Basic information component use cases--------------------", async () => {
-  
-});
-
 test("Check the first name field in UI", () => {
 	LoanDataMock();
 	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
@@ -265,9 +261,6 @@ test("Verify can able to click file upload", async () => {
 	expect(input).toBeTruthy();
 });
 
-test("------------------------------Mailing address component use cases-----------------------", async () => {
-  
-});
 
 test("When click Mailing Address menu, the mailing address component to be render", async () => {
 	LoanDataMock();
@@ -387,9 +380,6 @@ test("Check can able to click Save button", async () => {
 	});	
 });
 
-test("------------------------------Text Notification component use cases-----------------------", async () => {
-  
-});
 
 test("When click Text Notification menu, the text notification component to be render", async () => {
 	LoanDataMock();
@@ -561,14 +551,6 @@ test("Check the disclosure popup is opening when click the link", async () => {
 });
 
 
-
-
-
-
-test("------------------------------Payment Methods component use cases-----------------------", async () => {
-  
-});
-
 test("When click Payment methods menu, the payment method component to be render", async () => {
 	LoanDataMock();
 	const { getByText } = render(component(), { wrapper: MemoryRouter }); 
@@ -671,9 +653,6 @@ test("Check Bank Account number validation is working", async () => {
 	expect(errorInfo).toBeTruthy();	
 	expect(errorInfo).toHaveTextContent('Bank Account Number is required.');
 
-});
-
-test("*********************************Add Debit Card Test Cases****************************", async () => {  
 });
 
 test("Check Add Debit Card button exist in the UI", async () => {
@@ -861,14 +840,6 @@ test("Check card expired date validation is working", async () => {
 	expect(errorInfo).toHaveTextContent('Expiration Date is required');
 });
 
-
-
-
-
-
-test("------------------------------Change Password component use cases-----------------------", async () => {
-  
-});
 
 test("When click Change Password menu, the change password component to be render", async () => {
 	LoanDataMock();
