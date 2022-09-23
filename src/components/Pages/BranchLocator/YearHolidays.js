@@ -41,7 +41,7 @@ export default function YearHolidays() {
                         {MFYearHolidays ? (
                           MFYearHolidays.map((element, index) => {
                             return (
-                              <TableRow className="tableContent" key={index}>
+                              <TableRow className="tableContent" key={`year-holidays-${index}`}>
                                 <TableCell data-testid="holiday-date-body">{element.Date}</TableCell>
                                 <TableCell data-testid="holiday-day-body">{element.Day}</TableCell>
                                 <TableCell data-testid="holiday-name-body">{element.Holiday_Name}</TableCell>

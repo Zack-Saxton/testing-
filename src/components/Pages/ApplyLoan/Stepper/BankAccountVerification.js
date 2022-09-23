@@ -76,7 +76,6 @@ export default function BankAccountVerification(props) {
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
 	const [ internalLoading, setInternalLoading ] = useState(false);
 	const holderName = Cookies.get("firstName")+" "+Cookies.get("lastName");
-	console.log(accountType);
 	function getValueByLable(text, ctx) {
 		return document.evaluate("//*[.='" + text + "']",
 			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();

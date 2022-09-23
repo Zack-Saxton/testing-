@@ -71,7 +71,7 @@ export default function MultipleQuestion(props) {
 			} else if(response?.data?.result === 'error') {
 				props.setLoadingFlag(false);
 				toast.error(response?.data?.Message);
-				if(response?.data?.Message !== "Your account has been locked.  Please contact your branch for further assistance."){
+				if(response?.data?.Message !== Messages.Account_Locked){
 					props.navigate("/MFA", {state: props?.mfaDetails});
 				}
 				else{

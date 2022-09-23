@@ -87,7 +87,7 @@ const MFASecurityQuestions = () => {
       ) {
         setCounter(counter + 1);
         
-        if(counter >= 2 || verify?.data?.Message === "Your account has been locked.  Please contact your branch for further assistance.") {
+        if(counter >= 2 || verify?.data?.Message === Messages.Account_Locked) {
           toast.error(Messages?.Account_Locked);
           navigate("/login"); 
         }

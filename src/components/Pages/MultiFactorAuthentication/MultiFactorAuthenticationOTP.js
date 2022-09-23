@@ -13,6 +13,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
 import CheckLoginStatus from '../../App/CheckLoginStatus';
+import Messages from "../../../assets/data/globalMessages.json"
 
 const MultiFactorAuthenticationOTP = () => {
   const otpLocation = useLocation();
@@ -110,7 +111,7 @@ const MultiFactorAuthenticationOTP = () => {
         navigate('/MFA-SelectSecurityQuestions', { state: { currentFlow: true, preVerification: true } });
       }
     }else {
-      if(response.data?.Message === "Your account has been locked.  Please contact your branch for further assistance." || response.data?.errorMessage === "Your account has been locked.  Please contact your branch for further assistance."){
+      if(response.data?.Message === Messages.Account_Locked || response.data?.errorMessage === Messages.Account_Locked){
       toast.error(response.data?.Message ?? response.data?.errorMessage);
       navigate("/login");
       }
