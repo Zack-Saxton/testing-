@@ -19,7 +19,6 @@ import ScrollToTopOnMount from "../../ScrollToTop";
 import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
-import ErrorLogger from "../../../lib/ErrorLogger";
 import Cookies from "js-cookie";
 import "./ReviewAndSign.css";
 

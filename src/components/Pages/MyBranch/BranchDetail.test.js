@@ -26,7 +26,7 @@ const mockGeolocation = {
   watchPosition: jest.fn()
 };
 global.navigator.geolocation = mockGeolocation;
-const component = (myBranchData) => {
+const component = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
@@ -38,28 +38,40 @@ const component = (myBranchData) => {
 	);
 }
 
+const componentCA = () => {
+	return (
+		<ThemeProvider theme={theme}>
+			<QueryClientProvider client={queryClient}>
+				<ProfilePicture>
+					<BranchDetail MyBranchDetail={myBranchDataCA}/>
+				</ProfilePicture>
+			</QueryClientProvider>
+		</ThemeProvider>
+	);
+}
+
 test("Checks the component is rendered", () => {
-	render(component(myBranchData), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('branch-details-component');
   expect(element).toBeTruthy();
 });
 
 test("Check the branch details are showing in the UI", () => {
-	const { getByText } = render(component(myBranchData), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	expect(getByText("Kokomo")).toBeTruthy();
   expect(getByText("1818 E. Hoffer St.")).toBeTruthy();
   expect(getByText("(765) 452-3023")).toBeTruthy();
 });
 
 test("Check the branch hours details are showing in the UI", () => {
-	const { getByText } = render(component(myBranchData), { wrapper: MemoryRouter });
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	expect(getByText("Mon-Wed-Thur")).toBeTruthy();
   expect(getByText("Tue")).toBeTruthy();
   expect(getByText("Fri")).toBeTruthy();
 });
 
 test("Check the Schedule Call and Schedule Appointment loaded in this component", () => {
-	render(component(myBranchData), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('appointment');
   expect(element).toBeTruthy();	
   const scheduleCall = screen.getByTestId('schedule-call-component');
@@ -68,13 +80,13 @@ test("Check the Schedule Call and Schedule Appointment loaded in this component"
 });
 
 test("Check the branch hours details for CA state", () => {
-	const { getByText } = render(component(myBranchDataCA), { wrapper: MemoryRouter });  
+	const { getByText } = render(componentCA(), { wrapper: MemoryRouter });  
 	expect(getByText("Mon-Wed-Thur-Fri")).toBeTruthy();
   expect(getByText("Tue")).toBeTruthy();
 });
 
 test("Check the Schedule Call popup is opening when click on schedule call button", () => {
-	render(component(myBranchData), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('appointment');
   expect(element).toBeTruthy();	
   fireEvent.click(element);
@@ -84,7 +96,7 @@ test("Check the Schedule Call popup is opening when click on schedule call butto
 });
 
 test("Check the Schedule Appointment popup is opening when click on schedule call button", () => {
-	render(component(myBranchData), { wrapper: MemoryRouter });
+	render(component(), { wrapper: MemoryRouter });
 	const element = screen.getByTestId('schedule-call-component');
   expect(element).toBeTruthy();	
   fireEvent.click(element);
@@ -96,6 +108,6 @@ test("Check the Schedule Appointment popup is opening when click on schedule cal
 });
 
 test('Should match the snapshot', () => {
-	const { asFragment } = render(component(myBranchData), { wrapper: MemoryRouter });
+	const { asFragment } = render(component(), { wrapper: MemoryRouter });
 	expect(asFragment).toMatchSnapshot();
 });

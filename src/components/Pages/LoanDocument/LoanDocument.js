@@ -80,7 +80,7 @@ export default function LoanDocument() {
     setSelectedFile(changeEvent.current);
   };
 
-  const handleChange = (event) => {
+  const handleChange = (_event) => {
     let uploadedFile = selectedFile.value.split("\\");
     setlabel(uploadedFile[ uploadedFile.length - 1 ]);
   };
