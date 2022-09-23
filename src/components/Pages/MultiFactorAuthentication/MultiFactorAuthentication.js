@@ -37,13 +37,8 @@ const MultiFactorAuthentication = () => {
   let mfaPhoneCookie = Cookies.get("mfaPhone")
   let phoneFromCookie = mfaPhoneCookie ? mfaPhoneCookie.trim() : null ;
   if(phoneFromCookie) {
-    if(structureMFAdata?.mfaDetails?.mfa_phone_texting) {
-      eligibleNumber.push({number : phoneFromCookie,
-                           type : 'mfa_phone_texting'})
-    } else {
-      eligibleNumber.push({number : phoneFromCookie,
-                           type : 'mfa_phone_texting'})
-    }
+    eligibleNumber.push({number : phoneFromCookie,
+      type : 'mfa_phone_texting'});    
   } else {
     if(structureMFAdata?.mfaDetails?.mfa_phone_texting) {
       eligibleNumber.push({number : structureMFAdata.mfaDetails.mfa_phone_texting.trim(),
