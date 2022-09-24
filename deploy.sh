@@ -22,7 +22,7 @@ then
 fi
 
 # Choose a git branch
-if [ $branch != "dev" ] && [ $branch != "qa" ] && [ $branch != "staging" ] && [ $branch != "prod" ] && [ $branch !='v1-clean-up' ] && [ $branch !='v1-clean-up-merge-dev' ]
+if [ $branch != "dev" ] && [ $branch != "qa" ] && [ $branch != "staging" ] && [ $branch != "prod" ]
 then
     echo 'Invalid Git Branch'
     exit
@@ -33,9 +33,9 @@ then
     echo "*************************Unit test automation started*************************"
     CI=true npm test 2>&1 | tee unit_test_result.txt
     UNIT_TEST_RESULT='passed'
-    TOTAL_TEST_SUITES=$(cat unit_test_result.txt | grep 'Test Suites:')  
-    PASSED_TESTS=$(cat unit_test_result.txt | grep 'Tests:') 
-    SNAPSHORT_TESTS=$(cat unit_test_result.txt | grep 'Snapshots:') 
+    TOTAL_TEST_SUITES=$(cat unit_test_result.txt | grep 'Test Suites:')
+    PASSED_TESTS=$(cat unit_test_result.txt | grep 'Tests:')
+    SNAPSHORT_TESTS=$(cat unit_test_result.txt | grep 'Snapshots:')
     TIME_TAKEN=$(cat unit_test_result.txt | grep 'Time:')
 
     message="
@@ -43,7 +43,7 @@ then
       * ${TOTAL_TEST_SUITES}
       * ${PASSED_TESTS}
       * ${SNAPSHORT_TESTS}
-      * ${TIME_TAKEN} 
+      * ${TIME_TAKEN}
     "
     url="https://hooks.slack.com/services/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"
     curl -X POST -H 'Content-type: application/json' --data '{"text":"'"$message"'"}' "{$url}"
@@ -63,38 +63,23 @@ then
 fi
 
 
-if [ "$env" = "prod1" ] || [ "$env" = "prod2" ] || [ "$env" = "prod3" ] || [ "$env" = "prod4" ] || [ "$env" = "prod5" ]
+if [ "$env" = "prod4" ] || [ "$env" = "prod5" ]
 then
-    if [ "$env" = "prod1" ]
+  if [ "$env" = "prod4" ]
+  then
+    serverName="ubuntu@cis-app4-prod.marinerfinance.io"
+  else
+    if [ "$env" = "prod5" ]
     then
-      serverName="ubuntu@cis-app1-prod.marinerfinance.io"
-    else
-      if [ "$env" = "prod2" ]
-      then
-        serverName="ubuntu@cis-app2-prod.marinerfinance.io"
-      else
-        if [ "$env" = "prod3" ]
-        then
-          serverName="ubuntu@cis-app3-prod.marinerfinance.io"
-        else
-          if [ "$env" = "prod4" ]
-          then
-            serverName="ubuntu@cis-app4-prod.marinerfinance.io"
-          else
-            if [ "$env" = "prod5" ]
-            then
-              serverName="ubuntu@cis-app5-prod.marinerfinance.io"
-            fi
-          fi
-        fi
-      fi
+      serverName="ubuntu@cis-app5-prod.marinerfinance.io"
     fi
-    dockerNetwork="prodNetwork"
-    env1="prod"
+  fi
+  dockerNetwork="prodNetwork"
+  env1="prod"
 else
-    serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
-    dockerNetwork="${env}Network"
-    env1="${env}"
+  serverName="ubuntu@cis-app1-${env}.marinerfinance.io"
+  dockerNetwork="${env}Network"
+  env1="${env}"
 fi
 pemFile=marinerfinance-us-east-1.pem
 otherPemFile=~/Code/psa/otherdocs/marinerfinance-us-east-1.pem
