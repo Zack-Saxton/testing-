@@ -259,10 +259,10 @@ export default function LoanDocument() {
                     row={true}
                     >
                       <Tooltip title={<p className="documentUploadToolTip">{globalMessages.Online_Verification_Upload_Info}</p>} placement="top">
-                          <FormControlLabel value="online_verification_doc" control={<Radio color='primary' />} label="Upload to my Application" />
+                          <FormControlLabel value="online_verification_doc" control={<Radio color='primary' />} label="Online Verification Document" />
                       </Tooltip>
                       <Tooltip title={<p className="documentUploadToolTip">{globalMessages.Existing_Loan_Upload_Info}</p>} placement="top">
-                          <FormControlLabel value="existing_loan_doc" control={<Radio color='primary' />} label="Upload to my Loan" />
+                          <FormControlLabel value="existing_loan_doc" control={<Radio color='primary' />} label="Existing Loan Document" />
                       </Tooltip>
                   </RadioGroup> 
                 </Grid>
