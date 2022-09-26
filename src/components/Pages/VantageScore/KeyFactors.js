@@ -26,13 +26,9 @@ export default function ControlledAccordions(keyFactors) {
   keyFactorList.push(creditScore[ reasoneThree ]);
   keyFactorList.push(creditScore[ reasoneFour ]);
 
- 
- 
-
   const handleChange = (panel) => (_event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  
 
   //View
   return (

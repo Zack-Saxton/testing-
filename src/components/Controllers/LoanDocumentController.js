@@ -36,21 +36,25 @@ function downloadFileData(fileData) {
 
 /****** Document Download method *****/
 export async function documentdownload(id, name, fileURL) {
-  let url = "cac_download_document";
-  let param = "";
-  let data = {
-    file_id: id,
-    name: name,
-    fileURL: fileURL,
-  };
-  let method = "POST";
-  let addAccessToken = true;
+  try {
+    let url = "cac_download_document";
+    let param = "";
+    let data = {
+      file_id: id,
+      name: name,
+      fileURL: fileURL,
+    };
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
-  let loanDocumentDownload = await APICall(url, param, data, method, addAccessToken);
-  loanDocumentDownload.status === 200
-    ? downloadFileData(loanDocumentDownload)
-    : toast.error(loanDocumentDownload?.data?.message ?? globalMessages.Document_download_error);
+    //API call
+    let loanDocumentDownload = await APICall(url, param, data, method, addAccessToken);
+    loanDocumentDownload.status === 200
+      ? downloadFileData(loanDocumentDownload)
+      : toast.error(loanDocumentDownload?.data?.message ?? globalMessages.Document_download_error);
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_loanDocumentController_API, error);
+  }  
 }
 
 /***** Print file *****/
@@ -64,46 +68,54 @@ function print(data) {
 
 /***** Print Document method *****/
 export async function documentprint(id, name, fileURL) {
-  let url = "cac_download_document";
-  let param = "";
-  let data = {
-    file_id: id,
-    name: name,
-    fileURL: fileURL
-  };
-  let method = "POST";
-  let addAccessToken = true;
+  try {
+    let url = "cac_download_document";
+    let param = "";
+    let data = {
+      file_id: id,
+      name: name,
+      fileURL: fileURL
+    };
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
-  let documentDownloadPrint = await APICall(url, param, data, method, addAccessToken);
-  documentDownloadPrint.status === 200
-    ? print(documentDownloadPrint)
-    : toast.error(globalMessages.Document_print_error);
+    //API call
+    let documentDownloadPrint = await APICall(url, param, data, method, addAccessToken);
+    documentDownloadPrint.status === 200
+      ? print(documentDownloadPrint)
+      : toast.error(globalMessages.Document_print_error);
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_loanDocumentController_API, error);
+  }
 }
 
 /***** upload document method *****/
 export async function uploadDocument(fileData, fileName, fileType, documentType) {
-  let url = "upload_document";
-  let param = "";
-  let data = {
-    compressedFile: [
-      {
-        data: fileData,
-        mimetype: fileType,
-        documentType: documentType,
-        fileName: fileName,
-      },
-    ],
-  };
-  let method = "POST";
-  let addAccessToken = true;
+  try {
+    let url = "upload_document";
+    let param = "";
+    let data = {
+      compressedFile: [
+        {
+          data: fileData,
+          mimetype: fileType,
+          documentType: documentType,
+          fileName: fileName,
+        },
+      ],
+    };
+    let method = "POST";
+    let addAccessToken = true;
 
-  //API call
-  let uploadData = await APICall(url, param, data, method, addAccessToken);
-  //API response
-  uploadData.status === 200
-    ? toast.success(uploadData?.data?.message ?? globalMessages.Document_upload)
-    : toast.error(uploadData?.data?.message ?? globalMessages.Document_upload_error);
+    //API call
+    let uploadData = await APICall(url, param, data, method, addAccessToken);
+    //API response
+    uploadData.status === 200
+      ? toast.success(uploadData?.data?.message ?? globalMessages.Document_upload)
+      : toast.error(uploadData?.data?.message ?? globalMessages.Document_upload_error);
 
-  return true;
+    return true;
+  } catch (error) {
+    ErrorLogger(globalMessages.Error_executing_loanDocumentController_API, error);
+  }  
 }

@@ -56,16 +56,17 @@ export default async function BranchDayTiming(branchLookupData) {
     }
     if (closedOrOpen.Value1 === "CLOSED" && todayHour > 16) {
         closedOrOpen.Value1 = "Will open ";
+        let timeZoneText = `at 9am ${ TimeZoneShort(branchLookupData.timeZoneName) }`
         if ([5, 6, 0].includes(dayInNumber)) {
-            closedOrOpen.Value2 = `Monday at 9am ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
+            closedOrOpen.Value2 = `Monday ${timeZoneText}`;
         } else if (dayInNumber === 1) {
-            closedOrOpen.Value2 = `Tuesday at 9am ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
+            closedOrOpen.Value2 = `Tuesday ${timeZoneText}`;
         } else if (dayInNumber === 2) {
-            closedOrOpen.Value2 = `Wednesday at 9am ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
+            closedOrOpen.Value2 = `Wednesday ${timeZoneText}`;
         } else if (dayInNumber === 3) {
-            closedOrOpen.Value2 = `Thursday at 9am ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
+            closedOrOpen.Value2 = `Thursday  ${timeZoneText}`;
         } else if (dayInNumber === 4) {
-            closedOrOpen.Value2 = `Friday at 9am ${ TimeZoneShort(branchLookupData.timeZoneName) }`;
+            closedOrOpen.Value2 = `Friday ${timeZoneText}`;
         }
     }
     return closedOrOpen;
