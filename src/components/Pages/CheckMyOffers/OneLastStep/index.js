@@ -19,6 +19,7 @@ import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 //oneLastStep component initialization
 function SSN() {
