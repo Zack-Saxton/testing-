@@ -46,7 +46,7 @@ const MockActiveloans = () => {
 describe("while loading", () => {
   it("renders a loader", () => {
     FetchOfferWithLoading();
-    const container = render(MockActiveloans());
+    render(MockActiveloans());
     const selectOffer = screen.getByText("1. Select Offer");
     expect(selectOffer).toBeTruthy();
   });

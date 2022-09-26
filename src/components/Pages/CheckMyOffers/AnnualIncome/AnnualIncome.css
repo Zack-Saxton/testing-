@@ -200,7 +200,3 @@
 #incomeWrap {
 	border-radius: 10px !important;
 }
-
-#incomeWrap div:nth-child(1) {
-	/* border-radius: 4px 4px 0px 0px !important; */
-}

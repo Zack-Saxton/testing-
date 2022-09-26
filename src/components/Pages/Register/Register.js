@@ -101,7 +101,7 @@ export default function Register() {
         setLoading(false);
       } else {
         setLoading(false);
-        alert(globalMessages.Network_Error_Please_Try_Again);
+        toast.error(globalMessages.Network_Error_Please_Try_Again);
       }
     } catch (error) {
       ErrorLogger("Error executing Login API", error);
@@ -159,7 +159,7 @@ export default function Register() {
           setSuccessPopup(false);
           setLoading(false);
         } else {
-          alert(globalMessages.Network_Error_Please_Try_Again);
+          toast.error(globalMessages.Network_Error_Please_Try_Again);
           setFailed(globalMessages.Network_Error_Please_Try_Again);
           setSuccessPopup(false);
           setLoading(false);

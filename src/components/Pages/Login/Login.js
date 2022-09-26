@@ -125,7 +125,7 @@ export default function Login(props) {
         }
       } else {
         setLoading(false);
-        alert(globalMessages.Network_Error_Please_Try_Again);
+        toast.error(globalMessages.Network_Error_Please_Try_Again);
       }
     },
   });
