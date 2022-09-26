@@ -73,7 +73,7 @@ const CheckLoginTimeout = () => {
         );
         navigate("/login", { state: { redirect: window?.location?.pathname } });
       } else {
-        alert(globalMessages.Network_Error_Please_Try_Again);
+        toast.error(globalMessages.Network_Error_Please_Try_Again);
         navigate("/login", { state: { redirect: window?.location?.pathname } });
       }
     }

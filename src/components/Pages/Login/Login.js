@@ -112,7 +112,7 @@ export default function Login(props) {
           }),
           toast.error(retVal?.data?.Message)
         );
-        if( retVal?.data?.Message !== "Your account has been locked.  Please contact your branch for further assistance."){
+        if( retVal?.data?.Message !== globalMessages.Account_Locked){
           setCounter(counter + 1);
         }
         else {
@@ -125,7 +125,7 @@ export default function Login(props) {
         }
       } else {
         setLoading(false);
-        alert(globalMessages.Network_Error_Please_Try_Again);
+        toast.error(globalMessages.Network_Error_Please_Try_Again);
       }
     },
   });

@@ -19,6 +19,7 @@ import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 //oneLastStep component initialization
 function SSN() {
@@ -187,7 +188,7 @@ function SSN() {
 				refetch();
 				navigate("/offers/none-available", { formcomplete: "yes" });
 			} else {
-				alert(globalMessages.Network_Error_Please_Try_Again);
+				toast.error(globalMessages.Network_Error_Please_Try_Again);
 				setLoading(false);
 				setApplicationLoading(false);
 				removeCKLightboxCookie();

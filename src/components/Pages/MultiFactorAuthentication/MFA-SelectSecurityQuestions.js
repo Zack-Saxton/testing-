@@ -45,27 +45,27 @@ const validationSchema = yup.object({
     .required(message.Please_Select_Security_Question),
     answer1: yup
     .string(message.provideAnswerForEachQuestion)
-    .max(40, message.Security_Question_Answer_Length)
+    .max(30, message.Security_Question_Answer_Length)
     .min(3, message.Security_Question_Answer_Length)
     .required(message.provideAnswerForEachQuestion),
     answer2: yup
     .string(message.provideAnswerForEachQuestion)
-    .max(40, message.Security_Question_Answer_Length)
+    .max(30, message.Security_Question_Answer_Length)
     .min(3, message.Security_Question_Answer_Length)
     .required(message.provideAnswerForEachQuestion),
     answer3: yup
     .string(message.provideAnswerForEachQuestion)
-    .max(40, message.Security_Question_Answer_Length)
+    .max(30, message.Security_Question_Answer_Length)
     .min(3, message.Security_Question_Answer_Length)
     .required(message.provideAnswerForEachQuestion),
     answer4: yup
     .string(message.provideAnswerForEachQuestion)
-    .max(40, message.Security_Question_Answer_Length)
+    .max(30, message.Security_Question_Answer_Length)
     .min(3, message.Security_Question_Answer_Length)
     .required(message.provideAnswerForEachQuestion),
     answer5: yup
     .string(message.provideAnswerForEachQuestion)
-    .max(40, message.Security_Question_Answer_Length)
+    .max(30, message.Security_Question_Answer_Length)
     .min(3, message.Security_Question_Answer_Length)
     .required(message.provideAnswerForEachQuestion),
 });
@@ -278,7 +278,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
-                                  inputProps={{maxLength: 40}}
+                                  inputProps={{maxLength: 30}}
                                   fullWidth
                                   value={formik.values.answer1}
                                   onChange={formik.handleChange}
@@ -313,7 +313,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
-                                  inputProps={{maxLength: 40}}
+                                  inputProps={{maxLength: 30}}
                                   value={formik.values.answer2}
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -348,7 +348,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
-                                  inputProps={{maxLength: 40}}
+                                  inputProps={{maxLength: 30}}
                                   fullWidth
                                   value={formik.values.answer3}
                                   onChange={formik.handleChange}
@@ -383,7 +383,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
-                                  inputProps={{maxLength: 40}}
+                                  inputProps={{maxLength: 30}}
                                   fullWidth
                                   value={formik.values.answer4}
                                   onChange={formik.handleChange}
@@ -417,7 +417,7 @@ let selectedQuestionStructured =
                                   label="Answer"
                                   type="text"
                                   variant="standard"
-                                  inputProps={{maxLength: 40}}
+                                  inputProps={{maxLength: 30}}
                                   fullWidth
                                   value={formik.values.answer5}
                                   onChange={formik.handleChange}

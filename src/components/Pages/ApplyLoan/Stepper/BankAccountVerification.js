@@ -76,7 +76,6 @@ export default function BankAccountVerification(props) {
 	const [ openAutoPayAuth, setOpenAutoPayAuth ] = useState(false);
 	const [ internalLoading, setInternalLoading ] = useState(false);
 	const holderName = Cookies.get("firstName")+" "+Cookies.get("lastName");
-	console.log(accountType);
 	function getValueByLable(text, ctx) {
 		return document.evaluate("//*[.='" + text + "']",
 			ctx || document, null, XPathResult.ANY_TYPE, null).iterateNext();
@@ -176,11 +175,11 @@ export default function BankAccountVerification(props) {
 				} else if (!res?.data?.bank_account_information || !res?.data?.bank_account_verification) {
 					props.setLoadingFlag(false);
 					setInternalLoading(false);
-					alert(messages?.bankAccountVerification?.notValid);
+					toast.error(messages?.bankAccountVerification?.notValid);
 				} else {
 					props.setLoadingFlag(false);
 					setInternalLoading(false);
-					alert(globalMessages.Network_Error_Please_Try_Again);
+					toast.error(globalMessages.Network_Error_Please_Try_Again);
 				}
 			}
 		}
