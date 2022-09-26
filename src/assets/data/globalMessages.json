@@ -269,7 +269,7 @@
   "State_Required": "State is required",
   "Street_Address": "Enter street address",
   "Street_Address_Required": "Street Address is required.",
-  "Security_Question_Answer_Length": "Your answer must be 3 to 40 characters in length",
+  "Security_Question_Answer_Length": "Your answer must be 3 to 30 characters in length",
   "Total": "Total",
   "Todays_Payoff": "Today's Pay Off",
   "TryAgain": "Please try again",
