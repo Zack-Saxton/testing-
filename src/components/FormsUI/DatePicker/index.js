@@ -15,7 +15,7 @@ import "date-fns";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import globalMessages from '../../../assets/data/globalMessages.json';
-import "./DatePicker.css";
+import "../iframe.css";
 
 const DatePickerWrapper = ({ format, label, views,
 	placeholder, required, onChange, disableDate, disablePastDate,

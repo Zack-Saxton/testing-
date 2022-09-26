@@ -1,62 +1,43 @@
-/* #main-content-background {
-    min-height: 500px;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-} */
-
 .Mui-focused {
     background-color: transparent !important;
     color: white;
 }
-
 .printPage {
     cursor: pointer;
     text-decoration: underline;
 }
-
 @media print {
     .printPage {
         display: none !important;
     }
 }
-
 #citizenship,
 #employementStatus,
 #marriedStatus,
 #phoneType {
     background: transparent !important;
 }
-
 .MuiInput-underline:before {
     border-bottom: 2px solid #0F4EB3 !important; 
 }
-
 .cardWOPadding {
     padding-bottom: 1%;
     text-align: center;
 }
-
 .partnerSignUpCard,
 .confirmationCard {
     margin: 0% auto 1% auto !important;
 }
-
 #spouseZipWrap,
 #spouseCityWrap {
     padding-right: 10px;
 }
-#maritalStatusGrid{
+#activeDutyGrid,#activeDutyRankGrid,#maritalStatusGrid {
     margin-top: 20px;
-}
-#maritalStatusInput-label{
-    font-size: 0.938rem !important;
 }
 #maritalStatusInput{
     padding-bottom: 15px;
 }
-
 @media (max-width:400px) {
 
     #emailPartner-label,
@@ -69,7 +50,6 @@
 
     }
 }
-
 @media (max-width:400px) {
 
     #dob-title,
@@ -78,11 +58,9 @@
 
     }
 }
-
 label+.MuiInput-formControl {
     background: transparent;
 }
-
 .showError {
     display: block;
     color: red;
@@ -90,20 +68,16 @@ label+.MuiInput-formControl {
     margin-top: 0;
     margin-bottom: 0;
 }
-
 .hideError {
     display: none;
 
 }
-
 #activeDutyRankGrid .MuiFormControl-fullWidth label {
     margin-left: -14px;
 }
-
 label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated {
     font-size: 0.862rem;
 }
-
 #activeDutyGrid .MuiFormControl-fullWidth label {
     margin-left: -14px;
 }
@@ -112,41 +86,26 @@ label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLab
     margin: 3px 0px;
 }
 
-#activeDutyGrid,
-#activeDutyRankGrid {
-    margin-top: 20px;
-}
-
 #confirmActiveDuty .subOption,
 #confirmactiveDutyRank .subOption {
     color: #171717 !important;
 }
-
 p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
     margin-bottom: -38px;
 }
-
-.Mui-focused {
-    background-color: transparent !important;
-    color: white;
-}
-
 .add-pad {
     margin-left: -1px !important;
     padding-top: 20px !important;
     font-size: 14px !important;
 }
-
 .showCheckbox {
     display: block;
     font-family: 'Muli', sans-serif;
     font-weight: 400;
 }
-
 .hideCheckbox {
     display: none;
 }
-
 .agreeCheckbox {
     text-align: justify;
     cursor: pointer;
@@ -160,14 +119,11 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 .agreeCheckbox a {
     color: #0F4EB3;
 }
-
-
 .formatHref {
     color: #0F4EB3;
     text-align: justify;
     text-decoration: underline;
 }
-
 #annualHousehold,
 #personalIncome,
 #spouseState,
@@ -175,7 +131,6 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #spouseZip {
     padding-bottom: 15px !important;
 }
-
 #annualHousehold-label,
 #personalIncome-label,
 #spouseState-label,
@@ -183,12 +138,12 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #spouseZip-label,
 #phonePartner-label,
 #emailPartner-label,
+#maritalStatusInput-label,
 #firstName-label, #lastName-label {
     font-size: 0.938rem !important;
     padding-bottom: 10px !important;
 }
-
-#employementStatusWrap div label {
+#employementStatusWrap div label,#citizenshipWrap div label {
     font-size: 0.968rem !important;
     margin-left: -14px;
 }
@@ -198,20 +153,12 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #employementStatusWrap div div div:nth-child(1) {
     padding-bottom: 15px !important;
 }
-
 #citizenshipWrap {
     padding: 0 !important;
 }
-
 #citizenshipWrap div p {
     margin: 3px 0px 0px 0px;
 }
-
-#citizenshipWrap div label {
-    font-size: 0.968rem !important;
-    margin-left: -14px;
-}
-
 .creditkarmaLogoImage {
     height: 13px;
 }
@@ -221,19 +168,15 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #marriedStatusWrap div label {
     font-size: 0.968rem !important;
 }
-
 #marriedStatusWrap .MuiFormControl-fullWidth label {
     margin-left: -14px;
 }
-
 #marriedStatusWrap div div div:nth-child(1) {
     padding-bottom: 15px !important;
 }
-
 #phoneType .subOption {
     color: #171717 !important;
 }
-
 #phoneTypeWrap div label {
     font-size: 0.968rem !important;
     margin-left: -14px;
@@ -242,11 +185,9 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #phoneTypeWrap div p {
     margin: 3px 0px;
 }
-
 #employementWrap div p {
     margin: 3px 0px 0px 0px;
 }
-
 #password, #cpass {
     padding-bottom: 15px !important;
   }
@@ -277,8 +218,6 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
         -webkit-text-fill-color: #000 !important;
         opacity: unset !important;
     }
-    
-
 .MuiInputLabel-formControl.Mui-disabled {
         color: black !important;
 }
@@ -288,15 +227,12 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #phoneTypeWrap div div div:nth-child(1) {
     padding-bottom: 15px !important;
 }
-
 #citizenship .subOption {
     color: #171717 !important;
 }
-
 #employementStatus .subOption {
     color: #171717 !important;
 }
-
 #socialSecurityNumber div div label{
     font-size: 0.938rem !important;
     padding-bottom: 10px !important;
@@ -308,17 +244,13 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
     padding-top: 10px;
 }
 #socialSecurityNumber div div div input{
-    /* font-size: 0.938rem !important; */
     padding-bottom: 10px !important;
 }
 @media only screen and (max-width: 599px){
     #spouseZipWrap, #spouseCityWrap{
         padding: 0px;
     }
-    #spouseCityWrap{
-        margin-top: 20px;
-    }
-    #spouseStateWrap{
+    #spouseCityWrap,#spouseStateWrap{
         margin-top: 20px;
     }
 }

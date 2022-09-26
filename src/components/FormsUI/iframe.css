@@ -1,7 +1,18 @@
 #insideIframe iframe {
     position: relative !important;
 }
-
 .iframeStyle {
     height: 500px
+}
+.formStyle {
+    width: "100%",
+  }
+.MuiInputAdornment-root .MuiButtonBase-root {
+    padding: 0px 0px 0px 10px !important;
+}
+.formStyle {
+    width: "100%",
+}
+.rem1FSize {
+    font-size: 1rem !important;
 }

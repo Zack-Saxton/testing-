@@ -2,105 +2,45 @@
 	display: block;
 	color: red;
 }
-
 .hide {
 	display: none;
 }
-
 .linkStyle {
 	color: #0f4eb3 !important;
 	cursor: pointer !important;
 }
-
 .MuiStepLabel-labelContainer .MuiStepLabel-label {
 	padding: 12px 0px 12px 10px !important;
 	font-size: 0.938rem !important;
 	color: #595959 !important;
 }
-
 .underline {
 	text-decoration: underline !important;
 }
-
 .MuiTabs-indicator {
 	display: none !important;
 }
-
-#applyForLoanPhone .MuiFormControl-root .MuiTextField-root label {
-	font-size: 0.938rem;
+#applyForLoanPhone .MuiFormControl-root .MuiTextField-root label,#textAndCall label .MuiFormControlLabel-label,#employerNameInput-label,#currentJobTitleInput-label,#financialEmpPhoneWrap div .MuiInputLabel-formControl,#radioSelectTxt label .MuiFormControlLabel-label,#accountTypeTxt .MuiFormControl-root label .MuiFormControlLabel-label,#accountHolderInput-label,#bankRoutingNumberInput-label,#bankInformationInput-label,#bankAccountNumberInput-label,#confirmAccountNumberInput-label,#paymentbyCheckTxt .MuiFormControlLabel-root .MuiFormControlLabel-label{
+	font-size: 0.938rem !important;
 }
-
-#applyForLoanPhone .MuiFormControl-root .MuiTextField-root div input {
+#applyForLoanPhone .MuiFormControl-root .MuiTextField-root div input,#employerNameInput,#currentJobTitleInput,#heardUsSelect,#currentAddressSelect,#accountHolderInput,#bankRoutingNumberInput,#bankInformationInput,#bankAccountNumberInput,#confirmAccountNumberInput{
 	padding-bottom: 12px !important;
 }
-
-#textAndCall label .MuiFormControlLabel-label {
-	font-size: 0.938rem !important;
-}
-
 /* Financial Information */
-#employerNameInput-label {
-	font-size: 0.938rem !important;
-}
-
-#employerNameInput {
-	padding-bottom: 12px;
-}
-
-#currentJobTitleInput-label {
-	font-size: 0.938rem !important;
-}
-
-#currentJobTitleInput {
-	padding-bottom: 12px;
-}
-
-#currentAddressSelectWrap div .MuiInputLabel-formControl {
+#currentAddressSelectWrap div .MuiInputLabel-formControl,#heardUsSelectWrap div .MuiInputLabel-formControl {
 	font-size: 0.938rem !important;
 	margin-left: -14px;
 }
-#financialEmpPhoneWrap div .MuiInputLabel-formControl {
-	font-size: 0.938rem !important;
-}
-
 #currentAddressSelectWrap,#financialEmpPhoneWrap,
 #heardUsSelectWrap {
 	margin-top: 20px;
 }
-
-#currentAddressSelectWrap .MuiFormControl-fullWidth p {
+#currentAddressSelectWrap .MuiFormControl-fullWidth p,#financialEmpPhoneWrap .MuiFormControl-fullWidth p,#heardUsSelectWrap .MuiFormControl-fullWidth p{
 	margin: 3px 0px 0px 0px;
 }
-
-#financialEmpPhoneWrap .MuiFormControl-fullWidth p {
-	margin: 3px 0px 0px 0px;
-}
-
-#heardUsSelectWrap .MuiFormControl-fullWidth p {
-	margin: 3px 0px 0px 0px;
-}
-
-#heardUsSelectWrap div .MuiInputLabel-formControl {
-	font-size: 0.938rem !important;
-	margin-left: -14px;
-}
-
-#heardUsSelect {
-	padding-bottom: 12px;
-}
-
-#currentAddressSelect {
-	padding-bottom: 12px;
-}
-
-#currentAddressSelect .subOption {
+#currentAddressSelect .subOption,#heardUsSelect .subOption{
 	color: #171717 !important;
 }
-
-#heardUsSelect .subOption {
-	color: #171717 !important;
-}
-
 /* ID Verification Questions */
 #IdQuestionsTxt {
 	font-size: 0.938rem !important;
@@ -108,80 +48,22 @@
 	font-weight: 700;
 	color: #000000;
 }
-
-#radioSelectTxt label .MuiFormControlLabel-label {
-	font-size: 0.938rem !important;
-}
-
 #LoanQuestionWrap, #radioSelectTxt{
   flex-direction: column;
 }
-
 /* Bank Account Verification */
-
-#accountHolderInput-label {
-	font-size: 0.938rem !important;
-}
-
-#accountHolderInput {
-	padding-bottom: 12px;
-}
-
 #accountTypeTxt {
 	margin-top: 25px;
 }
-
-#accountTypeTxt .MuiFormControl-root label .MuiFormControlLabel-label {
-	font-size: 0.938rem !important;
-}
-
-#bankRoutingNumberInput-label {
-	font-size: 0.938rem !important;
-}
-
-#bankRoutingNumberInput {
-	padding-bottom: 12px;
-}
-
-#bankInformationInput-label {
-	font-size: 0.938rem !important;
-}
-
-#bankInformationInput {
-	padding-bottom: 12px;
-}
-
-#bankAccountNumberInput-label {
-	font-size: 0.938rem !important;
-}
-
-#bankAccountNumberInput {
-	padding-bottom: 12px;
-}
-
-#confirmAccountNumberInput-label {
-	font-size: 0.938rem !important;
-}
-
-#confirmAccountNumberInput {
-	padding-bottom: 12px;
-}
-
-#paymentbyCheckTxt .MuiFormControlLabel-root .MuiFormControlLabel-label {
-	font-size: 00.938rem !important;
-}
-
 .mobileFontSize {
 	text-align: center;
 }
-
 .mobileFontParagraph {
 	font-size: 1.125rem !important;
 	font-weight: 400 !important;
 	text-align: center !important;
 	line-height: 26px !important;
 }
-
 #file{
 	padding: 0px 15px;
 }
@@ -202,31 +84,24 @@
 		justify-content: center;
 		flex-direction: column-reverse;
 	}
-
 	.returnButton {
 		margin-top: 15px !important;
 	}
-
 	.confirmationDialog .MuiDialog-container .MuiDialog-paper {
 		margin: 15px !important;
 	}
-
 	.noOffersAvailableImage {
 		width: 100%;
 	}
-
 	.mobileFontSize {
 		font-size: 1.625rem !important;
 		text-align: center;
 		font-weight: bolder;
-		;
 	}
-
 	.mobileFontParagraph {
 		font-size: 1rem !important;
 	}
 }
-
 .showMsg {
 	display: block;
 	margin: 0;
@@ -234,7 +109,6 @@
 	font-family: "Muli", sans-serif;
 	font-weight: 400;
 }
-
 .hideMsg {
 	display: none !important;
 }

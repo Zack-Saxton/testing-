@@ -153,7 +153,6 @@
     background-color: #0f4fb3;
     font-family: "Muli", sans-serif !important;
     font-weight: 900;
-    border-radius: 5px !important;
     height: 30px;
     padding: 0px 30px;
     display: block;
@@ -163,7 +162,6 @@
 }
 
 .mortgageText {
-    align-items: flex-start;
     flex-direction: column;
     justify-content: center;
     align-items: center;
