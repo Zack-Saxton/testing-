@@ -7,7 +7,6 @@
 	color: #171717;
 	-webkit-text-fill-color: #000000 !important;
 }
-
 #streetAddress-label,
 #zip-label,
 #city-label,
@@ -16,25 +15,20 @@
 	font-size: 0.938rem !important;
 	padding-bottom: 10px !important;
 }
-
 #enterZipWrap {
 	border-radius: 10px !important;
 }
-
 #denterZipWrap div:nth-child(1) {
 	border-radius: 4px 4px 0px 0px !important;
 }
-
 #homeAddressTxt {
 	font-size: 1.64rem !important;
 }
-
 @media (max-width:768px) {
 	#homeAddressTxt {
 		font-size: 1.4rem !important;
 	}
 }
-
 @media (max-width:480px) {
 	#homeAddressTxt {
 		font-size: 1.188rem !important;

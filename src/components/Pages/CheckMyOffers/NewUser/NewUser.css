@@ -1,69 +1,56 @@
 .cardWOPadding {
 	text-align: center;
 }
-
 .cardWrapper {
 	margin-top: 5%;
 	margin-bottom: 2%;
 }
-
 .borrowCSS {
 	margin-top: 2% !important;
 	margin-bottom: 2% !important;
 }
-
 .setSlider {
 	margin-bottom: 0 !important;
 }
-
 .alignSlider {
 	margin-bottom: 7% !important;
 	text-align: center;
 }
-
 .setGreenColor {
 	color: green;
 }
-
 .smallText {
 	font-size: 0.8rem;
 	color: #fff;
 	font-family: "Muli", sans-serif;
 	font-weight: 300;
 }
-
 .alignSmallText {
 	margin-bottom: 3%;
 }
-
 .alignText {
 	color: #595959;
 	font-size: 0.9rem;
 	margin-top: 2%;
 }
-
 .alignTextInsideCard {
 	padding-top: 2%;
 }
-
 .open {
 	height: 50px;
 	transition: 0.5s;
 }
-
 .close {
 	height: 0;
 	transition: 0.5s;
 	overflow: hidden;
 }
-
 .yellowText {
 	color: #ffbc23 !important;
 	margin-left: 10px;
 	font-size: x-large;
 	text-align: left;
 }
-
 .radioBlock {
 	width: 100px;
 	border: 1px solid #0f4eb3;
@@ -78,13 +65,11 @@
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
-
 .activeBorder {
 	background: #134ca5 !important;
 	box-shadow: 1px 0 2px #144ba1;
 	color: white !important;
 }
-
 .showMsg {
 	display: block;
 	margin: 0;
@@ -92,16 +77,10 @@
 	font-family: "Muli", sans-serif;
 	font-weight: 400;
 }
-
-.hideMsg {
-	display: none;
-}
-
 .slantDiv {
 	transform: skewX(-20deg);
 	margin-left: -3px;
 }
-
 .progress .determinate {
 	background-color: #ffbc25;
 	position: absolute;
@@ -111,54 +90,33 @@
 	-webkit-transition: width 0.3s linear;
 	transition: width 0.3s linear;
 }
-
-/* .progress {
-	position: relative;
-	display: block;
-	overflow: hidden;
-	width: 100%;
-
-	margin: 0.5rem 0 0.938rem 0;
-	border-radius: 2px 2px 0px 0px;
-	background-color: white;
-	height: 16px;
-	text-align: left !important;
-} */
-
 .mt-0 {
 	margin-top: 0 !important;
 }
-
 .det5 {
 	width: 100%;
 }
-
 .detNum5 {
 	padding-left: 100%;
 	font-weight: 600;
 	color: #134ca8;
 }
-
 .Mui-disabled {
 	opacity: 0.7;
 }
-
 /*Animation*/
 .spinAnimation {
 	animation-name: rotation;
 	animation-duration: 3s;
 }
-
 @keyframes rotation {
 	from {
 		-webkit-transform: rotate(0deg);
 	}
-
 	to {
 		-webkit-transform: rotate(359deg);
 	}
 }
-
 .subText {
 	text-align: justify;
 	color: #595959;
@@ -168,7 +126,6 @@
 	margin-top: 4% !important;
 	margin-bottom: 4% !important;
 }
-
 .showError {
 	display: block;
 	color: red;
@@ -176,45 +133,26 @@
 	margin-top: 0;
 	margin-bottom: 0;
 }
-
-.hideError {
+.hideError,.hideMsg {
 	display: none;
 }
-
 .borrowCSSLP {
 	font-size: 1.538rem !important;
 	font-weight: 400 !important;
 	line-height: 110% !important;
 }
-
 .passwordMeetTxt {
 	font-size: 0.938rem !important;
 	list-style: 1.4 !important;
 }
-
-#createPasswordWrap-label {
+#createPasswordWrap-label,#confirmPasswordWrap-label {
 	font-size: 0.938rem !important;
 	color: #595959 !important;
 }
-
-#createPasswordWrap {
+#createPasswordWrap,#confirmPasswordWrap {
 	padding-bottom: 15px !important;
 }
-
-#confirmPasswordWrap-label {
-	font-size: 0.938rem !important;
-	color: #595959 !important;
-}
-
-#confirmPasswordWrap {
-	padding-bottom: 15px !important;
-}
-
-#securePasswordWrap {
-	border-radius: 4px !important;
-}
-
-#securePasswordWrap div {
+#securePasswordWrap,#securePasswordWrap div{
 	border-radius: 4px !important;
 }
 .error-validation li{

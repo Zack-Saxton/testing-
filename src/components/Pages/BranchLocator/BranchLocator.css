@@ -424,7 +424,7 @@
 }
 
 .businessHoursSpan {
-  font-family: MuliBold !important;
+  font-family: "MuliBold" !important;
   font-weight: bolder;
   padding-bottom: 5px;
   display: block;
@@ -674,7 +674,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 }
 
 .greyBackgroundWrap {
-  margin: auto;
   width: 90%;
   padding: 20px 30px;
   border-radius: 10px;
@@ -713,7 +712,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 25px;
-  height: auto;
   height: auto;
 }
 
@@ -849,7 +847,6 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 }
 
 .applyOnline {
-  margin: auto;
   padding: 20px 30px;
   border-radius: 10px;
   margin: 60px auto 80px auto;
