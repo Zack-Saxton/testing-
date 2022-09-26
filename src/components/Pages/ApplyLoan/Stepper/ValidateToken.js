@@ -37,7 +37,7 @@ const ValidateToken = () => {
 					},
 				});
 		} else if (now - actualSetupTime > min * 60 * 1000) {
-			alert(messages?.emailVerification?.sessionEnded);
+			toast.error(messages?.emailVerification?.sessionEnded);
 			navigate("/login", { state: { redirect: returnURL }, });
 		} else {
 			let result = {

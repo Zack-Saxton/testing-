@@ -55,8 +55,8 @@ function DocumentIdAndPhotoId(props) {
   }, [ imgSrc, selfieImageSrc ]);
 
   function handleImageUpload(event, flag) {
-    var imageFile = event.files[0];
-    var options = {
+    const imageFile = event.files[0];
+    const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 1920,
       useWebWorker: true

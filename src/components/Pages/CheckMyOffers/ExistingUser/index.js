@@ -118,7 +118,7 @@ function ExistingUser() {
 				setLoading(false);
 				toast.error(retVal?.data?.errorMessage);
 			} else {
-				alert(globalMessages.Network_Error_Please_Try_Again);
+				toast.error(globalMessages.Network_Error_Please_Try_Again);
 				setLoading(false);
 			}
 		},
