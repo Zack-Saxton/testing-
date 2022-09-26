@@ -37,56 +37,44 @@ let esignConsent = {
 
   //Assemble 'consent', 'user' Object with dynamic data
   activeConsetDocument.data.documents.forEach(doc => {
-    if (doc.displayname.toLowerCase() === 'credit_contact_authorization') {
-      consent.credit_contact_authorization = {
-        "consent": true,
-        "version": doc.version.toString(),
-      }
+    let consentObject = {
+      "consent": true,
+      "version": doc.version.toString(),
+    };
+    let displayname = doc.displayname.toLowerCase();
+    if (displayname === 'credit_contact_authorization') {
+      consent.credit_contact_authorization = consentObject;
       user.Consent_Credit_Contact_Authorization_Version__c = doc.version.toString();
-    } else if (doc.displayname.toLowerCase() === 'electronic_disclosure_consent') {
-      consent.electronic_communications = {
-        "consent": true,
-        "version": doc.version.toString(),
-      }
+    } else if (displayname === 'electronic_disclosure_consent') {
+      consent.electronic_communications = consentObject;
       user.Consent_Electronic_Communication_Policy_Version__c = doc.version.toString();
-    } else if (doc.displayname.toLowerCase() === 'terms_of_use_document') {
-      consent.terms_of_use = {
-        "consent": true,
-        "version": doc.version.toString(),
-      }
+    } else if (displayname === 'terms_of_use_document') {
+      consent.terms_of_use = consentObject;
       user.Consent_Terms_Of_Use_Version__c = doc.version.toString();
-    } else if (doc.displayname.toLowerCase() === 'privacy_policy_document') {
-      consent.privacy_policy = {
-        "consent": true,
-        "version": doc.version.toString(),
-      }
+    } else if (displayname === 'privacy_policy_document') {
+      consent.privacy_policy = consentObject
       user.Consent_Privacy_Policy_Version__c = doc.version.toString();
     }
   });
 //dynamically update deleware 'consent' and 'esign' if applicable
+let stateConsent = {
+  "consent": true,
+  "version": "1.0",
+};
 if (partnerSignupData.state === 'DE') {
-  consent.delaware_itemized_schedule_of_charges = {
-    "consent": true,
-    "version": "1.0",
-  };
-     esign.delaware_itemized_schedule_of_charges = esignConsent;
+    consent.delaware_itemized_schedule_of_charges = stateConsent;
+    esign.delaware_itemized_schedule_of_charges = esignConsent;
  }
 
  //dynamically update california 'consent' and 'esign' if applicable
- if (partnerSignupData.state === 'CA') {
-  consent.california_credit_education_program = {
-    "consent": true,
-    "version": "1.0",
-  };
-   esign.california_credit_education_program = esignConsent;
- }
+if (partnerSignupData.state === 'CA') {
+    consent.california_credit_education_program = stateConsent;
+    esign.california_credit_education_program = esignConsent;
+}
 
- if (partnerSignupData.state === 'NM') {
-  consent.new_mexico_disclosure = {
-    "consent": true,
-    "version": "1.0",
-  };
-  esign.new_mexico_disclosure = esignConsent;
+if (partnerSignupData.state === 'NM') {
+    consent.new_mexico_disclosure = stateConsent;
+    esign.new_mexico_disclosure = esignConsent;
 }
   //assemble 'esign' Object
   esign.credit_contact_authorization = esignConsent;

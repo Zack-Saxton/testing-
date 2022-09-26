@@ -66,32 +66,25 @@ export async function checkMyOfferSubmit(customer) {
 		// };
 		//Assemble 'consent', 'user' Object with dynamic data
 		activeConsetDocument.data.documents.forEach(doc => {
-			if (doc.displayname.toLowerCase() === 'credit_contact_authorization') {
-				consent.credit_contact_authorization = {
-					"consent": true,
-					"version": doc.version.toString(),
-				}
+			let consentObject = {
+				"consent": true,
+				"version": doc.version.toString(),
+			};
+			let displayname = doc.displayname.toLowerCase();
+			if (displayname === 'credit_contact_authorization') {
+				consent.credit_contact_authorization = consentObject;
 				esign.credit_contact_authorization = esignConsent;
 				user.Consent_Credit_Contact_Authorization_Version__c = doc.version.toString();
-			} else if (doc.displayname.toLowerCase() === 'electronic_disclosure_consent') {
-				consent.electronic_communications = {
-					"consent": true,
-					"version": doc.version.toString(),
-				}
+			} else if (displayname === 'electronic_disclosure_consent') {
+				consent.electronic_communications = consentObject;
 				esign.electronic_communications = esignConsent;
 				user.Consent_Electronic_Communication_Policy_Version__c = doc.version.toString();
-			} else if (doc.displayname.toLowerCase() === 'terms_of_use_document') {
-				consent.terms_of_use = {
-					"consent": true,
-					"version": doc.version.toString(),
-				}
+			} else if (displayname === 'terms_of_use_document') {
+				consent.terms_of_use = consentObject;
 				esign.terms_of_use = esignConsent;
 				user.Consent_Terms_Of_Use_Version__c = doc.version.toString();
-			} else if (doc.displayname.toLowerCase() === 'privacy_policy_document') {
-				consent.privacy_policy = {
-					"consent": true,
-					"version": doc.version.toString(),
-				}
+			} else if (displayname === 'privacy_policy_document') {
+				consent.privacy_policy = consentObject;
 				esign.privacy_policy = esignConsent;
 				user.Consent_Privacy_Policy_Version__c = doc.version.toString();
 			}

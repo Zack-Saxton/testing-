@@ -30,7 +30,7 @@ export async function setUnread(notificationId, id, isDelete,) {
     let url = "set_read";
     let param = "";
     let data = {
-      "headersHost": "",
+      "headersHost": process.env.REACT_APP_HOST_NAME,
       "isAuthtenticated": "false",
       "notification_id": notificationId,
       "id": id,
