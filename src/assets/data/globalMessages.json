@@ -165,6 +165,7 @@
   "DateOfBirthMinAge": "You must be at least 18 years old",
   "DateOfBirthRequired": "Your date of birth is required",
   "DateOfBirthValid": "Please enter a valid date",
+  "Debit_Payments_Only": "Account restricted to Debit Payments only",
   "Failed_Payment_mode": "Your account has restricted payment(s), please contact your branch.",
   "FileUploadError": "Error uploading file",
   "FileUploadMax": "Please upload file size below 800kb",
