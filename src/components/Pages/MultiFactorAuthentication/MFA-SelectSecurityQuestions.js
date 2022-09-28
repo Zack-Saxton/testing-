@@ -21,53 +21,31 @@ import CheckLoginStatus from '../../App/CheckLoginStatus';
 
 
 //Yup validations for all the input fields
-const validationSchema = yup.object({
+const questionValidation = () => {
+  return yup
+  .string(message.Please_Select_Security_Question)
+  .max(70, "Maximum of 70")
+  .required(message.Please_Select_Security_Question);
+}
 
-  question1: yup
-    .string(message.Please_Select_Security_Question)
-    .max(70, "Maximum of 70")
-    .required(message.Please_Select_Security_Question),
-  question2: yup
-    .string(message.Please_Select_Security_Question)
-    .max(70, "Maximum of 70")
-    .required(message.Please_Select_Security_Question),
-  question3: yup
-    .string(message.Please_Select_Security_Question)
-    .max(70, "Maximum of 70")
-    .required(message.Please_Select_Security_Question),
-  question4: yup
-    .string(message.Please_Select_Security_Question)
-    .max(70, "Maximum of 70")
-    .required(message.Please_Select_Security_Question),
-  question5: yup
-    .string(message.Please_Select_Security_Question)
-    .max(70, "Maximum of 70")
-    .required(message.Please_Select_Security_Question),
-    answer1: yup
-    .string(message.provideAnswerForEachQuestion)
-    .max(30, message.Security_Question_Answer_Length)
-    .min(3, message.Security_Question_Answer_Length)
-    .required(message.provideAnswerForEachQuestion),
-    answer2: yup
-    .string(message.provideAnswerForEachQuestion)
-    .max(30, message.Security_Question_Answer_Length)
-    .min(3, message.Security_Question_Answer_Length)
-    .required(message.provideAnswerForEachQuestion),
-    answer3: yup
-    .string(message.provideAnswerForEachQuestion)
-    .max(30, message.Security_Question_Answer_Length)
-    .min(3, message.Security_Question_Answer_Length)
-    .required(message.provideAnswerForEachQuestion),
-    answer4: yup
-    .string(message.provideAnswerForEachQuestion)
-    .max(30, message.Security_Question_Answer_Length)
-    .min(3, message.Security_Question_Answer_Length)
-    .required(message.provideAnswerForEachQuestion),
-    answer5: yup
-    .string(message.provideAnswerForEachQuestion)
-    .max(30, message.Security_Question_Answer_Length)
-    .min(3, message.Security_Question_Answer_Length)
-    .required(message.provideAnswerForEachQuestion),
+const answerValidation = () => {
+  return yup
+  .string(message.provideAnswerForEachQuestion)
+  .max(30, message.Security_Question_Answer_Length)
+  .min(3, message.Security_Question_Answer_Length)
+  .required(message.provideAnswerForEachQuestion);
+}
+const validationSchema = yup.object({
+  question1: questionValidation(),
+  question2: questionValidation(),
+  question3: questionValidation(),
+  question4: questionValidation(),
+  question5: questionValidation(),
+  answer1: answerValidation(),
+  answer2: answerValidation(),
+  answer3: answerValidation(),
+  answer4: answerValidation(),
+  answer5: answerValidation(),
 });
 
 
@@ -81,12 +59,13 @@ const MFASelectSecurityQuestions = () => {
   const [ loading, setLoading ] = useState(false);
   const [ questionOption, setQuestionOption ] = useState([]);
   const [ selectQuestionArray, setSelectQuestionArry ] = useState([null, null, null, null, null])
-const [ selectOptionArray, setSelectOptionArray ] = useState([[], [], [], [], []])
+  const [ selectOptionArray, setSelectOptionArray ] = useState([[], [], [], [], []])
 
 useEffect(() => {
   if (!location?.state?.currentFlow) {
     navigate("/customers/accountOverview");
   }
+  getMFAQuestion();
   // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
 
@@ -204,12 +183,6 @@ let selectedQuestionStructured =
 
     });
 };
-
-  useEffect(() => {
-
-    getMFAQuestion()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const backToVerificationStep = () => {
     location?.state?.preVerification ? navigate("/MFA") : navigate(-1);
