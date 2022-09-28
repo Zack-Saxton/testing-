@@ -40,6 +40,7 @@ const MFASecurityQuestions = () => {
 		if (!location?.state?.mfaSecurityQuestions) {
 			navigate("/customers/accountOverview");
 		}
+    getMFAQuestion();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -111,11 +112,6 @@ const MFASecurityQuestions = () => {
   const backToVerificationStep = () => {
     navigate(-1);
   };
-
-  useEffect(() => {
-    getMFAQuestion();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div>

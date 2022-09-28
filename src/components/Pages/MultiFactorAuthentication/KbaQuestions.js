@@ -44,6 +44,7 @@ const KbaQuestions = () => {
 		} else if(kbaSkipCookie) {
       navigate("/MFA");
     }
+    getKbaQuestions();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -98,12 +99,6 @@ const KbaQuestions = () => {
       navigate('/MFA', {state : {noKbaQuestions : true}})
     }
   }
-
-  // get the function to fetch api on page load
-  useEffect(() => {
-    getKbaQuestions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (setOneFinished && !isProd) {
