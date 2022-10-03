@@ -109,6 +109,12 @@ const MFASecurityQuestions = () => {
     }
   };
 
+  const preventSpace = (event) => {
+    if (event.keyCode === 32) {
+      event.preventDefault();
+    }
+  };
+
   const backToVerificationStep = () => {
     navigate(-1);
   };
@@ -174,6 +180,8 @@ const MFASecurityQuestions = () => {
                           value={formik.values.answer}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
+                          inputProps={{maxLength: 30}}
+                          onKeyDown={preventSpace}
                           error={
                             formik.touched.answer &&
                             Boolean(formik.errors.answer)
