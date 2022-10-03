@@ -10,10 +10,10 @@ import { toast } from "react-toastify";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
-import OfferCodeValidation from "../../../Controllers/OfferCodeController";
+import OfferCodeController from "../../../Controllers/OfferCodeController";
 import { ButtonPrimary, Slider, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import "./CheckMyOffer.css";
 import Cookies from "js-cookie";
 
@@ -123,7 +123,7 @@ if(check_source && check_campaignType){
         navigate("/loan-purpose");
       }
       if (data.offerCode) {
-        let offerCodeResponse = await OfferCodeValidation(data.offerCode);
+        let offerCodeResponse = await OfferCodeController(data.offerCode);
         if (
           offerCodeResponse?.data?.offerData?.Message ||
           offerCodeResponse.status !== 200
@@ -156,7 +156,7 @@ if(check_source && check_campaignType){
   // jsx part
   return (
     <div data-testid="check-my-affer-select-amout">
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <div className={classes.mainDiv} data-testid="selectAmount">
         <Box>
           <Grid

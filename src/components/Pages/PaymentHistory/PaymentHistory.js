@@ -22,7 +22,7 @@ import { LoanAccount } from "../../../contexts/LoanAccount";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import { ButtonPrimary, ButtonWithIcon } from "../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import PaymentHistoryTable from "./PaymentHistoryTable.js";
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
@@ -160,7 +160,7 @@ export default function PaymentHistory() {
   return (
     <div data-testid="paymentHistoryDiv">
       <CheckLoginStatus />
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid container className={classes.centerGrid} data-testid="payment_History">
         <Grid className={classes.gridStyle} container>
           <Grid item xs={12} sm={8}>

@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import React from "react";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
 import ActiveLoans from "./ActiveLoans";
 import LimitedOffer from "./LimitedOffer";
@@ -27,7 +27,7 @@ export default function AccountOverview() {
 
   return (
     <div>
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <CheckLoginStatus />
       <Grid
         container

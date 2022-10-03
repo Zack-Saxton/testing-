@@ -9,7 +9,7 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
 import CustomerRatings from "../../MyBranch/CustomerRatings";
 import "../CheckMyOffer.css";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import goldIcon from "../../../../assets/icon/dollarIcon.png"
 
 //reffered to branch functional component initialization
@@ -41,7 +41,7 @@ function ReferredToBranch(props) {
 	//JSX part
 	return (
 		<div data-testid = "referredToBranch_Component">
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<Grid className={classes.blueBackground}>
 				<Grid className="mainText">
 				<img data-testid="goldDollerIcon" alt="goldDollerIcon" className={classes.goldIcon} src={goldIcon}/>

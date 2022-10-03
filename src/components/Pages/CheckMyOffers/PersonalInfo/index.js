@@ -23,7 +23,7 @@ import {
 	TextField
 } from "../../../FormsUI";
 import "../CheckMyOffer.css";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import "./PersonalInfo.css";
 import {checkCustomeruser,ApplicationStatusByEmail} from "../../../Controllers/PersonalInfoController";
 import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../../Controllers/CommonController'
@@ -315,7 +315,7 @@ function PersonalInfo() {
 	//JSX [part]
 	return (
 		<div data-testid="personal_Info_component">
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

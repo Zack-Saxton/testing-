@@ -16,7 +16,7 @@ import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 import { ButtonPrimary, Select, TextField, Zipcode } from "../../../FormsUI";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -186,7 +186,7 @@ function MarriedStatus() {
 	//JSX part
 	return (
 		<div data-testid="married-status-component">
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

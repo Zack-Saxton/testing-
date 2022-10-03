@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-import HolidayCalender from "../../Controllers/HolidayCalenderController"
+import HolidayCalenderController from "../../Controllers/HolidayCalenderController"
 
 export const useHolidayCalender = () => {
-  const { isLoading: isLoadingHoliday, data: holidayCalenderData } = useQuery("holiday-calendar", HolidayCalender);
+  const { isLoading: isLoadingHoliday, data: holidayCalenderData } = useQuery("holiday-calendar", HolidayCalenderController);
   return { isLoadingHoliday, holidayCalenderData }
 }

@@ -37,7 +37,7 @@ import {
   Select,
   TextField
 } from "../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
 import { useStylesMakePayment } from "./Style";
@@ -586,7 +586,7 @@ export default function MakePayment() {
   return (
     <div data-testid="makePaymentComponent">
       <CheckLoginStatus />
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid id="makePaymentWrap" container className={classes.centerGrid}>
         <Grid className={classes.gridStyle} container direction="row" item xs={12}>
           <Grid item xs={12} sm={6} container direction="row">

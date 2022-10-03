@@ -18,7 +18,7 @@ import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import LoginController from "../../../Controllers/LoginController";
 import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import { encryptAES } from "../../../lib/Crypto";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import "./ExistingUser.css";
 
 //YUP validation schema
@@ -138,7 +138,7 @@ function ExistingUser() {
 	// View part
 	return (
 		<div>
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

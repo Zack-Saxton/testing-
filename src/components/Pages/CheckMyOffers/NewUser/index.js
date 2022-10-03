@@ -19,7 +19,7 @@ import { ButtonPrimary, PasswordField } from "../../../FormsUI";
 import validateUserEnteredInput from "../../Login/ValidateUserEnteredInput";
 import { encryptAES } from "../../../lib/Crypto";
 import ErrorLogger from "../../../lib/ErrorLogger";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import "./NewUser.css";
 
 
@@ -174,7 +174,7 @@ function NewUser() {
 	//View part
 	return (
 		<div>
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

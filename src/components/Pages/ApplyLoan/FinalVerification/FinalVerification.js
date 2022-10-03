@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../../FormsUI";
-import ScrollToTopOnMount from "../../ScrollToTop";
+import ScrollToTop from "../../ScrollToTop";
 import "../SelectOffer/SelectOffer.css";
 import Stepper from "../Stepper/StepperMain";
 import { useStylesApplyForLoan } from "../Style";
@@ -26,7 +26,7 @@ export default function FinalVerification() {
   return (
     <div>
       <CheckLoginStatus term="final" />
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid
         container
         justifyContent={"center"}

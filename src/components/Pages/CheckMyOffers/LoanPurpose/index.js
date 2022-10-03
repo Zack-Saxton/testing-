@@ -27,7 +27,7 @@ import VacationIconWhite from "../../../../assets/icon/white/Vacation.png";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import Cookies from "js-cookie";
 import "./LoanPurpose.css";
 
@@ -227,7 +227,7 @@ function LoanPurpose() {
 	//view part
 	return (
 		<div>
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={preLoginStyles.mainDiv}>
 				<Box>
 					<Grid

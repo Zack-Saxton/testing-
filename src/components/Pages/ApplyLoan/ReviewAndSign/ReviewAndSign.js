@@ -15,7 +15,7 @@ import { ButtonSecondary, ButtonWithIcon, Checkbox } from "../../../FormsUI";
 import Iframe from "../../../FormsUI/iframe";
 import APICall from "../../../lib/AxiosLib";
 import messages from '../../../lib/Lang/applyForLoan.json';
-import ScrollToTopOnMount from "../../ScrollToTop";
+import ScrollToTop from "../../ScrollToTop";
 import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
@@ -157,7 +157,7 @@ useEffect(()=>{
   return (
     <div data-testid = "reviewAndSign_testid">
       <CheckLoginStatus /> {/* To check the user logged in or not  */}
-      <ScrollToTopOnMount /> {/* To show the top of the page on load */}
+      <ScrollToTop /> {/* To show the top of the page on load */}
       <Grid
         container
         justifyContent={"center"}

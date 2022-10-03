@@ -11,7 +11,7 @@ import AnnualIncomeLogo from "../../../../assets/icon/I-Annual-Income.png";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Popup, TextField } from "../../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import "./AnnualIncome.css";
 import Income from "./Income";
 
@@ -236,7 +236,7 @@ function NewUser() {
 
 	return (
 		<div data-testid="annual-income-component">
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

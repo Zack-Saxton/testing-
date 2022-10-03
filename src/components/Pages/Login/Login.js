@@ -28,7 +28,7 @@ import {
 } from "../../FormsUI";
 import Recaptcha from "../../Layout/Recaptcha/GenerateRecaptcha";
 import { FormValidationRules } from "../../lib/FormValidationRule";
-import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+import ScrollToTop from "../../Pages/ScrollToTop";
 import "./Login.css";
 import { useStylesLogin } from "./style";
 let formValidation = new FormValidationRules();
@@ -169,7 +169,7 @@ export default function Login(props) {
   //View Part
   return (
     <div>
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <div className={classes.mainContentBackground} id="mainContentBackgroundWrap">
         <Box>
           <Grid

@@ -10,7 +10,7 @@ import CitizenshipStatusLogo from "../../../../assets/icon/I-Citizenship-status.
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import "./CitizenshipStatus.css";
 
 //styling
@@ -64,7 +64,7 @@ function CitizenshipStatus() {
 	//JSK part
 	return (
 		<div>
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

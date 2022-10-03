@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../../FormsUI";
-import ScrollToTopOnMount from "../../ScrollToTop";
+import ScrollToTop from "../../ScrollToTop";
 import "../SelectOffer/SelectOffer.css";
 import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
@@ -22,7 +22,7 @@ export default function ReceiveYourMoney() {
 	return (
 		<div>
 			<CheckLoginStatus />
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<Grid
 				container
 				justifyContent="center"
