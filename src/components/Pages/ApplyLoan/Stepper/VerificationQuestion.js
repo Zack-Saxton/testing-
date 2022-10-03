@@ -67,7 +67,9 @@ export default function VerificationQuestion(props) {
       setResponseData(tempArray);
     }
     else {
-      toast.error("Something went wrong, please try again");
+      setSetOneFinished(true); // if after one question KBA returns nothing, let user skip
+      props.setLoadingFlag(false);
+      props.next();
     }
   }
 
