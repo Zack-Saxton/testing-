@@ -8,38 +8,34 @@ import AppBar from "./AppBar/SideNav";
 import CheckLoginTimeout from "./CheckLoginTimeout";
 import ExposeDataLayer from "../Layout/ga4/ExposeDataLayer";
 
-
 const Post = ({ children }) => {
-
     const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
-
     return (
         <div>
             <ExposeDataLayer />
             <CheckLoginTimeout />
             {
-                
                 loginToken.isLoggedIn && loginToken?.isMFA && loginToken?.isMFACompleted ?
                 <>
-                        <div id="body">
-                            <div className='topBar'></div>
-                            <AppBar />
-                            {children}
-                            <Footer />
-                        </div>
-                    </>
+                    <div id="body">
+                        <div className='topBar'></div>
+                        <AppBar />
+                        {children}
+                        <Footer />
+                     </div>
+                </>
                 :
-                loginToken.isLoggedIn && !loginToken?.isMFA 
-                 ?
-                    <>
-                        <div id="body">
-                            <div className='topBar'></div>
-                            <AppBar />
-                            {children}
-                            <Footer />
-                        </div>
-                    </>
-                     : <CheckLoginStatus />
+                loginToken.isLoggedIn && !loginToken?.isMFA ?
+                <>
+                    <div id="body">
+                        <div className='topBar'></div>
+                        <AppBar />
+                        {children}
+                        <Footer />
+                    </div>
+                </>
+                :
+                <CheckLoginStatus />
             }
         </div>
     );
