@@ -154,3 +154,6 @@ label + .MuiInput-formControl {
   content: "✘";
   padding: 1px;
 }
+#password{
+  padding-bottom: 15px !important;
+}

@@ -23,6 +23,7 @@ const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
   return (
     // <FormControl fullWidth={true} >
     <TextField
+      className="globelPassword"
       fullWidth={true}
       label={label}
       variant="standard"
