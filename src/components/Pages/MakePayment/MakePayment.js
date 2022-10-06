@@ -223,13 +223,15 @@ export default function MakePayment() {
     setOpenPayment(false);
     let result = await makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment);
     setPaymentReferenceNumber(result?.data?.paymentResult?.ReferenceNumber);
+    if (result?.data?.successful_payment === "Cash Only") {
+     toast.error(globalMessages.Debit_Payments_Only, { autoClose: 5000 });
+    } else {
     result.status === 200
-    ? result?.data?.paymentResult?.PaymentCompleted === "Cash Only"
       ? result?.data?.paymentResult?.PaymentCompleted !== undefined
         ? handlePaymentSuccess()
         : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000 })
-      : toast.error(globalMessages.Debit_Payments_Only, { autoClose: 5000 })
-    : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, { autoClose: 5000, });
+      : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, { autoClose: 5000, });
+    }
   }
   //Disable scheduled payment
   async function deletePayment(disableScheduledPaymentAccountNo, disableScheduledPaymentRefNo, disableScheduledPaymentIsCard) {

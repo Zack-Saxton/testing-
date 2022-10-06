@@ -385,7 +385,7 @@ export const accountOverviewData = {
            "under_review_date":null,
            "submission_id":null,
            "submission_parameter":null,
-           "submission_type":"CIS",
+           "submission_type":"CAC",
            "approved_by":"unassigned",
            "approved_date":null,
            "final_review_by":"unassigned",

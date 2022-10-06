@@ -40,6 +40,7 @@ const MFASecurityQuestions = () => {
 		if (!location?.state?.mfaSecurityQuestions) {
 			navigate("/customers/accountOverview");
 		}
+    getMFAQuestion();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -108,14 +109,15 @@ const MFASecurityQuestions = () => {
     }
   };
 
+  const preventSpace = (event) => {
+    if (event.keyCode === 32) {
+      event.preventDefault();
+    }
+  };
+
   const backToVerificationStep = () => {
     navigate(-1);
   };
-
-  useEffect(() => {
-    getMFAQuestion();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div>
@@ -178,6 +180,8 @@ const MFASecurityQuestions = () => {
                           value={formik.values.answer}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
+                          inputProps={{maxLength: 30}}
+                          onKeyDown={preventSpace}
                           error={
                             formik.touched.answer &&
                             Boolean(formik.errors.answer)
