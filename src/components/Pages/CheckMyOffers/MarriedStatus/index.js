@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -68,30 +67,6 @@ const validationSchema = yup.object({
 			then: yup.string().required(globalMessages.Address_State_Required),
 		}),
 });
-
-const useStyles = makeStyles(() => ({
-
-	typoStyle: {
-		align: "center",
-		justify: "center",
-		alignItems: "center",
-		marginBottom: "1%",
-		marginTop: "1%",
-	},
-	negativeMargin: {
-		marginTop: "-4%"
-	},
-	paperStyle: {
-		justify: "center",
-		alignItems: "center",
-		width: "inherit",
-		marginBottom: "10%",
-		marginTop: "10%",
-		textAlign: "center"
-	}
-})
-);
-
 // custom component - MarriedStatus
 function MarriedStatus() {
 	const { data, setData } = useContext(CheckMyOffers);
@@ -99,7 +74,6 @@ function MarriedStatus() {
 	const [ validZip, setValidZip ] = useState(true);
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
-	const innerClasses = useStyles();
 	useEffect(() => {
 		//redirect to select amount if page accessed directly
 		if (data.completedPage < data.page.livingPlace || data.formStatus === "completed") {
@@ -210,7 +184,7 @@ function MarriedStatus() {
 						>
 							<Paper
 								id="maritalStatusWrap"
-								className={innerClasses.paperStyle}
+								className={classes.maritalStatusPaperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -226,7 +200,7 @@ function MarriedStatus() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid className={innerClasses.negativeMargin}>
+								<Grid className={classes.negativeMargin}>
 									<img
 										alt="marriedlogo"
 										src={MarriedStatusLogo}
@@ -236,7 +210,7 @@ function MarriedStatus() {
 
 								<Typography
 									variant="h5"
-									className={innerClasses.typoStyle}
+									className={classes.maritalStatustypoStyle}
 								>
 									Are you married?*
 								</Typography>

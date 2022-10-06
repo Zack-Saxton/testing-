@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,30 +14,6 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./EmploymentStatus.css";
-
-const useStyles = makeStyles(() => ({
-	boxGrid: {
-		padding: "4% 0px 4% 0px",
-		marginTop: "5%",
-    marginBottom: "2%;"
-	},
-	paperStyle: {
-		justify: "center",
-		alignItems: "center",
-		textAlign: "center"
-	},
-	typoStyle: {
-		align: "center",
-		justify: "center",
-		alignItems: "center",
-		fontSize: "1.538rem",
-		margin: "10px 0px !important",
-		color: "#171717",
-		fontWeight: "400 !important",
-		lineHeight: "110% !important"
-	},
-})
-);
 //Initializing functional component CitizenshipStatus
 function EmploymentStatus() {
 	//Retrieving Context values
@@ -46,7 +21,6 @@ function EmploymentStatus() {
 	const [ employmentStatus, setEmploymentStatus ] = useState(data.employmentStatus ? data.employmentStatus : "");
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
-	const innerClasses = useStyles();
 
 	useEffect(() => {
 		if (data?.completedPage < data?.page?.existingUser || data?.formStatus?.toLowerCase() === "completed") {
@@ -139,7 +113,7 @@ yearsatEmployer = JSON.stringify(yearsatEmployer);
 						container
 						justifyContent="center"
 						alignItems="center"
-						className={innerClasses.boxGrid}
+						className={classes.EmploymentStatusBoxGrid}
 					>
 						<Grid
 							container
@@ -152,7 +126,7 @@ yearsatEmployer = JSON.stringify(yearsatEmployer);
 						>
 							<Paper
 								id="employmentStatusWrap"
-								className={innerClasses.paperStyle}
+								className={classes.checkMyOffersPaperStyle}
 							>
 								<form onSubmit={formik.handleSubmit}>
 									<div className="progress mt-0">
@@ -179,7 +153,7 @@ yearsatEmployer = JSON.stringify(yearsatEmployer);
 
 									<Typography
 										variant="h5"
-										className={innerClasses.typoStyle}
+										className={classes.typoStyle}
 									>
 										Tell us about your employment status
 									</Typography>

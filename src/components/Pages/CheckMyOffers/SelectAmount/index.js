@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
-import { makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -16,27 +15,6 @@ import "../CheckMyOffer.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import "./CheckMyOffer.css";
 import Cookies from "js-cookie";
-
-//Styling part
-const useStyles = makeStyles(() => ({
-  alignSmallText: {
-    paddingTop: ".6rem",
-    paddingBottom: "70px",
-    marginBottom: "3%",
-  },
-  cardWrapper: {
-    paddingTop: "4%",
-    marginTop: "5%",
-    marginBottom: "2%",
-  },
-  showSection:{
-    color:"#fec33a"
-  },
-  hideSection:{
-    color:"#c4c4c4"
-  },
-}));
-
 //initializing check my offers functonal component
 function SelectAmount(props) {
   const { data, setData, resetData } = useContext(Check);
@@ -44,7 +22,6 @@ function SelectAmount(props) {
   const [ amount, setAmount ] = useState(true);
   const [ hasOfferCode, setHasOfferCode ] = useState(props?.enableOffer ?? false);
   const classes = preLoginStyle();
-  const innerClasses = useStyles();
   const navigate = useNavigate();
   let tempCounter = 0;
   let validValueOne = 1000;
@@ -173,7 +150,7 @@ if(check_source && check_campaignType){
               md={6}
               lg={6}
               xl={6}
-              className={innerClasses.cardWrapper}
+              className={classes.cardWrapper}
             >
               <Paper
                 className="checkMyOffersWrap"
@@ -197,7 +174,7 @@ if(check_source && check_campaignType){
                       amount={amount}
                       marks={[]}
                       id="sliderBar"
-                      className={hoverColor ? innerClasses.hideSection : innerClasses.showSection}
+                      className={hoverColor ? classes.hideSection : classes.showSection}
                       onMouseEnter={changeColor} 
                       onFocus={changeColor}
                       name="slider"
