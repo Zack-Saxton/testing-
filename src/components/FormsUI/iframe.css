@@ -16,3 +16,20 @@
 .rem1FSize {
     font-size: 1rem !important;
 }
+.globelPassword .MuiInput-underline .MuiInputAdornment-root{
+  margin: 0;
+  min-width: 55px;
+  width: 55px;
+  align-items: center;
+  justify-content: center;
+  max-height: 100% !important;
+  height: 42px;
+  padding: 0px 0px 0px 5px !important;
+  border-radius: 10px !important;
+}
+.globelPassword .MuiInput-underline .MuiInputAdornment-root button{
+  height: 100%;
+  width: 100%;
+  padding: 0px !important;
+  border-radius: 10px !important;
+}
