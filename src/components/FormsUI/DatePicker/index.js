@@ -52,6 +52,7 @@ const DatePickerWrapper = ({ format, label, views,
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<Grid container justifyContent="space-around">
 				<DatePicker
+					className='globalDatepicker'
 					margin="normal"
 					id="date-picker-dialog"
 					label={label}

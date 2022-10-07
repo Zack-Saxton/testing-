@@ -6,7 +6,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -44,44 +43,11 @@ const validationSchema = yup.object({
     .min(5, globalMessages.ZipCodeMax)
     .required(globalMessages.ZipCodeRequired),
 });
-
-const useStyles = makeStyles(() => ({
-  gridStyle: {
-    padding: "4% 0",
-    margin: "auto",
-    marginTop: "5%",
-    marginBottom: "2%;"
-  
-  },
-  paperStyle: {
-    justify: "center",
-    alignItems: "center",
-    textAlign: "center"
-  },
-  subPaper: {
-    margin: "15px",
-    padding: "10px 15px",
-    boxShadow: "0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%)",
-    position: "relative",
-    borderRadius: "4px !important",
-    transition: "box-shadow .25s",
-    backgroundColor: "#fff",
-    textAlign: "justify"
-  },
-  paraInsideSubPaper: {
-    fontFamily: "'Muli', sans-serif",
-    color: "#595959",
-    fontSize: "15px"
-  }
-})
-);
-
 // Home address component initialization
 function HomeAddress() {
   //Context data
   const { data } = useContext(CheckMyOffers);
   const classes = preLoginStyle();
-  const innerClasses = useStyles();
   //state variables
   const [ stateShort, setStateShort ] = useState(data.state ?? "");
   const [ validZip, setValidZip ] = useState(true);
@@ -212,7 +178,7 @@ function HomeAddress() {
             justifyContent="center"
             container
             alignItems="center"
-            className={innerClasses.gridStyle}
+            className={classes.homwAdressGridStyle}
           >
             <Grid
               container
@@ -221,7 +187,7 @@ function HomeAddress() {
             >
               <Paper
                 id="enterZipWrap"
-                className={innerClasses.paperStyle}
+                className={classes.homwAdressPaperStyle}
               >
                 <div className="progress mt-0">
                   <div
@@ -409,12 +375,12 @@ function HomeAddress() {
 										</Grid>
 									</Grid>
 								</form>
-								<Paper className={innerClasses.subPaper} style={{ display: notAvailInCity ? "block" : "none" }}>
+								<Paper className={classes.subPaper} style={{ display: notAvailInCity ? "block" : "none" }}>
 									<div >
-										<p className={innerClasses.paraInsideSubPaper} >
+										<p className={classes.paraInsideSubPaper} >
 											If your state is not listed, it means that Mariner Finance does not operate in your state.
 										</p>
-										<p className={innerClasses.paraInsideSubPaper} >
+										<p className={classes.paraInsideSubPaper} >
 											Mariner Finance currently operates in Alabama, Arizona, California, Delaware, Florida, Georgia, Indiana, Illinois, Kentucky, Louisiana, Maryland, Mississippi, Missouri, New Jersey, New Mexico, New York, North Carolina, Ohio, Oklahoma, Oregon, Pennsylvania, South Carolina, Tennessee, Texas, Utah, Virginia, Washington, and Wisconsin.
 										</p>
 									</div>

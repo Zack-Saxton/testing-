@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState } from "react";
@@ -21,9 +20,6 @@ import { encryptAES } from "../../../lib/Crypto";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import ScrollToTop from "../ScrollToTop";
 import "./NewUser.css";
-
-
-
 
 //YUP validation schema
 const validationSchema = yup.object({
@@ -45,20 +41,6 @@ const validationSchema = yup.object({
 				.oneOf([ yup.ref("newPassword") ], globalMessages.PasswordConfirmationMatch),
 		}),
 });
-
-const useStyles = makeStyles(() => ({
-	boxGrid: {
-		width: "100%",
-		paddingTop: "70px",
-		paddingBottom: "70px"
-	},
-	typoStyle: {
-		fontSize: "0.938rem",
-		color: "595959"
-	}
-})
-);
-
 //  New user functional component
 
 function NewUser() {
@@ -68,8 +50,6 @@ function NewUser() {
 	const [ loading, setLoading ] = useState(false);
 	const queryClient = useQueryClient();
 	const classes = preLoginStyle();
-	const innerClasses = useStyles();
-
 	useEffect(() => {
 		//redirects to select amount on direct call
 		if (data?.completedPage < data?.page?.personalInfo || data?.formStatus?.toLowerCase() === "completed") {
@@ -182,7 +162,7 @@ function NewUser() {
 						xs={12}
 						container
 						justifyContent="center"
-						className={innerClasses.boxGrid}
+						className={classes.newUserBoxGrid}
 					>
 						<Grid
 							container
@@ -222,7 +202,7 @@ function NewUser() {
 									align="center"
 									justify="center"
 									alignitems="center"
-									className={innerClasses.typoStyle}
+									className={classes.newUserTypoStyle}
 								>
 									We have detected you are a new customer.
 								</Typography>

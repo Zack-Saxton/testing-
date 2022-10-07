@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState } from "react";
@@ -29,29 +28,6 @@ const validationSchema = yup.object({
 		.required(globalMessages.PasswordRequired),
 });
 
-const useStyles = makeStyles(() => ({
-
-	typoStyle: {
-		align: "center",
-		justify: "center",
-		alignItems: "center",
-		marginBottom: "1%",
-		marginTop: "1%",
-	},
-	negativeMargin: {
-		marginTop: "-4%"
-	},
-	paperStyle: {
-		justify: "center",
-		alignItems: "center",
-		width: "inherit",
-		marginBottom: "10%",
-		marginTop: "10%",
-		textAlign: "center"
-	}
-})
-);
-
 // Existing user functional component initiallization
 function ExistingUser() {
 	const { data, setData } = useContext(CheckMyOffers);
@@ -59,7 +35,6 @@ function ExistingUser() {
 	const [ loading, setLoading ] = useState(false);
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
-	const innerClasses = useStyles();
 
 	const queryClient = useQueryClient();
 	useEffect(() => {
@@ -161,7 +136,7 @@ function ExistingUser() {
 							alignItems="center"
 						>
 							<Paper
-								className={innerClasses.paperStyle}
+								className={classes.exsistingUserPaperStyle}
 							>
 								<span className="floatLeft detNum5" />
 								<Grid className="floatLeft">
@@ -171,7 +146,7 @@ function ExistingUser() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid className={innerClasses.negativeMargin}>
+								<Grid className={classes.negativeMargin}>
 									<img
 										src={PasswordLogo}
 										alt="password"
@@ -180,14 +155,14 @@ function ExistingUser() {
 								</Grid>
 								<Typography
 
-									className={innerClasses.typoStyle}
+									className={classes.exsistingUserTypoStyle}
 								>
 									We have detected you already have an account with us.
 								</Typography>
 
 								<Typography
 									variant="h5"
-									className={innerClasses.typoStyle}
+									className={classes.exsistingUserTypoStyle}
 								>
 									Please enter a password and continue.
 								</Typography>

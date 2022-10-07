@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { createStyles, makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { citizenshipData } from "../../../../assets/data/constants";
@@ -13,21 +12,6 @@ import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTop from "../ScrollToTop";
 import "./CitizenshipStatus.css";
 
-//styling
-const useStyles = makeStyles(() =>
-	createStyles({
-		paperStyle: {
-			justify: "center",
-			alignItems: "center",
-			width: "inherit",
-			textAlign: "center"
-		},
-		gridStyle: {
-			padding: "4% 0px 4% 0px"
-		}
-	})
-);
-
 //Initializing functional component CitizenshipStatus
 function CitizenshipStatus() {
 	//Retrieving Context values
@@ -35,7 +19,6 @@ function CitizenshipStatus() {
 	const [ citizenship, setCitizenship ] = useState(data.citizenship ? data.citizenship : "");
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
-	const innerClasses = useStyles();
 
 	useEffect(() => {
 		if (data.completedPage < data?.page?.loanPurpose || data?.formStatus?.toLowerCase() === "completed") {
@@ -73,7 +56,7 @@ function CitizenshipStatus() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						className={innerClasses.gridStyle}
+						className={classes.gridStyle}
 					>
 						<Grid
 							container
@@ -89,7 +72,7 @@ function CitizenshipStatus() {
 						>
 							<Paper
 								id="citizenshipWrap"
-								className={innerClasses.paperStyle}
+								className={classes.citizenPaperStyle}
 							>
 								<div className="progress mt-0">
 									<div id="determinate" className="det2 determinate slantDiv" />

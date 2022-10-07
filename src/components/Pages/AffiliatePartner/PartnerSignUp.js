@@ -336,6 +336,8 @@ const legalMaritalStatus =  "Separated, under decree of legal separation"
 const preventEvent = (event) => {
   event.preventDefault();
   };
+  const utmSourceList = ["OneLoanPlace","GTL","amone","NerdWallet","LendingTree"];
+  const utmLogoList = {"OneLoanPlace": OneLoanPlacelogo,"GTL": GTLlogo,"amone": amonelogo,"NerdWallet": NerdWalletlogo,"LendingTree": LendingTreelogo};
   //View Part
   return (
     <div data-testid="partnerSignup_component">
@@ -377,7 +379,7 @@ const preventEvent = (event) => {
                       />
                     </a>
                   </Typography>
-                ) : utm_source === "OneLoanPlace" ? (
+                ) : utmSourceList.includes(utm_source)  ? (
                   <Typography
                     className={classes.title}
                     data-testid="title"
@@ -386,64 +388,8 @@ const preventEvent = (event) => {
                     <a href="/#" target="blank">
                       <img
                         className={classes.fullWidth}
-                        src={OneLoanPlacelogo}
-                        alt="OneLoanPlacelogo"
-                      />
-                    </a>
-                  </Typography>
-                ) : utm_source === "GTL" ? (
-                  <Typography
-                    className={classes.title}
-                    data-testid="title"
-                    color="textSecondary"
-                  >
-                    <a href="/#" target="blank">
-                      <img
-                        className={classes.fullWidth}
-                        src={GTLlogo}
-                        alt="GTLlogo"
-                      />
-                    </a>
-                  </Typography>
-                ) : utm_source === "amone" ? (
-                  <Typography
-                    className={classes.title}
-                    data-testid="title"
-                    color="textSecondary"
-                  >
-                    <a href="/#" target="blank">
-                      <img
-                        className={classes.fullWidth}
-                        src={amonelogo}
-                        alt="amonelogo"
-                      />
-                    </a>
-                  </Typography>
-                ) : utm_source === "NerdWallet" ? (
-                  <Typography
-                    className={classes.title}
-                    data-testid="title"
-                    color="textSecondary"
-                  >
-                    <a href="/#" target="blank">
-                      <img
-                        className={classes.fullWidth}
-                        src={NerdWalletlogo}
-                        alt="NerdWalletlogo"
-                      />
-                    </a>
-                  </Typography>
-                ) : utm_source === "LendingTree" ? (
-                  <Typography
-                    className={classes.title}
-                    data-testid="title"
-                    color="textSecondary"
-                  >
-                    <a href="/#" target="blank">
-                      <img
-                        className={classes.fullWidth}
-                        src={LendingTreelogo}
-                        alt="LendingTreelogo"
+                        src={utmLogoList[utm_source]}
+                        alt={`${utm_source}logo`}
                       />
                     </a>
                   </Typography>

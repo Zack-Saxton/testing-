@@ -1,6 +1,16 @@
 .cardWOPadding {
 	text-align: center;
 }
+.validation-success{
+	color: #008000;
+}
+.validation-success:before{
+	content: "✓";
+}
+.validation-failed:before {
+	content: "✘";
+	padding: 1px;
+}
 .cardWrapper {
 	margin-top: 5%;
 	margin-bottom: 2%;
@@ -24,9 +34,6 @@
 	color: #fff;
 	font-family: "Muli", sans-serif;
 	font-weight: 300;
-}
-.alignSmallText {
-	margin-bottom: 3%;
 }
 .alignText {
 	color: #595959;

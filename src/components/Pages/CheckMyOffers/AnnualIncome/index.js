@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,33 +14,6 @@ import ScrollToTop from "../ScrollToTop";
 import "./AnnualIncome.css";
 import Income from "./Income";
 
-const useStyles = makeStyles(() => ({
-	boxGrid: {
-		padding: "4% 0px 4% 0px"
-	},
-	paperStyle: {
-		justify: "center",
-		alignItems: "center",
-		textAlign: "center"
-	},
-	typoStyle: {
-		align: "center",
-		justify: "center",
-		alignItems: "center",
-		fontSize: "1.538rem",
-		margin: "10px 0px !important",
-		color: "#171717",
-		fontWeight: "400 !important",
-		lineHeight: "110% !important"
-	},
-	linkDesign: {
-		textDecoration: "underline !important",
-		color: "#0F4EB3 !important",
-		display: "block !important",
-		cursor: "pointer",
-	},
-})
-);
 //Initializing functional component Active duty
 function NewUser() {
 	const { data } = useContext(CheckMyOffers);
@@ -49,7 +21,6 @@ function NewUser() {
 	const [ errorPersonal, setErrorPersonal ] = useState("");
 	const [ moreInformation, setMoreInformation ] = useState(false);
 	const classes = preLoginStyle();
-	const innerClasses = useStyles();
 
 	//Retrieving Context values
 	const navigate = useNavigate();
@@ -245,7 +216,7 @@ function NewUser() {
 						xs={12}
 						justifyContent="center"
 						alignItems="center"
-						className={innerClasses.boxGrid}
+						className={classes.boxGrid}
 					>
 						<Grid
 							container
@@ -261,7 +232,7 @@ function NewUser() {
 						>
 							<Paper
 								id="incomeWrap"
-								className={innerClasses.paperStyle}
+								className={classes.checkMyOffersPaperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -287,7 +258,7 @@ function NewUser() {
 
 								<Typography
 									variant="h4"
-									className={innerClasses.typoStyle}
+									className={classes.typoStyle}
 								>
 									Tell us about your income
 								</Typography>
@@ -335,7 +306,7 @@ function NewUser() {
 												bank statements, or other records. Alimony, child
 												support, or separate maintenance income need not be
 												revealed if you do not wish to have it considered as a
-												basis for repaying this loan. <span className={innerClasses.linkDesign} onClick={() => { handleOnClickMoreInformation(); }}>More Information</span>
+												basis for repaying this loan. <span className={classes.linkDesign} onClick={() => { handleOnClickMoreInformation(); }}>More Information</span>
 											</p>
 											<TextField
 												name="householdIncome"

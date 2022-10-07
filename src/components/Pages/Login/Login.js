@@ -238,6 +238,7 @@ export default function Login(props) {
 
                     <Grid
                       className="fullWidth"
+                      id="loginPassword"
                     >
                       <PasswordField
                         name="password"

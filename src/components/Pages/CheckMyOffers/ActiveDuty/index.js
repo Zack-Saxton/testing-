@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,29 +24,12 @@ const validationSchema = yup.object({
 		then: yup.string().required(globalMessages.Active_Duty_Rank_Required),
 	}),
 });
-
-//Styling part
-const useStyles = makeStyles(() => ({
-	paddingGrid: {
-		padding: "4% 0px"
-	},
-	paperStyle: {
-		width: "inherit",
-		textAlign: "center"
-	},
-	marginTop: {
-		marginTop: "-3%"
-	}
-
-}));
-
 //Initializing functional component Activity
 function ActiveDuty() {
 	//Retrieving Context values
 	const { data } = useContext(CheckMyOffers);
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
-	const innerClasses = useStyles();
 	useEffect(() => {
 		if (data?.completedPage < data?.page?.livingPlace || data?.formStatus?.toLowerCase() === "completed") {
 			navigate("/select-amount");
@@ -83,7 +65,7 @@ function ActiveDuty() {
 						container
 						justifyContent="center"
 						alignItems="center"
-						className={innerClasses.paddingGrid}
+						className={classes.paddingGrid}
 					>
 						<Grid
 							container
@@ -99,7 +81,7 @@ function ActiveDuty() {
 							<Paper
 								id="activeDutyWrap"
 								justify="center"
-								className={innerClasses.paperStyle}
+								className={classes.paperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -115,7 +97,7 @@ function ActiveDuty() {
 										</i>
 									</Link>
 								</Grid>
-								<Grid className={innerClasses.marginTop}>
+								<Grid className={classes.marginTop}>
 									<img
 										alt="Active Duty"
 										src={ActiveDutyLogo}

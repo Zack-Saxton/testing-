@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
@@ -25,7 +24,7 @@ import { toast } from "react-toastify";
 function SSN() {
 	let response = [];
 	const { data, setData, setApplicationLoading } = useContext(CheckMyOffers);
-	const preLoginClasses = preLoginStyle();
+	const classes = preLoginStyle();
 	const [ agree, setAgree ] = useState(false);
 	const [ submit, setSubmit ] = useState(false);
 	const [ agreeDelaware, setAgreeDelaware ] = useState(data.state !== "DE");
@@ -39,36 +38,6 @@ function SSN() {
 	const [ privacyPopup, setPrivacyPopup ] = useState(false);
 	const { refetch } = useQuery('loan-data', usrAccountDetails);
 	const navigate = useNavigate();
-	const useStyles = makeStyles(() => ({
-		oneLastStepLinks: {
-			marginTop: "3px !important",
-			marginBottom: "3px !important",
-			marginLeft:"7%",
-			paddingLeft:"5px",
-			textDecoration: "underline !important",
-			color: "#0F4EB3 !important",
-			display: "block !important",
-			cursor:"pointer"
-		},
-		oneLastStepLinksWrap:{
-			flexDirection:"column",
-			justifyContent:"flex-start",
-			alignItems:"flex-start"
-		},
-		paddingOneSide: {
-			padding: "4% 0px"
-		},
-		fullWidth: {
-			width: "100%"
-		},
-		typoAlign: {
-			textAlign: "left",
-			marginLeft: "8%",
-			marginTop: "2%",
-		}
-	}));	 
-	const classes = useStyles();
-
 	//handle modal actions
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -226,7 +195,7 @@ function SSN() {
 	return (
 		<div>
 			<ScrollToTop />
-			<div className={preLoginClasses.mainDiv}>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						xs={12}
