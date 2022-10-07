@@ -7,18 +7,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import HSBar from "react-horizontal-stacked-bar-chart";
 import messages from "../../../lib/Lang/applyForLoan.json";
+import { currencyFormat } from "../../../lib/CommonUtil";
 
 export default function LoadChart(props) {
 	let maxMonthly;
-	const currencyFormat = (currencyValue) => {
-		if (currencyValue) {
-			let formated = parseFloat(currencyValue);
-			let currency = "$";
-			return (
-				currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-			);
-		}
-	};
 
 	const toNumeric = (stringValue) => {
 		return parseFloat(stringValue.replace(/\$/g, "").replace(/,/g, "").replace(/ /g, "") || "");

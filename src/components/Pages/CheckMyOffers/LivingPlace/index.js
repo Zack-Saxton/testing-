@@ -14,6 +14,7 @@ import { ButtonPrimary, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import "../LivingPlace/LivingPlace.css";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { currencyFormat } from "../../../lib/CommonUtil";
 
 const useStyles = makeStyles(() => ({
 	boxGrid: {
@@ -48,11 +49,8 @@ function LivingPlace() {
 	const [ helperText, setHelperText ] = useState();
 	const [ livingPlace, setLivingPlace ] = useState(data.homeOwnership ?? "");
 	const navigate = useNavigate();
-	const currencyFormat = (currencyValue) => {
-		if (currencyValue) {
-			let formated = parseFloat(currencyValue);
-			return (`$${ formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").slice(0, -3) }`);
-		}
+	const currencyFormatConversion = (currencyValue) => {
+		return currencyFormat(currencyValue).slice(0, -3);
 	};
 
 	useEffect(() => {
@@ -324,7 +322,7 @@ function LivingPlace() {
 											label="Monthly Rent / Mortgage Amount *"
 											error={error}
 											helperText={helperText}
-											value={(data?.rentMortgageAmount ? currencyFormat(data.rentMortgageAmount) : "")}
+											value={(data?.rentMortgageAmount ? currencyFormatConversion(data.rentMortgageAmount) : "")}
 											onBlur={onBlurPayment}
 											onChange={onHandleChange}
 											materialProps={{

@@ -24,6 +24,7 @@ import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipco
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesPartner } from "./style";
 import "./Style.css";
+import { currencyFormat } from "../../lib/CommonUtil";
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -256,10 +257,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
   const legalMaritalStatus =  "Separated, under decree of legal separation"
   //Form Submission
   const parseCurrencyFormat = (currencyVal) => {
-    return ("$" + parseFloat(currencyVal)
-          .toFixed(2)
-          .replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-          .slice(0, -3))
+    return currencyFormat(currencyVal).slice(0, -3);
   }
 
   const formik = useFormik({
@@ -433,13 +431,12 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
   };
 
   // To change text to currency format and its validation
-  const currencyFormat = (event) => {
+  const currencyFormatConversion = (event) => {
     const inputName = event.target.name;
     if (inputName === "personalIncome") {
       const income = event.target.value.trim().replace(/[^\d]/g, "").substr(0, 7);
 
-      const formated = parseFloat(income);
-      const forCur = "$" + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+      const forCur = currencyFormat(income);
       formik.setFieldValue(event.target.name, forCur.slice(0, -3));
       const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/[^\d]/g, ""));
       const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/[^\d]/g, ""));
@@ -464,8 +461,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
     } else if (inputName === "householdIncome") {
       const income = event.target.value.trim().replace(/[^\d]/g, "").substr(0, 7);
 
-      const formated = parseFloat(income);
-      const forCur = "$" + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+      const forCur = currencyFormat(income);
       formik.setFieldValue(event.target.name, forCur.slice(0, -3));
       const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/[^\d]/g, ""));
       const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/[^\d]/g, ""));
@@ -701,7 +697,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                           ref: refPersonalIncome
                         }}
                         autoComplete="off"
-                        onBlur={currencyFormat}
+                        onBlur={currencyFormatConversion}
                         onKeyDown={preventUnwanted}
                         error={errorPersonal !== ""}
                         helperText={errorPersonal ?? ""}
@@ -720,7 +716,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                         }}
                         autoComplete="off"
                         onChange={(event) => {onHandleChangeIncome(event,2)}}
-                        onBlur={currencyFormat}
+                        onBlur={currencyFormatConversion}
                         onKeyDown={preventUnwanted}
                         error={errorAnnual !== ""}
                         helperText={errorAnnual ?? ""}

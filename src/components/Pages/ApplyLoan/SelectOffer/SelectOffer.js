@@ -22,6 +22,7 @@ import TabSection from "../TabSection";
 import OfferTable from "./OfferTable";
 import "./SelectOffer.css";
 import Cookies from "js-cookie";
+import { currencyFormat } from "../../../lib/CommonUtil";
 
 
 //Initializing functional component Apply for loan
@@ -43,18 +44,7 @@ export default function SelectOffer() {
 	let term;
 	let selectTerm = Cookies.get("selectTerm")
 	const { offers } = useFetchOffer();
-		const { refetch } = useQuery('loan-data', usrAccountDetails);
-
-	//To change the value to currency formate
-	const currencyFormat = (currencyValue) => {
-		if (currencyValue) {
-			let formatedCurrencyValue = parseFloat(currencyValue);
-			let currency = "$";
-			return (
-				currency + formatedCurrencyValue.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-			);
-		}
-	};
+	const { refetch } = useQuery('loan-data', usrAccountDetails);
 
 	// Submit the offer selected, It calls the API for select offer and redirecr to sign and review page
 	const submitSelectedOffer = async (selTerm, selIndex) => {

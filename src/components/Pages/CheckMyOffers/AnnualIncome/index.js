@@ -12,6 +12,7 @@ import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Popup, TextField } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
+import { currencyFormat } from "../../../lib/CommonUtil";
 import "./AnnualIncome.css";
 import Income from "./Income";
 
@@ -138,9 +139,7 @@ function NewUser() {
 
 	const handleHouseHoldIncomeValue = (event) => {
 		const num = event.target.value.trim().replace(/\$|\,/g, "").substr(0, 7);
-		const formated = parseFloat(num);
-		const currency = "$";
-		const forCur = currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		const forCur = currencyFormat(num);
 		formik.setFieldValue(event.target.name, forCur.slice(0, -3));
 		const modPersonalIncome = parseInt(formik.values.personalIncome.replace(/\$|\,/g, ""));
 		const modHouseholdIncome = parseInt(formik.values.householdIncome.replace(/\$|\,/g, ""));
@@ -181,11 +180,8 @@ function NewUser() {
 		const personalIncomeValue = event.target.value.trim()
 			.replace(/\$|\,/g, "")
 			.substr(0, 7);
-		const formated = parseFloat(personalIncomeValue);
-		const currency = "$";
-		const forCur =
-			currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-		formik.setFieldValue(event.target.name, forCur.slice(0, -3));
+		const forCur = currencyFormat(personalIncomeValue);
+			formik.setFieldValue(event.target.name, forCur.slice(0, -3));
 		const modPersonalIncome = parseInt(
 			formik.values.personalIncome.replace(/\$|\,/g, "")
 		);
@@ -216,7 +212,7 @@ function NewUser() {
 	}
 
 	// To change text to currency format and check for validations
-	const currencyFormat = (event) => {
+	const currencyFormatConversion = (event) => {
 		const inputName = event.target.name;
 		if (inputName === "personalIncome") {
 			handlePeronalIncomeValue(event);
@@ -322,7 +318,7 @@ function NewUser() {
 													maxLength: "10",
 												}}
 												autoComplete="off"
-												onBlur={currencyFormat}
+												onBlur={currencyFormatConversion}
 												onKeyDown={preventUnwanted}
 												error={errorPersonal !== ""}
 												helperText={errorPersonal !== "" ? errorPersonal : ""}
@@ -349,7 +345,7 @@ function NewUser() {
 												}}
 												autoComplete="off"
 												onChange={onHandleChange}
-												onBlur={currencyFormat}
+												onBlur={currencyFormatConversion}
 												onKeyDown={preventUnwanted}
 												error={errorAnnual !== ""}
 												helperText={errorAnnual !== "" ? errorAnnual : ""}
