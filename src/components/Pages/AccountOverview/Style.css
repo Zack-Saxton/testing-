@@ -121,6 +121,13 @@
 #selectLoanAccountsGrid .MuiFormControl-fullWidth label {
   margin-left: -14px;
 }
+.recentPaymentPaper{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0px;
+}
 @media (max-width: 599px) {
   #activeLoanGrid {
     height: 100% !important;
