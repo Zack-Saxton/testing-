@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { createStyles, makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { loanPurposeData } from "../../../../assets/data/constants";
@@ -30,44 +29,11 @@ import { ButtonPrimary } from "../../../FormsUI";
 import ScrollToTopOnMount from "../ScrollToTop";
 import Cookies from "js-cookie";
 import "./LoanPurpose.css";
-
-//styling
-const useStyles = makeStyles((Theme) =>
-	createStyles({
-		root: {},
-		paper: {
-			padding: Theme.spacing(2),
-			height: "100%",
-			textAlign: "center",
-			color: Theme.palette.text.secondary,
-			boxSizing: "border-box",
-		},
-		gridPadding: {
-			paddingTop: "7px",
-			paddingBottom: "15px"
-		},
-		gridItem: {
-			boxSizing: "border-box",
-			padding: Theme.spacing(1),
-		},
-		masonryItemFirst: {
-			padding: Theme.spacing(1),
-			boxSizing: "border-box",
-		},
-		mainGridPadding: {
-			padding: "4% 0%"
-		},
-		gridMargin: {
-			margin: "15px 0px 19px 0 !important"
-		}
-	})
-);
 //Loan purpose component initialization
 function LoanPurpose() {
   const { data, setData} = useContext(CheckMyOffers);
 	const [ purpose, setPurpose ] = useState(data.loanPurpose ?? "");
 	const navigate = useNavigate();
-	const preLoginStyles = preLoginStyle();
 	let params = useParams();
 
 	const CKLightbox_Source = Cookies.get("CKLightbox_Source")
@@ -138,7 +104,7 @@ function LoanPurpose() {
 		}
 	};
 
-	const classes = useStyles();
+	const classes = preLoginStyle();
 
 	const loanPurposeDataArray = [
 		{
@@ -228,7 +194,7 @@ function LoanPurpose() {
 	return (
 		<div>
 			<ScrollToTopOnMount />
-			<div className={preLoginStyles.mainDiv}>
+			<div className={classes.mainDiv}>
 				<Box>
 					<Grid
 						container

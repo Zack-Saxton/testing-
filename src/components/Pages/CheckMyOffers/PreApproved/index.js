@@ -2,40 +2,18 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CheckMyOffers as Check } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
+import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import "../CheckMyOffer.css";
 import globalMessages from "../../../../assets/data/globalMessages.json";
-
-const useStyles = makeStyles(() => ({
-    offerAmountStyle: {
-        color: "#0F4EB3",
-        lineHeight: "110%",
-        fontFamily: "'Muli', sans-serif",
-        fontWeight: "400",
-        fontSize: "1.64rem",
-        marginTop: "5px",
-        marginBottom: "5px",
-    },
-    typoStyle: {
-        color: "black",
-        fontWeight: "400",
-        fontFamily: "Muli, sans-serif"
-    },
-    smallTextStyle: {
-        paddingTop: "25px",
-        paddingBottom: "70px",
-        marginBottom: "3%"
-    }
-}));
 
 const PreApproved = () => {
     let location = useLocation();
     const navigate = useNavigate();
-    const classes = useStyles();
+    const classes = preLoginStyle();
     const { data, setData } = useContext(Check);
     const [ offerAmount, setOfferAmount ] = useState("");
     const onClickContinuepreApproved = () => {
@@ -100,12 +78,12 @@ const PreApproved = () => {
                                     alignItems="center"
                                 >
                                     <Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
-                                        <Typography align="center" className={classes.typoStyle} >
+                                        <Typography align="center" className={classes.preApprovedTypoStyle} >
                                             &nbsp;We checked your offer code<br />
                                             and {"your'e"} eligible for at least,<br />
                                         </Typography>
                                         <h2 className={classes.offerAmountStyle} data-testid="offeramount">{offerAmount}</h2>
-                                        <Typography align="center" className={classes.typoStyle} >
+                                        <Typography align="center" className={classes.preApprovedTypoStyle} >
 
                                             and possibly more!
                                         </Typography>

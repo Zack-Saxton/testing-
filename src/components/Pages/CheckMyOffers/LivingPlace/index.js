@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { homeData } from "../../../../assets/data/constants";
@@ -43,8 +42,6 @@ const useStyles = makeStyles(() => ({
 function LivingPlace() {
 	const { data, setData } = useContext(CheckMyOffers);
 	const classes = preLoginStyle();
-	const innerClasses = useStyles();
-
 	const [ error, setError ] = useState();
 	const [ helperText, setHelperText ] = useState();
 	const [ livingPlace, setLivingPlace ] = useState(data.homeOwnership ?? "");
@@ -158,7 +155,7 @@ function LivingPlace() {
 						xs={12}
 						justifyContent="center"
 						alignItems="center"
-						className={innerClasses.boxGrid}
+						className={classes.livingSpaceBoxGrid}
 					>
 						<Grid
 							// containe
@@ -171,7 +168,7 @@ function LivingPlace() {
 						>
 							<Paper
 								id="ownOrRentWrap"
-								className={innerClasses.paperStyle}
+								className={classes.checkMyOffersPaperStyle}
 							>
 								<div className="progress mt-0">
 									<div
@@ -197,7 +194,7 @@ function LivingPlace() {
 
 								<Typography
 									variant="h5"
-									className={innerClasses.typoStyle}
+									className={classes.typoStyle}
 								>
 									Do you own or rent?
 								</Typography>
