@@ -54,7 +54,9 @@ export default function ViewAccountDetails() {
   let viewApplicationContact = JSON.parse(viewAppContact);
   let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{}';
   let viewAppApplicantInfo = JSON.parse(viewAppApplicant);
-
+  let appInfoList = {"first_name": "First Name", "last_name": "Last Name", "address_street": "Street Address", "address_city": "City", "address_state": "State", "address_postal_code": "Zip"};
+  let appInfoKeyList = ["first_name","last_name", "address_street", "address_city", "address_state", "address_postal_code"];
+                    
   //View part
   return (
     <div>
@@ -225,55 +227,16 @@ export default function ViewAccountDetails() {
                       Application Information
                     </Typography>
                   </Grid>
-
-                  <Grid className={classes.viewAppInputGrid}>
-                    <h4 className={classes.viewAppInputDisplay}>First Name</h4>
-                    <h4 className={classes.viewAppInputDisplay}>
-                      {viewApplicationContact?.first_name}{" "}
-                    </h4>
-                  </Grid>
-
-                  <Grid className={classes.viewAppInputGrid}>
-                    <h4 className={classes.viewAppInputDisplay}>Last Name</h4>
-                    <h4 className={classes.viewAppInputDisplay}>
-                      {" "}
-                      {viewApplicationContact?.last_name}
-                    </h4>
-                  </Grid>
-
-                  <Grid className={classes.viewAppInputGrid}>
-                    <h4 className={classes.viewAppInputDisplay}>
-                      Street Address
-                    </h4>
-                    <h4 className={classes.viewAppInputDisplay}>
-                      {" "}
-                      {viewApplicationContact?.address_street}
-                    </h4>
-                  </Grid>
-
-                  <Grid className={classes.viewAppInputGrid}>
-                    <h4 className={classes.viewAppInputDisplay}>City</h4>
-                    <h4 className={classes.viewAppInputDisplay}>
-                      {" "}
-                      {viewApplicationContact?.address_city}
-                    </h4>
-                  </Grid>
-
-                  <Grid className={classes.viewAppInputGrid}>
-                    <h4 className={classes.viewAppInputDisplay}>State</h4>
-                    <h4 className={classes.viewAppInputDisplay}>
-                      {" "}
-                      {viewApplicationContact?.address_state}
-                    </h4>
-                  </Grid>
-
-                  <Grid className={classes.viewAppInputGrid}>
-                    <h4 className={classes.viewAppInputDisplay}>Zip</h4>
-                    <h4 className={classes.viewAppInputDisplay}>
-                      {" "}
-                      {viewApplicationContact?.address_postal_code}
-                    </h4>
-                  </Grid>
+                  {                   
+                  appInfoKeyList.map((key, index) => (
+                    <Grid className={classes.viewAppInputGrid} key={`view-account-details-${index}`}>
+                      <h4 className={classes.viewAppInputDisplay}>{appInfoList[key]}</h4>
+                      <h4 className={classes.viewAppInputDisplay}>
+                        {viewApplicationContact[key] ?? ""}{" "}
+                      </h4>
+                    </Grid>
+                  ))
+                  }
 
                   <Grid
                     className="loanRequestedText"
