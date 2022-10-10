@@ -15,29 +15,6 @@ import "../LivingPlace/LivingPlace.css";
 import ScrollToTopOnMount from "../ScrollToTop";
 import { currencyFormat } from "../../../lib/CommonUtil";
 
-const useStyles = makeStyles(() => ({
-	boxGrid: {
-		padding: "4% 0px 4% 0px",
-		marginTop: "5%",
-    marginBottom: "2%;"
-	},
-	paperStyle: {
-		justify: "center",
-		alignItems: "center",
-		textAlign: "center"
-	},
-	typoStyle: {
-		align: "center",
-		justify: "center",
-		alignItems: "center",
-		fontSize: "1.538rem",
-		margin: "10px 0px !important",
-		color: "#171717",
-		fontWeight: "400 !important",
-		lineHeight: "110% !important"
-	},
-})
-);
 //Living place component initialization
 function LivingPlace() {
 	const { data, setData } = useContext(CheckMyOffers);
