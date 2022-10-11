@@ -21,7 +21,7 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesPartner } from "./style";
 import "./Style.css";
 import { currencyFormat } from "../../lib/CommonUtil";
-import {OhioUser, CaUser, EsignPartner,CreditPartner,WebTermsPartner,PrivacyPartner,DelawareTerms} from "./PartnerTerms"
+import {OhioUser, CaUser, EsignPartner,CreditPartner,WebTermsPartner,PrivacyPartner,DelawareTerms} from "./PartnerTerms";
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
