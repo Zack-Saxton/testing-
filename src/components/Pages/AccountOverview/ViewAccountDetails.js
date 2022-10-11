@@ -51,7 +51,7 @@ export default function ViewAccountDetails() {
   const [ values, setValues ] = useState(0);
   const handleTabChange = (_event, newValues) => setValues(newValues);
   let viewAppContact = Cookies.get("viewAppContact") ?? '{}';
-  let viewApplicationContact = JSON.parse(viewAppContact);
+  let viewApplicationContact = viewAppContact !== "undefined" ? JSON.parse(viewAppContact) : {};
   let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{}';
   let viewAppApplicantInfo = JSON.parse(viewAppApplicant);
 
