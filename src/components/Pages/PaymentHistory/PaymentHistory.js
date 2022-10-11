@@ -27,6 +27,7 @@ import PaymentHistoryTable from "./PaymentHistoryTable.js";
 import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
 import GenerateTableHeader from "./GenerateTableHeader";
+import { currencyFormat } from "../../lib/CommonUtil";
 
 
 //Main function
@@ -75,12 +76,7 @@ export default function PaymentHistory() {
   ];
   let headingLabel = ["Date","Description","Principal","Interest","Other","Total","Balance"];
   let columnAlignment = ["left","left","right","right","right","right","right"];
-  const currencyFormat = (amount) => {
-    const formated = parseFloat(amount);
-    const currency = "$";
-    return currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-  };
-
+  
   //Download pdf
   const downloadPDF = () => {
     const unit = "pt";

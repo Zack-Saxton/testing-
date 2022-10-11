@@ -21,6 +21,7 @@ import TabPanel from "../TabPanel";
 import TabSection from "../TabSection";
 import Cookies from "js-cookie";
 import "./ReviewAndSign.css";
+import { currencyFormat } from "../../../lib/CommonUtil";
 
 //Initializing the Review and sign functional component
 export default function ReviewAndSign() {
@@ -81,17 +82,6 @@ useEffect(()=>{
     setprepaid(totalValue);
   }
 },[selectedOffer])
-
-  //Conver the value into currency format
-  const currencyFormat = (val) => {
-    if (val) {
-      let formated = parseFloat(val);
-      let currency = "$";
-      return (
-        currency + formated.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
-      );
-    }
-  };
 
   const onHardPullDone = async () => {
     let ipAddress = await getClientIp();
