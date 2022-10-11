@@ -357,7 +357,7 @@ export default function Login(props) {
             {" "}
             If you&apos;re a new user, click on
             <NavLink to="/register" className="nonDecoratedLink">
-              <span id="helpLogin"> {`"Sign in help/Register"`} </span>
+              <span id="helpLoginButton"> {`"Sign in help/Register"`} </span>
             </NavLink>{" "}
             option and enter your registration details.
           </li>

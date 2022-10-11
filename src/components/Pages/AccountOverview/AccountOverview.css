@@ -250,7 +250,14 @@
     font-size: 0.675rem;
     color: #0F4EB3;
 }
-
+.loadingCircle{
+    width: 100%;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    padding: 20px 0px;
+}
 @media (min-width:1400px) {
     #claimButton {
         height: 32px;
