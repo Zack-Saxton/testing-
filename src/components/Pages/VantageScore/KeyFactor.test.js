@@ -5,7 +5,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
-import KeyFactors from "./KeyFactors";
+import KeyFacts from "./KeyFacts";
 import VantageScore from "./VantageScore";
 
 const theme = createTheme();
@@ -41,7 +41,7 @@ it("Key Factors Component is loading in vantage Score", () => {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <KeyFactors keyFactors={KeyFactorsMock} />
+          <KeyFacts keyFactors={KeyFactorsMock} />
         </BrowserRouter>
       </QueryClientProvider>
     </ThemeProvider>
@@ -56,7 +56,7 @@ it("Key Factors Component is loading in Grid", () => {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <VantageScore>
-            <KeyFactors keyFactors={KeyFactorsMock} />
+            <KeyFacts keyFactors={KeyFactorsMock} />
           </VantageScore>
         </BrowserRouter>
       </QueryClientProvider>
@@ -70,7 +70,7 @@ it("Checking if first accordion rendering and functions", async () => {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <KeyFactors keyFactors={KeyFactorsMock} />
+          <KeyFacts keyFactors={KeyFactorsMock} />
         </BrowserRouter>
       </QueryClientProvider>
     </ThemeProvider>
@@ -89,7 +89,7 @@ it("Checking if second accordion rendering and functions", async () => {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <KeyFactors keyFactors={KeyFactorsMock} />
+          <KeyFacts keyFactors={KeyFactorsMock} />
         </BrowserRouter>
       </QueryClientProvider>
     </ThemeProvider>
@@ -105,7 +105,7 @@ it("Checking if third accordion rendering and functions", async () => {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <KeyFactors keyFactors={KeyFactorsMock} />
+          <KeyFacts keyFactors={KeyFactorsMock} />
         </BrowserRouter>
       </QueryClientProvider>
     </ThemeProvider>
@@ -122,7 +122,7 @@ it("Checking if forth accordion rendering and functions", async () => {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <KeyFactors keyFactors={KeyFactorsMock} />
+          <KeyFacts keyFactors={KeyFactorsMock} />
         </BrowserRouter>
       </QueryClientProvider>
     </ThemeProvider>

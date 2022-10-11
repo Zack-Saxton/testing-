@@ -4,9 +4,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import { ButtonWithIcon } from "../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
-import LoanHistoryCard from "./CardContent";
-import LoanHistoryTable from "./RecordTable";
+import ScrollToTop from "../ScrollToTop";
+import CardContent from "./CardContent";
+import LoanHistoryTable from "./LoanHistoryTable";
 import { useStylesLoanHistory } from "./Style";
 import "./Style.css";
 
@@ -19,7 +19,7 @@ export default function LoanHistory() {
   return (
     <div data-testid="loan_history_component">
       <CheckLoginStatus />
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid
         container
         justifyContent={"center"}
@@ -50,7 +50,7 @@ export default function LoanHistory() {
           </Grid>
         </Grid>
 
-        <LoanHistoryCard/>
+        <CardContent/>
         <LoanHistoryTable/>
       </Grid>
     </div>

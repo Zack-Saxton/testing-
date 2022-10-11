@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import React, { useEffect, useState } from "react";
 import { formatDate } from "../../Controllers/BranchDayTiming";
-import HolidayCalender from "../../Controllers/HolidayCalenderController";
+import HolidayCalenderController from "../../Controllers/HolidayCalenderController";
 import "../MyBranch/BranchInfo.css";
 import ScheduleAppointment from "./ScheduleAppointment";
 import ScheduleCall from "./ScheduleCall";
@@ -43,7 +43,7 @@ export default function BranchDetail(MyBranchDetail) {
   const [latitude,setLatitude] = useState();
   const [longitude,setLongitude] = useState();
   async function AsyncEffect_HolidayCalender() {
-    SetHolidayCalenderApi(await HolidayCalender());
+    SetHolidayCalenderApi(await HolidayCalenderController());
   }
   useEffect(() => {
     AsyncEffect_HolidayCalender();

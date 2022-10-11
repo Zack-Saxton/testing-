@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import globalMessages from "../../../assets/data/globalMessages.json"
 import { ButtonWithIcon } from "../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import { useStylesAccountOverview } from "./Style";
 function TabPanelViewApplication(props) {
   const { children, value, verticalIndex, ...other } = props;
@@ -59,7 +59,7 @@ export default function ViewAccountDetails() {
   return (
     <div>
       <CheckLoginStatus />
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid
         container
         justifyContent={"center"}

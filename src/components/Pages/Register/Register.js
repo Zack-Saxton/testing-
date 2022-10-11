@@ -36,7 +36,7 @@ import ErrorLogger from "../../lib/ErrorLogger";
 import { FormValidationRules } from "../../lib/FormValidationRule";
 import "./Register.css";
 import { useStylesRegister } from "./Style";
-import ScrollToTopOnMount from "../CheckMyOffers/ScrollToTop";
+import ScrollToTop from "../CheckMyOffers/ScrollToTop";
 
 
 let formValidation = new FormValidationRules();
@@ -243,7 +243,7 @@ export default function Register() {
   //View Part
   return (
     <div data-testid="register_component">
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <div className={classes.mainContentBackground} id="mainContentBackground">
         <Box>
           <Grid

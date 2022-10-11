@@ -10,7 +10,7 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, ButtonSecondary } from "../../../FormsUI";
 import globalMessages from "../../../../assets/data/globalMessages.json"
 import "../CheckMyOffer.css";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import "./CheckMyOffer.css";
 
 // NoOffersAvailable functional component initialization
@@ -38,7 +38,7 @@ function NoOffersAvailable(props) {
 	//view part
 	return (
 		<div>
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

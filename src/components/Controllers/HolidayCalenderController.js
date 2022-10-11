@@ -3,7 +3,7 @@ import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get USA Holiday details *****/
-export default async function HolidayCalender() {
+export default async function HolidayCalenderController() {
   try {
     let url = "mariner_holiday_calender";
     let param = "";

@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import MyBranchAPI from "../../Controllers/MyBranchController";
 import { ButtonWithIcon } from "../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import BranchDetail from "./BranchDetail";
 import BranchMap from "./BranchMap";
 import { useStylesMyBranch } from "./Style";
@@ -28,7 +28,7 @@ export default function MyBranch() {
   return (
     <div>
       <CheckLoginStatus />
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid
         container
         justifyContent={"center"}

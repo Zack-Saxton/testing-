@@ -12,7 +12,7 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, TextField } from "../../../FormsUI";
 import "../CheckMyOffer.css";
 import "../LivingPlace/LivingPlace.css";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 //Living place component initialization
 function LivingPlace() {
 	const { data, setData } = useContext(CheckMyOffers);
@@ -124,7 +124,7 @@ function LivingPlace() {
 	//View part
 	return (
 		<div>
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

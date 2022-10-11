@@ -3,7 +3,7 @@ import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get Account overview details *****/
-export default async function getMoneySkillLink() {
+export default async function MoneySkillController() {
   try {
     let url = "getMoneySkillLink";
     let param = "";
