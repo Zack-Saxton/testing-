@@ -28,7 +28,7 @@ header {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.87);
 }
-#moneySkillNavLink:hover,#blogLinkWrap:hover .blogLitsItem,#faqLinkWrap:hover .faqLitsItem{
+#moneySkillNavLink:hover,#blogLinkWrap:hover .titleSidenav,#faqLinkWrap:hover .titleSidenav{
   background-color: #00000009;
   width: 95%;
   border-radius: 0 5px 5px 0;
