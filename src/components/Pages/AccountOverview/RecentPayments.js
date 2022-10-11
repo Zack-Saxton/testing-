@@ -2,10 +2,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
@@ -180,17 +177,9 @@ export default function RecentPayments() {
             container
             data-testid="loading_Recent_Payments"
           >
-            <TableContainer component={Paper}>
-              <Table>
-                <TableBody>
-                  <TableRow>
-                    <TableCell colSpan="7" align="center">
-                      <CircularProgress />
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <Paper className="recentPaymentPaper">
+              <CircularProgress />
+            </Paper>
           </Grid>
         </>
       ) : (

@@ -15,7 +15,7 @@ import PropTypes from "prop-types";
 import PhoneNumberPopUp from './PhoneNumberPopUp';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import { useMutation } from 'react-query';
 import {SendLoginPassCode} from "../../Controllers/MFAController"
 
@@ -84,7 +84,7 @@ const MFASelection = ({ securityQuestionsSaved, phoneNumberList, mfaDetails, dis
 
   return (
     <div className={isLoading ? classes.loadingOn : classes.loadingOff} >
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid data-testid="mfa_Selection">
         <Grid
           spacing={1}

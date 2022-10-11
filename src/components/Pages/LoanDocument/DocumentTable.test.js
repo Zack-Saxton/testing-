@@ -4,7 +4,7 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
-import LoanDocumentTable from "./DocumentTable";
+import DocumentTable from "./DocumentTable";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 afterEach(cleanup);
@@ -28,7 +28,7 @@ const component = () => {
       
         <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <LoanDocumentTable userLoanDocumentData={loantestData}/>
+          <DocumentTable userLoanDocumentData={loantestData}/>
           </BrowserRouter>
         </QueryClientProvider>
  

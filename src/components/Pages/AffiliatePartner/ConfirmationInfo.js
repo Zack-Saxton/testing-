@@ -1,8 +1,4 @@
 import Box from "@mui/material/Box";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
@@ -20,11 +16,12 @@ import creditkarmalogo from "../../../assets/images/ck_logo.png";
 import { partnerConfirmInfo, getCreditKarmaData } from "../../Controllers/PartnerSignupController";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
-import { ButtonPrimary, Checkbox, Popup, RenderContent, Select, TextField, Zipcode } from "../../FormsUI";
+import { ButtonPrimary, Checkbox, Select, TextField, Zipcode } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesPartner } from "./style";
 import "./Style.css";
 import { currencyFormat } from "../../lib/CommonUtil";
+import {OhioUser, CaUser, EsignPartner,CreditPartner,WebTermsPartner,PrivacyPartner,DelawareTerms} from "./PartnerTerms"
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -148,7 +145,7 @@ export default function ConfirmationInfo() {
   const [ validZip, setValidZip ] = useState(true);
   const [ validSpouseZip, setValidSpouseZip ] = useState(true);
   const [ errorMsg, setErrorMsg ] = useState("");
-  const [ open, setOpen ] = useState(false);
+  const [ openCA, setOpenCA ] = useState(false);
   const [ openDelaware, setOpenDelaware ] = useState(false);
   const [ openOhio, setOpenOhio ] = useState(false);
   const [ citizenship, setCitizenship ] = useState(false);
@@ -167,13 +164,9 @@ export default function ConfirmationInfo() {
   const [ zipData, setZipData ] = useState();
   let location = useLocation();
   const handleOnClickEsign = () => setEsignPopup(true);
-  const handleOnClickEsignClose = () => setEsignPopup(false);
   const handleOnClickCredit = () => setCreditPopup(true);
-  const handleOnClickCreditClose = () => setCreditPopup(false);
   const handleOnClickwebTOU = () => setWebTOUPopup(true);
-  const handleOnClickwebTOUClose = () => setWebTOUPopup(false);
   const handleOnClickPrivacy = () => setPrivacyPopup(true);
-  const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
   const { refetch } = useQuery('loan-data', usrAccountDetails);
 
   const getCreditKarmaDetails = async () => {
@@ -401,12 +394,9 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
   };
 
   //Popup open & close
-  const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClickOpen = () => setOpenCA(true);
   const handleClickOpenOhio = () => setOpenOhio(true);
-  const handleCloseOhio = () => setOpenOhio(false);
   const handleClickDelawareOpen = () => setOpenDelaware(true);
-  const handleDelawareClose = () => setOpenDelaware(false);
 
 
   const onHandleChangeIncome = (event,inputType) => {
@@ -1156,78 +1146,14 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
           </Grid>
         </Box>
       </div>
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Notice to CA Residents
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography align="justify" gutterBottom>
-            If you are married, you may apply for a separate account.
-          </Typography>
-        </DialogContent>
-        <DialogActions className="modalAction">
-          <ButtonPrimary
-            stylebutton='{"background": "#FFBC23", "color": "black", "borderadius": "50px"}'
-            onClick={handleClose}
-            className="modalButton"
-          >
-            <Typography align="center">OK</Typography>
-          </ButtonPrimary>
-        </DialogActions>
-      </Dialog>
 
-      <Dialog
-        onClose={handleCloseOhio}
-        aria-labelledby="customized-dialog-title"
-        open={openOhio}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={handleCloseOhio}>
-          Notice to OH Residents
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography align="justify" gutterBottom>
-            The Ohio laws against discrimination require that all creditors make
-            credit equally available to all credit worthy customers, and that
-            credit reporting agencies maintain separate credit histories on each
-            individual upon request. The Ohio civil rights commission
-            administers compliance with this law.
-          </Typography>
-        </DialogContent>
-        <DialogActions className="modalAction">
-          <ButtonPrimary
-            stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-            onClick={handleCloseOhio}
-            className="modalButton"
-          >
-            <Typography align="center">OK</Typography>
-          </ButtonPrimary>
-        </DialogActions>
-      </Dialog>
-
-      <Popup popupFlag={esignPopup} closePopup={handleOnClickEsignClose} title="E-Signature Disclosure and Consent">
-        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-        <RenderContent disclosureLink="/eSign" />
-      </Popup>
-      <Popup popupFlag={creditPopup} closePopup={handleOnClickCreditClose} title="Credit and Contact Authorization">
-        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-        <RenderContent disclosureLink="/credit" />
-      </Popup>
-      <Popup popupFlag={webTOUPopup} closePopup={handleOnClickwebTOUClose} title="Terms of Use">
-        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-        <RenderContent disclosureLink="/websiteTermsOfUse" />
-      </Popup>
-      <Popup popupFlag={privacyPopup} closePopup={handleOnClickPrivacyClose} title="Privacy Statement">
-        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-        <RenderContent disclosureLink="/privacy" />
-      </Popup>
-      <Popup popupFlag={openDelaware} closePopup={handleDelawareClose} title="Delaware Itemized Schedule of Charges" >
-        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-        <RenderContent disclosureLink="/delaware" />
-      </Popup>
+      <CaUser openCaUser = {openCA} setOpenCA = {setOpenCA}/>
+      <OhioUser openOhioUser = {openOhio} setOpenOhio = {setOpenOhio} />
+      <EsignPartner  openEsign = {esignPopup} setEsignPopup = {setEsignPopup}/>
+      <CreditPartner  openCredit = {creditPopup} setCreditPopup = {setCreditPopup}/>
+      <WebTermsPartner openWebTerms = {webTOUPopup} setWebTOUPopup = {setWebTOUPopup}/>
+      <PrivacyPartner openPrivacyPartner = {privacyPopup} setPrivacyPopup = {setPrivacyPopup}/>
+      <DelawareTerms openDelawareTerms = {openDelaware} setOpenDelaware = {setOpenDelaware}/>
 
     </div>
   );

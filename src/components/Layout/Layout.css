@@ -189,7 +189,12 @@
 .carLoansHolder:hover {
   border-bottom: 3px solid #214476 !important;
 }
-
+.contentWrap a{
+  word-break: break-word;
+}
+.contentWrap ol{
+  padding-left: 20px;
+}
 .carLoansHolder:hover .carLoanSubLinks {
   text-decoration: none !important;
   display: flex;

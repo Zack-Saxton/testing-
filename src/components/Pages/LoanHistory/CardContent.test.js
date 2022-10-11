@@ -5,7 +5,7 @@ import { waitFor, render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
-import LoanHistoryCard from "./CardContent";
+import CardContent from "./CardContent";
 import { LoanDataMock, LoanDataMockWithIsLoading } from "./../../../__mock__/LoanData.mock";
 
 const queryClient = new QueryClient({
@@ -30,7 +30,7 @@ const component = () => {
      <ThemeProvider theme={theme}>
      <QueryClientProvider client={queryClient}>
        <BrowserRouter>
-       <LoanHistoryCard />
+       <CardContent />
        </BrowserRouter>
      </QueryClientProvider>
    </ThemeProvider>

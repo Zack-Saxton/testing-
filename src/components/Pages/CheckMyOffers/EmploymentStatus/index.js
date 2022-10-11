@@ -12,7 +12,7 @@ import EmploymentStatusPNG from "../../../../assets/icon/I-Employment-Status.png
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import "./EmploymentStatus.css";
 //Initializing functional component CitizenshipStatus
 function EmploymentStatus() {
@@ -104,7 +104,7 @@ yearsatEmployer = JSON.stringify(yearsatEmployer);
 	// JSX part
 	return (
 		<div>
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

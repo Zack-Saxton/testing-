@@ -21,7 +21,7 @@ import { useAccountOverview } from "./../AccountOverview/AccountOverviewHook/use
 import getTextNotify from "../../Controllers/MyProfileController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
 import { ButtonWithIcon } from "../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import BasicInformationCard from "./BasicInformation";
 import ChangePassword from "./ChangePassword";
 import MailingAddressCard from "./MailingAddress";
@@ -106,7 +106,7 @@ export default function MyProfile() {
   return (
     <div data-testid="profile-component-test">
       <CheckLoginStatus />
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid
         container
         justifyContent={"center"}

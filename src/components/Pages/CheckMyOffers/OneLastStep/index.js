@@ -15,7 +15,7 @@ import {
 } from "../../../Controllers/CheckMyOffersController";
 import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI";
 import "../CheckMyOffer.css";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
@@ -194,7 +194,7 @@ function SSN() {
 	//JSX poart
 	return (
 		<div>
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

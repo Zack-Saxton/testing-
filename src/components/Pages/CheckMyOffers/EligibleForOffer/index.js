@@ -9,7 +9,7 @@ import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary } from "../../../FormsUI";
 import "../CheckMyOffer.css";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 
 //Initializing functional component EligibleForOffers
 function EligibleForOffers(props) {
@@ -32,7 +32,7 @@ function EligibleForOffers(props) {
 	//JSX part
 	return (
 		<div>
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

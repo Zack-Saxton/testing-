@@ -10,7 +10,7 @@ import globalMessages from '../../../../assets/data/globalMessages.json';
 import ZipcodeLogo from "../../../../assets/icon/I-Zip-Code.png";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Zipcode as ZipcodeField } from "../../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import "./Zipcode.css";
 
 // Yup validation
@@ -40,7 +40,7 @@ function Zipcode() {
 	//JSX part
 	return (
 		<div data-testid = "zipCode_Component">
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className="mainDiv">
 				<Box>
 					<Grid xs={12} item container justifyContent="center" alignItems="center">

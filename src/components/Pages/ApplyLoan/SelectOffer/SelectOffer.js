@@ -14,7 +14,7 @@ import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import { submitSelectedOfferAPI , referSelectedBranchOfferAPI} from "../../../Controllers/ApplyForLoanController";
 import { ButtonWithIcon } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
-import ScrollToTopOnMount from "../../ScrollToTop";
+import ScrollToTop from "../../ScrollToTop";
 import { useFetchOffer } from "../ApplyForLoanHook/useFetchOffer";
 import { useStylesApplyForLoan } from "../Style";
 import TabPanel from "../TabPanel";
@@ -200,7 +200,7 @@ useEffect(() => {
 	//JSX part
 	return (
 		<div data-testid="selectOfferComponent">
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<CheckLoginStatus />
 			<Grid
 				container

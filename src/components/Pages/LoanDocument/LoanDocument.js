@@ -26,8 +26,8 @@ import { uploadDocument as documentForOnlineApplication } from "../../Controller
 
 import { ButtonWithIcon, Select } from "../../FormsUI";
 import "../LoanDocument/LoanDocument.css";
-import ScrollToTopOnMount from "../ScrollToTop";
-import LoanDocumentTable from "./DocumentTable";
+import ScrollToTop from "../ScrollToTop";
+import DocumentTable from "./DocumentTable";
 import { useStylesLoanDocument } from "./Style";
 const documentTypeList = {
   'income_doc': "income information",
@@ -173,7 +173,7 @@ export default function LoanDocument() {
   return (
     <div>
       <CheckLoginStatus />
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid
         container
         justifyContent={"center"}
@@ -238,7 +238,7 @@ export default function LoanDocument() {
                 </Table>
               </TableContainer>
             ) : (
-              <LoanDocumentTable userLoanDocumentData={loanDocumentData} />
+              <DocumentTable userLoanDocumentData={loanDocumentData} />
             )}
 
             <Grid
@@ -249,7 +249,6 @@ export default function LoanDocument() {
                   container
                   className={isActiveApplicationExist ? "showDiv" : "hideDiv" }
                 >
-                  {/* <FormLabel component="legend">Upload :</FormLabel> */}
                     <RadioGroup
                     id="textAndCall"
                     aria-label="method"

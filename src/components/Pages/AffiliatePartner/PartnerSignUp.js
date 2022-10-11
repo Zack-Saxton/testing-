@@ -1,8 +1,4 @@
 import Box from "@mui/material/Box";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -22,7 +18,7 @@ import NerdWalletlogo from "../../../assets/partners/WelcomeNWMember.png";
 import OneLoanPlacelogo from "../../../assets/partners/WelcomeOLPMember.png";
 import PartnerSignup, { PopulatePartnerSignup } from "../../Controllers/PartnerSignupController";
 import validateUserEnteredInput from "../../Pages/Login/ValidateUserEnteredInput";
-import { ButtonPrimary, Checkbox, EmailTextField, PasswordField,Zipcode, Popup, RenderContent, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
+import { ButtonPrimary, Checkbox, EmailTextField, PasswordField,Zipcode, Select, SocialSecurityNumber, TextField } from "../../FormsUI";
 import { useStylesPartner } from "./style";
 import "./Style.css";
 import Cookies from "js-cookie";
@@ -30,6 +26,7 @@ import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import states from '../../../assets/data/States.json';
 import getClientIp, { phoneNumberMask, maskPhoneNumberWithAsterisk } from "../../Controllers/CommonController";
 import { usePhoneNumber } from '../../../hooks/usePhoneNumber'
+import {OhioUser, CaUser, EsignPartner,CreditPartner,WebTermsPartner,PrivacyPartner,DelawareTerms} from "./PartnerTerms"
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
@@ -204,7 +201,7 @@ export default function PartnerSignUp() {
   const [ agreeNewMexico, setAgreeNewMexico ] = useState("");
   const [ esignPopup, setEsignPopup ] = useState(false);
   const [ creditPopup, setCreditPopup ] = useState(false);
-  const [ webTOUPopup, setwebTOUPopup ] = useState(false);
+  const [ webTOUPopup, setWebTOUPopup ] = useState(false);
   const [ privacyPopup, setPrivacyPopup ] = useState(false);
   const [ openCA, setOpenCA ] = useState(false);
   const [ openOhio, setOpenOhio ] = useState(false);
@@ -223,18 +220,11 @@ export default function PartnerSignUp() {
     }
   }, [ handlePopupCA, handlePopupOhio ]);
 
-  const handleCloseCA = () => setOpenCA(false);
-  const handleCloseOhio = () => setOpenOhio(false);
   const handleClickDelawareOpen = () => setOpenDelaware(true);
-  const handleDelawareClose = () => setOpenDelaware(false);
   const handleOnClickEsign = () => setEsignPopup(true);
-  const handleOnClickEsignClose = () => setEsignPopup(false);
   const handleOnClickCredit = () => setCreditPopup(true);
-  const handleOnClickCreditClose = () => setCreditPopup(false);
-  const handleOnClickwebTOU = () => setwebTOUPopup(true);
-  const handleOnClickwebTOUClose = () => setwebTOUPopup(false);
+  const handleOnClickwebTOU = () => setWebTOUPopup(true);
   const handleOnClickPrivacy = () => setPrivacyPopup(true);
-  const handleOnClickPrivacyClose = () => setPrivacyPopup(false);
 
    //fetch the state and city based in zip code
    const fetchSpouseAddress = async (event) => {
@@ -980,82 +970,14 @@ const preventEvent = (event) => {
         </Box>
       </div>
 
-      <Popup popupFlag={esignPopup} closePopup={handleOnClickEsignClose} title="E-Signature Disclosure and Consent">
-        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-        <RenderContent disclosureLink="/eSign" />
-      </Popup>
-      <Popup popupFlag={creditPopup} closePopup={handleOnClickCreditClose} title="Credit and Contact Authorization">
-        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-        <RenderContent disclosureLink="/credit" />
-      </Popup>
-      <Popup popupFlag={webTOUPopup} closePopup={handleOnClickwebTOUClose} title="Terms of Use">
-        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-        <RenderContent disclosureLink="/websiteTermsOfUse" />
-      </Popup>
-      <Popup popupFlag={privacyPopup} closePopup={handleOnClickPrivacyClose} title="Privacy Statement">
-        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-        <RenderContent disclosureLink="/privacy" />
-      </Popup>
-
-      <Popup popupFlag={openDelaware} closePopup={handleDelawareClose} title="Delaware Itemized Schedule of Charges">
-        <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
-        <RenderContent disclosureLink="/delaware" />
-      </Popup>
-
-      {/* CA user */}
-      <Dialog
-        onClose={handleCloseCA}
-        aria-labelledby="customized-dialog-title"
-        open={openCA}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={handleCloseCA}>
-          Notice to CA Residents
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography align="justify" gutterBottom>
-            If you are married, you may apply for a separate account.
-          </Typography>
-        </DialogContent>
-        <DialogActions className="modalAction">
-          <ButtonPrimary
-            stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-            onClick={handleCloseCA}
-            className="modalButton"
-          >
-            <Typography align="center">OK</Typography>
-          </ButtonPrimary>
-        </DialogActions>
-      </Dialog>
-
-      {/* Ohio users */}
-      <Dialog
-        onClose={handleCloseOhio}
-        aria-labelledby="customized-dialog-title"
-        open={openOhio}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={handleCloseOhio}>
-          Notice to OH Residents
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography align="justify" gutterBottom>
-            The Ohio laws against discrimination require that all creditors make
-            credit equally available to all credit worthy customers, and that
-            credit reporting agencies maintain separate credit histories on each
-            individual upon request. The Ohio civil rights commission
-            administers compliance with this law.
-          </Typography>
-        </DialogContent>
-        <DialogActions className="modalAction">
-          <ButtonPrimary
-            stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
-            onClick={handleCloseOhio}
-            className="modalButton"
-          >
-            <Typography align="center">OK</Typography>
-          </ButtonPrimary>
-        </DialogActions>
-      </Dialog>
-
+      <CaUser openCaUser = {openCA} setOpenCA = {setOpenCA}/>
+      <OhioUser openOhioUser = {openOhio} setOpenOhio = {setOpenOhio} />
+      <EsignPartner  openEsign = {esignPopup} setEsignPopup = {setEsignPopup}/>
+      <CreditPartner  openCredit = {creditPopup} setCreditPopup = {setCreditPopup}/>
+      <WebTermsPartner openWebTerms = {webTOUPopup} setWebTOUPopup = {setWebTOUPopup}/>
+      <PrivacyPartner openPrivacyPartner = {privacyPopup} setPrivacyPopup = {setPrivacyPopup}/>
+      <DelawareTerms openDelawareTerms = {openDelaware} setOpenDelaware = {setOpenDelaware}/>
+     
     </div>
   );
 }

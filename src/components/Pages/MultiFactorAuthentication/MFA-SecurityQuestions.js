@@ -13,7 +13,7 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import ScrollToTopOnMount from "../CheckMyOffers/ScrollToTop";
+import ScrollToTop from "../CheckMyOffers/ScrollToTop";
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
 import CheckLoginStatus from '../../App/CheckLoginStatus';
 import Messages from "../../../assets/data/globalMessages.json"
@@ -125,7 +125,7 @@ const MFASecurityQuestions = () => {
       {loginToken.isLoggedIn && location?.state?.mfaSecurityQuestions ? (
         <>
           <div data-testid="mfa-security-questions-component">
-            <ScrollToTopOnMount />
+            <ScrollToTop />
             <Grid>
               <Grid
                 spacing={1}

@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react';
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
-import RecordTable from './RecordTable';
+import LoanHistoryTable from './LoanHistoryTable';
 import { LoanDataMock, LoanDataMockWithIsLoading } from "./../../../__mock__/LoanData.mock";
 
 const queryClient = new QueryClient({
@@ -30,7 +30,7 @@ const MockRecentApplications = () => {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <RecordTable />
+          <LoanHistoryTable />
         </BrowserRouter>
       </QueryClientProvider>
     </ThemeProvider>

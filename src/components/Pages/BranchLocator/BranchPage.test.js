@@ -5,7 +5,7 @@ import { render, fireEvent, screen, act } from '@testing-library/react';
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from "react-router-dom";
-import StatePage from './BranchPage';
+import BranchPage from './BranchPage';
 import { setupGoogleMock } from "../../../__mock__/GoogleAPI.mock";
 
 
@@ -25,7 +25,7 @@ const component = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
-					<StatePage />
+					<BranchPage />
 			</QueryClientProvider>
 		</ThemeProvider>
 	);

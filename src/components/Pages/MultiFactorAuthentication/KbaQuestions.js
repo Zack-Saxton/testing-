@@ -12,7 +12,7 @@ import APICall from "../../lib/AxiosLib";
 import './MultiFactorAuthentication.css';
 import LoadQuestions from "../ApplyLoan/Stepper/LoadQuestions";
 import MultipleQuestion from './MultipleQuestion';
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
@@ -178,7 +178,7 @@ const KbaQuestions = () => {
             data-testid="KbaQuestions_component"
             className={loadingFlag ? classes.loadingOn : classes.loadingOff}
           >
-            <ScrollToTopOnMount />
+            <ScrollToTop />
             <Grid>
               <Grid
                 spacing={1}

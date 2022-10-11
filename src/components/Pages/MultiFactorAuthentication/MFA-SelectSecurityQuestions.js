@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 import { useStylesMFA } from "./Style";
 import message from "../../../assets/data/globalMessages.json"
 import {  saveSecurityAnswer, fetchAllMFAQuestion } from "../../Controllers/MFAController";
-import ScrollToTopOnMount from "../CheckMyOffers/ScrollToTop";
+import ScrollToTop from "../CheckMyOffers/ScrollToTop";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
@@ -195,7 +195,7 @@ let selectedQuestionStructured =
       {loginToken.isLoggedIn ? (
         <>
     <div data-testid="selectSecurityQuestions">
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid>
         <Grid
           spacing={1}
