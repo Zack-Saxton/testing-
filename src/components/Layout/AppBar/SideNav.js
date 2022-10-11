@@ -38,6 +38,7 @@ import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useQuery, useQueryClient } from "react-query";
@@ -553,7 +554,19 @@ export default function SideNav() {
       }
     }
   }
-
+  const SideNaveList = ({label,disabled,SideNavicons}) => {
+    return(
+    <ListItem disabled={disabled} className="titleSidenav">
+    <ListItemIcon>
+       {" "} 
+       {SideNavicons}{" "}
+    </ListItemIcon>
+    <ListItemText className={classes.textDecoration}>
+       {label}
+    </ListItemText>
+  </ListItem>
+    );
+  }
   //View part
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
@@ -795,15 +808,7 @@ export default function SideNav() {
                   </List>
                 </ListItem>
                 <NavLink data-testid="sideNavAccountOverviewNavigation" to="/customers/accountOverview" className="nav_link">
-                  <ListItem className="titleSidenav">
-                    <ListItemIcon>
-                      {" "}
-                      <AssignmentTurnedInOutlinedIcon />{" "}
-                    </ListItemIcon>
-                    <ListItemText className={classes.textDecoration}>
-                      Account Overview
-                    </ListItemText>
-                  </ListItem>
+                  <SideNaveList SideNavicons={<AssignmentTurnedInOutlinedIcon />} label={"Account Overview"}/>
                 </NavLink>
 
                 <NavLink
@@ -814,15 +819,7 @@ export default function SideNav() {
                   }}
                   className={activeLoanData ? "nav_link_disabled" : "nav_link"}
                 >
-                  <ListItem className="titleSidenav" disabled={activeLoanData}>
-                    <ListItemIcon>
-                      {" "}
-                      <AccountBalanceWalletIcon />{" "}
-                    </ListItemIcon>
-                    <ListItemText className={classes.textDecoration}>
-                      Make a Payment{" "}
-                    </ListItemText>
-                  </ListItem>
+                  <SideNaveList disabled={activeLoanData} SideNavicons={<AccountBalanceWalletIcon />} label={"Make a Payment"}/>
                 </NavLink>
 
                 {checkPresenceOfLoan ? (
@@ -831,27 +828,15 @@ export default function SideNav() {
                     to={dataNavmessage.status === true ? "/customers/selectOffer" : (NavUrlResumeApplication ?? "/customers/resumeApplication") } 
                     state={stateDataToPass}
                     className="nav_link">
-                      <ListItem className="titleSidenav">
-                        <ListItemIcon>
-                          {" "}
-                          <MonetizationOnRoundedIcon />{" "}
-                        </ListItemIcon>
-                        <ListItemText> Resume Application </ListItemText>
-                      </ListItem>
+                  <SideNaveList SideNavicons={<MonetizationOnRoundedIcon />} label={"Resume Application"}/>
                     </NavLink>
                   ) : (
                     <Link
-                      to={checkPresenceOfLoanStatus ? applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] : "/customers/resumeApplication"}
-                      state = {stateDataToPass}
-                      className="nav_link"
+                    to={checkPresenceOfLoanStatus ? applicationStatusRedirectPage[ checkPresenceOfLoanStatus ] : "/customers/resumeApplication"}
+                    state = {stateDataToPass}
+                    className="nav_link"
                     >
-                      <ListItem className="titleSidenav">
-                        <ListItemIcon>
-                          {" "}
-                          <MonetizationOnRoundedIcon />{" "}
-                        </ListItemIcon>
-                        <ListItemText> Resume Application </ListItemText>
-                      </ListItem>
+                      <SideNaveList SideNavicons={<MonetizationOnRoundedIcon />} label={"Resume Application"}/>
                     </Link>
                   )
                 ) : (
@@ -866,13 +851,7 @@ export default function SideNav() {
                     }}
                     className={currentLoan ? "nav_link_disabled" : "nav_link"}
                   >
-                    <ListItem className="titleSidenav" disabled={currentLoan}>
-                      <ListItemIcon>
-                        {" "}
-                        <MonetizationOnRoundedIcon />{" "}
-                      </ListItemIcon>
-                      <ListItemText> Apply for a Loan </ListItemText>
-                    </ListItem>
+                    <SideNaveList disabled={currentLoan} SideNavicons={<MonetizationOnRoundedIcon />} label={"Apply for a Loan"}/>
                   </NavLink>
                 )}
 
@@ -886,18 +865,7 @@ export default function SideNav() {
                   }}
                   className={activeLoanData ? "nav_link_disabled" : "nav_link"}
                 >
-                  <ListItem
-                    className="titleSidenav"
-                    disabled={
-                      activeLoanData && !loanStatus.includes(checkPresenceOfLoanStatus)
-                    }
-                  >
-                    <ListItemIcon>
-                      {" "}
-                      <DescriptionOutlinedIcon />{" "}
-                    </ListItemIcon>
-                    <ListItemText> Loan Documents </ListItemText>
-                  </ListItem>
+                  <SideNaveList SideNavicons={<DescriptionOutlinedIcon />} disabled={activeLoanData && !loanStatus.includes(checkPresenceOfLoanStatus)} label={"Loan Documents"}/>
                 </NavLink>
 
                 <NavLink
@@ -917,13 +885,7 @@ export default function SideNav() {
                       : "nav_link"
                   }
                 >
-                  <ListItem className="titleSidenav">
-                    <ListItemIcon>
-                      {" "}
-                      <AccountBalanceIcon />{" "}
-                    </ListItemIcon>
-                    <ListItemText> My Branch</ListItemText>
-                  </ListItem>
+                  <SideNaveList SideNavicons={<AccountBalanceIcon />} label={"My Branch"}/>
                 </NavLink>
 
                 <NavLink
@@ -932,13 +894,7 @@ export default function SideNav() {
                   onClick={(_menuType) => handleMenuProfile("side")}
                   className="nav_link"
                 >
-                  <ListItem className="titleSidenav">
-                    <ListItemIcon>
-                      {" "}
-                      <AccountCircleIcon />{" "}
-                    </ListItemIcon>
-                    <ListItemText> My Profile</ListItemText>
-                  </ListItem>
+                <SideNaveList SideNavicons={<AccountCircleIcon />} label={"My Profile"}/>
                 </NavLink>
 
                 <NavLink
@@ -949,13 +905,7 @@ export default function SideNav() {
                   }}
                   className={activeLoanData ? "nav_link_disabled" : "nav_link"}
                 >
-                  <ListItem className="titleSidenav" disabled={activeLoanData}>
-                    <ListItemIcon>
-                      {" "}
-                      <ListIcon />{" "}
-                    </ListItemIcon>
-                    <ListItemText> Loan History</ListItemText>
-                  </ListItem>
+                <SideNaveList disabled={activeLoanData} SideNavicons={<ListIcon />} label={"Loan History"}/>
                 </NavLink>
 
                 <NavLink
@@ -966,13 +916,7 @@ export default function SideNav() {
                   }}
                   className={activeLoanData ? "nav_link_disabled" : "nav_link"}
                 >
-                  <ListItem className="titleSidenav" disabled={activeLoanData}>
-                    <ListItemIcon>
-                      {" "}
-                      <InboxIcon />{" "}
-                    </ListItemIcon>
-                    <ListItemText> VantageScore &reg;</ListItemText>
-                  </ListItem>
+                <SideNaveList disabled={activeLoanData} SideNavicons={<InboxIcon />} label={"VantageScore ®"}/>
                 </NavLink>
 
                 <ListItem data-testid="moneySkill" id="moneySkillNavLink" onClick={handleMoneySkillNav}>
@@ -992,22 +936,10 @@ export default function SideNav() {
                   id="blogLinkWrap"
                   rel="noreferrer"
                 >
-                  <ListItem className="blogLitsItem">
-                    <ListItemIcon>
-                      {" "}
-                      <BookIcon />{" "}
-                    </ListItemIcon>
-                    <ListItemText> Blog </ListItemText>
-                  </ListItem>
+                <SideNaveList SideNavicons={<BookIcon />} label={"Blog"}/>
                 </a>
                 <a data-testid="sideNavfaqNavigation" id="faqLinkWrap" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} rel="noreferrer" className="titleSidenav">
-                  <ListItem className="faqLitsItem">
-                    <ListItemIcon>
-                      {" "}
-                      <LiveHelpIcon />{" "}
-                    </ListItemIcon>
-                    <ListItemText> FAQ </ListItemText>
-                  </ListItem>
+                <SideNaveList SideNavicons={<LiveHelpIcon />} label={"FAQ"}/>
                 </a>
               </List>
             </PerfectScrollbar>
@@ -1017,4 +949,9 @@ export default function SideNav() {
       </div>
     </ClickAwayListener>
   );
+  SideNaveList.propTypes = {
+    label: PropTypes.string,
+    disabled: PropTypes.bool,
+    SideNavicons: PropTypes.string
+  };
 }

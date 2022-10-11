@@ -301,6 +301,12 @@ export default function ScheduleAppointment({
 ScheduleAppointment.propTypes = {
   MyBranchAppointment: PropTypes.object,
   holidayData: PropTypes.array,
-  latitude: PropTypes.string,
-  longitude: PropTypes.string
+  latitude: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  longitude: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 };

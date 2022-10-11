@@ -302,6 +302,12 @@ export default function ScheduleCall({ MyBranchCall, holidayData, latitude, long
 ScheduleCall.propTypes = {
   MyBranchCall: PropTypes.object,
   holidayData: PropTypes.array,
-  latitude: PropTypes.string,
-  longitude: PropTypes.string
+  latitude: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  longitude: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 };
