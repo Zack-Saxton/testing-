@@ -3,7 +3,7 @@ import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import getMoneySkillUrl from "../../Controllers/MoneySkillController";
+import MoneySkillController from "../../Controllers/MoneySkillController";
 import {
   ButtonPrimary,
   ButtonSecondary
@@ -20,7 +20,7 @@ export default function MoneySkill(props) {
   const [ moneySkillUrl, setMoneySkillUrl ] = useState(null);
 
   async function getMoneySkillAPI() {
-    let response = await getMoneySkillUrl();
+    let response = await MoneySkillController();
     setMoneySkillUrl(response?.data?.moneyskillurl ?? "https://lms.moneyskill.org/students/login");
   }
 

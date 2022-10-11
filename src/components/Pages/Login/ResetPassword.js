@@ -11,7 +11,7 @@ import globalValidation from "../../../../src/assets/data/globalMessages.json";
 import ResetPasswordController from "../../Controllers/ResetPasswordController";
 import { ButtonPrimary, EmailTextField, PasswordField } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
-import ScrollToTopOnMount from "../../Pages/ScrollToTop";
+import ScrollToTop from "../../Pages/ScrollToTop";
 import "./Login.css";
 import { useStylesLogin } from "./style";
 import validateUserEnteredInput from "./ValidateUserEnteredInput";
@@ -94,7 +94,7 @@ export default function ResetPassword(_props) {
   //View Part
   return (
     <div data-testid = "ResetPassword_component">
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <div className={classes.mainContentBackground} id="resetPasswordWrap">
         <Grid
           container

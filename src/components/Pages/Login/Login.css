@@ -25,6 +25,7 @@
 .errorValidationOne ul li,
 .errorValidationTwo ul li {
   text-decoration: none;
+  list-style: none;
 }
 .validation-success:before {
   content: "✓";
@@ -124,6 +125,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+#helpLoginButton{
+  font-size: 1rem !important;
+  color: #214476 !important;
+  cursor: pointer;
 }
 .validation-success{
   color: #008000;

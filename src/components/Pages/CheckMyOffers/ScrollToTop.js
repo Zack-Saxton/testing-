@@ -1,6 +1,6 @@
 import React from "react";
 
-class ScrollToTopOnMount extends React.Component {
+class ScrollToTop extends React.Component {
 	componentDidMount() {
 		window.scrollTo(0, 0);
 	}
@@ -10,4 +10,4 @@ class ScrollToTopOnMount extends React.Component {
 	}
 }
 
-export default ScrollToTopOnMount;
+export default ScrollToTop;

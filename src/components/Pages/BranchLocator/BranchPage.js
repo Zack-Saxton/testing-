@@ -34,7 +34,7 @@ import { useStylesMyBranch } from "./Style";
 const YearHolidays = React.lazy(() => import("./YearHolidays"));
 import globalMessages from "../../../assets/data/globalMessages.json";
 
-export default function StatePage() {
+export default function BranchPage() {
   const classes = useStylesMyBranch();
   const location = useLocation();
   const navigate = useNavigate();

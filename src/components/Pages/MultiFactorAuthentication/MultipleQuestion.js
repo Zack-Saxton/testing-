@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { idVerificationAnswer } from '../../Controllers/MFAController';
 import { AutoCompleteMultiple, ButtonPrimary, Radio } from "../../FormsUI"
-import ScrollToTopOnMount from "../CheckMyOffers/ScrollToTop";
+import ScrollToTop from "../CheckMyOffers/ScrollToTop";
 import Messages from "../../../assets/data/globalMessages.json"
 import Cookies from "js-cookie";
 
@@ -95,7 +95,7 @@ export default function MultipleQuestion(props) {
 
 	return (
 		<>
-		 <ScrollToTopOnMount />
+		 <ScrollToTop />
 			{props.responseData.map((question, index) => {
 				return (
 					<Grid key={index} item xs={12}>

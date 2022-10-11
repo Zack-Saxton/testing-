@@ -12,7 +12,7 @@ import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, Select } from "../../../FormsUI";
 import "../CheckMyOffer.css";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 
 //Yup validation schema
 const validationSchema = yup.object({
@@ -56,7 +56,7 @@ function ActiveDuty() {
 	//JSX part
 	return (
 		<div data-testid="ActiveDuty_Component">
-			<ScrollToTopOnMount />
+			<ScrollToTop />
 			<div className={classes.mainDiv}>
 				<Box>
 					<Grid

@@ -7,6 +7,7 @@ import APICall from "../../lib/AxiosLib";
 import Cookies from "js-cookie";
 import messages from "../../lib/Lang/applyForLoan.json";
 import { statusStrLinks } from "../../lib/StatusStrLinks" 
+import "../AccountOverview/AccountOverview.css"
 
 //To redirect the user to apply for loan sections depends on the status of the loan application
 const ApplyForLoanRedirect = () => {

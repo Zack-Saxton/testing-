@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import creditScore from "./CreditScore.json";
 import { useStyleVantageScore } from "./Style";
 
-export default function ControlledAccordions(keyFactors) {
+export default function KeyFacts(keyFactors) {
   //Material UI css class
   const classes = useStyleVantageScore();
   const [ expanded, setExpanded ] = useState(false);

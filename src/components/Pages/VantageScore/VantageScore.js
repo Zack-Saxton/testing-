@@ -6,12 +6,12 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { NavLink } from 'react-router-dom';
 import CheckLoginStatus from "../../App/CheckLoginStatus";
-import getVantageScore from "../../Controllers/VantageController";
+import VantageController from "../../Controllers/VantageController";
 import { ButtonWithIcon } from "../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import Credit from "./Credit";
 import HistoricalData from "./HistoricalData";
-import KeyFactors from "./KeyFactors";
+import KeyFacts from "./KeyFacts";
 import { useStyleVantageScore } from "./Style";
 
 export default function VantageScore() {
@@ -19,7 +19,7 @@ export default function VantageScore() {
   const classes = useStyleVantageScore();
   const [ creditData, setCreditData ] = useState(null);
   const [ keyFactors, setkeyFactors ] = useState(null);
-  const { data: responseData } = useQuery('vantage-score', getVantageScore);
+  const { data: responseData } = useQuery('vantage-score', VantageController);
 
   //API Call for vantageScore
   function vantageScoreData() {
@@ -37,7 +37,7 @@ export default function VantageScore() {
   return (
     <div data-testid="vantageScoreComponent">
       <CheckLoginStatus />
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid
         container
         justifyContent={"center"}
@@ -93,7 +93,7 @@ export default function VantageScore() {
           <Paper data-testid="keyfactors-loading">
             {keyFactors && creditData ? (
               creditData[ 0 ]?.parsed.vantage_score ? (
-                <KeyFactors keyFactors={keyFactors} />) : <Paper className={classes.paper}><div>You do not have any Key Factor</div></Paper>
+                <KeyFacts keyFactors={keyFactors} />) : <Paper className={classes.paper}><div>You do not have any Key Factor</div></Paper>
             ) : <Paper className={classes.paper}> <CircularProgress /></Paper>}
           </Paper>
         </div>

@@ -10,7 +10,7 @@ import "./Style.css";
 import { useAccountOverview } from '../AccountOverview/AccountOverviewHook/useAccountOverview';
 
 
-export default function LoanHistoryCard() {
+export default function CardContent() {
 
   const navigate = useNavigate();
   //Material UI css class

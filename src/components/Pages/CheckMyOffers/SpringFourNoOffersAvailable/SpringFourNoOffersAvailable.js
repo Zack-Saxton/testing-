@@ -8,14 +8,14 @@ import Recruitment from "../../../../assets/icon/recruitment.png"
 import Deal from "../../../../assets/icon/deal.png"
 import "./SpringFourNoOffersAvailable.css";
 import { Typography } from "@mui/material";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 
 const SpringFourNoOffersAvailable = () => {
   const classes = SpringFourNoOffersAvailableStyle();
 
   return (
     <div>
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid data-testid="springFourComponent" className={classes.blueBG}>
           <Grid className={classes.mainContentWrap}>
             <Grid item container md={12} lg={9} className={classes.centerGrid}>

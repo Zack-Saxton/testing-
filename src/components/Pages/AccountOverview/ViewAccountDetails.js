@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import globalMessages from "../../../assets/data/globalMessages.json"
 import { ButtonWithIcon } from "../../FormsUI";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 import { useStylesAccountOverview } from "./Style";
 function TabPanelViewApplication(props) {
   const { children, value, verticalIndex, ...other } = props;
@@ -51,7 +51,7 @@ export default function ViewAccountDetails() {
   const [ values, setValues ] = useState(0);
   const handleTabChange = (_event, newValues) => setValues(newValues);
   let viewAppContact = Cookies.get("viewAppContact") ?? '{}';
-  let viewApplicationContact = JSON.parse(viewAppContact);
+  let viewApplicationContact = viewAppContact !== "undefined" ? JSON.parse(viewAppContact) : {};
   let viewAppApplicant = Cookies.get("viewAppApplicant") ?? '{}';
   let viewAppApplicantInfo = JSON.parse(viewAppApplicant);
 
@@ -59,7 +59,7 @@ export default function ViewAccountDetails() {
   return (
     <div>
       <CheckLoginStatus />
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <Grid
         container
         justifyContent={"center"}

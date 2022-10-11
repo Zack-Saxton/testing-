@@ -11,7 +11,7 @@ import React from "react";
 import { documentdownload as downloadDocument, documentprint as printDocument } from "../../Controllers/LoanDocumentController";
 import { useStylesLoanDocument } from "./Style";
 
-export default function LoanDocumentTable(userLoanDocumentData) {
+export default function DocumentTable(userLoanDocumentData) {
 
   //Material UI css class
   const classes = useStylesLoanDocument();

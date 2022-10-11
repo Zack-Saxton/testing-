@@ -20,7 +20,7 @@ import { ButtonPrimary, TextField, Zipcode } from "../../../FormsUI";
 import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
-import ScrollToTopOnMount from "../ScrollToTop";
+import ScrollToTop from "../ScrollToTop";
 
 //yup validation schema
 const validationSchema = yup.object({
@@ -170,7 +170,7 @@ function HomeAddress() {
 	};
   return (
     <div data-testid = "homeAddress_Component">
-      <ScrollToTopOnMount />
+      <ScrollToTop />
       <div className={classes.mainDiv}>
         <Box>
           <Grid

@@ -3,7 +3,7 @@ import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 
 /***** Get vantage score details *****/
-export default async function getVantageScore() {
+export default async function VantageController() {
   try {
     let url = "vantagescore_credit_monitoring";
     let param = "";
