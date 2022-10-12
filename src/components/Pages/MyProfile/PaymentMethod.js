@@ -58,7 +58,7 @@ export default function PaymentMethod() {
   const [ addBankAccount, setAddBankAccount ] = useState(false);
   const [ addDebitCard, setAddDebitCard ] = useState(false);
   const [ paymentMethodDiv, setPaymentMethodDiv ] = useState(true);
-  const [ accountType, setAccountType ] = useState("Savings");
+  const [ accountType, setAccountType ] = useState("Checking");
   const [ addBankModal, setAddBankModal ] = useState(false);
   const [ debitCardModal, setDebitCardModal ] = useState(false);
   const [ checkedAddBank, setCheckedAddBank ] = useState(false);

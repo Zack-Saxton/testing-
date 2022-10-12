@@ -20,7 +20,7 @@ export default function CreditCardMethod (props) {
   const classes = useStylesMyProfile();
 
   return(
-    <div >
+    <div data-testid="creditMethodComponent" >
         <form onSubmit={props?.formikAddDebitCard.handleSubmit}>
           <Grid
             spacing={4}
