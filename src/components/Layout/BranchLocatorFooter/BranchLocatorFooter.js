@@ -211,6 +211,8 @@ export default function BranchLocatorFooter() {
                         <Grid className="socialIconsWrap">
                           <span data-testid="facebookIcon">
                             <IconButton
+                            id = "facebookIcon"
+                            aria-label = "facebookIcon"
                             onClick={()=>{
                               handleOpensocialMedia("https://www.facebook.com/MarinerFinance/")
                             }}
@@ -220,6 +222,8 @@ export default function BranchLocatorFooter() {
                           </span>
                           <span data-testid="twitterIcon">
                             <IconButton
+                            id = "twitterIcon"
+                            aria-label="twitterIcon"
                               onClick={()=>{
                                 handleOpensocialMedia("https://twitter.com/MarinerFinance")
                               }}
@@ -229,6 +233,8 @@ export default function BranchLocatorFooter() {
                           </span>
                           <span data-testid="linkedInIcon">
                             <IconButton 
+                            id="linkedIcon"
+                            aria-label="linkedIcon"
                             onClick={()=>{
                               handleOpensocialMedia("https://www.linkedin.com/company/mariner-finance/")
                             }}
