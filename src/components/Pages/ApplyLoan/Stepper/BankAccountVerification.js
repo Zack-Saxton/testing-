@@ -65,7 +65,7 @@ const validationSchema = yup.object({
 export default function BankAccountVerification(props) {
 	const classes = useStylesApplyForLoan();
 	//Initializing state variables
-	const [ accountType, setAccountType ] = useState();
+	const [ accountType, setAccountType ] = useState("Checking Account");
 	const [ accountTypeError, setAccountTypeError ] = useState();
 	const [ paymentMode, setPaymentMode ] = useState("autopayment");
 	const [ verifyRequired, setVerifyRequired ] = useState(false);
