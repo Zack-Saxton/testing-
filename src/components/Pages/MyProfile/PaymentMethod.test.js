@@ -70,7 +70,7 @@ test("Check all input filed exist in the UI. account Nick Name, Account Holder N
 	expect(accountHolder).toBeTruthy();
 	expect(accountHolder.value).toBe('');
 
-	const accountType = container.querySelector(`input[name="accountType"]`);
+	const accountType = screen.getByLabelText('Checking');
 	expect(accountType).toBeTruthy();
 	expect(accountType).toBeChecked(false);
 
