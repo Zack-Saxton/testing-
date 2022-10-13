@@ -73,16 +73,19 @@ export default function Register() {
   const myDate = new Date();
   myDate.setDate(myDate.getDate() - 6571);
 
-  const loginUser = async (values) => {
+  const loginUser = async (values, customerStatus) => {
     try {
-      let retrivedValue = await LoginController(
-        values.email,
-        values.password,
-        ClientIP,
-        longitude,
-        latitude,
-        window.navigator.userAgent,
-      );
+      let retrivedValue = customerStatus?.data?.user ? customerStatus : null;
+      if(!customerStatus?.data?.user){
+        retrivedValue = await LoginController(
+          values.email,
+          values.password,
+          ClientIP,
+          longitude,
+          latitude,
+          window.navigator.userAgent,
+        );
+      }      
       if (retrivedValue?.data?.user && retrivedValue?.data?.userFound) {        
         LogoutController();
         Cookies.set("redirec", JSON.stringify({ to: "/select-amount" }));
@@ -147,7 +150,7 @@ export default function Register() {
         let passwordReset = customerStatus?.data?.successMessage
         if(customerStatus?.data?.statusCode !== 400 && (!customerStatus?.data?.errorMessage && !customerStatus?.data?.error)){
           toast.success(register ? register : passwordReset);
-          loginUser(values);
+          loginUser(values, customerStatus);
         } else if (customerStatus?.data?.errorMessage === globalMessages.Multiple_Records){
           setFailed(globalMessages.Account_Already_Exists);
         }
