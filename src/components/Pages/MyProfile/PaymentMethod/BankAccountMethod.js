@@ -26,6 +26,7 @@ import globalMessages from "../../../../assets/data/globalMessages.json"
 export default function BankAccountMethod(props) {
   const classes = useStylesMyProfile();
   const [bankRoutingCheque, setBankRoutingCheque] = useState(false);
+  const [isAccountTypeTouched, setIsAccountTypeTouched] = useState(false);
 
   //pop up open & close
   const handleBankRoutingCheque = () => {
@@ -144,6 +145,7 @@ export default function BankAccountMethod(props) {
               radiolabel='[{"label":"Savings", "value":"Savings"},{"label":"Checking", "value":"Checking"}]'
               checked={props?.accountType}
               onClick={(event) => {
+                setIsAccountTypeTouched(true);
                 props?.setAccountType(event);
               }}
               row={true}
@@ -152,7 +154,7 @@ export default function BankAccountMethod(props) {
               style={{ fontWeight: "normal" }}
             />
             <FormHelperText error={true}>
-              {!props?.accountType ? "Account type required" : ""}
+              { isAccountTypeTouched && !props?.accountType ? globalMessages?.Please_Select_A_Saving_0r_Checking : ""}
             </FormHelperText>
           </Grid>
           <Grid
@@ -296,7 +298,11 @@ export default function BankAccountMethod(props) {
                 stylebutton='{"marginLeft": "","fontSize":""}'
                 styleicon='{ "color":"" }'
                 id="addBankAccount_button"
-                onClick={() => props.closeBankAccountButton()}
+                onClick={() => {
+                  props?.setAccountType('');
+                  setIsAccountTypeTouched(false);
+                  props.closeBankAccountButton();
+                }}
               >
                 {props?.editMode ? "Back" : "Cancel"}
               </ButtonSecondary>
@@ -310,7 +316,10 @@ export default function BankAccountMethod(props) {
                 stylebutton='{"background": "", "float":""  }'
                 styleicon='{ "color":"" }'
                 id="addDebitCard_button"
-                onClick={props?.openAddBankModal}
+                onClick={() => {
+                  setIsAccountTypeTouched(true);
+                  props?.openAddBankModal();
+                }}
               >
                 Add
               </ButtonPrimary>

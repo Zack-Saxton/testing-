@@ -263,6 +263,8 @@ const BranchLocatorHeader = () => {
               setdisplay(display ? false : true);
             }}
             className="menuHamburger"
+            id="menuHamburger"
+            aria-label='menuHamburger'
           >
             <MenuIcon />
           </button>

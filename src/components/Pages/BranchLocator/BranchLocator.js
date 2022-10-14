@@ -18,8 +18,8 @@ import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { businesStates, howManyBranchesforBranchLocatorPages, BrnachLocatorURLs, VirtualBranch } from "../../../assets/data/marinerBusinesStates";
-import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
-import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
+import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile.webp";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.webp";
 import TitleImage from "../../../assets/images/Favicon.png";
 import BranchDayTiming, { convertDistanceUnit, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
@@ -310,6 +310,7 @@ export default function BranchLocator() {
           </PlacesAutocomplete>
           <ButtonPrimary
             className="branchSearchButton"
+            aria-label = "branchSearchButton"
             onClick={getActivePlaces}
             stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
           >
@@ -398,7 +399,7 @@ export default function BranchLocator() {
     <Grid id="findBranchWrapTwo" className={classes.blueBackground} data-testid="searchBranchBox">
       <h4 className={classes.headigText}>Find a <span>Branch Near You!</span></h4>
       <Grid id="findBranchGrid">
-        <SearchIcon className="searchIcon" />
+        <SearchIcon id="searchIcon" className="searchIcon" />
         <PlacesAutocomplete
           id="addressOne"
           value={address1}
@@ -428,10 +429,12 @@ export default function BranchLocator() {
         </PlacesAutocomplete>
         <ButtonPrimary
           className="branchSearchButton"
+          id="branchSearchButton"
+          aria-label = "branchSearchButton"
           onClick={getActivePlaces}
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
         >
-          <ArrowForwardIcon className="goIcon" />
+          <ArrowForwardIcon id="goIcon" className="goIcon" />
         </ButtonPrimary>
       </Grid>
     </Grid>
@@ -455,8 +458,8 @@ export default function BranchLocator() {
   const BreadCrumsAndSearch1AndText = (
     <Grid className="branchLayoutGrid" container>
       <Grid className="branchImage" item md={7} sm={12} xs={12}>
-        <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
-        <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
+        <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" fetchpriority="high" />
+        <img className="webImage" src={BranchImageWeb} alt="MF Banner" fetchpriority="high" />
       </Grid>
 
       <Grid className="greyBackground mobilePadding" item md={5} sm={12} xs={12}>
