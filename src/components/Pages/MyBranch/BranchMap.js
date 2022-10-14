@@ -27,6 +27,7 @@ export default function BranchMap(MyBranchDetail) {
           title="branchLocation"
           className={classes.iframeBranchMap}
           id="gmap_canvas"
+          rel="preconnect"
           src={
             "https://maps.google.com/maps?q=" +
             branchDetail.MyBranchDetail.Address +

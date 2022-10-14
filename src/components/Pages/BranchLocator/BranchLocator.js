@@ -310,6 +310,7 @@ export default function BranchLocator() {
           </PlacesAutocomplete>
           <ButtonPrimary
             className="branchSearchButton"
+            aria-label = "branchSearchButton"
             onClick={getActivePlaces}
             stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
           >
@@ -398,7 +399,7 @@ export default function BranchLocator() {
     <Grid id="findBranchWrapTwo" className={classes.blueBackground} data-testid="searchBranchBox">
       <h4 className={classes.headigText}>Find a <span>Branch Near You!</span></h4>
       <Grid id="findBranchGrid">
-        <SearchIcon className="searchIcon" />
+        <SearchIcon id="searchIcon" className="searchIcon" />
         <PlacesAutocomplete
           id="addressOne"
           value={address1}
@@ -428,10 +429,12 @@ export default function BranchLocator() {
         </PlacesAutocomplete>
         <ButtonPrimary
           className="branchSearchButton"
+          id="branchSearchButton"
+          aria-label = "branchSearchButton"
           onClick={getActivePlaces}
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
         >
-          <ArrowForwardIcon className="goIcon" />
+          <ArrowForwardIcon id="goIcon" className="goIcon" />
         </ButtonPrimary>
       </Grid>
     </Grid>

@@ -265,6 +265,7 @@ export default function StatePage() {
                   </PlacesAutocomplete>
                   <ButtonPrimary
                     className="branchSearchButton"
+                    aria-label = "branchSearchButton"
                     onClick={getActivePlaces}
                     stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                   >
@@ -442,6 +443,7 @@ export default function StatePage() {
                   </PlacesAutocomplete>
                   <ButtonPrimary
                     className="branchSearchButton"
+                    aria-label = "branchSearchButton"
                     onClick={getActivePlaces}
                     stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                   >
