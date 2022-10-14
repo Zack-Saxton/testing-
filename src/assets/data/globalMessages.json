@@ -161,7 +161,7 @@
   "Error_Deleting_Bank_Account": "Error deleting your bank account, please try again",
   "Error_Deleting_Payment_Method": "Error Deleting Payment Method ::",
   "Error_Adding_Payment_Method": " Error in adding payment method ::",
-  "DateOfBirthMaxAge": "You are too old",
+  "DateOfBirthMaxAge": "We encountered an issue verifying the date entered, please contact your local branch for assistance.",
   "DateOfBirthMinAge": "You must be at least 18 years old",
   "DateOfBirthRequired": "Your date of birth is required",
   "DateOfBirthValid": "Please enter a valid date",

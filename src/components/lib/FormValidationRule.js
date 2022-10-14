@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import moment from "moment";
 import globalMessages from "../../assets/data/globalMessages.json";
 export class FormValidationRules {
 
@@ -76,7 +77,7 @@ export class FormValidationRules {
                 ),
                 globalMessages.DateOfBirthMinAge
             )
-            .min(new Date(1920, 1, 1), globalMessages.DateOfBirthMaxAge)
+            .min(new Date(moment().subtract(102, 'years')), globalMessages.DateOfBirthMaxAge)
             .typeError(globalMessages.DateOfBirthValid);
     }
 

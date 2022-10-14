@@ -13,6 +13,7 @@ import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { creatProspect } from "../../../Controllers/CheckMyOffersController";
+import moment from "moment";
 import {
 	ButtonPrimary,
 	DatePicker,
@@ -86,7 +87,7 @@ const validationSchema = yup.object({
 			),
 			globalMessages.DateOfBirthMinAge
 		)
-		.min(new Date(1920, 1, 1), globalMessages.DateOfBirthMaxAge)
+		.min(new Date(moment().subtract(102, 'years')), globalMessages.DateOfBirthMaxAge)
 		.typeError(globalMessages.DateOfBirthValid),
 });
 //Initializing functional component Personal info
