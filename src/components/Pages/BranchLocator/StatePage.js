@@ -176,9 +176,8 @@ export default function StatePage() {
               className="mobileImage"
               src={BranchImageMobile}
               alt="MF Banner"
-              fetchpriority="high" 
             />
-            <img className="webImage" src={BranchImageWeb} alt="MF Banner" fetchpriority="high" />
+            <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
           </Grid>
           <Grid
             className="greyBackground mobilePadding"
