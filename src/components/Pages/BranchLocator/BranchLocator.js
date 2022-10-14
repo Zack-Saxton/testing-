@@ -18,8 +18,8 @@ import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { businesStates, howManyBranchesforBranchLocatorPages, BrnachLocatorURLs, VirtualBranch } from "../../../assets/data/marinerBusinesStates";
-import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
-import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
+import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile.webp";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.webp";
 import TitleImage from "../../../assets/images/Favicon.png";
 import BranchDayTiming, { convertDistanceUnit, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
@@ -458,8 +458,8 @@ export default function BranchLocator() {
   const BreadCrumsAndSearch1AndText = (
     <Grid className="branchLayoutGrid" container>
       <Grid className="branchImage" item md={7} sm={12} xs={12}>
-        <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
-        <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
+        <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" fetchpriority="high" />
+        <img className="webImage" src={BranchImageWeb} alt="MF Banner" fetchpriority="high" />
       </Grid>
 
       <Grid className="greyBackground mobilePadding" item md={5} sm={12} xs={12}>

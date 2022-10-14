@@ -18,8 +18,8 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DOMPurify from 'dompurify';
 import { branch_hours, ca_branch_hours, howManyBranchesforBranchLocatorPages, BrnachLocatorURLs } from "../../../assets/data/marinerBusinesStates";
-import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
-import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
+import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile.webp";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.webp";
 import TitleImage from "../../../assets/images/Favicon.png";
 import MarinerFinanceBuilding from "../../../assets/images/mf-logo-white.png";
 import BranchDayTiming, { branchSaturdaySchedule, convertDistanceUnit, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
@@ -177,8 +177,8 @@ export default function BranchPage() {
   const BranchDetailsInCard = (
     <Grid container className="fullWidth">
       <Grid data-testid = "check_banner" className="branchImage" item md={7} sm={12} xs={12}>
-        <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
-        <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
+        <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" fetchpriority="high"/>
+        <img className="webImage" src={BranchImageWeb} alt="MF Banner" fetchpriority="high" />
       </Grid>
       <Grid
         className="greyBackground mobilePadding"
