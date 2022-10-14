@@ -58,7 +58,7 @@ export default function PaymentMethod() {
   const [ addBankAccount, setAddBankAccount ] = useState(false);
   const [ addDebitCard, setAddDebitCard ] = useState(false);
   const [ paymentMethodDiv, setPaymentMethodDiv ] = useState(true);
-  const [ accountType, setAccountType ] = useState("Checking");
+  const [ accountType, setAccountType ] = useState("");
   const [ addBankModal, setAddBankModal ] = useState(false);
   const [ debitCardModal, setDebitCardModal ] = useState(false);
   const [ checkedAddBank, setCheckedAddBank ] = useState(false);
@@ -123,8 +123,10 @@ export default function PaymentMethod() {
     validationSchema: bankAccountValidation(),
     enableReinitialize: true,
     onSubmit: (values) => {
-      setAddBankModal(true);
-      setAddBankValues(values);
+      if(accountType){
+        setAddBankModal(true);
+        setAddBankValues(values);      
+      }
     },
   });
 

@@ -65,7 +65,7 @@ const validationSchema = yup.object({
 export default function BankAccountVerification(props) {
 	const classes = useStylesApplyForLoan();
 	//Initializing state variables
-	const [ accountType, setAccountType ] = useState("Checking Account");
+	const [ accountType, setAccountType ] = useState("");
 	const [ accountTypeError, setAccountTypeError ] = useState();
 	const [ paymentMode, setPaymentMode ] = useState("autopayment");
 	const [ verifyRequired, setVerifyRequired ] = useState(false);
@@ -106,7 +106,7 @@ export default function BankAccountVerification(props) {
 		//On submit - submit the user entered details
 		onSubmit: async (values) => {
 			if(!accountType) {
-				setAccountTypeError('Account type required');
+				setAccountTypeError(globalMessages?.Please_Select_A_Saving_0r_Checking);
 			} else {
 			props.setLoadingFlag(true);
 			setInternalLoading(true);
@@ -230,10 +230,28 @@ export default function BankAccountVerification(props) {
 		formik.handleBlur(event);
   };
 
+	const handleOnSubmit = (event) => {
+		event.preventDefault();
+		if(!accountType) {
+			setAccountTypeError(globalMessages?.Please_Select_A_Saving_0r_Checking);
+		}
+		formik.submitForm();
+  };
+
 	//View part - JSX part
 	return (
 		<div>
-			<form onSubmit={formik.handleSubmit}>
+			<form onSubmit={handleOnSubmit}>
+
+			{/* <form onSubmit={ () => {
+				// if(!accountType) {
+				// 	setAccountTypeError('Account type required');
+				// }
+				// else{
+				// 	setAccountTypeError('');
+				// }
+				formik.handleSubmit();
+			}}> */}
 				<div>
 					<p className={classes.BankAccountText}>
 						<span className={classes.BankAccountBoldText}>Funding</span>
