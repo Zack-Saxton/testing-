@@ -240,6 +240,7 @@ export default function BranchPage() {
               <img
                 className="marinerFinanceBuildingImage"
                 src={MarinerFinanceBuilding}
+                alt = ""
               />
               <Grid data-testid = "branch_address">
                 <span className="branchAddressSpan">
