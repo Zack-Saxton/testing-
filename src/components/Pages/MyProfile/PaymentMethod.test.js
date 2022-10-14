@@ -72,7 +72,7 @@ test("Check all input filed exist in the UI. account Nick Name, Account Holder N
 
 	const accountType = screen.getByLabelText('Checking');
 	expect(accountType).toBeTruthy();
-	expect(accountType).toBeChecked(false);
+	expect(accountType).not.toBeChecked(false);
 
 	const bankRoutingNumber = container.querySelector(`input[name="bankRoutingNumber"]`);
 	expect(bankRoutingNumber).toBeTruthy();
