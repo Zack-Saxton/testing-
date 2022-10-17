@@ -13,7 +13,6 @@ import PersonLogo from "../../../../assets/icon/I-Personal-Info.png";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { creatProspect } from "../../../Controllers/CheckMyOffersController";
-import moment from "moment";
 import {
 	ButtonPrimary,
 	DatePicker,
@@ -28,28 +27,14 @@ import "./PersonalInfo.css";
 import {checkCustomeruser,ApplicationStatusByEmail} from "../../../Controllers/PersonalInfoController";
 import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../../Controllers/CommonController'
 import { usePhoneNumber } from "../../../../hooks/usePhoneNumber";
+import { FormValidationRules } from "../../../lib/FormValidationRule";
+let formValidation = new FormValidationRules();
 
 //Yup validation schema
 const validationSchema = yup.object({
-	firstName: yup
-		.string(globalMessages.FirstNameEnter)
-		.max(30, globalMessages.FirstNameMax)
-		.min(2, globalMessages.FirstNameMin)
-		.required(globalMessages.FirstNameRequired),
-	lastName: yup
-		.string(globalMessages.LastNameEnter)
-		.max(30, globalMessages.LastNameMax)
-		.min(2, globalMessages.LastNameMin)
-		.required(globalMessages.LastNameRequired),
-	email: yup
-		.string(globalMessages.EmailEnter)
-		.email(globalMessages.EmailValid)
-		.matches(
-			// eslint-disable-next-line
-			/^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9+/._-]+\.[a-zA-Z]{2,6}$/, //eslint-disable-line
-			globalMessages.EmailValid
-		)
-		.required(globalMessages.EmailRequired),
+	firstName: formValidation.firstName(),
+	lastName: formValidation.lastName(),
+	email: formValidation.email(),
 	ssn: yup.string().when("checkSSN", {
 		is: (checkSSN) => !checkSSN,
 		then: yup
@@ -60,35 +45,8 @@ const validationSchema = yup.object({
 			.matches(/^(\d)(?!\1+$)\d{8}$/, globalMessages.SSNValid)
 			.min(9, globalMessages.SSNMin),
 	}),
-	phone: yup
-		.string(globalMessages.PhoneEnter)
-		.required(globalMessages.PhoneRequired)
-		.transform((value) => value.replace(/[^\d]/g, ""))
-		//eslint-disable-next-line
-		.matches(
-			/^[1-9]{1}\d{2}\d{3}\d{4}$/,
-			globalMessages.PhoneValid
-		)
-		.matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
-		.min(10, globalMessages.PhoneMin),
-	dob: yup
-		.date(globalMessages.DateOfBirthValid)
-		.nullable()
-		.required(globalMessages.DateOfBirthRequired)
-		.max(
-			new Date(
-				new Date(
-					new Date().getFullYear() +
-					"/" +
-					(new Date().getMonth() + 1) +
-					"/" +
-					new Date().getDate()
-				).getTime() - 567650000000
-			),
-			globalMessages.DateOfBirthMinAge
-		)
-		.min(new Date(moment().subtract(102, 'years')), globalMessages.DateOfBirthMaxAge)
-		.typeError(globalMessages.DateOfBirthValid),
+	phone: formValidation.phoneNumber(),
+	dob: formValidation.dobDate(),
 });
 //Initializing functional component Personal info
 function PersonalInfo() {
@@ -114,17 +72,11 @@ function PersonalInfo() {
 
 	
 	const ifReducer = (customerStatus, values) => {
-		if (customerStatus.data.user.email === values.email) {
-			if (customerStatus.data?.ssnLookupFails) {
-				setSsnEmailMatch(false);
-				setError(false);
-				setLoading(false);
-			} else {
-				setSsnEmailMatch(true);
-				setError(false);
-				setLoading(false);
-				navigate("/existing-user");
-			}
+		if (customerStatus.data.user.email === values.email && !customerStatus.data?.ssnLookupFails) {
+			setSsnEmailMatch(true);
+			setError(false);
+			setLoading(false);
+			navigate("/existing-user");
 		} else {
 			setSsnEmailMatch(false);
 			setError(false);
