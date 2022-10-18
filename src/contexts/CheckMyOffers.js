@@ -66,6 +66,8 @@ function CheckMyOffersContext(props) {
     isActiveUser: '',
     disabled: false,
     last4SSN: '',
+    hoverColor: true,
+    amount: true,
     page: {
       selectAmount: 1,
       loanPurpose: 2,
@@ -181,6 +183,8 @@ function CheckMyOffersContext(props) {
       last4SSN: '',
       disabled: false,
       loading: !!loginToken?.isLoggedIn,
+      hoverColor: true,
+      amount: true,
       page: {
         selectAmount: 1,
         loanPurpose: 2,
