@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { preLoginStyle } from "../../../../assets/styles/preLoginStyle";
 import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
@@ -68,11 +68,11 @@ function ReferredToBranch(props) {
 						Applying after hours? Schedule a call below
 					</Typography>
 					<Grid className="secondaryButton">
-						<a data-testid="scheduleCall" href="/customers/myBranch">
+						<Link data-testid="scheduleCall" to="/customers/myBranch">
 						<ButtonSecondary stylebutton='{"background": ""}'>
 							Schedule a Call Back
 							</ButtonSecondary>
-						</a>
+						</Link>
 							
 					<Typography variant="h6">
 						Can{"'"}t talk or get in touch with us? That{"'"}s ok, schedule a call back time and we will call you back at your earliest convenience.
