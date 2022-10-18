@@ -499,7 +499,7 @@ function PersonalInfo() {
 													align="left"
 												>
 													It looks like you already have an account. Please{" "}
-													<a href="/login">sign in.</a>
+													<Link to="/login">sign in.</Link>
 												</Typography>
 												<Typography
 													className={
@@ -509,7 +509,7 @@ function PersonalInfo() {
 													}
 													align="left"
 												>
-													You have already registered an account. Please use the associated email address to <a href="/login">sign in.</a>
+													You have already registered an account. Please use the associated email address to <Link to="/login">sign in.</Link>
 												</Typography>
 											</div>
 										</Grid>
