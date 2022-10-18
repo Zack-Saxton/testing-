@@ -945,6 +945,8 @@ const preventEvent = (event) => {
                       <ButtonPrimary
                         type="submit"
                         data-testid="submit"
+                        id="submitPartnerButton"
+                        aria-label = "submitPartnerButton"
                         stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={
                            formik.values.activeDutyRank === "E4 and below"

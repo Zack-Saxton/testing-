@@ -17,8 +17,8 @@ import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { howManyBranchesforBranchLocatorPages, BrnachLocatorURLs, VirtualBranch } from "../../../assets/data/marinerBusinesStates";
-import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile_Image.png";
-import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.jpg";
+import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile.webp";
+import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.webp";
 import TitleImage from "../../../assets/images/Favicon.png";
 import BranchDayTiming, { convertDistanceUnit, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
 import BranchLocatorController from "../../Controllers/BranchLocatorController";
@@ -265,6 +265,7 @@ export default function StatePage() {
                   </PlacesAutocomplete>
                   <ButtonPrimary
                     className="branchSearchButton"
+                    aria-label = "branchSearchButton"
                     onClick={getActivePlaces}
                     stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                   >
@@ -442,6 +443,7 @@ export default function StatePage() {
                   </PlacesAutocomplete>
                   <ButtonPrimary
                     className="branchSearchButton"
+                    aria-label = "branchSearchButton"
                     onClick={getActivePlaces}
                     stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                   >
