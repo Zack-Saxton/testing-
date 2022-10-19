@@ -1342,7 +1342,7 @@ export default function MakePayment() {
               onClick={handleSchedulePaymentSubmit}
               disabled={loading}
             >
-              { disabledContent ? globalMessages.Keep_Autopay_On_Schedule : "OK"  }
+              { checkAutoPay ? globalMessages.Keep_Autopay_On_Schedule : "OK"  }
               <i
                 className="fa fa-refresh fa-spin customSpinner"
                 style={{
@@ -1351,7 +1351,7 @@ export default function MakePayment() {
                 }}
               />
             </ButtonPrimary>
-            { disabledContent ? 
+            { checkAutoPay ? 
             (<ButtonPrimary
               stylebutton='{"background": "", "color":"","margin": "0px 10px 0px 0px" }'
               onClick={disableAutoPayAndSchedulePayment}
