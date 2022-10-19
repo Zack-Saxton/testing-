@@ -27,14 +27,12 @@ import states from '../../../assets/data/States.json';
 import getClientIp, { phoneNumberMask, maskPhoneNumberWithAsterisk } from "../../Controllers/CommonController";
 import { usePhoneNumber } from '../../../hooks/usePhoneNumber'
 import {OhioUser, CaUser, EsignPartner,CreditPartner,WebTermsPartner,PrivacyPartner,DelawareTerms} from "./PartnerTerms"
+import { FormValidationRules } from "../../lib/FormValidationRule";
+let formValidation = new FormValidationRules();
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
-  email: yup
-    .string(globalMessages.EmailEnter)
-    .email(globalMessages.EmailValid)
-    .matches(/^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9+/._-]+\.[a-zA-Z]{2,6}$/, globalMessages.EmailValid)
-    .required(globalMessages.EmailRequired),
+  email: formValidation.email(),
   password: yup
     .string(globalMessages.PasswordEnter)
     .max(30, globalMessages.PasswordMax)
@@ -56,97 +54,16 @@ const validationSchema = yup.object({
           globalMessages.PasswordConfirmationMatch
         ),
     }),
-  ssn: yup
-    .string(globalMessages.SSNEnter)
-    .required(globalMessages.SSNRequired)
-    .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(/^(?!0000)\d{4}$/, globalMessages.SSNValid)
-    .min(4, globalMessages.SSNMin_four),
-  callPhNo: yup
-    .string(globalMessages.PhoneEnter)
-    .required(globalMessages.PhoneRequired)
-    .transform((value) => value?.replace(/[^\d]/g, ""))
-    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
-    .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
-    .min(10, globalMessages.PhoneMin),
-  phoneType: yup
-    .string(globalMessages.PhoneType)
-    .max(30, globalMessages.PhoneTypeMax)
-    .required(globalMessages.PhoneTypeRequired),
-
-    activeDuty: yup.string().when("state", {
-      is: "North Carolina",
-      then: yup.string().required(globalMessages?.Active_DutyRequired),
-    })
-      .when("state", {
-        is: "NC",
-        then: yup.string().required(globalMessages?.Active_DutyRequired),
-      }
-      ),
-    activeDutyRank: yup.string().when("activeDuty", {
-      is: "Yes",
-      then: yup.string().required(globalMessages?.Active_Duty_Rank_Required),
-    }),
-    martialStatus: yup.string().when("state", {
-      is: "Wisconsin",
-      then: yup.string().required(globalMessages?.Marital_Status_Required),
-    }).when("state", {
-      is: "WI",
-      then: yup.string().required(globalMessages?.Marital_Status_Required),
-    }
-    ),
-    spouseadd: yup
-      .string()
-      .when("martialStatus", {
-        is: "Married",
-        then: yup
-          .string()
-          .trim()
-          .max(100, globalMessages?.Marital_Status_Max)
-          .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
-      })
-      .when("martialStatus", {
-        is: globalMessages.MaritalStatusLegal,
-        then: yup
-          .string()
-          .trim()
-          .max(100, globalMessages?.Marital_Status_Max)
-          .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
-      }),
-    spouseZipcode: yup
-      .string()
-      .when("martialStatus", {
-        is: "Married",
-        then: yup.string().required(globalMessages?.ZipCodeRequired),
-      })
-      .when("martialStatus", {
-        is: globalMessages.MaritalStatusLegal,
-        then: yup.string().required(globalMessages?.ZipCodeRequired),
-      }),
-    spousecity: yup
-      .string()
-      .when("martialStatus", {
-        is: "Married",
-        then: yup
-          .string()
-          .required(globalMessages?.Address_Home_City),
-      })
-      .when("martialStatus", {
-        is: globalMessages.MaritalStatusLegal,
-        then: yup
-          .string()
-          .required(globalMessages?.Address_Home_City),
-      }),
-    spouseSelectState: yup
-      .string()
-      .when("martialStatus", {
-        is: "Married",
-        then: yup.string().required(globalMessages?.Address_State_Required),
-      })
-      .when("martialStatus", {
-        is: globalMessages.MaritalStatusLegal,
-        then: yup.string().required(globalMessages?.Address_State_Required),
-      }),
+  ssn: formValidation.ssnLastFourDigitValidation(),
+  callPhNo: formValidation.phoneNumber(),
+  phoneType: formValidation.phoneTypeValidation(),
+  activeDuty: formValidation.activeDutyValidation(),
+  activeDutyRank: formValidation.activeDutyRankValidation(),
+  martialStatus: formValidation.martialStatusValidation(),
+  spouseadd: formValidation.spouseAddressValidation(),
+  spouseZipcode: formValidation.spouseZipcode(),
+  spousecity: formValidation.spouseCityValidation(),
+  spouseSelectState: formValidation.spouseSelectState(),
 });
 
 export default function PartnerSignUp() {

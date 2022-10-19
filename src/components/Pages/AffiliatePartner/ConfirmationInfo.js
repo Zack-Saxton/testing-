@@ -22,120 +22,26 @@ import { useStylesPartner } from "./style";
 import "./Style.css";
 import { currencyFormat } from "../../lib/CommonUtil";
 import {OhioUser, CaUser, EsignPartner,CreditPartner,WebTermsPartner,PrivacyPartner,DelawareTerms} from "./PartnerTerms";
+import { FormValidationRules } from "../../lib/FormValidationRule";
+let formValidation = new FormValidationRules();
 
 //Yup validations for all the input fields
 const validationSchema = yup.object({
-  firstName: yup
-    .string(globalMessages?.FirstNameEnter)
-    .trim()
-    .max(30, globalMessages?.FirstNameMax)
-    .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
-    .required(globalMessages?.FirstNameRequired),
-  lastName: yup
-    .string(globalMessages?.LastNameEnter)
-    .trim()
-    .max(30, globalMessages?.LastNameMax)
-    .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
-    .required(globalMessages?.LastNameRequired),
-  streetAddress: yup
-    .string(globalMessages?.Address_Street)
-    .trim()
-    .max(100, globalMessages?.Address_Street_Max)
-    .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
-    .required(globalMessages?.Address_Street_Required),
-  city: yup
-    .string(globalMessages?.Address_City)
-    .max(30, globalMessages?.Address_City_Max)
-    .required(globalMessages?.Address_Home_City),
-  state: yup
-    .string(globalMessages?.Address_State)
-    .max(30, globalMessages?.Address_State_Max)
-    .required(globalMessages?.Address_State_Required),
-  zip: yup
-    .string(globalMessages?.ZipCodeEnter)
-    .min(5, globalMessages?.ZipCodeMax)
-    .required(globalMessages?.ZipCodeRequired),
-  citizenship: yup
-    .string(globalMessages?.CitizenshipEnter)
-    .max(30, globalMessages?.CitizenshipMax)
-    .required(globalMessages?.CitizenshipRequired),
-  employementStatus: yup
-    .string(globalMessages?.EmploymentEnter)
-    .max(30, globalMessages?.EmploymentMax)
-    .required(globalMessages?.EmploymentRequired),
-  activeDuty: yup.string().when("state", {
-    is: "North Carolina",
-    then: yup.string().required(globalMessages?.Active_DutyRequired),
-  })
-    .when("state", {
-      is: "NC",
-      then: yup.string().required(globalMessages?.Active_DutyRequired),
-    }
-    ),
-  activeDutyRank: yup.string().when("activeDuty", {
-    is: "Yes",
-    then: yup.string().required(globalMessages?.Active_Duty_Rank_Required),
-  }),
-  martialStatus: yup.string().when("state", {
-    is: "Wisconsin",
-    then: yup.string().required(globalMessages?.Marital_Status_Required),
-  }).when("state", {
-    is: "WI",
-    then: yup.string().required(globalMessages?.Marital_Status_Required),
-  }
-  ),
-  spouseadd: yup
-    .string()
-    .when("martialStatus", {
-      is: "Married",
-      then: yup
-        .string()
-        .trim()
-        .max(100, globalMessages?.Marital_Status_Max)
-        .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
-    })
-    .when("martialStatus", {
-      is: globalMessages.MaritalStatusLegal,
-      then: yup
-        .string()
-        .trim()
-        .max(100, globalMessages?.Marital_Status_Max)
-        .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
-    }),
-  spouseZipcode: yup
-    .string()
-    .when("martialStatus", {
-      is: "Married",
-      then: yup.string().required(globalMessages?.ZipCodeRequired),
-    })
-    .when("martialStatus", {
-      is: globalMessages.MaritalStatusLegal,
-      then: yup.string().required(globalMessages?.ZipCodeRequired),
-    }),
-  spousecity: yup
-    .string()
-    .when("martialStatus", {
-      is: "Married",
-      then: yup
-        .string()
-        .required(globalMessages?.Address_Home_City),
-    })
-    .when("martialStatus", {
-      is: globalMessages.MaritalStatusLegal,
-      then: yup
-        .string()
-        .required(globalMessages?.Address_Home_City),
-    }),
-  spouseSelectState: yup
-    .string()
-    .when("martialStatus", {
-      is: "Married",
-      then: yup.string().required(globalMessages?.Address_State_Required),
-    })
-    .when("martialStatus", {
-      is: globalMessages.MaritalStatusLegal,
-      then: yup.string().required(globalMessages?.Address_State_Required),
-    }),
+  firstName: formValidation.firstName(),
+  lastName: formValidation.lastName(),
+  streetAddress: formValidation.streetAddressValidation(),
+  city: formValidation.cityValidation(),
+  state: formValidation.stateValidation(),
+  zip: formValidation.zipCode(),
+  citizenship: formValidation.citizenshipValidation(),
+  employementStatus: formValidation.employementStatusValidation(),
+  activeDuty: formValidation.activeDutyValidation(),
+  activeDutyRank: formValidation.activeDutyRankValidation(),
+  martialStatus: formValidation.martialStatusValidation(),
+  spouseadd: formValidation.spouseAddressValidation(),
+  spouseZipcode: formValidation.spouseZipcode(),
+  spousecity: formValidation.spouseCityValidation(),
+  spouseSelectState: formValidation.spouseSelectState(),
 });
 
 //Begin: Login page
