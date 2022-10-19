@@ -1125,7 +1125,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                         aria-label = "submitConfirmButton"
                         stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         disabled={
-                          formik.values.citizenship === "Foreign Resident" || formik.values.activeDutyRank === "E4 and below" || !validZip
+                          formik.values.citizenship === "Foreign Resident" || (formik.values.activeDutyRank === "E4 and below" && formik.values.state === "NC") || !validZip
                             ? true
                             : loading
                         }
