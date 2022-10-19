@@ -87,6 +87,12 @@ export class FormValidationRules {
             .max(5, globalMessages.ZipCodeMax)
             .required(globalMessages.ZipCodeRequired);
     }
+    stateValidation() {
+        return yup
+        .string(globalMessages.Address_State)
+        .max(30, globalMessages.Address_State_Max)
+        .required(globalMessages.Address_State_Required);
+    }
     ssn() {
         return yup
             .string(globalMessages.SSNEnter)
@@ -111,6 +117,143 @@ export class FormValidationRules {
 		)
 		.matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
 		.min(10, globalMessages.PhoneMin)
+    }
+
+    spouseCityValidation() {
+        return yup
+        .string()
+        .when("martialStatus", {
+          is: "Married",
+          then: yup
+            .string()
+            .required(globalMessages?.Address_Home_City),
+        })
+        .when("martialStatus", {
+          is: globalMessages.MaritalStatusLegal,
+          then: yup
+            .string()
+            .required(globalMessages?.Address_Home_City),
+        });
+    }
+    spouseZipcode() {
+        return yup
+        .string()
+        .when("martialStatus", {
+          is: "Married",
+          then: yup.string().required(globalMessages?.ZipCodeRequired),
+        })
+        .when("martialStatus", {
+          is: globalMessages.MaritalStatusLegal,
+          then: yup.string().required(globalMessages?.ZipCodeRequired),
+        });
+    }
+    spouseSelectState() {
+        return yup
+        .string()
+        .when("martialStatus", {
+          is: "Married",
+          then: yup.string().required(globalMessages?.Address_State_Required),
+        })
+        .when("martialStatus", {
+          is: globalMessages.MaritalStatusLegal,
+          then: yup.string().required(globalMessages?.Address_State_Required),
+        });
+    }
+
+    spouseAddressValidation() {
+        return yup
+        .string()
+        .when("martialStatus", {
+          is: "Married",
+          then: yup
+            .string()
+            .trim()
+            .max(100, globalMessages?.Marital_Status_Max)
+            .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
+        })
+        .when("martialStatus", {
+          is: globalMessages.MaritalStatusLegal,
+          then: yup
+            .string()
+            .trim()
+            .max(100, globalMessages?.Marital_Status_Max)
+            .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only),
+        });
+    }
+    activeDutyValidation() {
+        return yup.string().when("state", {
+            is: "North Carolina",
+            then: yup.string().required(globalMessages?.Active_DutyRequired),
+          })
+            .when("state", {
+              is: "NC",
+              then: yup.string().required(globalMessages?.Active_DutyRequired),
+            }
+            );
+    }
+
+    activeDutyRankValidation() {
+        return yup.string().when("activeDuty", {
+            is: "Yes",
+            then: yup.string().required(globalMessages?.Active_Duty_Rank_Required),
+          });
+    }
+
+    martialStatusValidation() {
+        return yup.string().when("state", {
+            is: "Wisconsin",
+            then: yup.string().required(globalMessages?.Marital_Status_Required),
+          }).when("state", {
+            is: "WI",
+            then: yup.string().required(globalMessages?.Marital_Status_Required),
+          }
+          );
+    }
+
+    phoneTypeValidation() {
+        return yup
+        .string(globalMessages.PhoneType)
+        .max(30, globalMessages.PhoneTypeMax)
+        .required(globalMessages.PhoneTypeRequired);
+    }
+
+    ssnLastFourDigitValidation() {
+        return yup
+        .string(globalMessages.SSNEnter)
+        .required(globalMessages.SSNRequired)
+        .transform((value) => value.replace(/[^\d]/g, ""))
+        .matches(/^(?!0000)\d{4}$/, globalMessages.SSNValid)
+        .min(4, globalMessages.SSNMin_four);
+    }
+
+    cityValidation() {
+        return yup
+        .string(globalMessages?.Address_City)
+        .max(30, globalMessages?.Address_City_Max)
+        .required(globalMessages?.Address_Home_City);
+    }
+    
+    citizenshipValidation() {
+        return yup
+        .string(globalMessages?.CitizenshipEnter)
+        .max(30, globalMessages?.CitizenshipMax)
+        .required(globalMessages?.CitizenshipRequired);
+    }
+
+    employementStatusValidation() {
+        return yup
+        .string(globalMessages?.EmploymentEnter)
+        .max(30, globalMessages?.EmploymentMax)
+        .required(globalMessages?.EmploymentRequired);
+    }
+
+    streetAddressValidation() {
+        return yup
+        .string(globalMessages?.Address_Street)
+        .trim()
+        .max(100, globalMessages?.Address_Street_Max)
+        .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
+        .required(globalMessages?.Address_Street_Required);
     }
     getFormValidationRule(type = "login") {
         if (type === 'login') {

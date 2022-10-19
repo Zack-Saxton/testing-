@@ -36,7 +36,7 @@ const validationSchema = yup.object({
     .required(globalMessages.Address_Home_City),
   state: yup
     .string(globalMessages.Address_State)
-    .max(30, globalMessages.Length_max_30)
+    .max(30, globalMessages.Address_State_Max)
     .required(globalMessages.Address_State_Required),
   zip: yup
     .string(globalMessages.ZipCodeEnter)
