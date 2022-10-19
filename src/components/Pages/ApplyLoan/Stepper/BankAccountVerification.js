@@ -544,8 +544,11 @@ export default function BankAccountVerification(props) {
 							stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 							onClick={(_event) => {
 								formik.resetForm();
+								setAccountTypeError('');
+								setAccountType("");
 								setVerifyRequired(false);
-								setResetUpload(!resetUpload)
+								setResetUpload(!resetUpload);
+
 							}}
 							id="button_stepper_reset"
 						>
