@@ -18,8 +18,6 @@ import Cookies from "js-cookie";
 //initializing check my offers functonal component
 function SelectAmount(props) {
   const { data, setData, resetData } = useContext(Check);
-  const [ hoverColor, setHoverColor ] = useState(true);
-  const [ amount, setAmount ] = useState(true);
   const [ hasOfferCode, setHasOfferCode ] = useState(props?.enableOffer ?? false);
   const classes = preLoginStyle();
   const navigate = useNavigate();
@@ -123,12 +121,9 @@ if(check_source && check_campaignType){
   };
 
   const changeColor = () =>{
-    if (hoverColor !== false){
-      setHoverColor(false);
+    if (data?.hoverColor !== false || data?.amount !== false){
+      setData({ ...data, hoverColor: false, amount: false });
     }     
-    if (amount !== false){
-      setAmount(false);
-    } 
 }
   // jsx part
   return (
@@ -171,10 +166,10 @@ if(check_source && check_campaignType){
                 >
                   <Grid item xs={11} sm={10} md={8} lg={8} xl={8}>
                     <Slider
-                      amount={amount}
+                      amount={data?.amount}
                       marks={[]}
                       id="sliderBar"
-                      className={hoverColor ? classes.hideSection : classes.showSection}
+                      className={data?.hoverColor ? classes.hideSection : classes.showSection}
                       onMouseEnter={changeColor} 
                       onFocus={changeColor}
                       name="slider"
@@ -232,7 +227,7 @@ if(check_source && check_campaignType){
                         data-testid="contButton"
                         stylebutton='{"background": "#FFBC23", "color":"black","fontSize":"15px","padding":"0px 30px"}'
                         onClick={handleRoute}
-                        disabled={data.loading}
+                        disabled={data.loading || data?.amount}
                       >
                         Continue
                         <i

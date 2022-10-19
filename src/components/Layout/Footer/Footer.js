@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import housingImage from "../../../assets/images/equal_Housing_Lender.png";
 import badge from "../../../assets/images/FeefoRatting.png";
 import Logo from "../../../assets/images/mf-logo.png";
@@ -169,9 +169,9 @@ export default function Footer() {
           <div className="footerText">
             <span>
               &#169; {new Date().getFullYear()}{' '}
-              <a className="footerHomeLink" href="/customers/accountOverview" >
+              <Link className="footerHomeLink" to="/customers/accountOverview" >
                 Mariner Finance
-              </a>{" "}
+              </Link>{" "}
               All rights reserved.
             </span>
           </div>

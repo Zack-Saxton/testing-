@@ -99,6 +99,19 @@ export class FormValidationRules {
             .matches(/^(\d)(?!\1+$)\d{8}$/, globalMessages.SSNValid)
             .min(9, globalMessages.SSNMin);
     }
+    phoneNumber() {
+        return yup
+		.string(globalMessages.PhoneEnter)
+		.required(globalMessages.PhoneRequired)
+		.transform((value) => value.replace(/[^\d]/g, ""))
+		//eslint-disable-next-line
+		.matches(
+			/^[1-9]{1}\d{2}\d{3}\d{4}$/,
+			globalMessages.PhoneValid
+		)
+		.matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
+		.min(10, globalMessages.PhoneMin)
+    }
     getFormValidationRule(type = "login") {
         if (type === 'login') {
             return yup.object({

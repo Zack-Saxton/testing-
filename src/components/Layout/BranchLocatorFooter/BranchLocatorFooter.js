@@ -12,6 +12,7 @@ import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
 import SocialMediaDialog from "../ConsumerFooterDialog/SocialMediaDialog";
 import "./BranchLocatorFooter.css";
 import globalMessages from "../../../assets/data/globalMessages.json";
+import { Link } from "react-router-dom";
 
 export default function BranchLocatorFooter() {
   const [ consumer, setConsumer ] = useState(false);
@@ -318,9 +319,9 @@ export default function BranchLocatorFooter() {
           <Box sx={{ flexGrow: 1, justifyContent: "space-evenly" }}>
             <Grid container className="footerLogoLinksWrap">
               <Grid item xs={12} sm={12} md={3}>
-                <a className="footerLogoimageWrap" aria-label="footerLogoimageWrap" href="#">
-                  <img data-testid="footerLogoImage" alt = "" src={Logo} />
-                </a>
+                <Link className="footerLogoimageWrap" to="#">
+                  <img data-testid="footerLogoImage" src={Logo} />
+                </Link>
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
                 <div className="row">
@@ -343,14 +344,14 @@ export default function BranchLocatorFooter() {
                 </div>
               </Grid>
               <Grid item xs={12} sm={12} md={3}>
-                <a className="footerLogoimageWrap" aria-label="imgHousingAriaLabel" href="#">
+                <Link className="footerLogoimageWrap" to="#">
                   <img
                     data-testid="housingImage"
                     src={Housing}
                     className="imgHousing"
                     alt = ""
                   />
-                </a>
+                </Link>
               </Grid>
             </Grid>
           </Box>

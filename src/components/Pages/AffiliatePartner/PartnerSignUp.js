@@ -375,13 +375,13 @@ const preventEvent = (event) => {
                     data-testid="title"
                     color="textSecondary"
                   >
-                    <a href="/#" target="blank">
+                    <Link to="/#" target="blank">
                       <img
                         className={classes.fullWidth}
                         src={utmLogoList[utm_source]}
                         alt={`${utm_source}logo`}
                       />
-                    </a>
+                    </Link>
                   </Typography>
                 ) : (
                   ""

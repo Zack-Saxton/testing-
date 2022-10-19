@@ -270,11 +270,9 @@ function UploadDocument(props) {
             </Typography>
           </MenuItem>
           <MenuItem>
-            <a className="nav_link ">
               <Typography data-testid = "render_uploadFromCamera" className={classes.dropdownMenu} onClick={enableCameraOption}>
                 Upload from Camera
               </Typography>
-            </a>
           </MenuItem>
         </Menu>
         {showCamera ?
