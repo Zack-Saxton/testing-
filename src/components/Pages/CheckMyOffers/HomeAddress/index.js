@@ -21,15 +21,12 @@ import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
 import ScrollToTop from "../ScrollToTop";
+import { FormValidationRules } from "../../../lib/FormValidationRule";
+let formValidation = new FormValidationRules();
 
 //yup validation schema
 const validationSchema = yup.object({
-  streetAddress: yup
-    .string(globalMessages.Address_Street)
-    .trim()
-    .max(100, globalMessages.Length_max_100)
-    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
-    .required(globalMessages.Address_Street_Required),
+  streetAddress: formValidation.streetAddressValidation(),
   city: yup
     .string(globalMessages.Address_City)
     .max(30, globalMessages.Length_max_30)
