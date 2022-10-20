@@ -1,19 +1,19 @@
-import { useMultiFactorAuthentication } from "../components/Pages/MultiFactorAuthentication/useMultiFactorAuthentication";
+import { useMultiFactorAuthentication } from '../hooks/useMultiFactorAuthentication';
 import { mfaDetails } from "./data/MultiFactorAuthentication";
 
-jest.mock("../components/Pages/MultiFactorAuthentication/useMultiFactorAuthentication", ()=>({
+jest.mock('../hooks/useMultiFactorAuthentication', ()=>({
   useMultiFactorAuthentication: jest.fn(),
 }))
 
 export const MfaDataMock = () => {
   useMultiFactorAuthentication.mockImplementation(() => ({
-    loading_mfaData : false,
-    mfaInfo : mfaDetails,
+    isLoading : false,
+    data : mfaDetails,
   }));
 }
 
 export const MfaDataMockLoading = () => {
   useMultiFactorAuthentication.mockImplementation(() => ({
-    loading_mfaData: true,
+    isLoading: true,
   }));
 }

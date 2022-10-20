@@ -22,6 +22,7 @@ import MarketingOffer from "./Marketing_offer/MarketingOffer";
 import OptOutNotice from "./Marketing_offer/OptOutNotice";
 import PreScreen from "./Marketing_offer/PreScreen";
 import { useStylesAccountOverview } from "./Style";
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 import "./Style.css";
 
 export default function LimitedOffer(userOfferData) {
@@ -41,7 +42,7 @@ export default function LimitedOffer(userOfferData) {
   const branchCno = myBranchData?.PhoneNumber ?? "";
   const branchName = myBranchData?.branchName ? (`${ myBranchData?.branchName } Branch`) : "";
   const branchManager = myBranchData?.branchmanager ?? "";
-  const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
+  const { data: dataAccountOverview } = useAccountOverview();
   
   const getSourceUser = dataAccountOverview?.data?.application?.processing?.tokens
   const getSourceOffer = dataAccountOverview?.data?.application?.attributes?.promo_offer?.CampaignTypeDesc

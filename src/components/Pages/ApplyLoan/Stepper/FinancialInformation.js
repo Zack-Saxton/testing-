@@ -13,7 +13,7 @@ import {
 import messages from "../../../lib/Lang/applyForLoan.json";
 import {trimSpecialCharacters} from "../../../Controllers/CommonController";
 import globalMessages from "../../../../assets/data/globalMessages.json";
-import { useAccountOverview } from "../../AccountOverview/AccountOverviewHook/useAccountOverview";
+import { useAccountOverview } from "../../../../hooks/useAccountOverview"
 import "./stepper.css"
 
 //styling part
@@ -62,7 +62,7 @@ export default function FinancialInformation(props) {
   //Initiaizing state variable
   const [ error, setError ] = useState('');
   const classes = useStyles();
-  const {  accountDetails } = useAccountOverview();
+  const {  data : accountDetails } = useAccountOverview();
   const checkEmployStatus = accountDetails?.data?.applicant?.self_reported?.employment_status;
 
   let formik = useFormik({

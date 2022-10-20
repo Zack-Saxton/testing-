@@ -16,13 +16,14 @@ import NumberFormat from 'react-number-format';
 import { NavLink } from "react-router-dom";
 import { useStylesLoanHistory } from "./Style";
 import usrAccountDetails from "../../Controllers/AccountOverviewController"
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 import "./Style.css";
 
 export default function LoanHistoryTable() {
 
   //Material UI css class
   const classes = useStylesLoanHistory();
-  const { isLoading, data: accountDetails } = useQuery('loan-data', usrAccountDetails);
+  const { isLoading, data: accountDetails } = useAccountOverview()
   //View part
   return (
     <Grid item xs={12} className={classes.gridRecordTable} data-testid="with_Data">

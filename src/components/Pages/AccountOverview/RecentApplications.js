@@ -13,7 +13,7 @@ import React, { useContext } from "react";
 import NumberFormat from 'react-number-format';
 import { useNavigate } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
-import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 import { useStylesAccountOverview } from "./Style";
 import { NavContext } from "../../../contexts/NavContext";
 import { statusStrLinks } from "../../lib/StatusStrLinks" 
@@ -23,7 +23,7 @@ import GenerateTableHeader from "./../PaymentHistory/GenerateTableHeader";
 export default function RecentApplications() {
   //Material UI css class
   const classes = useStylesAccountOverview();
-  const { isLoading, accountDetails } = useAccountOverview();
+  const { isLoading, data : accountDetails } = useAccountOverview();
   const { data, setData } = useContext(NavContext);
   const { dataNavmessage } = useContext(NavContext);
 

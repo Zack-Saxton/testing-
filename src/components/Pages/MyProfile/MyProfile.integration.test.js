@@ -10,6 +10,7 @@ import ProfilePicture from '../../../contexts/ProfilePicture';
 import MyProfile from './MyProfile';
 import { GlobalStateProvider } from "../../../../src/contexts/GlobalStateProvider";
 import { LoanDataMock } from "./../../../__mock__/LoanData.mock";
+import { useAccountOverview } from '../../../hooks/useAccountOverview';
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -36,7 +37,7 @@ const component = () => {
 	);
 }
 
-jest.mock("./../AccountOverview/AccountOverviewHook/useAccountOverview", ()=>({
+jest.mock('../../../hooks/useAccountOverview', ()=>({
   useAccountOverview: jest.fn(),
 }))
 Cookies.set("hasActiveLoan", true);

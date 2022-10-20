@@ -16,7 +16,7 @@ import { useQuery } from 'react-query';
 import { NavLink } from "react-router-dom";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
-import { useAccountOverview } from "./../AccountOverview/AccountOverviewHook/useAccountOverview";
+import { useAccountOverview } from "../../../hooks/useAccountOverview"
 
 import getTextNotify from "../../Controllers/MyProfileController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
@@ -70,7 +70,7 @@ export default function MyProfile() {
   //Api call Profile Picture
   const { data: profileImage } = useQuery('my-profile-picture', ProfileImageController);
 
-  const { accountDetails } = useAccountOverview();
+  const { data : accountDetails } = useAccountOverview();
   if (!Cookies.get("temp_opted_phone_texting")) {
     Cookies.set("opted_phone_texting", accountDetails?.data?.customer?.latest_contact?.opted_phone_texting);
   } else {

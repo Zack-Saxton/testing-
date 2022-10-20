@@ -1,3 +1,5 @@
+import Moment from "moment";
+
 export const accountOverviewData = {
   "data":{
      "skip_session":true,
@@ -194,7 +196,7 @@ export const accountOverviewData = {
            "isActive":false,
            "applicantGuid":"AT-JE1647874278389",
            "status":"contact_branch",
-           "submissionDate":"03/21/2022",
+           "submissionDate":Moment(new Date()).format('MM/DD/YYYY'),
            "applicantType":"primary",
            "product":"Personal Loan",
            "amountRequested":5000,
@@ -205,7 +207,7 @@ export const accountOverviewData = {
            "isActive":false,
            "applicantGuid":"AT-JE1647871356037",
            "status":"contact_branch",
-           "submissionDate":"03/21/2022",
+           "submissionDate":Moment(new Date()).format('MM/DD/YYYY'),
            "applicantType":"primary",
            "product":"Personal Loan",
            "amountRequested":10000,
@@ -2613,7 +2615,73 @@ export const accountOverviewData = {
            ],
            "SuccessMessage":"",
            "HasNoErrors":true
-        }
+        },
+        {
+         "accountNumber":"1001-017915-16",
+         "AppAccountHistory":[
+            {
+               "TransactionDate":"2022-06-23T00:00:00",
+               "TransactionDescription":"Regular Payment",
+               "PrincipalAmount":-371.23,
+               "InterestAmount":0,
+               "OtherAmount":0,
+               "RunningPrincipalBalance":13904.88
+            },
+            {
+               "TransactionDate":"2022-06-13T00:00:00",
+               "TransactionDescription":"Regular Payment",
+               "PrincipalAmount":-1315.55,
+               "InterestAmount":0,
+               "OtherAmount":-55.68,
+               "RunningPrincipalBalance":14276.11
+            },
+            {
+               "TransactionDate":"2022-05-07T00:00:00",
+               "TransactionDescription":"Late Charge Assessed",
+               "PrincipalAmount":0,
+               "InterestAmount":0,
+               "OtherAmount":18.56,
+               "RunningPrincipalBalance":15591.66
+            },
+            {
+               "TransactionDate":"2022-04-06T00:00:00",
+               "TransactionDescription":"Late Charge Assessed",
+               "PrincipalAmount":0,
+               "InterestAmount":0,
+               "OtherAmount":18.56,
+               "RunningPrincipalBalance":15591.66
+            },
+            {
+               "TransactionDate":"2022-03-09T00:00:00",
+               "TransactionDescription":"Late Charge Assessed",
+               "PrincipalAmount":0,
+               "InterestAmount":0,
+               "OtherAmount":18.56,
+               "RunningPrincipalBalance":15591.66
+            },
+            {
+               "TransactionDate":"2022-01-27T00:00:00",
+               "TransactionDescription":"Principal Decrease",
+               "PrincipalAmount":0,
+               "InterestAmount":5594.9,
+               "OtherAmount":0,
+               "RunningPrincipalBalance":15591.66
+            },
+            {
+               "TransactionDate":"2022-01-27T00:00:00",
+               "TransactionDescription":"Open Loan",
+               "PrincipalAmount":15591.66,
+               "InterestAmount":0,
+               "OtherAmount":0,
+               "RunningPrincipalBalance":15591.66
+            }
+         ],
+         "Errors":[
+            
+         ],
+         "SuccessMessage":"",
+         "HasNoErrors":true
+      }
      ],
   }
 }

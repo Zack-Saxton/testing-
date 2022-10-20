@@ -41,9 +41,9 @@ import ScrollToTop from "../ScrollToTop";
 import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
 import { useStylesMakePayment } from "./Style";
-import { useAccountOverview } from "./useAccountOverview";
-import { usePaymentMethod } from "./usePaymentMethod";
-import { useHolidayCalender } from "./useHolidayCalender"
+import { useAccountOverview } from "../../../hooks/useAccountOverview"
+import { usePaymentMethod } from "../../../hooks/usePaymentMethod";
+import { useHolidayCalender } from "../../../hooks/useHolidayCalender"
 
 
 const paymentMaxDate = new Date();
@@ -88,9 +88,9 @@ export default function MakePayment() {
   const [ activeLoansData, setActiveLoansData ] = useState([]);
   const [ checkCard, setCheckCard ] = useState(false);
   const [ defaultPaymentCard, setDefaultPaymentCard ] = useState(false);
-  const { isFetching, User, refetch } = useAccountOverview();
-  const { payments } = usePaymentMethod();
-  const { holidayCalenderData } = useHolidayCalender();
+  const { isFetching, data : User, refetch } = useAccountOverview();
+  const { data : payments } = usePaymentMethod();
+  const { data : holidayCalenderData } = useHolidayCalender();
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
   const [stateName,setStatename] = useState("");
   const [ payOffAmount, setPayOffAmount] = useState();

@@ -61,6 +61,7 @@ import { verificationSteps } from "../../Controllers/ApplyForLoanController";
 import LogoutController from "../../Controllers/LogoutController";
 import branchDetails from "../../Controllers/MyBranchController";
 import ProfileImageController from "../../Controllers/ProfileImageController";
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 import MoneySkill from "../../Pages/MoneySkill/MoneySkill";
 import Notification from "../Notification/Notification";
 import "./SideNav.css";
@@ -203,7 +204,7 @@ export default function SideNav() {
   const { resetData } = useContext(CheckMyOffers);
   const { resetLoanAccount } = useContext(LoanAccount);
   const { dataNavmessage } = useContext(NavContext);
-  const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
+  const { data: dataAccountOverview } = useAccountOverview();
   const queryClient = useQueryClient();
   const [ activeLoanData, setActiveLoanData ] = useState(true);
   const [ currentLoan, setCurrentLoan ] = useState(true);

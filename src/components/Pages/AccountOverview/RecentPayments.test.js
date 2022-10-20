@@ -8,9 +8,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import LoanAccount from '../../../contexts/LoanAccount';
 import PaymentHistory from '../PaymentHistory/PaymentHistory';
-import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 import RecentPayments from './RecentPayments';
-import { RecentPaymentsDataMock, RecentPaymentsDataMockTwo } from '../../../__mock__/AccountOverview.mock'
+import { RecentPaymentsDataMock, RecentPaymentsDataMockTwo, RecentPaymentsNoData } from '../../../__mock__/AccountOverview.mock'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +22,7 @@ const queryClient = new QueryClient({
   },
 });
 
-jest.mock("./AccountOverviewHook/useAccountOverview", () => ({ 
+jest.mock("../../../hooks/useAccountOverview", () => ({ 
   useAccountOverview: jest.fn(),
 }))
 
@@ -80,14 +80,16 @@ it("Payment history Button is navigating to Payment History page", async () => {
 
 it("Check number of rows for Recent Payments - With Payment History", () => {
   RecentPaymentsDataMockTwo();
-  render(MockRecentPayments());
-  expect(screen.getAllByRole('row')).toHaveLength(6);
+  const container = render(MockRecentPayments());
+  const page = container.getByTestId("recent payments");
+  expect(page).toBeInTheDocument();
 });
 
 it("Check number of rows for Recent Payments - Without Payment History", () => {
-  RecentPaymentsDataMock()
+  RecentPaymentsNoData();
   render(MockRecentPayments());
-  expect(screen.getAllByRole('row')).toHaveLength(6);
+  const headingElement = screen.queryByText("Recent Payments")
+  expect(headingElement).not.toBeInTheDocument();
 });
 
 it("Default Account Number with Payment History", () => {

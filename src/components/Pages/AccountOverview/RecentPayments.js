@@ -10,7 +10,7 @@ import NumberFormat from "react-number-format";
 import { NavLink } from "react-router-dom";
 import { LoanAccount } from "../../../contexts/LoanAccount";
 import { ButtonPrimary, Select, TableCellWrapper } from "../../FormsUI";
-import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
 import GenerateTableHeader from "./../PaymentHistory/GenerateTableHeader";
@@ -18,7 +18,7 @@ import GenerateTableHeader from "./../PaymentHistory/GenerateTableHeader";
 export default function RecentPayments() {
   //Material UI css class
   const classes = useStylesAccountOverview();
-  const { isLoading, accountDetails } = useAccountOverview();
+  const { isLoading, data : accountDetails } = useAccountOverview();
   const { selectedLoanAccount, setSelectedLoanAccount } =
     useContext(LoanAccount);
   const [defaultLoanAccount, setDefaultLoanAccount] = useState();

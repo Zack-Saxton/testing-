@@ -6,6 +6,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import CardContent from "./CardContent";
+import { useAccountOverview } from '../../../hooks/useAccountOverview';
 import { LoanDataMock, LoanDataMockWithIsLoading } from "./../../../__mock__/LoanData.mock";
 
 const queryClient = new QueryClient({
@@ -18,7 +19,7 @@ const queryClient = new QueryClient({
 	},
 });
 
-jest.mock("../AccountOverview/AccountOverviewHook/useAccountOverview", () => ({
+jest.mock('../../../hooks/useAccountOverview', () => ({
   useAccountOverview: jest.fn(),
 }))
 

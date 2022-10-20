@@ -11,6 +11,7 @@ import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import { useAccountOverview } from '../../../hooks/useAccountOverview';
 import { mailingAddress } from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
@@ -50,7 +51,7 @@ export default function MailingAddress(props) {
   const [ errorMsg, setErrorMsg ] = useState("");
   const navigate = useNavigate();
   const [ , setProfileTabNumber ] = useGlobalState();
-  const { refetch } = useQuery('loan-data', usrAccountDetails);
+  const { refetch } = useAccountOverview()
 
   let basicInfo = props?.basicInformationData?.latest_contact;
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));

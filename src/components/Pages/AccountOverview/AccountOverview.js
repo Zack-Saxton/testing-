@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import React from "react";
 import CheckLoginStatus from "../../App/CheckLoginStatus";
 import ScrollToTop from "../ScrollToTop";
-import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 import ActiveLoans from "./ActiveLoans";
 import LimitedOffer from "./LimitedOffer";
 import RecentApplications from "./RecentApplications";
@@ -15,7 +15,7 @@ import "./Style.css";
 export default function AccountOverview() {
   const classes = useStylesAccountOverview();
   //API Call
-  const { isLoading, accountDetails } = useAccountOverview();
+  const { isLoading, data : accountDetails } = useAccountOverview();
   //Load data
   let offerData = accountDetails?.data?.offerData;
   let activeLoansData = accountDetails?.data?.activeLoans;
