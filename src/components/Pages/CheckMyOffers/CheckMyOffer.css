@@ -174,17 +174,6 @@
 .imgFullWidth {
 	width: 100%;
 }
-
-/* .progress {
-	position: relative;
-	display: block;
-	overflow: hidden;
-	width: 100%;
-	margin: 0.5rem 0 0.938rem 0;
-	background-color: white;
-	height: 16px !important;
-	text-align: left !important;
-} */
 .MuiPaper-rounded{
   border-radius: 10px !important;
 }

@@ -3,45 +3,37 @@
   display: flex;
   justify-content: space-evenly;
 }
-
 .branchLocatorFooterWrap {
   max-width: 1200px;
   margin: auto;
   padding: 40px 30px 20px 30px;
 }
-
 .section-bottom {
   background: linear-gradient(85deg, #264266, #0f4eb3) !important;
   text-align: left;
   padding: 15px 70px;
 }
-
 .section-bottom div {
   max-width: 1200px;
   margin: auto;
 }
-
 .centerAlignAddress {
   font-size: 1.078rem !important;
   line-height: 1.5;
   text-align: center;
 }
-
 .footerHrefTag {
   text-decoration: none;
   color: #333;
   cursor: pointer;
   line-height: 1.5;
 }
-
 .paragraph {
   padding: "20px 0px 0px 0px";
 }
-
 .paragraph p {
   text-align: justify;
 }
-
 .paragraph p small {
   font-size: 0.875rem;
 }
@@ -49,7 +41,6 @@
   font-size: 15px;
   line-height: 1.5;
 }
-
 .footerLinkstitle {
   font-family: MuliBold, sans-serif !important;
   color: #333;
@@ -60,7 +51,6 @@
   color: #214476;
   text-decoration: none;
 }
-
 .socialIcons {
   background-color: #214476 !important;
   border-radius: 5px !important;
@@ -68,25 +58,20 @@
   color: white !important;
   margin-right: 10px !important;
 }
-
 .socialIcons span svg {
   font-size: 20px;
 }
-
 .footerLogoLinksWrap {
   align-items: center;
 }
-
 .footerLogoimageWrap {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .socialIconsWrap {
   display: flex;
 }
-
 @media all and (max-width: 1024px) {
 
   .branch-Locator-Footer,
@@ -94,75 +79,54 @@
     padding: 20px 0px !important;
   }
 }
-
-@media all and (max-width: 1024px) {
-
-  .branch-Locator-Footer,
-  .paragraph {
-    padding: 20px 0px !important;
-  }
-}
-
 @media all and (max-width: 700px) {
   .row {
     display: unset !important;
   }
 }
-
 @media all and (max-width: 960px) {
   .section-bottom {
     padding: 15px 40px !important;
   }
 }
-
 @media all and (max-width: 420px) {
   .centerAlignAddress {
     display: flex;
     flex-direction: column;
   }
 }
-
 .mainDivBranchLocatorFooter {
   background: #d7e6ed
 }
-
 .footeBranchLocator {
   width: 100%
 }
-
 .divFooterLinkTitle {
   margin-bottom: 30px
 }
-
 .branchfooterUl {
   margin: 0px;
   padding-left: 0px;
 }
-
 .branchfooterLi {
   list-style-type: none;
 }
-
 .californiaPara {
   text-align: left;
 }
-
 .alignAddressDiv {
   padding-top: 15px;
   padding-bottom: 15px;
 }
-
 .alignAddressSpan {
   margin: 0;
   cursor: pointer;
   overflow-wrap: break-word;
   letter-spacing: 0.3px;
 }
-
 .copyrightSpan {
   color: white;
 }
-
 .imgHousing {
   display: block;
   margin-left: auto;

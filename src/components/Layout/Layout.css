@@ -1,12 +1,6 @@
 #BG {
   background-color: #f6f6f6;
 }
-.headerWrap {
-  position: sticky !important;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-}
 .branchLocatorTopBar {
   background: linear-gradient(to left, #264266, #0f4eb3);
 }
