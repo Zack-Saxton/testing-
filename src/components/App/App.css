@@ -1,9 +1,6 @@
 .app {
   text-align: center;
 }
-.gridStyle {
-  margin: 30px;
-}
 .topBar {
   height: 36px;
   background: linear-gradient(to left, #264266, #0F4EB3);
