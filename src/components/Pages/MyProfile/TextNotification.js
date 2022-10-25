@@ -27,6 +27,8 @@ import {
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
+import { FormValidationRules } from "../../lib/FormValidationRule";
+let formValidation = new FormValidationRules();
 
 export default function TextNotification() {
   const classes = useStylesMyProfile();
@@ -45,14 +47,7 @@ export default function TextNotification() {
   };
 
   const phoneValidationSchema = yup.object().shape({
-    phone: yup
-      .string(globalMessages.NameEnter)
-      .required(globalMessages.PhoneRequired)
-      .transform((value) => value.replace(/[^\d]/g, ""))
-      .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
-      .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
-      .min(10, globalMessages.PhoneMin),
-
+    phone: formValidation.phoneNumber(),
     acceptTerms: yup
       .boolean()
       .oneOf([ true ], globalMessages.Accept_Text_Terms)

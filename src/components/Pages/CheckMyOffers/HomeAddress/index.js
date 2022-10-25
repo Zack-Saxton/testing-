@@ -27,18 +27,9 @@ let formValidation = new FormValidationRules();
 //yup validation schema
 const validationSchema = yup.object({
   streetAddress: formValidation.streetAddressValidation(),
-  city: yup
-    .string(globalMessages.Address_City)
-    .max(30, globalMessages.Length_max_30)
-    .required(globalMessages.Address_Home_City),
-  state: yup
-    .string(globalMessages.Address_State)
-    .max(30, globalMessages.Address_State_Max)
-    .required(globalMessages.Address_State_Required),
-  zip: yup
-    .string(globalMessages.ZipCodeEnter)
-    .min(5, globalMessages.ZipCodeMax)
-    .required(globalMessages.ZipCodeRequired),
+  city: formValidation.cityValidation(),
+  state: formValidation.stateValidation(),
+  zip: formValidation.zipCode(),
 });
 // Home address component initialization
 function HomeAddress() {

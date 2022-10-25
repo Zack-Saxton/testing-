@@ -23,23 +23,11 @@ import { useAccountOverview } from '../AccountOverview/AccountOverviewHook/useAc
 import "./Style.css";
 import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../Controllers/CommonController'
 import { usePhoneNumber } from '../../../hooks/usePhoneNumber';
-
+import { FormValidationRules } from "../../lib/FormValidationRule";
+let formValidation = new FormValidationRules();
 const validationSchema = yup.object({
-  email: yup
-    .string(globalMessages.EmailEnter)
-    .email(globalMessages.EmailValid)
-    .matches(
-      /^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9+/._-]+\.[a-zA-Z]{2,6}$/, //eslint-disable-line
-      globalMessages.EmailValid
-    )
-    .required(globalMessages.EmailRequired),
-  phone: yup
-    .string(globalMessages.PhoneEnter)
-    .required(globalMessages.PhoneRequired)
-    .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
-    .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
-    .min(10, globalMessages.PhoneMin),
+  email: formValidation.email(),
+  phone: formValidation.phoneNumber(),
 });
 
 async function filetoImage(file) {

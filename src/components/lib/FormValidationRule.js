@@ -255,6 +255,22 @@ export class FormValidationRules {
         .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
         .required(globalMessages?.Address_Street_Required);
     }
+
+    appointmentDate(scheduleDateCall) {
+        return yup
+        .date(globalMessages.ValidDate)
+        .nullable()
+        .required(globalMessages.Appointment_Date_Required)
+        .typeError(globalMessages.ValidDate)
+        .max(scheduleDateCall, globalMessages.validCheckDate);
+    }
+
+    appointmentCallTime() {
+        return yup
+        .string(globalMessages.Enter_Appointment_Time)
+        .nullable()
+        .required(globalMessages.Appointment_Time_Required);
+    }
     getFormValidationRule(type = "login") {
         if (type === 'login') {
             return yup.object({
