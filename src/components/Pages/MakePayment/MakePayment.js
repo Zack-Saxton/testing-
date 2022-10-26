@@ -553,7 +553,7 @@ export default function MakePayment() {
 
   //Handling payment amount
   const onHandlepaymentAmount = (event) => {
-    let price = event.target.value.replace("$", "").replace(",", "");
+    let price = event.target.value.replace(/[$,]/g, "");
     const reg = /^\d{0,5}(\.\d{0,2})?$/;
     if (!price || reg.test(price)) {
       setPaymentAmount(price);
@@ -576,7 +576,7 @@ export default function MakePayment() {
 
   //payment onblur
   const onBlurPayment = (event) => {
-    let price = event.target.value.replace("$", "").replace(",", "");
+    let price = event.target.value.replace(/[$,]/g, "");
     price = Number(price).toFixed(2);
     let formatedValue = numberFormat(price);
     setPaymentAmount(formatedValue.replace("$", ""));
