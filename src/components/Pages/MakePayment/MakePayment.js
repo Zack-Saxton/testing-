@@ -535,8 +535,13 @@ export default function MakePayment() {
   const handleAutoPayClose = () => {
     setOpenAutoPay(false);
   };
-  const numberFormat = (value) =>
-    new Intl.NumberFormat("en-IN", { style: "currency", currency: "USD" }).format(value);
+  const numberFormat = (value) =>{
+    if(value){
+      let preFormat = value ? value.toString().replace(",", "") : value;
+      return new Intl.NumberFormat("en-IN", { style: "currency", currency: "USD" }).format(preFormat);
+    }
+    return value;
+  }
   //US holidays
   function disableHolidays(date) {
     const holidayApiData = holidayCalenderData?.data?.MFYearHolidays?.map(({ Date }) => formatDate(Date)) ?? [];
@@ -548,7 +553,7 @@ export default function MakePayment() {
 
   //Handling payment amount
   const onHandlepaymentAmount = (event) => {
-    let price = event.target.value.replace("$", "");
+    let price = event.target.value.replace("$", "").replace(",", "");
     const reg = /^\d{0,5}(\.\d{0,2})?$/;
     if (!price || reg.test(price)) {
       setPaymentAmount(price);
@@ -571,9 +576,10 @@ export default function MakePayment() {
 
   //payment onblur
   const onBlurPayment = (event) => {
-    let price = event.target.value.replace("$", "");
+    let price = event.target.value.replace("$", "").replace(",", "");
     price = Number(price).toFixed(2);
-    setPaymentAmount(price);
+    let formatedValue = numberFormat(price);
+    setPaymentAmount(formatedValue.replace("$", ""));
     setRequiredAmount("");
   };
   let paymentIsScheduled = hasSchedulePayment ? "yes" : "no";

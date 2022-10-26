@@ -61,7 +61,7 @@ export async function disableAutoPay(disableAutoPayAccountNo) {
 export async function makePayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
   try {
     let cards = scheduledPaymentCard.toString();
-    let paymentAmounts = scheduledPaymentAmount.toString();
+    let paymentAmounts = scheduledPaymentAmount.toString().replace(",","");
     let url = "make_payment";
     let param = "/" + scheduledPaymentAccountNo;
     let data = {
