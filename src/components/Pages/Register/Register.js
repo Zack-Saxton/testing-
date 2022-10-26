@@ -153,6 +153,7 @@ export default function Register() {
           loginUser(values, customerStatus);
         } else if (customerStatus?.data?.errorMessage === globalMessages.Multiple_Records){
           setFailed(globalMessages.Account_Already_Exists);
+          setLoading(false);          
         }
         else if (
           customerStatus?.data?.result === "error" &&
