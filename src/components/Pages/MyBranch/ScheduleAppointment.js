@@ -170,6 +170,7 @@ export default function ScheduleAppointment({
       <Grid item xs={12} className={classes.gridSchedule}>
         <ButtonPrimary
           id="scheduleAppointmentBtn"
+          aria-label = "scheduleAppointmentBtn"
           stylebutton='{"float": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
           onClick={handleScheduleAppointment}
           data-testid="appointment"

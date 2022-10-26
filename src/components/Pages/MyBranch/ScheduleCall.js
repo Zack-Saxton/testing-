@@ -163,6 +163,8 @@ export default function ScheduleCall({ MyBranchCall, holidayData, latitude, long
     <div>
       <Grid item xs={12} className={classes.gridSchedule}>
         <ButtonPrimary
+          id = "scheduleCallBtn"
+          aria-label = "scheduleCallBtn"
           stylebutton='{"float": "", "padding":"0px 30px", "fontSize":"0.938rem" }'
           onClick={handleScheduleCall}
           data-testid="schedule-call-component"
