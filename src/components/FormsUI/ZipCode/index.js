@@ -18,15 +18,16 @@ const ZipCodeWrapper = ({ name, error, helperText, value, onChange, refId, ...ot
   const [ isError, setIsError ] = useState(false);
   const [ helperText2, setHelperText2 ] = useState("");
 
-
+  const reg = /^[0-9\b]+$/;   
 	useEffect(() => {
-		setZipCode(value);
+    if (!value || reg.test(value)) {
+      setZipCode(value);
+    }
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ value ]);
+	}, [value]);
 
   //Account Number field onChange handle
   const onHandleZipcodeChange = (event) => {
-    const reg = /^[0-9\b]+$/;
     let zipcode = event.target.value.trim();
 
     if (!zipcode || reg.test(zipcode)) {
