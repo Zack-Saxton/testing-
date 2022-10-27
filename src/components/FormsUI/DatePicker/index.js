@@ -46,7 +46,7 @@ const DatePickerWrapper = ({ format, label, views,
 	const year = dateNow.getFullYear();
 	const month = dateNow.getMonth();
 	const day = dateNow.getDate();
-	const minDate = new Date(year - minyear, month, day);
+	const minDate = new Date(year - minyear, month, day + 1);
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
