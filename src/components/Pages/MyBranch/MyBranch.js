@@ -36,7 +36,7 @@ export default function MyBranch() {
       >
         <Grid container className={classes.gridMyBranch} data-testid="main-content">
           <Grid container className={classes.branchlocatorStyle} item xs={12}>
-            <Typography variant="h3" className={classes.heading}>
+            <Typography variant="h5" className={classes.heading}>
               <NavLink
               data-testid="my-branch"
                 to="/customers/accountOverview">
@@ -53,8 +53,8 @@ export default function MyBranch() {
               </NavLink>{" "}
               My Branch
             </Typography>
-            <Typography variant="h3" className={classes.heading} data-testid="branch-location">
-              Need to find another branch location? <NavLink to="/branch-locator"className={classes.navLinkMyBranch}>{" "}Click here</NavLink>
+            <Typography variant="h5" className={classes.heading} data-testid="branch-location">
+              Need to find another branch location? <NavLink  to="/branch-locator"className={classes.navLinkMyBranch}>Click here</NavLink>
             </Typography>
           </Grid>
         </Grid>
