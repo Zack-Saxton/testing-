@@ -245,6 +245,10 @@ const preventEvent = (event) => {
   };
   const utmSourceList = ["OneLoanPlace","GTL","amone","NerdWallet","LendingTree"];
   const utmLogoList = {"OneLoanPlace": OneLoanPlacelogo,"GTL": GTLlogo,"amone": amonelogo,"NerdWallet": NerdWalletlogo,"LendingTree": LendingTreelogo};
+
+  const onBlurAddress = (event) => {
+    formik.setFieldValue("spouseadd", event.target.value.trim());
+  };
   //View Part
   return (
     <div data-testid="partnerSignup_component">
@@ -500,6 +504,7 @@ const preventEvent = (event) => {
                           label="Spouse's Address (if different)"
                           value={formik.values.spouseadd}
                           onChange={formik.handleChange}
+                          onBlur={onBlurAddress}
                         />
                       </Grid>
                       <Grid
