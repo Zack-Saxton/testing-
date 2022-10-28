@@ -312,11 +312,12 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
     if (!income || reg.test(income)) {
       if(inputType === 1){
       setErrorPersonal("");
+      formik.setFieldValue(event.target.name, event.target.value.replace(/^0+/, '').replace(/^\$0+/, '$'));
       }
       else{
+        formik.setFieldValue(event.target.name, event.target.value.replace(/^0+/, '').replace(/^\$0+/, '$'));
         setErrorAnnual("");
       }
-      formik.handleChange(event);
     }
   };
 
@@ -751,6 +752,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                           label="Spouse's Address (if different)"
                           value={formik.values.spouseadd}
                           onChange={formik.handleChange}
+                          onBlur={onBlurAddress}
                         />
                       </Grid>
                       <Grid
