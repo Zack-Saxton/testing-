@@ -62,6 +62,7 @@ function ExistingUser() {
 			let retVal = await LoginController(data.email, values.password);
 			if (retVal?.data?.user && !retVal?.data?.result) {
 				let now = new Date().getTime();
+				Cookies.set("email", data.email);
 				Cookies.set(
 					"token",
 					JSON.stringify({
