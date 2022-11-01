@@ -149,8 +149,11 @@ export default function Register() {
         let register = customerStatus?.data?.message
         let passwordReset = customerStatus?.data?.successMessage
         if(customerStatus?.data?.statusCode !== 400 && (!customerStatus?.data?.errorMessage && !customerStatus?.data?.error)){
-          toast.success(register ? register : passwordReset);
-          loginUser(values, customerStatus);
+          toast.success(register ? register : passwordReset,
+            {
+              onClose: async () => {
+                loginUser(values, customerStatus);
+              }});
         } else if (customerStatus?.data?.errorMessage === globalMessages.Multiple_Records){
           setFailed(globalMessages.Account_Already_Exists);
           setLoading(false);          
