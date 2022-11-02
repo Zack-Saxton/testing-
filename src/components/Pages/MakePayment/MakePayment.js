@@ -218,6 +218,11 @@ export default function MakePayment() {
       })
   }
 
+  function pageLoader(flag) {
+    setLoading(flag);
+    setShowCircularProgress(flag);
+  }
+
   //Enable scheduled payment
   async function makeuserPayment(scheduledPaymentAccountNo, scheduledPaymentCard, scheduledPaymentDatePicker, scheduledPaymentIsDebit, scheduledPaymentAmount, RemoveScheduledPayment) {
     setOpenPayment(false);
@@ -229,8 +234,19 @@ export default function MakePayment() {
     result.status === 200
       ? result?.data?.paymentResult?.PaymentCompleted !== undefined
         ? handlePaymentSuccess()
-        : toast.error(globalMessages.Failed_Payment_mode, { autoClose: 5000 })
-      : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, { autoClose: 5000, });
+        : toast.error(globalMessages.Failed_Payment_mode, 
+          { autoClose: 5000,
+            onOpen: () => {
+              pageLoader(false);
+            }
+          })
+      : toast.error(result?.data?.message ? result?.data?.message : globalMessages.Failed_Payment_mode, 
+        { 
+          autoClose: 5000, 
+          onOpen: () => {
+            pageLoader(false);
+          }
+        });
     }
   }
   //Disable scheduled payment
