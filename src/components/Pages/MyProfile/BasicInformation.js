@@ -153,7 +153,14 @@ export default function BasicInformation(props) {
           }));
         }
       };
-
+      const showErrorMessage = (message) => {
+        if (!toast.isActive("closeToast")) {
+          toast.error(message, {
+            toastId: "closeToast",
+            onClose: () => { setLoading(false); }
+          });
+        }
+      }
       const uploadBasicInfoImageChange = async () => {
         if (selectedFile) {
           let filePath = selectedFile.value;
@@ -228,16 +235,7 @@ export default function BasicInformation(props) {
                   }
                 }
                 else {
-                  if (!toast.isActive("closeToast")) {
-                    toast.error(globalMessages.FileUploadError,
-                      {
-                        toastId: "closeToast",
-                        onClose: () => {
-                          setLoading(false);
-                        }
-                      }
-                    );
-                  }
+                  showErrorMessage(globalMessages.FileUploadError);                  
                 }
               };
               reader.readAsDataURL(selectedFile.files[ 0 ]);
@@ -255,44 +253,32 @@ export default function BasicInformation(props) {
       };
 
       if (formik.initialValues.phone === phone && formik.initialValues.email === values.email && !selectedFile) {
-        if (!toast.isActive("closeToast")) {
-          toast.error(globalMessages.NoChange, {
-            toastId: "closeToast",
-            onClose: () => { setLoading(false); }
-          });
-        }
+        showErrorMessage(globalMessages.NoChange);        
       }
       else {
         let res = await basicInformation(body);
+        let notesLength = res?.data?.notes?.length ?? 0;
         if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && selectedFile !== null)) {
-          if (res?.data?.notes.length !== 0 && selectedFile !== null) {
+          if (notesLength !== 0 && selectedFile !== null) {
             uploadBasicInfoImageChange();
+          }else if(res?.data?.statusCode == 400){
+            showErrorMessage(globalMessages.INVALIDENTRY);            
           }
         } else if (selectedFile !== null) {
           uploadBasicInfoImageChange();
         } else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
-          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
+          if (notesLength !== 0 && res?.data?.emailUpdate) {
             uploadBasicInfoChange();
           }
         } else if (formik.initialValues.email !== values.email || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email)) {
            if(res?.data?.statusCode == 400){
-            if (!toast.isActive("closeToast")) {
-              toast.error(globalMessages.INVALIDENTRY, {
-                toastId: "closeToast",
-                onClose: () => { setLoading(false); }
-              });
-            }
+            showErrorMessage(globalMessages.INVALIDENTRY);            
           }
-           if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
+          if (notesLength !== 0 && res?.data?.emailUpdate) {
               uploadBasicInfoChangeLogOut();
           }
         } else {
-          if (!toast.isActive("closeToast")) {
-            toast.error(globalMessages.TryAgain, {
-              toastId: "closeToast",
-              onClose: () => { setLoading(false); }
-            });
-          }
+          showErrorMessage(globalMessages.TryAgain);          
         }
       }
     }
