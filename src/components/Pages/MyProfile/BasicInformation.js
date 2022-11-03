@@ -157,7 +157,7 @@ export default function BasicInformation(props) {
         if (!toast.isActive("closeToast")) {
           toast.error(message, {
             toastId: "closeToast",
-            onClose: () => { setLoading(false); }
+            onOpen: () => { setLoading(false); }
           });
         }
       }
