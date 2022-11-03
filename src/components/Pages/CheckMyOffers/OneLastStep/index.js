@@ -382,6 +382,7 @@ function SSN() {
 															href={
 																"https://lms.moneyskill.org/yourcreditrating/mariner"
 															}
+															target="_blank"
 															rel="noreferrer noopener"
 														>
 															Credit Education Program
@@ -410,6 +411,7 @@ function SSN() {
 														<a
 															className="formatURL"
 															href={process.env.REACT_APP_NEW_MEXICO_CONSUMER_BROCHURE}
+															target="_blank"
 															rel="noreferrer noopener"
 														>
 															New Mexico Consumer Brochure.

@@ -16,7 +16,7 @@ function VehiclePhotos(props) {
       <Grid item sm={12} md={6} className={classes.nextButton}>
         <ButtonPrimary
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
-          href={`${ process.env.REACT_APP_GOLDPOINT_HOST_NAME}/?applicationNumber=${ props.applicationNumber }`}
+          target="_blank" href={`${ process.env.REACT_APP_GOLDPOINT_HOST_NAME}/?applicationNumber=${ props.applicationNumber }`}
           data-testid = "UploadVehicle_photo"
         >
           Upload Vehicle Information
