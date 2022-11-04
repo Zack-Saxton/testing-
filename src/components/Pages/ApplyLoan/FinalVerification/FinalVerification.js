@@ -18,10 +18,28 @@ export default function FinalVerification() {
   const classes = useStylesApplyForLoan();
   const [ value, setValue ] = useState(2);
   const handleChange = (_event, newValue) => setValue(newValue);
+   
+  const loadZenDesk = () => {
+    const existingZenDeskScript = document.getElementById('ze-snippet');
+    if (!existingZenDeskScript) {
+    const script = document.createElement("script");
+    script.src = `https://static.zdassets.com/ekr/snippet.js?key=`+`${process.env.REACT_APP_ZE}`;
+    script.async = true;
+    script.id="ze-snippet"   
+    document.body.appendChild(script);    
+    }else if(existingZenDeskScript)
+    {
+      zE("webWidget", "show")
+    }    
+  };
+
+//Load Zendesk
   useEffect(() => {
+    loadZenDesk()
     return () => zE('webWidget', 'hide');
-  }, []);
-  zE('webWidget', 'show');
+    }, []);
+
+
   //JSX part
   return (
     <div>
