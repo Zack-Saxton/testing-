@@ -19,13 +19,19 @@ import "../iframe.css";
 
 const DatePickerWrapper = ({ format, label, views,
 	placeholder, required, onChange, disableDate, disablePastDate,
-	maxdate, minyear, error, helperText, value, mask, disableFuture, ...otherProps }) => {
-
+	maxdate, minyear, error, value, helperText, mask, disableFuture, ...otherProps }) => {
+		
+		const offset = (utcTime) => {
+			const tzoffset = utcTime.getTimezoneOffset() * 60000
+			const localTime = new Date(utcTime.getTime() + tzoffset)
+			return localTime
+	}
+	
 	const [ selectedDate, setSelectedDate ] = useState(value ?? null);
 	const [ errorTF, setErrorTF ] = useState(false);
 	const [ helperTextTF, setHelperTextTF ] = useState("");
 	useEffect(() => {
-		setSelectedDate(value);
+		setSelectedDate(value ? offset(new Date(value)) : value);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ value ]);
 	const handleDateChange = (event) => {
