@@ -27,12 +27,11 @@ const DatePickerWrapper = ({ format, label, views,
 			return localTime
 	}
 	
-	value = value ? offset(new Date(value)) : value;
 	const [ selectedDate, setSelectedDate ] = useState(value ?? null);
 	const [ errorTF, setErrorTF ] = useState(false);
 	const [ helperTextTF, setHelperTextTF ] = useState("");
 	useEffect(() => {
-		setSelectedDate(value);
+		setSelectedDate(value ? offset(new Date(value)) : value);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ value ]);
 	const handleDateChange = (event) => {
