@@ -33,7 +33,7 @@ const DatePickerWrapper = ({ format, label, views,
 	useEffect(() => {
 		setSelectedDate(value ? offset(new Date(value)) : value);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ value ]);
+	}, []);
 	const handleDateChange = (event) => {
 		setSelectedDate(event);
 		setErrorTF((required && !event.target.value));
