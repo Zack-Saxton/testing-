@@ -43,3 +43,8 @@ export const maskPhoneNumberWithAsterisk = (phoneNumberToMask) => {
   let firstNumber = phoneNumberToMask.slice(0, 10);
   return firstNumber.replace(/\d/g, '*') + phoneNumberToMask.slice(10);
 }
+
+export const handleDateOffset = (utcTime) => {
+  const tzoffset = utcTime.getTimezoneOffset() * 60000;
+  return  new Date(utcTime.getTime() + tzoffset);
+}

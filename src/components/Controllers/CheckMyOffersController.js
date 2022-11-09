@@ -1,5 +1,5 @@
 import axios from "axios";
-import getClientIp, {trimSpecialCharacters} from "../Controllers/CommonController";
+import getClientIp, {trimSpecialCharacters, handleDateOffset} from "../Controllers/CommonController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import globalMessages from "../../assets/data/globalMessages.json";
@@ -166,7 +166,7 @@ export async function checkMyOfferSubmit(customer) {
 				"customer": {
 					"identification": {
 						"citizenship": customer.citizenship,
-						"date_of_birth": Moment(customer.dob).format("MM/DD/YYYY"),
+						"date_of_birth": Moment(handleDateOffset(customer.dob)).format("MM/DD/YYYY"),
 						"age": Math.abs(new Date(Date.now() - customer.dob.getTime()).getUTCFullYear() - 1970),
 						"social_security_number_backup": customer.ssn,
 						"social_security_number": customer.ssn,
