@@ -11,7 +11,8 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import {
 	checkMyOfferSubmit as submitApplication,
-	getCustomerByEmail
+	getCustomerByEmail,
+	updateProspect
 } from "../../../Controllers/CheckMyOffersController";
 import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI";
 import "../CheckMyOffer.css";
@@ -138,6 +139,7 @@ function SSN() {
 		if (result?.data?.AppSubmittedInLast30Days) {
 			stopLoading();		
 		} else if (!result?.data?.AppSubmittedInLast30Days) {
+			updateProspect(data);
 			response = await submitApplication(data);
 			setSubmit(false);
 			setData({
