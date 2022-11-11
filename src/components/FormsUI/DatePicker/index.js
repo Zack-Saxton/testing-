@@ -19,7 +19,7 @@ import "../iframe.css";
 
 const DatePickerWrapper = ({ format, label, views,
 	placeholder, required, onChange, disableDate, disablePastDate,
-	maxdate, minyear, error, helperText, value, mask, disableFuture, ...otherProps }) => {
+	maxdate, minyear, error, helperText, value, mask, disabled, disableFuture, ...otherProps }) => {
 	const [ selectedDate, setSelectedDate ] = useState(value ?? null);
 	const [ errorTF, setErrorTF ] = useState(false);
 	const [ helperTextTF, setHelperTextTF ] = useState("");
@@ -63,6 +63,7 @@ const DatePickerWrapper = ({ format, label, views,
 					minDate={minDate}
 					maxDate={new Date(maxdate)}
 					shouldDisableDate={disableCustomDate}
+					disabled={disabled}
 					disableFuture={disableFuture}
 					disablePast={disablePastDate === "true" ? true : false}
 					views={views ?? [ 'year', 'month', 'day' ]}
@@ -74,6 +75,7 @@ const DatePickerWrapper = ({ format, label, views,
 							fullWidth={true}
 							placeholder={placeholder}
 							error={error ? error : errorTF}
+							disabled={disabled}
 							helperText={error ? helperText : helperTextTF}
 							variant="standard" />
 					)}
@@ -93,6 +95,7 @@ DatePickerWrapper.propTypes = {
 	minyear: PropTypes.number,
 	helperText: PropTypes.string,
 	error: PropTypes.bool,
+	disabled: PropTypes.bool,
 	required: PropTypes.string,
 	onChange: PropTypes.func,
 	views: PropTypes.array,
