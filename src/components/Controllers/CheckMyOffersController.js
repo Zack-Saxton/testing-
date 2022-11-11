@@ -19,11 +19,6 @@ export async function checkMyOfferSubmit(customer) {
 		appSubmissionResult: "",
 	};
 
-	let dobDate = new Date(customer.dob);
-	let formattedDob =  String(dobDate.getMonth() + 1).padStart(2, "0") + '/' +
-											String(dobDate.getDate()).padStart(2, "0") + '/' +
-											dobDate.getFullYear().toString();
-
 	const utm_sources = {};
 	if (!["", "null"].includes(customer?.utm_source_otherPartner)) {
 		utm_sources.utm_source = customer?.utm_source_otherPartner;
@@ -171,7 +166,7 @@ export async function checkMyOfferSubmit(customer) {
 				"customer": {
 					"identification": {
 						"citizenship": customer.citizenship,
-						"date_of_birth": formattedDob,
+						"date_of_birth": Moment(handleDateOffset(customer.dob)).format("MM/DD/YYYY"),
 						"age": Math.abs(new Date(Date.now() - customer.dob.getTime()).getUTCFullYear() - 1970),
 						"social_security_number_backup": customer.ssn,
 						"social_security_number": customer.ssn,

@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import Moment from "moment";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
@@ -84,14 +85,6 @@ function PersonalInfo() {
 		}
 	} 
 
-		function addMinutes(date, minutes) {
-			return new Date(date.getTime() + minutes*60000);
-		}
-		let newDate = new Date(data.dob.substring(0, 10));
-		const d = new Date();
-		let diff = d.getTimezoneOffset();
-		let formatedValue =  addMinutes(new Date(newDate), diff);
-
 	//configuring formik
 	const formik = useFormik({
 		initialValues: {
@@ -101,7 +94,7 @@ function PersonalInfo() {
 			ssn: data.ssn ? data.ssn : "",
 			lastSSN: data.last4SSN ? data.last4SSN : "",
 			phone: data.phone ? data.phone : "",
-			dob: data.dob ? formatedValue : null,
+			dob: data.dob ? data.dob : null,
 			checkSSN: data.last4SSN ? true : false,
 		},
 		validationSchema: validationSchema,
