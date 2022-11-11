@@ -309,3 +309,21 @@ export async function getCKLightBox(query) {
 		ErrorLogger(globalMessages.Error_executing_getCKLightBox_API, error);
 	}
 }
+
+export async function updateProspect(body) {
+	try {
+		//API
+		let url = "update_prospect";
+		let param = "";
+		let data = {
+			email: body.email,
+			isSubmitted: true
+		};
+		let method = "POST";
+		let addAccessToken = true;
+		//API call
+		return await APICall(url, param, data, method, addAccessToken);
+	} catch (error) {
+		ErrorLogger(globalMessages.Error_executing_updateProspect_API, error);
+	}
+}
