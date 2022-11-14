@@ -13,6 +13,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { withStyles } from "@mui/styles";
 import PropTypes from "prop-types";
 import React, { useContext, useState } from "react";
@@ -414,13 +415,12 @@ export default function OfferTable(props) {
 
                   >
                     Continue
-                    <i
-                      className="fa fa-refresh fa-spin customSpinner"
-                      style={{
-                        marginRight: "10px",
+                    <AutorenewIcon className="rotatingIcon"
+                        style={{
+                        fontSize:"23px",
+                        marginLeft: "5px",
                         display: props.loading ? "block" : "none",
-                      }}
-                    />
+                    }}/>
                   </ButtonPrimary>
                 </Grid>
               </Grid>

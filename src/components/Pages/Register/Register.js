@@ -6,6 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useRef, useState, useEffect } from "react";
@@ -583,13 +584,12 @@ export default function Register() {
                         disabled={disableRecaptcha ? disableRecaptcha : loading}
                       >
                         Sign in
-                        <i
-                          className="fa fa-refresh fa-spin customSpinner"
-                          style={{
-                            marginRight: "10px",
+                        <AutorenewIcon className="rotatingIcon"
+                            style={{
+                            fontSize:"23px",
+                            marginLeft: "5px",
                             display: loading ? "block" : "none",
-                          }}
-                        />
+                        }}/>
                       </ButtonPrimary>
                     </Grid>
                   </Grid>

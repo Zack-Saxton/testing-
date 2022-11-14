@@ -1,4 +1,5 @@
 import Grid from "@mui/material/Grid";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -254,8 +255,8 @@ export default function ChangePassword(basicInformationData) {
             xs={12}
             sm={4}
             md={3}
-            lg={2}
-            xl={1}
+            lg={3}
+            xl={3}
             direction="row"
             className={classes.passwordButtonGrid}
             id="reEnterCancel"
@@ -268,14 +269,12 @@ export default function ChangePassword(basicInformationData) {
               disabled={loading}
             >
               Update
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                  color: 'blue'
-                }}
-              />
+                fontSize:"23px",
+                marginLeft: "5px",
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
           </Grid>
         </Grid>

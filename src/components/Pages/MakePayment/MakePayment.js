@@ -15,6 +15,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
@@ -1013,14 +1014,12 @@ export default function MakePayment() {
               disabled={loading}
             >
               yes
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  color: "blue",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                fontSize:"23px",
+                marginLeft: "5px",
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
           ) : (
             null
@@ -1035,14 +1034,12 @@ export default function MakePayment() {
               disabled={loading}
             >
               {paymentIsScheduled === "yes" ? globalMessages.Keep_Future_Add_Autopay : globalMessages.Complete_Autopay_Setup}
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  color: "blue",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                fontSize:"23px",
+                marginLeft: "5px",
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
           ) : (
             null
@@ -1055,13 +1052,12 @@ export default function MakePayment() {
               disabled={loading}
             >
               Remove the future payment and turn on Autopay
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                fontSize:"23px",
+                marginLeft: "5px",
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonSecondary>
           ) : (
             null
@@ -1365,13 +1361,12 @@ export default function MakePayment() {
               disabled={loading}
             >
               { checkAutoPay ? globalMessages.Keep_Autopay_On_Schedule : "OK"  }
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                fontSize:"23px",
+                marginLeft: "5px",
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
             { checkAutoPay ? 
             (<ButtonPrimary
@@ -1380,13 +1375,12 @@ export default function MakePayment() {
               disabled={loading}
             >
             Turn off auto pay and Schedule a payment
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                fontSize:"23px",
+                marginLeft: "5px",
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>)
             : null
             }
@@ -1403,13 +1397,12 @@ export default function MakePayment() {
               disabled={loading}
             >
               Replace current scheduled payment
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                fontSize:"23px",
+                marginLeft: "5px",
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
           ) : (
             null
@@ -1422,13 +1415,12 @@ export default function MakePayment() {
               disabled={loading}
             >
               Keep scheduled payment and make this payment
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                fontSize:"23px",
+                marginLeft: "5px",
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonSecondary>
           ) : (
             null
@@ -1472,13 +1464,12 @@ export default function MakePayment() {
             disabled={loading}
           >
             Yes
-            <i
-              className="fa fa-refresh fa-spin customSpinner"
-              style={{
-                marginRight: "10px",
+            <AutorenewIcon className="rotatingIcon"
+                style={{
+                fontSize:"23px",
+                marginLeft: "5px",
                 display: loading ? "block" : "none",
-              }}
-            />
+              }}/>
           </ButtonPrimary>
         </DialogActions>
       </Dialog>

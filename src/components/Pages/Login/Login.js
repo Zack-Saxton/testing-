@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
@@ -297,13 +298,12 @@ export default function Login(props) {
                         disabled={disableRecaptcha ? disableRecaptcha : loading}
                       >
                         Sign In
-                        <i
-                          className="fa fa-refresh fa-spin customSpinner"
-                          style={{
-                            marginRight: "10px",
-                            display: loading ? "block" : "none",
-                          }}
-                        />
+                        <AutorenewIcon className="rotatingIcon"
+                        style={{
+                        fontSize:"23px",
+                        marginLeft: "5px",
+                        display: loading ? "block" : "none",
+                    }}/>
                       </ButtonPrimary>
                     </Grid>
                     <Grid className={classes.registerGrid}>

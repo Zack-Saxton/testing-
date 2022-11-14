@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "@mui/material/Link";
@@ -445,13 +446,12 @@ export default function CreditCardMethod (props) {
                 disabled={props?.loading}
               >
                 Yes
-                <i
-                  className="fa fa-refresh fa-spin customSpinner"
-                  style={{
-                    marginRight: "10px",
-                    display: props?.loading ? "block" : "none",
-                  }}
-                />
+                <AutorenewIcon className="rotatingIcon"
+                style={{
+                fontSize:"23px",
+                marginLeft: "5px",
+                display: props?.loading ? "block" : "none",
+              }}/>
               </ButtonPrimary>
             </DialogActions>
           </Dialog>

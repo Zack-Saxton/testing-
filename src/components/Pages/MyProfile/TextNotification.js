@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
@@ -249,13 +250,12 @@ export default function TextNotification() {
             disabled={loading}
           >
             Update
-            <i
-              className="fa fa-refresh fa-spin customSpinner"
-              style={{
-                marginRight: "10px",
+            <AutorenewIcon className="rotatingIcon"
+                style={{
+                fontSize:"23px",
+                marginLeft: "5px",
                 display: loading ? "block" : "none",
-              }}
-            />
+              }}/>
           </ButtonPrimary>
         </Grid>
       </form>

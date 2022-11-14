@@ -17,6 +17,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -785,13 +786,12 @@ export default function PaymentMethod() {
             }}
           >
             Yes
-            <i
-              className="fa fa-refresh fa-spin customSpinner"
-              style={{
-                marginRight: "10px",
+            <AutorenewIcon className="rotatingIcon"
+                style={{
+                fontSize:"23px",
+                marginLeft: "5px",
                 display: loading ? "block" : "none",
-              }}
-            />
+              }}/>
           </ButtonPrimary>
         </DialogActions>
       </Dialog>

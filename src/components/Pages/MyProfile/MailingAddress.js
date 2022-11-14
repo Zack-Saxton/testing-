@@ -1,5 +1,6 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from "@mui/material/Grid";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
@@ -269,14 +270,12 @@ export default function MailingAddress(props) {
               id="mailingSaveButton"
             >
               Save Changes
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                  color: 'blue'
-                }}
-              />
+                fontSize:"23px",
+                marginLeft: "5px",
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
           </Grid>
         </>}

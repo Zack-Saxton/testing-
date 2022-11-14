@@ -1,5 +1,6 @@
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -130,12 +131,12 @@ export default function IncomeVerification(props) {
 						}}
 					>
 						{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
-						<i
-							className="fa fa-refresh fa-spin customSpinner"
-							style={{
-								display: internalLoading ? "block" : "none",
-							}}
-						/>
+						<AutorenewIcon className="rotatingIcon"
+                style={{
+                fontSize:"23px",
+                marginLeft: "5px",
+                display: internalLoading ? "block" : "none",
+              }}/>
 					</ButtonPrimary>
 				</div>
 			</div>

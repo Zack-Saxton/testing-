@@ -9,6 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import Tooltip from "@mui/material/Tooltip";
@@ -305,15 +306,13 @@ export default function LoanDocument() {
                   disabled={loading}
                 >
                   Upload
-                  <i
-                   data-testid="uploadButton"
-                    className="fa fa-refresh fa-spin customSpinner"
-                    style={{
-                      marginRight: "10px",
-                      color: "blue",
-                      display: loading ? "block" : "none",
-                    }}
-                  />
+                  <AutorenewIcon className="rotatingIcon"
+                        data-testid="uploadButton"
+                        style={{
+                        fontSize:"23px",
+                        marginLeft: "5px",
+                        display: loading ? "block" : "none",
+                    }}/>
                 </Button>
               </Grid>
               <Grid className="gridPadding" item xs={12} sm={4}></Grid>

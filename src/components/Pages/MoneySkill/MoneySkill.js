@@ -1,6 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import MoneySkillController from "../../Controllers/MoneySkillController";
@@ -101,13 +102,12 @@ export default function MoneySkill(props) {
             onClick={handleCloseMoneySkill}
           >
             Continue
-            <i
-              className="fa fa-refresh fa-spin customSpinner"
-              style={{
-                marginRight: "10px",
+            <AutorenewIcon className="rotatingIcon"
+                style={{
+                fontSize:"23px",
+                marginLeft: "5px",
                 display: !moneySkillUrl ? "block" : "none",
-              }}
-            />
+              }}/>
           </ButtonPrimary>
         </div>
       </Dialog>
