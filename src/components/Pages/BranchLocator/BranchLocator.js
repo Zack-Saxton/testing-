@@ -471,7 +471,7 @@ export default function BranchLocator() {
       <Grid className="greyBackground mobilePadding" item md={5} sm={12} xs={12}>
         {BreadCrumsDisplay}
         <Grid className="blueBoxWrap">
-          {mapLoading ? search1andgetList : null}
+          {mapLoading ? search1andgetList : <Grid id="findBranchWrapTwo" className={classes.blueBackground} data-testid="searchBranchBox"></Grid>}
           <h4 className="branchLocatorHeadingMain">
             Get one on one support for a personal loan near you
           </h4>
