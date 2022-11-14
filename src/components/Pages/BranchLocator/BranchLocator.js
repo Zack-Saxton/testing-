@@ -12,7 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useRef, useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
@@ -22,7 +22,7 @@ import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile.webp
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.webp";
 import TitleImage from "../../../assets/images/Favicon.png";
 import BranchDayTiming, { convertDistanceUnit, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
-import BranchLocatorController from "../../Controllers/BranchLocatorController";
+import BranchLocatorController, { loadGMaps } from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
@@ -48,6 +48,7 @@ export default function BranchLocator() {
   const [ googleMap, setGoogleMap ] = useState([]);
   const [ currentLocation, setCurrentLocation ] = useState();
   const [ loading, setLoading ] = useState(() => false);
+  const [ mapLoading, setMapLoading ] = useState(() => false);
   const [ zoomDepth, setZoomDepth ] = useState(() => 10);
   const [ address1, setAddress1 ] = useState(() => "");
   const [ address2, setAddress2 ] = useState(() => "");
@@ -126,6 +127,11 @@ export default function BranchLocator() {
       ErrorLogger(" Error from findBranchTimings", error);
     }
   };
+  useEffect(() => {
+    loadGMaps(() => {
+      setMapLoading(true);
+    });
+  }, []);
   const handleSelect1 = async (value) => setAddress1(value);
   const handleSelect2 = async (value) => setAddress2(value);
   const showDialogforDrivingDirection = (
@@ -465,7 +471,7 @@ export default function BranchLocator() {
       <Grid className="greyBackground mobilePadding" item md={5} sm={12} xs={12}>
         {BreadCrumsDisplay}
         <Grid className="blueBoxWrap">
-          {search1andgetList}
+          {mapLoading ? search1andgetList : <Grid id="findBranchWrapTwo" className={classes.blueBackground} data-testid="searchBranchBox"></Grid>}
           <h4 className="branchLocatorHeadingMain">
             Get one on one support for a personal loan near you
           </h4>
@@ -531,7 +537,7 @@ export default function BranchLocator() {
         <h3 ref={refMapSection} className="mapTopHeading">Branches Near You</h3>
       </Grid>
       {displayMap}
-      {search2andDirectionfromSearch2}
+      {mapLoading ? search2andDirectionfromSearch2 : null}
       {displayBranchListinDropDown}
     </Grid>
   );

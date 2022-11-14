@@ -21,7 +21,7 @@ import BranchImageMobile from "../../../assets/images/Branch_Locator_Mobile.webp
 import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.webp";
 import TitleImage from "../../../assets/images/Favicon.png";
 import BranchDayTiming, { convertDistanceUnit, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
-import BranchLocatorController from "../../Controllers/BranchLocatorController";
+import BranchLocatorController, { loadGMaps } from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
@@ -46,6 +46,7 @@ export default function StatePage() {
   const [ googleMap, setGoogleMap ] = useState([]);
   const [ currentLocation, setCurrentLocation ] = useState();
   const [ loading, setLoading ] = useState(() => false);
+  const [ mapLoading, setMapLoading ] = useState(() => false);
   const [ zoomDepth, setZoomDepth ] = useState();
   const [ address1, setAddress1 ] = useState(() => "");
   const [ address2, setAddress2 ] = useState(() => "");
@@ -128,6 +129,9 @@ export default function StatePage() {
     }
   };
   useEffect(() => {
+    loadGMaps(() => {
+      setMapLoading(true);
+    });
     apiGetBranchList(name);
     setStateSearchFlag(false);
     window.scrollTo(0, 0);
@@ -218,7 +222,8 @@ export default function StatePage() {
                   <SearchIcon
                     className="searchIcon"
                   />
-                  <PlacesAutocomplete
+                  {mapLoading ? 
+                    <PlacesAutocomplete
                     id="addressOne"
                     value={address1}
                     onChange={setAddress1}
@@ -263,6 +268,9 @@ export default function StatePage() {
                       </div>
                     )}
                   </PlacesAutocomplete>
+                  : 
+                  null}
+                  
                   <ButtonPrimary
                     className="branchSearchButton"
                     aria-label = "branchSearchButton"
@@ -308,12 +316,18 @@ export default function StatePage() {
                 md={6}
                 xl={6}
               >
-                <Map
+                {
+                  mapLoading ? 
+                  <Map
                   id="mapBox"
                   googleMap={googleMap}
                   CurrentLocation={currentLocation}
                   Zoom={zoomDepth}
                 />
+                  : 
+                  null
+                }
+                
               </Grid>
               <Grid
                 item
@@ -396,51 +410,55 @@ export default function StatePage() {
                   <SearchIcon
                     className="searchIconBottomTwo"
                   />
+                  {mapLoading ? 
                   <PlacesAutocomplete
-                    id="addressOne"
-                    value={address2}
-                    onChange={setAddress2}
-                    onSelect={handleSelect2}
-                  >
-                    {({
-                      getInputProps,
-                      suggestions,
-                      getSuggestionItemProps,
-                      loading2,
-                    }) => (
-                      <div className="searchInputWrap">
-                        <input
-                          id="search2"
-                          ref={refSearch2}
-                          className="branchSearchTwo"
-                          {...getInputProps({
-                            placeholder: "Enter city & state or zip code",
-                          })}
-                          data-testid="search-branch-2"
-                        />
-                        <div className="serachResult">
-                          {loading2 && <div>Loading...</div>}
-                          {suggestions.map((suggestion) => {
-                            const style = {
-                              backgroundColor: suggestion.active
-                                ? "#41b6e6"
-                                : "#fff",
-                            };
-                            return (
-                              <div
-                                key={suggestion.placeId}
-                                {...getSuggestionItemProps(suggestion, {
-                                  style,
-                                })}
-                              >
-                                <span>{suggestion.description}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
+                  id="addressOne"
+                  value={address2}
+                  onChange={setAddress2}
+                  onSelect={handleSelect2}
+                >
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading2,
+                  }) => (
+                    <div className="searchInputWrap">
+                      <input
+                        id="search2"
+                        ref={refSearch2}
+                        className="branchSearchTwo"
+                        {...getInputProps({
+                          placeholder: "Enter city & state or zip code",
+                        })}
+                        data-testid="search-branch-2"
+                      />
+                      <div className="serachResult">
+                        {loading2 && <div>Loading...</div>}
+                        {suggestions.map((suggestion) => {
+                          const style = {
+                            backgroundColor: suggestion.active
+                              ? "#41b6e6"
+                              : "#fff",
+                          };
+                          return (
+                            <div
+                              key={suggestion.placeId}
+                              {...getSuggestionItemProps(suggestion, {
+                                style,
+                              })}
+                            >
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
                       </div>
-                    )}
-                  </PlacesAutocomplete>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
+                  : 
+                  null }
+                  
                   <ButtonPrimary
                     className="branchSearchButton"
                     aria-label = "branchSearchButton"

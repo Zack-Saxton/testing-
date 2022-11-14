@@ -16,3 +16,17 @@ export default async function BranchLocatorController(zipcode, Branches, stateSe
         ErrorLogger(globalMessages.Error_executing_BranchLocatorController_API, error);
     }
 }
+
+export async function loadGMaps(callback) {
+    const existingScript = document.getElementById('googleMaps');
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?libraries=places&key=${process.env.REACT_APP_SECKey}`;
+      script.id = 'googleMaps';
+      document.body.appendChild(script);
+      script.onload = () => { 
+        if (callback) callback();
+      };
+    }
+    if (existingScript && callback) callback();
+  };
