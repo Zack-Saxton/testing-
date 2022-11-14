@@ -23,7 +23,7 @@ import BranchImageWeb from "../../../assets/images/Branch_Locator_Web_Image.webp
 import TitleImage from "../../../assets/images/Favicon.png";
 import MarinerFinanceBuilding from "../../../assets/images/mf-logo-white.png";
 import BranchDayTiming, { branchSaturdaySchedule, convertDistanceUnit, mapInformationBranchLocator } from "../../Controllers/BranchDayTiming";
-import BranchLocatorController from "../../Controllers/BranchLocatorController";
+import BranchLocatorController, { loadGMaps } from "../../Controllers/BranchLocatorController";
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
@@ -43,6 +43,7 @@ export default function BranchPage() {
   const [ branchList, setBranchList ] = useState();
   const [ branchAddress, setBranchAddress ] = useState();
   const [ googleMap, setGoogleMap ] = useState([]);
+  const [ mapLoading, setMapLoading ] = useState(() => false);
   const [ currentLocation, setCurrentLocation ] = useState();
   const [ zoomDepth, setZoomDepth ] = useState();
   const [ branchHours, setBranchHours ] = useState();
@@ -170,6 +171,9 @@ export default function BranchPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ location.pathname, stateShortNm, stateLongNm ]);
   useEffect(() => {
+    loadGMaps(() => {
+      setMapLoading(true);
+    });
     display_Branch_Times();
     window.scrollTo(0, 0);
     document.title = `Personal Loans in  ${ branch_Details?.current?.BranchName }, ${ stateShortName ?? stateShortNm?.current } | Mariner Finance Branch | Discover More `;
@@ -457,11 +461,14 @@ export default function BranchPage() {
 
   const DisplayBranchMap = (
     <Grid data-testid = "branchMap" className="branchMap">
-      <Map
+      {mapLoading ? 
+        <Map
         googleMap={googleMap}
         CurrentLocation={currentLocation}
         Zoom={zoomDepth}
       />
+      : 
+      null}      
     </Grid>
   );
   //View part
