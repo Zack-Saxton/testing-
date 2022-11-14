@@ -30,7 +30,7 @@ export default function FinalVerification() {
     }else if(existingZenDeskScript)
     {
       zE("webWidget", "show")
-    }    
+    }
   };
 
 //Load Zendesk
@@ -38,7 +38,6 @@ export default function FinalVerification() {
     loadZenDesk()
     return () => zE('webWidget', 'hide');
     }, []);
-
 
   //JSX part
   return (
