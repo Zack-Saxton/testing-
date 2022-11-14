@@ -15,25 +15,21 @@ import "date-fns";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import globalMessages from '../../../assets/data/globalMessages.json';
+import { handleDateOffset } from "../../Controllers/CommonController"
 import "../iframe.css";
 
 const DatePickerWrapper = ({ format, label, views,
 	placeholder, required, onChange, disableDate, disablePastDate,
-	maxdate, minyear, error, value, helperText, mask, disableFuture, ...otherProps }) => {
+	maxdate, minyear, error, value, helperText, mask, disabled, disableFuture, ...otherProps }) => {
 		
-		const offset = (utcTime) => {
-			const tzoffset = utcTime.getTimezoneOffset() * 60000
-			const localTime = new Date(utcTime.getTime() + tzoffset)
-			return localTime
-	}
 	
 	const [ selectedDate, setSelectedDate ] = useState(value ?? null);
 	const [ errorTF, setErrorTF ] = useState(false);
 	const [ helperTextTF, setHelperTextTF ] = useState("");
 	useEffect(() => {
-		setSelectedDate(value ? offset(new Date(value)) : value);
+		setSelectedDate(value ? handleDateOffset(new Date(value)) : value);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ value ]);
+	}, []);
 	const handleDateChange = (event) => {
 		setSelectedDate(event);
 		setErrorTF((required && !event.target.value));
@@ -70,6 +66,7 @@ const DatePickerWrapper = ({ format, label, views,
 					minDate={minDate}
 					maxDate={new Date(maxdate)}
 					shouldDisableDate={disableCustomDate}
+					disabled={disabled}
 					disableFuture={disableFuture}
 					disablePast={disablePastDate === "true" ? true : false}
 					views={views ?? [ 'year', 'month', 'day' ]}
@@ -81,6 +78,7 @@ const DatePickerWrapper = ({ format, label, views,
 							fullWidth={true}
 							placeholder={placeholder}
 							error={error ? error : errorTF}
+							disabled={disabled}
 							helperText={error ? helperText : helperTextTF}
 							variant="standard" />
 					)}
@@ -100,6 +98,7 @@ DatePickerWrapper.propTypes = {
 	minyear: PropTypes.number,
 	helperText: PropTypes.string,
 	error: PropTypes.bool,
+	disabled: PropTypes.bool,
 	required: PropTypes.string,
 	onChange: PropTypes.func,
 	views: PropTypes.array,

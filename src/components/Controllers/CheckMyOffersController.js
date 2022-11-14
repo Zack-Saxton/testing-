@@ -1,5 +1,5 @@
 import axios from "axios";
-import getClientIp, {trimSpecialCharacters} from "../Controllers/CommonController";
+import getClientIp, {trimSpecialCharacters, handleDateOffset} from "../Controllers/CommonController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import globalMessages from "../../assets/data/globalMessages.json";
@@ -166,7 +166,7 @@ export async function checkMyOfferSubmit(customer) {
 				"customer": {
 					"identification": {
 						"citizenship": customer.citizenship,
-						"date_of_birth": Moment(customer.dob).format("MM/DD/YYYY"),
+						"date_of_birth": Moment(handleDateOffset(customer.dob)).format("MM/DD/YYYY"),
 						"age": Math.abs(new Date(Date.now() - customer.dob.getTime()).getUTCFullYear() - 1970),
 						"social_security_number_backup": customer.ssn,
 						"social_security_number": customer.ssn,
@@ -307,5 +307,23 @@ export async function getCKLightBox(query) {
 		return await APICall(url, param, data, method, addAccessToken);
 	} catch (error) {
 		ErrorLogger(globalMessages.Error_executing_getCKLightBox_API, error);
+	}
+}
+
+export async function updateProspect(body) {
+	try {
+		//API
+		let url = "update_prospect";
+		let param = "";
+		let data = {
+			email: body.email,
+			isSubmitted: true
+		};
+		let method = "POST";
+		let addAccessToken = true;
+		//API call
+		return await APICall(url, param, data, method, addAccessToken);
+	} catch (error) {
+		ErrorLogger(globalMessages.Error_executing_updateProspect_API, error);
 	}
 }
