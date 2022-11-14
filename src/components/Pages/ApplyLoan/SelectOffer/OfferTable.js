@@ -417,8 +417,6 @@ export default function OfferTable(props) {
                     Continue
                     <AutorenewIcon className="rotatingIcon"
                         style={{
-                        fontSize:"23px",
-                        marginLeft: "5px",
                         display: props.loading ? "block" : "none",
                     }}/>
                   </ButtonPrimary>

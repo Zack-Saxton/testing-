@@ -271,8 +271,6 @@ export default function ChangePassword(basicInformationData) {
               Update
               <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: loading ? "block" : "none",
               }}/>
             </ButtonPrimary>

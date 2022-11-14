@@ -281,8 +281,6 @@ export default function ScheduleCall({ MyBranchCall, holidayData, latitude, long
               Call Back
               <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: loading ? "block" : "none",
               }}/>
             </ButtonPrimary>

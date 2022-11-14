@@ -309,8 +309,6 @@ export default function LoanDocument() {
                   <AutorenewIcon className="rotatingIcon"
                         data-testid="uploadButton"
                         style={{
-                        fontSize:"23px",
-                        marginLeft: "5px",
                         display: loading ? "block" : "none",
                     }}/>
                 </Button>

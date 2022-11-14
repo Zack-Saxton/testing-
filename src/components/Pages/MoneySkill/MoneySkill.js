@@ -104,8 +104,6 @@ export default function MoneySkill(props) {
             Continue
             <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: !moneySkillUrl ? "block" : "none",
               }}/>
           </ButtonPrimary>

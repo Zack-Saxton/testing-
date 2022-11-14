@@ -300,8 +300,6 @@ export default function Login(props) {
                         Sign In
                         <AutorenewIcon className="rotatingIcon"
                         style={{
-                        fontSize:"23px",
-                        marginLeft: "5px",
                         display: loading ? "block" : "none",
                     }}/>
                       </ButtonPrimary>

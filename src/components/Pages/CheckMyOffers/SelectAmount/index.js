@@ -233,8 +233,6 @@ if(check_source && check_campaignType){
                         Continue
                         <AutorenewIcon className="rotatingIcon"
                           style={{
-                          fontSize:"23px",
-                          marginLeft: "5px",
                           display: data.loading ? "block" : "none",
                         }}/>
                       </ButtonPrimary>

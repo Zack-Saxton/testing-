@@ -448,8 +448,6 @@ export default function CreditCardMethod (props) {
                 Yes
                 <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: props?.loading ? "block" : "none",
               }}/>
               </ButtonPrimary>

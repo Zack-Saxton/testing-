@@ -226,8 +226,6 @@ export default function ResetPassword(_props) {
                     Reset Password
                     <AutorenewIcon className="rotatingIcon"
                         style={{
-                        fontSize:"23px",
-                        marginLeft: "5px",
                         display: loading ? "block" : "none",
                     }}/>
                   </ButtonPrimary>

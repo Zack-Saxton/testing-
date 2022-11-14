@@ -880,8 +880,6 @@ const preventEvent = (event) => {
                         {utm_source === "CreditKarma" ? "Continue" : "View your offers"}
                         <AutorenewIcon className="rotatingIcon"
                           style={{
-                          fontSize:"23px",
-                          marginLeft: "5px",
                           display: loading ? "block" : "none",
                         }}/>
                       </ButtonPrimary>

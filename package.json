@@ -84,7 +84,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://psa-qa.marinerfinance.io",
   "devDependencies": {
     "@babel/core": "^7.17.7",
     "@babel/plugin-proposal-class-properties": "^7.14.5",

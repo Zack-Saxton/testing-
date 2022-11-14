@@ -566,8 +566,6 @@ export default function BankAccountVerification(props) {
 							{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
 						<AutorenewIcon className="rotatingIcon"
               style={{
-              fontSize:"23px",
-							marginLeft: "5px",
               display: internalLoading ? "block" : "none",
             }}/>
 						</ButtonPrimary>

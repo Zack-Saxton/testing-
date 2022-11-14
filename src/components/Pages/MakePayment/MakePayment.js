@@ -1016,8 +1016,6 @@ export default function MakePayment() {
               yes
               <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: loading ? "block" : "none",
               }}/>
             </ButtonPrimary>
@@ -1036,8 +1034,6 @@ export default function MakePayment() {
               {paymentIsScheduled === "yes" ? globalMessages.Keep_Future_Add_Autopay : globalMessages.Complete_Autopay_Setup}
               <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: loading ? "block" : "none",
               }}/>
             </ButtonPrimary>
@@ -1054,8 +1050,6 @@ export default function MakePayment() {
               Remove the future payment and turn on Autopay
               <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: loading ? "block" : "none",
               }}/>
             </ButtonSecondary>
@@ -1363,8 +1357,6 @@ export default function MakePayment() {
               { checkAutoPay ? globalMessages.Keep_Autopay_On_Schedule : "OK"  }
               <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: loading ? "block" : "none",
               }}/>
             </ButtonPrimary>
@@ -1377,8 +1369,6 @@ export default function MakePayment() {
             Turn off auto pay and Schedule a payment
               <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: loading ? "block" : "none",
               }}/>
             </ButtonPrimary>)
@@ -1399,8 +1389,6 @@ export default function MakePayment() {
               Replace current scheduled payment
               <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: loading ? "block" : "none",
               }}/>
             </ButtonPrimary>
@@ -1417,8 +1405,6 @@ export default function MakePayment() {
               Keep scheduled payment and make this payment
               <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: loading ? "block" : "none",
               }}/>
             </ButtonSecondary>
@@ -1466,8 +1452,6 @@ export default function MakePayment() {
             Yes
             <AutorenewIcon className="rotatingIcon"
                 style={{
-                fontSize:"23px",
-                marginLeft: "5px",
                 display: loading ? "block" : "none",
               }}/>
           </ButtonPrimary>
