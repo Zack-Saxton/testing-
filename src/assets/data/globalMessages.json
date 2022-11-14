@@ -50,7 +50,7 @@
   "Bank_Name_Max": "Account Holder Name can be up to 50 characters in length.",
   "Bank_Name_Min": "Bank Name should be minimum of 3 letters.",
   "Bank_Name_Required": "Bank Name is required.",
-  "BankAccountNumber_Valid": "please enter valid Bank Account Number",
+  "BankAccountNumber_Valid": "please enter a valid Bank Account Number",
   "Bank_Account_Deleted_Success": "Bank account deleted successfully.",
   "Card_Expiry_Date_Required": "Expiration Date is required",
   "Card_Holder_Name_Required": "Cardholder Name is required.",
@@ -310,5 +310,6 @@
   "KBA_Error" : "Unable to generate identify verification questions. Please select another option.",
   "File_Size_Too_Large": "File size too large.  Please upload a smaller file size",
   "Online_Verification_Upload_Info":"Use this option if you've applied for a loan and your Mariner team member has asked you for additional information",
-  "Existing_Loan_Upload_Info":"Use this option if you have been contacted by the branch to upload information regarding your existing loan"
+  "Existing_Loan_Upload_Info":"Use this option if you have been contacted by the branch to upload information regarding your existing loan",
+  "Error_executing_updateProspect_API": "Error executing updateProspect API"
 }
