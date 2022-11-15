@@ -831,6 +831,7 @@ export default function MakePayment() {
                             {requiredAmount}
                           </p>
                           <Grid item xs={12} container direction="row" className={classes.datePickerStyle}>
+                            
                             <DatePicker
                               name="date"
                               label="Payment Date (No Sundays or Holidays)"
@@ -845,11 +846,8 @@ export default function MakePayment() {
                               disableDate={disableHolidays}
                               minyear={4}
                               onChange={(paymentDatepickerOnChange) => {
-                                setPaymentDatepicker(
-                                  Moment(paymentDatepickerOnChange).format(
-                                    "YYYY/MM/DD"
-                                  )
-                                );
+                                // setPaymentDatepicker(Moment(paymentDatepickerOnChange).format("YYYY/MM/DD"));
+                                setPaymentDatepicker(paymentDatepickerOnChange);
                                 setRequiredDate("");
                               }}
                               value={new Date(paymentDatepicker)}

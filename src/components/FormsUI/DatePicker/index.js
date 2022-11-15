@@ -27,9 +27,15 @@ const DatePickerWrapper = ({ format, label, views,
 	const [ errorTF, setErrorTF ] = useState(false);
 	const [ helperTextTF, setHelperTextTF ] = useState("");
 	useEffect(() => {
-		setSelectedDate(value ? handleDateOffset(new Date(value)) : value);
+		// setSelectedDate(value ? handleDateOffset(new Date(value)) : value);
+		setSelectedDate(value);
+		console.log("inside");
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [value]);
+	// useEffect(() => {
+	// 	setSelectedDate(value ? handleDateOffset(new Date(value)) : value);
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, []);
 	const handleDateChange = (event) => {
 		setSelectedDate(event);
 		setErrorTF((required && !event.target.value));
@@ -49,6 +55,8 @@ const DatePickerWrapper = ({ format, label, views,
 	const month = dateNow.getMonth();
 	const day = dateNow.getDate();
 	const minDate = new Date(year - minyear, month, day + 1);
+
+	console.log("value", value);
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -78,7 +86,7 @@ const DatePickerWrapper = ({ format, label, views,
 							fullWidth={true}
 							placeholder={placeholder}
 							error={error ? error : errorTF}
-							disabled={disabled}
+							// disabled={disabled}
 							helperText={error ? helperText : helperTextTF}
 							variant="standard" />
 					)}
