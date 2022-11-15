@@ -45,8 +45,7 @@ export default function BranchDetail(MyBranchDetail) {
   const { data : holidayCalenderApi } = useHolidayCalender();
 
   useEffect(() => {
-    // AsyncEffect_HolidayCalender();
-    navigator.geolocation.getCurrentPosition(function(position){
+      navigator.geolocation.getCurrentPosition(function(position){
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
   });
