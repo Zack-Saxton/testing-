@@ -7,7 +7,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import LoanAccount from '../../../contexts/LoanAccount';
-import { useAccountOverview } from './AccountOverviewHook/useAccountOverview';
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 import RecentApplications from './RecentApplications';
 import { RecentApplicationsDataMock } from '../../../__mock__/AccountOverview.mock'
 import ViewAccountDetails from './ViewAccountDetails';
@@ -23,7 +23,7 @@ const queryClient = new QueryClient({
   },
 });
 
-jest.mock("./AccountOverviewHook/useAccountOverview", () => ({
+jest.mock("../../../hooks/useAccountOverview", () => ({
   useAccountOverview: jest.fn(),
 }))
 const theme = createTheme();

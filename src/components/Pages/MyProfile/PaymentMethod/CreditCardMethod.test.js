@@ -173,7 +173,7 @@ const PaymnetComponent = () =>{
 		</GlobalStateProvider>		
 	);
 }
-jest.mock("./../../AccountOverview/AccountOverviewHook/useAccountOverview", ()=>({
+jest.mock("../../../../hooks/useAccountOverview", ()=>({
   useAccountOverview: jest.fn(),
 }))
 

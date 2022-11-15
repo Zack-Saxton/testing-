@@ -995,3 +995,9 @@ export const mockDataOne = {
       ],
    }
 }
+
+export const noData = {
+   data: {
+      "loanHistory": []
+   }
+}

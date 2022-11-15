@@ -1,37 +1,37 @@
-import { useAccountOverview } from "../components/Pages/MakePayment/useAccountOverview";
-import { useHolidayCalender } from "../components/Pages/MakePayment/useHolidayCalender";
-import { usePaymentMethod } from "../components/Pages/MakePayment/usePaymentMethod";
+import { useAccountOverview } from "../hooks/useAccountOverview";
+import { useHolidayCalender } from "../hooks/useHolidayCalender";
+import { usePaymentMethod } from "../hooks/usePaymentMethod";
 import { makePaymentMockData, holidayCalendarMockData, paymentMethodsMockData } from "./data/MakePaymentMock";
 
-jest.mock("../components/Pages/MakePayment/useAccountOverview", ()=>({
+jest.mock("../hooks/useAccountOverview", ()=>({
   useAccountOverview: jest.fn(),
 }))
 
-jest.mock("../components/Pages/MakePayment/useHolidayCalender", ()=>({
+jest.mock("../hooks/useHolidayCalender", ()=>({
   useHolidayCalender: jest.fn(),
 }))
 
-jest.mock("../components/Pages/MakePayment/usePaymentMethod", ()=>({
+jest.mock("../hooks/usePaymentMethod", ()=>({
   usePaymentMethod: jest.fn(),
 }))
 
 export const AccountOverviewDataMock = () => {
   useAccountOverview.mockImplementation(() => ({
     isFetching: false,
-    accountDetails: makePaymentMockData,
+    data: makePaymentMockData,
   }));
 }
 
 export const HolidayCalenderDataMock = () => {
   useHolidayCalender.mockImplementation(() => ({
-    isLoadingHoliday: false,
-    holidayCalenderData: holidayCalendarMockData,
+    isLoading: false,
+    data: holidayCalendarMockData,
   }))
 }
 
 export const PaymentMethodMock = () => {
   usePaymentMethod.mockImplementation(() => ({
-    isLoadingPayment: false,
-    payments: paymentMethodsMockData,
+    isLoading: false,
+    data: paymentMethodsMockData,
   }))
 }

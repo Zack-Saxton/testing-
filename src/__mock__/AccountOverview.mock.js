@@ -1,37 +1,45 @@
-import  { useAccountOverview }  from './../components/Pages/AccountOverview/AccountOverviewHook/useAccountOverview';
+import  { useAccountOverview }  from '../hooks/useAccountOverview';
 import { mockDataActiveLoans } from './data/ActiveLoansMockData';
-import {mockDataOne, mockData as recentPaymentData} from './data/RecentPaymentsMockData';
+import {mockDataOne, mockData as recentPaymentData, noData} from './data/RecentPaymentsMockData';
 import { mockData } from './data/RecentApplicationsMockData'
+import { accountOverviewData } from './data/Loan.data'
 
-jest.mock("./../components/Pages/AccountOverview/AccountOverviewHook/useAccountOverview", ()=>({
+jest.mock('../hooks/useAccountOverview', ()=>({
   useAccountOverview: jest.fn(),
 }))
 
 export const AccountOverviewDataMock = () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockDataActiveLoans,
+    data: mockDataActiveLoans,
   }));
 }
 
 export const RecentPaymentsDataMock = () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockDataOne,
+    data: accountOverviewData,
   }));
 }
 
 export const RecentPaymentsDataMockTwo = () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: recentPaymentData,
+    data: recentPaymentData,
+  }));
+}
+
+export const RecentPaymentsNoData = () => {
+  useAccountOverview.mockImplementation(() => ({
+    isLoading: false,
+    data: noData,
   }));
 }
 
 export const RecentApplicationsDataMock = () => {
   useAccountOverview.mockImplementation(() => ({
     isLoading: false,
-    accountDetails: mockData,
+    data: accountOverviewData,
   }));
 }
 
@@ -44,5 +52,12 @@ export const AccountOverviewDataMockIsLoading = () => {
 export const AccountOverviewDataMockIsError = () => {
   useAccountOverview.mockImplementation(() => ({
     isError: true,
+  }));
+}
+
+export const LimitedOffersMock = () => {
+  useAccountOverview.mockImplementation(() => ({
+    isLoading: false,
+    data: accountOverviewData,
   }));
 }

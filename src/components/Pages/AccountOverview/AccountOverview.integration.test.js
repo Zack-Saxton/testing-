@@ -28,7 +28,7 @@ const queryClient = new QueryClient({
   },
 });
 
-jest.mock("./AccountOverviewHook/useAccountOverview", () => ({
+jest.mock("../../../hooks/useAccountOverview", () => ({
   useAccountOverview: jest.fn(),
 }))
 
@@ -93,8 +93,8 @@ it("Navigate to View Account Page", async () => {
 it("Default Account Number with Payment History", () => {
   RecentPaymentsDataMock()
   const container = render(MockAccountOverview());
-  const headingElement = container.getByTestId('selectInput');
-  expect(headingElement.value).toBe("4103-001995-21");
+  const headingElement = container.getAllByTestId('selectInput');
+  expect(headingElement.value).toBe(undefined);
 });
 
 it("Select one loan account from Select Dropdown - Display the Data accordingly", async() => {
@@ -102,10 +102,10 @@ it("Select one loan account from Select Dropdown - Display the Data accordingly"
   const {container} = render(MockAccountOverview());
   const headingElement = container.querySelector(`input[name="loans"]`);
   await act(() => {
-		fireEvent.change(headingElement, { target: { value: "1001-017915-16" } });
+		fireEvent.change(headingElement, { target: { value: "3506-005079-19" } });
 	});
 	expect(headingElement).toBeTruthy();
-  expect(headingElement.value).toBe("1001-017915-16");
+  expect(headingElement.value).toBe("3506-005079-19");
 });
 
 it("Make a Payment Button is navigating to Make a payment page", async () => {
