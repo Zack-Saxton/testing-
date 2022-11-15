@@ -40,13 +40,10 @@ export default function BranchDetail(MyBranchDetail) {
   const classes = useStylesMyBranch();
 
   //API call
-  // const [ holidayCalenderApi, SetHolidayCalenderApi ] = useState(null);
   const [latitude,setLatitude] = useState();
   const [longitude,setLongitude] = useState();
   const { data : holidayCalenderApi } = useHolidayCalender();
-  // async function AsyncEffect_HolidayCalender() {
-  //   SetHolidayCalenderApi(await HolidayCalenderController());
-  // }
+
   useEffect(() => {
     // AsyncEffect_HolidayCalender();
     navigator.geolocation.getCurrentPosition(function(position){

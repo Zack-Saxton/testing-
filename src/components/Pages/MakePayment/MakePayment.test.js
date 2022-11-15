@@ -73,18 +73,6 @@ const MockComponent = () => {
 }
 
 test("Checks the component is rendered", () => {
-  // useAccountOverview.mockImplementation(() => ({
-  //   isFetching: false,
-  //   data: makePaymentMockData,
-  // }));
-  // useHolidayCalender.mockImplementation(() => ({
-  //   isLoading: false,
-  //   data: holidayCalendarMockData,
-  // }))
-  // usePaymentMethod.mockImplementation(() => ({
-  //   isLoading: false,
-  //   data: paymentMethodsMockData,
-  // }))
   AccountOverviewDataMock();
   HolidayCalenderDataMock();
   PaymentMethodMock();
@@ -94,18 +82,6 @@ test("Checks the component is rendered", () => {
 });
 
 test("Please Contact Text Availability test", () => {
-  // useAccountOverview.mockImplementation(() => ({
-  //   isFetching: false,
-  //   data: makePaymentMockData,
-  // }));
-  // useHolidayCalender.mockImplementation(() => ({
-  //   isLoading: false,
-  //   data: holidayCalendarMockData,
-  // }))
-  // usePaymentMethod.mockImplementation(() => ({
-  //   isLoading: false,
-  //   data: paymentMethodsMockData,
-  // }))
   AccountOverviewDataMock();
   HolidayCalenderDataMock();
   PaymentMethodMock();
@@ -115,18 +91,6 @@ test("Please Contact Text Availability test", () => {
 });
 
 test("Cell values rendered correct;y", () => {
-  // useAccountOverview.mockImplementation(() => ({
-  //   isFetching: false,
-  //   data: makePaymentMockData,
-  // }));
-  // useHolidayCalender.mockImplementation(() => ({
-  //   isLoading: false,
-  //   data: holidayCalendarMockData,
-  // }))
-  // usePaymentMethod.mockImplementation(() => ({
-  //   isLoading: false,
-  //   data: paymentMethodsMockData,
-  // }))
     AccountOverviewDataMock();
     HolidayCalenderDataMock();
     PaymentMethodMock();
@@ -150,18 +114,6 @@ test("Cell values rendered correct;y", () => {
   });
 
   it("Check whether Payment section is Rendering", () => {
-    // useAccountOverview.mockImplementation(() => ({
-    //   isFetching: false,
-    //   data: makePaymentMockData,
-    // }));
-    // useHolidayCalender.mockImplementation(() => ({
-    //   isLoading: false,
-    //   data: holidayCalendarMockData,
-    // }))
-    // usePaymentMethod.mockImplementation(() => ({
-    //   isLoading: false,
-    //   data: paymentMethodsMockData,
-    // }))
     AccountOverviewDataMock();
     HolidayCalenderDataMock();
     PaymentMethodMock();
@@ -171,18 +123,6 @@ test("Cell values rendered correct;y", () => {
   });
 
   it("Check whether Payment Methods Dropdown is Rendering", () => {
-    // useAccountOverview.mockImplementation(() => ({
-    //   isFetching: false,
-    //   data: makePaymentMockData,
-    // }));
-    // useHolidayCalender.mockImplementation(() => ({
-    //   isLoading: false,
-    //   data: holidayCalendarMockData,
-    // }))
-    // usePaymentMethod.mockImplementation(() => ({
-    //   isLoading: false,
-    //   data: paymentMethodsMockData,
-    // }))
     AccountOverviewDataMock();
     HolidayCalenderDataMock();
     PaymentMethodMock();
@@ -192,18 +132,6 @@ test("Cell values rendered correct;y", () => {
   });
 
   it("Back button navigates to Account Overview page", async() => {
-    // useAccountOverview.mockImplementation(() => ({
-    //   isFetching: false,
-    //   data: makePaymentMockData,
-    // }));
-    // useHolidayCalender.mockImplementation(() => ({
-    //   isLoading: false,
-    //   data: holidayCalendarMockData,
-    // }))
-    // usePaymentMethod.mockImplementation(() => ({
-    //   isLoading: false,
-    //   data: paymentMethodsMockData,
-    // }))
     AccountOverviewDataMock();
     HolidayCalenderDataMock();
     PaymentMethodMock();
@@ -216,18 +144,6 @@ test("Cell values rendered correct;y", () => {
   });
 
   it("Default Account Number in the Payment Section", () => {
-    // useAccountOverview.mockImplementation(() => ({
-    //   isFetching: false,
-    //   data: makePaymentMockData,
-    // }));
-    // useHolidayCalender.mockImplementation(() => ({
-    //   isLoading: false,
-    //   data: holidayCalendarMockData,
-    // }))
-    // usePaymentMethod.mockImplementation(() => ({
-    //   isLoading: false,
-    //   data: paymentMethodsMockData,
-    // }))
     AccountOverviewDataMock();
     HolidayCalenderDataMock();
     PaymentMethodMock();
@@ -237,18 +153,6 @@ test("Cell values rendered correct;y", () => {
   });
 
   it("changing payment method from select dropdown test", async() => {
-    // useAccountOverview.mockImplementation(() => ({
-    //   isFetching: false,
-    //   data: makePaymentMockData,
-    // }));
-    // useHolidayCalender.mockImplementation(() => ({
-    //   isLoading: false,
-    //   data: holidayCalendarMockData,
-    // }))
-    // usePaymentMethod.mockImplementation(() => ({
-    //   isLoading: false,
-    //   data: paymentMethodsMockData,
-    // }))
     AccountOverviewDataMock();
     HolidayCalenderDataMock();
     PaymentMethodMock();
