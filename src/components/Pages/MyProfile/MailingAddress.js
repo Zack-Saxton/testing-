@@ -22,26 +22,14 @@ import {
 import ErrorLogger from '../../lib/ErrorLogger';
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
+import { FormValidationRules } from "../../lib/FormValidationRule";
+let formValidation = new FormValidationRules();
 
 const validationSchema = yup.object({
-  streetAddress: yup
-    .string(globalMessages.Street_Address)
-    .trim()
-    .max(100, globalMessages.Length_max_100)
-    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
-    .required(globalMessages.Address_Street_Required),
-  city: yup
-    .string(globalMessages.Enter_City)
-    .max(30, globalMessages.Length_max_30)
-    .required(globalMessages.Address_Home_City),
-  state: yup
-    .string(globalMessages.Enter_State)
-    .max(30, globalMessages.Length_max_30)
-    .required(globalMessages.Address_State_Required),
-  zip: yup
-    .string(globalMessages.ZipCodeEnter)
-    .min(5, globalMessages.ZipCodeMax)
-    .required(globalMessages.ZipCodeRequired),
+  streetAddress: formValidation.streetAddressValidation(),
+  city: formValidation.cityValidation(),
+  state: formValidation.stateValidation(),
+  zip: formValidation.zipCode(),
 });
 
 export default function MailingAddress(props) {

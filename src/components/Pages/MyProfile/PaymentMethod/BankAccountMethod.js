@@ -69,7 +69,12 @@ export default function BankAccountMethod(props) {
               </Link>
               <Link
                 className={classes.paymentLink}
-                onClick={() => props?.closeBankAccountButton()}
+                onClick={() => {
+                  props?.closeBankAccountButton();
+                  props?.setAccountType('');
+                  setIsAccountTypeTouched(false);
+                  }
+                }
               >
                 Payment account
               </Link>

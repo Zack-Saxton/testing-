@@ -95,6 +95,7 @@ function NewUser() {
 					if (retVal?.data?.user && retVal?.data?.userFound) {
 						let rememberMe = false;
 						let now = new Date().getTime();
+						Cookies.set("email", data.email);
 						Cookies.set(
 							"token",
 							JSON.stringify({

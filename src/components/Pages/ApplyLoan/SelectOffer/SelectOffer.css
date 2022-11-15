@@ -1,20 +1,16 @@
 #apply-loan-comparison-button-grid {
 	margin-left: auto !important;
 }
-
 #apply-loan-continue-button {
 	margin-left: 10px !important;
 }
-
 .MuiTabs-vertical span {
 	align-items: start !important;
 }
-
 .MuiPaper-rounded {
 	border-radius: 10px !important;
 }
-
-#scrollable-auto-tab-vertical-0.Mui-selected {
+#scrollable-auto-tab-vertical-0.Mui-selected,#scrollable-auto-tab-vertical-1.Mui-selected,#scrollable-auto-tab-vertical-2.Mui-selected,#scrollable-auto-tab-vertical-3.Mui-selected,#scrollable-auto-tab-vertical-4.Mui-selected{
 	background: linear-gradient(85deg, #264266, #0f4eb3) !important;
 	color: white !important;
 	max-width: unset;
@@ -22,43 +18,6 @@
 	border-radius: 0 5px 5px 0;
 	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
 }
-
-#scrollable-auto-tab-vertical-1.Mui-selected {
-	background: linear-gradient(85deg, #264266, #0f4eb3) !important;
-	color: white !important;
-	max-width: unset;
-	width: 90%;
-	border-radius: 0 5px 5px 0;
-	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
-}
-
-#scrollable-auto-tab-vertical-2.Mui-selected {
-	background: linear-gradient(85deg, #264266, #0f4eb3) !important;
-	color: white !important;
-	max-width: unset;
-	width: 90%;
-	border-radius: 0 5px 5px 0;
-	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
-}
-
-#scrollable-auto-tab-vertical-3.Mui-selected {
-	background: linear-gradient(85deg, #264266, #0f4eb3) !important;
-	color: white !important;
-	max-width: unset;
-	width: 90%;
-	border-radius: 0 5px 5px 0;
-	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
-}
-
-#scrollable-auto-tab-vertical-4.Mui-selected {
-	background: linear-gradient(85deg, #264266, #0f4eb3) !important;
-	color: white !important;
-	max-width: unset;
-	width: 90%;
-	border-radius: 0 5px 5px 0;
-	box-shadow: 3px 3px 10px 0 rgb(123, 31, 162, 50%);
-}
-
 .loadingCircle {
 	width: 100%;
 	text-align: center;
@@ -66,33 +25,27 @@
 	align-items: center;
 	justify-content: center;
 }
-
 #loanListTable {
 	padding: 0px 0px 0px 15px;
 	width: 100%;
 }
-
 .infoText {
 	text-align: justify;
 	font-size: 15px;
 	color: #6b6f82;
 }
-
 .pleaseClickText {
 	text-align: justify;
 	font-size: 15px;
 	padding-top: 15px;
 }
-
 #termsTabs {
 	padding-bottom: 10px;
 }
-
 #tabText {
 	font-size: 0.938rem;
 	font-weight: 700;
 }
-
 .compareChartButtons {
 	display: flex;
 }
@@ -105,7 +58,6 @@
 	margin-right: 5px;
 	margin-top: unset;
 }
-
 .desktopGrid svg{
 	margin-right: 6px;
 }
@@ -121,41 +73,34 @@
 		float: unset !important;
 	}
 }
-
 @media only screen and (max-width: 520px) {
 	#apply-loan-comparison-button-grid {
 		margin-left: unset !important;
 		margin-top: 15px;
 	}
-
 	#apply-loan-continue-button {
 		margin-left: 0 !important;
 		margin-bottom: 15px;
 	}
-
 	.compareChartButtons {
 		flex-direction: column-reverse;
 		align-items: center;
 	}
-
 	#compareChartButtonsWrap {
 		flex-direction: column;
 		align-items: center;
 	}
 }
-
 @media (max-width:599px) {
 	#loanListTable {
 		padding: 0px !important;
 		margin-top: 20px;
 	}
 }
-
 .chartGrid {
 	text-align: center;
 	min-width: 1vh;
 }
-
 .MuiTabs-indicator {
 	display: none !important;
 }

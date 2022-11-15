@@ -187,7 +187,7 @@ export default function PaymentMethod() {
     formikAddDebitCard.handleChange(event);
     try {
       let isValidZip = false;
-      setValidZip(true);
+      setValidZip(false);
       if (event.target.value !== "" && event.target.value.length === 5) {
         let result = await ZipCodeLookup(event.target.value);
         if (result?.status === 200 && result?.data?.cityName) {

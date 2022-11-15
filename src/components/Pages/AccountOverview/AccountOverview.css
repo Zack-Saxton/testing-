@@ -7,32 +7,9 @@
         U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
         U+FEFF, U+FFFD;
 }
-
-.stroke-blue {
-    stroke: #274367;
-}
-
-.stroke {
-    stroke: rgb(220, 220, 224);
-}
-
-.centerHeading {
-    color: #181818;
-    font-size: 24px;
-    font-family: 'Muli', sans-serif;
-    font-weight: 400;
-}
-
-.donutChart {
-    height: 170px;
-    -webkit-filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
-    filter: drop-shadow(0px 10px 4px rgba(133, 3, 168, .2));
-}
-
 .limitedOfferWrap,#limitedOfferWrap {
     width: 100%;
 }
-
 .overviewWrap {
     width: 100%;
     display: flex;
@@ -40,7 +17,6 @@
     box-sizing: border-box;
     justify-content: space-between;
 }
-
 #overviewWrap {
     width: 100%;
     height: 100%;
@@ -49,8 +25,6 @@
     box-sizing: border-box;
     justify-content: space-between;
 }
-
-
 .imageholdernew {
     width: 100%;
     background-color: white;
@@ -60,29 +34,23 @@
     display: flex;
     box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
 }
-
 .imageholdernewtop {
     padding-right: 10px;
     display: flex;
 }
-
 .yellowBackground {
     background-color: #ffbc24;
     display: flex;
     width: 100%;
 }
-
 .greyBackgroundHolder {
     background-color: #DBDBDB;
     display: flex;
     width: 100%;
 }
-
 .bannerImage {
     width: 100%;
 }
-
-
 .secondBannerWrapNew {
     width: auto;
     background-color: white;
@@ -94,33 +62,20 @@
     padding: 24px;
     box-shadow: rgb(61 61 61 / 10%) 0px 8px 44px 0px;
 }
-
 .secondBannerWrapNewtop {
     border-radius: 10px;
     display: flex;
     padding-left: 10px;
 }
-
 .secondBannerImage {
     width: 100%;
 }
-
-.overviewOfferText {
-    font-size: 1.538rem;
-}
-
-.overviewOfferAmountText {
-    font-size: 34.5px;
-}
-
 .secondGrid {
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
 }
-
-
 #applyNowButton {
     color: white;
     background-color: #0f4fb3;
@@ -133,13 +88,11 @@
     border: none;
     font-size: 14px;
 }
-
 .mortgageText {
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
 .mortgageHeading {
     font-size: 1.563rem;
     font-weight: 700;
@@ -149,7 +102,6 @@
     width: 100%;
     text-align: center;
 }
-
 .mortgageParagraph {
     font-size: 20px;
     font-weight: 400;
@@ -160,22 +112,15 @@
     width: 100%;
     margin: 11px 0px 12px 0px;
 }
-
 .buttonSecondaryWrap {
     margin-bottom: 7px;
     width: 100%;
     align-items: center;
     justify-content: center;
 }
-
 .buttonSecondaryWrap a {
     text-decoration: none;
 }
-
-#claimButton {
-    border-radius: 20px;
-}
-
 #applyForLoanButton {
     color: white;
     background-color: #0f4fb3;
@@ -185,11 +130,9 @@
     height: 30px;
     padding: 0px 30px;
 }
-
 .offerTextTwo {
     margin: 5% 0%;
 }
-
 .offerTextWrap {
     margin-bottom: 7px;
     height: 79.4531px;
@@ -198,7 +141,6 @@
     flex-direction: column;
     justify-content: center;
 }
-
 #personalText {
     font-size: 20px;
     margin-bottom: 7px !important;
@@ -206,18 +148,15 @@
     font-weight: 400;
     color: #171717;
 }
-
 #offerMoney {
     font-size: 25px !important;
     color: #171717;
     line-height: 28px;
 }
-
 #applyForLoanLink {
     display: block;
     margin-bottom: 7px;
 }
-
 .disclosureLink {
     display: block;
     font-size: 0.675rem;
@@ -231,37 +170,22 @@
 	justify-content: center;
     padding: 20px 0px;
 }
-@media (min-width:1400px) {
-    #claimButton {
-        height: 32px;
-        font-size: 18px;
-    }
-}
-
-
 @media only screen and (min-width: 2000px) {
     .yellowBackground {
         justify-content: space-between;
     }
-
     .bannerImage {
         width: unset;
     }
-
 }
-
-
 @media (max-width:960px) {
-
     .mortgageHeading {
         font-size: 20px;
     }
-
     .mortgageParagraph {
         font-size: 18px;
     }
 }
-
 @media (max-width:760px) {
     .yellowBackground,.greyBackgroundHolder {
         flex-direction: column;
@@ -269,13 +193,7 @@
     .bannerImage {
         width: 100%;
     }
-    #claimButton {
-        font-size: 30px;
-        padding: 0px 30px !important;
-        height: 26px;
-    }
 }
-
 @media only screen and (max-width: 599px) {
     .secondBannerWrapNewtop {
         padding-left: 0px;

@@ -114,7 +114,7 @@ function CheckMyOffersContext(props) {
       data.lastName = identification?.last_name ?? '';
       data.phone = latestContact?.phone_number_primary ?? '';
       data.email = latestContact?.email ? latestContact?.email : '';
-      data.dob = identification?.date_of_birth ? Moment(identification?.date_of_birth).format("MM/DD/YYYY") : '';
+      data.dob = identification?.date_of_birth ? identification?.date_of_birth : '';
       data.streetAddress = latestContact?.address_street ?? '';
       data.city = latestContact?.address_city ?? '';
       data.state = latestContact?.address_state ?? '';

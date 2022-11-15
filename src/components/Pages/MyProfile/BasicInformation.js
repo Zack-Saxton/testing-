@@ -23,23 +23,11 @@ import { useAccountOverview } from '../../../hooks/useAccountOverview'
 import "./Style.css";
 import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../Controllers/CommonController'
 import { usePhoneNumber } from '../../../hooks/usePhoneNumber';
-
+import { FormValidationRules } from "../../lib/FormValidationRule";
+let formValidation = new FormValidationRules();
 const validationSchema = yup.object({
-  email: yup
-    .string(globalMessages.EmailEnter)
-    .email(globalMessages.EmailValid)
-    .matches(
-      /^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9+/._-]+\.[a-zA-Z]{2,6}$/, //eslint-disable-line
-      globalMessages.EmailValid
-    )
-    .required(globalMessages.EmailRequired),
-  phone: yup
-    .string(globalMessages.PhoneEnter)
-    .required(globalMessages.PhoneRequired)
-    .transform((value) => value.replace(/[^\d]/g, ""))
-    .matches(/^[1-9]{1}\d{2}\d{3}\d{4}$/, globalMessages.PhoneValid)
-    .matches(/^(\d)(?!\1+$)\d{9}$/, globalMessages.PhoneValid)
-    .min(10, globalMessages.PhoneMin),
+  email: formValidation.email(),
+  phone: formValidation.phoneNumber(),
 });
 
 async function filetoImage(file) {
@@ -165,7 +153,14 @@ export default function BasicInformation(props) {
           }));
         }
       };
-
+      const showErrorMessage = (message) => {
+        if (!toast.isActive("closeToast")) {
+          toast.error(message, {
+            toastId: "closeToast",
+            onOpen: () => { setLoading(false); }
+          });
+        }
+      }
       const uploadBasicInfoImageChange = async () => {
         if (selectedFile) {
           let filePath = selectedFile.value;
@@ -240,16 +235,7 @@ export default function BasicInformation(props) {
                   }
                 }
                 else {
-                  if (!toast.isActive("closeToast")) {
-                    toast.error(globalMessages.FileUploadError,
-                      {
-                        toastId: "closeToast",
-                        onClose: () => {
-                          setLoading(false);
-                        }
-                      }
-                    );
-                  }
+                  showErrorMessage(globalMessages.FileUploadError);                  
                 }
               };
               reader.readAsDataURL(selectedFile.files[ 0 ]);
@@ -267,44 +253,32 @@ export default function BasicInformation(props) {
       };
 
       if (formik.initialValues.phone === phone && formik.initialValues.email === values.email && !selectedFile) {
-        if (!toast.isActive("closeToast")) {
-          toast.error(globalMessages.NoChange, {
-            toastId: "closeToast",
-            onClose: () => { setLoading(false); }
-          });
-        }
+        showErrorMessage(globalMessages.NoChange);        
       }
       else {
         let res = await basicInformation(body);
+        let notesLength = res?.data?.notes?.length ?? 0;
         if ((formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email && selectedFile !== null) || (formik.initialValues.phone !== values.phone && selectedFile !== null)) {
-          if (res?.data?.notes.length !== 0 && selectedFile !== null) {
+          if (notesLength !== 0 && selectedFile !== null) {
             uploadBasicInfoImageChange();
+          }else if(res?.data?.statusCode == 400){
+            showErrorMessage(globalMessages.INVALIDENTRY);            
           }
         } else if (selectedFile !== null) {
           uploadBasicInfoImageChange();
         } else if (formik.initialValues.phone !== values.phone && formik.initialValues.email === values.email) {
-          if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
+          if (notesLength !== 0 && res?.data?.emailUpdate) {
             uploadBasicInfoChange();
           }
         } else if (formik.initialValues.email !== values.email || (formik.initialValues.phone !== values.phone && formik.initialValues.email !== values.email)) {
            if(res?.data?.statusCode == 400){
-            if (!toast.isActive("closeToast")) {
-              toast.error(globalMessages.INVALIDENTRY, {
-                toastId: "closeToast",
-                onClose: () => { setLoading(false); }
-              });
-            }
+            showErrorMessage(globalMessages.INVALIDENTRY);            
           }
-           if (res?.data?.notes.length !== 0 && res?.data?.emailUpdate) {
+          if (notesLength !== 0 && res?.data?.emailUpdate) {
               uploadBasicInfoChangeLogOut();
           }
         } else {
-          if (!toast.isActive("closeToast")) {
-            toast.error(globalMessages.TryAgain, {
-              toastId: "closeToast",
-              onClose: () => { setLoading(false); }
-            });
-          }
+          showErrorMessage(globalMessages.TryAgain);          
         }
       }
     }

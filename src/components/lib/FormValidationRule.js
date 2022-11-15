@@ -8,7 +8,7 @@ export class FormValidationRules {
             .string(globalMessages.EmailRequired)
             .email(globalMessages.EmailValid)
             .matches(
-                /^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9+/._-]+\.[a-zA-Z]{2,6}$/, //eslint-disable-line
+                /^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9+/-]+\.[a-zA-Z]{2,6}$/, //eslint-disable-line
                 globalMessages.EmailValid
             )
             .required(globalMessages.EmailRequired);
@@ -254,6 +254,22 @@ export class FormValidationRules {
         .max(100, globalMessages?.Address_Street_Max)
         .matches(/^(?!\s+$).*/g, globalMessages?.No_Backspace_Only)
         .required(globalMessages?.Address_Street_Required);
+    }
+
+    appointmentDate(scheduleDateCall) {
+        return yup
+        .date(globalMessages.ValidDate)
+        .nullable()
+        .required(globalMessages.Appointment_Date_Required)
+        .typeError(globalMessages.ValidDate)
+        .max(scheduleDateCall, globalMessages.validCheckDate);
+    }
+
+    appointmentCallTime() {
+        return yup
+        .string(globalMessages.Enter_Appointment_Time)
+        .nullable()
+        .required(globalMessages.Appointment_Time_Required);
     }
     getFormValidationRule(type = "login") {
         if (type === 'login') {

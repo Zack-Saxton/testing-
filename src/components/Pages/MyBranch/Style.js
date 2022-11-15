@@ -13,7 +13,6 @@ const useStylesMyBranch = makeStyles((theme) => ({
   heading: {
     color: "#214476",
     fontWeight: "400",
-    fontSize: "1.563rem",
   },
   centerGrid: {
     marginTop: "20px",

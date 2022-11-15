@@ -11,7 +11,8 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import usrAccountDetails from "../../../Controllers/AccountOverviewController";
 import {
 	checkMyOfferSubmit as submitApplication,
-	getCustomerByEmail
+	getCustomerByEmail,
+	updateProspect
 } from "../../../Controllers/CheckMyOffersController";
 import { ButtonPrimary, Checkbox, Popup, RenderContent } from "../../../FormsUI";
 import "../CheckMyOffer.css";
@@ -138,6 +139,7 @@ function SSN() {
 		if (result?.data?.AppSubmittedInLast30Days) {
 			stopLoading();		
 		} else if (!result?.data?.AppSubmittedInLast30Days) {
+			updateProspect(data);
 			response = await submitApplication(data);
 			setSubmit(false);
 			setData({
@@ -382,6 +384,7 @@ function SSN() {
 															href={
 																"https://lms.moneyskill.org/yourcreditrating/mariner"
 															}
+															target="_blank"
 															rel="noreferrer noopener"
 														>
 															Credit Education Program
@@ -410,6 +413,7 @@ function SSN() {
 														<a
 															className="formatURL"
 															href={process.env.REACT_APP_NEW_MEXICO_CONSUMER_BROCHURE}
+															target="_blank"
 															rel="noreferrer noopener"
 														>
 															New Mexico Consumer Brochure.

@@ -13,16 +13,6 @@
   font-size: 15px;
   line-height: 1.5;
 }
-.col {
-  margin: 0 15px;
-  width: 50%;
-  word-wrap: break-word;
-}
-.col2 {
-  margin: 0 15px;
-  width: 100%;
-  word-wrap: break-word;
-}
 .main-footer-content {
   font-size: 15px;
   padding-bottom: 14px;
@@ -100,16 +90,6 @@
   }
   .section-top {
     flex-direction: column;
-  }
-  .col {
-    text-align: center;
-    width: 100%;
-    margin: 0
-  }
-  .col2 {
-    text-align: center;
-    width: 100%;
-    margin: 0
   }
   .row {
     display: unset !important;

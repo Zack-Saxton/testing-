@@ -3,29 +3,24 @@
     right: 5px !important;
     top: 0px !important;
   }
-
   #consumerDialogHeading {
     font-size: 26px;
     font-weight: bold;
   }
 }
-
 #buttonWrap {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 #consumerMain {
   position: relative;
 }
-
 #closeBtn {
   position: absolute;
   right: 14px;
   top: 5px;
 }
-
 #stayBtn {
   margin-right: 10px;
   font-family: "Muli", sans-serif !important;
@@ -34,7 +29,6 @@
   box-shadow: none;
   text-transform: none !important;
 }
-
 #Continue {
   font-family: "Muli", sans-serif !important;
   font-weight: 700;

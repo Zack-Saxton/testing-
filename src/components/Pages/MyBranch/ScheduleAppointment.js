@@ -11,7 +11,6 @@ import Moment from "moment";
 import PropTypes from "prop-types";
 import React, { useRef, useState } from "react";
 import * as yup from "yup";
-import globalMessages from "../../../assets/data/globalMessages.json";
 import { ScheduleVisitApi } from "../../Controllers/MyBranchController";
 import { ButtonPrimary, DatePicker, Select } from "../../FormsUI";
 import { useStylesMyBranch } from "./Style";
@@ -24,24 +23,16 @@ import {
   upt_other_Fri,
   upt_other_M_W_Thu
 } from "./WorkingHours";
-
+import { FormValidationRules } from "../../lib/FormValidationRule";
+let formValidation = new FormValidationRules();
 //Date validation
 const scheduleAppointmentDate = new Date();
 scheduleAppointmentDate.setDate(scheduleAppointmentDate.getDate() + 30);
 
 // yup validation
 const validationSchema = yup.object({
-  appointmentDate: yup
-    .date(globalMessages.ValidDate)
-    .nullable()
-    .required(globalMessages.Appointment_Date_Required)
-    .typeError(globalMessages.ValidDate)
-    .max(scheduleAppointmentDate, globalMessages.validCheckDate),
-
-  appointmentTime: yup
-    .string(globalMessages.Enter_Appointment_Time)
-    .nullable()
-    .required(globalMessages.Appointment_Time_Required),
+  appointmentDate: formValidation.appointmentDate(scheduleAppointmentDate),
+  appointmentTime: formValidation.appointmentCallTime(),
 });
 const dateFormat = "YYYY-MM-DD";
 export default function ScheduleAppointment({
@@ -170,6 +161,7 @@ export default function ScheduleAppointment({
       <Grid item xs={12} className={classes.gridSchedule}>
         <ButtonPrimary
           id="scheduleAppointmentBtn"
+          aria-label = "scheduleAppointmentBtn"
           stylebutton='{"float": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
           onClick={handleScheduleAppointment}
           data-testid="appointment"

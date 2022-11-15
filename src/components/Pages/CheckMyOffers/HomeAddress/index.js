@@ -21,27 +21,15 @@ import ErrorLogger from "../../../lib/ErrorLogger";
 import "../CheckMyOffer.css";
 import "../HomeAddress/HomeAdress.css";
 import ScrollToTop from "../ScrollToTop";
+import { FormValidationRules } from "../../../lib/FormValidationRule";
+let formValidation = new FormValidationRules();
 
 //yup validation schema
 const validationSchema = yup.object({
-  streetAddress: yup
-    .string(globalMessages.Address_Street)
-    .trim()
-    .max(100, globalMessages.Length_max_100)
-    .matches(/^(?!\s+$).*/g, globalMessages.No_Backspace_Only)
-    .required(globalMessages.Address_Street_Required),
-  city: yup
-    .string(globalMessages.Address_City)
-    .max(30, globalMessages.Length_max_30)
-    .required(globalMessages.Address_Home_City),
-  state: yup
-    .string(globalMessages.Address_State)
-    .max(30, globalMessages.Address_State_Max)
-    .required(globalMessages.Address_State_Required),
-  zip: yup
-    .string(globalMessages.ZipCodeEnter)
-    .min(5, globalMessages.ZipCodeMax)
-    .required(globalMessages.ZipCodeRequired),
+  streetAddress: formValidation.streetAddressValidation(),
+  city: formValidation.cityValidation(),
+  state: formValidation.stateValidation(),
+  zip: formValidation.zipCode(),
 });
 // Home address component initialization
 function HomeAddress() {
