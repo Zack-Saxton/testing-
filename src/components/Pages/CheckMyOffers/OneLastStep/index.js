@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from "react-router-dom";
@@ -456,13 +457,10 @@ function SSN() {
 											stylebutton='{"background": "#FFBC23", "fontSize": "0.938rem","color": "black", "padding": "0px 30px"}'
 										>
 											Submit Application
-											<i
-												className="fa fa-refresh fa-spin customSpinner"
-												style={{
-													marginRight: "10px",
-													display: loading ? "block" : "none",
-												}}
-											/>
+											<AutorenewIcon className="rotatingIcon"
+                        style={{
+                        display: loading ? "block" : "none",
+                    }}/>
 										</ButtonPrimary>
 									</Grid>
 								</Grid>

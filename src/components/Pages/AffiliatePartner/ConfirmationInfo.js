@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import { useQuery } from 'react-query';
 import PropTypes from "prop-types";
@@ -1040,13 +1041,10 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                         onClick={() => autoFocus()}
                       >
                         Continue
-                        <i
-                          className="fa fa-refresh fa-spin customSpinner"
+                        <AutorenewIcon className="rotatingIcon"
                           style={{
-                            marginRight: "10px",
-                            display: loading ? "block" : "none",
-                          }}
-                        />
+                          display: loading ? "block" : "none",
+                        }}/>
                       </ButtonPrimary>
                     </Grid>
                   </Grid>

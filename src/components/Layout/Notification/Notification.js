@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import Stack from '@mui/material/Stack';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { makeStyles } from "@mui/styles";
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from 'react-query';
@@ -199,14 +200,11 @@ export default function Notification() {
                 disabled={messageDelLoading}
               >
                 Delete
-                <i
-                  className="fa fa-refresh fa-spin customSpinner"
+                <AutorenewIcon className="rotatingIcon"
                   style={{
-                    marginRight: "10px",
-                    color: "blue",
-                    display: messageDelLoading ? "block" : "none",
-                  }}
-                />
+                  fontSize:"23px",
+                  display: messageDelLoading ? "block" : "none",
+                }}/>
               </ButtonSecondary>
               <ButtonPrimary stylebutton='{"background": "", "color":"" }' onClick={handleCloseDialog}>
                 OK

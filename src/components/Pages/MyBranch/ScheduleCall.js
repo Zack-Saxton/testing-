@@ -6,6 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Moment from "moment";
 import PropTypes from "prop-types";
@@ -278,14 +279,10 @@ export default function ScheduleCall({ MyBranchCall, holidayData, latitude, long
               disabled={loading}
             >
               Call Back
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  color: "blue",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
           </DialogActions>
         </form>

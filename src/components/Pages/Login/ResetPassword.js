@@ -1,6 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useState, useEffect } from "react";
@@ -223,13 +224,10 @@ export default function ResetPassword(_props) {
                     disabled={loading}
                   >
                     Reset Password
-                    <i
-                      className="fa fa-refresh fa-spin customSpinner"
-                      style={{
-                        marginRight: "10px",
+                    <AutorenewIcon className="rotatingIcon"
+                        style={{
                         display: loading ? "block" : "none",
-                      }}
-                    />
+                    }}/>
                   </ButtonPrimary>
                 </Grid>
               </Grid>
