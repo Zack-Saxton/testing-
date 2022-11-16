@@ -1,11 +1,11 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Moment from "moment";
 import Typography from "@mui/material/Typography";
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
+import Moment from "moment";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -86,6 +86,19 @@ function PersonalInfo() {
 		}
 	} 
 
+		function addMinutes(date, minutes) {
+			return new Date(date.getTime() + minutes*60000);
+		}
+
+		//We check the dob is string or object
+		//if string get the date in "mm/dd/yyyy" formate using substring
+		//if object get the date in "mm/dd/yyyy" formate using moment
+		let dateObj = typeof data?.dob === 'string' && data?.dob.length > 0 ? data.dob.substring(0, 10) : Moment(data?.dob).format("MM/DD/yyyy") ;
+		let newDate = new Date( dateObj );
+		const currentDate = new Date();
+		let timeZoneDifference = Math.abs(currentDate.getTimezoneOffset());
+		let formatedValue =  addMinutes(new Date(newDate), timeZoneDifference);
+
 	//configuring formik
 	const formik = useFormik({
 		initialValues: {
@@ -95,7 +108,7 @@ function PersonalInfo() {
 			ssn: data.ssn ? data.ssn : "",
 			lastSSN: data.last4SSN ? data.last4SSN : "",
 			phone: data.phone ? data.phone : "",
-			dob: data.dob ? data.dob : null,
+			dob: data.dob ? formatedValue : null,
 			checkSSN: data.last4SSN ? true : false,
 		},
 		validationSchema: validationSchema,
