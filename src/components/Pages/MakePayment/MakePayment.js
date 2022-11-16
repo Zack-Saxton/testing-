@@ -846,7 +846,6 @@ export default function MakePayment() {
                               disableDate={disableHolidays}
                               minyear={4}
                               onChange={(paymentDatepickerOnChange) => {
-                                // setPaymentDatepicker(Moment(paymentDatepickerOnChange).format("YYYY/MM/DD"));
                                 setPaymentDatepicker(paymentDatepickerOnChange);
                                 setRequiredDate("");
                               }}
