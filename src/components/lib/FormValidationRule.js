@@ -8,7 +8,7 @@ export class FormValidationRules {
             .string(globalMessages.EmailRequired)
             .email(globalMessages.EmailValid)
             .matches(
-                /^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9+/-]+\.[a-zA-Z]{2,6}$/, //eslint-disable-line
+                /^[a-zA-Z0-9][a-zA-Z0-9._-]+@[a-zA-Z0-9+/-]+[.][a-zA-Z.]{2,}$/, //eslint-disable-line
                 globalMessages.EmailValid
             )
             .required(globalMessages.EmailRequired);
