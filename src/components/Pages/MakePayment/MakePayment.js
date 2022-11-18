@@ -280,7 +280,7 @@ export default function MakePayment() {
         setLatestLoanData(loan);
         let totalAmount = data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2);
         setPayOffAmount(data?.loanPaymentInformation?.accountDetails?.CurrentPayOffAmount);
-        setPaymentAmount(totalAmount);
+        setPaymentAmount( paymentAmount ? paymentAmount : totalAmount);
         setTotalPaymentAmount(totalAmount);
         let status = data?.loanDetails?.LoanIsDelinquent;
         setAutoPayDisableMain(status)
