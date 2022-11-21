@@ -107,10 +107,12 @@ export default function NormalFooter() {
             </Grid>
 
             <Grid className="feefoBadgeWrap" item xs={12} sm={12} md={4} lg={4}>
+              {badge ? 
               <img type="image"
-                src={badge}
-                alt="photo"
-              />
+              src={badge}
+              alt="photo"
+            />
+              : ''}              
             </Grid>
 
           </Grid>
@@ -119,7 +121,7 @@ export default function NormalFooter() {
 
             <Grid container className="bottomSectionWrap" >
               <Grid className="FooterLogo" item xs={12} sm={12} md={2} lg={2}>
-                <img type="image" id="mfInfoImg" src={Logo} alt="logo image" />
+                {Logo ? <img type="image" id="mfInfoImg" src={Logo} alt="logo image" /> : '' }                
               </Grid>
 
               <Grid className="footerPadding footerTextInfo" item xs={12} sm={12} md={8} lg={8} >
@@ -141,7 +143,7 @@ export default function NormalFooter() {
               </Grid>
 
               <Grid className="footerPadding FooterHousingLogo" item xs={12} sm={12} md={2} lg={2}>
-                <img type="image" src={housingImage} alt="logo image" />
+                {housingImage ? <img type="image" src={housingImage} alt="logo image" /> : ''}                
               </Grid>
 
             </Grid>

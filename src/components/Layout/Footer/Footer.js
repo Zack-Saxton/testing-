@@ -116,14 +116,14 @@ export default function Footer() {
             </Grid>
 
             <Grid className="feefoBadgeWrap" item sm={12} md={4} lg={4}>
-              <img type="image" width="1000" src={badge} alt="photo" id="badge" />
+              {badge ? <img type="image" width="1000" src={badge} alt="photo" id="badge" /> : ''}              
             </Grid>
           </Grid>
 
           <Grid>
             <Grid container id="mfInfo" className="row">
               <Grid className="FooterLogo" item xs={12} sm={12} md={2} lg={2}>
-                <img type="image" id="mfInfoImg" src={Logo} alt="logo image" />
+                {Logo ? <img type="image" id="mfInfoImg" src={Logo} alt="logo image" /> : ''}                
               </Grid>
 
               <Grid
@@ -152,12 +152,16 @@ export default function Footer() {
               </Grid>
 
               <Grid className="footerPadding FooterHousingLogo" item sm={12} md={2} lg={2}>
+                {housingImage ?
                 <img
-                  type="image"
-                  id="housingImage"
-                  src={housingImage}
-                  alt="logo image"
-                />
+                type="image"
+                id="housingImage"
+                src={housingImage}
+                alt="logo image"
+              />
+                : 
+                ''}
+                
               </Grid>
             </Grid>
           </Grid>
