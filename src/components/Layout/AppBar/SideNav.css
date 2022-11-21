@@ -140,6 +140,7 @@ a.nav_link:hover .MuiListItem-root {
   top: 118px !important;
 }
 #notification-menu li{
+  font-family: 'Muli', sans-serif !important;
   padding: 20px;
   white-space: unset !important;
   max-width: 335px;
