@@ -320,7 +320,7 @@ export default function BranchLocatorFooter() {
             <Grid container className="footerLogoLinksWrap">
               <Grid item xs={12} sm={12} md={3}>
                 <Link className="footerLogoimageWrap" to="#">
-                  <img data-testid="footerLogoImage" src={Logo} />
+                  {Logo ? <img data-testid="footerLogoImage" src={Logo} /> : ''}                 
                 </Link>
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
@@ -345,12 +345,15 @@ export default function BranchLocatorFooter() {
               </Grid>
               <Grid item xs={12} sm={12} md={3}>
                 <Link className="footerLogoimageWrap" to="#">
+                  {Housing ? 
                   <img
-                    data-testid="housingImage"
-                    src={Housing}
-                    className="imgHousing"
-                    alt = ""
-                  />
+                  data-testid="housingImage"
+                  src={Housing}
+                  className="imgHousing"
+                  alt = ""
+                />
+                 : ''}
+                  
                 </Link>
               </Grid>
             </Grid>
