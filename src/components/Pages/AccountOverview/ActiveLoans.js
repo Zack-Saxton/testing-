@@ -7,7 +7,7 @@ import React from "react";
 import NumberFormat from "react-number-format";
 import { NavLink } from "react-router-dom";
 import { ButtonPrimary } from "../../FormsUI";
-import { useAccountOverview } from "./AccountOverviewHook/useAccountOverview";
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 import AutoPayStatus from "./AutoPayStatus.js";
 import { useStylesAccountOverview } from "./Style";
 import "./Style.css";
@@ -15,7 +15,7 @@ import "./Style.css";
 export default function ActiveLoans() {
   //Material UI css class
   const classes = useStylesAccountOverview();
-  const { isLoading, accountDetails } = useAccountOverview();
+  const { isLoading, data : accountDetails } = useAccountOverview();
 
   let today = Moment(new Date());
   // If the customer's payment is due within 10 days of current date, highlight the 'Make a Payment' button on the Account Overview page

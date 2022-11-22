@@ -16,6 +16,7 @@ import NumberFormat from 'react-number-format';
 import { NavLink } from "react-router-dom";
 import { useStylesLoanHistory } from "./Style";
 import usrAccountDetails from "../../Controllers/AccountOverviewController"
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 import "./Style.css";
 import Typography from "@mui/material/Typography";
 
@@ -23,7 +24,7 @@ export default function LoanHistoryTable() {
 
   //Material UI css class
   const classes = useStylesLoanHistory();
-  const { isLoading, data: accountDetails } = useQuery('loan-data', usrAccountDetails);
+  const { isLoading, data: accountDetails } = useAccountOverview()
   //View part
   return (
     <div style = {{width : "100%"}}>

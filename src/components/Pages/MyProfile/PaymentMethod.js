@@ -17,6 +17,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -44,7 +45,8 @@ import {
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
-import { usePaymentMethod } from "../MakePayment/usePaymentMethod";
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
+import { usePaymentMethod } from "../../../hooks/usePaymentMethod"
 import { bankAccountValidation, debitCardValidation} from "./PaymentMethod/PaymentMethodValidation"
 import BankAccountMethod from "./PaymentMethod/BankAccountMethod"
 import CreditCardMethod from "./PaymentMethod/CreditCardMethod"
@@ -78,8 +80,8 @@ export default function PaymentMethod() {
   const [ validZip, setValidZip ] = useState(true);
   const [ mailingStreetAddress, setMailingStreetAddress ] = useState("");
   const [ mailingZipcode, setMailingZipcode ] = useState("");
-  const { data: accountDetails } = useQuery("loan-data", usrAccountDetails);
-  const { payments: allPaymentMethod, refetch } = usePaymentMethod();
+  const { data: accountDetails } = useAccountOverview();
+  const { data: allPaymentMethod, refetch } = usePaymentMethod();
   useEffect(() => {
     let schedulePayment = accountDetails?.data?.activeLoans?.length
       ? accountDetails.data.activeLoans[ 0 ].loanPaymentInformation?.scheduledPayments
@@ -785,13 +787,10 @@ export default function PaymentMethod() {
             }}
           >
             Yes
-            <i
-              className="fa fa-refresh fa-spin customSpinner"
-              style={{
-                marginRight: "10px",
+            <AutorenewIcon className="rotatingIcon"
+                style={{
                 display: loading ? "block" : "none",
-              }}
-            />
+              }}/>
           </ButtonPrimary>
         </DialogActions>
       </Dialog>

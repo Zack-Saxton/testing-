@@ -6,13 +6,14 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import MakePayment from "./MakePayment";
-import { useAccountOverview } from './useAccountOverview';
-import { useHolidayCalender } from './useHolidayCalender';
-import { usePaymentMethod } from './usePaymentMethod';
+import { useAccountOverview } from '../../../hooks/useAccountOverview';
+import { useHolidayCalender } from '../../../hooks/useHolidayCalender';
+import { usePaymentMethod } from '../../../hooks/usePaymentMethod';
 import LoanAccount from '../../../contexts/LoanAccount';
 import { makePaymentMockData, holidayCalendarMockData, paymentMethodsMockData } from "./../../../__mock__/data/MockData";
 import AccountOverview from '../AccountOverview/AccountOverview'
 import NavContext from '../../../contexts/NavContext';
+import { AccountOverviewDataMock, HolidayCalenderDataMock, PaymentMethodMock } from "../../../__mock__/MakePayment.mock";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,15 +25,15 @@ const queryClient = new QueryClient({
   },
 });
 
-jest.mock("./useAccountOverview", ()=>({
+jest.mock('../../../hooks/useAccountOverview', ()=>({
   useAccountOverview: jest.fn(),
 }))
 
-jest.mock("./useHolidayCalender", ()=>({
+jest.mock("../../../hooks/useHolidayCalender", ()=>({
   useHolidayCalender: jest.fn(),
 }))
 
-jest.mock("./usePaymentMethod", ()=>({
+jest.mock('../../../hooks/usePaymentMethod', ()=>({
   usePaymentMethod: jest.fn(),
 }))
 
@@ -72,54 +73,27 @@ const MockComponent = () => {
 }
 
 test("Checks the component is rendered", () => {
-  useAccountOverview.mockImplementation(() => ({
-    isFetching: false,
-    User: makePaymentMockData,
-  }));
-  useHolidayCalender.mockImplementation(() => ({
-    isLoadingHoliday: false,
-    holidayCalenderData: holidayCalendarMockData,
-  }))
-  usePaymentMethod.mockImplementation(() => ({
-    isLoadingPayment: false,
-    payments: paymentMethodsMockData,
-  }))
+  AccountOverviewDataMock();
+  HolidayCalenderDataMock();
+  PaymentMethodMock();
   const container = render(component());
   const element = container.getByTestId("makePaymentComponent");
   expect(element).toBeTruthy();
 });
 
 test("Please Contact Text Availability test", () => {
-  useAccountOverview.mockImplementation(() => ({
-    isFetching: false,
-    User: makePaymentMockData,
-  }));
-  useHolidayCalender.mockImplementation(() => ({
-    isLoadingHoliday: false,
-    holidayCalenderData: holidayCalendarMockData,
-  }))
-  usePaymentMethod.mockImplementation(() => ({
-    isLoadingPayment: false,
-    payments: paymentMethodsMockData,
-  }))
+  AccountOverviewDataMock();
+  HolidayCalenderDataMock();
+  PaymentMethodMock();
   const container = render(component());
   const element = container.getByTestId("pleaseContact");
   expect(element).toBeTruthy();
 });
 
 test("Cell values rendered correct;y", () => {
-  useAccountOverview.mockImplementation(() => ({
-    isFetching: false,
-    User: makePaymentMockData,
-  }));
-  useHolidayCalender.mockImplementation(() => ({
-    isLoadingHoliday: false,
-    holidayCalenderData: holidayCalendarMockData,
-  }))
-  usePaymentMethod.mockImplementation(() => ({
-    isLoadingPayment: false,
-    payments: paymentMethodsMockData,
-  }))
+    AccountOverviewDataMock();
+    HolidayCalenderDataMock();
+    PaymentMethodMock();
     render(component());
     const AccNo = screen.getByText("3508-006936-16");
     expect(AccNo).toBeTruthy();  
@@ -140,54 +114,27 @@ test("Cell values rendered correct;y", () => {
   });
 
   it("Check whether Payment section is Rendering", () => {
-    useAccountOverview.mockImplementation(() => ({
-      isFetching: false,
-      User: makePaymentMockData,
-    }));
-    useHolidayCalender.mockImplementation(() => ({
-      isLoadingHoliday: false,
-      holidayCalenderData: holidayCalendarMockData,
-    }))
-    usePaymentMethod.mockImplementation(() => ({
-      isLoadingPayment: false,
-      payments: paymentMethodsMockData,
-    }))
+    AccountOverviewDataMock();
+    HolidayCalenderDataMock();
+    PaymentMethodMock();
     const container = render(component());
     const headingElement = container.getByTestId("payment_Mode");
     expect(headingElement).toBeTruthy();
   });
 
   it("Check whether Payment Methods Dropdown is Rendering", () => {
-    useAccountOverview.mockImplementation(() => ({
-      isFetching: false,
-      User: makePaymentMockData,
-    }));
-    useHolidayCalender.mockImplementation(() => ({
-      isLoadingHoliday: false,
-      holidayCalenderData: holidayCalendarMockData,
-    }))
-    usePaymentMethod.mockImplementation(() => ({
-      isLoadingPayment: false,
-      payments: paymentMethodsMockData,
-    }))
+    AccountOverviewDataMock();
+    HolidayCalenderDataMock();
+    PaymentMethodMock();
     const container = render(component());
     const headingElement = container.getByTestId("payment_Methods");
     expect(headingElement).toBeTruthy();
   });
 
   it("Back button navigates to Account Overview page", async() => {
-    useAccountOverview.mockImplementation(() => ({
-      isFetching: false,
-      User: makePaymentMockData,
-    }));
-    useHolidayCalender.mockImplementation(() => ({
-      isLoadingHoliday: false,
-      holidayCalenderData: holidayCalendarMockData,
-    }))
-    usePaymentMethod.mockImplementation(() => ({
-      isLoadingPayment: false,
-      payments: paymentMethodsMockData,
-    }))
+    AccountOverviewDataMock();
+    HolidayCalenderDataMock();
+    PaymentMethodMock();
     const container = render(MockComponent());
     const backButton = container.getByTestId("back_Button")
     expect(backButton).toBeTruthy();
@@ -197,36 +144,18 @@ test("Cell values rendered correct;y", () => {
   });
 
   it("Default Account Number in the Payment Section", () => {
-    useAccountOverview.mockImplementation(() => ({
-      isFetching: false,
-      User: makePaymentMockData,
-    }));
-    useHolidayCalender.mockImplementation(() => ({
-      isLoadingHoliday: false,
-      holidayCalenderData: holidayCalendarMockData,
-    }))
-    usePaymentMethod.mockImplementation(() => ({
-      isLoadingPayment: false,
-      payments: paymentMethodsMockData,
-    }))
+    AccountOverviewDataMock();
+    HolidayCalenderDataMock();
+    PaymentMethodMock();
     const container = render(component());
     const headingElement = container.getByTestId('selectInput');
     expect(headingElement.value).toBe("");
   });
 
   it("changing payment method from select dropdown test", async() => {
-    useAccountOverview.mockImplementation(() => ({
-      isFetching: false,
-      User: makePaymentMockData,
-    }));
-    useHolidayCalender.mockImplementation(() => ({
-      isLoadingHoliday: false,
-      holidayCalenderData: holidayCalendarMockData,
-    }))
-    usePaymentMethod.mockImplementation(() => ({
-      isLoadingPayment: false,
-      payments: paymentMethodsMockData,
-    }))
+    AccountOverviewDataMock();
+    HolidayCalenderDataMock();
+    PaymentMethodMock();
     const { container } = render(component());
     const headingElement = container.querySelector(`input[name="select"]`);
   await act(() => {

@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import MultiFactorAuthentication from './MultiFactorAuthentication';
 import { MfaDataMockLoading, MfaDataMock } from '../../../__mock__/MultiFactorAuthentication.mock';
 import Cookies from 'js-cookie'
+import { useMultiFactorAuthentication } from '../../../hooks/useMultiFactorAuthentication';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -31,7 +32,7 @@ Cookies.set(
 	})
 );
 
-jest.mock("./useMultiFactorAuthentication", ()=>({
+jest.mock('../../../hooks/useMultiFactorAuthentication', ()=>({
   useMultiFactorAuthentication: jest.fn(),
 }))
 

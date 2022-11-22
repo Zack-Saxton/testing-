@@ -9,6 +9,7 @@ import ProfilePicture from '../../../contexts/ProfilePicture';
 import { GlobalStateProvider } from "../../../../src/contexts/GlobalStateProvider";
 import PaymentMethod from './PaymentMethod';
 import { LoanDataMock } from "./../../../__mock__/LoanData.mock";
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -34,7 +35,7 @@ const component = () =>{
 		</GlobalStateProvider>		
 	);
 }
-jest.mock("./../AccountOverview/AccountOverviewHook/useAccountOverview", ()=>({
+jest.mock("../../../hooks/useAccountOverview", ()=>({
   useAccountOverview: jest.fn(),
 }))
 

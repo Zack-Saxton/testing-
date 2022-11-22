@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import TextFieldWithToolTip from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -563,12 +564,10 @@ export default function BankAccountVerification(props) {
 							disabled={invalidRN}
 						>
 							{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
-							<i
-							className="fa fa-refresh fa-spin customSpinner"
-							style={{
-								display: internalLoading ? "block" : "none",
-							}}
-						/>
+						<AutorenewIcon className="rotatingIcon"
+              style={{
+              display: internalLoading ? "block" : "none",
+            }}/>
 						</ButtonPrimary>
 					</div>
 				</div>

@@ -15,6 +15,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
@@ -41,9 +42,9 @@ import ScrollToTop from "../ScrollToTop";
 import "./MakePayment.css";
 import PaymentOverview from "./PaymentOverview";
 import { useStylesMakePayment } from "./Style";
-import { useAccountOverview } from "./useAccountOverview";
-import { usePaymentMethod } from "./usePaymentMethod";
-import { useHolidayCalender } from "./useHolidayCalender"
+import { useAccountOverview } from "../../../hooks/useAccountOverview"
+import { usePaymentMethod } from "../../../hooks/usePaymentMethod";
+import { useHolidayCalender } from "../../../hooks/useHolidayCalender"
 
 
 const paymentMaxDate = new Date();
@@ -88,9 +89,9 @@ export default function MakePayment() {
   const [ activeLoansData, setActiveLoansData ] = useState([]);
   const [ checkCard, setCheckCard ] = useState(false);
   const [ defaultPaymentCard, setDefaultPaymentCard ] = useState(false);
-  const { isFetching, User, refetch } = useAccountOverview();
-  const { payments } = usePaymentMethod();
-  const { holidayCalenderData } = useHolidayCalender();
+  const { isFetching, data : User, refetch } = useAccountOverview();
+  const { data : payments } = usePaymentMethod();
+  const { data : holidayCalenderData } = useHolidayCalender();
   const [ paymentTitle, setPaymentTitle ] = useState("Single Payment");
   const [stateName,setStatename] = useState("");
   const [ payOffAmount, setPayOffAmount] = useState();
@@ -279,7 +280,7 @@ export default function MakePayment() {
         setLatestLoanData(loan);
         let totalAmount = data?.loanPaymentInformation?.accountDetails?.RegularPaymentAmount.toFixed(2);
         setPayOffAmount(data?.loanPaymentInformation?.accountDetails?.CurrentPayOffAmount);
-        setPaymentAmount(totalAmount);
+        setPaymentAmount( paymentAmount ? paymentAmount : totalAmount);
         setTotalPaymentAmount(totalAmount);
         let status = data?.loanDetails?.LoanIsDelinquent;
         setAutoPayDisableMain(status)
@@ -831,6 +832,7 @@ export default function MakePayment() {
                             {requiredAmount}
                           </p>
                           <Grid item xs={12} container direction="row" className={classes.datePickerStyle}>
+                            
                             <DatePicker
                               name="date"
                               label="Payment Date (No Sundays or Holidays)"
@@ -845,11 +847,7 @@ export default function MakePayment() {
                               disableDate={disableHolidays}
                               minyear={4}
                               onChange={(paymentDatepickerOnChange) => {
-                                setPaymentDatepicker(
-                                  Moment(paymentDatepickerOnChange).format(
-                                    "YYYY/MM/DD"
-                                  )
-                                );
+                                setPaymentDatepicker(paymentDatepickerOnChange);
                                 setRequiredDate("");
                               }}
                               value={new Date(paymentDatepicker)}
@@ -1013,14 +1011,10 @@ export default function MakePayment() {
               disabled={loading}
             >
               yes
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  color: "blue",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
           ) : (
             null
@@ -1035,14 +1029,10 @@ export default function MakePayment() {
               disabled={loading}
             >
               {paymentIsScheduled === "yes" ? globalMessages.Keep_Future_Add_Autopay : globalMessages.Complete_Autopay_Setup}
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  color: "blue",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
           ) : (
             null
@@ -1055,13 +1045,10 @@ export default function MakePayment() {
               disabled={loading}
             >
               Remove the future payment and turn on Autopay
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonSecondary>
           ) : (
             null
@@ -1365,13 +1352,10 @@ export default function MakePayment() {
               disabled={loading}
             >
               { checkAutoPay ? globalMessages.Keep_Autopay_On_Schedule : "OK"  }
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
             { checkAutoPay ? 
             (<ButtonPrimary
@@ -1380,13 +1364,10 @@ export default function MakePayment() {
               disabled={loading}
             >
             Turn off auto pay and Schedule a payment
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>)
             : null
             }
@@ -1403,13 +1384,10 @@ export default function MakePayment() {
               disabled={loading}
             >
               Replace current scheduled payment
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
           ) : (
             null
@@ -1422,13 +1400,10 @@ export default function MakePayment() {
               disabled={loading}
             >
               Keep scheduled payment and make this payment
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                }}
-              />
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonSecondary>
           ) : (
             null
@@ -1472,13 +1447,10 @@ export default function MakePayment() {
             disabled={loading}
           >
             Yes
-            <i
-              className="fa fa-refresh fa-spin customSpinner"
-              style={{
-                marginRight: "10px",
+            <AutorenewIcon className="rotatingIcon"
+                style={{
                 display: loading ? "block" : "none",
-              }}
-            />
+              }}/>
           </ButtonPrimary>
         </DialogActions>
       </Dialog>

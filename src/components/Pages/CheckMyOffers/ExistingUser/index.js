@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState } from "react";
@@ -236,13 +237,10 @@ function ExistingUser() {
 												disabled={loading}
 											>
 													Sign In
-												<i
-													className="fa fa-refresh fa-spin customSpinner"
-													style={{
-														marginRight: "10px",
-														display: loading ? "block" : "none",
-													}}
-												/>
+												<AutorenewIcon className="rotatingIcon"
+                        style={{
+                        display: loading ? "block" : "none",
+                    }}/>
 											</ButtonPrimary>
 										</Grid>
 										<Grid

@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import Stack from '@mui/material/Stack';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { makeStyles } from "@mui/styles";
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from 'react-query';
@@ -165,7 +166,7 @@ export default function Notification() {
                         messages.map((val, index) => (
                           val.message_id ?
                             <MenuItem key={index} className={val?.active ? "notificationMenuItem" : "notificationMenuItemNormal"} onClick={() => { handleClickOpen(val.message_id.message_title, val.message_id.message, val.message_id._id, val.active); }}>
-                              <span id="spanNotificationMenu" className="material-icons icon-bg-circle brandColorBG small">stars</span> {val?.message_id.message_title}</MenuItem>
+                              <span className="iconWrap"><span id="spanNotificationMenu" className="material-icons icon-bg-circle brandColorBG">stars</span></span> {val?.message_id.message_title}</MenuItem>
                             : <MenuItem> You have no New Notifications </MenuItem>)) : <MenuItem> You have no New Notifications</MenuItem>
                       }
                     </div>
@@ -199,14 +200,11 @@ export default function Notification() {
                 disabled={messageDelLoading}
               >
                 Delete
-                <i
-                  className="fa fa-refresh fa-spin customSpinner"
+                <AutorenewIcon className="rotatingIcon"
                   style={{
-                    marginRight: "10px",
-                    color: "blue",
-                    display: messageDelLoading ? "block" : "none",
-                  }}
-                />
+                  fontSize:"23px",
+                  display: messageDelLoading ? "block" : "none",
+                }}/>
               </ButtonSecondary>
               <ButtonPrimary stylebutton='{"background": "", "color":"" }' onClick={handleCloseDialog}>
                 OK

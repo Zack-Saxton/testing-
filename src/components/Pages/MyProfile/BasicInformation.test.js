@@ -37,7 +37,7 @@ const component = () => {
 		</ThemeProvider>
 	);
 }
-jest.mock("./../AccountOverview/AccountOverviewHook/useAccountOverview", ()=>({
+jest.mock('../../../hooks/useAccountOverview', ()=>({
   useAccountOverview: jest.fn(),
 }))
 test("Checks the component is rendered", () => {

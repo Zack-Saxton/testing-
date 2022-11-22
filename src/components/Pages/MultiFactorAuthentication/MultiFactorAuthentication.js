@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import "./MultiFactorAuthentication.css";
 import Cookies from 'js-cookie';
 import CheckLoginTimeout from '../../Layout/CheckLoginTimeout';
-import { useMultiFactorAuthentication } from "./useMultiFactorAuthentication";
+import { useMultiFactorAuthentication } from '../../../hooks/useMultiFactorAuthentication';
 import { useLocation } from "react-router-dom";
 import MFASelection from "./MFASelection";
 import CheckLoginStatus from '../../App/CheckLoginStatus';
@@ -13,7 +13,7 @@ const MultiFactorAuthentication = () => {
   const location = useLocation();
   const loginToken = JSON.parse(Cookies.get("token") ? Cookies.get("token") : '{ }');
   const [mfaData, setMFAData] = useState();
-  const { loading_mfaData, mfaInfo } = useMultiFactorAuthentication();
+  const { isLoading : loading_mfaData, data: mfaInfo } = useMultiFactorAuthentication();
   const [ uniqueNumber, setUniqueNumber] = useState();
   const [ disableSecurityQuestions, setDisableSecurityQuestions ] = useState(false);
   let securityQuestionsSaved = mfaData?.mfaDetails?.securityQuestionsSaved; 

@@ -22,6 +22,7 @@ import MarketingOffer from "./Marketing_offer/MarketingOffer";
 import OptOutNotice from "./Marketing_offer/OptOutNotice";
 import PreScreen from "./Marketing_offer/PreScreen";
 import { useStylesAccountOverview } from "./Style";
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 import "./Style.css";
 
 export default function LimitedOffer(userOfferData) {
@@ -41,7 +42,7 @@ export default function LimitedOffer(userOfferData) {
   const branchCno = myBranchData?.PhoneNumber ?? "";
   const branchName = myBranchData?.branchName ? (`${ myBranchData?.branchName } Branch`) : "";
   const branchManager = myBranchData?.branchmanager ?? "";
-  const { data: dataAccountOverview } = useQuery('loan-data', usrAccountDetails);
+  const { data: dataAccountOverview } = useAccountOverview();
   
   const getSourceUser = dataAccountOverview?.data?.application?.processing?.tokens
   const getSourceOffer = dataAccountOverview?.data?.application?.attributes?.promo_offer?.CampaignTypeDesc
@@ -71,7 +72,7 @@ export default function LimitedOffer(userOfferData) {
   const showModal = () => setInitModal(true);
   const closeModal = () => setInitModal(false);
   const handleContinue = () => navigate("/select-amount",{state: {getSourceUser:getSourceUser, getSourceOffer:getSourceOffer}});
-
+  const promoImage = offerCode ? PromoOfferAdBanner:NonPromoOfferAdBanner;
   //View
   return (
     <div id="limitedOfferWrap" className="limitedOfferWrap" data-testid="limited_offer">
@@ -81,13 +82,15 @@ export default function LimitedOffer(userOfferData) {
           <Grid className="imageholdernew">
             <Grid className="yellowBackground">
               <Grid container data-testid = "bannerGrid" item md={6} lg={6}>
-
-                <img
-                  className="bannerImage"
-                  src={offerCode ? PromoOfferAdBanner:NonPromoOfferAdBanner}
-                  data-testid="background"
-                  alt="ad_banner"
-                />
+              {promoImage  ? 
+              <img
+              className="bannerImage"
+              src={ promoImage }
+              data-testid="background"
+              alt="ad_banner"
+            />
+              : '' }
+                
               </Grid>
               <Grid item md={6} lg={6} className="secondGrid">
                 {userOfferData.isLoading ? (
@@ -160,12 +163,13 @@ export default function LimitedOffer(userOfferData) {
           <Grid className="imageholdernew">
             <Grid className="greyBackgroundHolder">
               <Grid className={classes.secondBannerImage} container item md={5}>
-                <img
+                {MortgageBanner ? <img
                   className="secondBannerImage"
                   src={MortgageBanner}
                   data-testid="mortgage_banner"
                   alt="mortgage_banner"
                 />
+                : ''}
               </Grid>
               <Grid className="mortgageText" data-testid = "mortgageText" container item md={7} >
                 <Typography className="mortgageHeading" variant="h4">

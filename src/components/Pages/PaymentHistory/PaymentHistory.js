@@ -28,6 +28,7 @@ import { useStylesPaymenthistory } from "./Style";
 import "./Style.css";
 import GenerateTableHeader from "./GenerateTableHeader";
 import { currencyFormat } from "../../lib/CommonUtil";
+import { useAccountOverview } from '../../../hooks/useAccountOverview';
 
 
 //Main function
@@ -35,7 +36,7 @@ export default function PaymentHistory() {
   //Material UI css class
   const classes = useStylesPaymenthistory();
   const { selectedLoanAccount } = useContext(LoanAccount);
-  const { data: accountDetails } = useQuery('loan-data', usrAccountDetails);
+  const { data: accountDetails } = useAccountOverview();
   const [ anchorEl, setAnchorEl ] = useState(null);
   const location = useLocation()
 

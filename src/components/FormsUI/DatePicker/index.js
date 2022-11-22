@@ -15,21 +15,18 @@ import "date-fns";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import globalMessages from '../../../assets/data/globalMessages.json';
-import { handleDateOffset } from "../../Controllers/CommonController"
 import "../iframe.css";
 
 const DatePickerWrapper = ({ format, label, views,
 	placeholder, required, onChange, disableDate, disablePastDate,
-	maxdate, minyear, error, value, helperText, mask, disableFuture, ...otherProps }) => {
-		
-	
+	maxdate, minyear, error, helperText, value, mask, disabled, disableFuture, ...otherProps }) => {
 	const [ selectedDate, setSelectedDate ] = useState(value ?? null);
 	const [ errorTF, setErrorTF ] = useState(false);
 	const [ helperTextTF, setHelperTextTF ] = useState("");
 	useEffect(() => {
-		setSelectedDate(value ? handleDateOffset(new Date(value)) : value);
+		setSelectedDate(value);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [ value ]);
 	const handleDateChange = (event) => {
 		setSelectedDate(event);
 		setErrorTF((required && !event.target.value));
@@ -66,6 +63,7 @@ const DatePickerWrapper = ({ format, label, views,
 					minDate={minDate}
 					maxDate={new Date(maxdate)}
 					shouldDisableDate={disableCustomDate}
+					disabled = {disabled}
 					disableFuture={disableFuture}
 					disablePast={disablePastDate === "true" ? true : false}
 					views={views ?? [ 'year', 'month', 'day' ]}
@@ -101,6 +99,7 @@ DatePickerWrapper.propTypes = {
 	views: PropTypes.array,
 	disablePastDate: PropTypes.string,
 	disableFuture: PropTypes.bool,
+	disabled: PropTypes.bool,
 	disableDate: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.func

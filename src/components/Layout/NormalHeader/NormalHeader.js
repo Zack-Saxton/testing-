@@ -78,7 +78,7 @@ const NormalHeader = () => {
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="headerToolBar">
           <Typography onClick={redirectToAccountOverview} className={classes.title}>
-            <img data-testid="MF_logo" className={classes.logoFormat} src={Logo} alt="MF logo" />
+            {Logo ? <img data-testid="MF_logo" className={classes.logoFormat} src={Logo} alt="MF logo" /> : ''}            
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

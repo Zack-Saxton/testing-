@@ -1,5 +1,6 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from "@mui/material/Grid";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import * as imageConversion from 'image-conversion';
 import Cookies from "js-cookie";
@@ -19,7 +20,7 @@ import ProfileImageController from "../../Controllers/ProfileImageController";
 import { ButtonPrimary, ButtonSecondary, EmailTextField, TextField } from "../../FormsUI";
 import ErrorLogger from '../../lib/ErrorLogger';
 import { useStylesMyProfile } from "./Style";
-import { useAccountOverview } from '../AccountOverview/AccountOverviewHook/useAccountOverview';
+import { useAccountOverview } from '../../../hooks/useAccountOverview'
 import "./Style.css";
 import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../Controllers/CommonController'
 import { usePhoneNumber } from '../../../hooks/usePhoneNumber';
@@ -51,7 +52,7 @@ export default function BasicInformation(props) {
   const [ basicData, setBasicData ] = useState();
   const [ basicInfo, setBasicInfo ] = useState();
   const navigate = useNavigate();
-  const { accountDetails, refetch, isLoading } = useAccountOverview();
+  const { data : accountDetails, refetch, isLoading } = useAccountOverview();
   const { refetch: refetchProfilePicture } = useQuery('my-profile-picture', ProfileImageController);
   let refSelectImage = useRef();
   let profileImageData = props?.getProfileImage ?? profileImg;
@@ -468,14 +469,10 @@ export default function BasicInformation(props) {
               disabled={loading}
             >
               Save Changes
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                  color: "blue"
-                }}
-              />
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
           </Grid>
         </>}

@@ -19,7 +19,7 @@ const queryClient = new QueryClient({
   },
 });
 
-jest.mock("../AccountOverview/AccountOverviewHook/useAccountOverview", () => ({
+jest.mock('../../../hooks/useAccountOverview', () => ({
     useAccountOverview: jest.fn(),
 }))
 

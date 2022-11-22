@@ -13,6 +13,7 @@ import "../MyBranch/BranchInfo.css";
 import ScheduleAppointment from "./ScheduleAppointment";
 import ScheduleCall from "./ScheduleCall";
 import { useStylesMyBranch } from "./Style";
+import { useHolidayCalender } from "../../../hooks/useHolidayCalender"
 //Table fields - working days
 function otherUsaState(day, monWedThur, tue, fri) {
   return { day, monWedThur, tue, fri };
@@ -39,15 +40,12 @@ export default function BranchDetail(MyBranchDetail) {
   const classes = useStylesMyBranch();
 
   //API call
-  const [ holidayCalenderApi, SetHolidayCalenderApi ] = useState(null);
   const [latitude,setLatitude] = useState();
   const [longitude,setLongitude] = useState();
-  async function AsyncEffect_HolidayCalender() {
-    SetHolidayCalenderApi(await HolidayCalenderController());
-  }
+  const { data : holidayCalenderApi } = useHolidayCalender();
+
   useEffect(() => {
-    AsyncEffect_HolidayCalender();
-    navigator.geolocation.getCurrentPosition(function(position){
+      navigator.geolocation.getCurrentPosition(function(position){
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
   });
@@ -56,7 +54,6 @@ export default function BranchDetail(MyBranchDetail) {
 
   //Holiday Calender from API
   let holidayCalenderData = holidayCalenderApi?.data?.MFYearHolidays.map(({ Date }) => formatDate(Date));
-  
   //Branch details from API
   let branchDetail = MyBranchDetail;
 

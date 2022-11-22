@@ -1,6 +1,17 @@
 .card {
 	padding: 5% 5% 1% 5%;
 }
+.rotatingIcon{
+	animation: mymove 2s infinite linear;
+	transition: 200ms;
+	opacity: 0.7;
+	font-size: 23px;
+	margin-left: 5px;
+}
+@keyframes mymove {
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
+}
 
 .cardWrapper {
 	margin-top: 5%;

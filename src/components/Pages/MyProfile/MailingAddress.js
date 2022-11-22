@@ -1,5 +1,6 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from "@mui/material/Grid";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
@@ -11,6 +12,7 @@ import * as yup from "yup";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import usrAccountDetails from "../../Controllers/AccountOverviewController";
+import { useAccountOverview } from '../../../hooks/useAccountOverview';
 import { mailingAddress } from "../../Controllers/MyProfileController";
 import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
 import {
@@ -38,7 +40,7 @@ export default function MailingAddress(props) {
   const [ errorMsg, setErrorMsg ] = useState("");
   const navigate = useNavigate();
   const [ , setProfileTabNumber ] = useGlobalState();
-  const { refetch } = useQuery('loan-data', usrAccountDetails);
+  const { refetch } = useAccountOverview()
 
   let basicInfo = props?.basicInformationData?.latest_contact;
   let hasActiveLoan = (/true/i).test(Cookies.get("hasActiveLoan"));
@@ -269,14 +271,10 @@ export default function MailingAddress(props) {
               id="mailingSaveButton"
             >
               Save Changes
-              <i
-                className="fa fa-refresh fa-spin customSpinner"
+              <AutorenewIcon className="rotatingIcon"
                 style={{
-                  marginRight: "10px",
-                  display: loading ? "block" : "none",
-                  color: 'blue'
-                }}
-              />
+                display: loading ? "block" : "none",
+              }}/>
             </ButtonPrimary>
           </Grid>
         </>}

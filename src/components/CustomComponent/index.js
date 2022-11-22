@@ -136,8 +136,6 @@ export default function OutlinedCard() {
 										iconColor="#595E6E"
 										iconPosition="right"
 										required={true}
-
-									// customClass='fa fa-plus-circle'
 									/>
 								</CardContent>
 							</Card>

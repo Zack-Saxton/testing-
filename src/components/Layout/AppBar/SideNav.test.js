@@ -11,6 +11,7 @@ import LoanAccount from "../../../contexts/LoanAccount";
 import NavContext from "../../../contexts/NavContext";
 import ProfilePicture from "../../../contexts/ProfilePicture";
 import { LoanDataMock } from "./../../../__mock__/LoanData.mock";
+import { useAccountOverview } from "../../../hooks/useAccountOverview";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,7 +43,7 @@ const component = () => {
     </ThemeProvider>
   );
 };
-jest.mock("../../Pages/AccountOverview/AccountOverviewHook/useAccountOverview", ()=>({
+jest.mock("../../../hooks/useAccountOverview", ()=>({
   useAccountOverview: jest.fn(),
 }))
 test("Checks the component is rendered", () => {

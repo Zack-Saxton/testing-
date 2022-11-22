@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Link from "@mui/material/Link";
 import React, { useEffect, useState } from "react";
@@ -877,13 +878,10 @@ const preventEvent = (event) => {
                         }
                       >
                         {utm_source === "CreditKarma" ? "Continue" : "View your offers"}
-                        <i
-                          className="fa fa-refresh fa-spin customSpinner"
+                        <AutorenewIcon className="rotatingIcon"
                           style={{
-                            marginRight: "10px",
-                            display: loading ? "block" : "none",
-                          }}
-                        />
+                          display: loading ? "block" : "none",
+                        }}/>
                       </ButtonPrimary>
                     </Grid>
                   </Grid>

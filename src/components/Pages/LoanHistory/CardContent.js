@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import applicationStatusRedirectPage from "../../../assets/data/applicationStatusRedirectPage.json";
 import { useStylesLoanHistory } from "./Style";
 import "./Style.css";
-import { useAccountOverview } from '../AccountOverview/AccountOverviewHook/useAccountOverview';
+import { useAccountOverview } from '../../../hooks/useAccountOverview';
 
 
 export default function CardContent() {
@@ -15,7 +15,7 @@ export default function CardContent() {
   const navigate = useNavigate();
   //Material UI css class
   const classes = useStylesLoanHistory();
-  const  {isLoading , accountDetails}  = useAccountOverview();
+  const  {isLoading , data : accountDetails}  = useAccountOverview();
   const [ checkPresenceOfLoan, setCheckPresenceOfLoan ] = useState(false);
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const [ currentLoan, setCurrentLoan ] = useState(true);

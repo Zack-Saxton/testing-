@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PropTypes from "prop-types";
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -230,13 +231,10 @@ if(check_source && check_campaignType){
                         disabled={data.loading || data?.amount}
                       >
                         Continue
-                        <i
-                          className="fa fa-refresh fa-spin customSpinner"
+                        <AutorenewIcon className="rotatingIcon"
                           style={{
-                            marginRight: "10px",
-                            display: data.loading ? "block" : "none",
-                          }}
-                        />
+                          display: data.loading ? "block" : "none",
+                        }}/>
                       </ButtonPrimary>
                     </Grid>
                   </Grid>
