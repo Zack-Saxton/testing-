@@ -167,7 +167,7 @@ export default function Notification() {
                           val.message_id ?
                             <MenuItem key={index} className={val?.active ? "notificationMenuItem" : "notificationMenuItemNormal"} onClick={() => { handleClickOpen(val.message_id.message_title, val.message_id.message, val.message_id._id, val.active); }}>
                               <span className="iconWrap"><span id="spanNotificationMenu" className="material-icons icon-bg-circle brandColorBG">stars</span></span> {val?.message_id.message_title}</MenuItem>
-                            : <MenuItem> You have no New Notifications </MenuItem>)) : <MenuItem> You have no New Notifications</MenuItem>
+                            : <MenuItem key={"noNotification"}> You have no New Notifications </MenuItem>)) : <MenuItem> You have no New Notifications</MenuItem>
                       }
                     </div>
                   </ClickAwayListener>
