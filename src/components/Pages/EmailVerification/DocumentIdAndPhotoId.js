@@ -251,10 +251,10 @@ function DocumentIdAndPhotoId(props) {
 
   const deleteSelectedFile = (type) => {
     if (type === 1) {
-      setSelectedFile(null);
+      selectedFile.value = "";
       setLabel("");
     } else {
-      setSelectedSelfieFile(null);
+      selectedSelfieFile.value = "";
       setSelfieLabel("");
     }
     setDisableNext(true);
