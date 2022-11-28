@@ -191,7 +191,7 @@ export default function BankAccountVerification(props) {
 	const restrictTextOnChange = (event) => {
 		const reg = /^[0-9\b]+$/;
 		let account = event.target.value.trim();
-
+		event.target.value = account;
 		if (!account || reg.test(account)) {
 			formik.handleChange(event);
 		}
