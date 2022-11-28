@@ -494,6 +494,7 @@ function PersonalInfo() {
 																updateMaskValue(event);
 																formik.handleBlur(event);
 															}}
+      												materialProps={{ maxLength: "14"}}
 															value = { phoneNumberCurrentValue }
 															onChange={(event)=>{
 																updateEnterPhoneNo(event);
