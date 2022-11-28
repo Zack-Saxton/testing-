@@ -319,8 +319,8 @@ export default function BranchLocatorFooter() {
           <Box sx={{ flexGrow: 1, justifyContent: "space-evenly" }}>
             <Grid container className="footerLogoLinksWrap">
               <Grid item xs={12} sm={12} md={3}>
-                <Link className="footerLogoimageWrap" to="#">
-                  {Logo ? <img data-testid="footerLogoImage" src={Logo} /> : ''}                 
+                <Link aria-label="Mariner Finance Home" className="footerLogoimageWrap" to="#">
+                  {Logo ? <img width="157px" height="62px" data-testid="footerLogoImage" src={Logo} alt="MF-Logo"/> : ''}                 
                 </Link>
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
@@ -344,9 +344,11 @@ export default function BranchLocatorFooter() {
                 </div>
               </Grid>
               <Grid item xs={12} sm={12} md={3}>
-                <Link className="footerLogoimageWrap" to="#">
+                <Link aria-label="Equel Housing Lender" className="footerLogoimageWrap" to="#">
                   {Housing ? 
                   <img
+                  width="69px" 
+                  height="75px"
                   data-testid="housingImage"
                   src={Housing}
                   className="imgHousing"

@@ -34,19 +34,19 @@ const BranchLocatorLayout = ({ children }) => {
           <Grid className="rightTopIcon">
           
             <Link href="/login" aria-label='myAccountIcon' className="topRightIcons">
-              {MyAccountIcon ? <img alt="" src={ MyAccountIcon }/> : ''}
+              {MyAccountIcon ? <img width="60px" height="40px" alt="My Account" src={ MyAccountIcon }/> : ''}
             </Link>
 
             <Link href="/branch-locator" aria-label = "branchLocatorIcon" className="topRightIcons">
-              {BranchLocatorIcon ? <img alt="" src={ BranchLocatorIcon }/> : ''}
+              {BranchLocatorIcon ? <img width="60px" height="40px" alt="Branch Locator" src={ BranchLocatorIcon }/> : ''}
             </Link>
 
             <Link href={`${ process.env.REACT_APP_WEBSITE }/customer-support/`} aria-label = 'customerSupportIcon' className="topRightIcons">
-              {CustomerSupportIcon ? <img alt="" src={ CustomerSupportIcon }/> : ''}
+              {CustomerSupportIcon ? <img width="72px" height="40px" alt="Customer Support" src={ CustomerSupportIcon }/> : ''}
             </Link>
 
             <Link href={`${ process.env.REACT_APP_WEBSITE }/?s=search`} aria-label = 'searchIcon' className="topRightIcons">
-              {SearchIcon ? <img alt="" src={ SearchIcon }/> : ''}
+              {SearchIcon ? <img width="30px" height="40px" alt="Search" src={ SearchIcon }/> : ''}
             </Link>
           </Grid>
         </div>

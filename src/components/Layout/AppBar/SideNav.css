@@ -70,6 +70,8 @@ a.nav_link:hover .MuiListItem-root {
   font-size: 1.2rem !important;
   padding: 0;
   justify-content: center;
+  white-space: break-spaces;
+  text-align: center;
 }
 #listItemWrap .nav_link li .MuiListItemText-root span {
   font-size: 0.844rem !important;
