@@ -627,7 +627,7 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 }
 
 .feefowidget-carousel-summary-average-customer-rating div span {
-  color: #ffffff8a !important;
+  color: #ffffff !important;
 }
 
 .feefowidget-right-button i,
@@ -916,7 +916,9 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   display: inline-block;
 }
 .webImage{
-  max-width: 88%;
+  max-width: 88% !important;
+  width: auto !important;
+  height: auto !important;
 }
 #getDrivingButton{
   font-size: 0.938rem;
@@ -1070,7 +1072,7 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
     font-size: 1.25rem !important;
   }
   .webImage{
-    max-width:unset;
+    max-width:unset !important;
   }
 }
 

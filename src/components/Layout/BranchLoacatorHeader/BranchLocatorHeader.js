@@ -62,10 +62,12 @@ const BranchLocatorHeader = () => {
             className={classes.title}
           >
             <img
+              width="157px" 
+              height="62px"
               data-testid="MF_logo"
               className={classes.logoFormat}
               src={Logo}
-              alt="MF logo"
+              alt="MF-Logo"
             />
           </Typography>
           <div id="desktopMenu" className={classes.sectionDesktop}>

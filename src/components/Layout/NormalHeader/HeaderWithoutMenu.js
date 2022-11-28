@@ -19,7 +19,7 @@ const HeaderWithoutMenu = () => {
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="headerToolBar">
           <Typography onClick={redirectToAccountOverview} className={classes.title}>
-            <img  data-testid='mf-logo' className={classes.logoFormat} src={Logo} alt="MF logo" />
+            <img width="157px" height="62px" data-testid='mf-logo' className={classes.logoFormat} src={Logo} alt="MF logo" />
           </Typography>
           <div className={classes.grow} />
         </Toolbar>

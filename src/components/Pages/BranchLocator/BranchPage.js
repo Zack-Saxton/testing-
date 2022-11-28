@@ -182,8 +182,8 @@ export default function BranchPage() {
   const BranchDetailsInCard = (
     <Grid container className="fullWidth">
       <Grid data-testid = "check_banner" className="branchImage" item md={7} sm={12} xs={12}>
-        <img className="mobileImage" src={BranchImageMobile} alt="MF Banner" />
-        <img className="webImage" src={BranchImageWeb} alt="MF Banner" />
+        {BranchImageMobile ? <img className="mobileImage" src={BranchImageMobile} alt="MF Banner"  /> : ''}
+        {BranchImageWeb ? <img width="620px" height="590px" className="webImage" src={BranchImageWeb} alt="MF Banner"/> : ''}
       </Grid>
       <Grid
         className="greyBackground mobilePadding"
@@ -478,6 +478,7 @@ export default function BranchPage() {
         <meta charSet="utf-8" />
         <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
         <link rel="canonical" href={window.location.href} />
+        <link rel="preload" as="image" href='../../../assets/images/Branch_Locator_Web_Image.webp'/>
         <meta
           name="description"
           content={`Looking for a personal loan in ${ branch_Details?.current?.BranchName }, ${ stateShortName ?? stateShortNm?.current }? Our ${ branch_Details?.current?.BranchName }, ${ stateLongNm?.current } branch welcomes you for personal loans that fit your needs.`}

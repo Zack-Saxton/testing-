@@ -198,7 +198,6 @@ export default function BranchLocator() {
       <Grid container item xs={12} justifyContent="center">
         <Typography
           className="mainParagraph findBranchNear"
-          variant="h6"
         >
           To find a branch near you select your state below
         </Typography>
@@ -458,23 +457,23 @@ export default function BranchLocator() {
       >
         Home
       </Link>
-      <Link className="breadcrumbLink">Find a branch</Link>
+      <Link href="/branch-locator" className="breadcrumbLink">Find a branch</Link>
     </Breadcrumbs>
   );
   const BreadCrumsAndSearch1AndText = (
     <Grid className="branchLayoutGrid" container>
       <Grid className="branchImage" item md={7} sm={12} xs={12}>
         {BranchImageMobile ? <img className="mobileImage" src={BranchImageMobile} alt="MF Banner"  /> : ''}
-        {BranchImageWeb ? <img className="webImage" src={BranchImageWeb} alt="MF Banner"  /> : ''}
+        {BranchImageWeb ? <img width="620px" height="590px" className="webImage" src={BranchImageWeb} alt="MF Banner"/> : ''}
       </Grid>
 
       <Grid className="greyBackground mobilePadding" item md={5} sm={12} xs={12}>
         {BreadCrumsDisplay}
         <Grid className="blueBoxWrap">
           {mapLoading ? search1andgetList : <Grid id="findBranchWrapTwo" className={classes.blueBackground} data-testid="searchBranchBox"></Grid>}
-          <h4 className="branchLocatorHeadingMain">
+          <p className="branchLocatorHeadingMain">
             Get one on one support for a personal loan near you
-          </h4>
+          </p>
 
           <Typography className="branchLocatorHeading">
             <span className="branchSmallText"><b className="numberText">Operating coast-to-coast</b>with physical locations in over half the states</span>
@@ -549,6 +548,7 @@ export default function BranchLocator() {
         <title>Mariner Finance States | Personal Loans |Discover More</title>
         <link rel="icon" type="image/png" href={TitleImage} sizes="16x16" />
         <link rel="canonical" href={window.location.href} />
+        <link rel="preload" as="image" href='../../../assets/images/Branch_Locator_Web_Image.webp'/>
         <meta name="description" content="Looking for a personal loans?  Discover which states Mariner Finance serves.  Visit a branch in one of our many states today." />
       </Helmet>
       <Grid
