@@ -8,7 +8,6 @@ Functionality       :    To use this component for having Phone Number
 
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import { Formik } from "formik";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import '../iframe';
@@ -41,7 +40,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
     setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(value)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ ]);
-  
+
   const updateActualValue = (event) => {
     setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
   }
