@@ -54,12 +54,12 @@ export default function LoanHistoryTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {isLoading && (
+            {isLoading ? (
               <TableRow>
                 <TableCell colSpan="7" align="center" data-testid="while_Loading"><CircularProgress /></TableCell>
               </TableRow>
-            )}  
-            { accountDetails?.data?.activeLoans?.length && (
+            ) :  
+             accountDetails?.data?.activeLoans?.length ? (
               accountDetails?.data?.activeLoans.map((row) => (
                 <TableRow key={row.loanData.accountNumber} >
                   <TableCell component="th" className={classes.tableHeadRow} scope="row" align="left">{row.loanData.accountNumber}</TableCell>
@@ -78,14 +78,12 @@ export default function LoanHistoryTable() {
                   </TableCell>
                 </TableRow>
               ))
-            )} 
-            { 
-           !isLoading && !accountDetails?.data?.activeLoans?.length && (
+            ) : 
+            !isLoading && !accountDetails?.data?.activeLoans?.length && (
               <TableRow data-testid="while_Error">
                 <TableCell colSpan="7" align="center" >You do not have an active loan</TableCell>
               </TableRow>
-           )
-            }
+           )}            
           </TableBody>
         </Table>
       </TableContainer>
