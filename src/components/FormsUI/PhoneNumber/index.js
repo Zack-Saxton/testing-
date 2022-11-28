@@ -40,17 +40,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
     setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(value)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ ]);
-  
-  useEffect(() => {
-    let manualEvent = {
-      target: {
-        value: value,
-        name: name
-      }
-    }
-    handleChange(manualEvent);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ value ]);
+
   const updateActualValue = (event) => {
     setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
   }
@@ -72,6 +62,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
         helperText={helperText}
         inputProps={{ "data-testid": "phone", "unmaskedval": phoneNumberCurrentValue, disabled: disabled }}
         onBlur={(event)=>{
+
           updateMaskValue(event);
         }}
         onFocus={ updateActualValue }

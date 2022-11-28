@@ -14,9 +14,13 @@ import { CheckMyOffers } from "../../../../contexts/CheckMyOffers";
 import { ButtonPrimary, PhoneNumber, Select } from "../../../FormsUI";
 import ScrollToTop from "../ScrollToTop";
 import "./EmploymentStatus.css";
+import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../../Controllers/CommonController'
+import { usePhoneNumber } from "../../../../hooks/usePhoneNumber";
+import { TextField } from "@mui/material";
 //Initializing functional component CitizenshipStatus
 function EmploymentStatus() {
 	//Retrieving Context values
+	const { phoneNumberValue, setPhoneNumberValue, phoneNumberCurrentValue, setPhoneNumberCurrentValue, updateActualValue, updateMaskValue, updateEnterPhoneNo } = usePhoneNumber();
 	const { data, setData } = useContext(CheckMyOffers);
 	const [ employmentStatus, setEmploymentStatus ] = useState(data.employmentStatus ? data.employmentStatus : "");
 	const navigate = useNavigate();
@@ -53,14 +57,15 @@ function EmploymentStatus() {
 			}),
 	});
 
-	function phoneNumberMask(values) {
-		let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-		values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-		return (values);
-	}
+	useEffect(() => {
+		setPhoneNumberValue( data.EmployerPhone?data.EmployerPhone :"");
+		setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask( data.EmployerPhone ?data.EmployerPhone: "")));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ data.EmployerPhone]);
+
 	const formik = useFormik({
 		initialValues: {
-			phone: data.EmployerPhone ? phoneNumberMask(data.EmployerPhone) : "",
+			phone: data.EmployerPhone ? data.EmployerPhone : "",
 			yearsAtEmployers: data.yearsAtEmployers ? data.yearsAtEmployers : "",
 			employStatus: "",
 		},
@@ -338,17 +343,18 @@ yearsatEmployer = JSON.stringify(yearsatEmployer);
 												type="text"
 												data-testid="phone_number_field"
 												onKeyDown={preventSpace}
-												value={formik.values.phone}
-												onLoad={formik.handleChange}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												error = {
-													shortANDOperation(formik.touched.phone,Boolean(formik.errors.phone))
-												}
-												
-												helperText = {
-													shortANDOperation(formik.touched.phone,formik.errors.phone)
-												}
+												onBlur={(event)=>{
+													updateMaskValue(event);
+													formik.handleBlur(event);
+												}}
+												value = { formik.values.phone}
+												onChange={(event)=>{
+													updateEnterPhoneNo(event);
+													formik.handleChange(event);
+												}}
+												error={shortANDOperation(formik.touched.phone, Boolean(formik.errors.phone))}
+												helperText = {shortANDOperation(formik.touched.phone, formik.errors.phone)}
+												onFocus={ updateActualValue }
 											/>
 										</Grid>
 
