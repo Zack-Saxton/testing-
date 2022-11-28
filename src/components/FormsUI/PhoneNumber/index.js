@@ -8,6 +8,7 @@ Functionality       :    To use this component for having Phone Number
 
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
+import { Formik } from "formik";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import '../iframe';
@@ -41,16 +42,6 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ ]);
   
-  useEffect(() => {
-    let manualEvent = {
-      target: {
-        value: value,
-        name: name
-      }
-    }
-    handleChange(manualEvent);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ value ]);
   const updateActualValue = (event) => {
     setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
   }
@@ -72,6 +63,7 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
         helperText={helperText}
         inputProps={{ "data-testid": "phone", "unmaskedval": phoneNumberCurrentValue, disabled: disabled }}
         onBlur={(event)=>{
+
           updateMaskValue(event);
         }}
         onFocus={ updateActualValue }
