@@ -1,3 +1,4 @@
+import Moment from "moment"
 export const mockDataActiveLoans = {
    data : {
      "activeLoans":[
@@ -154,7 +155,7 @@ export const mockDataActiveLoans = {
              "LastPaymentAmount":371.23,
              "LastPaymentDate":"2022-06-23T00:00:00",
              "NextPaymentAmount":371.23,
-             "NextPaymentDate":"2022-12-09T00:00:00",
+             "NextPaymentDate":Moment(new Date(), "DD-MM-YYYY").add(20, 'days'),
              "CurrentYearToDateInterest":0,
              "LastYearToDateInterest":0,
              "InterestRate":27.15,
