@@ -63,6 +63,8 @@ export default function Register() {
   let refFirstName = useRef();
   let refLastName = useRef();
   const {data:ClientIP} = useQuery('ipaddress', getClientIp);
+  let enableRecaptchaFlag = process.env.REACT_APP_ENABLE_RECAPTCHA === 'true';
+
   useEffect(()=>{
     navigator.geolocation.getCurrentPosition(function(position){
        setLatitude(position.coords.latitude);
@@ -570,10 +572,12 @@ export default function Register() {
                         {failed}
                       </p>
                     </Grid>
-
+                    {enableRecaptchaFlag ? 
                     <Grid>
                       <Recaptcha setDisableRecaptcha={setDisableRecaptcha}/>
                     </Grid>
+                    : 
+                    <></>}                    
 
                     <Grid item xs={12} className={classes.signInButtonGrid}>
                       <ButtonPrimary
@@ -581,7 +585,7 @@ export default function Register() {
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"", "fontSize" : "15px ! important", "padding" : "0px 30px" }'
-                        disabled={disableRecaptcha ? disableRecaptcha : loading}
+                        disabled={disableRecaptcha && enableRecaptchaFlag ? disableRecaptcha : loading}
                       >
                         Sign in
                         <AutorenewIcon className="rotatingIcon"

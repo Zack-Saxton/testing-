@@ -63,7 +63,8 @@ export default function Login(props) {
   Cookies.remove("mfaPhone");
   Cookies.remove("mfaPhoneSkip");
   Cookies.remove("selectTerm")
-
+  let enableRecaptchaFlag = process.env.REACT_APP_ENABLE_RECAPTCHA === 'true';
+  
   useEffect(()=>{
      navigator.geolocation.getCurrentPosition(function(position){
         setLatitude(position.coords.latitude);
@@ -285,17 +286,19 @@ export default function Login(props) {
                         />
                       </FormControl>
                     </Grid>
-
+                    {enableRecaptchaFlag ? 
                     <Grid className={classes.loginRecaptcha} >
                       <Recaptcha setDisableRecaptcha={setDisableRecaptcha}/>
-                    </Grid>
+                    </Grid> 
+                    : <></>}
+                    
 
                     <Grid item xs={12} className={classes.loginButton}>
                       <ButtonPrimary
                         type="submit"
                         data-testid="submit"
                         stylebutton='{"background": "", "color":"" , "fontSize" : "15px", "padding" : "0px 30px"}'
-                        disabled={disableRecaptcha ? disableRecaptcha : loading}
+                        disabled={disableRecaptcha && enableRecaptchaFlag ? disableRecaptcha : loading}
                       >
                         Sign In
                         <AutorenewIcon className="rotatingIcon"
