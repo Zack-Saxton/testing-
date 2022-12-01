@@ -185,9 +185,6 @@ p#city-helper-text.MuiFormHelperText-root.Mui-disabled.Mui-error {
 #phoneTypeWrap div p {
     margin: 3px 0px;
 }
-#employementWrap div p {
-    margin: 3px 0px 0px 0px;
-}
 #password, #cpass {
     padding-bottom: 15px !important;
   }
