@@ -57,16 +57,8 @@ it("Load Email Verification Heading", () => {
   expect(headingElement).toBeTruthy();
 });
 
-it("Load Email Verification Heading", () => {
-  BranchPortalMock()
-  const container = render(component());
-  const headingElement = container.getByTestId("emailVerification_heading");
-  expect(headingElement).toBeTruthy();
-});
-
-
 it("Load Thank you message", async () => {
-  BranchPortalMock()
+  BranchPortalMockWithoutData()
 	const { getByText } = render(component());
   await waitFor(() => {    
     expect(getByText("Thank you for verifying your email.")).toBeTruthy();
@@ -74,7 +66,7 @@ it("Load Thank you message", async () => {
 })
  
 it("Load Acknowledgement links", () => {
-  BranchPortalMock()
+  BranchPortalMockWithoutData()
   const container = render(component());
   const esignClick = container.getByTestId("esignClick");
   expect(esignClick).toBeTruthy();
