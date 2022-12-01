@@ -272,25 +272,9 @@ export default function EmailVerification() {
             </Typography>
           </Grid>
           <Grid className="stepperWrap">
-            <Typography className="stepperHeading">
-              Thank you for verifying your email.
-            </Typography>
-            <Typography className="stepperParagraph">
-              As discussed with your Mariner Finance team member, your application
-              requires that you verify your identity as well as your income. Please
-              acknowledge and sign our disclosures to proceed.
-            </Typography>
             <Grid container>
               {agreeTerms || verificationData?.data?.messageType === 'error' ?
                 <Grid className="acknowledgeText">
-                  <Typography>
-                    <span className="acknowledgeTextSpan">
-                    By clicking this box, you acknowledge that you have received, reviewed,
-                    and agree to the
-                    </span>
-                    <br />
-                    {showConsentsLinks()}
-                  </Typography>
                   <Typography>
                     {verificationData?.data?.errorMessage}
                   </Typography>
@@ -303,6 +287,14 @@ export default function EmailVerification() {
                     </Grid>
                     :
                     <>
+                    <Typography className="stepperHeading">
+              Thank you for verifying your email.
+            </Typography>
+            <Typography className="stepperParagraph">
+              As discussed with your Mariner Finance team member, your application
+              requires that you verify your identity as well as your income. Please
+              acknowledge and sign our disclosures to proceed.
+            </Typography>
                       <Grid>
                         <Checkbox
                           checked={agreeTerms}
