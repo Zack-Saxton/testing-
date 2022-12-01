@@ -16,12 +16,8 @@ const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
     password: "",
   });
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleEdit = (event) => {
-    event.preventDefault();
-  };
 
   return (
-    // <FormControl fullWidth={true} >
     <TextField
       className="globelPassword"
       fullWidth={true}
@@ -29,9 +25,6 @@ const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
       variant="standard"
       id={id} name={name} {...otherProps}
       type={!showPassword ? "text" : "password"}
-      onCut={handleEdit}
-      onCopy={handleEdit}
-      onPaste={handleEdit}
       inputProps={materialProps}
       InputProps={{
         "data-testid": "passProps",
@@ -49,7 +42,6 @@ const PasswordWrapper = ({ name, label, materialProps, id, ...otherProps }) => {
         )
       }}
     />
-    // </FormControl>
   );
 };
 
