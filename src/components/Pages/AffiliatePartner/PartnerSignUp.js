@@ -236,8 +236,8 @@ export default function PartnerSignUp() {
   };
 
   const selectPhoneType = [
-  { "label": "Cell", "value": "cell"},
-  {"label": "Home","value": "home"}
+  { "label": "Cell", "value": "Cell"},
+  {"label": "Home","value": "Home"}
 ]
 const legalMaritalStatus =  "Separated, under decree of legal separation"
 
