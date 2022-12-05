@@ -124,10 +124,10 @@ test("Select phone Type ", async () => {
 	const { container } = render(component());
 	const input = container.querySelector(`input[name="phoneType"]`);
 	await act(() => {	
-	fireEvent.change(input, { target: { value: "cell" } });
+	fireEvent.change(input, { target: { value: "Cell" } });
 });
 	expect(input).toBeTruthy();
-	expect(input.value).toBe('cell');
+	expect(input.value).toBe('Cell');
 });
 
 test("Render password", async () => {
