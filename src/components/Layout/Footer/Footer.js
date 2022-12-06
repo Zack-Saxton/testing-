@@ -209,6 +209,45 @@ export default function Footer() {
             </Grid>
           </Grid>
 
+          <Grid container className="californiaVirginiaGrid">
+          <Grid item md={3} lg={3.5} className="californiaGrid">
+              <Grid className="linkHeadings">
+                <strong>
+                  California Residents
+                </strong>
+              </Grid>
+              <Grid>
+                <Typography className="adressFooterFont">
+                  <span>
+                    Loans made or arranged pursuant to a 
+                  </span>
+                  <br></br>
+                  <span>
+                    California Financing Law license.
+                  </span>
+                </Typography>
+              </Grid>
+          </Grid>
+          <Grid item lg={8.5}>
+              <Grid className="linkHeadings">
+                <strong>
+                VA Residents
+                </strong>
+              </Grid>
+              <Grid>
+                <Typography className="adressFooterFont">
+                  <span>
+                    Mariner Finance of Virginia. LLC, Licensed by the Virginia State Corporation
+                  </span>
+                  <br></br>
+                    <span>
+                    Commission, Consumer Finance Company License No.CFI-114.
+                    </span>
+                </Typography>
+              </Grid>
+          </Grid>
+          </Grid>
+
           <Grid>
             <Grid container id="mfInfo" className="row">
              <Grid className="feefoBadgeWrap" item xs={12} sm={12} md={3} lg={3}>
@@ -242,6 +281,7 @@ export default function Footer() {
               </Grid>
             </Grid>
           </Grid>
+          
         </Grid>
       </footer>
 
