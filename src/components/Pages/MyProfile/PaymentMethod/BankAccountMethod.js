@@ -368,7 +368,11 @@ export default function BankAccountMethod(props) {
               <ButtonPrimary
                 disabled={props?.loading}
                 stylebutton='{"background": "", "color":"" }'
-                onClick={props?.addNewAccount}
+                onClick={ () => {
+                  props?.addNewAccount();
+                  setIsAccountTypeTouched(false);
+                }
+              }
               >
                 Yes
               </ButtonPrimary>
