@@ -69,8 +69,14 @@
   justify-content: center;
   align-items: center;
 }
-.socialIconsWrap {
+.socialIconsWrap,.footerSocialIconsWrap {
   display: flex;
+}
+.socialIconsWrap span {
+  width: 38px;
+}
+.socialIconsWrap span:nth-child(2),.footerSocialIconsWrap span:nth-child(2){
+  padding: 0 10px;
 }
 @media all and (max-width: 1024px) {
 

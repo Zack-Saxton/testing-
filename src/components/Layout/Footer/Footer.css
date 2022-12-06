@@ -12,6 +12,10 @@
 .leftAlignAddress {
   font-size: 15px;
   line-height: 1.5;
+  padding-left: 6%;
+}
+.NormalLeftAlignAddress{
+  padding-left: 6%;
 }
 .main-footer-content {
   font-size: 15px;
@@ -22,6 +26,29 @@
   text-decoration: none;
   color: black;
   cursor: pointer;
+  display: inline-block;
+}
+.linkHeadings{
+  font-family: "MuliBold";
+  padding-bottom: 25px;
+}
+.adressFooterFont{
+  color: #333;
+} 
+.adressFooterFont span:nth-child(3){
+  padding-top: 15px;
+  display: inline-block;
+}
+.contactUs{
+  padding-top: 6.5%;
+}
+.stayConnected{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.californiaVirginiaGrid{
+  padding: 0 0 2% 0;
 }
 .footerPadding {
   padding: 0px 15px;
@@ -53,7 +80,7 @@
   padding: 0 20px;
 }
 .FooterGridWrap {
-  padding: 40px 10px;
+  padding: 40px 2%;
 }
 #mfInfoImgOne {
   max-width: 100%;
@@ -76,6 +103,15 @@
 @media all and (max-width: 1200px) {
   #badge {
     width: 100%;
+  }
+}
+@media only screen and (max-width: 899px) {
+  .stayConnected{
+    align-items: flex-start;
+    padding-top: 25px;
+  }
+  .californiaGrid{
+    padding: 30px 0 30px 0;
   }
 }
 @media all and (max-width: 900px) {

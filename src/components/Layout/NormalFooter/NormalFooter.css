@@ -14,7 +14,7 @@
 }
 .footer-content {
   font-size: 15px;
-  padding: 0px 15px 0.5% 15px;
+  padding: 0px 0px 2.5% 0px;
   word-wrap: break-word;
 
 }
@@ -33,7 +33,7 @@
   padding-bottom: 30px;
 }
 .mainFooterWrap {
-  padding: 40px 30px;
+  padding: 40px 6%;
 }
 .footerPadding {
   padding: 0px 15px;
@@ -53,15 +53,16 @@
   font-size: 1rem !important;
   color: #333 !important;
 }
-.FooterLogo {
-  padding: 0px 15px;
+.NormalFooterLogo{
+  padding: 0 0 3.5% 0;
+  margin-left: -30px;
 }
-.privacyStatementMobile{
+.privacyStatementMobile{  
  display: none;
 }
 .feefoBadgeWrap img {
-  width: 314px;
-  height: 100px;
+  max-width: 314px;
+  width: 100%;
 }
 @media only screen and (max-width: 799px) {
   .privacyStatementWeb{
@@ -78,7 +79,7 @@
     display: flex;
     padding-top: 20px;
   }
-  .FooterLogo {
+  .FooterLogo,.NormalFooterLogo {
     display: flex;
     align-items: center;
     justify-content: center;
