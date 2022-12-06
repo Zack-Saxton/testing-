@@ -21,14 +21,12 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import cheque from "../../../assets/images/cheque.jpg";
 import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
-import usrAccountDetails from "../../Controllers/AccountOverviewController";
 import BankNameLookup from "../../Controllers/BankNameLookup";
 import {
   addCreditCard,
@@ -487,6 +485,7 @@ export default function PaymentMethod() {
 
       if (resBankData?.data?.Success) {
         toast.success(globalMessages.Payment_Method_Added_Success);
+        setAccountType('');
         refetch();
         closeBankAccountButton();
       } else if (
