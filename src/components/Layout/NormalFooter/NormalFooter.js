@@ -1,5 +1,9 @@
 import { Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import housingImage from "../../../assets/images/equal_Housing_Lender.png";
@@ -20,9 +24,16 @@ export default function NormalFooter() {
     <div className="mainDivNormalFooter" data-testid="postlogin_footer_component">
       <footer className="mivNormalFooter">
         <Grid className="mainFooterWrap">
-
+          <Grid className="NormalFooterLogo" item xs={12} sm={12} md={2} lg={2}>
+            {Logo ? <img type="image" id="mfInfoImg" src={Logo} alt="logo image" /> : '' }                
+          </Grid>
           <Grid className="footerWrap" container>
-            <Grid item xs={12} sm={12} md={4} lg={4}>
+            <Grid item xs={12} sm={12} md={3} lg={3.5}>
+              <Grid className="linkHeadings">
+              <strong>
+                Privacy Policy
+              </strong>
+              </Grid>
               <div className="footer-content">
                 <NavLink to="/communityGuidelines" className="hrefTag">
                   <Typography className="normalFooterFont">
@@ -65,8 +76,12 @@ export default function NormalFooter() {
               </div>
             </Grid>
 
-            <Grid item xs={12} sm={12} md={4} lg={4}>
-
+            <Grid item xs={12} sm={12} md={4} lg={4}> 
+              <Grid className="linkHeadings">
+                <strong>
+                  Website Terms
+                </strong>
+              </Grid>
               <div className="footer-content">
                 <NavLink to="/websiteAccessibility" className="hrefTag" data-testid="websiteAccessibility">
                   <Typography className="normalFooterFont">
@@ -105,47 +120,143 @@ export default function NormalFooter() {
                 </a>
               </div>
             </Grid>
+            <Grid item xs={12} sm={12} md={3} lg={3}>
+              <Grid className="linkHeadings">
+                <strong>
+                  Global HQ
+                </strong>
+              </Grid>
+              <Grid>
+                <Typography className="adressFooterFont">
+                  <span>
+                    8211 Town Center Drive
+                  </span>
+                  <br/> 
+                  <span>
+                    Nottingham, MD 21236, USA
+                  </span>
+                </Typography>
+              </Grid>
+              <Grid className="contactUs">
+              <Grid className="linkHeadings">
+                <strong>
+                  Contact Us
+                </strong>
+              </Grid>
+              <Typography className="adressFooterFont">
+                Phone:
+                  <a href="tel:+18773102373" className="hrefTag ">
+                      &nbsp;+1 877 310 2373
+                    </a>
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid className="stayConnected" item xs={12} sm={12} md={2} lg={1.5}>
+              <Grid className="linkHeadings">
+                <strong>
+                  Stay Connected
+                </strong>
+              </Grid>
+              <Grid className="socialIconsWrap">
+                <span data-testid="facebookIcon">
+                  <IconButton
+                  id = "facebookIcon"
+                  aria-label = "facebookIcon"
+                  onClick={()=>{
+                    handleOpensocialMedia("https://www.facebook.com/MarinerFinance/")
+                  }}
+                  className="socialIcons">
+                    <FacebookIcon />
+                  </IconButton>
+                </span>
+                <span data-testid="twitterIcon">
+                  <IconButton
+                  id = "twitterIcon"
+                  aria-label="twitterIcon"
+                    onClick={()=>{
+                      handleOpensocialMedia("https://twitter.com/MarinerFinance")
+                    }}
+                    className="socialIcons">
+                    <TwitterIcon />
+                  </IconButton>
+                </span>
+                <span data-testid="linkedInIcon">
+                  <IconButton 
+                  id="linkedIcon"
+                  aria-label="linkedIcon"
+                  onClick={()=>{
+                    handleOpensocialMedia("https://www.linkedin.com/company/mariner-finance/")
+                  }}
+                  className="socialIcons">
+                    <LinkedInIcon />
+                  </IconButton>
+                </span>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid container className="californiaVirginiaGrid">
+          <Grid item md={3} lg={3.5} className="californiaGrid">
+              <Grid className="linkHeadings">
+                <strong>
+                  California Residents
+                </strong>
+              </Grid>
+              <Grid>
+                <Typography className="adressFooterFont">
+                  <span>
+                    Loans made or arranged pursuant to a 
+                  </span>
+                  <br></br>
+                  <span>
+                    California Financing Law license.
+                  </span>
+                </Typography>
+              </Grid>
+          </Grid>
+          <Grid item lg={8.5}>
+              <Grid className="linkHeadings">
+                <strong>
+                VA Residents
+                </strong>
+              </Grid>
+              <Grid>
+                <Typography className="adressFooterFont">
+                  <span>
+                    Mariner Finance of Virginia. LLC, Licensed by the Virginia State Corporation
+                  </span>
+                  <br></br>
+                    <span>
+                    Commission, Consumer Finance Company License No.CFI-114.
+                    </span>
+                </Typography>
+              </Grid>
+          </Grid>
+          </Grid>
+          <Grid>
 
-            <Grid className="feefoBadgeWrap" item xs={12} sm={12} md={4} lg={4}>
+            <Grid container className="bottomSectionWrap" >
+              <Grid className="feefoBadgeWrap" item xs={12} sm={12} md={3} lg={3}>
               {badge ? 
               <img type="image"
               src={badge}
               alt="photo"
-            />
+              />
               : ''}              
             </Grid>
-
-          </Grid>
-
-          <Grid >
-
-            <Grid container className="bottomSectionWrap" >
-              <Grid className="FooterLogo" item xs={12} sm={12} md={2} lg={2}>
-                {Logo ? <img type="image" id="mfInfoImg" src={Logo} alt="logo image" /> : '' }                
-              </Grid>
-
-              <Grid className="footerPadding footerTextInfo" item xs={12} sm={12} md={8} lg={8} >
+              <Grid className="footerPadding footerTextInfo" item xs={12} sm={12} md={6} lg={6} >
                 <div>
-                  <p className="leftAlignAddress">
+                  <p className="NormalLeftAlignAddress">
                     Mariner Finance, LLC, NMLS No. 166564{' '}
                     <span className="spanLeftAlignAddress" onClick={handleOpenConsumer}>
                       (www.nmlsconsumeraccess.com)
                     </span>
-                    {' '}
-                    8211 Town Center Drive,
-                    Nottingham, MD 21236;
-                    Telephone Number -
-                    <a href="tel:+8773102373" className="hrefTag ">
-                      &nbsp; (877) 310-2373
-                    </a>
                   </p>
                 </div>
               </Grid>
 
-              <Grid className="footerPadding FooterHousingLogo" item xs={12} sm={12} md={2} lg={2}>
-                {housingImage ? <img type="image" src={housingImage} alt="logo image" /> : ''}                
-              </Grid>
-
+            <Grid className="footerPadding FooterHousingLogo" item xs={12} sm={12} md={3} lg={3}>
+              {housingImage ? <img type="image" src={housingImage} alt="logo image" /> : ''}                
+            </Grid>
             </Grid>
           </Grid>
 
