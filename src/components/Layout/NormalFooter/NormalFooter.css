@@ -4,17 +4,9 @@
   padding: 15px 0;
 
 }
-.leftAlignAddress {
-  font-size: 1rem !important;
-  font-weight: 600;
-  color: #333;
-  line-height: 1.5;
-  text-align: left !important;
-  margin: 0 !important;
-}
 .footer-content {
   font-size: 15px;
-  padding: 0px 0px 2.5% 0px;
+  padding: 0px 0px 12px 0px;
   word-wrap: break-word;
 
 }
@@ -56,6 +48,9 @@
 .NormalFooterLogo{
   padding: 0 0 3.5% 0;
   margin-left: -30px;
+}
+.FooterLogo{
+  padding: 0 0 3.5% 0;
 }
 .privacyStatementMobile{  
  display: none;

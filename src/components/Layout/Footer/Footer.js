@@ -10,14 +10,23 @@ import housingImage from "../../../assets/images/equal_Housing_Lender.png";
 import badge from "../../../assets/images/FeefoRatting.png";
 import Logo from "../../../assets/images/mf-logo.png";
 import ConsumerDialog from "../ConsumerFooterDialog/ConsumerDialog";
+import SocialMediaDialog from "../ConsumerFooterDialog/SocialMediaDialog";
 import "./Footer.css";
 
 export default function Footer() {
   const [ consumer, setConsumer ] = useState(false);
+  const [ socialMedia, setSocialMedia ] = useState(false);
+  const [ URL, setURL] = useState('');
   //Consumer popup
   const handleOpenConsumer = () => {
     setConsumer(true);
   };
+  // Social media redirect popup
+  const handleOpensocialMedia = (customUrl) => {
+    setURL(customUrl);
+    setSocialMedia(true);
+  };
+
   //View Part
   return (
     <div data-testid="prelogin_footer_component">
@@ -27,7 +36,7 @@ export default function Footer() {
                 {Logo ? <img type="image" id="mfInfoImg" src={Logo} alt="logo image" /> : ''}                
               </Grid>
           <Grid className="footerWrap" container>
-            <Grid item xs={12} sm={12} md={3} lg={3.5}>
+            <Grid item xs={12} sm={12} md={3} lg={2.5}>
             <Grid className="linkHeadings">
               <strong>
                 Privacy Policy
@@ -84,7 +93,7 @@ export default function Footer() {
               </div>
             </Grid>
 
-            <Grid item xs={12} sm={12} md={4} lg={4}>
+            <Grid item xs={12} sm={12} md={4} lg={5}>
               <Grid className="linkHeadings">
                 <strong>
                   Website Terms
@@ -179,7 +188,7 @@ export default function Footer() {
                   onClick={()=>{
                     handleOpensocialMedia("https://www.facebook.com/MarinerFinance/")
                   }}
-                  className="socialIcons">
+                  className="footerSocialIcons">
                     <FacebookIcon />
                   </IconButton>
                 </span>
@@ -190,7 +199,7 @@ export default function Footer() {
                     onClick={()=>{
                       handleOpensocialMedia("https://twitter.com/MarinerFinance")
                     }}
-                    className="socialIcons">
+                    className="footerSocialIcons">
                     <TwitterIcon />
                   </IconButton>
                 </span>
@@ -201,7 +210,7 @@ export default function Footer() {
                   onClick={()=>{
                     handleOpensocialMedia("https://www.linkedin.com/company/mariner-finance/")
                   }}
-                  className="socialIcons">
+                  className="footerSocialIcons">
                     <LinkedInIcon />
                   </IconButton>
                 </span>
@@ -298,8 +307,8 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-
       <ConsumerDialog consumer={consumer} onChange={setConsumer} />
+      <SocialMediaDialog URL={URL} socialMedia={socialMedia} onChange={setSocialMedia} />
     </div>
   );
 }
