@@ -11,6 +11,9 @@ import CustomerRatings from "../../MyBranch/CustomerRatings";
 import "../CheckMyOffer.css";
 import ScrollToTop from "../ScrollToTop";
 import goldIcon from "../../../../assets/icon/dollarIcon.png"
+import usrAccountDetails from "../../../Controllers/AccountOverviewController";
+import MyBranchAPI from "../../../Controllers/MyBranchController";
+import { useQuery } from 'react-query';
 
 //reffered to branch functional component initialization
 function ReferredToBranch(props) {
@@ -19,6 +22,8 @@ function ReferredToBranch(props) {
 	const navigate = useNavigate();
 	const classes = preLoginStyle();
 	const useLocationData = useLocation();
+	const { refetch } = useQuery('loan-data', usrAccountDetails);
+	const { refetch  : branchRefetch} = useQuery('my-branch', MyBranchAPI);
 	data.formStatus = "completed";
 	const branchPhoneNumber = useLocationData?.state?.referedToBranchData?.PhoneNumber
 	const branchName = useLocationData?.state?.referedToBranchData?.branchName
@@ -28,6 +33,7 @@ function ReferredToBranch(props) {
 	const branchState = useLocationData?.state?.referedToBranchData?.branchstate
 	const branchZipCode = useLocationData?.state?.referedToBranchData?.branchzipcode
 	const refferdToBranchName = Cookies.get("firstName") 
+
 	useEffect(() => {
 		//redirects to select amount of directly called
 		if (data?.completedPage < data?.page?.ssn && data?.applicationStatus && data?.applicationStatus?.toLowerCase() !== "referred" && props?.location?.formcomplete?.toLowerCase() !== "yes") {
@@ -37,6 +43,10 @@ function ReferredToBranch(props) {
 	}, []);
 
 	window.onbeforeunload = null;
+	const handleNavigation = () => {
+		refetch()
+		branchRefetch().then(() =>navigate("/customers/myBranch"));		
+	};
 
 	//JSX part
 	return (
@@ -67,17 +77,16 @@ function ReferredToBranch(props) {
 					<Typography variant="h6">
 						Applying after hours? Schedule a call below
 					</Typography>
+
 					<Grid className="secondaryButton">
-						<Link data-testid="scheduleCall" to="/customers/myBranch">
-						<ButtonSecondary stylebutton='{"background": ""}'>
+						<ButtonSecondary stylebutton='{"background": ""}' data-testid="scheduleCall" onClick={handleNavigation}>
 							Schedule a Call Back
-							</ButtonSecondary>
-						</Link>
-							
+						</ButtonSecondary>							
 					<Typography variant="h6">
 						Can{"'"}t talk or get in touch with us? That{"'"}s ok, schedule a call back time and we will call you back at your earliest convenience.
 					</Typography>
 					</Grid>
+					
 					</Grid>
 				</Grid>
 					<Grid className="customerRatingsWrapReffreal">
