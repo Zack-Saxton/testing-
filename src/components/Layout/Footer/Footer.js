@@ -53,6 +53,11 @@ export default function Footer() {
                 </NavLink>
               </div>
               <div className="footer-content" >
+              <a href={`${ process.env.REACT_APP_WEBSITE }/resources/legal/#fusion-tab-privacystatement`} rel="noreferrer" className="hrefTag privacyStatementWeb" data-testid="privacyStatementWeb">
+                  <Typography className="normalFooterFont">
+                    Privacy Statement
+                  </Typography>
+                </a>
                 <a href={`${ process.env.REACT_APP_WEBSITE }/resources/legal/#mobile-fusion-tab-privacystatement`} rel="noreferrer" className="hrefTag privacyStatementMobile" data-testid="privacyStatement">
                   <Typography className="normalFooterFont">
                     Privacy Statement

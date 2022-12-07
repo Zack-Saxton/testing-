@@ -28,7 +28,6 @@
   text-decoration: none;
   color: black;
   cursor: pointer;
-  display: inline-block;
 }
 .linkHeadings{
   font-family: "MuliBold";
