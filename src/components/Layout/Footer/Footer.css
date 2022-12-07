@@ -10,12 +10,14 @@
   padding: 15px 15px;
 }
 .leftAlignAddress {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.5;
   padding-left: 6%;
+  text-align: left;
 }
 .NormalLeftAlignAddress{
   padding-left: 6%;
+  text-align: left;
 }
 .main-footer-content {
   font-size: 15px;
@@ -35,6 +37,15 @@
 .adressFooterFont{
   color: #333;
 } 
+.footerSocialIcons,.normalFootersocialIcons{
+  background-color: #214476 !important;
+  border-radius: 5px !important;
+  padding: 5px !important;
+  color: white !important;
+}
+.footerSocialIcons span svg,.normalFootersocialIcons span svg {
+  font-size: 20px;
+}
 .adressFooterFont span:nth-child(3){
   padding-top: 15px;
   display: inline-block;
@@ -80,7 +91,7 @@
   padding: 0 20px;
 }
 .FooterGridWrap {
-  padding: 40px 2%;
+  padding: 40px 3.1%;
 }
 #mfInfoImgOne {
   max-width: 100%;

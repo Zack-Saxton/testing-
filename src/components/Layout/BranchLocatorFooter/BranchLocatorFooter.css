@@ -37,10 +37,6 @@
 .paragraph p small {
   font-size: 0.875rem;
 }
-.leftAlignAddress {
-  font-size: 15px;
-  line-height: 1.5;
-}
 .footerLinkstitle {
   font-family: MuliBold, sans-serif !important;
   color: #333;
