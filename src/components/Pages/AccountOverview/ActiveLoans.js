@@ -76,7 +76,9 @@ export default function ActiveLoans() {
                         id="activeLoanWrap"
                         item
                         xs={12}
-                        sm={9}
+                        sm={12}
+                        md={12}
+                        lg={9}
                       >
                         <Paper
                           className={classes.paper}
@@ -116,7 +118,7 @@ export default function ActiveLoans() {
                             </Grid>
                           </Grid>
 
-                          <Grid container>
+                          <Grid container className="paymentDetailsWrap">
                             <Grid item xs={12} sm={3}>
                               <AutoPayStatus
                                 isAutoPay={appData?.loanPaymentInformation?.appRecurringACHPayment ? true : false}
@@ -148,8 +150,8 @@ export default function ActiveLoans() {
                                   />
                                 </span>
                               </h5>
-                              <p className={classes.cardContent}>
-                                * Amount may not <br></br> include all fees
+                              <p id="cardContentText" className={classes.cardContent}>
+                                <span> * Amount may not</span> <span> include all fees</span>
                               </p>
                             </Grid>
                             <Grid item xs={12} sm={3}>
@@ -229,9 +231,11 @@ export default function ActiveLoans() {
                         id="overviewContainer"
                         item
                         xs={12}
-                        sm={3}
+                        sm={12}
+                        md={12}
+                        lg={3}
                       >
-                        <Paper id="overviewWrap" className={classes.paper}>
+                        <Paper id="activeLoanOverviewWrap" className={classes.paper}>
                           <Grid container item xs={12} className={classes.overviewGrid}>
                             <Typography
                               variant="h5"
