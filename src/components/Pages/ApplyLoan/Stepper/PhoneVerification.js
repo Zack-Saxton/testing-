@@ -125,7 +125,13 @@ export default function PhoneVerification(props) {
 			props.nextOnSkip();
 		} else if (!passcode) {
 			toast.error("Enter Passcode");
-		} else {
+		}
+		else if(passcode?.length < 4) {
+			setError(
+				messages.phoneVerification
+					.passcodeMin
+			)
+		}else {
 			let res = await verifyPasscode(passcode);
 			if (res?.data?.phone_verification) {
 				setError("");

@@ -43,7 +43,8 @@
         "verificationNotFound": "Verification not found",
         "phoneNumRequired": "Your Phone number is required",
         "invalidPhone": "Invalid Phone",
-        "phoneNumMin": "Name must contain at least 10 digits"
+        "phoneNumMin": "Name must contain at least 10 digits",
+        "passcodeMin": "Passcode must contain at least 4 digits"
     },
     "financialInformation": {
         "verificationNotFound": "Verification not found",
