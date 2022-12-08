@@ -231,12 +231,6 @@
   }
 }
 @media only screen and (max-width: 425px) {
-  #activeLoanGrid {
-    height: 100% !important;
-  }
-  #activeLoanWrap {
-    margin-bottom: 60px;
-  }
   #regularAmountGrid {
     margin-left: 0;
   }
@@ -266,15 +260,9 @@
   #LimitedOfferGrid {
     padding-bottom: 30px;
   }
-  #activeLoanGrid {
-    height: 100% !important;
-  }
-  #overviewContainer {
-    padding: 0px !important;
-  }
   #overviewWrap {
-    height: 90% !important;
-    margin: 60px 0px 40px 0px;
+    height: 100% !important;
+    padding: 10px 0 20px 0;
   }
 }
 .pulse {

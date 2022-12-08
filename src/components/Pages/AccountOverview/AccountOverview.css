@@ -16,6 +16,15 @@
     box-sizing: border-box;
     justify-content: space-between;
 }
+#activeLoanOverviewWrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    justify-content: space-between;
+    padding: 24px;
+}
 .imageholdernew {
     width: 100%;
     background-color: white;
@@ -161,6 +170,23 @@
 	justify-content: center;
     padding: 20px 0px;
 }
+.paymentDetailsWrap{
+    display: flex;
+}
+#cardContentText{
+    display: flex;
+    flex-direction: column;
+}
+@media only screen and (max-width:899px) {
+    #overviewContainer{
+        padding: 10px 0 20px 0;
+    }
+}
+@media only screen and (max-width: 1199px) {
+    #overviewContainer{
+        padding: 10px 0 20px 0;
+    }
+}
 @media only screen and (min-width: 2000px) {
     .yellowBackground {
         justify-content: space-between;
@@ -175,6 +201,11 @@
     }
     .mortgageParagraph {
         font-size: 18px;
+    }
+}
+@media (max-width:660px) {
+    #regularAmountGrid{
+        margin: 0;
     }
 }
 @media (max-width:760px) {
