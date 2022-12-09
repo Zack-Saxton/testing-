@@ -164,7 +164,7 @@ export const mockDataActiveLoans = {
              "CurrentPayOffAmount":7326.78,
              "LoanFeesAndCharges":0,
              "LoanIsDelinquent":false,
-             "NextDueDate":"2022-12-09T00:00:00",
+             "NextDueDate":Moment(new Date(), "DD-MM-YYYY").add(5, 'days'),
              "Errors":[
                 
              ],
