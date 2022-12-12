@@ -61,6 +61,7 @@ const validationSchema = yup.object({
 export default function FinancialInformation(props) {
   //Initiaizing state variable
   const [ error, setError ] = useState('');
+  const [ phoneReset, setPhoneReset ] = useState(false);
   const classes = useStyles();
   const {  data : accountDetails } = useAccountOverview();
   const checkEmployStatus = accountDetails?.data?.applicant?.self_reported?.employment_status;
@@ -189,6 +190,8 @@ export default function FinancialInformation(props) {
 												onLoad={formik.handleChange}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
+                        phoneReset={phoneReset}
+                        setPhoneReset={setPhoneReset}
 												error = {
 													shortANDOperation(formik.touched.phone,Boolean(formik.errors.phone))
 												}
@@ -244,6 +247,7 @@ export default function FinancialInformation(props) {
               stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
               onClick={(_event) => {
                 formik.resetForm();
+                setPhoneReset(true);
               }
               }
               id="button_stepper_reset"
