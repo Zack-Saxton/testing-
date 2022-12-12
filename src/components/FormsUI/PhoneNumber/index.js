@@ -21,7 +21,7 @@ const maskPhoneNumberWithAsterisk = (phoneNumber) => {
   let firstNumber = phoneNumberMask(phoneNumber).slice(0, 10);
   return firstNumber.replace(/\d/g, '*') + phoneNumber.slice(10);
 } 
-const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, helperText, ...otherProps }) => {
+const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, helperText, phoneReset, setPhoneReset, ...otherProps }) => {
   //Set Formik field
   // const [field, mata] = useField(name);
   const [ phoneNumberValue, setPhoneNumberValue ] = useState(value);
@@ -40,6 +40,20 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
     setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(value)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ ]);
+
+  useEffect(() => {
+    if(phoneReset){
+    let manualEvent = {
+      target: {
+        value: value,
+        name: name
+      }
+    }
+    handleChange(manualEvent); 
+    setPhoneReset(false);
+  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ phoneReset ]);
 
   const updateActualValue = (event) => {
     setPhoneNumberCurrentValue(phoneNumberMask(phoneNumberValue));
@@ -74,11 +88,13 @@ const PhoneNumberWrapper = ({ name, onChange, value, label, error, disabled, hel
 PhoneNumberWrapper.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
+  setPhoneReset: PropTypes.func,
   value: PropTypes.string,
   label: PropTypes.string,
   error: PropTypes.bool,
   disabled: PropTypes.bool,
-  helperText: PropTypes.string
+  helperText: PropTypes.string,
+  phoneReset: PropTypes.bool
 };
 
 export default PhoneNumberWrapper;
