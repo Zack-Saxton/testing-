@@ -64,7 +64,7 @@ export default function BranchPage() {
   const formatBranchName = (brName) => {
     let tempText = brName;
     directions.forEach((direction) => {
-      if(brName.includes(direction) )
+      if(brName && brName.includes(direction) )
       {
         tempText = brName.replace(direction, direction.toUpperCase());
       }
@@ -176,7 +176,11 @@ export default function BranchPage() {
     });
     display_Branch_Times();
     window.scrollTo(0, 0);
-    document.title = `Personal Loans in  ${ branch_Details?.current?.BranchName }, ${ stateShortName ?? stateShortNm?.current } | Mariner Finance Branch | Discover More `;
+    let pathInfo = location?.pathname;
+    let pathName = pathInfo.split('/');
+    let branchNm = formatBranchName(pathName[ 3 ]);
+    let personalLoansStr = formatString(branchNm?.slice(0, -3));   
+    document.title = `${personalLoansStr}, ${ stateShortName ?? stateShortNm?.current } | Mariner Finance Branch | Discover More `;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const BranchDetailsInCard = (
