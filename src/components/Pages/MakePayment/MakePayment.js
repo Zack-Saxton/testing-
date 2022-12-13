@@ -106,6 +106,8 @@ export default function MakePayment() {
   const [confirmPayment, setConfirmPayment] = useState(false);
   const [paymentReferenceNumber, setPaymentReferenceNumber] = useState();
 
+  const today = new Date();
+
   const autoPaySwitch = (main, secondary) => {
     return !main && !secondary ? false : true;
   };
@@ -151,7 +153,7 @@ export default function MakePayment() {
   }, [latestLoanData]);
 
   useEffect(() => {
-    setPaymentDatepicker(scheduleDate ? scheduleDate : nextDate);
+    setPaymentDatepicker(scheduleDate ? scheduleDate : nextDate ?? today);
   }, [checkCard, scheduleDate, defaultPaymentCard, nextDate]);
 
   //API Request for Payment methods
@@ -402,7 +404,7 @@ export default function MakePayment() {
               data?.loanPaymentInformation?.scheduledPayments[0]?.PaymentDate
             ).format("MM/DD/YYYY")
           : nextDate;
-        setPaymentDatepicker(scheduledDate ? scheduledDate : nextDate);
+        setPaymentDatepicker(scheduledDate ? scheduledDate : nextDate ?? today);
         setScheduleDate(scheduledDate);
         setLoading(false);
         setAutopaySubmitDisabled(true);
@@ -490,7 +492,7 @@ export default function MakePayment() {
                 ?.PaymentDate
             ).format("MM/DD/YYYY")
           : nextDate;
-      setPaymentDatepicker(scheduledDate ? scheduledDate : nextDate);
+      setPaymentDatepicker(scheduledDate ? scheduledDate : nextDate ?? today);
       setScheduleDate(scheduledDate);
       setLoading(false);
       setAutopaySubmitDisabled(true);
@@ -580,7 +582,7 @@ export default function MakePayment() {
     ) {
       setIsDebit(false);
       setCheckCard(false);
-      setPaymentDatepicker(scheduleDate);
+      setPaymentDatepicker(scheduleDate ?? today);
       if (payoff) {
         setCalendarDisabled(true);
       } else {
@@ -840,22 +842,20 @@ export default function MakePayment() {
   useEffect(() => {
     let currentDate = new Date();
     formatDate(currentDate);
-    const today = new Date();
-    let checkSunday = new Date(today);
     holidayCalenderData?.data?.MFYearHolidays.forEach(({ Date }) => {
       while (formatDate(Date) === formatDate(currentDate) || currentDate.getDay() === 0) {
         setNextDate(moment(currentDate, "YYYY-MM-DD").add(1, "days"));
         currentDate.setDate(currentDate.getDate() + 1);
         
       }
-      setPaymentDatepicker(nextDate);
+      setPaymentDatepicker(nextDate ?? today);
     });
 
     // eslint-disable-next-line
   }, [holidayCalenderData]);
 
   useEffect(() => {
-    setPaymentDatepicker(nextDate);
+    setPaymentDatepicker(nextDate ?? today);
   }, [nextDate]);
   //View
   return (
