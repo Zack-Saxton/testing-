@@ -164,22 +164,6 @@ export async function hardPullCheck(applicantID) {
   }
 }
 
-/***** ID Verification for IFrame *****/
-export async function getIDVerificationIframe() {
-  try {
-    let url = "id_verification_iframe";
-    let param = "";
-    let data = {};
-    let method = "POST";
-    let addAccessToken = true;
-
-    //API call
-    return await APICall(url, param, data, method, addAccessToken);
-  } catch (error) {
-    ErrorLogger(globalMessages.Error_executing_getIDVerificationIframe_API, error);
-  }
-}
-
 /***** Submit financial information *****/
 export async function submitFinancialInformation(body) {
   try {

@@ -25,11 +25,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import globalMessages from "../../../assets/data/globalMessages.json";
 import cheque from "../../../assets/images/cheque.jpg";
-import { AddACHPaymentAPI } from "../../../components/Controllers/ACHDebitController";
 import { useGlobalState } from "../../../contexts/GlobalStateProvider";
 import BankNameLookup from "../../Controllers/BankNameLookup";
 import {
   addCreditCard,
+  AddACHPaymentAPI,
   deleteBankAccount,
   deleteCreditCard,
   setDefaultPayment
