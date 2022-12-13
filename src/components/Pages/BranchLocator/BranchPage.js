@@ -180,7 +180,6 @@ export default function BranchPage() {
     let pathName = pathInfo.split('/');
     let branchNm = formatBranchName(pathName[ 3 ]);
     let personalLoansStr = formatString(branchNm?.slice(0, -3));   
-    console.log(personalLoansStr); 
     document.title = `${personalLoansStr}, ${ stateShortName ?? stateShortNm?.current } | Mariner Finance Branch | Discover More `;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
