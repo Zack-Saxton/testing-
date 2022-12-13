@@ -187,9 +187,34 @@ export async function uploadNewProfileImage(fileData, fileName, fileType, docume
   }
 }
 
+//  ========*******======== Add ACH Bank Payment                ========*******========
+export async function AddACHPaymentAPI(accountNickName, accountHolder, bankRoutingNumber, bankAccountNumber, accountType, defaultBank) {
+  try {
+    //API
+    let url = "add_ach_payment_method";
+    let param = "";
+    let data = {
+      nickname: accountNickName,
+      account_holder: accountHolder,
+      routing_number: bankRoutingNumber,
+      account_number: bankAccountNumber,
+      account_type: accountType,
+      defaultBank: defaultBank
+    };
+    let method = "POST";
+    let addAccessToken = true;
+    //API call
+    //API response
+
+    return await APICall(url, param, data, method, addAccessToken);
+  } catch (error) {
+    ErrorLogger(globalMessages.Ach_Error_Add_Achpayment_API, error);
+  }
+}
+
 export async function addCreditCard(values, cardType) {
   try {
-    let url = "add_new_card_payment";
+    let url = "add_debit_card_payment_method"; 
     let expiryDate = ("0" + (values.expiryDate.getMonth() + 1)).slice(-2) + "/" + values.expiryDate.getFullYear().toString().substr(-2);
     let param = "";
     let data = {
@@ -227,7 +252,7 @@ export async function getPaymentMethods() {
 
 export async function deleteCreditCard(passData) {
   try {
-    let url = "delete_credit_card";
+    let url = "delete_debit_card_payment_method";
     let param = "";
     let data = passData;
     let method = "POST";
@@ -240,7 +265,7 @@ export async function deleteCreditCard(passData) {
 
 export async function deleteBankAccount(passData) {
   try {
-    let url = "delete_bank_account";
+    let url = "delete_ach_payment_method";
     let param = "";
     let data = passData;
     let method = "POST";
