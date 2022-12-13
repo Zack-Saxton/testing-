@@ -70,7 +70,7 @@ export default function MultipleQuestion(props) {
 				props.navigate('/MFA-SelectSecurityQuestions', { state: { currentFlow: true, preVerification: true } })
 			} else if(response?.data?.result === 'error') {
 				props.setLoadingFlag(false);
-				toast.error(response?.data?.Message);
+				toast.error(response?.data?.Message ?? response?.data?.message);
 				if(response?.data?.Message !== Messages.Account_Locked){
 					props.navigate("/MFA", {state: props?.mfaDetails});
 				}
