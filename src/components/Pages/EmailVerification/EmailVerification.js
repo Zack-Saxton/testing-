@@ -10,11 +10,10 @@ import Typography from "@mui/material/Typography";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import React, { useEffect, useState } from "react";
 import {
-  ButtonPrimary,
   Popup,
   RenderContent
 } from "../../../components/FormsUI";
-import { saveAcquireClick, saveConsentStatus } from "../../Controllers/EmailVerificationController";
+import { saveConsentStatus } from "../../Controllers/EmailVerificationController";
 import ErrorLogger from "../../lib/ErrorLogger";
 import BankAccountVerification from "./BankAccountVerification";
 import DocumentIdAndPhotoId from "./DocumentIdAndPhotoId";
@@ -40,7 +39,6 @@ export default function EmailVerification() {
   const [ customerEmail, setCustomerEmail ] = useState("");
   const [ applicationNumber, setApplicationNumber ] = useState("");
   const [ autoVerification, setAutoVerification ] = useState("off");
-  const [ collaborateOption, setCollaborateOption ] = useState("off");
   const [ activeStep, setActiveStep ] = useState(0);
   const [ agreeTerms, setAgreeTerms ] = useState(false);
   const [completed, setCompleted] = useState({});
@@ -50,34 +48,23 @@ export default function EmailVerification() {
   const [ cacTerms, setCacTerms ] = useState(false);
   const [ websiteTerms, setWebsiteTerms ] = useState(false);
   let steps = getSteps();
-  
+
   //API Call
   const { isLoading, verificationData } = useBranchPortalHook();
-  
+
   useEffect(() => {
     let applicationNo = verificationData?.data?.emailVerificationRecord?.attributes?.applicationNumber ?? "";
     let autoVerificationFromAPI = verificationData?.data?.emailVerificationRecord?.attributes?.autoVerification ?? "off";
-    let collaborateOptionFromAPI = verificationData?.data?.emailVerificationRecord?.attributes?.collaborateOption ?? "off";
     let emailVerifiedStatus = verificationData?.data?.emailVerificationRecord?.attributes?.consents_verified ?? false;
     let customerEmailFromAPI = verificationData?.data?.emailVerificationRecord?.customer_email ?? "";
     setCustomerEmail(customerEmailFromAPI);
     setApplicationNumber(applicationNo);
     setAutoVerification(autoVerificationFromAPI);
-    setCollaborateOption(collaborateOptionFromAPI);
     if (applicationNo !== '') {
       setAgreeTerms(emailVerifiedStatus);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ verificationData ]);
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = "https://s.acquire.io/a-4db8e/init.js?full";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
   if (autoVerification !== 'on') {
     steps.pop();
   }
@@ -167,14 +154,6 @@ export default function EmailVerification() {
   const handleOnClickWebsiteTermsClose = () => {
     setWebsiteTerms(false);
   };
-  const showCoBrowseCodeBox = async () => {
-    window.location = "javascript:acquireIO.startCoBrowseCodeBox()";
-    try {
-      await saveAcquireClick(customerEmail, applicationNumber);
-    } catch (error) {
-      ErrorLogger(" Error in saveAcquireClick API", error);
-    }
-  }
   function getStepContent(step, label) {
     step = label === 'Upload Other Documents' ? 4 : step;
     switch (step) {
@@ -227,7 +206,7 @@ export default function EmailVerification() {
           reset={handleReset}
           steps={steps}
           activeStep={activeStep}
-        />;        
+        />;
       default:
         return "Unknown step";
     }
@@ -339,17 +318,6 @@ export default function EmailVerification() {
                     </Typography>
                   </Paper>
                 ) : ""}
-              </Grid>
-              <Grid className={`${ classes.secureLoanButton } ${ collaborateOption === 'on' ? classes.showCheckbox : classes.hideCheckbox }`}>
-                <Typography className={classes.secureLoanText}>
-                  Click the Button below to begin the secure loan closing process
-                </Typography>
-                <ButtonPrimary
-                data-testid = "closing_button"
-                  onClick={showCoBrowseCodeBox}
-                  stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'>
-                  Secure Closing Portal
-                </ButtonPrimary>
               </Grid>
             </Grid>
           </Grid>

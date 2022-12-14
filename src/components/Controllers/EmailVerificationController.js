@@ -92,29 +92,3 @@ export async function saveConsentStatus(customerEmail, applicationNumber) {
     ErrorLogger(globalMessages.Error_executing_EmailVerificationController_API, error);
   }
 }
-
-/***** Save Acquire Click *****/
-
-export async function saveAcquireClick(customerEmail, applicationNumber) {
-  try {
-    let url = "save_acquire_click";
-    let param = "";
-    let acquireClickedat = new Date().toLocaleString("en-US", {
-      timeZone: 'America/New_York',
-      hour12: false
-    })
-    let data = {
-      customer_email: customerEmail,
-      applicationNumber: applicationNumber,
-      acquireClickedat
-    }
-    let method = "POST";
-    let addAccessToken = true;
-    //API call
-    let uploadData = await APICall(url, param, data, method, addAccessToken);
-    return uploadData.status === 200;
-  } catch (error) {
-    ErrorLogger(globalMessages.Error_executing_EmailVerificationController_API, error);
-  }
-
-}
