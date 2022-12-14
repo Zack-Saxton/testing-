@@ -224,7 +224,7 @@ export default function ViewAccountDetails() {
                 <TabPanelViewApplication value={values} verticalIndex={1}>
                   <Grid item xs={12}>
                     <Typography variant="h6" className={classes.viewAppHeading}>
-                      Application Information
+                      User Information
                     </Typography>
                   </Grid>
                   {                   
@@ -244,7 +244,7 @@ export default function ViewAccountDetails() {
                     xs={12}
                   >
                     <Typography variant="h6" className={classes.viewAppHeading}>
-                      Loan Requested
+                      Loan Information
                     </Typography>
                   </Grid>
 
