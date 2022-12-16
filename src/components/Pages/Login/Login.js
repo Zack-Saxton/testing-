@@ -112,9 +112,9 @@ export default function Login(props) {
             setupTime: "",
             applicantGuid: "",
           }),
-          toast.error(retVal?.data?.Message)
+          toast.error(retVal?.data?.message)
         );
-        if( retVal?.data?.Message !== globalMessages.Account_Locked){
+        if( retVal?.data?.message !== globalMessages.Account_Locked){
           setCounter(counter + 1);
         }
         else {
