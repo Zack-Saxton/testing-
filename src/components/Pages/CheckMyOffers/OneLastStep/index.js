@@ -43,6 +43,8 @@ function SSN() {
 	let enableRecaptchaFlag = process.env.REACT_APP_ENABLE_RECAPTCHA_SUBMIT_APPLICATION === 'true';
 	const { refetch } = useQuery('loan-data', usrAccountDetails);
 	const navigate = useNavigate();
+	console.log("enableRecaptchaFlag",enableRecaptchaFlag)
+	debugger
 	//handle modal actions
 	const handleClickOpen = () => {
 		setOpen(true);
