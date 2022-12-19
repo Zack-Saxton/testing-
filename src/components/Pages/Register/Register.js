@@ -63,7 +63,7 @@ export default function Register() {
   let refFirstName = useRef();
   let refLastName = useRef();
   const {data:ClientIP} = useQuery('ipaddress', getClientIp);
-  let enableRecaptchaFlag = process.env.REACT_APP_ENABLE_RECAPTCHA === 'true';
+  let enableRecaptchaFlag = process.env.REACT_APP_ENABLE_RECAPTCHA_REGISTER === 'true';
 
   useEffect(()=>{
     navigator.geolocation.getCurrentPosition(function(position){

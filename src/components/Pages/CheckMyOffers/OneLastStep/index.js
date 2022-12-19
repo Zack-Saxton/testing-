@@ -21,6 +21,7 @@ import ScrollToTop from "../ScrollToTop";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import Recaptcha from "../../../Layout/Recaptcha/GenerateRecaptcha";
 
 //oneLastStep component initialization
 function SSN() {
@@ -38,6 +39,8 @@ function SSN() {
 	const [ creditPopup, setCreditPopup ] = useState(false);
 	const [ webTOUPopup, setWebTOUPopup ] = useState(false);
 	const [ privacyPopup, setPrivacyPopup ] = useState(false);
+	const [disableRecaptcha, setDisableRecaptcha] = useState(true);
+	let enableRecaptchaFlag = process.env.REACT_APP_ENABLE_RECAPTCHA_SUBMIT_APPLICATION === 'true';
 	const { refetch } = useQuery('loan-data', usrAccountDetails);
 	const navigate = useNavigate();
 	//handle modal actions
@@ -432,6 +435,11 @@ function SSN() {
 											{globalMessages.Application_already_Submitted}
 										</Typography>
 									</Grid>
+									{enableRecaptchaFlag ? 
+											<Grid className={classes.submitApplicationRecaptcha} >
+												<Recaptcha setDisableRecaptcha={setDisableRecaptcha}/>
+											</Grid>
+										: <></>}
 									<Grid
 										justifyContent="center"
 										item
@@ -449,7 +457,9 @@ function SSN() {
 														agree &&
 														agreeDelaware &&
 														agreeCalifornia &&
-														agreeNewMexico
+														agreeNewMexico &&
+														(!enableRecaptchaFlag ? disableRecaptcha && !enableRecaptchaFlag :
+															!disableRecaptcha && enableRecaptchaFlag)
 													)
 											}
 											onClick={handleOnClick}
