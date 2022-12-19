@@ -677,7 +677,7 @@ export default function MakePayment() {
     setRequiredDate("");
     setRequiredAmount("");
     setRequiredSelect("");
-    setPaymentDatepicker(nextDate);
+    setPaymentDatepicker(nextDate ?? today);
     setOpenDeleteSchedule(false);
     refetch();
   }
@@ -813,7 +813,7 @@ export default function MakePayment() {
             toastId: "payoffNotSetFutureDate",
           });
         }
-        setPaymentDatepicker(nextDate);
+        setPaymentDatepicker(nextDate ?? today);
         setPayoff(true);
         setCalendarDisabled(true);
       } else {
