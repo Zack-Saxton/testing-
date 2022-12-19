@@ -174,13 +174,13 @@ function SSN() {
 			stopLoading();
 		}
 	};
-	// useEffect(() => {
-	// 	//redirect to select amount if accessed directly
-	// 	if (data.completedPage < data?.page?.livingPlace || data?.completedPage < data?.page?.activeDuty || data?.formStatus?.toLowerCase() === "completed") {
-	// 		navigate("/select-amount");
-	// 	}
-	// 	//eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, []);
+	useEffect(() => {
+		//redirect to select amount if accessed directly
+		if (data.completedPage < data?.page?.livingPlace || data?.completedPage < data?.page?.activeDuty || data?.formStatus?.toLowerCase() === "completed") {
+			navigate("/select-amount");
+		}
+		//eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const redirectNC = data.state === "NC" ? "/active-duty" : "/living-place";
 
