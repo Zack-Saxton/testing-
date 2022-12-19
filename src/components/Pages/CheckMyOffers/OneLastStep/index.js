@@ -41,6 +41,7 @@ function SSN() {
 	const [ privacyPopup, setPrivacyPopup ] = useState(false);
 	const [disableRecaptcha, setDisableRecaptcha] = useState(true);
 	let enableRecaptchaFlag = process.env.REACT_APP_ENABLE_RECAPTCHA_SUBMIT_APPLICATION === 'true';
+	console.log("one last step",process.env.REACT_APP_ENABLE_RECAPTCHA_SUBMIT_APPLICATION)
 	const { refetch } = useQuery('loan-data', usrAccountDetails);
 	const navigate = useNavigate();
 	console.log("enableRecaptchaFlag",enableRecaptchaFlag)
