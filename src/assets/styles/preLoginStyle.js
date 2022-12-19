@@ -244,6 +244,11 @@ const preLoginStyle = makeStyles((Theme) => ({
   hideSection: {
     color: "#c4c4c4",
   },
+  submitApplicationRecaptcha:{
+    display: "flex",
+    justifyContent: "center",
+    paddingTop: "10px"
+  }
 }));
 
 export { preLoginStyle };

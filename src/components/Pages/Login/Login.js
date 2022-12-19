@@ -63,7 +63,7 @@ export default function Login(props) {
   Cookies.remove("mfaPhone");
   Cookies.remove("mfaPhoneSkip");
   Cookies.remove("selectTerm")
-  let enableRecaptchaFlag = process.env.REACT_APP_ENABLE_RECAPTCHA === 'true';
+  let enableRecaptchaFlag = process.env.REACT_APP_ENABLE_RECAPTCHA_LOGIN === 'true';
   
   useEffect(()=>{
      navigator.geolocation.getCurrentPosition(function(position){
