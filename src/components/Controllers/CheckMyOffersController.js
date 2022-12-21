@@ -1,9 +1,8 @@
 import axios from "axios";
-import getClientIp, {trimSpecialCharacters, handleDateOffset} from "../Controllers/CommonController";
+import getClientIp, {trimSpecialCharacters} from "../Controllers/CommonController";
 import APICall from "../lib/AxiosLib";
 import ErrorLogger from "../lib/ErrorLogger";
 import globalMessages from "../../assets/data/globalMessages.json";
-import Moment from "moment";
 
 export async function checkMyOfferSubmit(customer) {
 
@@ -209,6 +208,7 @@ export async function checkMyOfferSubmit(customer) {
 				data: JSON.stringify(body),
 				headers: {
 					"Content-Type": "application/json",
+					"user-ip": ipAddress
 				},
 				transformRequest: (data, headers) => {
 					delete headers.common["Content-Type"];
