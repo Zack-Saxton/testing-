@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import NavContext from "../../../contexts/NavContext";
 import SelectOffer from "../ApplyLoan/SelectOffer/SelectOffer";
-import { mockData2 } from './../../../__mock__/data/PartnerMockData';
+import { mockData2, mockDataPartnerStateNC,mockDataPartnerStateWI,mockDataPartnerStateNM,mockDataPartnerStateDE,mockDataPartnerStateCA } from './../../../__mock__/data/PartnerMockData';
 import PartnerSignUp from "./PartnerSignUp";
 
 const queryClient = new QueryClient({
@@ -19,6 +19,7 @@ const queryClient = new QueryClient({
 		},
 	},
 });
+
 const theme = createTheme();
 window.scrollTo = jest.fn();
 
@@ -90,6 +91,18 @@ test("Check Valid Last 4 digit Social Security Number", async () => {
 });
 });
 
+test("Check invalid ssn", async () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="ssn"]`);
+	expect(input).toBeTruthy();
+	await act(() => {
+		fireEvent.change(input, { target: { value: "123" } });
+		fireEvent.blur(input);
+	});
+	const errorInfo = screen.getByText('Please enter a valid SSN');
+	expect(errorInfo).toBeTruthy();
+	expect(errorInfo).toHaveTextContent('Please enter a valid SSN');
+});
 
 test("Render phone number ", async () => {
 	const { container } = render(component());
@@ -111,6 +124,19 @@ test("Check Phonenumber masking after entering phone number", async () => {
 	});
 	expect(input.value).not.toBe('1231231233');
 });
+
+test("Check invalid Phone Number", async () => {
+	const { container } = render(component());
+	const input = container.querySelector(`input[name="callPhNo"]`);
+	await act(() => {
+		fireEvent.change(input, { target: { value: "123456" } });
+		fireEvent.blur(input);
+	});
+	const errorInfo = container.querySelector(`p[id="phonePartner-helper-text"]`);
+	expect(errorInfo).toBeTruthy();
+	expect(errorInfo).toHaveTextContent('Please enter a valid phone number');
+});
+
 
 test("Render phone Type ", async () => {
 	const { container } = render(component());		
@@ -237,6 +263,98 @@ test("Check Password Match", async () => {
 	expect(errorInfo).toHaveTextContent('Your confirmation password must match your password');
 });
 
+
+
+test("Check Active Duty", async () => {
+	const { container } = render(component());
+	const asyncMock = jest.fn().mockResolvedValue(mockDataPartnerStateNC);
+	await asyncMock();
+	const activeDuty = container.querySelector(`input[name="activeDuty"]`);
+	const activeDutyRank = container.querySelector(`input[name="activeDutyRank"]`);
+	await act(() => {
+		fireEvent.change(activeDuty, { target: { value: "Yes" } });
+		fireEvent.change(activeDutyRank, { target: { value: "E5 and above" } });
+	});
+	expect(activeDutyRank).toBeTruthy();
+	expect(activeDutyRank.value).toBe('E5 and above');
+});
+
+test("Check Active Duty state for application which does not meet the requirements", async () => {
+	const { container } = render(component());
+	const asyncMock = jest.fn().mockResolvedValue(mockDataPartnerStateNC);
+	await asyncMock();
+	const activeDuty = container.querySelector(`input[name="activeDuty"]`);
+	const activeDutyRank = container.querySelector(`input[name="activeDutyRank"]`);
+	await act(() => {
+		fireEvent.change(activeDuty, { target: { value: "Yes" } });
+		fireEvent.change(activeDutyRank, { target: { value: "E4 and above" } });
+	});
+	const errorInfo = screen.getByText('Unfortunately, based on the application information provided, you do not meet our application requirements.');
+	expect(errorInfo).toBeTruthy();
+	expect(errorInfo).toHaveTextContent('Unfortunately, based on the application information provided, you do not meet our application requirements.');
+});
+
+test("Check Marital status for state winconsin", async () => {
+	const { container } = render(component());
+	const asyncMock = jest.fn().mockResolvedValue(mockDataPartnerStateWI);
+	await asyncMock();
+	const martialStatus = container.querySelector(`input[name="martialStatus"]`);
+	const spouseAddress = container.querySelector(`input[name="spouseadd"]`);
+	const spouseZipcode = container.querySelector(`input[name="spouseZipcode"]`);
+	const spousecity = container.querySelector(`input[name="spousecity"]`);
+	const spouseSelectState = container.querySelector(`input[name="spouseSelectState"]`);
+	await act(() => {
+		fireEvent.change(martialStatus, { target: { value: "Married" } });
+		fireEvent.change(spouseAddress, { target: { value: "4321 MAIN AVE" } });
+		fireEvent.change(spouseZipcode, { target: { value: "19701" } });
+		fireEvent.change(spousecity, { target: { value: "NEWARK" } });
+		fireEvent.change(spouseSelectState, { target: { value: "DE" } });
+	});
+	expect(martialStatus).toBeTruthy();
+	expect(martialStatus.value).toBe('Married');
+	expect(spouseAddress.value).toBe('4321 MAIN AVE');
+	expect(spouseZipcode.value).toBe('19701');
+	expect(spousecity.value).toBe('NEWARK');
+	expect(spouseSelectState.value).toBe('DE');
+});
+
+test("test Terms and service checkbox is able to checked", () => {
+	
+		Object.defineProperty(window, 'location', {
+			get() {
+				return { href: 'http://localhost:3000/partner/signup/c13c9027422833ff?utm_source=amone&utm_medium=API&offer=AMOUNT%3D8000%26APR%3D0.3199%26TERM%3D24%26REF%3D63a44601d720cd044c53022e%26OFFERTYPE%3Donline' };
+			  },
+		});
+    const { container } = render(component())
+    const element = container.querySelector(`input[id="TermsAndServiceCheckbox"]`);
+    fireEvent.click(element);
+    expect(element).toBeChecked();
+});
+
+test("test checkbox related to states is able to checked", async() => {
+	
+	Object.defineProperty(window, 'location', {
+		get() {
+			return { href: 'http://localhost:3000/partner/signup/c13c9027422833ff?utm_source=amone&utm_medium=API&offer=AMOUNT%3D8000%26APR%3D0.3199%26TERM%3D24%26REF%3D63a44601d720cd044c53022e%26OFFERTYPE%3Donline' };
+		  },
+	});
+const { container } = render(component())
+const asyncMock = jest.fn().mockResolvedValue(mockDataPartnerStateDE);
+await asyncMock();
+const element = container.querySelector(`input[id="DelawareCheckbox"]`);
+fireEvent.click(element);
+expect(element).toBeChecked();
+const asyncMockCA = jest.fn().mockResolvedValue(mockDataPartnerStateCA);
+await asyncMockCA();
+const elementCA = container.querySelector(`input[id="CACheckbox"]`);
+fireEvent.click(elementCA);
+expect(elementCA).toBeChecked();
+const asyncMockNM = jest.fn().mockResolvedValue(mockDataPartnerStateNM);
+await asyncMockNM();
+const elementNM = container.querySelector(`input[id="NMCheckbox"]`);
+fireEvent.click(elementNM);
+expect(elementNM).toBeChecked();
+});
 
 test("Button Onclick", async () => {
 	render(component());

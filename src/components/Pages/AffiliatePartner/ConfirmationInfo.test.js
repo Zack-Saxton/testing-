@@ -314,6 +314,34 @@ test("Select Employement Status", async () => {
 	});	
 });
 
+test("test all checkbox is able to checked", async() => {
+
+const { container } = render(component())
+const input = container.querySelector(`input[name="state"]`);
+	
+	expect(input).toBeTruthy();
+	await act(() => {
+		fireEvent.change(input, { target: { value: "DE" } });
+		const elementDE = container.querySelector(`input[id="DECheckbox"]`);
+		fireEvent.click(elementDE);
+		expect(elementDE).toBeChecked();
+
+		fireEvent.change(input, { target: { value: "CA" } });
+		const elementCA = container.querySelector(`input[id="CACheckbox"]`);
+		fireEvent.click(elementCA);
+		expect(elementCA).toBeChecked();
+
+		fireEvent.change(input, { target: { value: "NM" } });
+		const elementNM = container.querySelector(`input[id="NMCheckbox"]`);
+		fireEvent.click(elementNM);
+		expect(elementNM).toBeChecked();
+	});
+
+const element = container.querySelector(`input[id="TermsAndServiceCheckbox"]`);
+fireEvent.click(element);
+expect(element).toBeChecked();
+});
+
 
 test("Button Onclick", async () => {
 	render(component());

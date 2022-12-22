@@ -12,6 +12,43 @@ export const mockData = {
     }
 }
 
+export const mockDataPartnerStateNC = {
+    data: {
+        applicant:{
+            state: "North Carolina"
+        }
+    }
+}
+
+export const mockDataPartnerStateWI = {
+    data: {
+        applicant:{
+            state: "Wisconsin"
+        }
+    }
+}
+
+export const mockDataPartnerStateDE = {
+    data: {
+        applicant:{
+            state: "DE"
+        }
+    }
+}
+export const mockDataPartnerStateCA = {
+    data: {
+        applicant:{
+            state: "CA"
+        }
+    }
+}
+export const mockDataPartnerStateNM = {
+    data: {
+        applicant:{
+            state: "NM"
+        }
+    }
+}
 export const mockData2 = {
     data: {
         application:
