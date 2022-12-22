@@ -873,6 +873,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                       <Checkbox
                         name="termsOfService"
                         labelform="Terms & Service"
+                        id = "TermsAndServiceCheckbox"
                         value={agree}
                         onChange={(event) => {
                           setAgree(event.target.checked);
@@ -931,6 +932,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                         <Checkbox
                           name="delaware"
                           labelform="delaware"
+                          id = "DECheckbox"
                           value={agreeDelaware}
                           onChange={(event) => {
                             setAgreeDelaware(event.target.checked);
@@ -967,6 +969,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                         <Checkbox
                           name="california"
                           labelform="california"
+                          id="CACheckbox"
                           value={agreeCalifornia}
                           onChange={(event) => {
                             setAgreeCalifornia(event.target.checked);
@@ -1004,6 +1007,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
                         <Checkbox
                           name="newmexico"
                           labelform="newmexico"
+                          id="NMCheckbox"
                           value={agreeNewMexico}
                           onChange={(event) => {
                             setAgreeNewMexico(event.target.checked);

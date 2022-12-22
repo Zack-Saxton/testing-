@@ -343,6 +343,7 @@ const preventEvent = (event) => {
                         placeholder="Enter your SSN"
                         id="ssn"
                         mask="9999"
+                        data-testid = "last4SSN"
                         value={formik.values.ssn}
                         onChange={formik.handleChange}
                         materialProps={{ maxLength: "4" }}
@@ -706,6 +707,8 @@ const preventEvent = (event) => {
                       <Checkbox
                         name="termsOfService"
                         labelform="Terms & Service"
+                        data-testid = "TermsAndServiceCheckbox"
+                        id = "TermsAndServiceCheckbox"
                         value={agree}
                         onChange={(event) => {
                           setAgree(event.target.checked);
@@ -764,6 +767,7 @@ const preventEvent = (event) => {
                         <Checkbox
                           name="delaware"
                           labelform="delaware"
+                          id="DelawareCheckbox"
                           value={agreeDelaware}
                           onChange={(event) => {
                             setAgreeDelaware(event.target.checked);
@@ -798,6 +802,7 @@ const preventEvent = (event) => {
                         <Checkbox
                           name="california"
                           labelform="california"
+                          id="CACheckbox"
                           value={agreeCalifornia}
                           onChange={(event) => {
                             setAgreeCalifornia(event.target.checked);
@@ -837,6 +842,7 @@ const preventEvent = (event) => {
                         <Checkbox
                           name="newmexico"
                           labelform="newmexico"
+                          id="NMCheckbox"
                           value={agreeNewMexico}
                           onChange={(event) => {
                             setAgreeNewMexico(event.target.checked);
