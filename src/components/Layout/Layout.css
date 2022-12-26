@@ -360,6 +360,7 @@
   border-radius: 0px !important;
   border-bottom: 1px solid #e2e2e2;
   margin: 0 !important;
+  padding: 0;
 }
 .subMenuWrapThree,.subMenuWrap,.subMenuWrapTwo{
   display: flex;
@@ -378,6 +379,9 @@
 }
 .noPadding,.pointOfSale {
   padding: 0 !important;
+}
+.menuHead .MuiAccordionSummary-content{
+  padding: 9px 0;
 }
 .menuHead a {
   padding: 5px 20px !important;
@@ -413,5 +417,5 @@
   font-size: 0.75rem !important;
   text-decoration: none !important;
   border-top: 1px solid #e2e2e2;
-  padding: 11px 45px;
+  padding: 13.5px 45px;
 }

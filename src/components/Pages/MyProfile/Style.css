@@ -216,6 +216,13 @@ color: black !important;
 	.textNotificationWrap {
 		padding: 9px;
 	}
+	.saveButtonWrap{
+		flex-direction: column-reverse;
+	}
+	.saveButtonWrap button{
+		margin-top: 15px;
+		width: 100%;
+	}
 }
 @media (max-width: 599px) {
 	#myProfileMainContent {

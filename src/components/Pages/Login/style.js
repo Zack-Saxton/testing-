@@ -79,6 +79,7 @@ const useStylesLogin = makeStyles((theme) => ({
     textAlign: "center",
     color: "#171717",
     fontWeight: "400",
+    paddingTop:"15px"
   },
   createPasswordPaper: {
     padding: theme.spacing(3),

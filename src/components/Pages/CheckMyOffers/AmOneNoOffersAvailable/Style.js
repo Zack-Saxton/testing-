@@ -42,7 +42,7 @@ const AmOneNoOffersStyle = makeStyles((_theme) => ({
   preFooterText:{
     maxWidth:"1200px",
     margin:"auto",
-    padding:"2.8% 0 5% 0",
+    padding:"2.8% 7% 5% 7%",
   },
   preFooterTypography:{
     textAlign:"justify",

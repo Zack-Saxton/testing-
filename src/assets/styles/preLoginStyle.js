@@ -178,6 +178,7 @@ const preLoginStyle = makeStyles((Theme) => ({
     color: "#0F4EB3 !important",
     display: "block !important",
     cursor: "pointer",
+    textAlign:"left"
   },
   oneLastStepLinksWrap: {
     flexDirection: "column",

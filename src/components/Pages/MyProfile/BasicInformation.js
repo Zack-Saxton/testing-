@@ -452,10 +452,10 @@ export default function BasicInformation(props) {
             lg={8}
             md={8}
             xs={12}
-            className={`${ classes.buttonGrid } textBlock alignButton`}
+            className={`${ classes.buttonGrid } textBlock alignButton saveButtonWrap`}
           >
             <ButtonSecondary
-              stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
+              stylebutton='{"padding":"0px 30px"}'
               styleicon='{ "color":"" }'
               onClick={onClickResetForm}
               disabled={!disableField}
@@ -463,7 +463,7 @@ export default function BasicInformation(props) {
               Cancel
             </ButtonSecondary>
             <ButtonPrimary
-              stylebutton='{"marginLeft": "", "color":"#171717", "fontWeight":"700", "marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
+              stylebutton='{"color":"#171717", "fontWeight":"700", "marginLeft": "5px","padding":"0px 30px", "fontSize":"0.938rem"}'
               styleicon='{ "color":"" }'
               type="submit"
               disabled={loading}
