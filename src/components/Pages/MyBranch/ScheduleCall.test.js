@@ -182,7 +182,6 @@ test("When select on Monday", async () => {
 	expect(datePicker).toBeTruthy();
 	const slot = dialog.querySelector(`input[name="callTime"]`);
 	expect(slot).toBeTruthy();	
-	screen.debug(slot)
 	await act(() => {
 		fireEvent.click(datePicker);
   	fireEvent.mouseDown(datePicker);	 
