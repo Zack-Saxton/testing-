@@ -224,6 +224,7 @@ export default function BranchLocator() {
             >
               <p
                 className="nav_link stateLinks"
+                data-testid= {"testid"+ item} 
                 onClick={MFButtonClick}
               >
                 {item}
@@ -316,6 +317,7 @@ export default function BranchLocator() {
           <ButtonPrimary
             className="branchSearchButton"
             aria-label = "branchSearchButton"
+            data-testid="searchArrowButton"
             onClick={getActivePlaces}
             stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
           >
@@ -436,6 +438,7 @@ export default function BranchLocator() {
           className="branchSearchButton"
           id="branchSearchButton"
           aria-label = "branchSearchButton"
+          data-testid ="testBranchSearchButton"
           onClick={getActivePlaces}
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
         >
@@ -504,6 +507,7 @@ export default function BranchLocator() {
         <Suspense fallback={<div>Loading...</div>}>
           <Map
             id="mapBox"
+            data-testid="mapComponent"
             googleMap={googleMap}
             CurrentLocation={currentLocation}
             Zoom={zoomDepth}
