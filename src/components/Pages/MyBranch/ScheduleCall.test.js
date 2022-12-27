@@ -33,12 +33,22 @@ const queryClient = new QueryClient({
 	},
 });
 
-const component = () => {
+const holidayCalenderData = ["2022-12-26", "2023-01-02",]
+const holidayCalenderWithoutData = []
+const  MyBranchDetail= {
+	MyBranchDetail:{
+    Address:"459 W. Johnson St."
+	}
+}
+
+const component = (holidayData) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
 				<ProfilePicture>
-					<ScheduleCall />
+					<ScheduleCall
+					holidayData={holidayData}
+					MyBranchCall={MyBranchDetail} />
 				</ProfilePicture>
 			</QueryClientProvider>
 		</ThemeProvider>
@@ -70,64 +80,123 @@ test("Check the submit button exist in the UI", async () => {
 	expect(getByText("Schedule a call")).toBeTruthy();	
 });
 
-// test("Check can able to select calendar in UI", async () => {
-// 	const today = new Date();
-//   const currentMonth = (Moment(today).format("MMMM YYYY"));
-// 	const { getByText } = render(component(), { wrapper: MemoryRouter });
-// 	const button = screen.getByTestId("schedule-call-component");
-// 	fireEvent.click(button);	
-// 	const dialog = screen.getByTestId("dialog");
-// 	const datePicker = dialog.querySelector(`input[name="appointmentDate"]`);
-//   expect(datePicker).toBeTruthy();
-// 	fireEvent.click(datePicker);
-//   fireEvent.mouseDown(datePicker);
-// 	expect(getByText(currentMonth)).toBeTruthy();	
-// });
 
-// test("Check the the past date is disabled and saturday and sunday also disabled", async () => {
-// 	const { getByText } = render(component(), { wrapper: MemoryRouter });
-// 	const today = new Date();
-//   const todayDate = (Moment(today).format("D"));
-// 	let dateToCheck = 0;
-// 	if(todayDate>1){
-// 		dateToCheck = (Moment().subtract(1, 'days')).format("D");
+test("Check can able to select calendar in UI", async () => {
+	const today = new Date();
+  const currentMonth = (Moment(today).format("MMMM YYYY"));
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
+	const button = screen.getByTestId("schedule-call-component");
+	fireEvent.click(button);	
+	const dialog = screen.getByTestId("dialog");
+	const datePicker = dialog.querySelector(`input[name="appointmentDate"]`);
+  expect(datePicker).toBeTruthy();
+	fireEvent.click(datePicker);
+  fireEvent.mouseDown(datePicker);
+	expect(getByText(currentMonth)).toBeTruthy();	
+});
+
+test("Check the the past date is disabled and saturday and sunday also disabled", async () => {
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
+	const today = new Date();
+  const todayDate = (Moment(today).format("D"));
+	let dateToCheck = 0;
+	if(todayDate>1){
+		dateToCheck = (Moment().subtract(1, 'days')).format("D");
 		
-// 	}else{
-// 		dateToCheck =  (Moment(getFirstWeekDay(today, 0)).format("D"));
-// 	}
-// 	const button = screen.getByTestId("schedule-call-component");
-// 	fireEvent.click(button);	
-// 	const dialog = screen.getByTestId("dialog");
-// 	const submitBtn = getByText("Schedule a call");
-// 	fireEvent.click(submitBtn);
-// 	const datePicker = dialog.querySelector(`input[name="appointmentDate"]`);
-//   expect(datePicker).toBeTruthy();	
-// 	await act(() => {
-// 		fireEvent.click(datePicker);
-//   	fireEvent.mouseDown(datePicker);
-// 	});
-// 	expect(getByText(dateToCheck).closest('button')).toHaveAttribute('disabled');
-// });
+	}else{
+		dateToCheck =  (Moment(getFirstWeekDay(today, 0)).format("D"));
+	}
+	const button = screen.getByTestId("schedule-call-component");
+	fireEvent.click(button);	
+	const dialog = screen.getByTestId("dialog");
+	const submitBtn = getByText("Schedule a call");
+	fireEvent.click(submitBtn);
+	const datePicker = dialog.querySelector(`input[name="appointmentDate"]`);
+  expect(datePicker).toBeTruthy();	
+	await act(() => {
+		fireEvent.click(datePicker);
+  	fireEvent.mouseDown(datePicker);
+	});
+	expect(getByText(dateToCheck).closest('button')).toHaveAttribute('disabled');
+});
 
-// test("When select on the saturday and sunday, the time slot should not be shown", async () => {
-// 	const { getByText } = render(component(), { wrapper: MemoryRouter });
-// 	const today = new Date();
-//   (Moment(today).format("D"));
-// 	let dateToCheck = (Moment(getFirstWeekDay(today, 0)).format("D"));
-// 	const button = screen.getByTestId("schedule-call-component");
-// 	fireEvent.click(button);	
-// 	const dialog = screen.getByTestId("dialog");
-// 	const submitBtn = getByText("Schedule a call");
-// 	fireEvent.click(submitBtn);	
-// 	const datePicker = dialog.querySelector(`input[name="appointmentDate"]`);
-// 	expect(datePicker).toBeTruthy();	
-// 	await act(() => {
-// 		fireEvent.click(datePicker);
-//   	fireEvent.mouseDown(datePicker);
-// 	});
-// 	const dataBtn = getByText(dateToCheck).closest('button');
-// 	fireEvent.click(dataBtn);
-// });
+test("When select on the saturday and sunday, the time slot should not be shown", async () => {
+	const { getByText } = render(component(), { wrapper: MemoryRouter });
+	const today = new Date();
+  (Moment(today).format("D"));
+	let dateToCheck = (Moment(getFirstWeekDay(today, 0)).format("D"));
+	const button = screen.getByTestId("schedule-call-component");
+	fireEvent.click(button);	
+	const dialog = screen.getByTestId("dialog");
+	const submitBtn = getByText("Schedule a call");
+	fireEvent.click(submitBtn);	
+	const datePicker = dialog.querySelector(`input[name="appointmentDate"]`);
+	expect(datePicker).toBeTruthy();	
+	await act(() => {
+		fireEvent.click(datePicker);
+  	fireEvent.mouseDown(datePicker);
+	});
+	const dataBtn = getByText(dateToCheck).closest('button');
+	fireEvent.click(dataBtn);
+});
+
+test("When select on Tuesday", async () => {
+	const { getByText } = render(component(holidayCalenderData), { wrapper: MemoryRouter });
+	const today = new Date();
+  (Moment(today).format("D"));
+	let dateToCheck = (Moment(getFirstWeekDay(today, 2)).format("D"));
+	const button = screen.getByTestId("schedule-call-component");
+	fireEvent.click(button);	
+	const dialog = screen.getByTestId("dialog");
+	const submitBtn = getByText("Schedule a Call");
+	fireEvent.click(submitBtn);	
+	const datePicker = dialog.querySelector(`input[name="appointmentDate"]`);
+	expect(datePicker).toBeTruthy();	
+	await act(() => {
+		fireEvent.click(datePicker);
+  	fireEvent.mouseDown(datePicker);
+	});
+
+	await act(() => {
+		const dataBtn = getByText(dateToCheck).closest('button');
+	fireEvent.click(dataBtn);
+	const submitScheduleButton = screen.getByTestId("submit-schedule-call");
+	fireEvent.click(submitScheduleButton);	
+	const cloasDialogIcon = screen.getByTestId("close-dialog-icon");
+	fireEvent.click(cloasDialogIcon);
+	});
+		
+});
+
+test("When select on Monday", async () => {
+	const { getByText } = render(component(holidayCalenderWithoutData), { wrapper: MemoryRouter });
+	const today = new Date();
+  (Moment(today).format("D"));
+	let dateToCheck = (Moment(getFirstWeekDay(today, 1)).format("D"));
+	const button = screen.getByTestId("schedule-call-component");
+	fireEvent.click(button);	
+	const dialog = screen.getByTestId("dialog");
+	const submitBtn = getByText("Schedule a Call");
+	fireEvent.click(submitBtn);	
+	const datePicker = dialog.querySelector(`input[name="appointmentDate"]`);
+	expect(datePicker).toBeTruthy();
+	const slot = dialog.querySelector(`input[name="callTime"]`);
+	expect(slot).toBeTruthy();	
+	screen.debug(slot)
+	await act(() => {
+		fireEvent.click(datePicker);
+  	fireEvent.mouseDown(datePicker);	 
+	});
+
+	await act(() => {
+		const dataBtn = getByText(dateToCheck).closest('button');
+	fireEvent.click(dataBtn);
+	const submitScheduleButton = screen.getByTestId("submit-schedule-call");
+	fireEvent.click(submitScheduleButton);	
+	const cloasDialogIcon = screen.getByTestId("close-dialog-icon");
+	fireEvent.click(cloasDialogIcon);
+	});
+});
 
 test('Should match the snapshot', () => {
 	const { asFragment } = render(component(), { wrapper: MemoryRouter });
