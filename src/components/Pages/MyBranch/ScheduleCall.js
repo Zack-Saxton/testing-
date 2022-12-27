@@ -179,6 +179,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData, latitude, long
             aria-label="close"
             onClick={handleScheduleCallClose}
             className={classes.closeButton}
+            data-testid = "close-dialog-icon"
           >
             <CloseIcon />
           </IconButton>
@@ -277,6 +278,7 @@ export default function ScheduleCall({ MyBranchCall, holidayData, latitude, long
               type="submit"
               stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
               disabled={loading}
+              data-testid = "submit-schedule-call"
             >
               Call Back
               <AutorenewIcon className="rotatingIcon"
