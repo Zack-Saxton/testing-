@@ -332,7 +332,7 @@ export default function Login(props) {
       </div>
 
       <Dialog
-        id="deletePayment"
+        id="LoginhelpDialog"
         open={openDeleteSchedule}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"

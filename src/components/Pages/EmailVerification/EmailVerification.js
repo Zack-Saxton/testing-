@@ -274,7 +274,8 @@ export default function EmailVerification() {
               requires that you verify your identity as well as your income. Please
               acknowledge and sign our disclosures to proceed.
             </Typography>
-                      <Grid>
+            <Grid container>
+                      <Grid item md={0.5} sm={1} xs={1.5}>
                         <Checkbox
                           checked={agreeTerms}
                           data-testid = "checkboxTerms"
@@ -283,13 +284,14 @@ export default function EmailVerification() {
                           inputProps={{ "aria-label": "primary checkbox" }}
                         />
                       </Grid>
-                      <Grid className="acknowledgeText">
+                      <Grid md={11.5} sm={11} xs={10.5} className="acknowledgeText">
                         <Typography>
                           By clicking this box you acknowledge that you have received,
                           reviewed, and agree to the following terms and conditions:
                           <br />
                           {showConsentsLinks()}
                         </Typography>
+                      </Grid>
                       </Grid>
                     </>
                   }

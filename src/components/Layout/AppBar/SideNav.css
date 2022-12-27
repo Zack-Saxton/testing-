@@ -225,8 +225,7 @@ a.nav_link:hover .MuiListItem-root {
 @media only screen and (max-width: 360px) {
   #toolbar {
     padding: 0px 10px !important;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
   #blogsLink a {
     height: 60px;
@@ -245,13 +244,10 @@ a.nav_link:hover .MuiListItem-root {
   }
   #tool-bar-list {
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
   .noPaddingIcon {
     padding: 10px 0px !important;
-  }
-  #close1 {
-    margin-top: 10px;
   }
 }
 #settingsMenu:nth-child(3) {

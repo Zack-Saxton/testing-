@@ -63,6 +63,9 @@
 #loginPaperCard {
   max-width: 385px !important;
 }
+#LoginhelpDialog .MuiDialog-container .MuiPaper-elevation{
+  margin: 32px 15px;
+}
 @media (max-width: 600px) {
   #resetPasswordWrap {
     padding: 0px 25px;
