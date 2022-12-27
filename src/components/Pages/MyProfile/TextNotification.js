@@ -226,6 +226,7 @@ export default function TextNotification() {
             <Link
               to={`/textingTermsOfUse`}
               className={classes.linkStyle}
+              data-testid="notification-termsofuse-text"
             >
               Texting Terms of Use.
             </Link>
@@ -263,6 +264,7 @@ export default function TextNotification() {
         onClose={handleDisclosureClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        data-testid="disclosure-popup-close"
       >
         <DialogTitle id="alert-dialog-title" data-testid="disclosure-popup">
           <Typography id="scheduleTxt" className={classes.dialogHeading}>

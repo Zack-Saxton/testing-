@@ -259,6 +259,7 @@ export default function MailingAddress(props) {
               styleicon='{ "color":"" }'
               onClick={onClickCancelChange}
               disabled={!disableField}
+              data-testid="cancel-reset-form"
 
             >
               Cancel

@@ -3,13 +3,16 @@ import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
+import Cookies from "js-cookie";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from "react-router-dom";
 import { GlobalStateProvider } from "../../../../src/contexts/GlobalStateProvider";
 import ProfilePicture from '../../../contexts/ProfilePicture';
 import TextNotification from './TextNotification';
+import { textNotification } from "../../Controllers/MyProfileController";
+jest.mock('../../Controllers/MyProfileController');
 
-
+Cookies.set("opted_phone_texting", "1231231233");
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -96,8 +99,8 @@ test("Check can able to enter phone number in Phone Number filed in UI", async (
 	const element = container.querySelector(`input[name="phone"]`);
 	expect(element).toBeTruthy();
 	await act(() => {
-		fireEvent.change(element, { target: { value: "(123) 123-1235" } });
-	});
+		fireEvent.change(element, { target: { value: "(123) 123-1235 " } });
+	});	
 	expect(element.value).toBe('(123) 123-1235');
 });
 
@@ -147,6 +150,7 @@ test("Check can able to click Cancel button", async () => {
 });
 
 test("Check can able to click Update button", async () => {
+	textNotification.mockResolvedValue({data: {sbt_subscribe_details: {HasNoErrors: true}}});
 	const { getByText } = render(component(), { wrapper: MemoryRouter });
 	const element = getByText("Update");
 	await act(() => {
