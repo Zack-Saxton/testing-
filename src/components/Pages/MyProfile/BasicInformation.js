@@ -427,6 +427,7 @@ export default function BasicInformation(props) {
                 component="span"
                 onClick={handleInputChange}
                 disabled={!disableField}
+                data-testid="upload-new-photo-button"
               >
                 Upload New Photo
               </ButtonSecondary>
@@ -458,6 +459,7 @@ export default function BasicInformation(props) {
               stylebutton='{"padding":"0px 30px"}'
               styleicon='{ "color":"" }'
               onClick={onClickResetForm}
+              data-testid="basic-information-reset"
               disabled={!disableField}
             >
               Cancel
@@ -467,6 +469,7 @@ export default function BasicInformation(props) {
               styleicon='{ "color":"" }'
               type="submit"
               disabled={loading}
+              data-testid="basic-information-submit"
             >
               Save Changes
               <AutorenewIcon className="rotatingIcon"

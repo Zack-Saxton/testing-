@@ -8,6 +8,15 @@ import { MemoryRouter } from "react-router-dom";
 import ProfilePicture from '../../../contexts/ProfilePicture';
 import MailingAddress from './MailingAddress';
 import { basicInformationData } from "../../../__mock__/data/MyProfile.data";
+import ZipCodeLookup from "../../Controllers/ZipCodeLookup";
+import { GlobalStateProvider } from "../../../../src/contexts/GlobalStateProvider";
+import { mailingAddress } from "../../Controllers/MyProfileController";
+jest.mock('../../Controllers/MyProfileController');
+
+import Cookies from "js-cookie";
+Cookies.set("hasActiveLoan", "true");
+Cookies.set("hasApplicationStatus", "rejected");
+jest.mock('../../Controllers/ZipCodeLookup');
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -23,16 +32,18 @@ const theme = createTheme();
 window.scrollTo = jest.fn();
 const component = () => {
 	return (
-		<ThemeProvider theme={theme}>
-			<QueryClientProvider client={queryClient}>
-				<ProfilePicture>
-					<MailingAddress
-						basicInformationData={ basicInformationData }
-						getUserAccountDetails={[]}
-					/>
-				</ProfilePicture>
-			</QueryClientProvider>
-		</ThemeProvider>
+		<GlobalStateProvider>
+			<ThemeProvider theme={theme}>
+				<QueryClientProvider client={queryClient}>
+					<ProfilePicture>
+						<MailingAddress
+							basicInformationData={ basicInformationData }
+							getUserAccountDetails={[]}
+						/>
+					</ProfilePicture>
+				</QueryClientProvider>
+			</ThemeProvider>
+		</GlobalStateProvider>
 	);
 }
 
@@ -113,18 +124,43 @@ test("Check can able to enter Street address in UI", async () => {
 
 test("Check can able to enter Zipcode in UI", async () => {
 	const { container } = render(component(), { wrapper: MemoryRouter });
+	ZipCodeLookup.mockResolvedValue({result:{"result":"success","status":200,"data":{"zipCode":"90012","cityName":"Los Angeles","stateCode":"CA"}}});
 	const input = container.querySelector(`input[name="zip"]`);
 	expect(input).toBeTruthy();
 	await act(() => {
 		fireEvent.change(input, { target: { value: "19701" } });
+		fireEvent.blur(input);
 	});
 	expect(input.value).toBe('19701');
+	await act(() => {
+		fireEvent.click(screen.getByText('Save Changes'));
+	});
 });
 
 test("Check can able to click Save button", async () => {
-	render(component(), { wrapper: MemoryRouter });
+	mailingAddress.mockResolvedValue({data: {"emailUpdate":true,"notes":["Customer has updated Phone Number from 3373373373 TO 3373373374"]}});
+	const { container } = render(component(), { wrapper: MemoryRouter });
+	const input = container.querySelector(`input[name="streetAddress"]`);
+	await act(() => {
+		fireEvent.change(input, { target: { value: "4321 MAIN AVE11" } });
+		fireEvent.click(screen.getByText('Save Changes'));
+	});	
+});
+
+test("Check can able to click Save button without changing value", async () => {
+	mailingAddress.mockResolvedValue({data: {"emailUpdate":true,"notes":["Customer has updated Phone Number from 3373373373 TO 3373373374"]}});
+	const { container } = render(component(), { wrapper: MemoryRouter });
 	await act(() => {
 		fireEvent.click(screen.getByText('Save Changes'));
+	});	
+});
+
+
+test("Check can able to click Cancel button", async () => {
+	render(component(), { wrapper: MemoryRouter });
+	const resetButton = screen.getByTestId('cancel-reset-form');
+	await act(() => {
+		fireEvent.click(resetButton);
 	});	
 });
 
