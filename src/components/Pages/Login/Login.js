@@ -353,6 +353,7 @@ export default function Login(props) {
             Having Trouble Logging In?{" "}
           </Typography>
         </DialogTitle>
+        <Grid className="loginListItem">
         <ul>
           <li>
             {" "}
@@ -371,6 +372,7 @@ export default function Login(props) {
             existing password
           </li>
         </ul>
+        </Grid>
 
         <DialogActions
           className="dialogActionsWrap"

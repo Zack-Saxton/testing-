@@ -202,7 +202,7 @@ export default function RecentPayments() {
                         Recent Payments
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid className="paymentHistoryButtonWrap" item xs={12} sm={6}>
                       <NavLink
                         to="/customers/paymenthistory"
                         className={classes.decorNone}
@@ -210,7 +210,7 @@ export default function RecentPayments() {
                       >
                         <ButtonPrimary
                           data-testid="payment_history_button"
-                          stylebutton='{"float": "right","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
+                          stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
                         >
                           Payment History
                         </ButtonPrimary>

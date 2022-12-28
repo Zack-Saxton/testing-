@@ -47,10 +47,8 @@
   }
   .autoPayButtons button{
     padding: 0px 15px !important;
+    letter-spacing: inherit;
   }
-  #replaceCurrentButton {
-    margin: 0  0 15px 0 !important;
-}
 }
 .buttonsWrap{
   align-items: center;
@@ -64,6 +62,13 @@
   width: auto;
 }
 @media (max-width: 920px) {
+  #scheduledPaymentButton{
+    margin: 10px 0px 0px 0px!important;
+    padding: 20px !important;
+  }
+  #replaceCurrentButton {
+    margin: 15px 0px;
+  }
   .schedulePopup {
     flex-direction: column-reverse;
     align-items: center;
@@ -90,6 +95,16 @@
   }
   .scheduleTxtWrap{
    padding-bottom: 0;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .autoPayButtons button{
+    padding: 24px 15px !important;
+    white-space:break-spaces;
+  }
+  #replaceCurrentButton{
+    margin: 15px 0px 15px 0px !important;
+    padding: 20px !important;
   }
 }
 
@@ -192,25 +207,6 @@
     flex-direction: column-reverse;
   }
 
-  #replaceCurrentButton {
-    margin: 15px 0px;
-  }
-}
-
-#autopayDialogBox .makeStyles-dialogPaper-40 {
-  border-radius: 2px !important;
-  bottom: unset;
-  left: unset;
-}
-
-#deletePayment .makeStyles-dialogPaper-40 {
-  bottom: unset;
-  left: unset;
-}
-
-#scheduleDialogBox .MuiDialog-paperWidthSm {
-  bottom: unset;
-  left: unset;
 }
 
 #paymentTableWrap {

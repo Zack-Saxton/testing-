@@ -34,6 +34,7 @@ import Stack from '@mui/material/Stack';
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Backdrop from '@mui/material/Backdrop';
 import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import Cookies from "js-cookie";
@@ -211,6 +212,7 @@ export default function SideNav() {
   const [ checkPresenceOfLoanStatus, setCheckPresenceOfLoanStatus ] = useState('');
   const [ isMobileDevice, setDeviceType ] = useState(false);
   const [ checkFinalVerificationStatus, setCheckFinalVerificationStatus ] = useState(false);
+  const [openBackdrop, setOpenBackdrop] = useState(false);
   const { data: verificationStepsApplyforLoan } = useQuery('verification-data', verificationSteps
   , {
     enabled: [ 'approved', 'completing_application', 'signature_complete', 'closing_process' ].includes(dataAccountOverview?.data?.applicants?.find((applicant) => applicant?.isActive)?.status),
@@ -227,6 +229,7 @@ export default function SideNav() {
   const handleClickAway = () => {
     if (isMobileDevice) {
       setOpen(false);
+      setOpenBackdrop(false);
     }
   };
   const handleDeviceType = (status) => {
@@ -431,6 +434,7 @@ export default function SideNav() {
 
   //Menu button on mouse view
   const handleMenuButtonOpen = () => {
+    setOpenBackdrop(true);
     if (!check) {
       let drawerRefClose2 = refClose2.current
       drawerRefClose2.style.display = "block ";
@@ -451,8 +455,9 @@ export default function SideNav() {
   };
 
   const handleMobileMenuClose = () => {
-    if ((!checked || !check) && window.matchMedia("only screen and (max-width: 760px)").matches ) {
+    if ((!checked || !check) && window.matchMedia("only screen and (max-width: 920px)").matches ) {
       setOpen(false);
+      setOpenBackdrop(false);
     }
   };
 
@@ -533,6 +538,13 @@ export default function SideNav() {
 
     setOpenOption(false);
   };
+  
+//for closing the backdrop
+  const handleCloseOpenBackdrop = () => {
+    setOpenBackdrop(false);
+    handleMobileMenuClose()
+    handleClickAway()
+  };
 
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = useRef(option);
@@ -571,6 +583,12 @@ export default function SideNav() {
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <div data-testid="side_nav_component" id="headerWrap" className={classes.grow}>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: "15" }}
+        open={openBackdrop}
+        onClick={handleCloseOpenBackdrop}
+      >
+      </Backdrop>
         <AppBar
           data-testid="appBar"
           id="MainHeaderWrapping"

@@ -148,6 +148,9 @@
   color: #171717;
   margin: 0px 0px 10px 0px;
 }
+.paymentHistoryButtonWrap a button{
+  float: right;
+}
 @media only screen and (max-width: 768px) {
   #offerText button {
     font-size: 12px;
@@ -263,6 +266,9 @@
   #overviewWrap {
     height: 100% !important;
     padding: 10px 0 20px 0;
+  }
+  .paymentHistoryButtonWrap a button{
+    float: left;
   }
 }
 .pulse {
