@@ -214,6 +214,7 @@ function UploadDocument(props) {
     }
   }
   const deleteSelectedFile = () => {
+    selectedFile.value = "";
     setSelectedFile(null);
     setLabel("");
     setDisableNext(true);

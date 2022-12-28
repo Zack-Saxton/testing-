@@ -243,7 +243,7 @@ export default function ChangePassword(basicInformationData) {
             <ButtonSecondary
               stylebutton='{"padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               styleicon='{ "color":"" }'
-
+              data-testid="reset-password-button"
               onClick={handleCancelButton}
 
             >
@@ -267,6 +267,7 @@ export default function ChangePassword(basicInformationData) {
 
               type="submit"
               disabled={loading}
+              data-testid="update-password-button"
             >
               Update
               <AutorenewIcon className="rotatingIcon"

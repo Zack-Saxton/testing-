@@ -183,6 +183,7 @@ export default function ScheduleAppointment({
             aria-label="close"
             onClick={handleScheduleAppointmentClose}
             className={classes.closeButton}
+            data-testid = "close-dialog-icon"
           >
             <CloseIcon />
           </IconButton>
@@ -274,6 +275,7 @@ export default function ScheduleAppointment({
               type="submit"
               stylebutton='{"background": "","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif"}'
               disabled={loading}
+              data-testid="submit-schedule-appointment"
             >
               Schedule an appointment
               <AutorenewIcon className="rotatingIcon"

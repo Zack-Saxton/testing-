@@ -52,3 +52,31 @@ export const userOffers =  {
   "campaignTypeMessage": "Prequalified Offer. You may have money available now! Up to: $12,000"
 }
 }
+
+export const userOffersPres =  {
+  userOffers: {
+ 
+  CampaignTypeDesc: "PRES",
+}
+}
+
+export const userOffersConv =  {
+  userOffers: {
+ 
+  CampaignTypeDesc: "CONV",
+}
+}
+
+export const userOffersBci =  {
+  userOffers: {
+ 
+  CampaignTypeDesc: "BCI",
+}
+}
+
+export const userOffersAuto =  {
+  userOffers: {
+ 
+  CampaignTypeDesc: "AUTO",
+}
+}
