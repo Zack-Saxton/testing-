@@ -261,7 +261,6 @@ it("Make a Payment", () => {
   PaymentMethodMock();
   const container = render(component());
   const heading = container.getByText("Make a Payment");
-  // expect(headingElement.value).toBe("Make a Payment");
   expect(heading).toBeInTheDocument();
 });
 
