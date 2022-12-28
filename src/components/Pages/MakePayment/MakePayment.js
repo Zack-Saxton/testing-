@@ -1085,6 +1085,7 @@ export default function MakePayment() {
                             <ButtonPrimary
                               stylebutton='{"background": "", "color":"" }'
                               id="submitBtn"
+                              data-testid="submitBtn"
                               onClick={handleClickSubmit}
                               disabled={autopaySubmitDisabled}
                             >
@@ -1101,6 +1102,7 @@ export default function MakePayment() {
                             id="payment"
                             name="payment"
                             label="Payment Amount (may include fees)"
+                            data-testid="paymentAmount"
                             type="text"
                             materialProps={{ ref: refPaymentAmount }}
                             autoComplete="off"
@@ -1187,6 +1189,7 @@ export default function MakePayment() {
                               <ButtonPrimary
                                 stylebutton='{"marginRight": "" }'
                                 id="make-payment-schedule-button"
+                                data-testid="scheduleButton_test"
                                 onClick={handleSchedulePaymentClick}
                               >
                                 Schedule Payment
@@ -1385,7 +1388,7 @@ export default function MakePayment() {
           </IconButton>
         </DialogTitle>
         <DialogContent className="scheduleTxtWrap">
-          <Typography id="scheduleTxt" className={classes.dialogHeading}>
+          <Typography id="scheduleTxt" data-testid="YourPayment" className={classes.dialogHeading}>
             Your payment of: {numberFormat(paymentAmount)} has been applied to
             your account.
           </Typography>
@@ -1520,6 +1523,7 @@ export default function MakePayment() {
       >
         <DialogTitle id="scheduleDialogHeading">
           <IconButton
+          data-testid="close"
             aria-label="close"
             className={classes.closeButton}
             onClick={handlePaymentClose}
@@ -1665,6 +1669,7 @@ export default function MakePayment() {
                 </ButtonPrimary>
                 {checkAutoPay ? (
                   <ButtonPrimary
+                  data-testid="autoPayButton"
                     stylebutton='{"background": "", "color":"","margin": "0px 10px 0px 0px" }'
                     onClick={disableAutoPayAndSchedulePayment}
                     disabled={loading}
@@ -1776,7 +1781,7 @@ export default function MakePayment() {
         <DialogTitle id="alert-dialog-title">
           AUTO PAY AUTHORIZATION
         </DialogTitle>
-        <DialogContent>
+        <DialogContent data-testid="dialogParagraph">
           <p className={classes.autoPayContent}>
             As used in this authorization, the words, “I,” “MY,” and “ME” refer
             to the borrower agreeing to the terms of this authorization, and the
