@@ -1640,7 +1640,7 @@ export default function MakePayment() {
           </Typography>
         </DialogContent>
 
-        <DialogActions className={` ${classes.dialogActionStyle}`}>
+        <DialogActions id="schedulePaymentWrap" className={` ${classes.dialogActionStyle}`}>
           <Grid container className="buttonsWrap">
             <Grid container className="schedulePopup">
               <ButtonSecondary
@@ -1705,6 +1705,7 @@ export default function MakePayment() {
 
             {paymentIsScheduled === "yes" && isFutureDate === "no" ? (
               <ButtonSecondary
+                id="scheduledPaymentButton"
                 stylebutton='{"background": "", "color":"" }'
                 onClick={handleSchedulePaymentSubmitKeep}
                 disabled={loading}

@@ -54,7 +54,7 @@ const useStyleVantageScore = makeStyles((theme) => ({
   texts: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start",
+    alignItems: "center",
     color: "#212121",
   },
   Button: {
