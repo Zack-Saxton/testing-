@@ -133,7 +133,7 @@ export default function OfferTable(props) {
 
   const handleRadioOnClick = (row, ind) => {
     props.setCheckedValue(row._id);
-    props.setSelectedIndex(ind);
+    props.setSelectedIndex(row.offerIndex ?? ind);
     props.setSelectedTerm(row.termNum);
   };
 
