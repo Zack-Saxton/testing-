@@ -109,7 +109,8 @@ export default function SelectOffer() {
 			termNum = buildData.termNum,
 			tabIndex = buildData.tabIndex,
 			checked = buildData.checked,
-			display = buildData.display;
+			display = buildData.display,
+			offerIndex = buildData.offerIndex;
 		return {
 			select,
 			loanAmount,
@@ -122,6 +123,7 @@ export default function SelectOffer() {
 			tabIndex,
 			checked,
 			display,
+			offerIndex
 		};
 	}
 
@@ -131,7 +133,7 @@ export default function SelectOffer() {
 		setOfferFlag(true);
 		let rowsterm = [];
 		accountDetails?.data?.Offers[ termNum ]?.map((item, _index) => {
-			return structureBuildData(item, termNum, tabIndex, rowsterm);
+			return structureBuildData(item, termNum, tabIndex, rowsterm, _index);
 		});
 		setRowData(rowsterm);
 	}
@@ -143,7 +145,7 @@ export default function SelectOffer() {
 		setOffersToCompareChart([ ...offersToCompareChart, offersToCompare[ 0 ], offersToCompare[ 1 ] ]);
 	}
 
-	const structureBuildData = (item, termNum, tabIndex, rowsterm) => {
+	const structureBuildData = (item, termNum, tabIndex, rowsterm, index) => {
 		let buildData = {
 			select: "",
 			loanAmount: currencyFormat(item.loan_amount),
@@ -156,6 +158,7 @@ export default function SelectOffer() {
 			tabIndex: tabIndex,
 			checked: "false",
 			display: item.display,
+			offerIndex: index
 		};
 		let formatedBuildData = createData(buildData);
 		rowsterm.push(formatedBuildData);
@@ -168,7 +171,7 @@ export default function SelectOffer() {
 		let rowsterm = [];
 		accountDetailsData?.data?.Offers[ termNum ].map((item, _index) => {
 
-			return structureBuildData(item, termNum, tabIndex, rowsterm);
+			return structureBuildData(item, termNum, tabIndex, rowsterm, _index);
 		});
 		setRowData(rowsterm);
 	}
