@@ -78,18 +78,6 @@ test('State search input box rendered', async () => {
   expect(autocomplete.value).toEqual('los');
 });
 
-test('Checks the state name section rendered', async () => {
-  render( 
-    <MemoryRouter  initialEntries={[{ pathname: '/', state: {value : "indiana", flag:true}} ]}>
-      {component()}
-    </MemoryRouter>
-  );
-  await act(() => {		
-    const element = screen.getByText('Mariner Finance States');
-	  expect(element).toBeTruthy();
-	});	  
-});
-
 
 test('Check for Branch section loaded and its inner section', async () => {
   render( 
