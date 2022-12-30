@@ -177,11 +177,6 @@
     display: flex;
     flex-direction: column;
 }
-@media only screen and (max-width:899px) {
-    #overviewContainer{
-        padding: 10px 0 20px 0;
-    }
-}
 @media only screen and (max-width: 1199px) {
     #overviewContainer{
         padding: 10px 0 20px 0;
@@ -201,6 +196,11 @@
     }
     .mortgageParagraph {
         font-size: 18px;
+    }
+}
+@media only screen and (max-width:899px) {
+    #overviewContainer{
+        padding: 10px 0 0px 0;
     }
 }
 @media (max-width:660px) {

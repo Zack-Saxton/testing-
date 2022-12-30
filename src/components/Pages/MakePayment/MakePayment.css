@@ -29,6 +29,9 @@
 #select .subOption {
   color: #171717 !important;
 }
+.mailLink{
+  line-break: anywhere;
+}
 
 @media (max-width: 599px) {
   #paymentBtnWrap {

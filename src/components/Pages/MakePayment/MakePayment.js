@@ -1837,7 +1837,7 @@ export default function MakePayment() {
             at Mariner Finance, LLC, 8211 Town Center Drive, Nottingham, MD
             21236, Attn: Servicing; or (iii) by providing written notice to the
             following email address:{" "}
-            <a href="mailto:recurringpymtoptout@marinerfinance.com">
+            <a className="mailLink" href="mailto:recurringpymtoptout@marinerfinance.com">
               recurringpymtoptout@marinerfinance.com
             </a>
             .

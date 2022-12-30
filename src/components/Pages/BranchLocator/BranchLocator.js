@@ -26,6 +26,7 @@ import BranchLocatorController, { loadGMaps } from "../../Controllers/BranchLoca
 import { ButtonPrimary, ButtonSecondary } from "../../FormsUI";
 import { useStylesConsumer } from "../../Layout/ConsumerFooterDialog/Style";
 import ErrorLogger from "../../lib/ErrorLogger";
+import ScrollToTop from "../../Pages/ScrollToTop"
 import { useStylesMyBranch } from "../BranchLocator/Style";
 import CustomerRatings from "../MyBranch/CustomerRatings";
 import "./BranchLocator.css";
@@ -547,6 +548,7 @@ export default function BranchLocator() {
   //View part
   return (
     <div>
+      <ScrollToTop/>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Mariner Finance States | Personal Loans |Discover More</title>
