@@ -152,6 +152,38 @@ test("Check the focus is moving to next input field", async () => {
 	});
   expect(otp2).toHaveFocus();
 });
+
+test("Check Verify button is clickable", async () => {
+	const { container, getByText } = render(
+	  <MemoryRouter
+		initialEntries={[
+		  {
+			pathname: "/",
+			state: { phoneNumber: "96532545588", mfaQueries: {} },
+		  },
+		]}
+	  >
+		{component()}
+	  </MemoryRouter>
+	);
+	const otp1 = container.querySelector(`input[name="otp1"]`);
+	const otp2 = container.querySelector(`input[name="otp2"]`);
+	const otp3 = container.querySelector(`input[name="otp3"]`);
+	const otp4 = container.querySelector(`input[name="otp4"]`);
+	const otp5 = container.querySelector(`input[name="otp5"]`);
+	const otp6 = container.querySelector(`input[name="otp6"]`);
+	await act(() => {
+	  fireEvent.change(otp1, { target: { value: "2" } });
+	  fireEvent.change(otp2, { target: { value: "3" } });
+	  fireEvent.change(otp3, { target: { value: "4" } });
+	  fireEvent.change(otp4, { target: { value: "6" } });
+	  fireEvent.change(otp5, { target: { value: "7" } });
+	  fireEvent.change(otp6, { target: { value: "9" } });
+	});
+	expect(getByText("Verify Now")).toBeTruthy();
+	fireEvent.click(getByText("Verify Now"));
+  });
+  
 test('Should match the snapshot', () => {
 	const { asFragment } = render(
     <MemoryRouter initialEntries={[{ pathname: '/', state: {phoneNumber : "96532545588", mfaQueries:{}}} ]}>

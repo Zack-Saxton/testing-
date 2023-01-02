@@ -101,9 +101,25 @@ test("Render Button", () => {
 	expect(element).toBeTruthy();
 });
 
-test("Button Onclick", () => {
+test("Button Onclick", async() => {
 	render(component());
 	const button = screen.getByTestId("submit");
 	fireEvent.click(button);
 });
 
+it("Back button navigates to previous page", async () => {
+	const container = render(component());
+	const backButton = container.getByTestId("backArrow");
+	expect(backButton).toBeTruthy();
+	fireEvent.click(backButton);
+  });
+
+  test("check contact us", () => {
+	const { getAllByText, getByTestId, getByText } = render(
+	component()
+	);
+	expect(getAllByText("contact us.")).toHaveLength(1);
+	fireEvent.click(getByText("contact us."));
+	expect(getByTestId("contact_us")).toBeInTheDocument();
+	fireEvent.click(getByText("OK"))
+	});

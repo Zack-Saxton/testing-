@@ -1,13 +1,15 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, waitFor, render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import MFASecurityQuestions from "../MultiFactorAuthentication/MFA-SecurityQuestions";
 import { createBrowserHistory } from 'history';
 import Cookies from 'js-cookie'
+import { saveSecurityAnswer } from "../../Controllers/MFAController";
+jest.mock("../../Controllers/MFAController");
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -90,12 +92,54 @@ test("Button Onclick", async () => {
 	});
     
 });
-test('Checks textfield', () => {
-    render(component());
-    const input = screen.getByTestId('security-input');
+test('Checks textfield', async() => {
+    const {container}=render(component());
+    const input = container.querySelector(`input[name="answer"]`);
     expect(input).toBeTruthy();
+    await act(() => {
+        fireEvent.change(input, { target: { value: "new" } });
+	});
+    const button = container.querySelector(`button[type="submit"]`);
+    fireEvent.click(button);
 });
+
 test('Should match the snapshot', () => {
     const { asFragment } = render(component());
     expect(asFragment).toMatchSnapshot();
 });
+
+test('Check toast error answer does not match',async ()=>{
+    saveSecurityAnswer.mockResolvedValue({
+        result: "error",
+        statusCode: 404,
+        hasError: true,
+        Message: "Answer does not match.",
+        user: true,
+      });
+    const {container}=render(component());
+    const input = container.querySelector(`input[name="answer"]`);
+    expect(input).toBeTruthy();
+    await act(() => {
+        fireEvent.change(input, { target: { value: "nehjgfgfw" } });
+	});
+    const button = container.querySelector(`button[type="submit"]`);
+    fireEvent.click(button);
+    await waitFor(() => {
+        expect(
+          screen.findByText(
+            "Answer does not match."
+          )
+        ).toBeTruthy();
+      });
+    })
+
+test('Should be called addFocus()', () => {
+    const {container}=render(component());
+    const input = container.querySelector(`input[name="answer"]`);
+    expect(input).toBeTruthy();
+    fireEvent.keyDown(input,32)
+    expect(input.value).toBe("");
+});
+
+  
+   
