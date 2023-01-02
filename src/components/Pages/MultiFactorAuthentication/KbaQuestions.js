@@ -193,17 +193,20 @@ const KbaQuestions = () => {
               >
                 <Paper className={classes.twoStepPaper}>
                   <Grid className={classes.headingTextWrap}>
-                    <Typography className={classes.twoStepHeading} variant="h5">
+                    <Typography className={classes.twoStepHeading} variant="h5"
+                    >
                       ID Verification Questions
                     </Typography>
                     <IconButton
                       className={classes.backArrow}
                       onClick={backToVerificationStep}
+                      data-testid="backArrow"
                     >
                       <ArrowBackIcon className={classes.yellowBackArrow} />
                     </IconButton>
                   </Grid>
-                  <Typography className={classes.twoStepParagraph}>
+                  <Typography className={classes.twoStepParagraph}
+                  >
                     Please answer the questions below to help verify your
                     identity. Please provide your responses within five minutes.
                   </Typography>
@@ -287,6 +290,7 @@ const KbaQuestions = () => {
                 >
                   <Typography
                     className="printPage"
+                    data-testid="contact_us"
                     style={{ textDecoration: "none" }}
                   >
                     Please contact us with any questions
