@@ -44,7 +44,7 @@ const validationSchema = yup.object({
 		.string(messages?.bankAccountVerification?.minMaxAccountNum)
 		.required(messages?.bankAccountVerification?.bankAccountNumberRequired)
 		.min(4, messages?.bankAccountVerification?.minMaxAccountNum)
-		.max(17, messages?.bankAccountVerification?.minMaxAccountNum),
+		.max(16, messages?.bankAccountVerification?.minMaxAccountNum),
 	confirmBankAccountNumber: yup
 		.string(messages?.bankAccountVerification?.enterConfirmAccNum)
 		.required(messages?.bankAccountVerification?.bankAccountNumberConfirmationRequired)
@@ -58,7 +58,7 @@ const validationSchema = yup.object({
 				),
 		})
 		.min(4, messages?.bankAccountVerification?.minMaxAccountNum)
-		.max(17, messages?.bankAccountVerification?.minMaxAccountNum),
+		.max(16, messages?.bankAccountVerification?.minMaxAccountNum),
 });
 
 //View Part
@@ -323,9 +323,9 @@ export default function BankAccountVerification(props) {
 								) {
 									let bankName = await BankNameLookup(event.target.value.trim());
       						formik.setFieldValue("bankInformation", bankName);
-									setInvalidRN(bankName ? false : true);									
-									formik.handleBlur(event);
-								}
+									setInvalidRN(bankName ? false : true);	
+								}		
+								formik.handleBlur(event);
 							}}
 							error={
 								(formik.touched.bankRoutingNumber &&
