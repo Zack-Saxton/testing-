@@ -271,7 +271,7 @@ useEffect(()=>{
                         Interest Rate
                       </p>
                       <h2 className={classes.columnColor} id="column-content">
-                        {selectedOffer?.annual_interest_rate && (selectedOffer?.annual_interest_rate * 100).toFixed(2)}%
+                        {selectedOffer?.annual_interest_rate && (selectedOffer?.annual_interest_rate * 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[ 0 ]}%
                       </h2>
                     </Grid>
                   <Grid
