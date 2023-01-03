@@ -158,6 +158,7 @@ const MFAGetPhoneNumber = () => {
                     <IconButton
                       className={classes.backArrow}
                       onClick={backToVerificationStep}
+                      data-testid="back_Arrow"
                     >
                       <ArrowBackIcon className={classes.yellowBackArrow} />
                     </IconButton>
@@ -191,6 +192,7 @@ const MFAGetPhoneNumber = () => {
                         label="Phone number *"
                         id="phone"
                         type="text"
+                        data-testid="phoneField"
                         materialProps={{ maxLength: "14" }}
                         onKeyDown={preventSpace}
                         onBlur={(event) => {
