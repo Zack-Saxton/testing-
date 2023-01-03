@@ -267,7 +267,7 @@
   "Todays_Payoff": "Today's Pay Off",
   "TryAgain": "Please try again",
   "UpdatedSuccessfully": "Updated Successfully",
-  "validAccountNumber": "Account numbers must be between 4 and 17 digits",
+  "validAccountNumber": "Account numbers must be between 4 and 16 digits",
   "validBankRoutingNumber": "Bank Routing Number Should be 9 digit",
   "Valid_Card": "We only accept Visa or Master card",
   "ValidDate": "Please enter a valid date",
