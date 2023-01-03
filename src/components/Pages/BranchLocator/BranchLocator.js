@@ -548,7 +548,7 @@ export default function BranchLocator() {
   //View part
   return (
     <div>
-      <ScrollToTop/>
+      <ScrollToTop />
       <Helmet>
         <meta charSet="utf-8" />
         <title>Mariner Finance States | Personal Loans |Discover More</title>

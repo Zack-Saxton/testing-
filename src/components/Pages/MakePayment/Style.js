@@ -129,7 +129,14 @@ const useStylesMakePayment = makeStyles((theme) => ({
   dialogActionStyle: {
     justifyContent: "center",
     marginBottom: "25px",
-  }
+  },
+  dialogActionStyleAutoPay:{
+    justifyContent: "center",
+    marginBottom: "25px",
+    "@media (max-width: 950px)": {
+      flexDirection:"column"
+  },
+  },
 }));
 
 export { useStylesMakePayment };

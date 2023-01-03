@@ -154,6 +154,7 @@ export default function MakePayment() {
 
   useEffect(() => {
     setPaymentDatepicker(scheduleDate ? scheduleDate : nextDate ?? today);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkCard, scheduleDate, defaultPaymentCard, nextDate]);
 
   //API Request for Payment methods
@@ -856,6 +857,7 @@ export default function MakePayment() {
 
   useEffect(() => {
     setPaymentDatepicker(nextDate ?? today);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nextDate]);
   //View
   return (
@@ -882,10 +884,10 @@ export default function MakePayment() {
                   data-testid="back_Button"
                   iconposition="left"
                   stylebutton='{"background": "#fff", "color":"#214476",
-"minWidth": "0px",
-"width": "36px",
-"padding": "0px",
-"marginRight": "5px", "marginTop":"unset" }'
+                  "minWidth": "0px",
+                  "width": "36px",
+                  "padding": "0px",
+                  "marginRight": "5px", "marginTop":"unset" }'
                   styleicon='{ "color":"" }'
                 />
               </NavLink>
@@ -1306,7 +1308,7 @@ export default function MakePayment() {
           </>
         </DialogContent>
 
-        <DialogActions className={`actionButtons ${classes.dialogActionStyle}`}>
+        <DialogActions className={`actionButtons ${classes.dialogActionStyleAutoPay}`}>
           <ButtonSecondary
             id="cancelButton"
             stylebutton='{"background": "", "color":"" }'
@@ -1318,6 +1320,7 @@ export default function MakePayment() {
 
           {checkAutoPay ? (
             <ButtonPrimary
+              id="yesButton"
               stylebutton='{ "background": "", "color":"" }'
               onClick={handleAutoPayConfirm}
               disabled={loading}
@@ -1333,15 +1336,28 @@ export default function MakePayment() {
           ) : null}
 
           {disabledContent ? (
+            paymentIsScheduled === "yes"
+            ? <ButtonPrimary
+            id="autoPayFutureButton"
+            stylebutton='{"background": "", "color":"" }'
+            onClick={handleAutoPayConfirm}
+            disabled={loading}>           
+              {globalMessages.Keep_Future_Add_Autopay}
+            <AutorenewIcon
+              className="rotatingIcon"
+              style={{
+                display: loading ? "block" : "none",
+              }}
+            />
+          </ButtonPrimary>
+            : 
             <ButtonPrimary
-              id="autoPayButton"
+              id="autoPaySetupButton"
               stylebutton='{"background": "", "color":"" }'
               onClick={handleAutoPayConfirm}
               disabled={loading}
             >
-              {paymentIsScheduled === "yes"
-                ? globalMessages.Keep_Future_Add_Autopay
-                : globalMessages.Complete_Autopay_Setup}
+              {globalMessages.Complete_Autopay_Setup}
               <AutorenewIcon
                 className="rotatingIcon"
                 style={{
@@ -1353,6 +1369,7 @@ export default function MakePayment() {
 
           {disabledContent && paymentIsScheduled === "yes" ? (
             <ButtonSecondary
+              id="removeFuturePaymentButton"
               stylebutton='{"background": "", "color":"" }'
               onClick={handleAutoPayConfirmRemove}
               disabled={loading}
