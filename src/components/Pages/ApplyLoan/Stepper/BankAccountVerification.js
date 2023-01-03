@@ -323,9 +323,9 @@ export default function BankAccountVerification(props) {
 								) {
 									let bankName = await BankNameLookup(event.target.value.trim());
       						formik.setFieldValue("bankInformation", bankName);
-									setInvalidRN(bankName ? false : true);									
-									formik.handleBlur(event);
-								}
+									setInvalidRN(bankName ? false : true);	
+								}		
+								formik.handleBlur(event);
 							}}
 							error={
 								(formik.touched.bankRoutingNumber &&
