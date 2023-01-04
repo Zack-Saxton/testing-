@@ -29,6 +29,9 @@
 #select .subOption {
   color: #171717 !important;
 }
+.mailLink{
+  line-break: anywhere;
+}
 
 @media (max-width: 599px) {
   #paymentBtnWrap {
@@ -257,8 +260,19 @@
 #select {
   padding-bottom: 10px;
 }
-
-
+@media (max-width: 950px) {
+  #cancelButton{
+    margin-bottom: 10px;
+    margin-left: 0;
+  }
+  #yesButton{
+    margin-left: 0;
+  }
+  #removeFuturePaymentButton{
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
 @media only screen and (max-width: 1153px) {
   
   #paymentBtnWrap {
@@ -272,5 +286,22 @@
   #make-payment-schedule-button{
     padding: 0px 53px !important;
   }
-
+}
+@media only screen and (max-width: 440px) {
+  #autoPayFutureButton{
+    padding: 24px 15px !important;
+    white-space: break-spaces !important;
+    margin: 15px 0px;
+  }
+  #removeFuturePaymentButton{
+    padding: 24px 15px !important;
+    margin-top: 0px;
+  }
+  #autoPaySetupButton,#yesButton{
+    margin-top: 10px;
+  }
+  #cancelButton{
+    margin-bottom: 0px;
+    margin-left: 0;
+  }
 }

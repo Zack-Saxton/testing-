@@ -191,7 +191,7 @@ const useStylesApplyForLoan = makeStyles((theme) => ({
   tabPanelStyle: {
     padding: "24px",
     paddingBottom: "30px",
-    marginTop: "10px",
+    margin: "10px 0px 40px 0px",
     boxShadow: "rgb(61 61 61 / 10%) 0px 8px 44px 0px",
     backgroundColor: "#fff",
     borderRadius: "10px"

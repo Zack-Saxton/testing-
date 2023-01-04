@@ -65,7 +65,8 @@
 	line-height: 26px !important;
 }
 #file{
-	padding: 0px 15px;
+	width: 100%;
+	padding: 15px 0 0 0;
 }
 .modalButton{
 	padding: 10px 40px !important;

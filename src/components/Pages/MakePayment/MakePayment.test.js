@@ -29,7 +29,6 @@ import {
   HolidayCalenderDataMock,
   PaymentMethodMock,
 } from "../../../__mock__/MakePayment.mock";
-import { Container } from "@mui/system";
 import { makePayment } from "../../Controllers/PaymentsController";
 jest.mock("../../Controllers/PaymentsController");
 
