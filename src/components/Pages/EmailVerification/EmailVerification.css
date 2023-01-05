@@ -112,8 +112,16 @@
 #selectInputGrid .MuiFormControl-root .MuiInput-underline .MuiSelect-select .subOption {
   color: #171717 !important;
 }
+#uploadInformation{
+  margin: 10px 0px;
+}
 @media only screen and (max-width: 600px) {
   .stepperWrap {
     padding: 24px 28px;  
+  }
+}
+@media only screen and (max-width: 500px) {
+  #uploadInformation{
+    max-width: 100%;
   }
 }

@@ -236,6 +236,9 @@ export default function BankAccountVerification(props) {
 		if(!accountType) {
 			setAccountTypeError(globalMessages?.Please_Select_A_Saving_0r_Checking);
 		}
+		if(formik.errors.confirmBankAccountNumber){
+			getValueByLable("Account Holder *").scrollIntoView();
+		}
 		formik.submitForm();
   };
 
