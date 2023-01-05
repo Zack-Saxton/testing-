@@ -121,33 +121,32 @@ function MarriedStatus() {
 
 	//fetch the state and city based in zip code
 	const fetchAddress = async (event) => {
-		try {
-			if (event.target.value !== "" && event.target.value.length === 5) {
-				let result = await ZipCodeLookup(event.target.value);
-				if (result) {
-					formik.setFieldValue("spouseSelectState", result?.data?.stateCode);
-					formik.setFieldValue("spousecity", result?.data?.cityName);
-					setStateShort(result?.data?.stateCode);
-					setValidZip(true);
-				} else {
-				  	resetfieldValue()
-					setStateShort("");
-					setValidZip(false);
-				}
-			} else {
-				resetfieldValue();
-				setStateShort("");
-			}
-			formik.handleChange(event);
-		} catch (error) {
-			ErrorLogger(' Error from fetchAddress.', error);
-		}
-	};
+    try {
+      formik.handleChange(event);
+      setValidZip(false);
+      resetfieldValue();
+      if (event.target.value && event.target.value.length === 5) {
+        let result = await ZipCodeLookup(event.target.value.trim());
+        if (result?.data?.cityName) {
+          setValidZip(true);
+          formik.setFieldValue("spouseSelectState", result?.data?.stateCode);
+          formik.setFieldValue("spousecity", result?.data?.cityName);
+          setStateShort(result?.data?.stateCode);
+        } else {
+          resetfieldValue();
+          setValidZip(false);
+          setErrorMsg(globalMessages.ZipCodeValid);
+        }
+      }
+    } catch (error) {
+      ErrorLogger(" Error from fetchAddress", error);
+    }
+  };
 
 	const resetfieldValue = () =>{
-		formik.setFieldValue("SpouseSelectState", "");
-		formik.setFieldValue("sposecity","");
-	}
+    formik.setFieldValue("spouseSelectState", "");
+    formik.setFieldValue("spousecity","");
+  }
 
 	const shortANDoperation = (pramOne, pramtwo) => {
 		return pramOne && pramtwo
