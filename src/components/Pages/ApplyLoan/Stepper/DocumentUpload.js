@@ -46,6 +46,7 @@ export default function DocumentUpload(props) {
 				return false;
 			} else if (selectedFile.files[ 0 ].size <= 10240000) {
 				let reader = new FileReader();
+				reader.readAsDataURL(selectedFile.files[ 0 ]);
 				if (selectedFile.files && selectedFile.files[ 0 ]) {
 					reader.onload = async () => {
 						const buffer2 = Buffer.from(reader.result.split(",")[ 1 ], "base64");
@@ -61,9 +62,10 @@ export default function DocumentUpload(props) {
 						);
 						props.setLoadingFlag(response ? false : true);
 						setLoader(response ? false : true);
+						selectedFile.value = "";		
+						setSelectedFile(null);		
 						props.handle(response);
-					};
-					reader.readAsDataURL(selectedFile.files[ 0 ]);
+					};					
 				}
 			} else {
 				if (!toast.isActive("fileSizeError")) {

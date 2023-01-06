@@ -143,6 +143,7 @@ function UploadDocument(props) {
     setImgSrc(null);
     setDisableNext(true);
     handleMenuClose();
+    setLabel("");
   };
   const handleMenuClose = () => {
     setSelectDocument(false);
