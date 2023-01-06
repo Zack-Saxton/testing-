@@ -2,19 +2,20 @@ import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import * as yup from "yup";
 import { submitFinancialInformation } from "../../../Controllers/ApplyForLoanController";
 import {
   ButtonPrimary,
   ButtonSecondary, Select,
-  TextField,PhoneNumber
+  TextField
 } from "../../../FormsUI";
 import messages from "../../../lib/Lang/applyForLoan.json";
-import {trimSpecialCharacters} from "../../../Controllers/CommonController";
+import {phoneNumberMask, maskPhoneNumberWithAsterisk} from "../../../Controllers/CommonController";
 import globalMessages from "../../../../assets/data/globalMessages.json";
 import { useAccountOverview } from "../../../../hooks/useAccountOverview"
 import "./stepper.css"
+import { usePhoneNumber } from '../../../../hooks/usePhoneNumber';
 
 //styling part
 const useStyles = makeStyles(() => ({
@@ -54,18 +55,19 @@ const validationSchema = yup.object({
       .when("employementStatus", {
         is: "Employed Salaried",
         then: yup.string().required(globalMessages?.PhoneRequired),
-      }),
+      })
+      .required(globalMessages.PhoneRequired)      
+      .min(10, globalMessages.PhoneMin)
 });
 
 //View Part
 export default function FinancialInformation(props) {
   //Initiaizing state variable
   const [ error, setError ] = useState('');
-  const [ phoneReset, setPhoneReset ] = useState(false);
   const classes = useStyles();
   const {  data : accountDetails } = useAccountOverview();
   const checkEmployStatus = accountDetails?.data?.applicant?.self_reported?.employment_status;
-
+  const { phoneNumberValue, setPhoneNumberValue, phoneNumberCurrentValue, setPhoneNumberCurrentValue, updateActualValue, updateMaskValue, updateEnterPhoneNo } = usePhoneNumber();
   let formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -84,7 +86,7 @@ export default function FinancialInformation(props) {
         "current_job_title": values.jobTitle,
         "years_at_current_address": values.yearsAtCurrentAddress,
         "refer": values.howDoYouHearAboutUs,
-        "employer_phone": trimSpecialCharacters(values.phone),
+        "employer_phone": phoneNumberValue,
       };
       //API call to submit financial info
       let res = await submitFinancialInformation(body);
@@ -118,7 +120,13 @@ export default function FinancialInformation(props) {
 			event.preventDefault();
 		}
 	};
-	const shortANDOperation = (pramOne, pramtwo) => {
+  useEffect(() => {
+    setPhoneNumberValue("");
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask( "")));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+ 
+  const shortANDoperation = (pramOne, pramtwo) => {
 		return pramOne && pramtwo
 	};
 
@@ -172,35 +180,36 @@ export default function FinancialInformation(props) {
 													: "hideMsg"
 											}
 										>
-											<PhoneNumber
-												name="phone"
-												className={
-													checkEmployStatus === "Employed Hourly" ||
-                          checkEmployStatus === "Employed Salaried"
-														? "showMsg"
-														: "hideMsg"
-												}
-												label="Employer's phone number *"
-												placeholder="Enter employer's phone number"
-												id="phone"
-												type="text"
-												data-testid="phone_number_field"
-												onKeyDown={preventSpace}
-												value={formik.values.phone}
-												onLoad={formik.handleChange}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-                        phoneReset={phoneReset}
-                        setPhoneReset={setPhoneReset}
-												error = {
-													shortANDOperation(formik.touched.phone,Boolean(formik.errors.phone))
-												}
-												
-												helperText = {
-													shortANDOperation(formik.touched.phone,formik.errors.phone)
-												}
-											/>
-										</Grid>
+										
+            <TextField
+              name="phone"
+              className={
+                checkEmployStatus === "Employed Hourly" ||
+                checkEmployStatus === "Employed Salaried"
+                  ? "showMsg"
+                  : "hideMsg"
+              }
+              label="Employer's phone number *"
+              placeholder="Enter employer's phone number"
+              id="phone"
+              type="text"
+              data-testid="phone_number_field"
+              materialProps={{ maxLength: "14" }}
+              onKeyDown={preventSpace}
+              onBlur={(event)=>{
+                updateMaskValue(event);
+                formik.handleBlur(event);
+              }}
+              value = { phoneNumberCurrentValue }
+              onChange={(event)=>{
+                updateEnterPhoneNo(event);
+                formik.handleChange(event);
+              }}
+              error={shortANDoperation(formik.touched.phone, Boolean(formik.errors.phone))}
+              helperText = {shortANDoperation(formik.touched.phone, formik.errors.phone)}
+              onFocus={ updateActualValue }
+            />
+						</Grid>
         <Grid id="currentAddressSelectWrap" item sm={5} className={classes.content_grid}>
           <Select
             id="currentAddressSelect"
@@ -247,7 +256,8 @@ export default function FinancialInformation(props) {
               stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
               onClick={(_event) => {
                 formik.resetForm();
-                setPhoneReset(true);
+                setPhoneNumberCurrentValue("")
+                setPhoneNumberValue("");
               }
               }
               id="button_stepper_reset"

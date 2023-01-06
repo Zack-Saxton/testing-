@@ -226,6 +226,7 @@ const selectEmploymentStatus =[{"label": "Employed - Hourly", "value": "Employed
   const onBlurAddress = (event) => {
     formik.setFieldValue("streetAddress", event.target.value.trim());
     formik.setFieldValue("spouseadd", event.target.value.trim());
+    formik.handleBlur(event);
   };
 
   const fetchAddress = async (event) => {
