@@ -110,6 +110,7 @@ function MarriedStatus() {
 
 	const onBlurAddress = (event) => {
     formik.setFieldValue("add", event.target.value.trim());
+		formik.handleBlur(event);
   };
 
 	//prevent the space in key down

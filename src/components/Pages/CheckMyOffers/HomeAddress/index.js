@@ -152,6 +152,7 @@ function HomeAddress() {
   };
   const onBlurAddress = (event) => {
     formik.setFieldValue("streetAddress", event.target.value.trim());
+    formik.handleBlur(event);
   };
   const shortANDoperation = (pramOne, pramtwo) => {
 		return pramOne && pramtwo

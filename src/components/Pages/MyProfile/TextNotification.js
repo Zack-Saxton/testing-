@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
@@ -23,12 +23,14 @@ import {
   ButtonPrimary,
   ButtonSecondary,
   Checkbox,
-  PhoneNumber
+  TextField
 } from "../../FormsUI";
 import ErrorLogger from "../../lib/ErrorLogger";
 import { useStylesMyProfile } from "./Style";
 import "./Style.css";
 import { FormValidationRules } from "../../lib/FormValidationRule";
+import { phoneNumberMask, maskPhoneNumberWithAsterisk } from '../../Controllers/CommonController'
+import { usePhoneNumber } from '../../../hooks/usePhoneNumber';
 let formValidation = new FormValidationRules();
 
 export default function TextNotification() {
@@ -40,6 +42,7 @@ export default function TextNotification() {
   let phone = Cookies.get("opted_phone_texting");
   let isTextNotify = (/true/i).test(Cookies.get("isTextNotify"));
   let [ disabledContent, setDisabledContent ] = useState(isTextNotify);
+  const { phoneNumberValue, setPhoneNumberValue, phoneNumberCurrentValue, setPhoneNumberCurrentValue, updateActualValue, updateMaskValue, updateEnterPhoneNo } = usePhoneNumber();
 
   const onClickCancelChange = () => {
     formikTextNote.resetForm();
@@ -55,17 +58,20 @@ export default function TextNotification() {
       .oneOf([ false ], `False ${ globalMessages.Accept_Text_Terms }`),
   });
 
-  function phoneNumberMask(values) {
-    let phoneNumber = values.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-    values = !phoneNumber[ 2 ] ? phoneNumber[ 1 ] : '(' + phoneNumber[ 1 ] + ') ' + phoneNumber[ 2 ] + (phoneNumber[ 3 ] ? '-' + phoneNumber[ 3 ] : '');
-    return (values);
-  }
+  useEffect(() => {
+    setPhoneNumberValue( phone ?? "");
+    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask( phone ?? "")));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ phone ]);
+  const shortANDoperation = (pramOne, pramtwo) => {
+		return pramOne && pramtwo
+	};
 
   const formikTextNote = useFormik({
     initialValues: {
-      phone: phone ? phoneNumberMask(phone) : "",
       textingterms: phone ? true : false,
       acceptTerms: phone ? true : false,
+      phone: phone ? phone : "",
     },
     enableReinitialize: true,
     validationSchema: phoneValidationSchema,
@@ -75,7 +81,7 @@ export default function TextNotification() {
       setDisabledContent(false);
       try {
         let body = {
-          phone: values.phone,
+          phone: phoneNumberValue,
         };
 
         let result = await textNotification(body, disabledContent);
@@ -169,27 +175,29 @@ export default function TextNotification() {
             notifications above and provide the requested information.
           </p>
 
-          <PhoneNumber
-            name="phone"
-            label="Mobile Number"
-            placeholder="Mobile number"
-            id="phone"
-            type="text"
-            inputProps={{ "data-testid": "notification-phone-number" }}
-            onKeyDown={preventSpace}
-            value={formikTextNote.values.phone}
-            onLoad={formikTextNote.handleChange}
-            onChange={formikTextNote.handleChange}
-            onBlur={formikTextNote.handleBlur}
-            disabled={!disabledContent}
-            error={
-              formikTextNote.touched.phone &&
-              Boolean(formikTextNote.errors.phone)
-            }
-            helperText={
-              formikTextNote.touched.phone && formikTextNote.errors.phone
-            }
-          />
+              <TextField
+              name="phone"
+              label="Mobile Number"
+              placeholder="Mobile number"
+              id="phone"
+              type="text"
+              materialProps={{ maxLength: "14" }}
+              onKeyDown={preventSpace} 
+              onBlur={(event)=>{
+                updateMaskValue(event);
+                formikTextNote.handleBlur(event);
+              }}
+              value = { phoneNumberCurrentValue }
+              onChange={(event)=>{
+                updateEnterPhoneNo(event);
+                formikTextNote.handleChange(event);
+              }}
+              error={shortANDoperation(formikTextNote.touched.phone, Boolean(formikTextNote.errors.phone))}
+              helperText = {shortANDoperation(formikTextNote.touched.phone, formikTextNote.errors.phone)}
+              disabled={!disabledContent}
+              onFocus={ updateActualValue }
+
+            />
           <Link
             to="#"
             onClick={handleDisclosureClickOpen}

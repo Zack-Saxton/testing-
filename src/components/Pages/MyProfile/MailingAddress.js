@@ -146,6 +146,7 @@ export default function MailingAddress(props) {
   }
   const onBlurAddress = (event) => {
     formik.setFieldValue("streetAddress", event.target.value.trim());
+    formik.handleBlur(event);
   };
   const shortANDoperation = (pramOne, pramtwo) => {
 		return pramOne && pramtwo
