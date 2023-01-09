@@ -191,3 +191,12 @@ test("Routing Back to Select Amount page", async () => {
 	const page = container.queryByText("Tell us how much you would like to borrow")
 	await waitFor(() => expect(page).toBeInTheDocument());
 })
+
+test("test continue button", async () => {
+	const container = render(<MockLoanPurpose />);
+	const Home = container.getByTestId("home");
+	expect(Home).toBeTruthy();
+	fireEvent.click(Home);
+	const contButton = container.getByTestId("contButtonLoanPurpose");
+	fireEvent.click(contButton);
+  });
