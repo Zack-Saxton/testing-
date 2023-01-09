@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
 import "@testing-library/jest-dom/extend-expect";
-import { cleanup, fireEvent, render, waitFor, act } from "@testing-library/react";
+import { cleanup, fireEvent, render, waitFor, act, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
@@ -121,21 +121,38 @@ test("Clicking Mobile Home Test", async () => {
 });
 
 test("Clicking Living with Relatives Test", async() => {
-	const container = render(<MockLivingPlace />)
-	const LivingWithRelatives = container.getByTestId("LivingWithRelatives");
+	const { container } = render(<MockLivingPlace />)
+	const LivingWithRelatives = screen.getByTestId("LivingWithRelatives");
 	await act(() => {
 		fireEvent.click(LivingWithRelatives);
 	});
 	expect(LivingWithRelatives).toHaveClass("activeBorder");
-	const TextField = container.getByTestId("rentOrMortgage");
+	const TextField = screen.getByTestId("rentOrMortgage");
+	
 	expect(TextField).toHaveClass("showMsg")
-	const ContinueButton = container.getByTestId("cntButton");
+	const ContinueButton = screen.getByTestId("cntButton");
 	expect(ContinueButton.hasAttribute("disabled")).toBe(false);
+	//Change mortage amount
+	const rentOrMortgage = container.querySelector(`input[name="RentOrMortgageAmount"]`);
+	await act(() => {
+		fireEvent.change(rentOrMortgage, { target: { value: "15000" } });
+		fireEvent.blur(rentOrMortgage);
+	});
+	//Change mortage amount without value
+	await act(() => {
+		fireEvent.change(rentOrMortgage, { target: { value: "" } });
+		fireEvent.blur(rentOrMortgage);
+	});
 });
 
 test("Routing forward to One Last Step", async () => {
 	const container = render(<MockLivingPlace />);
-	const ContinueButton = container.getByTestId("cntButton");
+	const ContinueButton = container.getByTestId("cntButton");	
+	const HomeWithNoMortgage = container.getByTestId("HomeWithNoMortgage");
+	await act(() => {
+		fireEvent.click(HomeWithNoMortgage);
+	});
+	expect(HomeWithNoMortgage).toHaveClass("activeBorder");
 	await act(() => {
 		fireEvent.click(ContinueButton);
 	});

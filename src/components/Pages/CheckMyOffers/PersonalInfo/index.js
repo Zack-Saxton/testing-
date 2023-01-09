@@ -543,6 +543,7 @@ function PersonalInfo() {
 												type="submit"
 												stylebutton='{"background": "#FFBC23", "color": "black","fontSize":"0.938rem", "padding":"0px 30px"}'
 												disabled={appliedInLast30Days || error || loading || !ssnEmailMatch}
+												data-testid="contbutton"
 											>
 												Continue
 												<AutorenewIcon className="rotatingIcon"

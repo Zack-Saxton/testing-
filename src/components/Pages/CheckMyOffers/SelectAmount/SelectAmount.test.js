@@ -8,6 +8,8 @@ import { MemoryRouter } from "react-router-dom";
 import CheckMyOffers from "../../../../contexts/CheckMyOffers";
 import ProfilePicture from '../../../../contexts/ProfilePicture';
 import SelectAmount from "./index.js";
+import OfferCodeController from "../../../Controllers/OfferCodeController";
+jest.mock("../../../Controllers/OfferCodeController");
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -126,6 +128,73 @@ test("By default the offer code text box will be visible if the enable offer fla
 	expect(offerInput).toBeTruthy();
 	expect(offerInput).toHaveClass("open");
 });
+
+test("Test continue button when user has no offer code", async () => {
+	const { container } = render(component(), {
+	  wrapper: MemoryRouter,
+	});
+	const input = container.querySelector(`input[name="slider"]`);
+	expect(input).toBeTruthy();
+	expect(input.value).toBe("10000");
+	fireEvent.mouseOver(input);
+	const element = screen.getByTestId("contButton");
+	expect(element).toBeTruthy();
+	expect(element).toBeEnabled();
+	fireEvent.click(element);
+  });
+
+test("test whether continue button clicked", async () => {
+	OfferCodeController.mockResolvedValue({
+	  status: 200,
+	  statusText: "OK",
+	  data: {
+		offerData: [
+		  {
+			title: "NULL",
+			firstName: "PEGGY",
+			middleName: "",
+			lastName: "GPTKNW",
+			suffix: "NULL",
+			addressLine1: "736 W 117TH PL",
+			addressCity: "CHICAGO",
+			addressState: "IL",
+			addressZip: "60628",
+			addressZip4: null,
+			dateOfBirth: "08/01/1968 12:00:00 AM",
+			offerAmount: "5000",
+			dateCampaign: "02/01/2021 12:00:00 AM",
+			CampaignTypeDesc: "TRIGGER",
+			maskedSSN: "6430056",
+			branch: "8009",
+			brand: "Mariner",
+			letterCode: null,
+			FICO_Score: "604",
+			dateExpiration: "12/31/9999 12:00:00 AM",
+			campaignId: "796",
+			OfferCode: "TEST000030",
+			CreativeCode: "UGA",
+		  },
+		],
+	  },
+	});
+	const { container } = render(componentWithOfferEnableFlag(), {
+	  wrapper: MemoryRouter,
+	});
+	const input = container.querySelector(`input[name="slider"]`);
+	expect(input).toBeTruthy();
+	expect(input.value).toBe("10000");
+	fireEvent.mouseOver(input);
+	const offerCode = container.querySelector(`input[name="offerCode"]`);
+	expect(offerCode).toBeTruthy();
+	await act(() => {
+	  fireEvent.change(offerCode, { target: { value: "TEST000030" } });
+	});
+	expect(offerCode.value).toBe("TEST000030");
+	const element = screen.getByTestId("contButton");
+	expect(element).toBeTruthy();
+	expect(element).toBeEnabled();
+	fireEvent.click(element);
+  });
 
 test('Should match the snapshot', () => {
 	const { asFragment } = render(component(), { wrapper: MemoryRouter });

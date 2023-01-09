@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
-import "@testing-library/jest-dom";
+import "@testing-library/jest-dom/extend-expect";
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -8,7 +8,9 @@ import { MemoryRouter } from "react-router-dom";
 import CheckMyOffers from "../../../../contexts/CheckMyOffers";
 import ProfilePicture from '../../../../contexts/ProfilePicture';
 import MarriedStatus from "./index.js";
+import ZipCodeLookup from "../../../Controllers/ZipCodeLookup";
 
+jest.mock('../../../Controllers/ZipCodeLookup');
 afterEach(cleanup);
 window.scrollTo = jest.fn();
 
@@ -90,6 +92,8 @@ test("If the marital status is married, then show spouse's address details", asy
 
 test("Check all spouse's address filed are showing in UI", async () => {
 	const { container, getByTestId } = render(component(), { wrapper: MemoryRouter });
+	ZipCodeLookup.mockResolvedValue({result:{"result":"success","status":200,"data":{"zipCode":"90012","cityName":"Los Angeles","stateCode":"CA"}}});
+
 	const input = getByTestId('marital-status-list');
 	await act(() => {
 		fireEvent.change(input, { target: { value: "Married" } });
@@ -106,4 +110,13 @@ test("Check all spouse's address filed are showing in UI", async () => {
 	expect(spouseCity).toBeTruthy();
 	const spouseSelectState = container.querySelector(`input[name="spouseSelectState"]`);
 	expect(spouseSelectState).toBeTruthy();
+
+	expect(spouseZipcode).toBeTruthy();
+	await act(() => {
+		fireEvent.blur(address);
+		fireEvent.keyPress(address, { key: "Enter", code: 32, charCode: 32 });
+		fireEvent.change(spouseZipcode, { target: { value: "19701" } });
+		fireEvent.blur(spouseZipcode);
+	});
+	expect(spouseZipcode.value).toBe('19701');
 });
