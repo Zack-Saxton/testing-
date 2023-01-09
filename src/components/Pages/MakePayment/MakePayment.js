@@ -819,9 +819,7 @@ export default function MakePayment() {
         setCalendarDisabled(true);
       } else {
         setPayoff(false);
-        if (!isDebit) {
           setCalendarDisabled(false);
-        }
       }
     }
   };
