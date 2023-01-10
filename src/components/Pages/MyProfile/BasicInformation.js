@@ -103,8 +103,8 @@ export default function BasicInformation(props) {
   };  
   useEffect(() => {
     if(basicInfo) {
-    setPhoneNumberValue(basicInfo?.phone_number_primary ?? "");
-    setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(basicInfo?.phone_number_primary ?? "")));
+      setPhoneNumberValue(basicInfo?.phone_number_primary ?? "");
+      setPhoneNumberCurrentValue(maskPhoneNumberWithAsterisk(phoneNumberMask(basicInfo?.phone_number_primary ?? "")));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ basicInfo]);
@@ -346,7 +346,7 @@ export default function BasicInformation(props) {
               type="date"
               format={"DD/MM/YYYY"}
               disabled={true}
-              value={basicData?.date_of_birth ? maskDOB(Moment(basicData?.date_of_birth).format("MM/DD/YYYY")) : ""}
+              value={basicData?.date_of_birth ? maskDOB(Moment.utc(basicData?.date_of_birth).format("MM/DD/YYYY")) : ""}
             />
           </Grid>
           <Grid
