@@ -139,8 +139,11 @@ function UploadDocument(props) {
   //Selecting file for upload
   const handleInputChange = () => {
     setSelectedFile(refChangeEvent.current);
+    if(selectedFile?.value){
+      selectedFile.value = null;
+    }
     setShowCamera(false);
-    setImgSrc(null);
+    setImgSrc(null);    
     setDisableNext(true);
     handleMenuClose();
     setLabel("");
