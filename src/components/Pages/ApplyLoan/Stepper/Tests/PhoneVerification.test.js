@@ -48,12 +48,18 @@ const component = () => {
     "textDecoreNone": "makeStyles-textDecoreNone-85"
   };
 
+  const getApplicationStatus = () => {
+    nextOnSkip:  {
+      length:0
+      name:"getApplicationStatus"}}
+ 
   return (
     <ThemeProvider theme={theme}>
       <StyledEngineProvider injectFirst>
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
             <PhoneVerification
+              nextOnSkip={getApplicationStatus}
               next={handleClickMock}
               prev={handleClickMock}
               reset={handleClickMock}
@@ -69,6 +75,49 @@ const component = () => {
   );
 }
 
+const mockSubmitData = {
+  passcode: 1234,
+  res:{
+    data: {     
+      phone_verification: ""
+  }
+}}
+
+test("Enter correct passcode", async () => {
+  const { container } = render(component())
+  const input = container.querySelector(`input[name="enterPasscode"]`);
+  
+  fireEvent.change(input, { target: { value: "1234" } });
+  const sendPasscode = screen.getByTestId("nextClickButton");
+  expect(sendPasscode).toBeTruthy();
+  await act(() => {
+    fireEvent.click(sendPasscode)
+  });
+    const asyncMockCA = jest.fn().mockResolvedValue(mockSubmitData);
+    await asyncMockCA();
+});
+
+test("Enter invalid passcode ", async () => {
+  const { container } = render(component())
+const inputWrong = container.querySelector(`input[name="enterPasscode"]`);
+  fireEvent.change(inputWrong, { target: { value: "12" } });
+  const sendPasscode = screen.getByTestId("nextClickButton");
+  expect(sendPasscode).toBeTruthy();  
+  await act(() => {
+    fireEvent.click(sendPasscode)
+  });
+});
+
+test("Enter Empty passcode ", async () => {
+  const { container } = render(component())
+const inputEmpty = container.querySelector(`input[name="enterPasscode"]`);
+  fireEvent.change(inputEmpty, { target: { value: "" } });
+  const sendPasscode = screen.getByTestId("nextClickButton");
+  expect(sendPasscode).toBeTruthy();  
+  await act(() => {
+    fireEvent.click(sendPasscode)
+  });
+});
 
 test("Availability test: Phone number Field", () => {
   render(component());
@@ -150,6 +199,9 @@ test("Confirmation pop up - availability", async () => {
   expect(returnToSelection).toBeTruthy();
   const verifyPhoneLater = screen.getByText("Verify Phone Later");
   expect(verifyPhoneLater).toBeTruthy();
+  await act(() => {
+        fireEvent.click(verifyPhoneLater)
+      });
 });
 
 test("Confirmation pop up - close", async () => {

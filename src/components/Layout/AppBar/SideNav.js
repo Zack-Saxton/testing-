@@ -468,9 +468,10 @@ export default function SideNav() {
     setProfileTabNumber({ profileTabNumber: 0 });
     handleMenuClose();
   };
-  const handleMenuPaymentProfile = () => {
+  const handleMenuPaymentProfile = (event) => {
     navigate('/customers/myProfile');
     setProfileTabNumber({ profileTabNumber: 3 });
+    handleClose(event);
     handleMenuClose();
   };
 
@@ -674,7 +675,10 @@ export default function SideNav() {
                             // onKeyDown={handleListKeyDown}
                             >
                               <MenuItem
-                                onClick={(_menuType) => handleMenuProfile("top")}
+                                onClick={(event,_menuType) => {
+                                  handleMenuProfile("top")
+                                  handleClose(event);
+                                }}
                                 id="settingsMenuList"
                               >
                                 My Profile

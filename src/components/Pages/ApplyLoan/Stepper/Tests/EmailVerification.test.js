@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom/extend-expect";
 import '@testing-library/jest-dom';
-import {  render, screen } from "@testing-library/react";
+import {  render, fireEvent, screen } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
@@ -81,4 +81,5 @@ test("Resend the verification link button", () => {
   render(component());
   const resendButton = screen.getByText("Resend the verification link");
   expect(resendButton).toBeTruthy();
+  fireEvent.click(resendButton);
 });
