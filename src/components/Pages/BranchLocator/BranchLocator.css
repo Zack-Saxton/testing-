@@ -1021,11 +1021,7 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
   }
 
   #greyBackground {
-    padding: 15px 15px !important;
-  }
-
-  #searchBoxBottom {
-    padding: 0 !important;
+    padding: 15px 0px !important;
   }
 
   .branchPageMap {
