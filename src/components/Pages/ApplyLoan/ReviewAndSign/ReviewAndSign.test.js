@@ -9,8 +9,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from "react-router-dom";
 import NavContext from "../../../../contexts/NavContext";
 import ReviewAndSign from "./ReviewAndSign";
+import APICall from "../../../lib/AxiosLib";
 
-
+jest.mock("../../../lib/AxiosLib")
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -95,8 +96,19 @@ test("Check Submit-Button", () => {
   expect(input).toBeTruthy();
 });
 
-test("Submit Onclick", () => {
-	render(component());
-	const button = screen.getByTestId("review-submit-button");
+test("Submit Onclick", async () => {
+  APICall.mockResolvedValue({authenticateStatus: {data: {message: "Applicant successfully updated"}}});
+  const {container} = render(component());
+  const input = container.querySelector(`input[name="confirm"]`);
+  fireEvent.click(input)
+  const button = screen.getByTestId("review-submit-button");
+	expect(button).toBeEnabled()
 	fireEvent.click(button);
+});
+
+test("re-SelectButton Onclick", () => {
+	render(component());
+	const reSelectButton = screen.getByTestId("reselect_button");
+  expect(reSelectButton).toBeTruthy();
+	fireEvent.click(reSelectButton);
 });

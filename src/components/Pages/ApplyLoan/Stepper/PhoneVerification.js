@@ -244,9 +244,10 @@ export default function PhoneVerification(props) {
 				<div data-testid="enterPasscode" className={hasPasscode ? "open" : "close"}>
 					<Grid item sm={5}>
 						<TextField
-							name="firstName"
+							name="enterPasscode"
 							label="Enter Passcode"
 							value={passcode}
+							data-testid="enterPasscodeText"
 							onChange={onPasscodeChange}
 							materialProps={{
 								"data-test-id": "offer",
@@ -274,6 +275,7 @@ export default function PhoneVerification(props) {
 					<ButtonPrimary
 						variant="contained"
 						color="primary"
+						data-testid = "nextClickButton"
 						id="button_stepper_next"
 						stylebutton='{"marginRight": "10px", "color":"" }'
 						onClick={() => { onNextClick(); }}
