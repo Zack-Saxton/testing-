@@ -315,7 +315,7 @@ function SSN() {
 											onChange={(event) => {
 												setAgree(event.target.checked);
 											}}
-											data-testid="reviewedcheckbox"
+											id="reviewedcheckbox"
 											label={
 												<p className="agreeText">
 													By clicking this box, you acknowledge that you have received,
@@ -342,6 +342,7 @@ function SSN() {
 											<Checkbox
 												name="delaware"
 												labelform="delaware"
+												id="DelawareCheckbox"
 												value={agreeDelaware}
 												onChange={(event) => {
 													setAgreeDelaware(event.target.checked);
@@ -374,6 +375,7 @@ function SSN() {
 											<Checkbox
 												name="california"
 												labelform="california"
+												id="CACheckbox"
 												className={"space checkBoxClass"}
 												value={agreeCalifornia}
 												onChange={(event) => {
@@ -407,6 +409,7 @@ function SSN() {
 												name="newmexico"
 												labelform="newmexico"
 												className={"space checkBoxClass"}
+												id="NMCheckbox"
 												value={agreeNewMexico}
 												onChange={(event) => {
 													setAgreeNewMexico(event.target.checked);
@@ -436,7 +439,7 @@ function SSN() {
 										</Typography>
 									</Grid>
 									{enableRecaptchaFlag ? 
-											<Grid className={classes.submitApplicationRecaptcha} >
+											<Grid data-testid = "checkRecaptcha"  className={classes.submitApplicationRecaptcha} >
 												<Recaptcha setDisableRecaptcha={setDisableRecaptcha}/>
 											</Grid>
 										: <></>}
@@ -480,24 +483,24 @@ function SSN() {
 				</Box>
 			</div>
 
-			<Popup popupFlag={esignPopup} closePopup={handleOnClickEsignClose} title="E-Signature Disclosure and Consent">
-				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+			<Popup popupFlag={esignPopup}  closePopup={handleOnClickEsignClose} title="E-Signature Disclosure and Consent">
+				<Typography className="printPage" data-testid = "printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/eSign" />
 			</Popup>
 			<Popup popupFlag={creditPopup} closePopup={handleOnClickCreditClose} title="Credit and Contact Authorization">
-				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+				<Typography className="printPage" data-testid = "printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/credit" />
 			</Popup>
 			<Popup popupFlag={webTOUPopup} closePopup={handleOnClickwebTOUClose} title="Terms of Use">
-				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+				<Typography className="printPage" data-testid = "printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/websiteTermsOfUse" />
 			</Popup>
 			<Popup popupFlag={privacyPopup} closePopup={handleOnClickPrivacyClose} title="Privacy Statement">
-				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+				<Typography className="printPage" data-testid = "printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/privacy" />
 			</Popup>
 			<Popup popupFlag={open} closePopup={handleClose} title="Delaware Itemized Schedule of Charges" >
-				<Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+				<Typography className="printPage"data-testid = "printPage" onClick={() => window.print()}>Print This Page</Typography>
 				<RenderContent disclosureLink="/delaware" />
 			</Popup>
 		</div>
