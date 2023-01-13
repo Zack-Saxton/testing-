@@ -129,17 +129,17 @@ function DocumentIdAndPhotoId(props) {
   }
   const handleChange = (_event) => {
     if (validateUploadedFile(selectedFile)) {
-      setLabel(selectedFile.files[ 0 ].name);
-      checkSelectedAllDocument();
+      setLabel(selectedFile.files[ 0 ].name);  
+      checkSelectedAllDocument();    
     } else {
       selectedFile.value = "";
-    }
+    }    
   };
 
   const handleSelfieChange = (_event) => {
     if (validateUploadedFile(selectedSelfieFile)) {
-      setSelfieLabel(selectedSelfieFile.files[ 0 ].name);
-      checkSelectedAllDocument();
+      setSelfieLabel(selectedSelfieFile.files[ 0 ].name); 
+      checkSelectedAllDocument();     
     } else {
       selectedSelfieFile.value = "";
     }
@@ -204,6 +204,9 @@ function DocumentIdAndPhotoId(props) {
     setShowCamera(true);
     setImgSrc(null);
     setSelectedFile(null);
+    if(selectedFile?.value){
+      selectedFile.value = null;
+    }
     handleMenuClose();
     setLabel("");
   }
@@ -213,21 +216,34 @@ function DocumentIdAndPhotoId(props) {
     SetShowSelfieCamera(true);
     setSelfieImageSrc(null);
     setSelectedSelfieFile(null);
+    if(selectedSelfieFile?.value){
+      selectedSelfieFile.value = null;
+    }
     handleSelfieMenuClose();
     setSelfieLabel("");
   }
   //Selecting file for upload
   const handleInputChange = () => {
     setSelectedFile(refChangeEvent.current);
+    if(selectedFile?.value){
+      selectedFile.value = null;
+    }       
     setShowCamera(false);
     setImgSrc(null);
-    handleMenuClose();
+    setDisableNext(true); 
+    handleMenuClose(); 
+    setLabel("");
   };
   const handleSelfieInputChange = (_event) => {
+    setDisableNext(true);
     setSelectedSelfieFile(refSelfieChangeEvent.current)
     SetShowSelfieCamera(false);
     setSelfieImageSrc(null);
     handleSelfieMenuClose();
+    if(selectedSelfieFile?.value){
+      selectedSelfieFile.value = null;
+    }    
+    setSelfieLabel("");
   };
   const handleMenuClose = (_event) => {
     setSelectDocument(null);
