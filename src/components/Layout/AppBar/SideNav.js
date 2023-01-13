@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
       width: "0px",
     },
     [ theme.breakpoints.up("md") ]: {
-      width: theme.spacing(9),
+      width: theme.spacing(0),
     },
     [ theme.breakpoints.up("lg") ]: {
       width: theme.spacing(9),
