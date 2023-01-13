@@ -71,7 +71,7 @@ function BranchLocatorMap(props) {
               <div>
                 <h3>{BranchName} Branch</h3>
                 <p>Branch Manager: {BranchManager}</p>
-                <p>BranchAddress: {BranchAddress}</p>
+                <p>Branch Address: {BranchAddress}</p>
                 <p>Phone: {Phone}</p>
                 <p>Distance: {Distance}les</p>
                 <p>Position: [Latitude:{position.lat}, Longitude:{position.lng}]</p>
