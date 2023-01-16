@@ -219,7 +219,7 @@ export default function ResetPassword(_props) {
                 <Grid item xs={12} className={classes.resetButton}>
                   <ButtonPrimary
                     type="submit"
-                    data-testid="submit"
+                    data-testid="submitButton"
                     stylebutton='{"background": "", "color":"" , "fontSize" : "15px", "padding" : "0px 30px"}'
                     disabled={loading}
                   >
