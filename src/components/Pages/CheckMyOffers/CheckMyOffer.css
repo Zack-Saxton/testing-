@@ -178,6 +178,9 @@
 	height: 16px;
 	text-align: left !important;
 }
+.progress span {
+	font-size: 14px;
+}
 
 .mt-0 {
 	margin-top: 0 !important;
