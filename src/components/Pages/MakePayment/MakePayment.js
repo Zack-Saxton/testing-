@@ -215,8 +215,10 @@ export default function MakePayment() {
   }
   const noExtraChargesStates = ["VA", "SC", "WI", "MD"];
   let extraCharges = noExtraChargesStates.includes(stateName) ? 0 : "2.50";
+  let formatedPaymentAmount = paymentAmount ?  paymentAmount.replace(",", "") : "";
+  let formatedExtraCharges = extraCharges ? extraCharges.replace(",", "") : "";
   let paymentAmountWithFees =
-    parseFloat(paymentAmount) + parseFloat(extraCharges);
+    parseFloat(formatedPaymentAmount) + parseFloat(formatedExtraCharges);
   //Enable auto payment
   async function enableAutoPayment(
     enableAutoPayAccountNo,
