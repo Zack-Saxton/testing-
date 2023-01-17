@@ -14,9 +14,10 @@ import ProfilePicture from "../../../../contexts/ProfilePicture";
 import { createTheme } from "@mui/material/styles";
 import NewUser from "./index.js";
 import { QueryClient, QueryClientProvider } from "react-query";
-import {
+import LoginController, {
   RegisterController,
 } from "../../../Controllers/LoginController";
+import { registerResponseMock, loginResponseMock } from "../../../../__mock__/data/registerResponseMockData";
 jest.mock("../../../Controllers/LoginController");
 
 afterEach(cleanup);
@@ -176,132 +177,8 @@ test("Preventing space in the password field", async () => {
 });
 
 test("Check the submit functinality", async () => {
-  RegisterController.mockResolvedValue({
-    status: 200,
-    statusText: "OK",
-    data: {
-      userFound: true,
-      customerFound: false,
-      loans: false,
-      is_registration_failed: false,
-      branchInfo: {
-        BranchNumber: "8021",
-        BranchName: "Raleigh",
-        Address: "1466 Garner Station Blvd., Raleigh, NC 27603",
-        PhoneNumber: "919-773-7425",
-        openDate: "07/01/2014",
-        latitude: "35.724946",
-        longitude: "-78.653068",
-        branchManager: "Jeff Zuch",
-      },
-      customer: {
-        extensionattributes: {
-          login: {
-            timestamp_date: "2023-01-09T10:33:47.116Z",
-          },
-        },
-        sorad: {
-          latest_application: {
-            application_submission_date: "2023-01-09T10:33:47.116Z",
-          },
-          submissions: [],
-          issuedproducts: [],
-          applications: [],
-          creditmonitoring: [],
-        },
-        identification: {
-          user_account_id: "63bbed8b2c5d5a04c9642515",
-          full_name: "dfkjh jhlcd",
-          first_name: "dfkjh",
-          last_name: "jhlcd",
-          middle_initial: null,
-          citizenship: null,
-          date_of_birth: "1931-02-12T00:00:00.000Z",
-          social_security_number: "3bf3fe89bad231da1c",
-          default_bank: null,
-          guid: "CT-DF1673260427112",
-          trace_number: 1673260427112,
-        },
-        latest_contact: {
-          address_street: "347R59",
-          address_city: "RALEIGH",
-          address_state: "NC",
-          address_postal_code: "27610",
-          mailing_address_street: "347r59",
-          mailing_address_city: "RALEIGH",
-          mailing_address_state: "NC",
-          mailing_address_postal_code: "27610",
-          email: "jdhf@gmail.com",
-          phone_number_primary: null,
-          phone_type: null,
-          opted_phone_texting: null,
-          mfa_phone_texting: null,
-          how_did_you_hear_about_us: null,
-        },
-        communication_preferences: {
-          marketing_emails_unsubscribe_flag: false,
-          do_not_contact: false,
-        },
-        user_account: {
-          status: "open",
-          status_check_time: null,
-        },
-        contenttypes: [],
-        entitytype: "customer",
-        _id: "63bbed8bd720cd044c5bbee1",
-        createdat: "2023-01-09T10:33:47.116Z",
-        updatedat: "2023-01-09T10:33:47.116Z",
-        changes: [],
-        __v: 0,
-      },
-      message: "Registered successfully",
-      user: {
-        contenttypes: [],
-        entitytype: "user",
-        locked: false,
-        description: "No profile",
-        activated: false,
-        accounttype: "basic",
-        assets: [],
-        coverimages: [],
-        userroles: [],
-        tags: [],
-        categories: [],
-        customusertype: "basic",
-        _id: "63bbed8b2c5d5a04c9642515",
-        email: "jdhf@gmail.com",
-        firstname: "dfkjh",
-        lastname: "jhlcd",
-        password:
-          "$2b$10$CXHb44JycRLKk6WdNDSy2Ogo9qNlXftt4.0HOeZFyB2uKTy/Yc9e2",
-        attributes: {
-          sor_data: {
-            customer_guid: "CT-DF1673260427112",
-            customer_id: "63bbed8bd720cd044c5bbee1",
-          },
-        },
-        apikey: "1673260427186_HSMGKMCfOxi52A!A",
-        createdat: "2023-01-09T10:33:47.187Z",
-        updatedat: "2023-01-09T10:33:47.187Z",
-        changes: [],
-        random: 0.36464722928956816,
-        __v: 0,
-        extensionattributes: {
-          login: {
-            attempts: 0,
-            timestamp: 1673260427595,
-            timestamp_date: "2023-01-09T10:33:47.595Z",
-            flagged: false,
-            freezeTime: 1673260427595,
-            freezeTime_date: "2023-01-09T10:33:47.595Z",
-            jwt_token:
-              "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI2M2JiZWQ4YjJjNWQ1YTA0Yzk2NDI1MTUiLCJlbnQiOiJ1c2VyIiwiZXhwIjoxNjczMjYyMjI3NTk0fQ.uT46vrlRckXPdITL708ZTPXes1QPVnqpmL9P0Mj2rJI",
-          },
-        },
-      },
-      previousTimestampDate: "2023-01-09T10:33:47.579Z",
-    },
-  });
+  LoginController.mockResolvedValue(loginResponseMock);
+  RegisterController.mockResolvedValue(registerResponseMock);
   const {container,getByTestId}=render(component(), { wrapper: MemoryRouter });
   const newPassword = container.querySelector(`input[name="newPassword"]`);
   await act(()=>{
@@ -315,7 +192,55 @@ test("Check the submit functinality", async () => {
   expect(confirmPassword.value).toBe("Mariner@123")
   const signInButton = getByTestId("contButton");
   expect(signInButton).toBeEnabled();
-  screen.debug(signInButton,40000)
+  await act(()=>{
+    fireEvent.click(signInButton);
+  })
+});
+
+
+test("Check the submit functinality with error response", async () => {
+  LoginController.mockResolvedValue({data: {
+    "result": "error",
+    "loginUserSuccess": false,
+  }});
+  RegisterController.mockResolvedValue(registerResponseMock);
+  const {container,getByTestId}=render(component(), { wrapper: MemoryRouter });
+  const newPassword = container.querySelector(`input[name="newPassword"]`);
+  await act(()=>{
+    fireEvent.change(newPassword, { target: { value: "Mariner@123" } });
+  })
+  expect(newPassword.value).toBe("Mariner@123")
+  const confirmPassword = container.querySelector(`input[name="confirmPassword"]`);
+  await act(()=>{
+    fireEvent.change(confirmPassword, { target: { value: "Mariner@123" } });
+  })
+  expect(confirmPassword.value).toBe("Mariner@123")
+  const signInButton = getByTestId("contButton");
+  expect(signInButton).toBeEnabled();
+  await act(()=>{
+    fireEvent.click(signInButton);
+  })
+});
+
+test("Check the submit functinality with error response", async () => {
+  RegisterController.mockResolvedValue({data: {
+    result: "error",
+    statusCode: 400,
+    
+  }});
+  const {container,getByTestId}=render(component(), { wrapper: MemoryRouter });
+  const newPassword = container.querySelector(`input[name="newPassword"]`);
+  await act(()=>{
+    fireEvent.change(newPassword, { target: { value: "Mariner@123" } });
+  })
+  expect(newPassword.value).toBe("Mariner@123")
+  const confirmPassword = container.querySelector(`input[name="confirmPassword"]`);
+  await act(()=>{
+    fireEvent.change(confirmPassword, { target: { value: "Mariner@123" } });
+  })
+  expect(confirmPassword.value).toBe("Mariner@123")
+  const signInButton = getByTestId("contButton");
+  expect(signInButton).toBeEnabled();
   await act(()=>{
     fireEvent.click(signInButton);
   })
