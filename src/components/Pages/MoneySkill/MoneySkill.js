@@ -3,7 +3,7 @@ import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MoneySkillController from "../../Controllers/MoneySkillController";
 import {
   ButtonPrimary,
@@ -18,22 +18,23 @@ export default function MoneySkill(props) {
   const classes = useStylesMoneySkill();
 
   //API Call
-  const [ moneySkillUrl, setMoneySkillUrl ] = useState(null);
+  const [ disableButton, setDisableButton ] = useState(false);
 
   async function getMoneySkillAPI() {
     let response = await MoneySkillController();
-    setMoneySkillUrl(response?.data?.moneyskillurl ?? "https://lms.moneyskill.org/students/login");
+    window.location.href = response?.data?.moneyskillurl ?? "https://lms.moneyskill.org/students/login"    
   }
 
-  useEffect(() => {
+  //Pop up
+  const handleCloseMoneySkill = () => { 
+    setDisableButton(true)
     getMoneySkillAPI();
     return () => {
-      setMoneySkillUrl({});
+      setDisableButton(false);
     };
-  }, []);
+  };
 
-  //Pop up
-  const handleCloseMoneySkill = () => {
+  const handleCloseStayMoneySkill = () => {
     props.onChange(false);
   };
 
@@ -52,7 +53,7 @@ export default function MoneySkill(props) {
           <IconButton
           data-testid = "closeIcon_Button"
             aria-label="close"
-            onClick={handleCloseMoneySkill}
+            onClick={handleCloseStayMoneySkill}
             className={classes.closeButton}
           >
             <CloseIcon />
@@ -87,24 +88,24 @@ export default function MoneySkill(props) {
           <ButtonSecondary
             id="stayBtn"
             data-testid = "stayBtn"
-            onClick={handleCloseMoneySkill}
+            onClick={handleCloseStayMoneySkill}
             stylebutton='{"float": "" }'
+            disabled={disableButton}
           >
             Stay on Marinerfinance.com
           </ButtonSecondary>
 
           <ButtonPrimary
-            href={moneySkillUrl}
             id="Continue"
             data-testid = "Continue_Btn"
             stylebutton='{"float": "" }'
-            disabled={!moneySkillUrl}
+            disabled={disableButton}
             onClick={handleCloseMoneySkill}
           >
             Continue
             <AutorenewIcon className="rotatingIcon"
                 style={{
-                display: !moneySkillUrl ? "block" : "none",
+                display: disableButton ? "block" : "none",
               }}/>
           </ButtonPrimary>
         </div>
