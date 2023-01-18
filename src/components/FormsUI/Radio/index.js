@@ -32,6 +32,7 @@ const RadioButtonWrapper = ({
   checked,
   labelPlacement,
   disabled,
+  inputProps, 
   ...otherProps
 }) => {
   //To return all formik state
@@ -70,7 +71,7 @@ const RadioButtonWrapper = ({
             key={radio.value}
             disabled={disabled ?? false}
             label={radio.label}
-            control={<Radio data-testid={radio.value} color="primary" checked={checked === radio.value ? true : false} onClick={handleRadioClick} />}
+            control={<Radio data-testid={radio.value} inputRef = {inputProps} color="primary" checked={checked === radio.value ? true : false} onClick={handleRadioClick} />}
           />
         ))}
       </RadioGroup>
@@ -89,6 +90,8 @@ RadioButtonWrapper.propTypes = {
   checked: PropTypes.string,
   labelPlacement: PropTypes.string,
   disabled: PropTypes.bool,
+  inputProps: PropTypes.object,
+  inputRef: PropTypes.object
 };
 
 export default RadioButtonWrapper;
