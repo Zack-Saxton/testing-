@@ -286,12 +286,12 @@ export default function StatePage() {
               </Typography>
               <Typography className="branchLocatorHeading">
                 <b className="numberText">$1k - $25k</b>
-                <span className="branchSmallText">Available loan amount</span>
+                <span className="branchSmallText">Available loan amount †</span>
               </Typography>
               <Typography className="branchLocatorHeading">
                 <b className="numberText">4.8</b>
                 <span className="branchSmallText">
-                  Star Rating based on over 13,000 verified reviews
+                  Star Rating based on over 13,000 verified reviews ***
                 </span>
               </Typography>
             </Grid>
