@@ -258,7 +258,7 @@ export default function BranchLocator() {
   );
   const search2andDirectionfromSearch2 = (
     <Grid id="getDirectionWrap" className={classes.gridMargin} container>
-      <Grid className={classes.gridPadding} item xs={12} s={12} md={6}>
+      <Grid className={`${classes.gridPadding} branchAddressGrid`} item xs={12} sm={12} md={6}>
         <ButtonPrimary
           href={branchAddress}
           id="getDrivingButton"
