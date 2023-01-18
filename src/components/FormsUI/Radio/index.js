@@ -91,7 +91,6 @@ RadioButtonWrapper.propTypes = {
   labelPlacement: PropTypes.string,
   disabled: PropTypes.bool,
   inputProps: PropTypes.object,
-  inputRef: PropTypes.object
 };
 
 export default RadioButtonWrapper;
