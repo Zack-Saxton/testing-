@@ -1,12 +1,12 @@
 import "@testing-library/jest-dom/extend-expect";
-import '@testing-library/jest-dom';
-import {  render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import FinancialInformation from "../FinancialInformation";
-import { ThemeProvider } from '@mui/styles';
-import { createTheme, StyledEngineProvider } from '@mui/material/styles'
+import { ThemeProvider } from "@mui/styles";
+import { createTheme, StyledEngineProvider } from "@mui/material/styles";
 
 const handleClickMock = jest.fn();
 
@@ -22,9 +22,8 @@ const queryClient = new QueryClient({
   },
 });
 
-
 const component = () => {
-  window.scrollTo = jest.fn()
+  window.scrollTo = jest.fn();
   let stepsMock = [
     "Email Verification",
     "Phone Verification",
@@ -32,20 +31,20 @@ const component = () => {
     "ID Document & Photo",
     "ID Verification Questions",
     "Bank Account Verification",
-    "Income Verification"
-  ]
+    "Income Verification",
+  ];
 
   const classes = {
-    "root": "makeStyles-root-76",
-    "button_div": "makeStyles-button_div-77",
-    "steplabel": "makeStyles-steplabel-78",
-    "actionsContainer": "makeStyles-actionsContainer-79",
-    "loadingOn": "makeStyles-loadingOn-80",
-    "loadingOff": "makeStyles-loadingOff-81",
-    "linkStyle": "makeStyles-linkStyle-82",
-    "resetContainer": "makeStyles-resetContainer-83",
-    "padTop": "makeStyles-padTop-84",
-    "textDecoreNone": "makeStyles-textDecoreNone-85"
+    root: "makeStyles-root-76",
+    button_div: "makeStyles-button_div-77",
+    steplabel: "makeStyles-steplabel-78",
+    actionsContainer: "makeStyles-actionsContainer-79",
+    loadingOn: "makeStyles-loadingOn-80",
+    loadingOff: "makeStyles-loadingOff-81",
+    linkStyle: "makeStyles-linkStyle-82",
+    resetContainer: "makeStyles-resetContainer-83",
+    padTop: "makeStyles-padTop-84",
+    textDecoreNone: "makeStyles-textDecoreNone-85",
   };
 
   return (
@@ -67,8 +66,7 @@ const component = () => {
       </StyledEngineProvider>
     </ThemeProvider>
   );
-}
-
+};
 
 test("Availability test: Employer Name Field", () => {
   render(component());
@@ -99,9 +97,41 @@ test("Availability test: Reset button", () => {
   const resetButton = screen.getByText("Reset");
   expect(resetButton).toBeTruthy();
 });
-
 test("Availability test: Next button", () => {
   render(component());
   const nextButton = screen.getByText("Next");
   expect(nextButton).toBeTruthy();
+});
+test("Enter employer name", () => {
+  const { container } = render(component());
+  const name = container.querySelector(`input[name="employerName"]`);
+  fireEvent.change(name, { target: { value: "Mariner" } });
+  fireEvent.blur(name);
+  expect(name).toBeTruthy();
+});
+test("Enter job tiltle", () => {
+  const { container } = render(component());
+  const jobTitle = container.querySelector(`input[name="jobTitle"]`);
+  fireEvent.change(jobTitle, { target: { value: "Software Engineer" } });
+  fireEvent.blur(jobTitle);
+  expect(jobTitle).toBeTruthy();
+});
+test("Enter phone number", () => {
+  const { container } = render(component());
+  const phone = container.querySelector(`input[name="phone"]`);
+  fireEvent.keyDown(phone, { key: "space", keyCode: 32 });
+  fireEvent.change(phone, { target: { value: "53773637543" } });
+  fireEvent.blur(phone);
+  expect(phone).toBeTruthy();
+});
+test("click reset button", () => {
+  render(component());
+  const reset = screen.getByText("Reset");
+  fireEvent.click(reset);
+});
+test("click next button", () => {
+  render(component());
+  const next = screen.getByText("Next");
+  fireEvent.click(next);
+  expect(next).toBeTruthy();
 });
