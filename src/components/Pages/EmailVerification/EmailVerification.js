@@ -324,19 +324,19 @@ export default function EmailVerification() {
             </Grid>
           </Grid>
           <Popup popupFlag={eSign} title='E-Signature Disclosure and Consent' closePopup={handleOnClickeSignClose}>
-            <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+            <Typography className="printPage" data-testid = "printPage" onClick={() => window.print()}>Print This Page</Typography>
             <RenderContent disclosureLink="/eSignBranchPortal" />
           </Popup>
           <Popup popupFlag={creditTerms} title='Credit and Contact Authorization' closePopup={handleOnClickCreditTermsClose}>
-            <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+            <Typography className="printPage" data-testid = "printPage" onClick={() => window.print()}>Print This Page</Typography>
             <RenderContent disclosureLink="/creditBranchPortal" findContent="<h2>Credit and Contact Authorization</h2>" replaceContent='' />
           </Popup>
           <Popup data-testid = "cacTerms" popupFlag={cacTerms} title='Website Terms of Use' closePopup={handleOnClickCacTermsClose}>
-            <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+            <Typography className="printPage" data-testid = "printPage" onClick={() => window.print()}>Print This Page</Typography>
             <RenderContent disclosureLink="/cacTermsOfUse" findContent="<h2>Terms Of Use</h2>" replaceContent='' />
           </Popup>
           <Popup data-testid = "websiteTerms" popupFlag={websiteTerms} title='Website Privacy Statement' closePopup={handleOnClickWebsiteTermsClose}>
-            <Typography className="printPage" onClick={() => window.print()}>Print This Page</Typography>
+            <Typography className="printPage" data-testid = "printPage" onClick={() => window.print()}>Print This Page</Typography>
             <RenderContent disclosureLink="/websiteAccessibility" findContent="<h2>Website Privacy Statement</h2>" replaceContent='' />
           </Popup>
         </Grid>

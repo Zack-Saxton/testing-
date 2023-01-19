@@ -380,6 +380,7 @@ function DocumentIdAndPhotoId(props) {
           transformOrigin={{ vertical: "top", horizontal: "right" }}
           open={isMenuOpen}
           onClose={handleMenuClose}
+          data-testid = "handleMenuClose"
         >
           <MenuItem>
             <Typography className={classes.dropdownMenu} onClick={openFileWindow}>
@@ -421,6 +422,7 @@ function DocumentIdAndPhotoId(props) {
               <Grid container>
                 <ButtonPrimary
                   onClick={capture}
+                  data-testid = "capture"
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
                 >
                   Capture Photo
@@ -440,6 +442,7 @@ function DocumentIdAndPhotoId(props) {
               <Grid container>
                 <ButtonPrimary
                   onClick={() => enableCameraOption()}
+                  data-testid = "render_another_picture"
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
                 >
                   Take another picture
@@ -460,6 +463,7 @@ function DocumentIdAndPhotoId(props) {
       <>
         <ButtonPrimary
           onClick={handleSelfieMenuOpen}
+          data-testid = "handleSelfieMenuOpen"
           stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px"}'
         >
           Select File
@@ -482,12 +486,14 @@ function DocumentIdAndPhotoId(props) {
           transformOrigin={{ vertical: "top", horizontal: "right" }}
           open={isSelfieMenuOpen}
           onClose={handleSelfieMenuClose}
+          data-testid = "handleSelfieMenuClose"
         >
           <MenuItem>
             <Typography className={classes.dropdownMenu} onClick={openSelfieFileWindow}>
               Select from Existing Files
               <input
                 id="selectSelfieFile"
+                data-testid="selectSelfieFile"
                 accept=".png, .jpeg, .pdf, .jpg"
                 style={{ display: "none" }}
                 type="file"
@@ -498,7 +504,7 @@ function DocumentIdAndPhotoId(props) {
             </Typography>
           </MenuItem>
           <MenuItem>
-              <Typography className={classes.dropdownMenu} onClick={() => enableSelfieCameraOption()}>
+              <Typography className={classes.dropdownMenu} data-testid="enableSelfieCameraOption" onClick={() => enableSelfieCameraOption()}>
                 Upload from Camera
               </Typography>
           </MenuItem>
@@ -521,6 +527,7 @@ function DocumentIdAndPhotoId(props) {
               <Grid container>
                 <ButtonPrimary
                   onClick={captureSelfie}
+                  data-testid = "captureSelfie"
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
                 >
                   Capture Photo
