@@ -1,6 +1,16 @@
 .contentWrap table p{
   text-align: left !important;
 }
+/* need to edit the main HTML for permanent consitent fix */
+.contentWrap section p:nth-child(1)
+,.contentWrap section p:nth-child(21)
+,.contentWrap section p:nth-child(19)
+,.contentWrap section p:nth-child(23){
+  text-align: left !important;
+}
+.contentWrap section p:nth-child(19) br{
+  display: none;
+}
 #customeDialogBox p {
   text-align: justify;
 }
