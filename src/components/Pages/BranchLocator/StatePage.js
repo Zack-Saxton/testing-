@@ -271,6 +271,7 @@ export default function StatePage() {
                   <ButtonPrimary
                     className="branchSearchButton"
                     aria-label = "branchSearchButton"
+                    data-testid="forwardIcon1"
                     onClick={getActivePlaces}
                     stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "padding":"0px 30px"}'
                   >
@@ -382,7 +383,7 @@ export default function StatePage() {
                   href={branchAddress}
                   id="Continue"
                   onClick={() => {
-                    if (refSearch2.current.value) {
+                    if (refSearch2.current?.value) {
                       openGetDirectionModal();
                       setBranchAddress(`${BrnachLocatorURLs.GoogleMapURL}${ refSearch2.current.value }`);
                       setAddress2("");
