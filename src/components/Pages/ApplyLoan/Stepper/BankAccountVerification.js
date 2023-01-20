@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useFormik } from "formik";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import * as yup from "yup";
@@ -237,11 +237,34 @@ export default function BankAccountVerification(props) {
 			setAccountTypeError(globalMessages?.Please_Select_A_Saving_0r_Checking);
 		}
 		if(formik.errors.confirmBankAccountNumber){
-			getValueByLable("Account Holder *").scrollIntoView();
+			getValueByLable("Account Holder *").scrollIntoView({behavior: 'smooth'});
 		}
 		formik.submitForm();
   };
+	let refAccountHolder = useRef();
+  let refBankRoutingNumber = useRef();
+	let refBankInformation = useRef();
+	let refConfirmBankAccountNumber = useRef();
+	let refBankAccountNumber = useRef();
+	let refAccountType = useRef();
 
+	const autoFocus = () => {
+    if (!refAccountHolder.current.value) {
+      refAccountHolder.current.focus();
+    } else if (!refAccountType.current.checked) {
+      refAccountType.current.focus();
+    } else if (!refBankRoutingNumber.current.value) {
+      refBankRoutingNumber.current.focus();
+    } else if (!refBankInformation.current.value) {
+      refBankInformation.current.focus();
+    } else if (!refBankAccountNumber.current.value) {
+      refBankAccountNumber.current.focus();
+    } else if (!refConfirmBankAccountNumber.current.value) {
+      refConfirmBankAccountNumber.current.focus();
+    } else {
+      return false;
+    }
+  };
 	//View part - JSX part
 	return (
 		<div>
@@ -273,7 +296,7 @@ export default function BankAccountVerification(props) {
 							value={formik.values.accountHolder}
 							onChange={restrictAccountHolderOnChange}
 							onBlur={onBlurAccountHolderName}
-							materialProps={{ maxLength: "30" }}
+							materialProps={{ maxLength: "30", ref: refAccountHolder }}
 							disabled={true}
 							error={
 								formik.touched.accountHolder &&
@@ -300,6 +323,7 @@ export default function BankAccountVerification(props) {
 						row={true}
 						labelplacement={"end"}
 						style={{ fontWeight: "normal", fontSize: "10px" }}
+						inputProps={refAccountType}
 					/>
 					<FormHelperText error={true}>
 						{accountTypeError}
@@ -313,7 +337,7 @@ export default function BankAccountVerification(props) {
 							name="bankRoutingNumber"
 							style={{ width: "100%" }}
 							value={formik.values.bankRoutingNumber}
-							inputProps={{ maxLength: "9", "data-testid": "bankRoutingNumber" }}
+							inputProps={{ maxLength: "9", "data-testid": "bankRoutingNumber", ref: refBankRoutingNumber}}
 							onKeyDown={preventSpace}
 							onChange={(event) => {
 								setInvalidRN(false);
@@ -371,6 +395,7 @@ export default function BankAccountVerification(props) {
 							inputProps={{
 								maxLength: "100",
 								"data-testid": "bankInformation",
+								ref: refBankInformation
 							}}
 							onBlur={formik.handleBlur}
 							error={
@@ -402,7 +427,7 @@ export default function BankAccountVerification(props) {
 						placeholder="Bank Account Number"
 						label="Bank Account Number *"
 						value={formik.values.bankAccountNumber}
-						materialProps={{ maxLength: "16", "data-test-id": "BRN" }}
+						materialProps={{ maxLength: "16", "data-test-id": "BRN", ref: refBankAccountNumber }}
 						onChange={restrictTextOnChange}
 						onBlur={formik.handleBlur}
 						onKeyDown={preventSpace}
@@ -432,6 +457,7 @@ export default function BankAccountVerification(props) {
 							maxLength: "16",
 							"data-test-id": "BRN",
 							autoComplete: "off",
+							ref: refConfirmBankAccountNumber
 						}}
 						onChange={restrictTextOnChange}
 						onBlur={formik.handleBlur}
@@ -565,6 +591,7 @@ export default function BankAccountVerification(props) {
 							stylebutton='{"marginRight": "10px","padding":"0px 30px", "fontSize":"0.938rem","fontFamily":"Muli,sans-serif" }'
 							type="submit"
 							disabled={invalidRN}
+							onClick={autoFocus}
 						>
 							{props.activeStep === props?.steps.length - 1 ? "Finish" : "Next"}
 						<AutorenewIcon className="rotatingIcon"
