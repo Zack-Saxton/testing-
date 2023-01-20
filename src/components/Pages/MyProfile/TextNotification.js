@@ -227,7 +227,7 @@ export default function TextNotification() {
           />
           <Grid
             item
-            xs={10}
+            xs={9}
             className={classes.termsGrid}
           >
             I have read, understand, and agree to the &nbsp;
