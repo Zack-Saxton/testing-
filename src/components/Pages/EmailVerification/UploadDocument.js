@@ -229,6 +229,7 @@ function UploadDocument(props) {
       <Chip
         className={classes.chipButton}
         label={labelText}
+        data-testid = "deleteSelectedFile"
         onDelete={() => deleteSelectedFile()}
         deleteIcon={<CloseIcon />}
       />
@@ -253,7 +254,7 @@ function UploadDocument(props) {
         <Menu
           anchorEl={selectDocument}
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          // id={ mobileMenuId }
+          data-testid = "handleMenuClose"
           keepMounted
           transformOrigin={{ vertical: "top", horizontal: "right" }}
           open={isMenuOpen}
@@ -298,6 +299,7 @@ function UploadDocument(props) {
               <Grid container>
                 <ButtonPrimary
                   onClick={capture}
+                  data-testid = "capture"
                   stylebutton='{"background": "#FFBC23", "color": "black", "borderRadius": "50px", "margin":"10px 0px"}'
                 >
                   Capture Photo
