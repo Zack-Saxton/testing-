@@ -1,12 +1,23 @@
-import { createTheme, StyledEngineProvider } from '@mui/material/styles';
-import { ThemeProvider } from '@mui/styles';
-import '@testing-library/jest-dom';
+import { Container } from "@mui/material";
+import { createTheme, StyledEngineProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/styles";
+import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import React from "react";
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import BankAccountVerification from "../BankAccountVerification";
+import Cookies from "js-cookie";
+import APICall from "../../../../lib/AxiosLib";
+import {apiMock} from "../../../../../__mock__/data/BankVerificationMock.data"
+jest.mock("../../../../lib/AxiosLib");
 
 const handleClickMock = jest.fn();
 
@@ -21,10 +32,12 @@ const queryClient = new QueryClient({
     },
   },
 });
+Cookies.set("firstName", "Kelsey ");
+Cookies.set("lastName", "YNKPLKSLM");
 
 
 const component = () => {
-  window.scrollTo = jest.fn()
+  window.scrollTo = jest.fn();
   let stepsMock = [
     "Email Verification",
     "Phone Verification",
@@ -32,20 +45,20 @@ const component = () => {
     "ID Document & Photo",
     "ID Verification Questions",
     "Bank Account Verification",
-    "Income Verification"
-  ]
+    "Income Verification",
+  ];
 
   const classes = {
-    "root": "makeStyles-root-76",
-    "button_div": "makeStyles-button_div-77",
-    "steplabel": "makeStyles-steplabel-78",
-    "actionsContainer": "makeStyles-actionsContainer-79",
-    "loadingOn": "makeStyles-loadingOn-80",
-    "loadingOff": "makeStyles-loadingOff-81",
-    "linkStyle": "makeStyles-linkStyle-82",
-    "resetContainer": "makeStyles-resetContainer-83",
-    "padTop": "makeStyles-padTop-84",
-    "textDecoreNone": "makeStyles-textDecoreNone-85"
+    root: "makeStyles-root-76",
+    button_div: "makeStyles-button_div-77",
+    steplabel: "makeStyles-steplabel-78",
+    actionsContainer: "makeStyles-actionsContainer-79",
+    loadingOn: "makeStyles-loadingOn-80",
+    loadingOff: "makeStyles-loadingOff-81",
+    linkStyle: "makeStyles-linkStyle-82",
+    resetContainer: "makeStyles-resetContainer-83",
+    padTop: "makeStyles-padTop-84",
+    textDecoreNone: "makeStyles-textDecoreNone-85",
   };
 
   return (
@@ -67,8 +80,7 @@ const component = () => {
       </StyledEngineProvider>
     </ThemeProvider>
   );
-}
-
+};
 
 test("Availability test: Account Holder ", () => {
   render(component());
@@ -96,50 +108,131 @@ test("Availability test: Bank Routing number test on change", async () => {
   const bankInfo = screen.getByTestId("bankInformation");
   await act(() => {
     fireEvent.change(bankRouting, { target: { value: "052001633" } });
-  });  
+  });
+  fireEvent.blur(bankRouting);
   expect(bankRouting).toBeTruthy();
   jest.useFakeTimers();
   setTimeout(() => {
-    expect(bankInfo.value).toBe('BANK OF AMERICA, N.A.')    
+    expect(bankInfo.value).toBe("BANK OF AMERICA, N.A.");
   }, 10000);
 });
 
-test("Availability test: Bank Information", () => {
-  render(component());
-  const bankInformation = screen.getByTestId("bankInformation");
-  expect(bankInformation).toBeTruthy();
-  expect(bankInformation).toHaveAttribute("disabled");
-
+test("check Account Holder input field", () => {
+  const { container } = render(component());
+  const accountHolderInput = container.querySelector(
+    `input[name="accountHolder"]`
+  );
+  expect(accountHolderInput).toBeTruthy();
+  fireEvent.blur(accountHolderInput);
 });
 
-test("Availability test: Bank Account Number", () => {
-  render(component());
-  const acctNumber = screen.getByText("Bank Account Number *");
-  expect(acctNumber).toBeTruthy();
-});
+test("Availability test", async () => {
+  APICall.mockResolvedValue(apiMock);
+  const { container } = render(component());
 
-test("Availability test: Bank Account Number", () => {
-  render(component());
-  const acctNumber = screen.getByText("Confirm Account Number *");
-  expect(acctNumber).toBeTruthy();
-});
+  const accountHolder = container.querySelector(`input[name="accountHolder"]`);
+  expect(accountHolder).toBeTruthy();
+  fireEvent.change(accountHolder, { target: { value: "Kelsey YNKPLKSLM" } });
 
-test("Availability test: Bank Account Number", () => {
-  render(component());
-  const autoPayment = screen.getByText("Automatic Payment:");
-  const payByCheck = screen.getByText("Payment by Check:");
-  expect(autoPayment).toBeTruthy();
-  expect(payByCheck).toBeTruthy();
-});
+  const accountType = container.querySelector(`input[name="accountType"]`);
+  expect(accountType).toBeTruthy();
+  await act(() => {
+    fireEvent.click(accountType, { target: { value: "Savings Account" } });
+  });
+  expect(accountType).toBeTruthy();
+  expect(accountType.value).toBe("Savings Account");
 
-test("Availability test: upload button", () => {
-  render(component());
-  const uploadButton = screen.getByText("Upload");
+  const bankRouting = screen.getByTestId("bankRoutingNumber");
+  const bankInfo = screen.getByTestId("bankInformation");
+  await act(() => {
+    fireEvent.change(bankRouting, { target: { value: "052001633" } });
+    fireEvent.change(bankInfo, { target: { value: "BANK OF AMERICA, N.A." } });
+  });
+  fireEvent.blur(bankRouting);
+  expect(bankRouting).toBeTruthy();
+  await waitFor(() => {
+    expect(bankInfo.value).toBe("BANK OF AMERICA, N.A.");
+  });
+
+  const bankAccountNumber = container.querySelector(
+    `input[name="bankAccountNumber"]`
+  );
+  expect(bankAccountNumber).toBeTruthy();
+  await act(() => {
+    fireEvent.change(bankAccountNumber, {
+      target: { value: "3264327647268435" },
+    });
+  });
+
+  const confirmBankAccountNumber = container.querySelector(
+    `input[name="confirmBankAccountNumber"]`
+  );
+  expect(confirmBankAccountNumber).toBeTruthy();
+
+  await act(() => {
+    fireEvent.change(confirmBankAccountNumber, {
+      target: { value: "3264327647268435" },
+    });
+  });
+
+  const paymentMode = container.querySelector(`input[name="paymentMode"]`);
+  expect(paymentMode).toBeTruthy();
+  await act(() => {
+    fireEvent.click(paymentMode);
+  });
+  expect(paymentMode).toBeChecked();
+
+  const nextButton = screen.getByText("Next");
+  expect(nextButton).toBeTruthy();
+  await act(() => {
+    fireEvent.click(nextButton);
+  });
+
+    const uploadButton = screen.getByText("Upload");
   expect(uploadButton).toBeTruthy();
+  await act(() => {
+    fireEvent.click(uploadButton);
+  });
+  
+  const resetButton = screen.getByText("Reset");
+  expect(resetButton).toBeTruthy();
+  fireEvent.click(resetButton);
 });
 
-test("Availability test: Bank Account Number", () => {
-  render(component());
-  const uploadButton = screen.getByText("Upload");
-  expect(uploadButton).toBeTruthy();
+test("Test Auto Pay Authorization", () => {
+  const { getAllByText, getByTestId, getByText } = render(component());
+  expect(getAllByText("Auto Pay Authorization")).toHaveLength(1);
+  fireEvent.click(getByText("Auto Pay Authorization"));
+  expect(getByTestId("dialogContent")).toBeInTheDocument();
+  fireEvent.click(getByText("Close"));
+});
+
+test("Preventing space in the password field", async () => {
+  const { container } = render(component());
+  const input = container.querySelector(`input[name="bankRoutingNumber"]`);
+  expect(input).toBeTruthy();
+  await act(() => {
+    fireEvent.keyDown(input, 32);
+  });
+  expect(input.value).toBe("");
+});
+
+test("confirmBankAccountNumber Prevent Copy Test", async () => {
+  const { container } = render(component());
+  const input = container.querySelector(
+    `input[name="confirmBankAccountNumber"]`
+  );
+  await act(() => {
+    fireEvent.copy(input);
+  });
+  expect(input.value).toBe("");
+});
+
+test("check next button", async() => {
+ render(component());
+  const nextButton = screen.getByText("Next");
+  expect(nextButton).toBeTruthy();
+  await act(() => {
+    fireEvent.click(nextButton);
+  });
 });

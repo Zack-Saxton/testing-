@@ -620,7 +620,7 @@ export default function BankAccountVerification(props) {
 							onClick={handleCloseAutoPayAuth}
 						/>
 					</DialogTitle>
-					<DialogContent dividers>
+					<DialogContent dividers data-testid="dialogContent">
 						<Typography align="justify" gutterBottom>
 							As used in this authorization, the words, “I,” “MY,” and “ME”
 							refer to the borrower agreeing to the terms of this authorization,
