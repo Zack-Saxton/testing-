@@ -789,7 +789,7 @@ body.home .feefowidget-top-row .feefowidget-rating-label,
 }
 
 #getDirectionWrap {
-  align-items: center;
+  align-items: flex-start;
 }
 
 .personalLoanText {

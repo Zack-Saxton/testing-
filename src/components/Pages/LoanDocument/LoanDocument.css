@@ -25,7 +25,9 @@
 .gridPadding {
     padding-top: 10px;
 }
-
+.gridPadding span {
+    word-break: break-all;    
+}
 .loanDocumentWrap {
     padding-top: 10px;
     padding-bottom: 30%;
