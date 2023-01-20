@@ -247,7 +247,7 @@ const BranchLocatorHeader = () => {
               </Grid>
             </Grid>
 
-            <NavLink  to= {!loginToken.isLoggedIn ? `/select-amount${utmQueryString}` : "/customers/resumeApplication" }
+            <Link  href= {!loginToken.isLoggedIn ? `/select-amount${utmQueryString}` : "/customers/resumeApplication" }
               className="nav_link branchHeaderLinksLast"
             >
               <ButtonPrimary
@@ -257,7 +257,7 @@ const BranchLocatorHeader = () => {
               >
                 Apply Now
               </ButtonPrimary>
-            </NavLink>
+            </Link>
           </div>
           <button
             data-testid="menuHamburgerButton"
