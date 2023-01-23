@@ -501,6 +501,7 @@
 .serachResult {
   width: 100%;
   position: absolute;
+  z-index: 50;
 }
 
 .serachResult div {
