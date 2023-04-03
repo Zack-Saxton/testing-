@@ -14,7 +14,7 @@ import { useStyles } from "./NormalHeaderStyle";
 
 const NormalHeader = () => {
   const classes = useStyles();
-  const [ mobileMoreAnchorEl, setMobileMoreAnchorEl ] = useState(false);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(false);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const loginToken = JSON.parse(
@@ -45,55 +45,126 @@ const NormalHeader = () => {
     >
       <MenuItem>
         <Typography className={classes.headerAlign}>
-          <a data-testid="blogNavigation" href={`${ process.env.REACT_APP_WEBSITE }/blog/`} className="hrefTag" rel="noreferrer">
+          <a
+            data-testid="blogNavigation"
+            href={`${process.env.REACT_APP_WEBSITE}/blog/`}
+            className="hrefTag"
+            rel="noreferrer"
+          >
             Blog
           </a>
         </Typography>
       </MenuItem>
-      <MenuItem >
-        <a rel="noreferrer" data-testid="faqMobileNavigation" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} className="nav_link ">
+      <MenuItem>
+        <a
+          rel="noreferrer"
+          data-testid="faqMobileNavigation"
+          href={`${process.env.REACT_APP_WEBSITE}/resources/faq/`}
+          className="nav_link "
+        >
           <Typography className={classes.headerAlign}>FAQ</Typography>
         </a>
       </MenuItem>
-      <MenuItem >
-        <NavLink data-testid="branchLocatorMobileNavigation" to="/branch-locator" className="nav_link">
-          <Typography className={classes.headerAlign}>Branch Locator</Typography>
+      <MenuItem>
+        <NavLink
+          data-testid="branchLocatorMobileNavigation"
+          to="/branch-locator"
+          className="nav_link"
+        >
+          <Typography className={classes.headerAlign}>
+            Branch Locator
+          </Typography>
         </NavLink>
       </MenuItem>
-      <MenuItem className="MenuListMain" style={loginToken?.isLoggedIn || window?.location?.pathname === '/login' ? { display: "none" } : { display: "inline-flex" }} >
-      <NavLink data-testid="loginNavigation" to="/login" className="nav_link loginLink">
-              <Typography className={classes.subtitle}>Login</Typography>
-            </NavLink>
+      <MenuItem
+        className="MenuListMain"
+        style={
+          loginToken?.isLoggedIn || window?.location?.pathname === "/login"
+            ? { display: "none" }
+            : { display: "inline-flex" }
+        }
+      >
+        <NavLink
+          data-testid="loginNavigation"
+          to="/login"
+          className="nav_link loginLink"
+        >
+          <Typography className={classes.subtitle}>Login</Typography>
+        </NavLink>
       </MenuItem>
     </Menu>
   );
 
   const redirectToAccountOverview = () => {
-    window.open(`${ process.env.REACT_APP_WEBSITE }`, "_self");
+    window.open(`${process.env.REACT_APP_WEBSITE}`, "_self");
   };
 
   //View Part
   return (
-    <div id="headerWrap" data-testid="pre_login_component" className={classes.grow}>
+    <div
+      id="headerWrap"
+      data-testid="pre_login_component"
+      className={classes.grow}
+    >
       <AppBar id="MainHeaderWrap" position="static">
         <Toolbar className="headerToolBar">
-          <Typography onClick={redirectToAccountOverview} className={classes.title}>
-            {Logo ? <img width="157px" height="62px" data-testid="MF_logo" className={classes.logoFormat} src={Logo} alt="MF logo" /> : ''}            
+          <Typography
+            onClick={redirectToAccountOverview}
+            className={classes.title}
+          >
+            {Logo ? (
+              <img
+                width="157px"
+                height="62px"
+                data-testid="MF_logo"
+                className={classes.logoFormat}
+                src={Logo}
+                alt="MF logo"
+              />
+            ) : (
+              ""
+            )}
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Typography id="blogsLink" className={classes.subtitle}>
-              <a data-testid="blogsLink" href={`${ process.env.REACT_APP_WEBSITE }/blog/`} className="hrefTag" rel="noreferrer">
+              <a
+                data-testid="blogsLink"
+                href={`${process.env.REACT_APP_WEBSITE}/blog/`}
+                className="hrefTag"
+                rel="noreferrer"
+              >
                 Blog
               </a>
             </Typography>
-            <a rel="noreferrer" data-testid="faqNavigation" className="faqLink" href={`${ process.env.REACT_APP_WEBSITE }/resources/faq/`} >
-              <Typography className={classes.subtitle}>FAQ</Typography>
+            <a
+              rel="noreferrer"
+              data-testid="faqNavigation"
+              className="faqLink"
+              href={`${process.env.REACT_APP_WEBSITE}/resources/faq/`}
+            >
+              <Typography className={classes.subtitle}>None</Typography>
             </a>
-            <NavLink data-testid="branchLocatorNavigation" to="/branch-locator" className="nav_link branchLocatorLink">
-              <Typography className={classes.subtitle}>Branch Locator</Typography>
+            <NavLink
+              data-testid="branchLocatorNavigation"
+              to="/branch-locator"
+              className="nav_link branchLocatorLink"
+            >
+              <Typography className={classes.subtitle}>
+                Branch Locator
+              </Typography>
             </NavLink>
-            <NavLink style={loginToken?.isLoggedIn || window?.location?.pathname === '/login' ? { display: "none" } : { display: "block" }} data-testid="loginMobileNavigation" to="/login" className="nav_link branchLocatorLink logInLink">
+            <NavLink
+              style={
+                loginToken?.isLoggedIn ||
+                window?.location?.pathname === "/login"
+                  ? { display: "none" }
+                  : { display: "block" }
+              }
+              data-testid="loginMobileNavigation"
+              to="/login"
+              className="nav_link branchLocatorLink logInLink"
+            >
               <Typography className={classes.subtitle}>Login</Typography>
             </NavLink>
           </div>
